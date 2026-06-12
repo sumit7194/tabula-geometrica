@@ -1,11 +1,12 @@
-# SpaceTime — a dimensional exploration
+# tabula geometrica — can a network invent spacetime geometry?
 
-A step-by-step, intuition-first exploration of how spacetime concepts change with the
-number of dimensions — climbing a **dimensional ladder** (1+1 → 2+1 → 3+1 → 4+1) toward a
-real goal:
+*tabula geometrica* — "the geometric blank slate." Train neural networks only on raw
+observations — never a metric, an interval, or Einstein's equations — and test whether
+**geometry emerges as the cheapest internal explanation.** The live experiments are in
+**[curvature/](curvature/README.md)**; the conceptual on-ramp is a step-by-step
+**dimensional ladder** (1+1 → 2+1 → 3+1 → 4+1) toward the real question:
 
-> **understanding how gravity curves spacetime — and whether that curvature "is" an
-> extra dimension.**
+> **how gravity curves spacetime — and whether that curvature "is" an extra dimension.**
 
 Every load-bearing claim (numbers, formulas, dimension-dependent facts) is verified
 against the literature before it goes in, with sources cited in each doc.
