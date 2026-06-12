@@ -95,16 +95,29 @@ def main() -> None:
     p.add_argument("--device", default="cpu", choices=("cpu", "mps"))
     p.add_argument("--bank", default=str(RESULTS / "25_bank.npz"))
     p.add_argument("--steps", type=int, default=STEPS)
+    p.add_argument("--tag", default="", help="artifact suffix, e.g. _48k (own ckpt/outputs)")
+    p.add_argument("--val-bank", default="", help="if set: train on ALL of --bank, "
+                   "val on this bank's standard split (shared val across scaling arms)")
     args = p.parse_args()
 
     bank = dict(np.load(args.bank))
     n = len(bank["family"])
-    val_mask = np.zeros(n, dtype=bool)
-    for fam in np.unique(bank["family"]):
-        fi = np.where(bank["family"] == fam)[0]
-        val_mask[fi[-len(fi) // 10:]] = True
-    tr_idx = np.where(~val_mask)[0]
-    va_idx = np.where(val_mask)[0]
+    if args.val_bank:
+        vbank = dict(np.load(args.val_bank))
+        vmask = np.zeros(len(vbank["family"]), dtype=bool)
+        for fam in np.unique(vbank["family"]):
+            fi = np.where(vbank["family"] == fam)[0]
+            vmask[fi[-len(fi) // 10:]] = True
+        va_idx = np.where(vmask)[0]
+        tr_idx = np.arange(n)
+    else:
+        vbank = bank
+        val_mask = np.zeros(n, dtype=bool)
+        for fam in np.unique(bank["family"]):
+            fi = np.where(bank["family"] == fam)[0]
+            val_mask[fi[-len(fi) // 10:]] = True
+        tr_idx = np.where(~val_mask)[0]
+        va_idx = np.where(val_mask)[0]
     print(f"bank {n} episodes: {len(tr_idx)} train / {len(va_idx)} val (unseen worlds)")
 
     torch.manual_seed(26)
@@ -113,7 +126,7 @@ def main() -> None:
     print(f"generalist: {n_par/1e6:.2f}M params, device {args.device}")
     opt = torch.optim.Adam(model.parameters(), lr=LR)
     rng = np.random.default_rng(0)
-    ckpt = RESULTS / "26_ckpt.pt"
+    ckpt = RESULTS / f"26_ckpt{args.tag}.pt"
     start = 0
     if ckpt.exists():
         start, rng, exact = load_ckpt(ckpt, model, opt, fallback_seed=0)
@@ -136,7 +149,8 @@ def main() -> None:
         loss.backward()
         opt.step()
         if step % 200 == 0:
-            progress("26_generalist", step, args.steps, loss=float(loss.detach()),
+            progress(f"26_generalist{args.tag}", step, args.steps,
+                     loss=float(loss.detach()),
                      pair=float(l_pair.detach()), traj=float(l_traj.detach()))
             if step % 1000 == 0 and step > 0:
                 save_ckpt(ckpt, model, opt, step, rng)
@@ -144,7 +158,7 @@ def main() -> None:
                 print(f"  step {step}: pair {float(l_pair):.4f} traj {float(l_traj):.5f}")
 
     model.eval()
-    accs, mses = evaluate(model, bank, va_idx, args.device)
+    accs, mses = evaluate(model, vbank, va_idx, args.device)
     fams = ["flat1p1", "flat3p1", "well1p1", "aniso2p1",
             "chargedE", "magneticB", "twocharge", "matter"]
     table = {}
@@ -156,9 +170,9 @@ def main() -> None:
             row["traj_mse"] = mses[fi]
         table[name] = row
         print(f"G1 {name:10s}: {row}")
-    torch.save(model.state_dict(), RESULTS / "26_generalist.pt")
-    (RESULTS / "26_g1.json").write_text(json.dumps(table, indent=1))
-    print(f"saved model + G1 table")
+    torch.save(model.state_dict(), RESULTS / f"26_generalist{args.tag}.pt")
+    (RESULTS / f"26_g1{args.tag}.json").write_text(json.dumps(table, indent=1))
+    print(f"saved model + G1 table ({args.tag or 'default'})")
 
 
 if __name__ == "__main__":
