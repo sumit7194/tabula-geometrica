@@ -1,0 +1,22 @@
+{
+ "future": {
+  "isotonic_r2": 0.9996836185455322,
+  "alignment": 0.9999686479568481,
+  "sign_consistency": 0.9953271028037384
+ },
+ "past": {
+  "isotonic_r2": 0.9997631311416626,
+  "alignment": 0.9999662041664124,
+  "sign_consistency": 0.9910220994475138
+ },
+ "right": {
+  "isotonic_r2": 0.9999399781227112,
+  "alignment": 0.9999919533729553,
+  "sign_consistency": 1.0
+ },
+ "left": {
+  "isotonic_r2": 0.9998965263366699,
+  "alignment": 0.9999920129776001,
+  "sign_consistency": 1.0
+ }
+}

@@ -1,0 +1,1 @@
+{"task": "well", "k": 1, "in_dim": 3, "hidden": 128, "steps": 8000, "seed": 0, "test_accuracy": 0.9982500076293945}

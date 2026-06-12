@@ -1,0 +1,23 @@
+# Python environments & caches
+.venv/
+**/__pycache__/
+*.pyc
+*.pyo
+
+# OS / editor junk
+.DS_Store
+
+# Logs & live training heartbeats (ephemeral)
+*.log
+**/results/progress/
+
+# Regenerable artifacts (re-created by their scripts; keep the code, not the output):
+#   - data banks (e.g. curvature/results/25_bank.npz — regenerate via scripts/25_worldgen.py)
+#   - resumable training checkpoints (*ckpt*.pt — mid-run state, not gate inputs)
+*.npz
+*ckpt*.pt
+
+# KEPT IN GIT (intentionally NOT ignored): all code under scripts/, the docs,
+# notes/, plots (*.png), gate JSONs, and the FINAL model weights the regression
+# gate re-runs (model_*.pt, *_model_*.pt, dyn_*.pt, 26_generalist.pt). These let
+# `./verify.sh` pass on a fresh clone without retraining.

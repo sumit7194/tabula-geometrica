@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>SpaceTime — training dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<!-- Load Chart.js CDN (with local fallback check in JavaScript) -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js" crossorigin="anonymous"></script>
+
+<style>
+  :root {
+    --bg: #090d16;
+    --card-bg: #111827;
+    --card-border: #1f2937;
+    --card-border-active: #0ea5e9;
+    --text-primary: #f9fafb;
+    --text-secondary: #9ca3af;
+    --accent: #0ea5e9;
+    --accent-hover: #38bdf8;
+    --running: #10b981;
+    --completed: #3b82f6;
+    --stale: #f59e0b;
+    --idle: #6b7280;
+    --font-sans: 'Inter', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    margin: 0;
+    padding: 24px;
+    line-height: 1.5;
+  }
+
+  .header {
+    max-width: 1200px;
+    margin: 0 auto 24px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 1px solid var(--card-border);
+    padding-bottom: 20px;
+  }
+
+  .title-area h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  /* Controls Section */
+  .controls-bar {
+    max-width: 1200px;
+    margin: 0 auto 24px auto;
+    background: #0f172a;
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .search-input {
+    background: #1e293b;
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    width: 260px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .search-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2);
+  }
+
+  .btn-group {
+    display: flex;
+    background: #1e293b;
+    border-radius: 8px;
+    padding: 2px;
+  }
+
+  .btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn:hover {
+    color: var(--text-primary);
+  }
+  .btn.active {
+    background: var(--accent);
+    color: var(--text-primary);
+  }
+
+  .refresh-controls {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .refresh-select {
+    background: #1e293b;
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: #1e293b;
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-icon:hover {
+    background: #334155;
+  }
+
+  /* Grid Layout */
+  .cards-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 20px;
+  }
+
+  /* Card */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    border-color: #334155;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  }
+  .card.active-run {
+    border-color: var(--card-border-active);
+    box-shadow: 0 0 15px rgba(14, 165, 233, 0.15);
+  }
+
+  /* Status and Badges */
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  .run-name {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+  }
+  .category-badge {
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    background: #1e293b;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-top: 4px;
+    display: inline-block;
+  }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .status-running {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--running);
+  }
+  .status-running .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--running);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--running);
+    animation: pulse 1.5s infinite;
+  }
+  .status-completed {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--completed);
+  }
+  .status-completed .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--completed);
+    border-radius: 50%;
+  }
+  .status-stale {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--stale);
+  }
+  .status-stale .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--stale);
+    border-radius: 50%;
+  }
+  .status-idle {
+    background: rgba(107, 114, 128, 0.1);
+    color: var(--idle);
+  }
+  .status-idle .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--idle);
+    border-radius: 50%;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(0.9); opacity: 0.5; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(0.9); opacity: 0.5; }
+  }
+
+  /* Progress area */
+  .progress-section {
+    margin-bottom: 16px;
+  }
+  .progress-text {
+    font-size: 13px;
+    color: var(--text-secondary);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .progress-bar-wrap {
+    background: #1e293b;
+    border-radius: 4px;
+    height: 6px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+  .progress-bar.active-bar {
+    background: linear-gradient(90deg, var(--accent) 70%, var(--accent-hover) 100%);
+  }
+
+  /* Metrics Grid */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+    background: #0f172a;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--card-border);
+  }
+  .metric-item {
+    display: flex;
+    flex-direction: column;
+  }
+  .metric-label {
+    font-size: 10px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+  .metric-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    word-break: break-all;
+  }
+
+  /* Chart space */
+  .chart-container {
+    height: 160px;
+    position: relative;
+    margin-top: auto;
+    border: 1px solid rgba(255,255,255,0.03);
+    border-radius: 8px;
+    background: rgba(0,0,0,0.15);
+    padding: 8px;
+  }
+  .chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .chart-title {
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  .chart-toggle {
+    background: #1e293b;
+    border: 1px solid var(--card-border);
+    color: var(--text-secondary);
+    font-size: 9px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .chart-toggle:hover {
+    color: var(--text-primary);
+    background: #334155;
+  }
+
+  canvas {
+    width: 100% !important;
+    height: 120px !important;
+  }
+
+  #empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 60px 20px;
+    background: var(--card-bg);
+    border: 1px dashed var(--card-border);
+    border-radius: 12px;
+    font-size: 15px;
+  }
+
+  .spin {
+    animation: rotate 1s linear infinite;
+  }
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Offline Badge */
+  .offline-badge {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    display: none;
+    margin-left: 8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="title-area">
+    <h1>
+      SpaceTime 
+      <span class="offline-badge" id="offlineBadge">Offline Mode</span>
+    </h1>
+    <div class="subtitle" id="globalStats">Loading metrics...</div>
+  </div>
+  
+  <div class="btn-group" id="subprojectTabs">
+    <button class="btn active" onclick="setTab('all')">All Projects</button>
+    <button class="btn" onclick="setTab('curvature')">Curvature</button>
+  </div>
+</div>
+
+<div class="controls-bar">
+  <div class="filter-row">
+    <input type="text" class="search-input" placeholder="Search training runs..." id="searchInput" oninput="handleSearch()">
+    
+    <div class="btn-group" id="statusFilters">
+      <button class="btn active" onclick="setStatusFilter('all')">All States</button>
+      <button class="btn" onclick="setStatusFilter('running')">Running</button>
+      <button class="btn" onclick="setStatusFilter('completed')">Completed</button>
+      <button class="btn" onclick="setStatusFilter('stale')">Stale / Idle</button>
+    </div>
+
+    <div class="refresh-controls">
+      <button class="btn-icon" id="pausePlayBtn" onclick="toggleRefresh()" title="Pause/Resume Auto-refresh">
+        <svg id="pauseIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+        <svg id="playIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:none;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+      </button>
+
+      <select class="refresh-select" id="refreshInterval" onchange="changeInterval(this.value)" title="Refresh Interval">
+        <option value="3000">Every 3s</option>
+        <option value="5000">Every 5s</option>
+        <option value="10000">Every 10s</option>
+        <option value="30000">Every 30s</option>
+      </select>
+
+      <button class="btn-icon" onclick="triggerManualRefresh()" id="refreshBtn" title="Refresh Now">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="cards-grid" id="cards"></div>
+<div id="empty" hidden>No training runs matched your filters.</div>
+
+<script>
+// echoes + ringdown moved to ../BlackHole on 2026-06-13 — curvature only now
+const bases = ['curvature/results/progress/'];
+               
+const categoryLabels = {
+  'curvature': 'Curvature Discovery',
+  'echoes': 'Echo Search Pipeline',
+  'ringdown_spectroscopy': 'Ringdown Spectroscopy'
+};
+
+const categoryShortLabels = {
+  'curvature': 'Curvature',
+  'echoes': 'Echoes',
+  'ringdown_spectroscopy': 'Ringdown'
+};
+
+// Global Application State
+// A run counts as "live" if its last heartbeat is within this window. Must exceed
+// the slowest run's heartbeat interval (Phase F logs every 250 steps, and a block of
+// differentiable rollout measured ~180-200s on CPU), else live runs flicker to
+// "Paused" in the gap between writes. 360s = ~2x margin over the measured gap.
+const LIVE_WINDOW_S = 360;
+let activeTab = 'all';
+let statusFilter = 'all';
+let searchQuery = '';
+let autoRefresh = true;
+let refreshTimer = null;
+let currentInterval = 3000;
+let cachedRuns = [];
+
+// Chart cache (chartInstances[runName] = Chart object)
+const chartInstances = {};
+// Chart Y-axis type preferences (chartScales[runName] = 'logarithmic' | 'linear')
+const chartScales = {};
+// History rate calculations (lastUpdateState[runName] = {step, updated, speed, eta})
+const lastUpdateState = {};
+
+// Verify if Chart.js is loaded
+const isChartJsLoaded = typeof Chart !== 'undefined';
+if (!isChartJsLoaded) {
+  document.getElementById('offlineBadge').style.display = 'inline-block';
+}
+
+function setTab(tab) {
+  activeTab = tab;
+  document.querySelectorAll('#subprojectTabs .btn').forEach((b, idx) => {
+    b.classList.toggle('active', (tab === 'all' && idx === 0) || (tab === 'curvature' && idx === 1) || (tab === 'echoes' && idx === 2) || (tab === 'ringdown_spectroscopy' && idx === 3));
+  });
+  renderDashboard();
+}
+
+function setStatusFilter(filter) {
+  statusFilter = filter;
+  document.querySelectorAll('#statusFilters .btn').forEach((b, idx) => {
+    b.classList.toggle('active', (filter === 'all' && idx === 0) || (filter === 'running' && idx === 1) || (filter === 'completed' && idx === 2) || (filter === 'stale' && idx === 3));
+  });
+  renderDashboard();
+}
+
+function handleSearch() {
+  searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
+  renderDashboard();
+}
+
+function toggleRefresh() {
+  autoRefresh = !autoRefresh;
+  document.getElementById('pauseIcon').style.display = autoRefresh ? 'block' : 'none';
+  document.getElementById('playIcon').style.display = autoRefresh ? 'none' : 'block';
+  if (autoRefresh) {
+    startRefreshTimer();
+  } else {
+    clearInterval(refreshTimer);
+  }
+}
+
+function changeInterval(val) {
+  currentInterval = parseInt(val);
+  if (autoRefresh) {
+    startRefreshTimer();
+  }
+}
+
+function startRefreshTimer() {
+  clearInterval(refreshTimer);
+  refreshTimer = setInterval(refreshData, currentInterval);
+}
+
+async function triggerManualRefresh() {
+  const btn = document.getElementById('refreshBtn');
+  btn.classList.add('spin');
+  await refreshData();
+  setTimeout(() => btn.classList.remove('spin'), 600);
+}
+
+// Format duration helper (sec to readable time)
+function formatDuration(seconds) {
+  if (seconds < 60) return `${Math.round(seconds)}s`;
+  const mins = Math.round(seconds / 60);
+  if (mins < 60) return `${mins}m`;
+  const hrs = Math.floor(mins / 60);
+  const remMins = mins % 60;
+  return `${hrs}h ${remMins}m`;
+}
+
+// Clean and deduplicate history (keeping the latest occurrence of duplicate steps for resumes)
+function sanitizeHistory(history) {
+  if (!history || history.length === 0) return [];
+  const seenSteps = new Set();
+  const uniqueHistory = [];
+  
+  // Walk backwards to preserve the newest segment in case of resume overlaps
+  for (let i = history.length - 1; i >= 0; i--) {
+    const entry = history[i];
+    if (entry && entry.length >= 2) {
+      const step = entry[0];
+      const loss = entry[1];
+      if (!seenSteps.has(step)) {
+        seenSteps.add(step);
+        uniqueHistory.unshift([step, loss]);
+      }
+    }
+  }
+  return uniqueHistory;
+}
+
+// Chart.js rendering helper
+function renderChartJs(canvas, runName, history) {
+  const ctx = canvas.getContext('2d');
+  
+  // Process the history
+  const cleanHist = sanitizeHistory(history);
+  const labels = cleanHist.map(h => h[0]);
+  // Clamp values slightly above 0 for log axis safety
+  const dataPoints = cleanHist.map(h => Math.max(h[1], 1e-8));
+  
+  const scaleType = chartScales[runName] || 'logarithmic';
+  
+  if (chartInstances[runName]) {
+    // In-place update to preserve hover state and avoid refresh flicker
+    const chart = chartInstances[runName];
+    chart.data.labels = labels;
+    chart.data.datasets[0].data = dataPoints;
+    chart.options.scales.y.type = scaleType;
+    chart.update('none'); // Update smoothly without animation
+  } else {
+    // Create new chart instance
+    chartInstances[runName] = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          data: dataPoints,
+          borderColor: '#0ea5e9', // accent
+          backgroundColor: 'rgba(14, 165, 233, 0.05)',
+          borderWidth: 2,
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          pointHitRadius: 10,
+          pointHoverBackgroundColor: '#38bdf8',
+          fill: true,
+          tension: 0.15
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        layout: {
+          padding: { left: 0, right: 0, top: 4, bottom: 0 }
+        },
+        scales: {
+          x: {
+            grid: { color: 'rgba(51, 65, 85, 0.3)', drawBorder: false },
+            ticks: { color: '#64748b', font: { size: 9, family: 'var(--font-mono)' }, maxTicksLimit: 6 }
+          },
+          y: {
+            type: scaleType,
+            grid: { color: 'rgba(51, 65, 85, 0.3)', drawBorder: false },
+            ticks: {
+              color: '#64748b', 
+              font: { size: 9, family: 'var(--font-mono)' },
+              callback: function(value) {
+                return value.toExponential ? value.toExponential(0) : value;
+              }
+            }
+          }
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            enabled: true,
+            backgroundColor: '#1e293b',
+            titleColor: '#f9fafb',
+            bodyColor: '#e2e8f0',
+            borderColor: '#334155',
+            borderWidth: 1,
+            titleFont: { family: 'var(--font-mono)', size: 10 },
+            bodyFont: { family: 'var(--font-mono)', size: 10 },
+            callbacks: {
+              title: function(context) {
+                return 'Step ' + context[0].label;
+              },
+              label: function(context) {
+                return ' Loss: ' + context.raw.toExponential(4);
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+}
+
+// Fallback Canvas Sparkline (if Chart.js script fails to load)
+function renderSparklineFallback(canvas, history) {
+  const ctx = canvas.getContext('2d');
+  const cleanHist = sanitizeHistory(history);
+  
+  const W = canvas.width = canvas.offsetWidth || 300;
+  const H = canvas.height = 120;
+  ctx.clearRect(0, 0, W, H);
+  
+  if (!cleanHist || cleanHist.length < 2) return;
+  
+  const ys = cleanHist.map(h => Math.log10(Math.max(h[1], 1e-12)));
+  const lo = Math.min(...ys), hi = Math.max(...ys), span = (hi - lo) || 1;
+  
+  ctx.beginPath();
+  cleanHist.forEach((h, i) => {
+    const x = i / (cleanHist.length - 1) * (W - 4) + 2;
+    const y = H - 4 - (ys[i] - lo) / span * (H - 8);
+    i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+  });
+  ctx.strokeStyle = '#0ea5e9';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+}
+
+function toggleScale(runName) {
+  const current = chartScales[runName] || 'logarithmic';
+  chartScales[runName] = current === 'logarithmic' ? 'linear' : 'logarithmic';
+  
+  // Re-render immediately
+  const cardEl = document.querySelector(`[data-run="${runName}"]`);
+  if (cardEl) {
+    const canvas = cardEl.querySelector('canvas');
+    const toggleBtn = cardEl.querySelector('.chart-toggle');
+    toggleBtn.textContent = chartScales[runName] === 'logarithmic' ? 'LOG SCALE' : 'LIN SCALE';
+    
+    const runData = cachedRuns.find(r => r.run === runName);
+    if (runData && isChartJsLoaded) {
+      renderChartJs(canvas, runName, runData.history);
+    }
+  }
+}
+
+async function refreshData() {
+  const runs = [];
+  let any = false;
+  
+  for (const base of bases) {
+    let names = [];
+    const category = base.split('/')[0];
+    try {
+      names = await (await fetch(base + 'index.json', { cache: 'no-store' })).json();
+    } catch (e) {
+      continue;
+    }
+    
+    any = any || names.length > 0;
+    for (const n of names) {
+      try {
+        const runData = await (await fetch(base + n + '.json', { cache: 'no-store' })).json();
+        runData.category = category;
+        runs.push(runData);
+      } catch (e) {}
+    }
+  }
+  
+  cachedRuns = runs;
+  renderDashboard();
+}
+
+function renderDashboard() {
+  const cardsGrid = document.getElementById('cards');
+  const emptyPlaceholder = document.getElementById('empty');
+  
+  // Sort runs: running/active runs first, then sorted by update time descending
+  const sortedRuns = [...cachedRuns].sort((a, b) => {
+    const aAge = (Date.now() / 1000) - a.updated;
+    const bAge = (Date.now() / 1000) - b.updated;
+    const aLive = aAge < LIVE_WINDOW_S;
+    const bLive = bAge < LIVE_WINDOW_S;
+    if (aLive && !bLive) return -1;
+    if (!aLive && bLive) return 1;
+    return b.updated - a.updated;
+  });
+
+  // Calculate global summary stats
+  const totalCount = sortedRuns.length;
+  const runningCount = sortedRuns.filter(r => (Date.now() / 1000 - r.updated) < LIVE_WINDOW_S).length;
+  const completedCount = sortedRuns.filter(r => r.total > 0 && r.step >= r.total).length;
+  document.getElementById('globalStats').innerHTML = `
+    Auto-refreshes · ${totalCount} total runs · 
+    <span style="color:var(--running); font-weight:600">${runningCount} active</span> · 
+    <span style="color:var(--completed); font-weight:600">${completedCount} completed</span>
+  `;
+
+  // Filter runs
+  const filteredRuns = sortedRuns.filter(r => {
+    // 1. Category tab filter
+    if (activeTab !== 'all' && r.category !== activeTab) return false;
+    
+    // 2. Search query filter
+    if (searchQuery && !r.run.toLowerCase().includes(searchQuery)) return false;
+    
+    // 3. Status filter
+    const age = (Date.now() / 1000) - r.updated;
+    const isRunning = age < LIVE_WINDOW_S;
+    const isCompleted = r.total > 0 && r.step >= r.total;
+    
+    if (statusFilter === 'running' && !isRunning) return false;
+    if (statusFilter === 'completed' && (!isCompleted || isRunning)) return false;
+    if (statusFilter === 'stale' && (isRunning || isCompleted)) return false;
+    
+    return true;
+  });
+
+  if (filteredRuns.length === 0) {
+    cardsGrid.innerHTML = '';
+    emptyPlaceholder.hidden = false;
+    if (cachedRuns.length === 0) {
+      emptyPlaceholder.textContent = "No training runs reported yet. The scripts report automatically when they run.";
+    } else {
+      emptyPlaceholder.textContent = "No training runs match the selected filters.";
+    }
+    return;
+  }
+  
+  emptyPlaceholder.hidden = true;
+  
+  // Store the DOM index of each run before any re-ordering
+  const previousIndices = {};
+  Array.from(cardsGrid.children).forEach((card, idx) => {
+    previousIndices[card.dataset.run] = idx;
+  });
+
+  // 1. Remove stale cards and clean up their chart instances
+  const activeRunNames = new Set(filteredRuns.map(r => r.run));
+  cardsGrid.querySelectorAll('.card').forEach(card => {
+    const runName = card.dataset.run;
+    if (!activeRunNames.has(runName)) {
+      if (chartInstances[runName]) {
+        chartInstances[runName].destroy();
+        delete chartInstances[runName];
+      }
+      card.remove();
+    }
+  });
+  
+  // 2. Create new cards and update existing cards' text/metrics (without drawing charts yet)
+  filteredRuns.forEach(r => {
+    let cardDiv = cardsGrid.querySelector(`.card[data-run="${r.run}"]`);
+    const isNew = !cardDiv;
+    
+    const age = (Date.now() / 1000) - r.updated;
+    const isRunning = age < LIVE_WINDOW_S;
+    const isCompleted = r.total > 0 && r.step >= r.total;
+    const beat = r.total === 0;
+    const pct = beat ? 100 : Math.min(100, 100 * r.step / Math.max(r.total, 1));
+    
+    // Speed calculation
+    const now = Date.now() / 1000;
+    const prev = lastUpdateState[r.run];
+    let speed = 0;
+    let speedText = '--';
+    let etaText = '--';
+    
+    if (prev && r.step > prev.step && r.updated > prev.updated) {
+      const stepsDiff = r.step - prev.step;
+      const timeDiff = r.updated - prev.updated;
+      speed = stepsDiff / timeDiff;
+      speedText = `${speed.toFixed(1)} steps/s`;
+      
+      if (!beat && r.total > r.step) {
+        const remainingSteps = r.total - r.step;
+        etaText = formatDuration(remainingSteps / speed) + ' left';
+      }
+      
+      // Update cached values
+      prev.computedSpeed = speedText;
+      prev.computedETA = etaText;
+      prev.step = r.step;
+      prev.updated = r.updated;
+    } else if (prev && prev.step === r.step) {
+      speedText = isRunning ? (prev.computedSpeed || '--') : '--';
+      etaText = isRunning ? (prev.computedETA || '--') : '--';
+    } else {
+      lastUpdateState[r.run] = {
+        step: r.step,
+        updated: r.updated,
+        computedSpeed: '--',
+        computedETA: '--'
+      };
+    }
+    
+    // Status text & style
+    let statusClass = 'status-idle';
+    let statusText = '● Idle';
+    if (isRunning) {
+      statusClass = 'status-running';
+      statusText = 'Running';
+    } else if (isCompleted) {
+      statusClass = 'status-completed';
+      statusText = 'Completed';
+    } else if (age > 3600 * 24) {
+      statusClass = 'status-stale';
+      statusText = 'Offline';
+    } else {
+      statusClass = 'status-stale';
+      statusText = 'Paused';
+    }
+    
+    const timeLabel = isRunning ? 'active' : 
+      (age < 60 ? 'just now' : 
+       age < 3600 ? Math.round(age / 60) + 'm ago' : 
+       age < 86400 ? Math.round(age / 3600) + 'h ago' : 
+       Math.round(age / 86400) + 'd ago');
+
+    // Compile Metrics Grid items
+    let metricsHtml = '';
+    const standardMetrics = {};
+    if (r.metrics) {
+      Object.entries(r.metrics).forEach(([k, v]) => {
+        if (k === 'loss') {
+          standardMetrics['Loss'] = v.toExponential(4);
+        } else if (k === 'elapsed_s') {
+          standardMetrics['Elapsed Time'] = formatDuration(v);
+        } else {
+          const formattedKey = k.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+          standardMetrics[formattedKey] = typeof v === 'number' ? 
+            (v < 0.01 && v > 0 ? v.toExponential(3) : v.toFixed(3)) : v;
+        }
+      });
+    }
+    
+    if (isRunning && !beat) {
+      standardMetrics['Speed'] = speedText;
+      standardMetrics['ETA'] = etaText;
+    }
+
+    Object.entries(standardMetrics).forEach(([lbl, val]) => {
+      metricsHtml += `
+        <div class="metric-item">
+          <span class="metric-label">${lbl}</span>
+          <span class="metric-value" title="${val}">${val}</span>
+        </div>
+      `;
+    });
+    
+    if (!metricsHtml) {
+      metricsHtml = `<div class="metric-item" style="grid-column: 1/-1"><span class="metric-label">Metrics</span><span class="metric-value">None reported</span></div>`;
+    }
+
+    const currentScale = chartScales[r.run] || 'logarithmic';
+
+    if (isNew) {
+      cardDiv = document.createElement('div');
+      cardDiv.className = `card ${isRunning ? 'active-run' : ''}`;
+      cardDiv.dataset.run = r.run;
+      cardDiv.innerHTML = `
+        <div class="card-header">
+          <div>
+            <span class="run-name">${r.run}</span>
+            <div>
+              <span class="category-badge">${categoryShortLabels[r.category] || r.category}</span>
+            </div>
+          </div>
+          <span class="status-badge ${statusClass}">
+            <span class="dot"></span>
+            <span>${statusText}</span>
+          </span>
+        </div>
+        
+        <div class="progress-section">
+          <div class="progress-text">
+            <span class="progress-step-label">${beat ? 'Continuous heartbeat' : `Step ${r.step.toLocaleString()} / ${r.total.toLocaleString()}`}</span>
+            <span class="progress-pct-label">${beat ? timeLabel : `${pct.toFixed(0)}%`}</span>
+          </div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar ${isRunning ? 'active-bar' : ''}" style="width: ${pct}%"></div>
+          </div>
+        </div>
+        
+        <div class="metrics-grid">
+          ${metricsHtml}
+        </div>
+        
+        <div class="chart-container">
+          <div class="chart-header">
+            <span class="chart-title">Loss History</span>
+            <button class="chart-toggle" onclick="toggleScale('${r.run}')">${currentScale === 'logarithmic' ? 'LOG SCALE' : 'LIN SCALE'}</button>
+          </div>
+          <canvas id="chart-${r.run}"></canvas>
+        </div>
+      `;
+      cardsGrid.appendChild(cardDiv);
+    } else {
+      cardDiv.className = `card ${isRunning ? 'active-run' : ''}`;
+      
+      const statusBadge = cardDiv.querySelector('.status-badge');
+      statusBadge.className = `status-badge ${statusClass}`;
+      statusBadge.querySelector('span:last-child').textContent = statusText;
+      
+      cardDiv.querySelector('.progress-step-label').textContent = beat ? 'Continuous heartbeat' : `Step ${r.step.toLocaleString()} / ${r.total.toLocaleString()}`;
+      cardDiv.querySelector('.progress-pct-label').textContent = beat ? timeLabel : `${pct.toFixed(0)}%`;
+      
+      const progressBar = cardDiv.querySelector('.progress-bar');
+      progressBar.style.width = `${pct}%`;
+      progressBar.className = `progress-bar ${isRunning ? 'active-bar' : ''}`;
+      
+      cardDiv.querySelector('.metrics-grid').innerHTML = metricsHtml;
+      
+      const toggleBtn = cardDiv.querySelector('.chart-toggle');
+      toggleBtn.textContent = currentScale === 'logarithmic' ? 'LOG SCALE' : 'LIN SCALE';
+    }
+  });
+
+  // 3. Re-order DOM elements only if the sorted order differs from the current order
+  let currentCards = Array.from(cardsGrid.children);
+  let orderDiffers = false;
+  if (currentCards.length !== filteredRuns.length) {
+    orderDiffers = true;
+  } else {
+    for (let i = 0; i < filteredRuns.length; i++) {
+      if (currentCards[i].dataset.run !== filteredRuns[i].run) {
+        orderDiffers = true;
+        break;
+      }
+    }
+  }
+
+  if (orderDiffers) {
+    filteredRuns.forEach(r => {
+      const cardEl = cardsGrid.querySelector(`.card[data-run="${r.run}"]`);
+      if (cardEl) {
+        cardsGrid.appendChild(cardEl);
+      }
+    });
+  }
+
+  // 4. Draw/Update charts (Done after DOM re-ordering is completely finalized)
+  const finalCards = Array.from(cardsGrid.children);
+  filteredRuns.forEach(r => {
+    const cardDiv = cardsGrid.querySelector(`.card[data-run="${r.run}"]`);
+    const canvas = document.getElementById(`chart-${r.run}`);
+    if (canvas) {
+      if (isChartJsLoaded) {
+        const newIndex = finalCards.indexOf(cardDiv);
+        const oldIndex = previousIndices[r.run];
+        
+        // If the card was re-ordered in the DOM, the browser automatically resets the canvas context.
+        // We must destroy the old Chart instance and let renderChartJs build a new one.
+        if (oldIndex !== undefined && oldIndex !== newIndex && chartInstances[r.run]) {
+          chartInstances[r.run].destroy();
+          delete chartInstances[r.run];
+        }
+        
+        renderChartJs(canvas, r.run, r.history);
+      } else {
+        renderSparklineFallback(canvas, r.history);
+      }
+    }
+  });
+}
+
+// Initial Loading
+refreshData().then(() => {
+  startRefreshTimer();
+});
+</script>
+</body>
+</html>

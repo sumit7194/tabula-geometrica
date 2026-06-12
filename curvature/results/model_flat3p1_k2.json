@@ -1,0 +1,1 @@
+{"task": "flat3p1", "k": 2, "in_dim": 4, "hidden": 64, "steps": 4000, "seed": 0, "test_accuracy": 0.9969000220298767}
