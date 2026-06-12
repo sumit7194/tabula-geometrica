@@ -352,7 +352,9 @@ def main() -> None:
             META.append(meta)
             k += 1
             if k % 500 == 0:
-                progress("25_worldgen", k, total)
+                # per-seed heartbeat name: parallel shards racing on one file
+                # hit the atomic-rename collision (s3 died on os.replace)
+                progress(f"25_worldgen_s{args.seed}", k, total)
     np.savez_compressed(
         args.out,
         tokens=np.stack(T).astype(np.float32),

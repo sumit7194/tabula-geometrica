@@ -11,6 +11,24 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-15b — Phase G: 150k run finishes; underfit → overfit; data-scaling next
+- **G1 second verdict: still 2/8 — but the failure mode flipped.** Train loss
+  fell 4× (traj 0.023→0.0053) while val didn't move: the model memorized the
+  21.6k training episodes. 30k run = underfit, 150k run = overfit ⇒ the steps
+  knob is exhausted and the binding constraint is DATA (the user's "you need
+  millions of games" instinct lands a second time). Methodology arm (c)
+  answered by runs already paid for.
+- **Pre-registered next: a data-scaling curve.** 4 worldgen shards × 30k
+  episodes generating now (per-seed heartbeats after a shared-heartbeat
+  rename race killed shard 3 — patched in 25_worldgen). Arms: 48k and 120k
+  banks, identical model/budget. If val scales with data → ride it; if it
+  plateaus → measure the context-information floor (owed; recorded as a
+  process miss that it wasn't measured before gating).
+- **Repo is live: https://github.com/sumit7194/tabula-geometrica** (public).
+  Initial push (142 files, 15 MB incl. gate-required model weights),
+  description + topics set, README retitled to the new name. Repo scope
+  locked: curvature only.
+
 ## 2026-06-15 — Phase H row 1 lands (knee = 2); Phase G build + launch
 - **Two-charge lane sweep (script 24) complete: the knee is exactly at L=2.**
   L=0: 1.13e-1 · L=1: 4.38e-3 · L=2: 1.20e-4 · L=3: 1.35e-4 (flat). H1 ✓

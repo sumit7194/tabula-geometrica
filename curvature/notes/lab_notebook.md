@@ -1013,3 +1013,28 @@ treated the bench ms/step as the story; convergence decides, not wall-clock.
 Fix round (one knob, pre-registered family of fixes): resume from ckpt to
 150k steps, same everything else. If train-val gap opens later, next knob is
 bank size (data is free). G2/G3 wait for a G1 pass.
+
+### G1 fix round (150k steps): FAIL again — but the failure mode FLIPPED
+
+Val table essentially unchanged (flat1p1 0.991 ✓ · flat3p1 0.952 ✓ · well1p1
+0.924 ✗ · aniso2p1 0.919 ✗ · chargedE 1.8e-2 ✗ · magneticB 3.5e-3 ✗ ·
+twocharge 4.9e-2 ✗ · matter 5.4e-2 ✗) while TRAIN loss dropped 4× (traj
+0.023→0.0053, pair 0.019→0.0014). At 30k train≈val (underfit); at 150k
+train≪val — the extra 120k steps memorized the 21.6k training episodes.
+**Steps knob exhausted; the binding constraint is data.** This is diagnostic
+arm (c) of the methodology trio, answered by the run we already had.
+
+### Pre-registration: G1 data-scaling curve (the one knob = bank size)
+
+Generate 4 shards × 30k episodes (25_worldgen seeds 1–4, per-seed heartbeat
+names after s3 died on the shared-heartbeat rename race — patched). Arms,
+identical model/hyperparams/150k steps, fresh init each:
+- arm-48k: train on 48k episodes (shards 1+2 merged, minus val)
+- arm-120k: train on 120k episodes (all four shards)
+Val = last 10% per family of the merged bank (fresh worlds, as before).
+Read: plot val traj-MSE vs bank size {24k, 48k, 120k}. If it scales → ride
+the curve (more data / streaming). If it plateaus → the wall is CONTEXT
+INFORMATION (32 tokens may not pin the world), and the owed oracle floor —
+posterior-predictive error given the same 32 tokens — gets measured BEFORE
+any further knob. Honest note: that floor should have been measured before
+gating G1 at 1e-3 (methodology rule 1); recorded as a process miss.
