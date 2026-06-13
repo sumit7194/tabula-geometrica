@@ -218,8 +218,21 @@ def gen_aniso2p1(rng):
     return (toks, qs, ts), {"s_phi": s_phi, "s_b": s_b, "s_d": s_d}
 
 
+# last episode's per-query true labels (for the A3a equivariant-decode probe);
+# captured here to avoid changing the return signature / all callers.
+_LAST_QLABELS = None
+
+
+def _jsonify(v):
+    if v is None:
+        return None
+    a = np.atleast_1d(v).astype(float)
+    return float(a[0]) if a.size == 1 else a.tolist()
+
+
 def _traj_episode(rng, accel_for, labels, dim):
     """Generic trajectory episode: 6 bodies, 4 context snippets + queries."""
+    global _LAST_QLABELS
     tags = np.eye(8)[rng.permutation(8)[:6], :4]
     toks, qs, ts = [], [], []
     for bi in range(6):
@@ -243,6 +256,7 @@ def _traj_episode(rng, accel_for, labels, dim):
         for i, p in enumerate(ps):
             t[2 * i:2 * i + dim] = p
         ts.append(t)
+    _LAST_QLABELS = [_jsonify(labels[bi]) for bi in qi]
     return toks, qs, ts
 
 
@@ -355,6 +369,8 @@ def main() -> None:
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--widen", type=float, default=1.0,
                    help="G2: expand every sampled range by this factor (1.25 = +25%)")
+    p.add_argument("--emit-qlabels", action="store_true",
+                   help="A3a probe: store per-query true labels in meta (q_labels)")
     args = p.parse_args()
 
     rng = np.random.default_rng(args.seed)
@@ -365,7 +381,10 @@ def main() -> None:
     k = 0
     for fi, fam in enumerate(FAMILIES):
         for _ in range(args.n_per_family):
+            globals()["_LAST_QLABELS"] = None
             (toks, qs, ts), meta = GENS[fam](rng)
+            if args.emit_qlabels:
+                meta = {**meta, "q_labels": _LAST_QLABELS}
             T.append(np.stack(toks))
             Q.append(np.stack(qs))
             TG.append(np.stack(ts))
