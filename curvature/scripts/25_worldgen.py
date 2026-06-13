@@ -233,7 +233,12 @@ def _jsonify(v):
 def _traj_episode(rng, accel_for, labels, dim):
     """Generic trajectory episode: 6 bodies, 4 context snippets + queries."""
     global _LAST_QLABELS
-    tags = np.eye(8)[rng.permutation(8)[:6], :4]
+    # unique continuous tag per body (4-d): a one-hot in 4 dims can't separate 6
+    # bodies (it zero-collides those with index >=4), which starved the
+    # equivariant per-body channel — see 2026-06-15 G-sym confound. Random unit
+    # vectors separate all 6 and force in-context similarity-binding.
+    tags = rng.standard_normal((6, 4))
+    tags /= np.linalg.norm(tags, axis=1, keepdims=True)
     toks, qs, ts = [], [], []
     for bi in range(6):
         acc = accel_for(labels[bi])
