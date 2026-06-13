@@ -28,7 +28,7 @@ from torch import nn
 
 w = import_module("30_wong_color")
 H, N_ROLL, TARGETS = w.H, w.N_ROLL, w.TARGETS
-ASCALE, LANES, STEPS = 6.0, 3, 14000
+ASCALE, LANES, STEPS = 6.0, 3, 35000  # fix round: longer for a cleaner W1 fit
 A_AMP = w.A_AMP * ASCALE
 K_SNIP = 6
 
@@ -133,6 +133,8 @@ def main():
     _, Qtrue = integ(x0.astype(float), v0.astype(float), d["Q0"][hb], keep_Q=True)
     Lf = lanes.reshape(-1, LANES); Qf = Qtrue.reshape(-1, 3)
     rs = [float(np.corrcoef(cross_val_predict(Ridge(1.0), Lf, Qf[:, j], cv=5), Qf[:, j])[0, 1]) for j in range(3)]
+    # nonlinear decode (probe ladder): is Q(t) tracked illegibly through the recurrent F?
+    rs_nl = [float(np.corrcoef(cross_val_predict(KNeighborsRegressor(8), Lf, Qf[:, j], cv=5), Qf[:, j])[0, 1]) for j in range(3)]
     Qhat = Ridge(1.0).fit(Lf, Qf).predict(Lf).reshape(n, N_ROLL, 3)
     dn = np.linalg.norm(Qhat, axis=-1); dec_drift = float(np.median(dn.std(1) / (dn.mean(1) + 1e-9)))
     q0 = Qtrue[:, 0] / np.linalg.norm(Qtrue[:, 0], 1, keepdims=True)
@@ -146,10 +148,12 @@ def main():
     lin0 = [float(np.corrcoef(cross_val_predict(Ridge(1.0), W0[sb], d["Q0"][sb, j], cv=5), d["Q0"][sb, j])[0, 1]) for j in range(3)]
 
     out = {"W1_mse": mse, "W3_decodeQt_r": rs, "W3_min_r": float(min(rs)),
+           "W3_decodeQt_nonlinear_r": rs_nl, "W3_min_nl_r": float(min(rs_nl)),
            "true_rotation_deg": rot, "W4_decoded_norm_drift": dec_drift,
            "W3b_w0_Q0_linear_r": lin0}
-    print(f"W3 decode Q(t) from internal state: r={[f'{x:.3f}' for x in rs]} "
-          f"(min {min(rs):.3f}; gate>0.9 {'PASS' if min(rs)>0.9 else 'FAIL'}); true rot {rot:.0f}deg")
+    print(f"W3 decode Q(t) from internal state: LINEAR r={[f'{x:.3f}' for x in rs]} "
+          f"(min {min(rs):.3f}); NONLINEAR r={[f'{x:.3f}' for x in rs_nl]} (min {min(rs_nl):.3f}); "
+          f"true rot {rot:.0f}deg")
     print(f"W4 decoded |Q| drift {dec_drift:.3f} (small=conserved)")
     print(f"W3b amortized w0->Q0 LINEAR r={[f'{x:.2f}' for x in lin0]} "
           f"(vs v1 free-embedding ~0 — legible if high)")

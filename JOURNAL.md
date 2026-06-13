@@ -11,6 +11,20 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-15i — Wong v2 + fix: definitive verdict, a Phase I refinement
+- Amortized code + strong field (90deg rotation) + n=200, plus a 35k fix round with the
+  nonlinear probe ladder. **W3b ✓✓: amortization legibilizes the STATIC color charge**
+  (w0->Q0 linear 0.86/0.92/0.79 vs v1 free-embedding ~0) — Phase I cross-validated. **But
+  W3: the rotating Q(t) is tracked only NONLINEARLY** (linear 0.29-0.46 / nonlinear 0.66-0.76)
+  and **W4: |Q| not conserved** (drift 0.47). The recurrent F re-scrambles the clean
+  amortized w0 as it evolves.
+- **Verdict (row 2 CLOSED):** the crown isn't reached, but the answer is precise — amortization
+  buys legibility for STATIC per-object codes; a DYNAMIC conserved quantity (rotating charge)
+  is NOT legibly represented by a generic recurrent net, and its invariant isn't preserved.
+  Refinement of Phase I. Survey boundary: static labels geometrize (electric, color Q0); the
+  dynamic SU(2) rotation does not, here. Open thread: an orthogonal/Hamiltonian update F that
+  conserves |w| by construction — does STRUCTURE recover the legible rotation?
+
 ## 2026-06-15h — Phase H row 2 (Wong color): honest NEGATIVE on the crown
 - Fix-round probe (30b) decodes the true precessing Q(t) from the lane-state trajectory.
   W1 ✓ (color fits, 3.7e-4) but **W3 FAIL** (lane->Q(t) decode r=0.55/0.35/0.61, weak) and

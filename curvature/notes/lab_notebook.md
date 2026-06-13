@@ -1416,3 +1416,30 @@ free embedding); W4: |decoded Q(t)| drift small (|Q| invariant tracked); W3b: w0
 high (vs v1 ~0) confirming the amortization prescription. One fix round. If W3 passes, the
 crown is reached AND Phase I is validated in a new setting; if it fails with amortization +
 strong rotation + n=200, the dynamic SU(2) charge genuinely resists geometrization here.
+
+## 2026-06-15 — PHASE H ROW 2 v2 + FIX ROUND: the definitive Wong verdict (a Phase I refinement)
+
+v2 (amortized code, gauge x6 -> 90deg rotation, n=200) + fix round (35k steps + nonlinear
+probe ladder). results/31_wong_amortized.json:
+- W1 fit 0.021 (mediocre; 35k didn't beat 14k -> representational limit at strong field, not
+  undertraining).
+- **W3b ✓✓ amortization legibilizes the STATIC charge:** w0 -> Q0 LINEAR r = 0.86/0.92/0.79
+  (vs v1's free-embedding ~0). Phase I cross-validated in the Wong setting — a per-object
+  code INFERRED by a shared encoder is linearly legible; the free embedding was the v1 trap.
+- **W3 the ROTATION is tracked but ILLEGIBLY:** decode of true Q(t) from the EVOLVED internal
+  state w(t): LINEAR 0.29-0.46, NONLINEAR 0.66-0.76. Probe-ladder signature = info present,
+  not linearly readable. The recurrent F re-scrambles the clean amortized w0 as it evolves.
+- **W4 ✗ |Q| not conserved** in the decode (drift 0.47): the net does not represent the
+  charge motion as a length-preserving rotation.
+
+**VERDICT (v1 + v2 + fix spent; row 2 CLOSED):** the crown — "does the net discover the
+rotating, |Q|-conserved color charge as a LEGIBLE internal geometry?" — is NOT reached, but
+we get a precise, novel answer: amortization buys legibility for the STATIC per-object label
+(Q0 linear 0.8-0.9), but that legibility is NOT preserved once the code is evolved through a
+generic learned recurrent update — the dynamics re-scramble it (Q(t) nonlinear-only), and the
+|Q| invariant isn't conserved. **Refinement of Phase I: amortization legibilizes STATIC codes;
+legibly representing a DYNAMIC conserved quantity needs structure that preserves the invariant
+(an orthogonal/rotational update), which a generic MLP F does not provide.** Survey boundary:
+static labels (electric row 1; color Q0) geometrize; the dynamic SU(2) rotation does not, here.
+Open thread (not auto-run): a Hamiltonian/orthogonal-update F that conserves |w| by construction
+— would test whether STRUCTURE (not just amortization) recovers the legible rotation.
