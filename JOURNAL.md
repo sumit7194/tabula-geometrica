@@ -11,6 +11,19 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-15g — Phase I: consensus bet FALSIFIED; legibility = amortization
+- Built the consensus->legibility experiment (script 29) with the discreteness control.
+  3 seeds, 4 arms. Result: recurrence (A-B)=-0.004 and discreteness (B-C)=-0.005 make NO
+  difference; **amortize-vs-free-embedding (C-D)=+0.466 is the whole effect.**
+- **Verdict:** the consensus/recurrence bet is FALSE. Legibility is selected by AMORTIZATION
+  — a code inferred by a shared encoder is linearly legible for free (r~0.97); a free
+  per-body parameter scrambles (linear 0.50, info in nonlinear 0.86 = the Phase C signature
+  reproduced). The Phase C illegible charge code was a free-parameter artifact, not a
+  property of charge. Lesson: want a legible per-object code? amortize its inference.
+- Credit to the parallel session for the question; honest answer differs from the bet.
+- Wong's equations web-verified for Phase H row 2 (color charge parallel-transports: rotates,
+  |Q| conserved; SU(2) f=epsilon -> Q precesses like spin). Building next.
+
 ## 2026-06-15f — G-sym fix round (clean): frame validates on accuracy, tension found
 - The clean unique-tag retrain finished (resumed through a 3rd power loss; sym2 genuinely
   differs from the confounded run — weight diff 2.6). Real fix-round verdict:

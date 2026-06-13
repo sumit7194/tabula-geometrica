@@ -1264,3 +1264,61 @@ the clean unique-tag pipeline. magneticB per-body readout = separate open thread
   is NOT just "EM families correctly merge" — the stage genuinely lost clustering quality
   when per-body info migrated to the equivariant channel. The accuracy<->legibility
   tension is real, not a relabeling artifact. (My convenient reframe was wrong; recorded.)
+
+## 2026-06-15 — PHASE I PRE-REGISTRATION: consensus -> legibility (the novel bet)
+
+Question: is code LEGIBILITY (a learned per-body code being LINEARLY decodable to the
+true charge — "legible" — vs only nonlinearly decodable — "scrambled", the Phase C
+finding: linear r=0.02, behavioral r=0.9999) selected by AGREEMENT / value RECURRENCE,
+beyond mere discreteness? (Frame from the parallel session; the discreteness control is
+my addition so "recurrence" isn't confounded with "small alphabet is just easier".)
+
+Setup (script 29, minimal & isolated — the claim is general, not generalist-specific):
+single 1-D family, body charge q, accel = gravity well + q*field(x). A SHARED encoder
+reads K trajectory snippets of a body -> code c in R^4; a SHARED dynamics head rolls out
+(x,v,c). Amortized per-body inference (the equivariant channel, isolated). All arms equal
+in #bodies, #snippets, steps, capacity — ONE variable: the charge distribution.
+
+Arms:
+- A amortized RECURRING-discrete: q from an 8-value alphabet, many bodies per value.
+- B amortized UNIQUE-discrete: q on a fine grid, each body a distinct quantized value
+  (discrete, ~no recurrence) — controls discreteness vs A.
+- C amortized UNIQUE-continuous: q continuous, distinct per body — controls vs B.
+- D FREE-EMBEDDING reference: per-body free embedding (Phase C regime), continuous q.
+
+Legibility metrics on code-vs-true-q (held-out where applicable): LINEAR decode r (ridge
+CV) = legibility; NONLINEAR decode r (kNN/MLP) = info presence. Legible = linear high;
+scramble = linear low + nonlinear high. Also report fit MSE (accuracy not confounded).
+
+Pre-registered predictions (consensus): linear_r(A) materially > linear_r(B); linear_r(B)
+≈ linear_r(C) [discreteness alone doesn't buy legibility]; D scrambles (linear low,
+nonlinear high — reproduces Phase C). Falsifiers: A≈B≈C kills it; B>>C = discreteness not
+consensus; if amortized C is already linear-legible (≈1), then "amortization gives
+legibility for free; Phase C scramble was a free-parameter artifact" (a real finding too).
+One fix round on numerics. THEN Phase H row 2 (Wong color — web-verify eqns first).
+
+## 2026-06-15 — PHASE I RESULT: consensus FALSIFIED; legibility = AMORTIZATION, not agreement
+
+3 seeds (script 29, results/29_consensus.json/.png). linear_r = legibility, nonlinear_r = info present:
+- A amortized recurring-discrete: linear 0.962, nonlinear 0.987
+- B amortized unique-discrete:    linear 0.966, nonlinear 0.980
+- C amortized unique-continuous:  linear 0.971, nonlinear 0.987
+- D free-embedding (Phase C ref): linear 0.505, nonlinear 0.855
+Effects: recurrence (A-B) = -0.004; discreteness (B-C) = -0.005; **amortize-vs-free (C-D) = +0.466.**
+
+**Verdict: the consensus->legibility bet is FALSE.** Value recurrence and discreteness
+make NO difference to legibility. What decides it is AMORTIZATION: a per-body code
+produced by a SHARED ENCODER that must INFER it from data is linearly legible for free
+(linear r ~0.97, smoothness prior of the shared map); a code stored as FREE PER-BODY
+PARAMETERS scrambles (linear 0.50 while info survives in nonlinear 0.86 — the Phase C
+signature, linear ✗ / behavioral ✓, reproduced). So **"legibility is selected by
+amortization, not agreement."** The Phase C illegible q/m code was a FREE-PARAMETER
+artifact, not a property of charge. Ties the arc together: Phase C scramble = arm D;
+G-sym's amortized equivariant channel decoded chargedE at 0.91 = the amortized arms.
+Actionable interpretability lesson: want a legible per-object code? Amortize its inference.
+
+Credit: the parallel session posed the consensus question (the right question); the honest
+answer is different from its bet. Caveat: D's scramble (0.505) is milder than Phase C's
+(0.02) because the shared dynamics head still smooths D; a harsher free-param setup would
+scramble more — the qualitative split is decisive. Low seed variance (std ~0.000 @3dp):
+the effect (0.47) dwarfs any seed noise. Phase I CLOSED. Next: Phase H row 2 (Wong color).
