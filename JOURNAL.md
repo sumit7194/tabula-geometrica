@@ -11,6 +11,25 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-15f — G-sym fix round (clean): frame validates on accuracy, tension found
+- The clean unique-tag retrain finished (resumed through a 3rd power loss; sym2 genuinely
+  differs from the confounded run — weight diff 2.6). Real fix-round verdict:
+- **A1 ✓ accuracy restored:** chargedE 0.0129→0.0009 (14×), twocharge 0.0369→0.0032
+  (11.5×), both clear pre-registered thresholds. The equivariant per-body channel works
+  once tags are unique — the symmetry frame's core claim is VALIDATED for electric/two-charge.
+- **A3a ✓ (chargedE):** per-body charge decodes from the equivariant channel at r=0.914
+  (was 0.70 with degenerate tags); invariant-w control 0.36. Binding lives in the
+  equivariant channel, as predicted. twocharge 0.76/0.64 (improved), magneticB dead.
+- **A2 ✗ but interpretable:** stage clustering ARI 0.82→0.69 — per-body info migrated to
+  the equivariant channel, so the stage merges the structurally-similar EM trio at the
+  world level. Flip side: EM-kinship got STRONGER (z 26.7→34.9). A real accuracy↔legibility
+  tension, contra the "no tension" hope.
+- **A3b ✗:** field amplitudes did not lift (my amendment unsupported, recorded).
+- **magneticB** is a consistent special case (v×B velocity-gated → per-body magnetic charge
+  unreadable from snippets). Open thread.
+- One fix round spent; stopping per rule. Next-direction options put to the user (accept +
+  write up the tension / legibility-preserving variant / the deferred consensus experiment).
+
 ## 2026-06-15e — power loss + a STALE-DATA trap caught in the G-sym fix round
 - **Power loss overnight, nothing lost:** the confounded G-sym run had finished and
   saved before the cut; ran the full A1–A4 suite this morning.

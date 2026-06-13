@@ -1212,3 +1212,49 @@ Resolution: re-merged 120k from the now-fresh shards (verified 0 zero-tag rows),
 deleted the stale _sym2 model/ckpt/json, relaunched the retrain directly on the
 verified new-tag banks. Driver hardened to own the full gen→wait→merge→train
 order so staleness can't recur. Real A1-A4 verdict pending the clean run (~6h).
+
+## 2026-06-15 — G-sym FIX ROUND (clean, unique tags): the frame VALIDATES on accuracy,
+## but a real accuracy-vs-legibility tension emerges (verdict, no further fix round)
+
+Clean retrain on verified new-tag banks (resumed through a 3rd power loss; sym2 truly
+differs from confounded sym — weight diff 2.6, A1 differs). Full gates:
+
+- **A1 accuracy — PASS on the target families.** chargedE 0.0129->0.0009 (14x),
+  twocharge 0.0369->0.0032 (11.5x) — both clear the pre-registered thresholds
+  (<3e-3 / <7e-3). magneticB flat (0.0036). pair families all still >0.95. **The
+  equivariant per-body channel DID restore per-body accuracy once tags were unique —
+  the symmetry frame's central claim is validated for electric & two-charge.**
+- **A3a binding — chargedE now PASSES, direction strong everywhere.** per-body charge
+  from the EQUIVARIANT channel: chargedE r=0.914 (>0.9 ✓; was 0.70 with degenerate
+  tags), twocharge 0.76/0.64 (up from 0.50/0.52), magneticB -0.03. Invariant-w control
+  far below everywhere (0.36/0.33/0.00) — the binding lives in the equivariant channel,
+  exactly as the invariant/equivariant decomposition predicts. Gate "min r>0.9" fails
+  only on magneticB + twocharge<0.9.
+- **A4 zero-shot — PASS** (G2 traj ratio 1.23).
+- **A2 legibility — FAIL (0.687 < 0.8), but for an INTERPRETABLE reason, not a tag
+  artifact.** Stage-channel ARI 0.824 (mean-pool-only) -> 0.687 (dual-channel);
+  participation ratio 6.6 -> 3.65. With per-body info now carried by the equivariant
+  channel, the stage stops using it to separate families — so the structurally-similar
+  EM trio (chargedE/magneticB/twocharge: all "well + per-body force") MERGE at the
+  world level. Confirmed by the flip side: **G3c EM-kinship got STRONGER** (z 26.7->34.9,
+  d(E,B)/d(gravity) more separated). So the stage became a purer world-level map at the
+  cost of family-cluster count. A real accuracy<->legibility tension — contra the
+  "no tension" hope from the reframe.
+- **A3b field-amp lift — NOT supported (my amendment was wrong/weak).** e_amp 0.54->0.59,
+  b_amp ~0 still. Restoring the per-body channel did NOT materially lift the stage's
+  field-amplitude decodability. Recorded as a failed prediction.
+
+**magneticB is a consistent special case across every gate** (A1 flat, A3a dead, A3b dead):
+v×B is velocity-gated, so a body's magnetic coupling isn't a simple scalar readable from
+trajectory snippets the way an electric charge is. Honest open thread, not a bug.
+
+VERDICT (one fix round spent, stopping per rule): the symmetry frame WORKS for what it
+claimed — equivariance restores per-body accuracy (11-14x) and the binding decodes from
+the equivariant channel (chargedE 0.91). The surprise is that it does NOT come free for
+legibility: the stage's family-clustering drops because per-body info migrates out of it.
+"Accurate AND legible" is achievable but the two trade against each other in this design.
+Next-direction options for the user (not auto-pursued): (1) accept + write up the honest
+tension; (2) a legibility-preserving variant (e.g. auxiliary stage-clustering loss, or
+study the stage as a deliberately world-only map and re-define the G3 legibility gate);
+(3) the deferred consensus->legibility experiment (recurrence control), now buildable on
+the clean unique-tag pipeline. magneticB per-body readout = separate open thread.
