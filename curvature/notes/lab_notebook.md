@@ -1351,3 +1351,29 @@ Gates:
   drift to a non-conserving control.
 Honest caveats up front: classical Wong limit only (no quantum color); "lane count" is the
 practical-knee claim (steps 11/12 lesson), not info-theoretic. One fix round per gate.
+
+## 2026-06-15 — PHASE H ROW 2 RESULTS (run 1): W1 ✓, W2 ok, W3/W4 CONFOUNDED (fix round)
+
+results/30_wong.json/.png. test MSE + crude lane-motion:
+  color:    L0 1.1e-1 · L1 1.3e-2 · L2 6.7e-4 · L3 3.7e-4 · L4 2.6e-4
+  electric: L0 1.2e-1 · L1 1.4e-2 · L2 3.5e-4 · L3 4.6e-4 · L4 8e-5
+  ang-travel  color L2 0.20 / L3 0.45 ; electric L2 0.17 / L3 0.41  (NEARLY IDENTICAL)
+  rad-drift   color L2 0.138 ; electric L2 0.093 (color drifts MORE, not less)
+
+- **W1 ✓** color fits with L>=2 (6.7e-4 vs L0 control 0.11).
+- **W2** knee ~L=2 for color — but the electric control ALSO knees at 2, so it doesn't
+  isolate "color needs more": my control was a 3-component FROZEN charge (same #numbers
+  as color), not a 1-charge electric. Design flaw #1.
+- **W3 rotation — CONFOUNDED (fails as operationalized).** Lane angular-travel is ~identical
+  color vs electric — the lanes rotate from position-dependent dynamics in BOTH, not from
+  color precession. Angular travel is too crude (flaw #2); the frozen-Q control even rotates
+  its lanes similarly.
+- **W4 conservation — not shown** (color radius drifts more than electric, opposite of a
+  clean |Q|-conservation signal).
+
+DIAGNOSIS: the crown question (does the net discover the ROTATING, length-conserving color
+charge?) is NOT answered by these crude metrics + wrong control. The rigorous probe: decode
+the TRUE precessing Q(t) (computable from the generator) from the lane-state TRAJECTORY w(t)
+via a linear map — if r is high, the internal state TRACKS the rotating charge (W3 proper);
+then check |decoded Q(t)| is conserved (W4 proper). One fix round: script 30b does exactly
+this on a retrained color L=3 model, with a 1-charge electric as the clean contrast.
