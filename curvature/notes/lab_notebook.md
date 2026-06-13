@@ -1258,3 +1258,9 @@ tension; (2) a legibility-preserving variant (e.g. auxiliary stage-clustering lo
 study the stage as a deliberately world-only map and re-define the G3 legibility gate);
 (3) the deferred consensus->legibility experiment (recurrence control), now buildable on
 the clean unique-tag pipeline. magneticB per-body readout = separate open thread.
+
+- **A2 follow-up (world-type relabel) — hypothesis KILLED:** merging the EM trio
+  into one "world-type" barely moved stage ARI (0.687 -> 0.699), so the legibility drop
+  is NOT just "EM families correctly merge" — the stage genuinely lost clustering quality
+  when per-body info migrated to the equivariant channel. The accuracy<->legibility
+  tension is real, not a relabeling artifact. (My convenient reframe was wrong; recorded.)
