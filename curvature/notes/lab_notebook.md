@@ -1322,3 +1322,32 @@ answer is different from its bet. Caveat: D's scramble (0.505) is milder than Ph
 (0.02) because the shared dynamics head still smooths D; a harsher free-param setup would
 scramble more — the qualitative split is decisive. Low seed variance (std ~0.000 @3dp):
 the effect (0.47) dwarfs any seed noise. Phase I CLOSED. Next: Phase H row 2 (Wong color).
+
+## 2026-06-15 — PHASE H ROW 2 PRE-REGISTRATION: Wong color charge (the crown)
+
+Physics (web-verified: Wong 1970; escholarship review qt6x76h1sx; hep-ph/0110104):
+classical SU(2) color charge Q in R^3 parallel-transports along the worldline —
+D_τ Q = 0 — so it ROTATES (Q(t)=U Q(0) U†, a Wilson line) with |Q| CONSERVED; for
+SU(2), f^abc=epsilon^abc so dQ/dt = -g v (A(x) x Q) (precession). This is the new twist
+vs electric charge: the per-body label is DYNAMIC (rotates), not static.
+
+Toy (script 30, 1-D space, 3-comp color, m=g=1): a body has initial color charge
+Q0 in R^3 (per-body label). World:
+  a(x) = well(x) + sum_a Q^a(t) E^a(x)         color-electric force (3 color fields E^a)
+  dQ/dt = -v (A(x) x Q)                          precession; A(x) in R^3 varies with x
+  -> |Q| exactly conserved (cross product). Integrate (x,v,Q) jointly by RK4.
+Bodies differ in Q0 (direction on sphere x magnitude). Model = the LaneModel machinery
+(state x,v,w1..wL via shared recurrent F, per-body learned w0), sweep L in {0,1,2,3,4}.
+
+Gates:
+- W1 fit: with enough lanes, color trajectories fit (well below the L=0 control).
+- W2 lane COUNT (behavioral knee): color needs MORE lanes than electric's 1 — expect the
+  knee at >=2 (a rotating SU(2) charge isn't a single static scalar). Report all L.
+- W3 ROTATION (the crown): does the learned lane state w(t) along the rollout actually
+  ROTATE for color bodies (vs ~static for an electric control)? Metric: lane-state
+  angular travel / variance over the rollout, color vs a 1-charge electric control body set.
+- W4 LENGTH CONSERVATION: is there a (learned, possibly metric-weighted) quadratic form of
+  the lane state approximately conserved along the rollout (the |Q| invariant)? Compare
+  drift to a non-conserving control.
+Honest caveats up front: classical Wong limit only (no quantum color); "lane count" is the
+practical-knee claim (steps 11/12 lesson), not info-theoretic. One fix round per gate.
