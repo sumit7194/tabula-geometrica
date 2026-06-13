@@ -1196,3 +1196,19 @@ ONE FIX ROUND (pre-registered): give each body a UNIQUE tag (random continuous
 4-d per body per episode — fits the existing 4-d slot, separates 6 bodies, forces
 in-context similarity-binding), regenerate banks, retrain, re-gate. If gates
 still miss with clean tags, THEN it's a real verdict on the architecture.
+
+## 2026-06-15 — G-sym FIX ROUND, attempt 1 = STALE-DATA TRAP (caught, re-run)
+
+The fix-round driver (28c) "completed" overnight and produced A1 byte-identical
+to the confounded _sym run. Caught it: two models with different file checksums
+gave identical eval to 16 digits — impossible for different weights. Tensor
+compare: 0/80 weights differ → _sym2 == _sym exactly. Root cause: the driver's
+"wait for shards" used FILE EXISTENCE, but OLD shard files (from the scaling
+experiment) were already on disk, so it merged the stale 120k at 17:55 and
+trained 6h on OLD degenerate-tag data — the NEW shards didn't finish until 20:36.
+Verified: 25_bank_120k.npz had 8 zero-tag rows (old). The fix was never tested.
+Same family as the Phase F stale-checkpoint trap: **"file exists" ≠ "file fresh."**
+Resolution: re-merged 120k from the now-fresh shards (verified 0 zero-tag rows),
+deleted the stale _sym2 model/ckpt/json, relaunched the retrain directly on the
+verified new-tag banks. Driver hardened to own the full gen→wait→merge→train
+order so staleness can't recur. Real A1-A4 verdict pending the clean run (~6h).

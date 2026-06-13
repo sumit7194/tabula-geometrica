@@ -11,6 +11,24 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-15e — power loss + a STALE-DATA trap caught in the G-sym fix round
+- **Power loss overnight, nothing lost:** the confounded G-sym run had finished and
+  saved before the cut; ran the full A1–A4 suite this morning.
+- **G-sym (confounded run) verdict:** gates miss — pair families up (aniso passes),
+  matter up 2.4x, but charge-gated families flat; stage ARI regressed 0.82→0.68.
+  A3a is the one clean signal: per-body charge decodes better from the EQUIVARIANT
+  channel than the invariant control everywhere (chargedE 0.70 vs 0.33) — split
+  direction right. BUT the run was confounded: the 4-d tag field zero-collides 2 of
+  6 bodies, starving the binding. Not a verdict; needs unique tags.
+- **Fix round attempt 1 = stale-data trap (caught):** the driver waited on shard-file
+  EXISTENCE, but old shards were already on disk → it merged stale 120k and trained
+  6h on OLD degenerate-tag data. Caught because two different-checksum models gave
+  identical eval to 16 digits (tensors 0/80 differ). "file exists" != "file fresh",
+  same family as the Phase F stale-ckpt trap.
+- **Resolution:** re-merged 120k from verified-fresh new-tag shards, deleted stale
+  artifacts, relaunched the clean retrain (running, ~6h). Driver hardened to own the
+  full gen→merge→train order. Real fix-round verdict pending.
+
 ## 2026-06-15d — Phase G-sym: the symmetry-respecting generalist (training)
 - **The dilemma dissolved, not split.** A parallel Claude session (credited)
   reframed the mean-pool as body-relabeling *invariance* — the equivalence
