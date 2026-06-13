@@ -73,11 +73,16 @@ def main() -> None:
     p.add_argument("--bank", default=str(RESULTS / "25_bank.npz"))
     p.add_argument("--g2-bank", default="")
     p.add_argument("--device", default="cpu")
+    p.add_argument("--arch", default="mlp", choices=("mlp", "sym"),
+                   help="mlp = step-26 mean-pool; sym = step-28 invariant+equivariant")
     args = p.parse_args()
 
     bank = dict(np.load(args.bank))
     meta = json.loads(Path(args.bank).with_suffix(".meta.json").read_text())
-    model = gen.Generalist()
+    if args.arch == "sym":
+        model = import_module("28_symmetric_generalist").SymGeneralist()
+    else:
+        model = gen.Generalist()
     model.load_state_dict(torch.load(args.model, map_location="cpu"))
     model.to(args.device).eval()
 

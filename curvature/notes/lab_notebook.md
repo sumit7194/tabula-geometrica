@@ -1157,3 +1157,42 @@ Gates (vs the 120k mean-pool baseline = 26_g1_120k.json):
 - A4 zero-shot (G2) still passes (<2x on widened bank).
 One fix round if a gate misses. THEN, separately, the consensus->legibility
 experiment with the recurrence-vs-discreteness control (pre-reg when we get there).
+
+## 2026-06-15 — PHASE G-sym RESULTS: gates miss, but the experiment was CONFOUNDED
+
+Training completed 150k (power loss hit AFTER; model + A1 saved, nothing lost).
+Full gate read (symmetric model vs 120k mean-pool baseline):
+
+- **A1 accuracy — MISS on the target families.** pair all up (aniso2p1
+  0.946->0.958, now passes), matter traj 0.033->0.0135 (2.4x), BUT the
+  charge-gated families barely moved: chargedE 0.0129->0.0135, twocharge
+  0.0369->0.0361. The equivariant channel did NOT restore per-body accuracy.
+- **A2 legibility — MISS.** G3a stage-channel ARI 0.824 -> 0.679 (clustering got
+  WORSE); participation ratio 6.6 -> 4.1 (stage compressed harder). Geometry
+  still decodes (depth 0.95, mass 0.99) but family separation regressed.
+- **A3a binding — MISS but DIRECTIONALLY RIGHT.** per-body charge decode from the
+  EQUIVARIANT channel beats the INVARIANT control everywhere (chargedE 0.70 vs
+  0.33; twocharge 0.50/0.52 vs 0.25/0.32; magneticB -0.01 vs 0.06) — the split
+  is real (binding lives in the equivariant channel) but capped well below 0.9.
+- **A3b field-amp lift — partial.** b_amp 0.04->0.13, e_amp 0.54->0.57 (directional,
+  my amendment, but small).
+- **A4 zero-shot — PASS** (G2 traj ratio 1.04).
+
+**THE CONFOUND (smoking gun, and a process miss I own):** the body tag field is
+only 4 dims but episodes have 6 bodies — `eye(8)[perm[:6],:4]` gives ALL-ZERO
+tags to every body whose perm index >=4. Measured: 6 bodies -> only 5 distinct
+tags, 2 bodies collide on the zero tag (8 of 24 traj tokens). The equivariant
+channel CANNOT bind a query to a collided body — the per-body signal is destroyed
+IN THE DATA. This is exactly the degeneracy I flagged when reading _traj_episode
+and then failed to fix before building (recorded honestly). It explains the
+pattern: matter (binds by blob POSITION, no tags) improved 2.4x; charge families
+(need tag binding) didn't; A3a is capped because only the ~4 cleanly-tagged
+bodies decode. magneticB dies hardest (v×B is velocity-gated, hardest to read).
+
+VERDICT: the gates miss, but a confounded experiment is not a result about the
+symmetry frame — the channel was starved of its input. The A3a direction
+(equivariant > invariant) is the only clean signal and it supports the frame.
+ONE FIX ROUND (pre-registered): give each body a UNIQUE tag (random continuous
+4-d per body per episode — fits the existing 4-d slot, separates 6 bodies, forces
+in-context similarity-binding), regenerate banks, retrain, re-gate. If gates
+still miss with clean tags, THEN it's a real verdict on the architecture.
