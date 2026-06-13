@@ -329,6 +329,23 @@ GENS = dict(flat1p1=gen_flat1p1, flat3p1=gen_flat3p1, well1p1=gen_well1p1,
             magneticB=gen_magneticB, twocharge=gen_twocharge, matter=gen_matter)
 
 
+class _WideRng:
+    """Wraps a Generator so every uniform(lo,hi) range is expanded about its
+    midpoint by `factor` (G2 zero-shot: wider worlds than training). All other
+    draws (.random/.choice/.normal/.integers) pass through unchanged, so
+    observation noise and discrete choices are untouched."""
+
+    def __init__(self, rng, factor):
+        self._rng, self._f = rng, factor
+
+    def uniform(self, low=0.0, high=1.0, size=None):
+        mid, half = (low + high) / 2, (high - low) / 2 * self._f
+        return self._rng.uniform(mid - half, mid + half, size)
+
+    def __getattr__(self, name):
+        return getattr(self._rng, name)
+
+
 def main() -> None:
     from curvlib import progress
 
@@ -336,9 +353,13 @@ def main() -> None:
     p.add_argument("--n-per-family", type=int, default=3000)
     p.add_argument("--out", default=str(RESULTS / "25_bank.npz"))
     p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--widen", type=float, default=1.0,
+                   help="G2: expand every sampled range by this factor (1.25 = +25%)")
     args = p.parse_args()
 
     rng = np.random.default_rng(args.seed)
+    if args.widen != 1.0:
+        rng = _WideRng(rng, args.widen)
     T, Q, TG, FAM, META = [], [], [], [], []
     total = args.n_per_family * len(FAMILIES)
     k = 0

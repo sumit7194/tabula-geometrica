@@ -1073,3 +1073,43 @@ gating G1 at 1e-3 (methodology rule 1); recorded as a process miss.
   (3) more data; (4) accept G, run G2/G3 on the 120k model, advance to H.
   The specialist gap argues (1) is highest leverage. Oracle floor (2) still
   owed before any traj gate is called passed/failed.
+
+### G2 + G3 RESULTS (script 27, probed on the 120k model) — the prize is THERE
+
+G2 zero-shot (widened-range bank, seed 99, --widen 1.25, 2k episodes):
+**PASS.** traj MSE in=0.0216 / wide=0.0214 (ratio 1.00 — no degradation),
+pair 0.971 / 0.903 (graceful, ≪2× loss). The net extrapolates to 25%-wider
+worlds essentially for free on trajectories — it learned world-mechanisms,
+not a lookup over the training range.
+
+G3 — the world-summary space (results/27_world_space.png, 27_g3.json):
+- **G3a clustering ARI = 0.824 — PASS.** The 8 families separate cleanly.
+  PCA map reads like a physics taxonomy: the two FLAT worlds (1+1, 3+1) sit
+  apart as tight knots; well1p1 and aniso2p1 each isolated (pure geometry);
+  and the THREE EM-coupled families (chargedE, magneticB, twocharge) pile into
+  one neighborhood; matter is a diffuse cloud (variable blob count).
+- **G3c EM-kinship (exploratory) — strongly CONFIRMED.** d(chargedE,magneticB)
+  = 15.1 vs d(either, gravity-well) = 29.1 → the two EM worlds sit 2× closer
+  to each other than to pure gravity; z = 26.7 vs shuffled-family null. The
+  net spontaneously grouped "force gated by a per-body charge" as one region
+  of law-space, distinct from geometry. (Caveat: chargedE/magneticB share
+  generator structure — kinship partly reflects that; still, the net found it.)
+  Connects to the It-from-Qubit "geometry of the space of laws" thread.
+- **G3d intrinsic dim = 6.6** of 64 (participation ratio) — the world-summary
+  compresses to ~7 effective axes.
+- **G3b decodability — FAIL as gated (median r 0.50, min 0.04) BUT the PATTERN
+  is the finding, and it is the SAME story as the G1 traj wall:** world-LEVEL
+  geometry decodes beautifully (well depth r=0.916, total matter mass r=0.981);
+  per-body-charge-GATED params decode poorly (chargedE e_amp 0.54, twocharge
+  f1.amp 0.45, aniso s_phi 0.41, magneticB b_amp 0.04). The single global
+  pooled summary captures what's salient at the world level but blurs anything
+  whose effect is modulated per-body.
+
+**SYNTHESIS (the dilemma, sharpened by data): the trajectory-accuracy gap and
+the G3b illegibility are ONE phenomenon — the global mean-pool is excellent for
+world-geometry and structurally blind to per-body labels.** So "accurate" and
+"legible-at-world-level" are not actually in tension here; both are limited by
+the same missing per-body channel. A hybrid (global w for world-geometry +
+query→context attention for per-body labels) would help BOTH at once. Phase G's
+prize (G3a/G3c) is banked; G1-traj and G3b are the same open edge.
+Decision pending user (thinking in parallel). G2 ✓, G3a ✓, G3c ✓✓ exploratory.

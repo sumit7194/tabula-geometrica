@@ -11,6 +11,26 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-15c — Phase G prize: the world-summary space (G2 ✓, G3a ✓, G3c ✓✓)
+- **G3a — families cluster, ARI 0.82 (PASS).** The PCA map of the 64-d summary
+  reads like a physics taxonomy: flat 1+1 / 3+1 as separate knots, well1p1 and
+  aniso2p1 isolated (pure geometry), and the three EM-coupled worlds (chargedE,
+  magneticB, twocharge) sharing one neighborhood; matter a diffuse cloud.
+- **G3c — EM-kinship confirmed (exploratory, striking).** chargedE & magneticB
+  sit 2× closer to each other (15.1) than to the gravity well (29.1), z=26.7 vs
+  shuffled null. The net spontaneously carved "force gated by a per-body charge"
+  as its own region of law-space. (Ties to It-from-Qubit "geometry of laws.")
+- **G2 — zero-shot to +25% wider worlds: PASS.** traj ratio 1.00, pair 0.97→0.90.
+  It learned mechanisms, not a table.
+- **G3b decodability FAILS as gated (median 0.50) — but the pattern IS the
+  finding:** world-geometry decodes great (well depth 0.92, total mass 0.98),
+  per-body-charge-gated field amplitudes decode poorly (magneticB b_amp 0.04).
+- **Synthesis: the G1 trajectory gap and the G3b illegibility are the SAME
+  thing** — the global mean-pool nails world-geometry, is blind to per-body
+  labels. So accuracy and legibility aren't in tension; a hybrid (global w +
+  query→context attention) fixes both. Scripts: 27_g3_probes.py; worldgen got
+  --widen for G2. Decision on the hybrid pending (thinking in parallel).
+
 ## 2026-06-15b — Phase G: 150k run finishes; underfit → overfit; data-scaling next
 - **G1 second verdict: still 2/8 — but the failure mode flipped.** Train loss
   fell 4× (traj 0.023→0.0053) while val didn't move: the model memorized the
