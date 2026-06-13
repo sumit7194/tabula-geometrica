@@ -1377,3 +1377,25 @@ the TRUE precessing Q(t) (computable from the generator) from the lane-state TRA
 via a linear map — if r is high, the internal state TRACKS the rotating charge (W3 proper);
 then check |decoded Q(t)| is conserved (W4 proper). One fix round: script 30b does exactly
 this on a retrained color L=3 model, with a 1-charge electric as the clean contrast.
+
+## 2026-06-15 — PHASE H ROW 2 FIX ROUND (30b): honest NEGATIVE on the crown + diagnosis
+
+Proper probe (decode true precessing Q(t) from the lane-state trajectory; results/30b_wong_rotation.json):
+- W1 ✓ color L=3 fits (3.7e-4).
+- **W3 rotation — FAIL.** linear decode of true Q(t) from lane state w(t): r = 0.55/0.35/0.61
+  (n=12k, well-powered). The internal state only WEAKLY tracks the color charge.
+- **W4 conservation — FAIL.** decoded |Q| drift 0.18 vs true 0.000.
+- Sanity: the true charge rotates only ~12 deg median over the rollout — there is barely a
+  rotation to detect in this regime. (w0->Q0 decode linear ~0 / nonlinear ~0 is INCONCLUSIVE:
+  only 32 bodies, underpowered for a 3-vector readout — don't lean on it.)
+
+VERDICT (one fix round spent, stopping): **the net fits color dynamics but we cannot
+demonstrate it discovered the rotating, |Q|-conserved color charge as a legible internal
+coordinate. Phase H row 2 = honest negative on the crown.** Diagnosis / clean-retry recipe
+(a FRESH experiment, not auto-pursued): (1) crank the gauge field A so the precession is
+large & unmistakable (>=90 deg, not 12) — right now there's almost no rotation to find;
+(2) replace the FREE per-body embedding with an AMORTIZED per-body code (infer Q0 from
+snippets) — Phase I showed free embeddings are illegible by construction, so the current
+design fights legibility; (3) more bodies (n>>32) for a powered per-body decode. Electric
+charge (row 1, static scalar) geometrized cleanly; the dynamic SU(2) charge did NOT, in
+this regime/design — a real boundary of the survey, honestly logged.

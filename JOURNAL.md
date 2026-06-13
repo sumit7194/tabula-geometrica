@@ -11,6 +11,18 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-15h — Phase H row 2 (Wong color): honest NEGATIVE on the crown
+- Fix-round probe (30b) decodes the true precessing Q(t) from the lane-state trajectory.
+  W1 ✓ (color fits, 3.7e-4) but **W3 FAIL** (lane->Q(t) decode r=0.55/0.35/0.61, weak) and
+  **W4 FAIL** (decoded |Q| drifts 0.18 vs true 0). The net fits color dynamics but does NOT
+  demonstrably represent the rotating, |Q|-conserved color charge as a legible coordinate.
+- Diagnosis: (1) true precession is only ~12deg in this regime — barely a rotation to find;
+  (2) the LaneModel's FREE per-body embedding is illegible by construction (Phase I!), so the
+  design fights legibility; (3) n=32 bodies underpowers the per-body decode. Clean retry
+  (fresh experiment, not auto-run): strong gauge field (>=90deg rotation) + AMORTIZED per-body
+  code + many bodies. Electric (row 1) geometrized cleanly; dynamic SU(2) did not here.
+- One fix round spent; stopping per rule. Row 2 = a real, honestly-logged boundary of the survey.
+
 ## 2026-06-15g — Phase I: consensus bet FALSIFIED; legibility = amortization
 - Built the consensus->legibility experiment (script 29) with the discreteness control.
   3 seeds, 4 arms. Result: recurrence (A-B)=-0.004 and discreteness (B-C)=-0.005 make NO
