@@ -16,6 +16,10 @@
 #   - resumable training checkpoints (*ckpt*.pt — mid-run state, not gate inputs)
 *.npz
 *ckpt*.pt
+# regenerable bank metadata (large; useless without its ignored .npz)
+**/25_bank*.meta.json
+# intermediate scaling-arm model (keep only the best, 120k)
+**/26_generalist_48k.pt
 
 # KEPT IN GIT (intentionally NOT ignored): all code under scripts/, the docs,
 # notes/, plots (*.png), gate JSONs, and the FINAL model weights the regression

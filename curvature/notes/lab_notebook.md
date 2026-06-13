@@ -1038,3 +1038,38 @@ INFORMATION (32 tokens may not pin the world), and the owed oracle floor —
 posterior-predictive error given the same 32 tokens — gets measured BEFORE
 any further knob. Honest note: that floor should have been measured before
 gating G1 at 1e-3 (methodology rule 1); recorded as a process miss.
+
+### RESULTS: the curve SCALES (no plateau); the wall is architecture, not data
+
+(actual episode counts: 24k original, 60k = shards 1+2, 120k = all 4; the
+"_48k" tag is nominal. All three judged on the SAME 24k-bank val split via
+--val-bank, so comparable.)
+
+| family | metric | 24k | 60k | 120k |
+|---|---|---|---|---|
+| flat1p1 | pair | 0.991 | 0.993 | 0.996 |
+| flat3p1 | pair | 0.952 | 0.964 | 0.978 |
+| well1p1 | pair | 0.924 | 0.944 | 0.965 |
+| aniso2p1 | pair | 0.919 | 0.932 | 0.946 |
+| chargedE | traj | 0.0176 | 0.0145 | 0.0129 |
+| magneticB | traj | 0.0035 | 0.0034 | 0.0035 |
+| twocharge | traj | 0.0493 | 0.0447 | 0.0369 |
+| matter | traj | 0.0543 | 0.0356 | 0.0330 |
+
+- **Monotone improvement, no plateau** (except where already at ceiling:
+  flat1p1 pair, magneticB traj). Data is a real constraint — confirmed.
+- pair gate (>0.95): 3/4 pass at 120k (aniso 0.946 just under).
+- traj gate (<1e-3): NONE pass — but this is NOT an irreducible floor.
+  **The two-charge SPECIALIST (script 24, L=2, trained per-body embeddings)
+  hit 1.2e-4 on that exact task; the generalist sits at 0.037 — a ~300×
+  gap.** So 1e-3 is achievable in principle; the generalist's wall is
+  (a) in-context world inference (specialist baked it into trained
+  embeddings) + (b) the single GLOBAL mean-pooled summary w∈R⁶⁴ carrying
+  every body's labels at once, decoded by tag at the query head. Data scaling
+  helps but cannot close 300× — the suspect is the pooling bottleneck.
+- Decision: FORK (discussing with user) — (1) architecture: per-body /
+  cross-attention readout (query attends to context tokens, no global
+  pinch); (2) oracle-context arm to split inference-vs-head floor decisively;
+  (3) more data; (4) accept G, run G2/G3 on the 120k model, advance to H.
+  The specialist gap argues (1) is highest leverage. Oracle floor (2) still
+  owed before any traj gate is called passed/failed.
