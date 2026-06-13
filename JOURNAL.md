@@ -11,6 +11,29 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-15d — Phase G-sym: the symmetry-respecting generalist (training)
+- **The dilemma dissolved, not split.** A parallel Claude session (credited)
+  reframed the mean-pool as body-relabeling *invariance* — the equivalence
+  principle in disguise: an invariant code can only keep body-symmetric info
+  (geometry) and structurally drops the tag→charge binding. So the stage/actor
+  split is the invariant/equivariant decomposition under relabeling; imposing
+  that symmetry is the same fair move as Phase A's boost-invariant head, and it
+  re-derives Phase C (0 vs 1 number/body) from symmetry alone.
+- **My amendment (recorded):** field amplitudes (e_amp, b_amp) are body-symmetric
+  yet decode badly because their signature is charge-GATED — so restoring the
+  per-body channel should lift those decode rows too (gate A3b).
+- **Built + launched `28_symmetric_generalist.py`** (SymGeneralist, 2.16M): R⁶⁴
+  invariant mean-pool stage (the legible G3 object) + an equivariant per-body
+  channel (query cross-attends into context, bottlenecked to R⁸ so it carries
+  labels not the world). Training on the 120k bank, 150k steps, MPS (~6h).
+- **Gates A1–A4 pre-registered** (lab notebook); all probes staged: 27 for
+  A2/A3b/A4, new 28b decodes per-body charge from the equivariant channel with
+  an invariant-stage control (worldgen gained --emit-qlabels for it). The
+  consensus→legibility bet is deliberately deferred to its own pre-registered
+  experiment (with a recurrence-vs-discreteness control).
+- Dashboard restarted (server had stopped; title already correct as
+  "tabula geometrica").
+
 ## 2026-06-15c — Phase G prize: the world-summary space (G2 ✓, G3a ✓, G3c ✓✓)
 - **G3a — families cluster, ARI 0.82 (PASS).** The PCA map of the 64-d summary
   reads like a physics taxonomy: flat 1+1 / 3+1 as separate knots, well1p1 and
