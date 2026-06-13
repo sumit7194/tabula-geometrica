@@ -1113,3 +1113,47 @@ the same missing per-body channel. A hybrid (global w for world-geometry +
 query→context attention for per-body labels) would help BOTH at once. Phase G's
 prize (G3a/G3c) is banked; G1-traj and G3b are the same open edge.
 Decision pending user (thinking in parallel). G2 ✓, G3a ✓, G3c ✓✓ exploratory.
+
+## 2026-06-15 — PHASE G-sym PRE-REGISTRATION: the symmetry-respecting generalist
+
+Frame (from a parallel Claude session, credited): the mean-pool isn't a flawed
+summarizer — it's permutation-invariance over bodies, i.e. the equivalence
+principle in disguise. An invariant code can ONLY keep what survives relabeling
+bodies: geometry (every body feels it identically) is kept; the tag->charge
+binding (the thing relabeling breaks) is structurally forbidden. So the
+stage/actor split = the invariant/equivariant decomposition under body-
+relabeling symmetry. Imposing THAT symmetry is the same fair move as Phase A's
+boost-invariant Siamese head — content still emerges. It also re-derives Phase C
+from symmetry (neutral: equivariant channel must carry 0/body; charged: exactly
+1/body — matches the MDL count).
+
+My amendment (recorded): "symmetric=geometry, kept" is slightly too clean — the
+FIELD AMPLITUDES (e_amp, b_amp) are body-symmetric world params yet decode badly
+(G3b: 0.54 / 0.04) because their signature is charge-GATED (a field acting only
+on neutral bodies is invisible). Prediction: restoring the per-body channel
+should lift the field-amplitude decode rows too, not just the charges.
+
+Architecture (script 28, SymGeneralist, same forward interface as 26 so
+losses/evaluate/27-probes reuse): token embed -> 5-layer transformer -> H.
+TWO readouts:
+  (1) INVARIANT stage: w = to_summary(mean(H)) in R^64 — the legible world map,
+      the G3 object (unchanged from 26).
+  (2) EQUIVARIANT per-body: query cross-attends into H (nn.MultiheadAttention,
+      query=q_embed, k=v=H) -> bottleneck to R^8 — small by design so it carries
+      per-body LABELS (charges), not the whole world; world-geometry is pressured
+      into the 64-d stage by capacity asymmetry (emergent split, not hard-routed).
+  head: [q_embed (+) w_stage (+) b_perbody(8)] -> MLP -> {pair logit, traj 6}.
+Same bank (120k), 150k steps, --val-bank 25_bank.npz, MPS, bit-exact ckpts.
+
+Gates (vs the 120k mean-pool baseline = 26_g1_120k.json):
+- A1 ACCURACY restored: charge-gated traj families improve >=5x — twocharge
+  0.037 -> <7e-3, chargedE 0.013 -> <3e-3 (specialist floor is 1.2e-4, the
+  ceiling). pair families not worse than baseline.
+- A2 LEGIBILITY kept: G3a clustering ARI on w_stage still > 0.8 (the stage
+  channel did NOT go vestigial — split held).
+- A3 BINDING recovered (the amendment's test): (a) per-body charge decodes from
+  the equivariant channel b at r > 0.9 (behavioral, vs true qm); (b) field-
+  amplitude decode lifts — b_amp from 0.04, e_amp from 0.54, both materially up.
+- A4 zero-shot (G2) still passes (<2x on widened bank).
+One fix round if a gate misses. THEN, separately, the consensus->legibility
+experiment with the recurrence-vs-discreteness control (pre-reg when we get there).
