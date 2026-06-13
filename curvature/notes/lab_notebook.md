@@ -1399,3 +1399,20 @@ snippets) — Phase I showed free embeddings are illegible by construction, so t
 design fights legibility; (3) more bodies (n>>32) for a powered per-body decode. Electric
 charge (row 1, static scalar) geometrized cleanly; the dynamic SU(2) charge did NOT, in
 this regime/design — a real boundary of the survey, honestly logged.
+
+## 2026-06-15 — PHASE H ROW 2 v2 PRE-REGISTRATION: Wong color, amortized + strong field
+
+Fresh experiment (not a re-fix of v1), motivated by v1's three diagnosed flaws. Changes:
+(1) STRONG gauge field A x6 -> median precession ~41deg (max 164), vs v1's useless 12deg
+    (tuned: rotation saturates ~40-50deg beyond x6); (2) per-body code AMORTIZED via a
+    shared snippet-encoder (Phase I prescription) instead of the free embedding that v1 used
+    and that Phase I proved illegible; (3) n_bodies=200 (powered per-body decode).
+Model (script 31): encoder(K=6 snippets -> w0 in R^L) + rollout state (x,v,w) evolving via
+shared F (the lane state CAN rotate); predict trajectory. The crown test: does amortizing
+the per-body code make the rotating, |Q|-conserved color charge LEGIBLE?
+Gates: W1 fit ok; **W3 (crown): linear decode of true Q(t) from the internal state w(t),
+gate r>0.9** (Phase I predicts amortized->legible — directly contrasts v1's 0.35-0.61 with a
+free embedding); W4: |decoded Q(t)| drift small (|Q| invariant tracked); W3b: w0->Q0 LINEAR
+high (vs v1 ~0) confirming the amortization prescription. One fix round. If W3 passes, the
+crown is reached AND Phase I is validated in a new setting; if it fails with amortization +
+strong rotation + n=200, the dynamic SU(2) charge genuinely resists geometrization here.
