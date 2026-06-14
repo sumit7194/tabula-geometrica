@@ -61,6 +61,9 @@ verified, say so plainly rather than bluffing.
   world vs Flatland.
 - `writeups/emergent_geometry.md` — the polished four-phase curvature story (shareable).
 - `writeups/curvature_field_guide.md` — workshop-version history of all curvature phases.
+- `writeups/legibility_law.md` — the crystallized standalone result: the 3-part legibility
+  law (amortize→legible · generic evolution→scrambles · structure→restores), the project's
+  most novel finding and its self-explanation.
 
 ## Accessibility note (important)
 The user flagged that some responses got "very very technical." Lead with plain-language
