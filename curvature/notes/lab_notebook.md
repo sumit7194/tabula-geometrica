@@ -1513,3 +1513,22 @@ gravity; partly replicates You-Qi 2018. Novel here: the unified learner + behavi
 gate wired as a curvature-project phase, closing back to the project's black-hole origin.
 Open threads: Laplacian-eigenmap embedding (2D + cleaner dim); J4 hyperbolic-curvature at
 criticality (script-17 calculator); the smooth pinch-off needs MI(region) not endpoint.
+
+## 2026-06-15 — PHASE I-b PRE-REGISTRATION: the legibility law, third leg (structure)
+
+Completing the legibility law into a 3-part claim, one harness (script 33). The per-body
+code is a 3-vector "color charge"; the model amortizes its initial value (Phase I -> legible
+w0) and EVOLVES it during rollout. One variable: the update structure.
+Cells (equal data/capacity/steps; amortized w0 throughout):
+- **(dynamic, generic):** charge precesses; w-update = w + MLP(state). Reproduces Wong v2 —
+  expect q(t) decodes only NONLINEARLY (scrambled) + |w| drifts.
+- **(dynamic, orthogonal):** SAME data; w-update = R(state)·w with R=expm(skew(MLP)) in SO(3)
+  (|w| conserved BY CONSTRUCTION). The new leg — expect q(t) decodes LINEARLY + |w| conserved.
+- **(static, generic):** charge frozen; anchors the static leg — expect linear-legible (Phase I).
+Gates: W1 all cells fit (control L0 fails). LEGIBILITY = linear decode r of true q(t) from the
+evolved internal state w(t); CONSERVATION = |w(t)| drift.
+**Pre-registered law prediction:** linear_r(dynamic,orthogonal) >> linear_r(dynamic,generic),
+approaching linear_r(static); and |w| drift(orthogonal) << drift(generic). If so, the 3-part
+law stands: amortize -> legible static codes; generic evolution -> re-scrambles dynamics;
+invariant-preserving structure -> restores legible dynamics. Falsifier: orthogonal doesn't beat
+generic on linear decode (then structure isn't the missing ingredient). One fix round.
