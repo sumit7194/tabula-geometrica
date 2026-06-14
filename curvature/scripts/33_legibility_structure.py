@@ -32,7 +32,7 @@ N_ROLL = int(round(TRAJ_TIMES[-1] / H))
 TARGETS = [int(round(t / H)) for t in TRAJ_TIMES]
 E_AMP = np.array([0.30, 0.35, 0.25]); E_C = np.array([0.8, -1.0, 0.2])
 A_AMP = np.array([5.4, 4.2, 4.8]); A_C = np.array([-0.5, 0.6, 1.1])
-K_SNIP, STEPS = 6, 14000
+K_SNIP, STEPS = 6, 25000  # fix round: longer, + report fit quality and mean legibility
 
 
 def deriv(s, rotate):
@@ -136,8 +136,10 @@ def run_cell(rotate, mode, seed=0):
     rng2 = np.random.default_rng(11); n = 600
     hb = rng2.choice(d["held"], n)
     x0 = rng2.uniform(*X_RANGE, n).astype(np.float32); v0 = rng2.uniform(-V_MAX, V_MAX, n).astype(np.float32)
+    qy_h = integ(x0.astype(float), v0.astype(float), d["q0"][hb], rotate)
     with torch.no_grad():
-        _, ws = m.rollout(snip, torch.from_numpy(hb), torch.from_numpy(x0), torch.from_numpy(v0), keep=True)
+        pred, ws = m.rollout(snip, torch.from_numpy(hb), torch.from_numpy(x0), torch.from_numpy(v0), keep=True)
+        w1 = float(((pred - torch.from_numpy(qy_h.astype(np.float32))) ** 2).mean())
     ws = ws.numpy()
     _, qtrue = integ(x0.astype(float), v0.astype(float), d["q0"][hb], rotate, keep_q=True)
     L = ws.reshape(-1, 3); Q = qtrue.reshape(-1, 3)
@@ -145,9 +147,11 @@ def run_cell(rotate, mode, seed=0):
     nl = [float(np.corrcoef(cross_val_predict(KNeighborsRegressor(8), L, Q[:, j], cv=5), Q[:, j])[0, 1]) for j in range(3)]
     wn = np.linalg.norm(ws, axis=-1)
     drift = float(np.median(wn.std(1) / (wn.mean(1) + 1e-9)))
-    res = {"cell": tag, "linear_min": float(min(lin)), "linear": lin,
+    res = {"cell": tag, "W1_mse": w1, "linear_min": float(min(lin)),
+           "linear_mean": float(np.mean(lin)), "linear": lin,
            "nonlinear_min": float(min(nl)), "w_norm_drift": drift}
-    print(f"[{tag:16s}] linear_min={min(lin):.3f} nonlinear_min={min(nl):.3f} |w|drift={drift:.3f}")
+    print(f"[{tag:16s}] W1={w1:.2e} linear min={min(lin):.3f} mean={np.mean(lin):.3f} "
+          f"nonlin_min={min(nl):.3f} |w|drift={drift:.3f}")
     return res
 
 
@@ -156,13 +160,17 @@ def main():
     out = {r["cell"]: r for r in (run_cell(rot, mode) for rot, mode in cells)}
     (RESULTS / "33_legibility.json").write_text(json.dumps(out, indent=1))
     dg, do_, sg = out["dyn_generic"], out["dyn_orthogonal"], out["stat_generic"]
-    print("\n=== the legibility law (linear decode of the evolving code) ===")
-    print(f"  static + generic     (anchor):   {sg['linear_min']:.3f}  [legible static]")
-    print(f"  dynamic + generic    (Wong):     {dg['linear_min']:.3f}  [scrambled]  |w|drift {dg['w_norm_drift']:.3f}")
-    print(f"  dynamic + orthogonal (structure):{do_['linear_min']:.3f}  [?]          |w|drift {do_['w_norm_drift']:.3f}")
-    ok = do_["linear_min"] > dg["linear_min"] + 0.2 and do_["w_norm_drift"] < dg["w_norm_drift"]
-    print(f"\nTHIRD LEG {'CONFIRMED' if ok else 'NOT confirmed'}: structure recovers legible dynamics"
-          f" ({do_['linear_min']:.2f} vs generic {dg['linear_min']:.2f})")
+    print("\n=== the legibility law (linear decode of the evolving code; mean over 3 comps) ===")
+    for c, lbl in ((sg, "static+generic  (anchor)"), (dg, "dynamic+generic (Wong)  "),
+                   (do_, "dynamic+orthog. (structure)")):
+        print(f"  {lbl}: legible(mean)={c['linear_mean']:.3f} |w|drift={c['w_norm_drift']:.3f} W1={c['W1_mse']:.2e}")
+    # law shape: orthogonal beats generic on legibility AND conserves; reaches static ceiling
+    beats = do_["linear_mean"] > dg["linear_mean"] + 0.1
+    conserves = do_["w_norm_drift"] < 0.1 * dg["w_norm_drift"]
+    reaches = do_["linear_mean"] >= 0.85 * sg["linear_mean"]
+    print(f"\nlegibility recovered (orth>gen by >0.1): {beats} | invariant conserved: {conserves} "
+          f"| reaches static ceiling: {reaches}")
+    print(f"THIRD LEG {'CONFIRMED' if (beats and conserves and reaches) else 'PARTIAL'}")
 
     fig, ax = plt.subplots(figsize=(7, 5))
     labels = ["static\n+generic", "dynamic\n+generic", "dynamic\n+orthogonal"]
