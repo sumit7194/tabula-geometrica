@@ -422,7 +422,11 @@ does not provide.*
   update F that conserves |w| by construction (ẇ = Ω(state)·w, Ω antisymmetric →
   a learned rotation). Does *structure* recover the legible, conserved dynamic
   charge that amortization alone couldn't? The cleanest next experiment.
-- **"Geometry from entanglement" (Phase J candidate — the It-from-Qubit bridge):**
+- **"Geometry from entanglement" (Phase J — DONE in part, 2026-06-15):** chain
+  geometry recovered from the block-MI table (isotonic 0.97) and the Van Raamsdonk pinch-off
+  shown (decoupled halves fly 6.4x apart); OPEN: crisp dimensionality, 2D grids (spectral
+  embedding), and J4 hyperbolic curvature at criticality. Original framing kept below.
+- **"Geometry from entanglement" — remaining (the It-from-Qubit bridge):**
   train only on the mutual-information table of a quantum lattice's ground state,
   test whether the net builds the right spatial geometry; replicate Van Raamsdonk's
   pinch-off as a behavioral gate; look for hyperbolic curvature at criticality

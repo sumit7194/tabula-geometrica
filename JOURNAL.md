@@ -11,6 +11,23 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-15j — Phase J: geometry from entanglement (the big swing, loop closed)
+- The It-from-Qubit bridge, back to the project's black-hole origin. Free-fermion ground
+  states (Peschel correlation-matrix method, web-verified) -> learn a geometry from the
+  mutual-information table alone. **J0 floor PASSED** (entanglement scaling slope 0.323 ->
+  c=0.97 vs CFT c=1 — engine physically correct).
+- **J1 chain ✓ isotonic R2=0.971:** embedding the block-MI table (positions NEVER given)
+  recovers the 1D chain order. **Geometry emerges from entanglement** — demonstrated.
+- **J3 Van Raamsdonk pinch-off ✓ (money shot):** decouple two halves (cross-MI->0) and they
+  fly 6.4x apart in the emergent geometry — disentangling pulls space apart.
+- Real gotcha (recorded): half-filled single-site MI is pathological (even-separation
+  correlations vanish, 2k_F=pi); fixed by region/block MI — which is exactly WHY Ryu-Takayanagi
+  uses regions not points. Honest gaps: J2 dimension (curved-manifold PCA overcounts: 3.8 not 1)
+  and 2D grid (0.24, needs spectral embedding) — methodological follow-ups logged.
+- Verdict: premise demonstrated (chain + pinch-off); crisp dimensionality/2D are open. The
+  project has now reached from "a net invents the interval" (Phase A) to "a net builds space
+  from entanglement" (Phase J) — the two ends of the original ambition.
+
 ## 2026-06-15i — Wong v2 + fix: definitive verdict, a Phase I refinement
 - Amortized code + strong field (90deg rotation) + n=200, plus a 35k fix round with the
   nonlinear probe ladder. **W3b ✓✓: amortization legibilizes the STATIC color charge**

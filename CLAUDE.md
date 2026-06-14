@@ -313,6 +313,15 @@ results in `curvature/notes/lab_notebook.md`.
   codes; a DYNAMIC conserved quantity needs an invariant-preserving update — a
   generic recurrent F re-scrambles the clean w0 as it evolves.** Survey boundary:
   static labels geometrize (electric, color Q0); the dynamic rotation does not.
+- **PHASE J — geometry from entanglement (script 32), the big swing, loop closed:**
+  free-fermion ground states (Peschel method, web-verified) -> learn geometry from the
+  mutual-information table alone. J0 floor ✓ (c=0.97 vs CFT c=1). **J1 chain ✓ isotonic
+  0.971** — block-MI embedding recovers the 1D order, positions never given (geometry FROM
+  entanglement). **J3 Van Raamsdonk pinch-off ✓** — decoupling two halves (cross-MI->0)
+  flings them 6.4x apart in the emergent geometry. Gotcha: half-filled single-site MI is
+  parity-pathological (even-sep correlations vanish) -> use region/block MI (why RT uses
+  regions). Honest gaps: J2 dimension (curved-manifold PCA overcounts) + 2D grid (needs
+  spectral embedding). Premise demonstrated; J4 hyperbolic-curvature + spectral 2D open.
 - **THE SESSION SYNTHESIS (the legibility law):** amortize → legible (static);
   evolve through a generic net → re-scrambled (dynamic). Open thread (next
   candidate): an orthogonal/Hamiltonian update F that conserves |w| by
