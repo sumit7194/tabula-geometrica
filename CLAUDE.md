@@ -271,17 +271,58 @@ results in `curvature/notes/lab_notebook.md`.
   invariant+magnetic artifacts. (echoes+ringdown asserts moved to
   `../BlackHole/verify.sh`.) **Run it after any curvature change; a result
   isn't real until the gate is green.**
-- **PHASE G + H NOW (2026-06-15):** Phase H row 1 (two-charge lanes, script
-  24/24b/24c) CLOSED — knee exactly at L=2, H3 behavioral decode r=0.9996/
-  0.9998 both charges, H4 zero-shot works from ~4 observed trajectories (k=1
-  fails by identifiability — recorded). Phase G generalist (script 25 worldgen
-  + 26 transformer, 2.01M params) built; first 30k run UNDERFIT (2/8 G1 rows),
-  fix round = resume to 150k steps running detached on MPS. Gates G1/G2/G3 +
-  pre-registrations in curvature/notes/lab_notebook.md; design in
-  curvature/notes/phase_g_design.md.
-- Remaining curvature queue: finish Phase G 150k run + G1/G2/G3 gates; Phase H
-  rows 2+ (Wong color charge — verify toy eqns by web search first); 3+1 Kaluza
-  with vector potential; writeup polish (user, weekends).
+- **PHASE H ROW 1 — two-charge lanes (24/24b/24c) CLOSED:** knee exactly at L=2;
+  H3 behavioral decode r=0.9996/0.9998 both charges; H4 zero-shot from ~4
+  trajectories (k=1 fails by identifiability — recorded).
+- **PHASE G — the generalist (scripts 25 worldgen / 26 transformer, 2.01M):**
+  data-scaling curve (24k/60k/120k episodes) SCALES monotonically (no plateau),
+  but the charge-gated traj families sit ~300× above the two-charge specialist
+  floor (1.2e-4) → the wall is ARCHITECTURE (the single global mean-pool), not
+  data. **G2 zero-shot PASS** (+25% wider worlds, traj ratio 1.0). **G3 prize —
+  the world-summary space (script 27):** G3a families cluster (ARI 0.82, the PCA
+  map reads as a physics taxonomy); **G3c EM-kinship** chargedE↔magneticB sit 2×
+  closer to each other than to gravity (z=27) — the net carved "force gated by a
+  per-body charge" as its own region of law-space (ties to It-from-Qubit).
+- **PHASE G-sym — symmetry-respecting generalist (script 28, frame from a
+  parallel Claude session, credited):** the mean-pool is body-relabeling
+  INVARIANCE (equivalence principle in disguise) — keeps body-symmetric info
+  (geometry), drops the tag→charge binding. Fix = invariant stage pool +
+  EQUIVARIANT per-body cross-attention channel. After catching a degenerate-tag
+  confound + a STALE-DATA trap (merged old shards — "file exists ≠ fresh"; both
+  logged), clean run: **A1 accuracy restored** (chargedE 14×, twocharge 11.5×),
+  per-body charge decodes from the equivariant channel (chargedE 0.91), **but a
+  real ACCURACY↔LEGIBILITY tension** — stage clustering drops 0.82→0.69 as
+  per-body info migrates out. magneticB a consistent special case (v×B
+  velocity-gated).
+- **PHASE I — consensus→legibility (script 29), THE session's law:** tested
+  "agreement/recurrence selects legibility" with a discreteness control (3
+  seeds). Recurrence (−0.004) and discreteness (−0.005) do NOTHING; **amortize-
+  vs-free-embedding (+0.466) is the whole effect. Legibility is selected by
+  AMORTIZATION, not agreement:** a code a shared encoder INFERS is linearly
+  legible for free (r~0.97); a free per-body parameter scrambles (linear 0.50,
+  info in nonlinear 0.86). The Phase C illegible q/m code was a FREE-PARAMETER
+  artifact. Consensus bet (parallel session) falsified; their question was right.
+- **PHASE H ROW 2 — Wong color charge (scripts 30/30b/31), CLOSED, honest
+  boundary:** classical SU(2) charge that parallel-transports (rotates, |Q|
+  conserved; web-verified Wong 1970). v1 negative (confounded: 12° precession +
+  free embedding + n=32). v2 (amortized code + ×6 field → 90° + n=200) + fix:
+  **W3b ✓✓ amortization legibilizes the STATIC charge** Q0 (linear 0.79–0.92 vs
+  v1 ~0 — Phase I cross-validated), **but the ROTATING Q(t) is tracked only
+  NONLINEARLY** (linear 0.29–0.46 / nonlinear 0.66–0.76) and **|Q| not conserved**
+  (drift 0.47). **Refinement of Phase I: amortization buys legibility for STATIC
+  codes; a DYNAMIC conserved quantity needs an invariant-preserving update — a
+  generic recurrent F re-scrambles the clean w0 as it evolves.** Survey boundary:
+  static labels geometrize (electric, color Q0); the dynamic rotation does not.
+- **THE SESSION SYNTHESIS (the legibility law):** amortize → legible (static);
+  evolve through a generic net → re-scrambled (dynamic). Open thread (next
+  candidate): an orthogonal/Hamiltonian update F that conserves |w| by
+  construction — does STRUCTURE recover the legible rotation? Other survey rows
+  open: friction (predicted failure), equivalence-breaking gravity.
+- Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
+  Phase H rows (friction, equivalence-breaking); a G-sym legibility-preserving
+  variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit
+  bridge, in writeups/curvature_field_guide never-tried list); 3+1 Kaluza with
+  vector potential; writeup polish (user, weekends).
 - Wakeup policy (user 2026-06-11): SHORT delays (60-90s) between iterations;
   long delays only as fallback while harness-tracked jobs run.
 - **FOCUS DIRECTIVE (user, 2026-06-13): curvature ONLY until mined out.**

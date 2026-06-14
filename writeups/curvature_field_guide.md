@@ -1,9 +1,11 @@
 # The Curvature Project — Complete Field Guide
 
-*Everything we did in Phases A→E (and all side quests): what each experiment was,
-how it actually worked, what it found, what surprised us, and — most importantly —
-the threads we noticed but never pulled. Written plainly, for thinking with.
-(The polished narrative is `emergent_geometry.md`; this is the workshop version.)*
+*Everything we did, Phases A→E through the generalist arc (F-closed, G, the
+legibility law I, and the H geometrization survey) and all side quests: what each
+experiment was, how it actually worked, what it found, what surprised us, and —
+most importantly — the threads we noticed but never pulled. Written plainly, for
+thinking with. (The polished narrative is `emergent_geometry.md`; this is the
+workshop version.)*
 
 ---
 
@@ -301,26 +303,105 @@ relabeling can fake. The project's title question, closed.
   width binds — **knee-counting needs near-oracle inference**. Parked with that
   honest verdict. (The projective smear — "the code carries a direction, not a
   vector" — was predicted by your second-opinion session and visible in our data.)
-- **Phase F (current, the law itself):** matter configs → geometry, trajectories
-  only. Honest null so far — but the one gate that PASSED is provocative: field
-  *direction* superposes on never-seen 3-mass worlds (cos 0.965) while magnitude
-  fails. Diagnostics proved the wall is the CNN's local receptive field vs the
-  long-range 1/r kernel (can't even overfit one batch; capacity and data don't
-  help). The RF sweep now running is the clean one-knob proof. Honest context:
-  this corner overlaps the established neural-operator field (FNO etc.) — the
-  fix is known science; remaining novelty here is modest.
+- **Phase F (the law itself) — CLOSED, honest null.** matter configs → geometry,
+  trajectories only. The one gate that PASSED is provocative: field *direction*
+  superposes on never-seen 3-mass worlds (cos 0.965) while magnitude fails.
+  Diagnostics proved the wall is the CNN's local receptive field vs the long-range
+  1/r kernel (can't even overfit one batch; capacity and data don't help); the RF
+  sweep confirmed F2 climbs 0.85→0.99 with reach. This corner overlaps the
+  established neural-operator field (FNO etc.) — fix is known science, novelty
+  modest — so F-v3 was deliberately skipped for the generalist arc below.
+
+---
+
+## 7½. The generalist arc — Phases G, I, H (the 2026-06-15 stretch)
+
+After Phase F, the project pivoted (user's redirect) from *one net per world* to
+**one generalist across all world families**, and from accuracy to a deeper
+question: **what makes a learned representation legible?**
+
+**Phase G — the generalist + its world-summary space.** A 2M-param transformer
+reads a handful of observations from *some* world (same-event pairs, trajectory
+snippets, matter blobs — family never given), pools a 64-number summary `w`, and
+answers queries. Data scaling (24k→60k→120k episodes) helps monotonically but the
+charge-gated families sit ~300× above the per-family specialist floor — the wall
+is the single global **mean-pool**, not data. The prize was never accuracy though:
+it's `w`. Probing it (G3): the families **cluster into a physics taxonomy** (ARI
+0.82 — flat spacetimes apart, pure-geometry wells isolated, the three
+EM-coupled worlds in one neighborhood), and **electromagnetism is its own region**
+— chargedE and magneticB sit 2× closer to each other than to gravity (z=27 vs a
+shuffled null). The net drew a map of *laws*, unprompted. (Ties straight to the
+It-from-Qubit "is there a geometry to the space of laws?" thread.)
+
+**The dilemma, and how a symmetry dissolved it (Phase G-sym).** The mean-pool is
+**permutation-invariant over bodies** — which is the *equivalence principle in
+disguise*: an invariant code can only keep what survives relabeling bodies
+(geometry), and is structurally forbidden from keeping the tag→charge binding. So
+the stage/actor split isn't a design choice, it's the **invariant/equivariant
+decomposition under body-relabeling symmetry** — and imposing that symmetry is the
+same fair move as Phase A's boost-invariant head. (Frame contributed by a parallel
+Claude session; credited.) The fix: keep the invariant pool as the legible
+world-map *and* add an **equivariant per-body channel** (each query cross-attends
+to the context). It restored accuracy (chargedE 14×, twocharge 11.5×) and the
+per-body charge now decodes from the equivariant channel (0.91) — **but at a real
+cost: the world-map's clustering dropped (0.82→0.69) as per-body info migrated out
+of it.** Accuracy and legibility *trade off*; they are not free together.
+
+**Phase I — the legibility law (the stretch's headline).** *What selects
+legibility?* A clean factorial experiment (recurrence × discreteness, with a
+free-embedding reference) gave a sharp answer: recurrence and discreteness do
+**nothing**; the entire effect is **amortization**. A per-object code that a shared
+encoder must *infer from data* is **linearly legible for free** (r≈0.97); the same
+code stored as **free per-body parameters scrambles** (linear 0.50, info hiding in
+nonlinear 0.86 — the exact Phase C signature). So:
+
+> **Legibility is selected by amortization, not by agreement or discreteness.**
+> The famous Phase C "illegible charge code" was a *free-parameter artifact*, not a
+> property of charge. Want a legible per-object code? Don't store it — *infer* it.
+
+(This also overturned a tempting "consensus → legibility" bet from the parallel
+session — the question was right, the mechanism wasn't.)
+
+**Phase H — the geometrization survey.** *Which particle-like labels become hidden
+lanes?*
+- **Row 1, two independent charges:** the practical lane-count knee lands at
+  **exactly 2** (behavioral counting, where bottleneck-counting failed in steps
+  11–12); both charges decode behaviorally at r≈0.9997; a never-seen body is
+  pinned from ~4 observed trajectories.
+- **Row 2, Wong color charge (the crown, and a boundary):** a classical SU(2)
+  charge that *parallel-transports* — it rotates as the body moves, with |Q|
+  conserved (Wong 1970, verified). Result: amortization **legibly encodes the
+  static charge** Q₀ (linear 0.79–0.92, Phase I confirmed in a new setting), **but
+  the rotating Q(t) is tracked only nonlinearly** (linear 0.29–0.46 / nonlinear
+  0.66–0.76) and |Q| isn't conserved. **The refinement: amortization buys
+  legibility for *static* codes, but a generic recurrent update re-scrambles a
+  *dynamic* conserved quantity as it evolves.** Static labels geometrize (electric
+  charge, color Q₀); the dynamic SU(2) rotation does not — a sharp survey boundary.
+
+**The synthesis of the stretch (one sentence):** *amortize and you get legibility
+for free — but only for static codes; representing a dynamic conserved quantity
+legibly needs structure that preserves its invariant, which a plain learned update
+does not provide.*
 
 ---
 
 ## 8. The recurring patterns (the real harvest, maybe)
 
-1. **Gauge freedom is everywhere.** Phase B's per-anchor relabeling, C's
-   illegible embeddings, MDL's lookup-table code, D-v2's Lagrangian equivalence
-   class, E's global scale. Every honest gate we built works by finding the
-   quantity that *survives* the freedom. The deep question we never asked
-   head-on: **what kind of training pressure selects the HUMAN-legible gauge?**
-   Nature's laws are written in the elegant gauge — why? Can a system be made to
-   prefer it?
+1. **Gauge freedom is everywhere** — and we finally got a partial answer to the
+   deep question. Phase B's per-anchor relabeling, C's illegible embeddings, MDL's
+   lookup-table code, D-v2's Lagrangian equivalence class, E's global scale: every
+   honest gate works by finding the quantity that *survives* the freedom. The
+   question we'd never asked head-on — *what selects the human-legible gauge?* —
+   **Phase I answered for per-object codes: amortization.** A code inferred by a
+   shared encoder lands in the legible (linear) gauge for free; a free per-object
+   parameter scrambles. (Refinement from Wong row 2: this holds for *static* codes
+   only — a generic recurrent update re-scrambles a dynamic one. Selecting the
+   legible gauge for *dynamics* needs invariant-preserving structure — open.)
+5. **The stage/actor split is a symmetry, not a choice** (Phase G-sym). What's
+   shared by all bodies (geometry) vs what distinguishes them (charge) is exactly
+   the invariant/equivariant decomposition under body-relabeling — the equivalence
+   principle, re-derived as representation theory. It re-derives Phase C's
+   0-vs-1-number-per-body count from symmetry alone.
 2. **Behavioral probes beat structural probes.** Every time we tested *what the
    net does* (swap tests, trajectory inversion, zero-shot fitting), we got clean
    answers; every time we tested *what the net looks like inside* (PCA, linear
@@ -337,6 +418,16 @@ relabeling can fake. The project's title question, closed.
 
 ## 9. Things explicitly never tried (raw list for your thinking)
 
+- **The orthogonal/Hamiltonian update (the live open thread from Wong row 2):** an
+  update F that conserves |w| by construction (ẇ = Ω(state)·w, Ω antisymmetric →
+  a learned rotation). Does *structure* recover the legible, conserved dynamic
+  charge that amortization alone couldn't? The cleanest next experiment.
+- **"Geometry from entanglement" (Phase J candidate — the It-from-Qubit bridge):**
+  train only on the mutual-information table of a quantum lattice's ground state,
+  test whether the net builds the right spatial geometry; replicate Van Raamsdonk's
+  pinch-off as a behavioral gate; look for hyperbolic curvature at criticality
+  (You–Qi 2018). Free-fermion states are classically computable → Mac-buildable.
+  This is the one that closes the loop back to the original black-hole chat.
 - Time-dependent geometry (moving/oscillating wells; the road to gravitational
   *waves* in a toy).
 - Relativistic-regime learning (we measured the post-Newtonian gap in Phase C's
@@ -350,7 +441,9 @@ relabeling can fake. The project's title question, closed.
 - Discrete/graph worlds (does geometry emerge without a continuum?).
 - Making curvature the *bottleneck* rather than the readout.
 - A communication game: two nets must AGREE on a description of the same world —
-  does the shared protocol converge to the legible gauge? (Ties to pattern #1.)
+  does the shared protocol converge to the legible gauge? (Note: Phase I tested
+  the related "recurrence → legibility" and it was the AMORTIZATION axis that
+  mattered, not agreement — so reframe this if revisited.)
 - The thermodynamic corner: your original black-hole interests (horizons,
   entropy, S = A/4) never met the learning experiments at all. There is no
   horizon anywhere in our toys.

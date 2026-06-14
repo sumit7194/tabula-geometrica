@@ -273,6 +273,20 @@ Caveats live in the lab notebook next to each result.
   in its own currency: *a network watched things move, built a geometry, and
   that geometry has the right curvature.*
 
+- **The generalist arc (run — Phases G, I, H; full account in
+  `curvature_field_guide.md` §7½, to be folded into this narrative on a polish
+  pass):** one transformer across all eight world families builds an internal
+  **map of laws** that clusters into a physics taxonomy (electromagnetism as its
+  own region, 2× closer to itself than to gravity). Studying *why* parts of that
+  map are legible produced the arc's headline — **the legibility law: a per-object
+  code is linearly legible exactly when it is *amortized* (inferred by a shared
+  encoder), not stored as free parameters** (the old "illegible charge" was a
+  free-parameter artifact). The geometrization survey then mapped the boundary:
+  two independent charges become exactly two hidden lanes; a *static* particle
+  label geometrizes legibly, but a *dynamic* conserved one (Wong's rotating color
+  charge) is tracked only illegibly — legible dynamics would need an
+  invariant-preserving update, the live open thread.
+
 ---
 
 *Repo: the `curvature/` sub-project. Methods: `curvature/README.md` (decisions
