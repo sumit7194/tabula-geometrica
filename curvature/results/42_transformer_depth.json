@@ -1,0 +1,17 @@
+{
+ "depth_curve_linear_legibility": [
+  0.7007844065586645,
+  0.6951459871824023,
+  0.695409353392188,
+  0.7076522979305893,
+  0.7026849923213611,
+  0.7045949755988672,
+  0.7046449343678142
+ ],
+ "free_linear": 0.08418634348312709,
+ "free_nonlinear": 0.040304057806449106,
+ "D1_depth_of_emergence": false,
+ "D2_transformer_scramble": false,
+ "D3_amortized_legible_wins": true,
+ "thread_D_confirmed": false
+}

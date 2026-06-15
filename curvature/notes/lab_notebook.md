@@ -1844,3 +1844,32 @@ on it. Ties the It-from-Qubit bridge to emergent_dimension.md (holographic-emerg
 "extra dimension" of holography is real, emergent from entanglement, and negatively curved. Remaining
 J open thread: the full 2D (boundary×scale) bulk embedding + Brioschi K-map (fragile per J2's PCA
 over-count lesson) — deferred.
+
+## 2026-06-16 — thread D: transformer port + depth-of-emergence (honest negative, sharp lesson) (42)
+
+Phronesis observable: on Qwen3-4B legibility RISES with depth (L4 r=0.40 -> L36 r=0.92). Port to a
+toy: in-context depth-L transformer infers the script-35 latent from K examples; probe linear
+legibility of true p at the mean-pooled rep after EACH layer. Gates: D1 last-layer - layer1 > 0.2
+(emergence); D2 free scrambles (linear<0.4, nl-lin>0.15); D3 amortized last-layer>0.6 & >free+0.3.
+
+**Result (42_transformer_depth.json): D1/D2 FAIL, D3 PASS — honest negative on the depth observable.**
+- **Depth curve FLAT at ~0.70 across all 7 layers** (0.70,0.70,0.70,0.71,0.70,0.70,0.70). Robust
+  across BOTH the raw-128-d probe (first run) and the PCA-16 probe (fix round) -> the flatness is
+  real, not a probe artifact. **No depth-of-emergence.** Why: the latent is ALREADY ~0.70 linearly
+  legible at layer 0 (the mean-pooled input embedding) — a smooth in-context regression latent is
+  immediately readable from pooled (x,y) examples, so there is no illegible->legible climb to observe.
+- **Lesson (the real finding):** depth-of-emergence requires the latent to be INITIALLY LINEARLY
+  INACCESSIBLE — a high-level abstraction the network must COMPUTE over depth (as a real LLM's
+  "calibration"/"I-don't-know" concept is). Amortization alone is not sufficient for a depth climb;
+  you also need representational distance between the input and the concept. This refines the
+  Phronesis observable: emergence-with-depth is about abstraction depth, not merely shared inference.
+- Methodology: probing 128-d reps directly distorts the probe ladder (ridge overfits -> free linear
+  spuriously 0.58; kNN curses -> nonlinear 0.23 < linear, backwards). Fix round = PCA-16 before
+  probing; this fixed the transformer curve (clean flat 0.70) but is LOSSY for the free embedding
+  (top-16 PCs dropped p -> free 0.08/0.04, an artifact). **The clean regime is a NATIVE small
+  bottleneck (script 38's cdim=16), not post-hoc PCA.**
+- **The legibility law in a transformer is ALREADY CONFIRMED (script 38, cdim=16: free linear 0.20 /
+  nl 0.56 = scramble; amortized 0.70 = legible).** Thread D's only novel ask was the depth curve,
+  which is a clean negative here. Future: a task where p is illegible at input (latent identifiable
+  only by comparing examples / a nonlinear composition) should reveal a real depth climb. Recorded;
+  one fix round spent; gates not moved.

@@ -1,0 +1,7 @@
+legibility by layer (0=embed .. 6=last): ['0.70', '0.70', '0.70', '0.71', '0.70', '0.70', '0.70']
+D1 depth-of-emergence (last 0.70 - layer1 0.70 > 0.2): False
+D2 free scrambles (linear 0.08<0.4, nl 0.04-lin>0.15): False
+D3 amortized legible & wins (last 0.70>0.6 & >free+0.3): True
+
+THREAD D (transformer port + depth-of-emergence): False
+saved results/42_transformer_depth.json + .png

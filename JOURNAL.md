@@ -11,6 +11,23 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-16 — thread D: transformer port + depth-of-emergence (honest negative, sharp lesson)
+- **Thread D (the assigned physics-side port).** Phronesis found legibility rises with depth on
+  Qwen3-4B (L4 r=0.40 → L36 r=0.92). Ported to an in-context depth-6 transformer on the script-35
+  latent task; probe linear legibility of the true latent after each layer (script `42_transformer_depth.py`).
+- **Honest negative on the depth observable.** The depth curve is FLAT at ~0.70 across all 7 layers,
+  robust across both the raw-128-d probe and a PCA-16 fix-round probe. No depth-of-emergence — because
+  the latent is already ~0.70 linearly legible at layer 0 (input pooling). A smooth in-context
+  regression latent is immediately readable from pooled examples; there's no illegible→legible climb.
+- **The real finding:** depth-of-emergence requires the latent to be *initially linearly inaccessible*
+  — a high-level abstraction the net must compute over depth (as a real LLM's "calibration" concept
+  is). Amortization alone isn't enough for a depth climb; you also need representational distance
+  between input and concept. Refines the Phronesis observable. The legibility law *itself* in a
+  transformer was already confirmed (script 38, cdim=16: free scrambles 0.20/0.56, amortized legible
+  0.70). Methodology note: probe 128-d reps via a native small bottleneck, not post-hoc PCA (lossy).
+- All four threads of this stretch (#1 second law, #2 clean Platonic, #3 J4 hyperbolic, D transformer
+  port) are now complete and documented. Docs: lab notebook; results/42_*.
+
 ## 2026-06-16 — #3 Phase J encore J4: the AdS payoff — the emergent dimension is hyperbolic
 - **Open thread #3.** Is the emergent radial/scale dimension of geometry-from-entanglement
   negatively curved (AdS), and does it appear only at criticality? Web-verified physics
