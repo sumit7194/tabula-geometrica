@@ -1,0 +1,17 @@
+  seed 0 done
+  seed 1 done
+  seed 2 done
+amortized_regression  : linear 0.84±0.06 | nonlinear 0.83
+amortized_ce          : linear 0.86±0.06 | nonlinear 0.88
+free_regression       : linear 0.22±0.02 | nonlinear 0.63
+free_ce               : linear 0.72±0.06 | nonlinear 0.80
+
+amortization effect (avg over objectives) = +0.38
+objective effect (within amortized)        = 0.02
+O1 amort-regression legible (>0.8): True
+O2 amort-CE legible (>0.8) [legibility WITHOUT regression objective]: True
+O3 free scrambles under BOTH objectives: False
+O4 amortization dominates objective (amort>0.3, obj<0.15): True
+
+AMORTIZATION IS AN OBJECTIVE-INDEPENDENT LEVER: False
+saved results/50_objective_x_storage.json + .png

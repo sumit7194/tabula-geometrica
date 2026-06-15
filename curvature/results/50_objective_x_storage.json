@@ -1,0 +1,31 @@
+{
+ "cells": {
+  "amortized_regression": {
+   "linear": 0.842572494975237,
+   "linear_std": 0.061111378722415,
+   "nonlinear": 0.8314539077071806
+  },
+  "amortized_ce": {
+   "linear": 0.8601289856967282,
+   "linear_std": 0.06001239287543565,
+   "nonlinear": 0.8841980578644076
+  },
+  "free_regression": {
+   "linear": 0.2160207121271599,
+   "linear_std": 0.020606902573982087,
+   "nonlinear": 0.6301403173293895
+  },
+  "free_ce": {
+   "linear": 0.7205742067789842,
+   "linear_std": 0.06053539463947353,
+   "nonlinear": 0.8011185389593093
+  }
+ },
+ "amortization_effect": 0.3830532808829106,
+ "objective_effect": 0.017556490721491236,
+ "O1_amort_regression_legible": true,
+ "O2_amort_ce_legible": true,
+ "O3_free_scrambles_both": false,
+ "O4_amortization_dominates_objective": true,
+ "amortization_is_objective_independent": false
+}

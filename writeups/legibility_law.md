@@ -212,6 +212,52 @@ nonlinear 0.56 = scramble; amortized: linear 0.70 = legible) — so the scramble
 MLP artifact, and the LLM null is purely "pretraining has no free regime," exactly as the
 reframe predicts.
 
+## Prior work, and what is actually ours (positioning)
+
+"Why are representations linear?" is a **crowded** question, and honesty about the lineage makes the
+real contribution sharper, not smaller:
+
+- **Roeder, Metz & Kingma** ([ICML 2021](https://arxiv.org/abs/2007.00810)) prove discriminatively-
+  trained representations are identifiable in function space *up to a linear transformation*. That is
+  the theoretical statement of our **"amortized → legible"** leg, for encoder-type models — we
+  re-demonstrate it, we don't discover it.
+- **"Free → scrambled"** is, qualitatively, **auto-decoder / GLO folklore**: free per-object latent
+  codes are known to be unstructured (un-samplable, no smooth interpolation), which is why that
+  community bolts on variational regularizers. Our **dimensionality refinement** (1-D free legible,
+  ≥2-D scrambles) rhymes with the disentanglement result that factors are identifiable only up to
+  rotation absent an alignment pressure.
+- **"LRH holds because amortization"** has company: **Jiang, Veitch et al.**
+  ([ICML 2024](https://arxiv.org/abs/2403.03867)) derive linearity from the *next-token softmax-CE
+  loss* + implicit bias of GD; Ravfogel et al. derive it from concept co-occurrence. So we are *not*
+  first to "why linear."
+
+**What is genuinely ours** is the controlled, one-variable isolation none of them ran: hold the
+objective and data fixed and vary **only amortization** (free embedding vs shared encoder), and show
+the *same information* flips scrambled → legible — quantified with the linear-vs-nonlinear probe
+ladder, the λ-interpolation snapping on at λ≈0.5, and latent dimensionality isolated as the driver.
+The sharpest card: **our harness uses no softmax-CE at all** (it is regression/contrastive), so if
+amortization buys legibility here, the lever is *separable from the language-modeling objective* the
+LLM theories depend on.
+
+The decisive test (`50_objective_x_storage.py`) — objective {regression, softmax-CE} × storage
+{free, amortized}, **mean ± std over 3 seeds**:
+
+| | regression (MSE) | softmax-CE (LM-style) |
+|---|---|---|
+| **amortized** | 0.84 ± 0.06 | 0.86 ± 0.06 |
+| **free** | 0.22 ± 0.02 | 0.72 ± 0.06 |
+
+Amortization effect **+0.38**; objective effect *within* amortized **0.02**. So **amortization is a
+sufficient, objective-independent lever** — it makes the code legible (~0.85) with *no* LM objective,
+which separates it from Jiang–Veitch. And honestly: softmax-CE is *also* a lever — it legibilizes
+even a free code (0.22 → 0.72), confirming Jiang–Veitch's mechanism in our own harness.
+**So the levers are complementary, not competing.** The defensible claim is therefore the modest,
+true one: *amortization/sharing is an additional, isolable, objective-independent architectural lever
+for linear legibility* — a mechanistic complement to the data-and-objective theories, and a bridge
+from the auto-decoder community's "free latents are unstructured" to interpretability's LRH. (The
+geometry arc — interval → well → Kaluza r=0.9998 → curvature — is the elegant *vehicle* that birthed
+this, with known Wetzel/SciNet lineage; the legibility law is the *cargo*.)
+
 ## The second law — legibility ≠ steerability (confirmed), and a three-way distinction
 
 The first law is about *reading* a code. A second, independent law is about *writing* to it:

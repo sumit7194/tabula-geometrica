@@ -2052,3 +2052,34 @@ arm = free q2 (script 24). Sweep lanes L; predict dilaton knee at 1 (true DOF = 
    bear on the same lane.
 - 1/3 gates; no fix round spent (the failures are KNOWN limitations — capacity-confounded knee-
   counting + recurrent re-scramble — not fixable by a tweak). Honest partial. KAPPA=0.7.
+
+## 2026-06-16 — POSITIONING the legibility law: the objective x storage 2x2 (50)
+
+External review (parallel Claude session, credited) located our defensible contribution and the prior
+art. Web-verified the load-bearing citations: **Roeder-Metz-Kingma (ICML 2021, arXiv:2007.00810)** —
+discriminative training => representations identifiable up to a LINEAR transformation (= our
+"amortized->legible" leg, for encoder models); **Jiang-Veitch (ICML 2024, arXiv:2403.03867)** —
+linearity in LLMs arises from the NEXT-TOKEN softmax-CE loss + implicit bias of GD. So "why linear"
+is crowded; our novel handle is that we get legibility from AMORTIZATION in a REGRESSION/contrastive
+harness with NO softmax-CE — i.e. amortization is an OBJECTIVE-INDEPENDENT lever. The decisive test
+= objective {regression, softmax-CE} x storage {free, amortized}, script-35 latent task (p in R^2).
+
+**Result (50_objective_x_storage.json), linear legibility of p — MEAN ± STD over 3 seeds:**
+- amortized x regression **0.84±0.06** ; amortized x ce **0.86±0.06** ; free x regression **0.22±0.02** ;
+  free x ce **0.72±0.06**. amortization effect **+0.38**; objective effect within amortized **0.02**.
+- **O1, O2, O4 PASS.** Amortization is a SUFFICIENT, OBJECTIVE-INDEPENDENT lever: legible ~0.85 under
+  BOTH objectives, objective-dependence only 0.02. Legibility WITHOUT the LM objective => our mechanism
+  is separable from Jiang-Veitch. (Single-seed had amortized 0.77/0.79 just under 0.8 = the known
+  ~0.78 ceiling noise; multi-seed averages to 0.84/0.86, clearing it.)
+- **O3 robustly FAILS (free x ce 0.72±0.06) — a REAL FINDING:** softmax-CE LEGIBILIZES even a FREE code
+  (regression 0.22 -> ce 0.72). CONFIRMS Jiang-Veitch's "CE promotes linearity" inside our own harness.
+  (The overall AND-of-4 flag is False only because O3 is the deliberately-too-strong "free scrambles
+  under BOTH" — the core claim is O1/O2/O4.)
+
+**Honest synthesis (the positioning, now 3-seed write-up-grade):** amortization and the LM objective
+are BOTH legibility levers, **partially redundant / complementary, not competing.** Amortization is
+sufficient alone (works under regression, no CE). CE is partially sufficient alone (legibilizes a free
+code). Our contribution = the controlled one-variable isolation showing **amortization is an
+additional, isolable, OBJECTIVE-INDEPENDENT lever** — positioned WITH Roeder-Kingma (linear
+identifiability) & Jiang-Veitch (CE->linearity), not against. Folded into writeups/legibility_law.md
+("Prior work, and what is actually ours"). Credit: external review (parallel Claude session).

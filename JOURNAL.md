@@ -11,6 +11,25 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-16 — POSITIONING the legibility law: amortization is an objective-independent lever
+- **External review (parallel Claude session, credited)** located our defensible contribution vs the
+  prior art. Web-verified the load-bearing citations: [Roeder-Metz-Kingma ICML 2021](https://arxiv.org/abs/2007.00810)
+  (discriminative training → linear identifiability = our "amortized→legible" leg) and
+  [Jiang-Veitch ICML 2024](https://arxiv.org/abs/2403.03867) (LLM linearity from the next-token
+  softmax-CE loss). "Why linear" is crowded; our novel handle is that we get legibility from
+  AMORTIZATION in a regression/contrastive harness with **no softmax-CE**.
+- **Ran the decisive objective × storage 2×2** (script `50_objective_x_storage.py`), 3 seeds. Linear
+  legibility of the latent: amortized×reg **0.84±0.06**, amortized×ce **0.86±0.06**, free×reg
+  **0.22±0.02**, free×ce **0.72±0.06**. Amortization effect +0.38; objective effect within amortized
+  0.02. **O1/O2/O4 pass: amortization is a sufficient, objective-independent lever** (legible ~0.85
+  under both objectives, no LM objective needed) — separable from Jiang-Veitch. **O3 fails as a real
+  finding:** softmax-CE *also* legibilizes a free code (0.22→0.72), confirming Jiang-Veitch in our
+  harness. → the levers are **complementary, not competing.**
+- **Reframed the writeup** (`writeups/legibility_law.md`, new "Prior work, and what is actually ours"):
+  position WITH the literature; the contribution is the controlled one-variable isolation of
+  amortization as an objective-independent lever, complementary to the data/objective theories.
+  Don't let the geometry lead — it's the vehicle, the legibility law is the cargo. Docs + results/50_*.
+
 ## 2026-06-16 — NEW FIELD: dilaton (secondary hair) — honest partial, two real nuances
 - **Dilaton = the secondary-hair field** (web-verified: the dilaton scalar charge is DETERMINED by
   mass & electric charge). Reused the script-24 lane-counter; dilaton arm q2=κq1 (determined) vs
