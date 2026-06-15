@@ -11,6 +11,22 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-16 — Edge (b) Platonic + the Phronesis LLM cross-test folded in
+- **Edge (b) Platonic (honest partial):** 4 independent generalists (seeds x sizes) agree on the
+  family map at cluster-ARI 0.92, but an untrained net already clusters families at 0.54 (they're
+  input-distinguishable) and CKA/RDM baselines are architecture-inflated -> convergence is real
+  (0.54->0.92) but partly input-driven; strong platonic claim not cleanly isolated. 37 made
+  reboot-resumable. (Also diagnosed: the earlier 'kill' was most likely a sibling session's
+  pkill -f python, not power — fixed by resumability.)
+- **Phronesis LLM cross-test (credited):** the law's stored->scrambled prediction doesn't transfer
+  to Qwen3-4B because pretrained transformers have NO free regime (amortized by default). Adopted
+  their reframe into the writeup: the law may explain WHY the Linear Representation Hypothesis
+  holds. Their depth-of-emergence observable + a legibility!=steerability open question added.
+- **Toy confirmation (script 38):** sharing interpolation — legibility flips from scrambled (free,
+  lin 0.24/nl 0.59) to legible around lam~0.5 (lin 0.78) up to 0.97; and the free-embedding
+  scramble PERSISTS with a transformer encoder (lin 0.20/nl 0.56) -> scramble isn't MLP-specific,
+  the LLM null is 'no free regime in pretraining'. Mechanism behind the reframe, confirmed.
+
 ## 2026-06-15l — Edge (a): the generalist's world-map is real & editable (causal steering)
 - Othello-GPT-style causal test on the generalist (script 36). Edit the world-summary along the
   on-manifold "mass" direction (high-mass centroid - low-mass centroid) and the predictions bend

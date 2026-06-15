@@ -173,11 +173,21 @@ prediction does **not** transfer — and the reason sharpens the law rather than
   assemble by the deep layers (L4 r=0.40 → L36 r=0.92). **Depth-of-emergence, not peak
   legibility, is the "inferred vs recalled" fingerprint in a deep transformer.**
 
-**Toy confirmation of the mechanism (script 38, sharing-interpolation):** interpolating the
-per-object code from a free embedding (λ=0) to a shared encoder (λ=1) flips it from scrambled to
-legible, and the free-embedding scramble persists even with a *transformer* set-encoder — so the
-LLM null is purely "pretraining has no free regime," exactly as the reframe predicts. [results
-folded in when the run lands.]
+**Toy confirmation of the mechanism (script 38, sharing-interpolation).** Interpolating the
+per-object code `c = (1−λ)·free_embedding + λ·shared_encoder` from λ=0 to λ=1, on the abstract
+non-physics task:
+
+| λ | 0.0 | 0.25 | 0.5 | 0.75 | 1.0 |
+|---|---|---|---|---|---|
+| linear decode (legibility) | 0.24 | 0.36 | **0.78** | 0.97 | 0.78 |
+| nonlinear (info present) | 0.59 | 0.66 | 0.84 | 0.91 | 0.76 |
+
+Legibility **flips around λ≈0.5** — even *partial* sharing converts the scrambled free code to a
+legible one, which is precisely why an all-shared-weight LLM is legible by default. And the
+free-embedding scramble **persists with a transformer set-encoder** (free: linear 0.20 /
+nonlinear 0.56 = scramble; amortized: linear 0.70 = legible) — so the scramble is not an
+MLP artifact, and the LLM null is purely "pretraining has no free regime," exactly as the
+reframe predicts.
 
 ## An open question — legibility ≠ steerability? (candidate second law)
 

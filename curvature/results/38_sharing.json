@@ -1,0 +1,41 @@
+{
+ "interpolation": [
+  {
+   "lam": 0.0,
+   "linear": 0.2418733560222241,
+   "nonlinear": 0.5916459352572918
+  },
+  {
+   "lam": 0.25,
+   "linear": 0.3630194235585301,
+   "nonlinear": 0.6583793646795062
+  },
+  {
+   "lam": 0.5,
+   "linear": 0.7842989205111768,
+   "nonlinear": 0.8379689396389789
+  },
+  {
+   "lam": 0.75,
+   "linear": 0.9711218838817681,
+   "nonlinear": 0.9070132394164525
+  },
+  {
+   "lam": 1.0,
+   "linear": 0.7839791950603741,
+   "nonlinear": 0.7635940122778866
+  }
+ ],
+ "transformer": {
+  "lam0.0": {
+   "linear": 0.2012478294585951,
+   "nonlinear": 0.5645441121422048
+  },
+  "lam1.0": {
+   "linear": 0.6956318243616506,
+   "nonlinear": 0.5077340510254187
+  }
+ },
+ "sharing_flips_legibility": true,
+ "transformer_free_scrambles": true
+}

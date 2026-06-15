@@ -1724,3 +1724,18 @@ Acting on their 3 suggested toy tests: #1 transformer rung + #2 sharing interpol
 credited. Smoke (38): free scrambles in BOTH MLP (lin 0.09) and transformer (0.10); amortized
 legible (0.64 / 0.84) -> the scramble is NOT MLP-specific, supporting "no free regime in
 pretraining" as the LLM null's cause.
+
+## 2026-06-16 — script 38 RESULT: sharing flips legibility + free scrambles in a transformer
+
+results/38_sharing.json/.png. Abstract non-physics task (35's World), code = (1-lam)*free_emb +
+lam*shared_encoder.
+- #2 SHARING INTERPOLATION: linear decode of true property vs lam:
+  lam 0.0: 0.242 (nl 0.592 = SCRAMBLE) · 0.25: 0.363 · 0.50: 0.784 · 0.75: 0.971 · 1.0: 0.784.
+  Legibility FLIPS around lam~0.5 — even PARTIAL sharing converts scrambled->legible. Predicts
+  why all-shared-weight LLMs are legible by default. (lam=1 slightly < lam=0.75: pure-encoder vs
+  blend, minor.)
+- #1 TRANSFORMER RUNG: free (lam=0) transformer = linear 0.20 / nonlinear 0.56 = SCRAMBLE;
+  amortized (lam=1) transformer = linear 0.70 = legible. **The scramble is NOT MLP-specific** —
+  it happens with a transformer encoder too. So the Phronesis LLM null ("no scramble in LLMs")
+  is purely "pretraining has no free regime," not "transformers can't scramble." Mechanism
+  confirmed in the toy. Folded into writeups/legibility_law.md (numbers in the cross-test section).
