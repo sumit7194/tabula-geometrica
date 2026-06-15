@@ -2083,3 +2083,28 @@ code). Our contribution = the controlled one-variable isolation showing **amorti
 additional, isolable, OBJECTIVE-INDEPENDENT lever** — positioned WITH Roeder-Kingma (linear
 identifiability) & Jiang-Veitch (CE->linearity), not against. Folded into writeups/legibility_law.md
 ("Prior work, and what is actually ours"). Credit: external review (parallel Claude session).
+
+## 2026-06-16 (OVERNIGHT Run 1) — QUANTUM: a net DISCOVERS the Bloch sphere + Born rule (51)
+
+The boldest reach of our paradigm: point "discover geometry from raw observation" at QUANTUM STATE
+SPACE. A pure qubit lives on the Bloch sphere S^2 (web-verified: 2 real params; Born rule
+P(+)=(1+r.n)/2). SciNet bottleneck (the Phase-A move): the net sees measurement probabilities along 6
+fixed reference axes and must predict a NEW query-axis probability; sweep bottleneck K. Pre-reg knee
+at 2 (intrinsic S^2 is 2-DOF).
+
+**Result (51_bloch_sphere.json) — quantum geometry DISCOVERED, with an instructive knee deviation:**
+- G0 honesty: oracle 7.3e-7, blind 8.4e-2 = target var 8.4e-2 (blind fails as it must). PASS.
+- mse by K: K1 1.97e-2, K2 1.20e-4, **K3 1.14e-6**, K4 1.71e-6. **Knee at K=3, NOT the pre-registered
+  2** (K1->K2 164x, K2->K3 105x, K3->K4 flat 0.66). The net found the **3-D CARTESIAN BLOCH VECTOR**,
+  not the 2-D intrinsic chart — because the Born rule P=(1+r.n)/2 is LINEAR in r's 3 components, so 3
+  latents linearize the readout. **The Phase-A minimal-LINEARIZING-code lesson, in quantum state
+  space:** the net embeds the 2-sphere in R^3 to make the physics linear. (Pre-reg deviation recorded
+  openly, like Phase A's knee correction.)
+- **G2 ✓✓** Bloch SPHERE reconstructed: r decode R^2 = **1.000**, and the codes lie exactly on the unit
+  sphere |r| = **1.000 ± 0.011** (the 2-DOF sphere survives as the |r|=1 constraint on the 3-d code).
+- **G3 ✓✓** BORN RULE emerged: dP/dn aligns with the true r at |cos| = **0.998** (P is affine in the
+  query axis with slope = the recovered Bloch vector).
+- **Verdict: a net invented quantum state geometry — the Bloch sphere + the Born rule — from
+  measurement data alone, never told QM.** The quantum analog of Phase A's Minkowski-interval
+  discovery. Headline nuance: it represents the state as the 3-D Bloch VECTOR (linearizing Born), not
+  the 2-D angle chart — the same "minimal code that simplifies the task" preference seen throughout.

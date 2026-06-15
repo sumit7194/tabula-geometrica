@@ -1,0 +1,13 @@
+G0: oracle 1.99e-06 | blind 8.37e-02 | target var 8.355e-02
+K=1: test MSE 1.968e-02
+K=2: test MSE 1.197e-04
+K=3: test MSE 1.137e-06
+K=4: test MSE 1.711e-06
+
+[pre-reg knee=2 (intrinsic S^2); ACTUAL knee=3 — net found the 3-D Bloch VECTOR, linearizing Born]
+G1 saturates at Bloch-vector dim 3 (K1/K2 164, K2/K3 105, K3/K4 0.66): True
+G2 sphere reconstructed (r decode R^2 1.000>0.97, |r|=1.000±0.011≈1): True
+G3 Born rule (grad-vs-r |cos| 0.998 >0.95): True
+
+BLOCH GEOMETRY + BORN RULE DISCOVERED: True
+saved results/51_bloch_sphere.json + .png

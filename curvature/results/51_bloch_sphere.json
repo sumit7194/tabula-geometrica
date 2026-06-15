@@ -1,0 +1,24 @@
+{
+ "oracle_mse": 1.9914602944481885e-06,
+ "blind_mse": 0.08365686237812042,
+ "target_var": 0.08354730159044266,
+ "mse_by_K": {
+  "1": 0.019679749384522438,
+  "2": 0.00011974151129834354,
+  "3": 1.1373435881978367e-06,
+  "4": 1.710851392999757e-06
+ },
+ "knee_K": 3,
+ "drop_K1_K2": 164.35193752890842,
+ "drop_K2_K3": 105.28173943291704,
+ "flat_K3_K4": 0.6647822206250489,
+ "sphere_decode_R2": 0.9996250867843628,
+ "sphere_norm_mean": 1.0001755952835083,
+ "sphere_norm_std": 0.011226913891732693,
+ "born_gradient_cos": 0.9981810450553894,
+ "G1_saturates_at_bloch_vector_dim3": true,
+ "G2_sphere_reconstructed": true,
+ "G3_born_rule": true,
+ "preregistered_knee_was_2_actual_3": true,
+ "bloch_geometry_discovered": true
+}

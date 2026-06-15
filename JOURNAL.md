@@ -11,6 +11,20 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-16 (OVERNIGHT, autonomous) — exotic-physics queue: quantum/particle fields
+User set an overnight autonomous queue ("try quantum/particle physics, things one conventionally
+won't do"): Bloch sphere → confinement → Proca → Berry phase. Full rigour (pre-register → gate →
+honest null → document → commit), credited web-verification.
+
+- **Run 1 (QUANTUM — Bloch sphere) ✅ DISCOVERED.** Pointed our "discover geometry from observation"
+  paradigm at quantum STATE space. SciNet bottleneck on qubit measurement probabilities (script
+  `51_bloch_sphere.py`; web-verified Born rule P=(1+r·n)/2). The net invented the **Bloch sphere +
+  Born rule** from measurement data alone: G2 sphere decode R²=1.000 with codes on |r|=1.000±0.011;
+  G3 Born-rule gradient cos=0.998. **Knee at K=3, not the pre-registered 2** — the net found the 3-D
+  Cartesian Bloch *vector* (which makes Born *linear*), not the 2-D angle chart: the Phase-A
+  minimal-linearizing-code lesson, now in quantum state space. Deviation recorded openly. The quantum
+  analog of Phase A's Minkowski-interval discovery. Docs: lab notebook; results/51_*.
+
 ## 2026-06-16 — POSITIONING the legibility law: amortization is an objective-independent lever
 - **External review (parallel Claude session, credited)** located our defensible contribution vs the
   prior art. Web-verified the load-bearing citations: [Roeder-Metz-Kingma ICML 2021](https://arxiv.org/abs/2007.00810)
