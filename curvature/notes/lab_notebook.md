@@ -2108,3 +2108,15 @@ at 2 (intrinsic S^2 is 2-DOF).
   measurement data alone, never told QM.** The quantum analog of Phase A's Minkowski-interval
   discovery. Headline nuance: it represents the state as the 3-D Bloch VECTOR (linearizing Born), not
   the 2-D angle chart — the same "minimal code that simplifies the task" preference seen throughout.
+
+## 2026-06-16 (OVERNIGHT Run 2) — PARTICLE: a CONFINING force geometrizes when universal (52)
+
+Question: is geometrization (script 45) about UNIVERSALITY, or secretly about gravity's 1/r SHAPE?
+Test the maximally-different shape — a CONFINING force V~|x| (constant inward magnitude, QCD flux-tube
+-like; GROWS with distance, bodies never escape). Same economy race + universality knob as 45.
+
+**Result (52_confinement.json) — 3/3, clean:** geometry/force ratio by spread = [1.06, 3.40, 12.57,
+26.78]. C1 universal confining GEOMETRIZES (spread0 ratio 1.06<2); C2 species COSTS (26.78); C3
+monotone. **Geometrization is SHAPE-INDEPENDENT** — a confining force geometrizes when universal,
+exactly like the scalar (45) and gravity. Universality is the whole story; the potential's shape
+(1/r vs |x|) is irrelevant to whether identity is free. Generalizes the equivalence-principle knob.

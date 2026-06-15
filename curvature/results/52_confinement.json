@@ -1,0 +1,32 @@
+{
+ "sweep": [
+  {
+   "spread": 0.0,
+   "geometry_mse": 7.586971332784742e-05,
+   "force_mse": 7.167710282374173e-05,
+   "ratio": 1.0584930241169983
+  },
+  {
+   "spread": 0.4,
+   "geometry_mse": 0.0002940723206847906,
+   "force_mse": 8.656893623992801e-05,
+   "ratio": 3.3969727879035236
+  },
+  {
+   "spread": 0.8,
+   "geometry_mse": 0.0010319073917344213,
+   "force_mse": 8.208613871829584e-05,
+   "ratio": 12.571030966333218
+  },
+  {
+   "spread": 1.6,
+   "geometry_mse": 0.003904373850673437,
+   "force_mse": 0.00014578402624465525,
+   "ratio": 26.7819043776518
+  }
+ ],
+ "C1_universal_geometrizes": true,
+ "C2_species_costs": true,
+ "C3_transition_monotone": true,
+ "confining_geometrizes_when_universal": true
+}

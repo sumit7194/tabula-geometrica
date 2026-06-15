@@ -1,0 +1,11 @@
+spread 0.0: geometry 7.59e-05 | force 7.17e-05 | ratio 1.06
+spread 0.4: geometry 2.94e-04 | force 8.66e-05 | ratio 3.40
+spread 0.8: geometry 1.03e-03 | force 8.21e-05 | ratio 12.57
+spread 1.6: geometry 3.90e-03 | force 1.46e-04 | ratio 26.78
+
+C1 universal confining geometrizes (spread0 ratio 1.06<2): True
+C2 species costs (max ratio 26.78>5): True
+C3 monotone ([1.06, 3.4, 12.57, 26.78]): True
+
+CONFINING GEOMETRIZES WHEN UNIVERSAL (shape-independent): True
+saved results/52_confinement.json + .png

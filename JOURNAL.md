@@ -24,6 +24,10 @@ honest null → document → commit), credited web-verification.
   Cartesian Bloch *vector* (which makes Born *linear*), not the 2-D angle chart: the Phase-A
   minimal-linearizing-code lesson, now in quantum state space. Deviation recorded openly. The quantum
   analog of Phase A's Minkowski-interval discovery. Docs: lab notebook; results/51_*.
+- **Run 2 (PARTICLE — confinement) ✅ 3/3.** Is geometrization about universality or gravity's 1/r
+  shape? A CONFINING force V~|x| (grows with distance, QCD-flux-tube-like) also geometrizes when
+  universal: ratio [1.06, 3.40, 12.57, 26.78] across the spread sweep (script `52_confinement.py`).
+  **Geometrization is shape-independent** — universality is the whole story. Generalizes script 45.
 
 ## 2026-06-16 — POSITIONING the legibility law: amortization is an objective-independent lever
 - **External review (parallel Claude session, credited)** located our defensible contribution vs the
