@@ -1660,3 +1660,19 @@ total mass (decode r=0.984). results/36_causal.json/.png.
 physics worlds). Method lesson: causal steering = on-manifold diff-of-means direction at
 realistic magnitude, NOT decode-weights x large-alpha. Edge (a) done; next = (b) Platonic test
 (do independent generalists converge to the same world-map?).
+
+## 2026-06-15 — EDGE (b) PLATONIC PRE-REGISTRATION: do independent generalists converge?
+
+Question (Platonic Representation Hypothesis, Huh et al. 2024): do generalists trained
+INDEPENDENTLY — different seeds AND different sizes — build the SAME internal world-map?
+Method (script 37): train K compact generalists (seeds x widths/depths) on the same 24k bank
+to decent fit; compute each one's world-summary on the SAME held-out episodes; compare the
+summary spaces with linear CKA (standard representational similarity, dimension-agnostic) and
+compare their family-cluster structure (ARI of KMeans labels) + an untrained-init baseline.
+Gates:
+- P1 CONVERGENCE: mean trained-trained CKA high AND >> trained-vs-untrained baseline
+  (gate: trained pairs mean CKA > 0.5 and >= 2x the untrained baseline).
+- P2 SAME MAP: family clustering is consistent across independent models (pairwise ARI > 0.6).
+If both: the "map of physical law" is convergent/platonic, not a one-run artifact. Honest
+caveat: small scale, same world-family distribution (varies seed+size, not data domain).
+One fix round.
