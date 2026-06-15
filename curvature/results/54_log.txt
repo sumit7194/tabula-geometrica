@@ -1,0 +1,9 @@
+area-net  test R^2 1.000 | perimeter-net test R^2 0.988
+whisker-induced relative change: area-net 0.009 | length-net 0.721
+
+B1 learns geometric phase (area R^2 1.000>0.95): True
+B2 holonomy/whisker invariance (area Δ 0.009<0.1): True
+B3 geometric not dynamical (length Δ 0.72 > 5x area Δ 0.009): True
+
+HOLONOMY (geometric phase = area, path-independent) DISCOVERED: True
+saved results/54_berry_holonomy.json + .png

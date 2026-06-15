@@ -1,0 +1,4 @@
+small-RF  mu=0.0 (range~inf): R^2 0.943
+small-RF  mu=0.5 (range~2.0): R^2 0.984
+small-RF  mu=1.0 (range~1.0): R^2 0.998
+small-RF  mu=2.5 (range~0.4): R^2 1.000

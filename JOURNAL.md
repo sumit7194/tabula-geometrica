@@ -28,6 +28,13 @@ honest null → document → commit), credited web-verification.
   shape? A CONFINING force V~|x| (grows with distance, QCD-flux-tube-like) also geometrizes when
   universal: ratio [1.06, 3.40, 12.57, 26.78] across the spread sweep (script `52_confinement.py`).
   **Geometrization is shape-independent** — universality is the whole story. Generalizes script 45.
+- **Run 4 (QUANTUM — Berry holonomy) ✅ 3/3.** Does a net discover that a geometric phase is a
+  HOLONOMY (depends only on enclosed area, invariant to retraced paths)? Planar Berry-curvature toy,
+  edge-sum (Stokes-structured) net predicts the geometric phase = signed area (script
+  `54_berry_holonomy.py`; web-verified Berry = -½ solid angle). area-net R²=1.000; **whisker
+  invariance Δ 0.9%** (vs the length/dynamical net's 72%, ~80× more). The net discovered the
+  geometric phase is path-independent — the Berry signature; ties the quantum geometric phase to our
+  curvature theme. Docs: lab notebook; results/54_*.
 
 ## 2026-06-16 — POSITIONING the legibility law: amortization is an objective-independent lever
 - **External review (parallel Claude session, credited)** located our defensible contribution vs the

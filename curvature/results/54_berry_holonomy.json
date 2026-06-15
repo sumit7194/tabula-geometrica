@@ -1,0 +1,10 @@
+{
+ "area_R2": 0.9996936321258545,
+ "perimeter_R2": 0.9880819320678711,
+ "whisker_change_area": 0.008613717732560063,
+ "whisker_change_length": 0.7214629004711774,
+ "B1_learns_geometric_phase": true,
+ "B2_holonomy_whisker_invariant": true,
+ "B3_geometric_not_dynamical": true,
+ "holonomy_discovered": true
+}

@@ -2120,3 +2120,23 @@ Test the maximally-different shape — a CONFINING force V~|x| (constant inward 
 monotone. **Geometrization is SHAPE-INDEPENDENT** — a confining force geometrizes when universal,
 exactly like the scalar (45) and gravity. Universality is the whole story; the potential's shape
 (1/r vs |x|) is irrelevant to whether identity is free. Generalizes the equivalence-principle knob.
+
+## 2026-06-16 (OVERNIGHT Run 4) — QUANTUM: a net discovers a HOLONOMY (Berry geometric phase) (54)
+
+Berry phase essence (web-verified: spin-1/2 phase = -1/2 solid angle; Stokes -> flux through enclosed
+area; independent of traversal rate). Defining property = PATH-INDEPENDENCE: retraced ("whisker")
+segments add ZERO geometric phase (a dynamical/path-length quantity does not). Toy: planar
+Berry-curvature F=1 so geometric phase = signed enclosed AREA; loops = closed polygons; an EDGE-SUM
+net (sum of local edge contributions = discretized Stokes line integral) predicts the phase. Contrast
+with a net trained on PERIMETER (a dynamical, path-length quantity).
+
+**Result (54_berry_holonomy.json) — 3/3, clean:**
+- B1 ✓ area-net learns the geometric phase: test R^2 = **1.000** (perimeter-net 0.988).
+- B2 ✓✓ HOLONOMY / whisker invariance: adding back-and-forth whiskers (which add length but ZERO
+  area) changes the area-net prediction by only **0.9%** (Δ 0.009) — it ignores retraced paths.
+- B3 ✓ geometric != dynamical: the length-net's whisker change is **0.721 (72%)**, ~80x the area-net's
+  — the dynamical quantity is path-dependent, the geometric one is not.
+- **Verdict: a net discovered that the geometric phase is a HOLONOMY** — depends only on the enclosed
+  area, invariant to retraced paths, distinct from a path-length (dynamical) quantity. The Berry
+  signature, with the Stokes (local-additive) structure giving the path-independence. Ties the quantum
+  geometric phase to our curvature theme (Berry curvature flux = the holonomy).
