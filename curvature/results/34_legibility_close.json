@@ -1,0 +1,15 @@
+{
+ "dyn_orthogonal_rich": {
+  "tag": "dyn_orthogonal_rich",
+  "W1": 0.01954571157693863,
+  "legible_mean": 0.5058177696463302,
+  "drift": 2.863810664166522e-07
+ },
+ "stat_generic_rich": {
+  "tag": "stat_generic_rich",
+  "W1": 0.015795286744832993,
+  "legible_mean": 0.4995614853350056,
+  "drift": 0.26640790700912476
+ },
+ "ceiling_ratio": 1.012523552145196
+}

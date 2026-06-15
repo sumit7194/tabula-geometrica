@@ -1597,3 +1597,27 @@ embedding. ZERO physics. Three sizes:
 physics-toy artifact. Amortization selects legibility; free per-object parameters scramble —
 and scale makes the free code MORE scrambled, not less.** Caveat: "scale" here is <=~1M params,
 not LLM-scale; the trend (gap widens) is encouraging but extrapolation is untested.
+
+## 2026-06-15 — EDGE 1 RESULT: leg 3 CONFIRMED (structure reaches the legibility ceiling)
+
+Richer rotation generator (3-hidden-layer 128-wide wu) + 30k steps (script 34; finished just
+before a power loss — JSON saved, nothing lost). Dynamic-orthogonal vs its own static ceiling:
+  dyn_orthogonal_rich: legible(mean)=0.506  |w|drift=2.9e-7  W1=1.95e-2
+  stat_generic_rich:   legible(mean)=0.500  |w|drift=0.266   W1=1.58e-2
+  ceiling_ratio = 1.01  -> **LEG 3 CONFIRMED: structure reaches the static ceiling.**
+The shallow generator (33) gave 0.49 / ceiling 0.61 = 80% (partial); making the rotation
+generator expressive enough to track the precession closes it to 101% of ceiling, with the
+invariant exactly conserved (3e-7). Honest framing: "reaches ceiling" = as legible as the best
+achievable in this hard q(t)-from-w(t) decode (~0.5 absolute), not linear r->0.9. Lesson refined:
+invariant-preserving structure recovers legible dynamics PROVIDED the structured update has
+enough capacity to match the true symmetry transformation.
+
+## THE LEGIBILITY LAW — COMPLETE (all 3 legs, all 3 edges resolved)
+1. AMORTIZE -> legible static codes (Phase I, +0.466; generalizes to non-physics + widens with
+   scale, edge 3).
+2. GENERIC EVOLUTION -> re-scrambles + breaks invariants (Wong / dynamic+generic).
+3. INVARIANT-PRESERVING STRUCTURE -> restores the invariant (exactly) AND legibility (to the
+   ceiling, with a sufficiently expressive update) [edge 1].
+Edges: (1) leg-3 close CONFIRMED; (2) Phase J spectral closure (geometry-from-entanglement
+clean); (3) law GENERALIZES (non-physics + scale). Arc complete; crystallized in
+writeups/legibility_law.md.

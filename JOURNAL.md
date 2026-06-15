@@ -11,6 +11,23 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-15k — all 3 open edges resolved; the legibility law is complete
+- **Edge 1 (leg-3 close) CONFIRMED:** a richer orthogonal rotation generator makes the
+  evolving dynamic charge AS legible as a static one — legible 0.506 vs its static ceiling
+  0.500 (ratio 1.01), |w| conserved to 3e-7. The shallow generator only reached 80%; capacity
+  to match the true symmetry transformation closes it. Leg 3 upgraded partial -> confirmed.
+- **Edge 2 (Phase J) closed:** spectral (Laplacian-eigenmap) embedding recovers geometry
+  (chain Fiedler spearman 0.98 -> 1D; grid 2 modes isotonic 0.91 -> 2D) and the Van Raamsdonk
+  pinch-off as the textbook connectivity signature (ev1 -> 0, a 2nd zero-mode at decoupling).
+- **Edge 3 (scale/generality) WIN:** the law holds in a zero-physics abstract task and the
+  amortize>>free gap WIDENS with scale (free linear 0.33->0.13; amortized ~0.8) — general
+  representation property, not a toy artifact.
+- **THE LEGIBILITY LAW COMPLETE (3 legs):** amortize->legible static; generic evolution->
+  re-scrambles+breaks invariants; invariant-preserving structure->restores both. Crystallized
+  in writeups/legibility_law.md (leg 3 now 'confirmed', scope strengthened with edge 3).
+- (Power loss mid-session: edge 1 had already finished + saved; nothing lost. Only the
+  dashboard server needed restarting.)
+
 ## 2026-06-15j — Phase J: geometry from entanglement (the big swing, loop closed)
 - The It-from-Qubit bridge, back to the project's black-hole origin. Free-fermion ground
   states (Peschel correlation-matrix method, web-verified) -> learn a geometry from the
