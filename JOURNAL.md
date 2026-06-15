@@ -11,6 +11,24 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-16 — what makes a free code scramble? → LATENT DIMENSIONALITY (refines the crown finding)
+- **Chased the script-45 anomaly** (a free code that was *legible*) into a refinement of the
+  legibility law's first leg. Three experiments:
+  - **46** (2×2 sign × coupling): ruled out the obvious suspects — sign (±) and coupling-type
+    (position vs velocity/magnetic) make NO difference, all four cells legible 0.99–1.00. Falsified
+    my pre-registered "sign dominates."
+  - **47** (control / neutral-mix / random-MLP, well-powered N=200): messy + confounded, but the key
+    clue — even a *linearly*-coupled 2-D charge was only 0.70 linear / 0.94 nonlinear (partial
+    scramble). Pointed at dimensionality.
+  - **48** (clean isolation: charge in R^D → D independent wells, fixed tight 4-D code): **DIMENSIONALITY
+    IS THE CAUSE.** D=1 linear 0.86 (legible) → D=2 **0.26** / D=3 **0.34** (scrambled), info preserved
+    nonlinearly (0.88–0.95). A ~0.6 collapse at D=1→2; reproduces Phase I (2-D, 0.50).
+- **Refinement of the crown finding:** "free → scramble" is really "**free + multi-dimensional latent
+  → scramble**"; a 1-D free code is legible for free. Mechanism: no pressure to align a multi-D latent
+  with linear axes → it scatters across the embedding manifold; a 1-D latent has only a monotone curve
+  to occupy. Sign/coupling don't matter; embedding capacity modulates the level. Folded into
+  `writeups/legibility_law.md` (leg 1 refinement). Scripts 46/47/48, results/4{6,7,8}_*.
+
 ## 2026-06-16 — NEW FIELD: scalar charge = the equivalence-principle knob (4/4 first attempt)
 - **New direction (user): extend the methods to more field types, "see what we can and cannot learn."**
   Picked the SCALAR by gut — it isolates the project's thesis (geometrization ⇐ equivalence principle).

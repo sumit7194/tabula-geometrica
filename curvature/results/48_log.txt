@@ -1,0 +1,10 @@
+D=1: linear 0.86 | nonlinear 0.95 | mse 1.1e-04
+D=2: linear 0.26 | nonlinear 0.91 | mse 1.5e-04
+D=3: linear 0.34 | nonlinear 0.88 | mse 2.8e-04
+
+Q1 1-d legible (lin 0.86 >0.9): False
+Q2 dimensionality scrambles (lin [0.86, 0.26, 0.34] decreasing, D3<0.7): False
+Q3 info preserved (nl all >0.85): True
+
+DIMENSIONALITY IS THE CAUSE: False
+saved results/48_legibility_dimension.json + .png

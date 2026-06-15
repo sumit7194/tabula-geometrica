@@ -1,0 +1,26 @@
+{
+ "sweep": [
+  {
+   "D": 1,
+   "linear": 0.8602233891072817,
+   "nonlinear": 0.9519126644702026,
+   "train_mse": 0.0001133285477408208
+  },
+  {
+   "D": 2,
+   "linear": 0.2621708248767834,
+   "nonlinear": 0.911544189982352,
+   "train_mse": 0.000146873586345464
+  },
+  {
+   "D": 3,
+   "linear": 0.33658809799110795,
+   "nonlinear": 0.8830005877762965,
+   "train_mse": 0.0002819645742420107
+  }
+ ],
+ "Q1_1d_legible": false,
+ "Q2_dimensionality_scrambles": false,
+ "Q3_info_preserved": true,
+ "dimensionality_is_the_cause": false
+}

@@ -1,0 +1,9 @@
+control     : linear 0.70 | nonlinear 0.94 | mse 6.9e-04
+neutral_mix : linear 0.51 | nonlinear 0.94 | mse 5.4e-04
+nonlinear   : linear 0.44 | nonlinear 0.44 | mse 1.6e-04
+
+M1 control legible (>0.9): False
+M2 nonlinear-map scrambles (lin<0.5, nl>0.8): False
+M3 neutral-mix scrambles (lin<0.5, nl>0.8): False
+SCRAMBLE CAUSE -> neither reproduced the scramble
+saved results/47_legibility_cause.json + .png

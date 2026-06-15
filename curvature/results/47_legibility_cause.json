@@ -1,0 +1,23 @@
+{
+ "arms": {
+  "control": {
+   "linear": 0.6960708057817266,
+   "nonlinear": 0.9358882018328539,
+   "train_mse": 0.0006856738473288715
+  },
+  "neutral_mix": {
+   "linear": 0.5132117135738825,
+   "nonlinear": 0.9417023368987497,
+   "train_mse": 0.0005361021612770855
+  },
+  "nonlinear": {
+   "linear": 0.4418385702121089,
+   "nonlinear": 0.44172680002228326,
+   "train_mse": 0.00015935477858874947
+  }
+ },
+ "M1_control_legible": false,
+ "M2_nonlinear_scrambles": false,
+ "M3_mix_scrambles": false,
+ "scramble_cause": []
+}

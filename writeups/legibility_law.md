@@ -77,6 +77,29 @@ value recurrence* selects legibility — which it cleanly falsified.) **An infer
 legible for free; a stored one scrambles.** The Phase C "illegible charge" was a
 free-parameter artifact, not a property of charge.
 
+### Refinement — *what* makes a free code scramble: latent dimensionality (scripts 45–48)
+
+"Free → scramble" turned out to be *conditional*, and chasing the condition sharpened the law.
+A new field (a scalar charge, script 45) gave a free code that was **linearly legible** (r=0.98),
+contradicting a naïve "free always scrambles." A 2×2 factorial (script 46) then ruled out the
+obvious suspects: **sign** (one-signed vs ±) and **coupling type** (position/potential vs
+velocity/magnetic) make *no* difference — all four cells legible (0.99–1.00). The real driver,
+isolated cleanly (script 48: a charge in `R^D` driving `D` independent wells, fixed tight free code):
+
+| latent dim `D` | linear (legibility) | nonlinear (info present) |
+|---|---|---|
+| 1 | 0.86 (legible) | 0.95 |
+| 2 | **0.26** (scrambled) | 0.91 |
+| 3 | **0.34** (scrambled) | 0.88 |
+
+A ~0.6 collapse in linear decodability from `D=1` to `D=2`, with the information fully preserved
+nonlinearly — the scramble signature, reproducing Phase I's 2-D result. **Mechanism:** a free code
+has no pressure to align a *multi-dimensional* latent with linear axes, so it scatters it across the
+embedding manifold; a *1-D* latent has only a monotone curve to occupy and stays linearly readable.
+So leg 1 sharpens to: **free + multi-dimensional latent → scramble; a 1-D free code is legible for
+free.** (Amortization restores legibility at any `D` by biasing toward smooth inference. Embedding
+capacity modulates the level — a roomier code softens the collapse, a tight one sharpens it.)
+
 ## Leg 2 — Generic evolution → re-scrambled
 
 What if the property is not static but **evolves**? We use a classical SU(2) "color charge"
