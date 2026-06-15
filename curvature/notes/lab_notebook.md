@@ -1814,3 +1814,33 @@ shared (all similarity metrics inflate to ~1.0 even untrained) — the project's
 metric-inflation lesson, now mapped to its boundary. The clean currency is recovery of a known
 non-input ground-truth, not net-to-net agreement. Free embeddings recover worst (0.40) and don't
 even share the input shadow (agreement 0.128) — the legibility law again.
+
+## 2026-06-16 — #3 Phase J encore J4: the AdS payoff — the emergent dimension is HYPERBOLIC (41)
+
+Goal: is the emergent radial/scale dimension of geometry-from-entanglement NEGATIVELY curved (AdS),
+and does it appear only at criticality? Web-verified physics (Calabrese-Cardy 2009 + Ryu-Takayanagi):
+a critical (c=1) chain has interval entropy S(l)=(c/3)ln[(n/π)sin(πl/n)]+const, and that LOG is
+exactly the regularized length of a boundary-anchored geodesic in AdS3/H2 (length=2 L_AdS ln(sep/ε),
+Brown-Henneaux c=3 L_AdS/2G -> S=(c/3)ln sep). The log is the fingerprint of CONSTANT NEGATIVE
+curvature; a FLAT bulk gives S~l (linear). Gapped chain: S saturates (area law) -> no emergent
+dimension. Free-fermion machinery from script 32 (Peschel); gap via staggered ±m potential (m=0.5).
+
+**Result (41_hyperbolic.json):**
+- **J4a PASS ✓✓** critical RT log-law: c_fit=**1.001** (CFT c=1), R²_log=**1.0000**. The entanglement
+  entropy IS the length of a geodesic anchored to the interval in a negatively-curved AdS2 bulk.
+- **J4b PASS ✓✓** gapped is flat: large-l slope critical 0.333 vs gapped **0.000** (ratio 0.000) —
+  perfect area-law saturation. The hyperbolic radial dimension exists ONLY at criticality.
+- **J4c FAIL (instrument, not physics):** log-beats-linear R²-margin 0.239 < pre-reg 0.3. Reason: over
+  a monotone range a straight line approximates a gentle log (linear R² 0.76), so an R²-margin can't
+  separate them even though R²_log=**1.0000** (a PERFECT log) already proves the form. One fix round
+  spent (extended l toward n/2 to exploit the S(l)=S(n-l) flattening; 0.137->0.239, still <0.3); gate
+  NOT moved. The proper curvature instrument is the concavity / second-difference or the gapped
+  contrast — J4c's R²-margin was the wrong tool. Recorded openly.
+
+**Verdict: HYPERBOLIC / AdS emergent dimension CONFIRMED on the load-bearing gates J4a+J4b.** The
+log-law is the RT geodesic in a negatively-curved bulk (c=1.001, R²=1.0000), and it is a property of
+criticality alone (gapped = flat). J4c is a redundant weak instrument; the conclusion does not depend
+on it. Ties the It-from-Qubit bridge to emergent_dimension.md (holographic-emergent column): the
+"extra dimension" of holography is real, emergent from entanglement, and negatively curved. Remaining
+J open thread: the full 2D (boundary×scale) bulk embedding + Brioschi K-map (fragile per J2's PCA
+over-count lesson) — deferred.

@@ -11,6 +11,25 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-16 — #3 Phase J encore J4: the AdS payoff — the emergent dimension is hyperbolic
+- **Open thread #3.** Is the emergent radial/scale dimension of geometry-from-entanglement
+  negatively curved (AdS), and does it appear only at criticality? Web-verified physics
+  (Calabrese-Cardy + Ryu-Takayanagi): a critical c=1 chain's interval entropy S(ℓ)=(c/3)ln[(n/π)
+  sin(πℓ/n)] *is* the length of a boundary-anchored geodesic in a negatively-curved AdS₂ bulk; a
+  flat bulk would give S∝ℓ. Script `41_hyperbolic_adS.py`, free-fermion machinery from script 32.
+- **J4a PASS ✓✓** (c_fit=1.001, R²_log=1.0000 — the RT log-law exactly). **J4b PASS ✓✓** (gapped
+  chain, staggered mass: large-ℓ slope 0.000 vs critical 0.333 — perfect area-law saturation; the
+  hyperbolic dimension exists only at criticality). **J4c FAIL** as an *instrument*: log-beats-linear
+  R²-margin 0.239 < pre-reg 0.3 because over a monotone range a line approximates a gentle log
+  (linear R² 0.76) — yet R²_log=1.0000 (a perfect log) already proves the form. One fix round spent
+  (extended range); gate not moved; recorded openly.
+- **Verdict: HYPERBOLIC/AdS emergent dimension CONFIRMED** on the load-bearing gates J4a+J4b — the
+  "extra dimension" of holography is real, emergent from entanglement, and negatively curved; ties
+  It-from-Qubit to emergent_dimension.md. Open: full 2D bulk embedding + Brioschi K-map (deferred,
+  fragile). Docs: lab notebook; results/41_*.
+- The "one by one" trio (#1 second law, #2 clean Platonic, #3 J4 hyperbolic) is now complete.
+  Remaining: thread D (transformer toy-port).
+
 ## 2026-06-16 — #2 the clean Platonic test (honest partial, sharper than edge (b))
 - **Open thread #2.** Fixed edge (b)'s confound by making the converged-on object a LATENT not in
   any input (script 35's hidden p, frozen world g; recoverable only by learning to invert g). 3

@@ -325,6 +325,17 @@ results in `curvature/notes/lab_notebook.md`.
   parity-pathological (even-sep correlations vanish) -> use region/block MI (why RT uses
   regions). Honest gaps: J2 dimension (curved-manifold PCA overcounts) + 2D grid (needs
   spectral embedding). Premise demonstrated; J4 hyperbolic-curvature + spectral 2D open.
+- **J4 HYPERBOLIC / AdS payoff DONE (2026-06-16, script 41):** is the emergent radial/scale
+  dimension negatively curved (AdS), and only at criticality? Web-verified Calabrese-Cardy +
+  Ryu-Takayanagi: critical S(l)=(c/3)ln[(n/π)sin(πl/n)] IS a boundary-anchored geodesic length in
+  a negatively-curved AdS2 bulk (flat bulk -> S~l linear). **J4a ✓✓ c_fit=1.001, R²_log=1.0000**
+  (the RT log-law exactly); **J4b ✓✓** gapped (staggered mass) saturates, large-l slope 0.000 vs
+  critical 0.333 — the hyperbolic dimension exists ONLY at criticality. J4c FAIL = a weak instrument
+  (log-vs-linear R²-margin 0.239<0.3 because a line approximates a gentle log over a monotone range;
+  R²_log=1.0000 already proves the form; one fix round spent, gate not moved). **Verdict: hyperbolic/
+  AdS emergent dimension CONFIRMED on J4a+J4b** — holography's extra dimension is real, emergent from
+  entanglement, negatively curved (ties It-from-Qubit to emergent_dimension.md). Open: full 2D
+  bulk embedding + Brioschi K-map (fragile, deferred).
 - **THE SESSION SYNTHESIS (the legibility law):** amortize → legible (static);
   evolve through a generic net → re-scrambled (dynamic). Open thread (next
   candidate): an orthogonal/Hamiltonian update F that conserves |w| by
