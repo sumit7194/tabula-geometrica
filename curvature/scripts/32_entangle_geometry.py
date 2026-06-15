@@ -67,14 +67,16 @@ def chain_hop(n, periodic=True):
     return h
 
 
-def grid_hop(L):
+def grid_hop(L, periodic=True):
     n = L * L
     h = np.zeros((n, n))
-    idx = lambda r, c: (r % L) * L + (c % L)
     for r in range(L):
         for c in range(L):
             for dr, dc in ((0, 1), (1, 0)):
-                a, b = idx(r, c), idx(r + dr, c + dc)
+                nr, nc = r + dr, c + dc
+                if not periodic and (nr >= L or nc >= L):
+                    continue
+                a, b = (r % L) * L + (c % L), (nr % L) * L + (nc % L)
                 h[a, b] = h[b, a] = -1.0
     return h
 
@@ -169,6 +171,54 @@ def block_mi(C, B):
     return I
 
 
+def spectral_embed(I, k=6):
+    """Laplacian eigenmap: embed from the MI SIMILARITY graph (no training). Returns the
+    k nontrivial eigenvectors (smallest nonzero eigenvalues of the normalized Laplacian)
+    and the full eigenvalue spectrum (its near-zero count = # disconnected pieces)."""
+    W = I.copy(); np.fill_diagonal(W, 0.0)
+    d = W.sum(1)
+    Dm = np.diag(1.0 / np.sqrt(d + 1e-12))
+    L = np.eye(len(W)) - Dm @ W @ Dm
+    evals, evecs = np.linalg.eigh(L)
+    return evecs[:, 1:k + 1], evals          # skip the trivial 0th
+
+
+def j_spectral():
+    """Edge-2: Phase J with spectral (Laplacian-eigenmap) embedding — the principled fix.
+    Dimension EMERGES: the number of low-lying nontrivial modes that recover the geometry."""
+    from scipy.stats import spearmanr
+    res = {}
+    # chain: ONE coordinate (the Fiedler vector) should recover the 1D order -> dim 1
+    n, B = 128, 4
+    Cc = corr_matrix(chain_hop(n, periodic=False))
+    Z, _ = spectral_embed(block_mi(Cc, B), k=2)
+    sp1 = abs(float(spearmanr(Z[:, 0], np.arange(n // B)).correlation))
+    res["chain"] = {"fiedler_spearman": sp1, "isotonic_r2_k1": isotonic_r2(emb_dist(Z[:, :1]), chain_true_dist(n // B))}
+    print(f"J1/J2 chain (spectral): Fiedler vs position spearman={sp1:.3f} "
+          f"({'PASS' if sp1 > 0.9 else 'FAIL'}) -> 1 coordinate suffices => 1D")
+    # grid: first TWO nontrivial modes recover the 2D layout -> dim 2 (OPEN boundaries:
+    # a periodic grid is a torus, whose degenerate Fourier modes don't embed as a sheet)
+    L = 12
+    Ig, bd = grid_block_mi(corr_matrix(grid_hop(L, periodic=False)), L, 2)
+    Zg, _ = spectral_embed(Ig, k=2)
+    r2g = isotonic_r2(emb_dist(Zg[:, :2]), bd)
+    res["grid"] = {"isotonic_r2_k2": r2g}
+    print(f"J1/J2 grid (spectral, 2 modes): isotonic R2={r2g:.3f} "
+          f"({'PASS' if r2g > 0.85 else 'FAIL'}) -> 2 coordinates recover the grid => 2D")
+    # pinch-off: # of near-zero Laplacian eigenvalues = # of disconnected pieces
+    pin = []
+    for tc in (1.0, 0.3, 0.1, 0.03, 0.0):
+        C = corr_matrix(two_chain_hop(24, tc))
+        _, ev = spectral_embed(block_mi(C, 4), k=2)
+        pin.append({"tc": tc, "algebraic_connectivity": float(ev[1]),
+                    "n_zero_modes": int((ev < 0.02).sum())})
+        print(f"J3 spectral tc={tc:.2f}: connectivity ev1={ev[1]:.4f}, zero-modes={int((ev<0.02).sum())} "
+              f"({'TWO PIECES' if ev[1] < 0.02 else 'connected'})")
+    res["pinchoff_spectral"] = pin
+    res["pinchoff_clean"] = bool(pin[0]["algebraic_connectivity"] > 0.05 and pin[-1]["algebraic_connectivity"] < 0.02)
+    return res
+
+
 def chain_true_dist(n):
     i = np.arange(n)
     return np.abs(i[:, None] - i[None, :]).astype(float)
@@ -249,12 +299,14 @@ def j3_pinchoff():
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--stage", default="all", choices=("j0", "all"))
+    ap.add_argument("--stage", default="all", choices=("j0", "all", "spectral"))
     args = ap.parse_args()
     out = {"J0": j0_validation()}
     if args.stage == "all":
         out["J1_J2"] = j1_j2()
         out["J3"] = j3_pinchoff()
+    if args.stage in ("all", "spectral"):
+        out["spectral"] = j_spectral()
     (RESULTS / "32_entangle.json").write_text(json.dumps(out, indent=1))
     print("saved results/32_entangle.json")
 

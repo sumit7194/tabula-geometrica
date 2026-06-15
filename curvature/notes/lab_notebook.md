@@ -1562,3 +1562,21 @@ One-line: a learned per-object code is legible when it is INFERRED, not stored; 
 through a generic update destroys that; matching the update to the quantity's symmetry buys
 the invariant back and most of the legibility. Phase I-b CLOSED. Next: crystallize into a
 standalone writeup.
+
+## 2026-06-15 — EDGE 2: Phase J spectral closure (all gates pass)
+
+Replaced the stress-MDS learner with Laplacian-eigenmap (spectral) embedding of the block-MI
+similarity (`spectral_embed`, no training). Dimension now EMERGES as the # of low modes that
+recover the geometry:
+- **J1/J2 chain ✓✓:** Fiedler vector vs position spearman 0.977 — ONE coordinate recovers the
+  1D order => dim 1.
+- **J1/J2 grid ✓✓:** isotonic R2 0.913 with TWO modes => dim 2 (needed OPEN boundaries — a
+  periodic grid is a torus whose degenerate Fourier modes don't embed as a sheet; recorded).
+- **J3 pinch-off ✓✓ (textbook):** algebraic connectivity ev1 0.29 -> 0.0000 as the two halves
+  decouple, and the count of near-zero Laplacian eigenvalues goes 1 -> 2 (a SECOND zero-mode =
+  a second disconnected piece). Disentangling splits the geometry — Van Raamsdonk as the clean
+  spectral-connectivity signature, sharper than the stress-MDS endpoint.
+Phase J now CLEAN end to end: geometry, dimension, and pinch-off all recovered from entanglement
+alone. (J4 hyperbolic-curvature-at-criticality still the one exploratory open item.) Lesson:
+spectral embedding is the right tool for "geometry from a similarity table" — dimension reads
+off the low-mode count, connectivity reads off the zero-mode count.

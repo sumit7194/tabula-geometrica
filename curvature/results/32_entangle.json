@@ -20,50 +20,41 @@
   ],
   "pass": true
  },
- "J1_J2": {
+ "spectral": {
   "chain": {
-   "isotonic_r2": 0.9707620036281038,
-   "participation_dim": 3.817624092102051,
-   "B": 4
+   "fiedler_spearman": 0.9772727272727272,
+   "isotonic_r2_k1": 0.8957317062652009
   },
   "grid": {
-   "isotonic_r2": 0.23857430041703176,
-   "participation_dim": 6.798644065856934
-  }
- },
- "J3": {
-  "rows": [
+   "isotonic_r2_k2": 0.9129821849058879
+  },
+  "pinchoff_spectral": [
    {
     "tc": 1.0,
-    "cross_mi": 0.06437123592980028,
-    "across_over_within": 1.4686707574628721
-   },
-   {
-    "tc": 0.6,
-    "cross_mi": 0.08226238729151923,
-    "across_over_within": 1.1100301360930371
+    "algebraic_connectivity": 0.29027141661210876,
+    "n_zero_modes": 1
    },
    {
     "tc": 0.3,
-    "cross_mi": 0.06422779029069348,
-    "across_over_within": 1.3266762522295141
+    "algebraic_connectivity": 0.3227610193775208,
+    "n_zero_modes": 1
    },
    {
     "tc": 0.1,
-    "cross_mi": 0.07217957781298168,
-    "across_over_within": 1.2313639629220263
+    "algebraic_connectivity": 0.35929582828656964,
+    "n_zero_modes": 1
    },
    {
     "tc": 0.03,
-    "cross_mi": 0.04416789177711563,
-    "across_over_within": 1.7471013544929
+    "algebraic_connectivity": 0.22308109639043167,
+    "n_zero_modes": 1
    },
    {
     "tc": 0.0,
-    "cross_mi": 2.590520390792032e-16,
-    "across_over_within": 6.400343464844523
+    "algebraic_connectivity": 4.304333973836034e-13,
+    "n_zero_modes": 2
    }
   ],
-  "monotone_separation": false
+  "pinchoff_clean": true
  }
 }
