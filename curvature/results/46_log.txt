@@ -1,0 +1,11 @@
+onesigned x position: linear 0.99 | nonlinear 0.86 | mse 7.6e-05
+onesigned x velocity: linear 1.00 | nonlinear 0.90 | mse 2.0e-04
+signed    x position: linear 0.99 | nonlinear 0.94 | mse 1.2e-04
+signed    x velocity: linear 1.00 | nonlinear 0.97 | mse 3.6e-04
+
+sign_effect (one-signed minus signed) = -0.00
+coupling_effect (position minus velocity) = -0.01
+L1 one-signed+position legible (>0.85): True
+L2 signed+velocity scrambles (lin<0.5, nl>0.8): False
+DOMINANT FACTOR: coupling  (clean separation: False)
+saved results/46_what_makes_legible.json + .png

@@ -1,0 +1,30 @@
+{
+ "cells": {
+  "onesigned_position": {
+   "linear": 0.987747688648866,
+   "nonlinear": 0.8646200988215517,
+   "train_mse": 7.60292969061993e-05
+  },
+  "onesigned_velocity": {
+   "linear": 0.9980226254771405,
+   "nonlinear": 0.8988468936918117,
+   "train_mse": 0.00020019755174871534
+  },
+  "signed_position": {
+   "linear": 0.9922974987299166,
+   "nonlinear": 0.9360011886693596,
+   "train_mse": 0.00012272295134607702
+  },
+  "signed_velocity": {
+   "linear": 0.9991537832203903,
+   "nonlinear": 0.9715159172468941,
+   "train_mse": 0.00035504307015798986
+  }
+ },
+ "sign_effect": -0.0028404839121500824,
+ "coupling_effect": -0.008565610659374112,
+ "dominant_factor": "coupling",
+ "clean_separation": false,
+ "L1_replicate45": true,
+ "L2_replicatePhaseC": false
+}

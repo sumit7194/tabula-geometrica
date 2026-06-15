@@ -1967,3 +1967,24 @@ fixed. rho0=0.8, scalar center (1.2,-0.8), n_bodies=40, sweep spread {0,0.4,0.8,
   **Survey grid update: scalar JOINS gravity in the "geometrizes when universal" cell; the knob shows
   the cell boundary is universality, not field type.** Menu of next fields parked (dilaton/secondary
   hair, Proca learnability knob, Wong dynamic, Dirac spinor) for when we want more.
+
+## 2026-06-16 — what makes a free code legible? 2x2 sign×coupling — SURPRISE NULL (46)
+
+Chasing the script-45 bonus: scalar rho was a LEGIBLE free code (0.98) while EM's q/m SCRAMBLED
+(Phase C, 0.02). Both free — so free-vs-amortized isn't the whole story. Two suspects differed:
+SIGN (rho one-signed vs q/m signed) and COUPLING (rho position/potential vs q/m velocity/magnetic).
+Clean 2x2 factorial, all else fixed (same |c| range, gravity background, free 4-d embedding); decode
+the charge from the embedding per cell. **Pre-registered prediction: SIGN dominates.**
+
+**Result (46_what_makes_legible.json) — PREDICTION FALSIFIED, a clean null:**
+- linear legibility: onesigned×position 0.99, onesigned×velocity 1.00, signed×position 0.99,
+  signed×velocity **1.00**. **ALL FOUR cells legible.** sign_effect ~0, coupling_effect ~0.
+- **L1 PASS** (one-signed+position 0.99). **L2 FAIL** — signed+velocity is 1.00, NOT scrambled (the
+  EM-like cell is perfectly legible here). My "sign dominates" hypothesis is cleanly overturned.
+- **By elimination, the Phase C / Phase I scramble is NOT caused by sign or coupling-type.** Remaining
+  suspects: (a) MAP NONLINEARITY — Phase I's latent entered through a RANDOM NONLINEAR MLP world; here
+  the charge enters through SMOOTH physics, so it stays linear; (b) the NEUTRAL+CHARGED MIX — Phase C
+  had half the bodies at q/m=0, and bodies where the charge is IRRELEVANT get unconstrained (arbitrary)
+  embeddings that could pollute the linear decode. -> script 47 discriminates (a) vs (b).
+- Honest value: a falsified pre-registration that narrows the mechanism. The legibility of a free code
+  is robust to sign and coupling-type; the scramble must come from map-complexity or charge-irrelevance.
