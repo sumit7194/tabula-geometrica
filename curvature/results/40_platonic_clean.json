@@ -1,0 +1,22 @@
+{
+ "amortized": {
+  "latent_agreement": 0.9951424252992181,
+  "recover_p": 0.753041266513662,
+  "cross_net_cca_diagnostic": 0.9992546041806539
+ },
+ "free": {
+  "latent_agreement": 0.12755996765831687,
+  "recover_p": 0.39551800303165296,
+  "cross_net_cca_diagnostic": 0.46522021293640137
+ },
+ "untrained": {
+  "latent_agreement": 0.9355889838751228,
+  "recover_p": -0.06343119775562789,
+  "cross_net_cca_diagnostic": 0.9998438954353333
+ },
+ "P1_learned_convergence": false,
+ "P2_confound_removed": true,
+ "P3_convergence_is_shared_inference": true,
+ "clean_platonic_confirmed": false,
+ "note_cca_confounded": "cross_net_cca is input-confounded: untrained ~1.0 because random encoders of the SAME inputs share input-driven directions. Use latent_agreement (cross-net recovery of the non-input latent)."
+}

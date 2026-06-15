@@ -11,6 +11,25 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-16 — #2 the clean Platonic test (honest partial, sharper than edge (b))
+- **Open thread #2.** Fixed edge (b)'s confound by making the converged-on object a LATENT not in
+  any input (script 35's hidden p, frozen world g; recoverable only by learning to invert g). 3
+  independent amortized nets (widths 96/128/160) vs free vs untrained, script `40_platonic_clean.py`.
+- **Result (recover_p vs truth):** amortized **0.75**, free 0.40, untrained **−0.06**. P2 PASS — the
+  edge-(b) confound is removed (untrained read families at 0.54 there; here it reads the latent at
+  ~0, because p isn't in the inputs). P3 PASS (amortized ≫ free).
+- **P1 fails for an instructive reason → the real finding:** *every cross-net similarity metric is
+  input-confounded under shared inputs.* Raw-code CCA: untrained 1.0. Even "agreement of the
+  recovered latent": untrained 0.936 (two random encoders of the same inputs share an input *shadow*
+  of p). CKA/RDM/CCA/agreement all inflate. The only confound-free anchor is correlation with the
+  ground-truth non-input latent — there amortized 0.75 ≫ free 0.40 ≫ untrained −0.06 is clean.
+- **Verdict:** learned convergence on the platonic latent is real and learning-dependent; but a clean
+  "platonic PASS" via net-to-net *similarity* is unachievable when inputs are shared (all similarity
+  metrics saturate ~1.0 even untrained) — the project's metric-inflation lesson mapped to its
+  boundary. Amortized recover_p 0.75 also sits at the task's ~0.78 ceiling, under the pre-reg 0.8
+  (one fix round already spent; gate not moved). Docs: lab notebook; results/40_*.
+- Queue remaining: #3 Phase J encore (J4 hyperbolic), thread D (transformer toy-port).
+
 ## 2026-06-16 — The second law: legibility ≠ steerability (CONFIRMED)
 - **Open thread #1 closed.** A direction can be linearly *readable* without being a control
   *lever*. Built a two-channel amortized code (channel-dropout in training forces each channel to

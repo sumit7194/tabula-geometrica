@@ -1,0 +1,24 @@
+
+=== amortized ===
+  amortized w96 s11: code saved
+  amortized w128 s22: code saved
+  amortized w160 s33: code saved
+  latent-agreement = 0.995 | recover true p = 0.753 | (CCA diag 0.999)
+
+=== free ===
+  free w96 s11: code saved
+  free w128 s22: code saved
+  free w160 s33: code saved
+  latent-agreement = 0.128 | recover true p = 0.396 | (CCA diag 0.465)
+
+=== untrained ===
+  untrained w96 s11: code saved
+  untrained w128 s22: code saved
+  untrained w160 s33: code saved
+  latent-agreement = 0.936 | recover true p = -0.063 | (CCA diag 1.000)
+
+P1 amortized recovers latent (>0.8) & agrees across nets (>untrained+0.3): False
+P2 untrained can't recover the latent (recover<0.4 = confound removed): True
+P3 amortized agreement > free agreement (convergence needs shared inference): True
+CLEAN PLATONIC: False
+saved results/40_platonic_clean.json + .png

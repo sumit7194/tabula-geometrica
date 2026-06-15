@@ -1777,3 +1777,40 @@ One fix round.
   This is the toy of the LLM observation (distributed feature readable, single-direction steering
   weak), and grounds the three-way distinction legibility != monosemanticity != task-causality
   (Phronesis SAE caution: AUC 0.53 monosemantic feature vs 0.64 supervised probe). Writeup updated.
+
+## 2026-06-16 — #2 the CLEAN Platonic test (40_platonic_clean.py): honest partial, sharper than (b)
+
+Goal: fix edge (b)'s confound. There 4 generalists agreed on the family map (ARI 0.92) but an
+UNTRAINED net already clustered families at 0.54 (input-distinguishable) -> convergence real but
+partly input-driven. Clean design: make the converged-on object a LATENT NOT in any input — reuse
+script 35's abstract task (hidden p in R^2, frozen world g(p,x)->y; p recoverable only by learning
+to invert g). 3 independent amortized nets (widths 96/128/160, diff seeds, SAME objects) vs free
+embeddings vs untrained encoders. Pre-reg gates P1 amortized recover_p>0.8 & cross-net agreement >
+untrained; P2 untrained recover_p<0.4 (confound removed); P3 amortized agreement > free.
+
+**Result (recover_p vs ground-truth latent | cross-net agreement of recovered p-hat):**
+- amortized 0.75 | 0.995 ; free 0.40 | 0.128 ; untrained **-0.06 | 0.936**.
+- **P2 PASS** (untrained -0.06 < 0.4): the latent genuinely needs learning — the edge-(b) confound
+  is REMOVED (there untrained read families at 0.54; here it reads the latent at ~0). This is the
+  concrete improvement.
+- **P3 PASS** (amortized agreement 0.995 > free 0.128).
+- **P1 FAIL** for TWO instructive reasons, both recorded (one fix round already spent: 6k->12k
+  steps + metric swap):
+  (i) **every cross-net SIMILARITY metric is input-confounded under shared inputs.** Raw-code CCA:
+  untrained 1.0. I swapped to "agreement of the recovered latent p-hat" — STILL untrained 0.936,
+  because two random encoders of the SAME inputs share an input *shadow* of p (each ridge readout
+  lands on the same input-correlated direction without recovering truth). CKA (edge b) / RDM /
+  CCA / p-hat-agreement ALL inflate. **The only confound-free anchor is correlation with the
+  GROUND-TRUTH non-input latent (recover_p)** — and there amortized 0.75 >> free 0.40 >> untrained
+  -0.06 is clean and monotone.
+  (ii) amortized recover_p 0.75 < pre-reg 0.8 — the amortized linear-recoverability ceiling for
+  this 2-d-latent / 16-d-code task is ~0.78 (consistent with scripts 35 & 38). The 0.8 bar was set
+  ~0.02 above the task ceiling. NOT moved post-hoc.
+
+**Verdict: honest partial, sharper than edge (b).** Learned convergence on the platonic latent is
+REAL and learning-dependent (amortized 0.75 vs untrained ~0 — confound removed). But a clean
+"platonic PASS" certified by cross-net *similarity* is unachievable by construction when inputs are
+shared (all similarity metrics inflate to ~1.0 even untrained) — the project's recurring
+metric-inflation lesson, now mapped to its boundary. The clean currency is recovery of a known
+non-input ground-truth, not net-to-net agreement. Free embeddings recover worst (0.40) and don't
+even share the input shadow (agreement 0.128) — the legibility law again.
