@@ -151,8 +151,13 @@ the human-legible one.
 - Leg 3 is partial: structure restores the invariant cleanly but only ~80% of legibility,
   with a small fit cost. Fully closing the gap (a rotation trained to track the quantity, or
   a Hamiltonian parameterization) is open.
-- All experiments are small toy systems (≤2M params) with known ground truth — which is the
-  point (claims are checkable), but generalization to large models is untested.
+- **Generality + scale (tested, edge 3):** the core leg holds in a deliberately NON-physics
+  abstract task (objects with a hidden property under a frozen random world function) and the
+  amortize>>free gap PERSISTS and WIDENS across width/object-count (free linear decode
+  0.33→0.13 as size grows; amortized stays ~0.8) — the scramble fingerprint (linear 0.13 /
+  nonlinear 0.57) reproduces out of physics. So the law is a general representation property,
+  not a toy artifact. Caveat: 'scale' here is ≤~1M params, not LLM-scale; the widening trend
+  is encouraging but extrapolation to large models remains untested.
 - Process note: the leg-3 pre-registration used a +0.2-on-min gate mis-calibrated to a ~0.9
   ceiling that doesn't exist in this hard decode (real ceiling ~0.6 mean); the honest
   comparisons are orthogonal-vs-generic and orthogonal-vs-static.

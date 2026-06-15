@@ -1580,3 +1580,20 @@ Phase J now CLEAN end to end: geometry, dimension, and pinch-off all recovered f
 alone. (J4 hyperbolic-curvature-at-criticality still the one exploratory open item.) Lesson:
 spectral embedding is the right tool for "geometry from a similarity table" — dimension reads
 off the low-mode count, connectivity reads off the zero-mode count.
+
+## 2026-06-15 — EDGE 3 RESULT: the legibility law GENERALIZES (non-physics + scale)
+
+Abstract task (script 35): objects = hidden p in R^2; a FROZEN random MLP is the "world
+function" g(p,x)->y; model predicts y from K example pairs via amortized code vs free
+embedding. ZERO physics. Three sizes:
+  w=64  n=64 : amortized linear 0.754 | free 0.331 (nl 0.141) | gap +0.423
+  w=256 n=64 : amortized linear 0.837 | free 0.223 (nl 0.094) | gap +0.614
+  w=256 n=512: amortized linear 0.743 | free 0.125 (nl 0.572) | gap +0.618
+- amortize>>free legibility gap PERSISTS across all sizes AND WIDENS with scale (free linear
+  0.33->0.22->0.13 as width/objects grow; amortized stays ~0.75-0.84).
+- At n=512 the SCRAMBLE SIGNATURE reproduces out of physics: free linear 0.125 but nonlinear
+  0.572 (info present, linearly illegible) — the Phase C fingerprint, in an abstract domain.
+**Verdict: the legibility law is a GENERAL property of how per-object codes are learned, not a
+physics-toy artifact. Amortization selects legibility; free per-object parameters scramble —
+and scale makes the free code MORE scrambled, not less.** Caveat: "scale" here is <=~1M params,
+not LLM-scale; the trend (gap widens) is encouraging but extrapolation is untested.
