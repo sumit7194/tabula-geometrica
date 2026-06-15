@@ -1621,3 +1621,42 @@ enough capacity to match the true symmetry transformation.
 Edges: (1) leg-3 close CONFIRMED; (2) Phase J spectral closure (geometry-from-entanglement
 clean); (3) law GENERALIZES (non-physics + scale). Arc complete; crystallized in
 writeups/legibility_law.md.
+
+## 2026-06-15 — PHASE G3-causal PRE-REGISTRATION: is the world-map editable? (Othello-style)
+
+Goal: show the generalist's world-summary w is CAUSALLY USED, not decorative — intervene on w
+and check predictions change as the genuine counterfactual would (cf. Othello-GPT's causal
+board edits; Linear Representation Hypothesis). Model: 26_generalist_120k.pt (mean-pool w in
+R^64). Property: matter total mass (G3 linear decode r~0.98 — a clean direction exists).
+Method:
+- direction d = normalized ridge(w -> total_mass) weights (on val matter episodes).
+- steer w' = w + alpha * s * d (s = mean ||w||; alpha swept negative..positive); re-run the
+  query head on w' (no retraining).
+- readout = trajectory BEND = mean |predicted_pos - free_motion(x0+v0 t)| over matter queries
+  (more mass -> stronger pull -> more bend).
+Gates:
+- CS1 monotone+correct: bend increases monotonically as steered mass increases (decoded mass
+  must also move with alpha — confirms we ride the axis).
+- CS2 SPECIFICITY (the S4 lesson): the property direction moves bend much more than equal-norm
+  RANDOM directions (gate: property effect >= 3x median random effect).
+- CS3 counterfactual: bend at the alpha that sets decoded-mass to a real high value approx the
+  bend of genuinely-high-mass episodes (steered ~ real).
+One fix round. If CS1+CS2 pass, the world-map is a real, editable internal model.
+
+## 2026-06-15 — EDGE (a) G3-causal: the world-map is REAL & EDITABLE (Othello-style) — CS PASS
+
+Causal steering of the generalist's world-summary (26_generalist_120k.pt), property = matter
+total mass (decode r=0.984). results/36_causal.json/.png.
+- FIRST ATTEMPT FAILED (honest): ridge-weight direction x large alpha pushed w OFF-MANIFOLD
+  (decoded mass ran -24..+27 vs real ~0.3-3) -> predictions garbage, specificity -1x. Exactly
+  the S4 lesson (specificity needs equal-norm AND on-manifold controls).
+- FIX (diff-of-means, on-manifold): direction = high-mass centroid - low-mass centroid; steer
+  low-mass episodes toward high, compare to REAL high-mass predictions.
+  - CS1 ✓ bend 0.531 -> 1.072 (real low 0.531, real high 0.983).
+  - CS2 ✓✓ specificity: property effect +0.541 vs random |effect| 0.143 = 3.8x.
+  - CS3 ✓ counterfactual: beta=1 (full low->high edit) reaches 76% of the real low->high bend gap.
+**Verdict: the generalist's internal world-summary is a REAL, CAUSALLY-USED, EDITABLE model**
+— editing "mass-ness" makes it predict a genuinely heavier world (Othello-GPT analogue for
+physics worlds). Method lesson: causal steering = on-manifold diff-of-means direction at
+realistic magnitude, NOT decode-weights x large-alpha. Edge (a) done; next = (b) Platonic test
+(do independent generalists converge to the same world-map?).

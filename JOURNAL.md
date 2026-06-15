@@ -11,6 +11,16 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-15l — Edge (a): the generalist's world-map is real & editable (causal steering)
+- Othello-GPT-style causal test on the generalist (script 36). Edit the world-summary along the
+  on-manifold "mass" direction (high-mass centroid - low-mass centroid) and the predictions bend
+  as if the world were genuinely heavier: bend 0.53->1.07 (real low 0.53 / high 0.98), 3.8x more
+  specific than equal-norm random edits, reaching 76% of the real low->high counterfactual gap. CS PASS.
+- First attempt failed honestly (off-manifold ridge-direction x large alpha -> garbage); fix =
+  on-manifold diff-of-means steering (the S4 lesson re-confirmed). The internal world-model is
+  causally USED, not decorative. Next: (b) Platonic test — do independent generalists converge
+  to the same map of physical law?
+
 ## 2026-06-15k — all 3 open edges resolved; the legibility law is complete
 - **Edge 1 (leg-3 close) CONFIRMED:** a richer orthogonal rotation generator makes the
   evolving dynamic charge AS legible as a static one — legible 0.506 vs its static ceiling
