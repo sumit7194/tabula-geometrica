@@ -1,0 +1,9 @@
+rotation (relational) legibility by layer: ['-0.12', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00'] | query R²=1.000
+additive (linear)     legibility by layer: ['1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00'] | query R²=1.000
+E1 emergence (rot last 1.00 - layer1 1.00 > 0.3): False
+E2 input illegible (rot layer0 -0.12 < 0.3): True
+E3 control flat-high (add layer0 1.00>0.6, last-layer0 -0.00<0.2): True
+E4 task solved (rot query R² 1.00 > 0.9): True
+
+DEPTH-OF-EMERGENCE (relational latent): False
+saved results/43_depth_emergence.json + .png

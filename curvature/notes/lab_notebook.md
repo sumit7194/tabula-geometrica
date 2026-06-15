@@ -1873,3 +1873,26 @@ legibility of true p at the mean-pooled rep after EACH layer. Gates: D1 last-lay
   which is a clean negative here. Future: a task where p is illegible at input (latent identifiable
   only by comparing examples / a nonlinear composition) should reveal a real depth climb. Recorded;
   one fix round spent; gates not moved.
+
+## 2026-06-16 — thread D follow-up #1: relational latent -> emergence is a STEP, not a ramp (43)
+
+Built the "illegible-at-input" task script 42 lacked: in-context ROTATION. Token = (u_i, R(theta)u_i
++ noise); latent theta = the rotation angle, a RELATION (angle(v)-angle(u)) that is ZERO under linear
+pooling (verified: linear-pool legibility of theta = 0.10 for rotation vs 1.00 for an additive
+control). Model infers theta in-context to answer a held-out query u_q -> R(theta)u_q. Probe linear
+legibility of theta at each layer. Trained on fresh ICL batches; held-out probe set (RidgeCV).
+
+**Result (43_depth_emergence.json): the PRECONDITION is confirmed, but emergence is a ONE-LAYER STEP.**
+- rotation legibility by layer: **[-0.12, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00]**, query R²=1.000.
+- additive control: [1.00 x7], R²=1.000.
+- **E2 PASS** input illegible (layer0 = -0.12 vs script 42's 0.70 — the missing ingredient, now present).
+- **E4 PASS** task solved (R²=1.00) -> the low input value is genuine, not under-training.
+- **E3 PASS** control flat-high (additive legible from layer 0, no climb).
+- **E1 FAIL** gradual climb: legibility JUMPS -0.12 -> 1.00 at layer 1 and saturates. A step, not a ramp.
+
+**Lesson:** making the latent invisible to linear pooling DOES produce emergence (vs script 42's flat
+0.70) — the precondition is real. But a 2D rotation is a SHALLOW nonlinearity: one attention+MLP layer
+computes the angle, so theta is fully legible by layer 1. The Phronesis L4->L36 GRADUAL ramp needs a
+latent built by DEEP SEQUENTIAL COMPOSITION (many layers, each one hop), not a single nonlinear
+relation. -> script 44 (a genuine depth-D recurrence). Bracketing so far: 42 legible-at-input -> flat;
+43 illegible + shallow-nonlinear -> one-layer step; 44 illegible + deep-composition -> expect a ramp.
