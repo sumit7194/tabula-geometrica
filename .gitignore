@@ -25,3 +25,6 @@
 # notes/, plots (*.png), gate JSONs, and the FINAL model weights the regression
 # gate re-runs (model_*.pt, *_model_*.pt, dyn_*.pt, 26_generalist.pt). These let
 # `./verify.sh` pass on a fresh clone without retraining.
+
+# Platonic per-config summary caches (regenerable)
+**/37_summ_*.npy

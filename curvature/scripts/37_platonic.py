@@ -77,25 +77,32 @@ def main():
     tr = np.where(~val_mask)[0]; va = np.where(val_mask)[0]
     fam_va = bank["family"][va]
 
-    Ws, labels = [], []
-    # untrained baseline (random init)
-    torch.manual_seed(999); base = SmallGen(96, 3)
-    W_base = summaries(base, bank, va)
+    # untrained baseline (random init) — cached so reboots don't redo it
+    bpath = RESULTS / "37_summ_untrained.npy"
+    if bpath.exists():
+        W_base = np.load(bpath)
+    else:
+        torch.manual_seed(999); W_base = summaries(SmallGen(96, 3), bank, va); np.save(bpath, W_base)
 
+    Ws, labels = [], []
     for (d, L, seed) in CONFIGS:
-        torch.manual_seed(seed); rng = np.random.default_rng(seed)
-        m = SmallGen(d, L); opt = torch.optim.Adam(m.parameters(), lr=3e-4)
-        for step in range(STEPS):
-            b = tr[rng.integers(0, len(tr), 64)]
-            lp, lt = g26.losses(m, torch.from_numpy(bank["tokens"][b]),
-                                torch.from_numpy(bank["queries"][b]), torch.from_numpy(bank["targets"][b]))
-            (lp + lt).backward(); opt.step(); opt.zero_grad()
-            if step % 1000 == 0:
-                progress(f"37_gen_d{d}_s{seed}", step, STEPS, loss=float((lp + lt).detach()))
-        m.eval()
-        W = summaries(m, bank, va); Ws.append(W)
+        sp = RESULTS / f"37_summ_d{d}_L{L}_s{seed}.npy"   # per-config cache -> reboot-resumable
+        if sp.exists():
+            W = np.load(sp); print(f"  [resume] d={d} L={L} seed={seed}: loaded cached summary")
+        else:
+            torch.manual_seed(seed); rng = np.random.default_rng(seed)
+            m = SmallGen(d, L); opt = torch.optim.Adam(m.parameters(), lr=3e-4)
+            for step in range(STEPS):
+                b = tr[rng.integers(0, len(tr), 64)]
+                lp, lt = g26.losses(m, torch.from_numpy(bank["tokens"][b]),
+                                    torch.from_numpy(bank["queries"][b]), torch.from_numpy(bank["targets"][b]))
+                (lp + lt).backward(); opt.step(); opt.zero_grad()
+                if step % 1000 == 0:
+                    progress(f"37_gen_d{d}_s{seed}", step, STEPS, loss=float((lp + lt).detach()))
+            m.eval(); W = summaries(m, bank, va); np.save(sp, W)
+            print(f"  trained d={d} L={L} seed={seed}: summary saved")
+        Ws.append(W)
         labels.append(KMeans(8, n_init=10, random_state=0).fit(W).labels_)
-        print(f"  trained d={d} L={L} seed={seed}: summary ready")
 
     K = len(Ws)
     cka = np.array([[linear_cka(Ws[i], Ws[j]) for j in range(K)] for i in range(K)])
@@ -105,14 +112,31 @@ def main():
 
     iu = np.triu_indices(K, 1)
     mean_cka = float(cka[iu].mean()); mean_ari = float(ari[iu].mean())
-    print(f"\nP1 convergence: trained-trained mean CKA = {mean_cka:.3f} "
-          f"(untrained baseline {cka_base:.3f}) -> {'PASS' if mean_cka > 0.5 and mean_cka >= 2 * cka_base else 'FAIL'}")
-    print(f"P2 same map: trained-trained mean cluster ARI = {mean_ari:.3f} "
-          f"(vs true family ARI {fam_ari:.3f}) -> {'PASS' if mean_ari > 0.6 else 'FAIL'}")
+
+    # P1b: architecture-robust convergence = do the MAPS have the same geometry?
+    # RDM = pairwise distances between the 8 family centroids (the shape of the law-map).
+    # An untrained net has no meaningful family geometry, so its RDM-corr is the honest control.
+    def family_rdm(W):
+        cent = np.array([W[fam_va == f].mean(0) for f in range(8)])
+        D = np.linalg.norm(cent[:, None] - cent[None], axis=-1)
+        return D[np.triu_indices(8, 1)]
+    rdms = [family_rdm(W) for W in Ws]
+    rdm_base = family_rdm(W_base)
+    rdm_corr = float(np.mean([np.corrcoef(rdms[i], rdms[j])[0, 1] for i, j in zip(*iu)]))
+    rdm_base_corr = float(np.mean([np.corrcoef(rdms[i], rdm_base)[0, 1] for i in range(K)]))
+
+    print(f"\nP1 (CKA, architecture-contaminated): trained {mean_cka:.3f} vs untrained {cka_base:.3f} "
+          f"-> {'PASS' if mean_cka > 0.5 and mean_cka >= 2 * cka_base else 'FAIL (baseline inflated)'}")
+    print(f"P1b (map-geometry RDM corr, architecture-robust): trained-trained {rdm_corr:.3f} "
+          f"vs untrained-baseline {rdm_base_corr:.3f} -> {'PASS' if rdm_corr > 0.8 and rdm_corr >= 2 * abs(rdm_base_corr) else 'FAIL'}")
+    print(f"P2 (same clusters): trained-trained ARI {mean_ari:.3f} (true-family {fam_ari:.3f}) "
+          f"-> {'PASS' if mean_ari > 0.6 else 'FAIL'}")
     out = {"configs": CONFIGS, "cka_matrix": cka.tolist(), "cka_untrained_baseline": cka_base,
            "ari_matrix": ari.tolist(), "mean_trained_cka": mean_cka, "mean_trained_ari": mean_ari,
-           "mean_family_ari": float(fam_ari),
-           "P1_pass": bool(mean_cka > 0.5 and mean_cka >= 2 * cka_base),
+           "mean_family_ari": float(fam_ari), "rdm_corr_trained": rdm_corr,
+           "rdm_corr_untrained_baseline": rdm_base_corr,
+           "P1_cka_pass": bool(mean_cka > 0.5 and mean_cka >= 2 * cka_base),
+           "P1b_rdm_pass": bool(rdm_corr > 0.8 and rdm_corr >= 2 * abs(rdm_base_corr)),
            "P2_pass": bool(mean_ari > 0.6)}
     (RESULTS / "37_platonic.json").write_text(json.dumps(out, indent=1))
 

@@ -1676,3 +1676,51 @@ Gates:
 If both: the "map of physical law" is convergent/platonic, not a one-run artifact. Honest
 caveat: small scale, same world-family distribution (varies seed+size, not data domain).
 One fix round.
+
+## 2026-06-16 — EDGE (b) PLATONIC: convergence is REAL but partly input-driven (honest partial)
+
+4 independent generalists (seeds x sizes d96/128/160), resumable per-config cache (survived
+the kill). results/37_platonic.json/.png.
+- P2 same-map ✓ trained-trained cluster ARI = 0.924 (each vs true family 0.746).
+- P1 CKA FAIL-as-gated: trained 0.762 but untrained baseline 0.691 — CKA architecture-inflated.
+- P1b map-geometry RDM corr: trained 0.754 vs untrained 0.634 — ALSO inflated.
+- CONTROL (the decider): an UNTRAINED net already clusters families at ARI 0.537 — because the
+  8 world families are INPUT-DISTINGUISHABLE (matter tokens != flat tokens, etc).
+VERDICT: convergence is REAL (trained-trained 0.924 >> untrained-input 0.537 -> independent
+nets agree on the map MORE than init/inputs alone give, and more than either matches truth),
+BUT a large fraction (~0.54/0.92) of the "map" is trivially input-structure, not independently-
+discovered physics. CKA/RDM too input/architecture-inflated to be clean; cluster-ARI-with-
+untrained-control is the honest readout. The STRONG platonic claim ("independently discover the
+same physics") is supported beyond chance but NOT cleanly isolated from input distinguishability.
+Clean follow-up (not run): WITHIN-family convergence (well-depth/charge layout, which needs
+processing to extract) or input-regressed-out residual convergence. Edge (b) = honest partial.
+
+## 2026-06-16 — CROSS-SESSION: Legibility Law tested on real LLMs (Phronesis, credited)
+
+The Phronesis project (activation steering, small LLMs) ran the cheap LLM test on Qwen3-4B,
+pre-registered. Findings relayed by the user:
+- Exp A (in-context vs parametric scalar recall): atomic number parametric r=0.92 vs in-context
+  0.96 (delta +0.04 << pre-reg 0.15); replicated birth-year, population. NO scramble (nonlinear
+  never beats linear). Model genuinely knows the facts -> real recall.
+- Exp B (knowledge boundary, TruthfulQA MC1): "about to be right?" linear AUC 0.65 ~ nonlinear
+  0.65. Partially legible, not scrambled.
+- INTERPRETATION (theirs, adopted): the law's PRECONDITION isn't instantiated — a pretrained
+  transformer has no free, behaviorally-only-constrained per-object slot; parametric knowledge
+  is reconstructed through shared weights = AMORTIZED BY DEFAULT. So everything is "amortized ->
+  legible"; the scramble regime doesn't occur. Consistent with ROME + LRH.
+- REFRAME (adopted into writeups/legibility_law.md): not "predicts which concepts scramble"
+  (~none) but the positive "the law may explain WHY the Linear Representation Hypothesis holds —
+  shared-weight training IS amortized inference." Othello-GPT = illustration, not controlled
+  confirmation (no free-embedding arm).
+- NEW OBSERVABLE: route changes WHERE not WHETHER — in-context legible at L4 (shallow), recalled
+  assembles by L36 (L4 r=0.40 -> L36 r=0.92). Depth-of-emergence is the inferred-vs-recalled
+  fingerprint in a deep transformer.
+- THEIR reciprocal nugget: legibility != steerability (their "am-I-wrong" dir is readable but
+  not a control lever, F121). Contrast: our edge (a) showed the amortized world-summary IS
+  causally steerable. Open question added to the writeup (candidate 2nd law).
+
+Acting on their 3 suggested toy tests: #1 transformer rung + #2 sharing interpolation -> script
+38 (running). #3 read-vs-control -> partly covered by edge (a); flagged open. Writeup updated +
+credited. Smoke (38): free scrambles in BOTH MLP (lin 0.09) and transformer (0.10); amortized
+legible (0.64 / 0.84) -> the scramble is NOT MLP-specific, supporting "no free regime in
+pretraining" as the LLM null's cause.

@@ -146,13 +146,56 @@ and only what survives relabeling is real. The Legibility Law is the first lever
 that **selects** among those gauges: it says which architectural choices land the network in
 the human-legible one.
 
+## Cross-test on real LLMs (Phronesis session, credited)
+
+A parallel project (Phronesis — activation steering in small LLMs) ran the cheap "does the law
+describe real models?" test on Qwen3-4B, pre-registered. The headline: the *stored → scrambled*
+prediction does **not** transfer — and the reason sharpens the law rather than breaking it.
+
+- **No scramble found.** A scalar recalled from weights (atomic number) is just as linearly
+  legible as the same value supplied in context (parametric r=0.92 vs in-context 0.96, Δ=+0.04;
+  they'd pre-registered Δ≥0.15 for "route matters"). Replicated on birth-year and population;
+  nonlinear never beats linear → no scramble signature anywhere.
+- **Why — the precondition isn't instantiated.** A pretrained transformer has **no
+  free-embedding regime**: its parametric knowledge is reconstructed through massively shared
+  weights — i.e. it is *amortized by default*. So everything lands in the law's "amortized →
+  legible" regime; the free-parameter regime that scrambles in our toy simply does not occur.
+  (Consistent with ROME's rank-one fact editability and the Linear Representation Hypothesis.)
+- **The reframe (stronger, positive claim).** Rather than "the law predicts which LLM concepts
+  are scrambled" (answer: ≈ none of the ones tested), the defensible claim is that **the law may
+  explain *why* the Linear Representation Hypothesis holds at all** — concepts are linearly
+  readable in LLMs *because* shared-weight training is amortized inference. That turns a
+  case-by-case empirical puzzle (which concepts are linear?) into a mechanism. (Othello-GPT is
+  *consistent* with the law but is not a controlled test — it has no free-embedding arm — so cite
+  it as illustration, not confirmation.)
+- **A new observable.** Route doesn't change *whether* a scalar is legible, it changes *where*:
+  in-context-supplied values read out at a shallow layer (L4); recalled-from-weights ones only
+  assemble by the deep layers (L4 r=0.40 → L36 r=0.92). **Depth-of-emergence, not peak
+  legibility, is the "inferred vs recalled" fingerprint in a deep transformer.**
+
+**Toy confirmation of the mechanism (script 38, sharing-interpolation):** interpolating the
+per-object code from a free embedding (λ=0) to a shared encoder (λ=1) flips it from scrambled to
+legible, and the free-embedding scramble persists even with a *transformer* set-encoder — so the
+LLM null is purely "pretraining has no free regime," exactly as the reframe predicts. [results
+folded in when the run lands.]
+
+## An open question — legibility ≠ steerability? (candidate second law)
+
+Phronesis also found a direction that is *readable but not a control lever*: their "am-I-about-
+to-be-wrong" direction decodes at AUC ≈ 0.65 yet pushing on it does not make the model abstain.
+In our toy the opposite held in one case — edge (a) showed the amortized world-summary is *both*
+legible *and* causally editable (steering "mass-ness" bends predictions, 3.8× over random). So
+**is every legible amortized code also a causal lever, or only some?** If read ≠ control shows up
+cleanly in the toy too, that is a second law as sharp as the first. Open.
+
 ## Honest limits / scope
 
 - "Legibility" here = linear decodability of a known scalar/vector. A stronger notion
   (monosemantic features, full disentanglement) is not claimed.
-- Leg 3 is partial: structure restores the invariant cleanly but only ~80% of legibility,
-  with a small fit cost. Fully closing the gap (a rotation trained to track the quantity, or
-  a Hamiltonian parameterization) is open.
+- Leg 3 closed (edge 1): a *shallow* rotation generator reached only ~80% of the ceiling, but a
+  generator expressive enough to match the precession reaches it (101%), with the invariant
+  conserved to 3e-7. So the recovery is real but contingent on the structured update having the
+  capacity to match the true symmetry transformation.
 - **Generality + scale (tested, edge 3):** the core leg holds in a deliberately NON-physics
   abstract task (objects with a hidden property under a frozen random world function) and the
   amortize>>free gap PERSISTS and WIDENS across width/object-count (free linear decode
@@ -167,7 +210,9 @@ the human-legible one.
 ## Artifacts
 
 `curvature/scripts/29_consensus_legibility.py` (leg 1), `31_wong_amortized.py` (leg 2),
-`33_legibility_structure.py` (legs 2+3 in one harness); results `29_consensus.json`,
-`31_wong_amortized.json`, `33_legibility.json` (+ `.png`s); full pre-registrations and
-numbers in `curvature/notes/lab_notebook.md`. The broader curvature saga this emerged from
-is `curvature_field_guide.md`.
+`33_legibility_structure.py` (legs 2+3), `34_legibility_close.py` (leg-3 closure),
+`35_legibility_scale.py` (generality+scale), `38_sharing_interpolation.py` (the Phronesis
+cross-test: sharing flips legibility, in MLP and transformer); results `29_/33_/34_/35_/38_*.json`
+(+ `.png`s); full pre-registrations and numbers in `curvature/notes/lab_notebook.md`. The
+real-LLM cross-test lives in the sibling Phronesis project. The broader curvature saga this
+emerged from is `curvature_field_guide.md`.
