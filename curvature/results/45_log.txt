@@ -1,0 +1,12 @@
+spread 0.0: geometry MSE 6.74e-05 | force MSE 5.48e-05 | ratio 1.23
+spread 0.4: geometry MSE 2.04e-04 | force MSE 4.91e-05 | ratio 4.16
+spread 0.8: geometry MSE 6.12e-04 | force MSE 6.88e-05 | ratio 8.88
+spread 1.6: geometry MSE 2.38e-03 | force MSE 9.43e-05 | ratio 25.21
+
+S1 universal geometrizes (spread0 ratio 1.23 <2): True
+S2 species costs (max-spread ratio 25.21 >5): True
+S3 transition monotone (ratios [1.23, 4.16, 8.88, 25.21]): True
+S4 code is rho, one-signed (lin 0.98/nl 0.89, nonneg True): True
+
+EQUIVALENCE-PRINCIPLE KNOB: True
+saved results/45_scalar_equivalence.json + .png

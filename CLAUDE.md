@@ -341,6 +341,25 @@ results in `curvature/notes/lab_notebook.md`.
   candidate): an orthogonal/Hamiltonian update F that conserves |w| by
   construction — does STRUCTURE recover the legible rotation? Other survey rows
   open: friction (predicted failure), equivalence-breaking gravity.
+- **SCALAR FIELD = the equivalence-principle knob (2026-06-16, script 45) — 4/4
+  first attempt.** New-field direction (user: extend methods, "what can we
+  learn"). Scalar (spin-0) force is attractive-only (web-verified), what matters
+  is ρ=s/m. 2D gravity well + scalar well scaled by per-body ρ; economy race
+  (Geometry identity-blind vs Force per-body code); sweep the SPREAD of ρ
+  (universality), attraction fixed. geometry/force MSE ratio = **[1.23, 4.16,
+  8.88, 25.21]** across spread {0,0.4,0.8,1.6}: universal ρ GEOMETRIZES (1.23,
+  cost 0), species ρ COSTS (25×, cost 1). **Universality IS the cause of
+  geometrization — shown as a continuous knob; the project's thesis on trial,
+  confirmed.** Code recovers ρ one-signed (decode 0.98); bonus refinement of the
+  legibility law: ρ is LINEARLY legible (0.98) unlike EM's q/m (scrambled,
+  Phase C) — a free code's legibility depends on how the charge couples
+  (one-signed/linear stays legible; signed/nonlinear scrambles; open thread).
+- **Field menu (parked, user-supplied, to extend the survey "when we hit a
+  wall"):** scalar ✓done; dilaton/secondary-hair (test primary vs secondary =
+  amortize/free counting, predict knee=1); Proca/massive-mediator (range knob —
+  does short-range/local let the Phase F law-learner succeed?); Yang-Mills =
+  Wong dynamic (orthogonal-F v3); Dirac/spinor (can a net discover a
+  double-cover state space? edge-of-representability).
 - Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
   Phase H rows (friction, equivalence-breaking); a G-sym legibility-preserving
   variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit

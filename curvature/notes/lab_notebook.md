@@ -1933,3 +1933,37 @@ layer because attention is global; the Phronesis L4->L36 ramp reflects many laye
 abstraction (a concept built from progressively composed features), which a small in-context toy does
 not reproduce.** This sharpens, not weakens, the Phronesis observable. Legibility law itself in a
 transformer was already confirmed (script 38). One fix round spent across 43->44; gates not moved.
+
+## 2026-06-16 — NEW FIELD: SCALAR charge = the equivalence-principle knob (45), 4/4 first attempt
+
+The user opened a new direction: extend the methods to more field types (scalar/Higgs, dilaton,
+Proca, Yang-Mills, Dirac) "to see what we can and cannot learn." Picked the SCALAR by gut — because
+it isolates the project's THESIS: geometrization happens because of the equivalence principle
+(bodies fall alike). Web-verified: a spin-0 scalar force is attractive-only between like charges (no
++/- sign), and what matters is rho = s/m (scalar-charge/mass) [EMD interaction-energy refs].
+
+Design: 2D gravity well (origin) + a scalar well (off-center) whose pull is scaled by each body's
+rho. Economy race (Phase C harness, reused idea): Geometry(x,y,vx,vy)->traj identity-blind vs Force
+with a per-body embedding. Tune UNIVERSALITY = the SPREAD of rho across bodies, holding "attraction"
+fixed. rho0=0.8, scalar center (1.2,-0.8), n_bodies=40, sweep spread {0,0.4,0.8,1.6}.
+
+**Result (45_scalar_equivalence.json) — ALL FOUR GATES, first attempt:**
+- geometry/force test-MSE ratio by spread: **[1.23, 4.16, 8.88, 25.21]** — a smooth, monotone
+  EQUIVALENCE-PRINCIPLE TRANSITION. Universal rho (spread 0) -> geometry TIES force (1.23) ->
+  GEOMETRIZES (cost 0). Species rho (spread 1.6) -> geometry 25x worse -> identity needed (cost 1).
+- **S1 ✓** universal geometrizes (1.23<2). **S2 ✓** species costs (25.21>5). **S3 ✓** monotone knob.
+  **S4 ✓** the learned code recovers rho, ONE-SIGNED (all rho>=0), decode linear 0.98 / nonlinear 0.89.
+- **Headline: universality IS the cause of geometrization, demonstrated as a continuous knob.** Holding
+  the force's attractiveness fixed and only varying whether bodies fall alike moves geometrization
+  from free to expensive. This is the project's thesis (equivalence principle -> geometry beats force
+  on description length) put on trial in a trainable system, and confirmed.
+- **Bonus / refinement of the legibility law:** the free per-body code for rho is LINEARLY LEGIBLE
+  (linear 0.98 > nonlinear 0.89) — UNLIKE EM's q/m which scrambled in Phase C (linear 0.02, behavioral
+  0.9999). The difference: rho is one-signed and enters the dynamics LINEARLY (a = a_grav + rho*a_scal),
+  while q/m was signed / entered via v×B. Hint: the legibility of a FREE code depends on HOW the charge
+  couples — a one-signed linear coupling stays legible where a signed/nonlinear one scrambles. (Single
+  data point; an open thread, not a refutation of "free->scramble".)
+- Newtonian toy generator (declared bias, like Phase C). Not in verify.sh (retrains, no saved model).
+  **Survey grid update: scalar JOINS gravity in the "geometrizes when universal" cell; the knob shows
+  the cell boundary is universality, not field type.** Menu of next fields parked (dilaton/secondary
+  hair, Proca learnability knob, Wong dynamic, Dirac spinor) for when we want more.

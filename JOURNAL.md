@@ -11,6 +11,24 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-16 — NEW FIELD: scalar charge = the equivalence-principle knob (4/4 first attempt)
+- **New direction (user): extend the methods to more field types, "see what we can and cannot learn."**
+  Picked the SCALAR by gut — it isolates the project's thesis (geometrization ⇐ equivalence principle).
+  Web-verified: scalar force is attractive-only (no ± sign); what matters is ρ = s/m.
+- **Built an equivalence-principle KNOB** (script `45_scalar_equivalence.py`): 2D gravity well + a
+  scalar well scaled by each body's ρ; economy race (Geometry identity-blind vs Force with per-body
+  code); sweep the SPREAD of ρ (universality), holding attraction fixed.
+- **All four gates, first attempt.** geometry/force MSE ratio by spread: **[1.23, 4.16, 8.88, 25.21]** —
+  a smooth monotone transition. Universal ρ (spread 0) → geometry ties force (1.23) → **geometrizes
+  (cost 0)**; species ρ (spread 1.6) → geometry 25× worse → **costs 1**. The code recovers ρ as a
+  one-signed quantity (decode 0.98). **Universality is the *cause* of geometrization, shown as a
+  continuous knob** — the project's thesis put on trial and confirmed.
+- **Bonus:** ρ's free code is *linearly* legible (0.98) — unlike EM's q/m which scrambled (Phase C).
+  Hint: a free code's legibility depends on how the charge couples (one-signed/linear stays legible;
+  signed/nonlinear scrambles). Open thread, not a refutation of free→scramble.
+- Menu of next fields parked (dilaton/secondary hair, Proca learnability knob, Wong dynamic, Dirac
+  spinor). Docs: lab notebook; results/45_*.
+
 ## 2026-06-16 — thread D depth-of-emergence: the bracketing (42→43→44), an abstraction-depth verdict
 - **Closed the depth-of-emergence question across three tasks.** Phronesis saw legibility rise with
   depth on Qwen3-4B (L4 0.40 → L36 0.92); does a toy reproduce a gradual multi-layer ramp?

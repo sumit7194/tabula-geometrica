@@ -1,0 +1,39 @@
+{
+ "sweep": [
+  {
+   "spread": 0.0,
+   "geometry_mse": 6.73520626151003e-05,
+   "force_mse": 5.48026328033302e-05,
+   "ratio": 1.2289931919294124
+  },
+  {
+   "spread": 0.4,
+   "geometry_mse": 0.0002039791870629415,
+   "force_mse": 4.9059763114200905e-05,
+   "ratio": 4.157769506308468
+  },
+  {
+   "spread": 0.8,
+   "geometry_mse": 0.0006115696742199361,
+   "force_mse": 6.884043978061527e-05,
+   "ratio": 8.883872272880913
+  },
+  {
+   "spread": 1.6,
+   "geometry_mse": 0.0023762970231473446,
+   "force_mse": 9.427034092368558e-05,
+   "ratio": 25.207260309698274
+  }
+ ],
+ "decode_at_max_spread": {
+  "linear_r": 0.9776275641199774,
+  "nonlinear_r": 0.8861204934289092,
+  "rho_min": 0.004381600272236996,
+  "rho_all_nonneg": true
+ },
+ "S1_universal_geometrizes": true,
+ "S2_species_costs": true,
+ "S3_transition_monotone": true,
+ "S4_code_is_rho_onesigned": true,
+ "equivalence_principle_knob_confirmed": true
+}
