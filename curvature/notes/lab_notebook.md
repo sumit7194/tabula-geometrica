@@ -1739,3 +1739,41 @@ lam*shared_encoder.
   it happens with a transformer encoder too. So the Phronesis LLM null ("no scramble in LLMs")
   is purely "pretraining has no free regime," not "transformers can't scramble." Mechanism
   confirmed in the toy. Folded into writeups/legibility_law.md (numbers in the cross-test section).
+
+## 2026-06-16 — SECOND LAW PRE-REGISTRATION: legibility != steerability (read vs control)
+
+Question (from the Phronesis nugget): is a legible (linearly-decodable) amortized code always a
+causal LEVER, or can read decouple from control? Hypothesis: REDUNDANCY decouples them — a
+property packed in one tight direction is read=control; a property spread redundantly is
+readable from any piece but writing one direction is overridden by the others (so read>>control).
+This would EXPLAIN the LLM "am-I-wrong is readable but not steerable" (distributed feature).
+Setup (script 39, abstract task from 35: object property p in R^2, frozen world fn g(p,x)->y):
+two amortized models with identical task —
+  COMPACT: code dim 2 (p must pack tightly; each direction matters).
+  REDUNDANT: code dim 32 + dropout 0.5 on the code during training (forces p spread redundantly).
+Read = linear decode r of p from the full code. Control = steer along the probe (read) direction
+by a realistic magnitude (move decoded-p toward the high-p centroid) and measure the COUNTERFACTUAL
+REACH of the output y (fraction of the genuine low->high y shift achieved), with an equal-norm
+random-direction control (S4 lesson).
+Gates: both models legible (read r>0.8); COMPACT control high (reach>0.5 = read==control);
+REDUNDANT read high but control LOW (reach<0.5 despite legibility) = read!=control, the 2nd law.
+One fix round.
+
+**RESULT — hypothesis #1 FALSIFIED, then a clean two-channel confirm (39_read_vs_control.py):**
+- #1 (dropout-redundancy) falsified in smoke: COMPACT read 0.82 / control 1.02; REDUNDANT read
+  0.82 / control 1.03 — *both* fully controllable. Dropout-on-a-single-code spreads p across dims
+  but they all still feed the head, so steering along the read direction moves all of them. Reach
+  near 1.0 either way. Redundancy WITHIN one code does not decouple read from control.
+- Pivot (the fix round): **two-channel construction.** Two encoders e1/e2 -> c1, c2 (R^8 each);
+  channel-dropout during training (randomly zero one channel) forces *each* channel to redundantly
+  encode p; head reads concat[c1,c2]. Now READ p from c1 alone; CONTROL by steering c1 only (c2
+  holds the old value and overrides) vs steering both.
+- **Result: read (c1 alone) r=0.89 PASS; control via c1 only = 0.40 reach PASS (read-only, the other
+  channel overrides); control via both = 1.01 PASS (full lever).** Gate read>0.8 AND one-channel<0.5
+  AND both>0.6 all pass -> **SECOND LAW CONFIRMED: legibility != steerability, decoupled by redundancy.**
+- Lesson: read==control holds when the legible code IS the causal bottleneck (edge (a): single
+  world-summary, steering bent trajectories 3.8x). It breaks when the property is encoded in
+  multiple redundant places — you can read any copy, but controlling needs writing all of them.
+  This is the toy of the LLM observation (distributed feature readable, single-direction steering
+  weak), and grounds the three-way distinction legibility != monosemanticity != task-causality
+  (Phronesis SAE caution: AUC 0.53 monosemantic feature vs 0.64 supervised probe). Writeup updated.

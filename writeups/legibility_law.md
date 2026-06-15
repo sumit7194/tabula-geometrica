@@ -189,14 +189,30 @@ nonlinear 0.56 = scramble; amortized: linear 0.70 = legible) — so the scramble
 MLP artifact, and the LLM null is purely "pretraining has no free regime," exactly as the
 reframe predicts.
 
-## An open question — legibility ≠ steerability? (candidate second law)
+## The second law — legibility ≠ steerability (confirmed), and a three-way distinction
 
-Phronesis also found a direction that is *readable but not a control lever*: their "am-I-about-
-to-be-wrong" direction decodes at AUC ≈ 0.65 yet pushing on it does not make the model abstain.
-In our toy the opposite held in one case — edge (a) showed the amortized world-summary is *both*
-legible *and* causally editable (steering "mass-ness" bends predictions, 3.8× over random). So
-**is every legible amortized code also a causal lever, or only some?** If read ≠ control shows up
-cleanly in the toy too, that is a second law as sharp as the first. Open.
+The first law is about *reading* a code. A second, independent law is about *writing* to it:
+**a direction can be legible (linearly readable) without being a control lever.** Demonstrated
+cleanly (`39_read_vs_control.py`): encode a property redundantly across two channels
+(channel-dropout in training), then —
+- **read** the property from channel 1 alone: r = **0.89** (legible from a part);
+- **steer** channel 1's direction: the output moves only **40%** of the counterfactual — the
+  other channel still encodes the old value and partly overrides it (readable, weak lever);
+- **steer both channels**: the output moves **100%** (full control).
+
+So reading is easy from any copy, but *controlling* requires writing all the redundant copies —
+**legibility ≠ steerability**, decoupled by redundancy. (Contrast: edge (a)'s world-summary was a
+single causal bottleneck, so there read *did* equal control, 3.8× over random — read=control holds
+when the legible code *is* the bottleneck, breaks when the property is distributed.)
+
+This explains the LLM observation it came from (Phronesis): a distributed feature is readable but
+single-direction steering is weak. And Phronesis sharpened it into a **three-way distinction** —
+on Qwen3-4B, the *monosemantic SAE feature* that semantically reads as the concept ("I don't
+know") was **not** the direction carrying the model's calibration signal (AUC 0.53 vs a 0.64
+supervised probe). So **legibility (linearly readable), monosemanticity (a clean single feature),
+and task-causality (actually drives behavior) are three different things** — a representation can
+have any subset. The legibility law governs the first; the second law and the SAE caution say the
+other two do not come for free. (Credit: Phronesis session.)
 
 ## Honest limits / scope
 

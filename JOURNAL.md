@@ -11,6 +11,25 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-16 — The second law: legibility ≠ steerability (CONFIRMED)
+- **Open thread #1 closed.** A direction can be linearly *readable* without being a control
+  *lever*. Built a two-channel amortized code (channel-dropout in training forces each channel to
+  redundantly encode the property), script `39_read_vs_control.py`. Result: **read** the property
+  from channel-1 alone r=**0.89** (legible from a part); **steer** channel-1's direction → output
+  moves only **0.40** of the counterfactual (the other channel overrides — readable but a weak
+  lever); **steer both** → **1.01** (full control). Redundancy decouples read from control.
+- **Contrast with edge (a):** there the world-summary was a single causal bottleneck, so read *did*
+  equal control (steering bent trajectories 3.8× over random). Read=control holds when the legible
+  code *is* the bottleneck; breaks when the property is distributed/redundant.
+- **Three-way distinction (folded into the writeup, credit Phronesis):** legibility (linearly
+  readable) ≠ monosemanticity (a clean single feature) ≠ task-causality (drives behavior). On
+  Qwen3-4B the monosemantic SAE "I-don't-know" feature carried the calibration signal at AUC 0.53
+  vs a 0.64 supervised probe — semantically clean, not the causal direction. A representation can
+  have any subset of the three; the legibility law governs only the first.
+- Docs: writeup `legibility_law.md` "second law" section; lab notebook; results/39_*.
+- Next in the "one by one" queue: #2 clean Platonic (within-family convergence), #3 Phase J encore
+  (J4 hyperbolic), plus thread D (full transformer toy-port).
+
 ## 2026-06-16 — Edge (b) Platonic + the Phronesis LLM cross-test folded in
 - **Edge (b) Platonic (honest partial):** 4 independent generalists (seeds x sizes) agree on the
   family map at cluster-ARI 0.92, but an untrained net already clusters families at 0.54 (they're
