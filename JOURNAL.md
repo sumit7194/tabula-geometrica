@@ -11,6 +11,25 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-16 — thread D depth-of-emergence: the bracketing (42→43→44), an abstraction-depth verdict
+- **Closed the depth-of-emergence question across three tasks.** Phronesis saw legibility rise with
+  depth on Qwen3-4B (L4 0.40 → L36 0.92); does a toy reproduce a gradual multi-layer ramp?
+  - **42** (smooth latent, legible at input): flat at 0.70 — no emergence, latent too accessible.
+  - **43** (in-context rotation, *illegible* at input −0.12, shallow nonlinearity): one-layer STEP
+    (−0.12 → 1.00 at layer 1). The precondition (illegible input) is confirmed necessary.
+  - **44** (non-commuting SO(3) product, illegible *and* deep-in-generation D=6, on MPS): STILL a
+    one-layer step, identical to D=1. The product of D rotations is one linear operator M(θ); the
+    transformer recovers M from the (u,Mu) pairs in one layer and reads θ off it — it never unrolls
+    the composition. **Generation-depth ≠ inference-depth; attention finds the parallel shortcut.**
+- **Verdict: depth-of-emergence is an ABSTRACTION-depth phenomenon, not a computation-depth one.** A
+  small transformer reads any parallel-recoverable latent in ~1 layer; the LLM L4→L36 ramp reflects
+  many layers of *linguistic* abstraction (a concept built from progressively composed features),
+  which an in-context toy doesn't reproduce. This *sharpens* the Phronesis observable. Mapped the
+  structural tension: linear-in-u keeps the input illegible but gives a single sufficient operator
+  (shallow inference); nonlinear-in-u allows deep inference but leaks the latent to the pooled mean.
+- The legibility law *itself* in a transformer was already confirmed (script 38). Scripts 42/43/44,
+  results/4{2,3,4}_*. One fix round spent across 43→44; gates not moved.
+
 ## 2026-06-16 — thread D: transformer port + depth-of-emergence (honest negative, sharp lesson)
 - **Thread D (the assigned physics-side port).** Phronesis found legibility rises with depth on
   Qwen3-4B (L4 r=0.40 → L36 r=0.92). Ported to an in-context depth-6 transformer on the script-35

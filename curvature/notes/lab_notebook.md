@@ -1896,3 +1896,40 @@ computes the angle, so theta is fully legible by layer 1. The Phronesis L4->L36 
 latent built by DEEP SEQUENTIAL COMPOSITION (many layers, each one hop), not a single nonlinear
 relation. -> script 44 (a genuine depth-D recurrence). Bracketing so far: 42 legible-at-input -> flat;
 43 illegible + shallow-nonlinear -> one-layer step; 44 illegible + deep-composition -> expect a ramp.
+
+## 2026-06-16 — thread D follow-up #2: deep composition STILL a one-layer step — generation-depth != inference-depth (44, MPS)
+
+Built a latent that is BOTH illegible-at-input AND deep-in-generation: token = (u, M(theta) u) with
+M(theta) = R_{a_D}(theta)...R_{a_1}(theta), a product of D rotations by the SAME angle theta about D
+DIFFERENT fixed axes in 3D (SO(3) non-abelian -> not a single rotation by D*theta). M is LINEAR in u,
+so E[Mu]=0 -> theta illegible to linear pooling (verified r=0.12; the state-dependent v1 leaked theta
+to the mean at r=0.84 and was discarded). Deep D=6 vs shallow D=1. MPS.
+
+**Result (44_depth_ramp.json): deep and shallow are IDENTICAL — both a one-layer step.**
+- deep (D=6) legibility by layer: **[-0.12, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00]**, R²=1.000.
+- shallow (D=1): **[-0.13, 1.00, ...]** — same. F2 (illegible input) PASS, F3 (solved) PASS, F4
+  (shallow steps) PASS, **F1 (deep ramp) FAIL** — D=6 jumps to 1.00 at layer 1 exactly like D=1.
+- **Mechanism (the real finding): generation-depth != inference-depth.** The product of D rotations
+  is still a SINGLE linear operator M(theta). The transformer recovers M from the (u, Mu) pairs in one
+  layer (a linear system) and reads theta off M — it NEVER unrolls the D-step composition. Attention
+  is global/parallel, so it finds the parallel shortcut regardless of how deep the data-generation was.
+
+**The structural tension this maps (why a clean toy ramp is hard):**
+- LINEAR-in-u -> mean-0 -> illegible-at-input ✓, but -> a single sufficient operator M -> SHALLOW
+  inference (one-layer step).
+- NONLINEAR-in-u -> deep inference is possible, but -> theta leaks into the pooled mean -> LEGIBLE at
+  input ✗ (script 44 v1).
+  Illegible-at-input and deep-inference are in TENSION for this task class; satisfying both needs a
+  genuinely SERIAL problem with no parallel sufficient statistic (automaton simulation), hard to make
+  clean and continuous.
+
+**THREAD D COMPLETE — the bracketing (the answer):**
+- 42 latent legible at input -> FLAT (0.70), no emergence.
+- 43 illegible + shallow nonlinearity -> one-layer STEP (-0.12 -> 1.00 at layer 1).
+- 44 illegible + deep composition (D=6) -> STILL one-layer step (identical to D=1).
+**Conclusion: depth-of-emergence (a gradual multi-layer legibility ramp) is an ABSTRACTION-depth
+phenomenon, not a COMPUTATION-depth one. A transformer reads any parallel-recoverable latent in ~1
+layer because attention is global; the Phronesis L4->L36 ramp reflects many layers of LINGUISTIC
+abstraction (a concept built from progressively composed features), which a small in-context toy does
+not reproduce.** This sharpens, not weakens, the Phronesis observable. Legibility law itself in a
+transformer was already confirmed (script 38). One fix round spent across 43->44; gates not moved.

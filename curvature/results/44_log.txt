@@ -1,0 +1,10 @@
+device: mps
+deep (D=6) legibility by layer:    ['-0.12', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00'] | R²=1.000
+shallow (D=1) legibility by layer: ['-0.13', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00'] | R²=1.000
+F1 deep ramp (last 1.00 - layer1 1.00 >0.3 & layer1<0.6): False
+F2 deep input illegible (layer0 -0.12 <0.3): True
+F3 deep solved (R² 1.00 >0.8): True
+F4 shallow steps fast (layer1 1.00 >0.7): True
+
+DEPTH RAMP (deep-composition latent): False
+saved results/44_depth_ramp.json + .png
