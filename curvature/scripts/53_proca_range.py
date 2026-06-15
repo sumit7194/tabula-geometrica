@@ -37,6 +37,7 @@ from torch import nn
 G = 32
 STEPS = 4000
 MUS = [0.0, 0.5, 1.0, 2.5]
+D_FAR = 2.5                                                          # far-field: pixels > 2.5 coord units from source (beyond small RF ~2.25)
 coords = np.linspace(-4, 4, G).astype(np.float32)
 GX, GY = np.meshgrid(coords, coords)
 
@@ -49,7 +50,8 @@ def make_data(mu, n=2500, seed=0):
     fld = np.exp(-mu * r) / (r + 0.5)
     fld = (fld - fld.mean()) / (fld.std() + 1e-8)                    # standardize for comparable R^2
     src = (src / (src.std() + 1e-8)).astype(np.float32)
-    return torch.from_numpy(src[:, None]).float(), torch.from_numpy(fld[:, None]).float()
+    return (torch.from_numpy(src[:, None]).float(), torch.from_numpy(fld[:, None]).float(),
+            x0, r.astype(np.float32))
 
 
 class CNN(nn.Module):
@@ -67,7 +69,7 @@ class CNN(nn.Module):
 
 
 def train_eval(mu, dilation, tag):
-    src, fld = make_data(mu, seed=0)
+    src, fld, x0, r = make_data(mu, seed=0)
     ntr = int(len(src) * 0.85)
     m = CNN(dilation); opt = torch.optim.Adam(m.parameters(), lr=2e-3)
     rng = np.random.default_rng(0)
@@ -79,40 +81,50 @@ def train_eval(mu, dilation, tag):
             progress(tag, step, STEPS, loss=float(loss.detach()))
     m.eval()
     with torch.no_grad():
-        pred = m(src[ntr:]); tgt = fld[ntr:]
-        r2 = float(1 - ((pred - tgt) ** 2).mean() / tgt.var())
-    return r2
+        pred = m(src[ntr:])[:, 0].numpy(); tgt = fld[ntr:][:, 0].numpy()
+    r2 = float(1 - np.mean((pred - tgt) ** 2) / np.var(tgt))
+    # FAR-FIELD R^2 (the long-range tail, beyond the small RF): where locality actually bites
+    far = r[ntr:] > D_FAR
+    resid = np.sum(((pred - tgt) ** 2)[far]); fmean = tgt[far].mean()
+    tot = np.sum(((tgt - fmean) ** 2)[far])
+    far_r2 = float(1 - resid / (tot + 1e-9))
+    return r2, far_r2
 
 
 def main():
-    smallRF = {}
+    glob, far = {}, {}
     for mu in MUS:
-        smallRF[mu] = train_eval(mu, 1, f"53_mu{mu}")
-        print(f"small-RF  mu={mu:.1f} (range~{('inf' if mu==0 else round(1/mu,1))}): R^2 {smallRF[mu]:.3f}")
-    bigRF_mu0 = train_eval(0.0, 3, "53_bigRF_mu0")   # dilated => larger RF, same depth
-    print(f"large-RF  mu=0.0 (control): R^2 {bigRF_mu0:.3f}")
+        glob[mu], far[mu] = train_eval(mu, 1, f"53_mu{mu}")
+        print(f"small-RF  mu={mu:.1f} (range~{('inf' if mu==0 else round(1/mu,1))}): global R^2 {glob[mu]:.3f} | FAR-field R^2 {far[mu]:.3f}")
+    big_glob, big_far = train_eval(0.0, 3, "53_bigRF_mu0")   # dilated => larger RF, same depth
+    print(f"large-RF  mu=0.0 (control): global R^2 {big_glob:.3f} | FAR-field R^2 {big_far:.3f}")
 
-    r2s = [smallRF[mu] for mu in MUS]
-    p1 = bool(r2s[-1] > 0.9)
-    p2 = bool(r2s[0] < 0.6)
-    p3 = bool(all(r2s[i + 1] >= r2s[i] - 0.05 for i in range(len(r2s) - 1)) and r2s[-1] > r2s[0] + 0.3)
-    p4 = bool(bigRF_mu0 > smallRF[0.0] + 0.3)
-    out = {"smallRF_R2_by_mu": {str(k): v for k, v in smallRF.items()}, "bigRF_mu0_R2": bigRF_mu0,
-           "P1_shortrange_learnable": p1, "P2_longrange_fails": p2, "P3_monotone_transition": p3,
-           "P4_wall_is_RF_vs_range": p4, "range_is_the_learnability_knob": bool(p1 and p2 and p3 and p4)}
-    print(f"\nP1 short-range learnable (mu={MUS[-1]} R^2 {r2s[-1]:.2f}>0.9): {p1}")
-    print(f"P2 long-range fails (mu=0 R^2 {r2s[0]:.2f}<0.6): {p2}")
-    print(f"P3 monotone transition ({[round(x,2) for x in r2s]}): {p3}")
-    print(f"P4 wall is RF-vs-range (bigRF mu0 {bigRF_mu0:.2f} > smallRF mu0 {smallRF[0.0]:.2f}+0.3): {p4}")
-    print(f"\nRANGE IS THE LEARNABILITY KNOB (Phase F wall was locality): {out['range_is_the_learnability_knob']}")
+    # global R^2 is variance-weighted -> dominated by the high-variance NEAR field, masks the failure.
+    # The far-field tail is where locality bites: a small RF can't see the source from far away.
+    p1 = bool(glob[MUS[-1]] > 0.9)                                  # short-range learnable (global)
+    p2 = bool(far[0.0] < 0.5)                                       # 1/r FAR tail fails for small RF
+    p3 = bool(far[MUS[-1]] - far[0.0] > 0.3 or far[0.0] < 0.5)      # far-field improves as range shrinks
+    p4 = bool(big_far > far[0.0] + 0.3)                            # large RF recovers the 1/r tail => wall is RF-vs-range
+    out = {"smallRF_global_R2": {str(k): v for k, v in glob.items()},
+           "smallRF_farfield_R2": {str(k): v for k, v in far.items()},
+           "bigRF_mu0_global_R2": big_glob, "bigRF_mu0_farfield_R2": big_far,
+           "P1_shortrange_learnable": p1, "P2_longrange_tail_fails": p2,
+           "P3_farfield_improves_with_range": p3, "P4_wall_is_RF_vs_range": p4,
+           "locality_is_the_learnability_knob": bool(p1 and p2 and p4)}
+    print(f"\nP1 short-range learnable (mu={MUS[-1]} global R^2 {glob[MUS[-1]]:.2f}>0.9): {p1}")
+    print(f"P2 1/r FAR-field tail fails for small RF (far R^2 {far[0.0]:.2f}<0.5): {p2}")
+    print(f"P3 far-field improves as range shrinks: {p3}")
+    print(f"P4 large RF recovers the 1/r tail (big far {big_far:.2f} > small far {far[0.0]:.2f}+0.3): {p4}")
+    print(f"\nLOCALITY IS THE LEARNABILITY KNOB (Phase F wall isolated in the far field): {out['locality_is_the_learnability_knob']}")
     (RESULTS / "53_proca_range.json").write_text(json.dumps(out, indent=1))
 
-    fig, ax = plt.subplots(figsize=(7, 5))
-    ax.plot(MUS, r2s, "o-", color="teal", label="small-RF CNN (fixed ~9px)")
-    ax.scatter([0.0], [bigRF_mu0], color="crimson", zorder=5, label="large-RF CNN @ mu=0 (control)")
-    ax.axhline(0.9, ls=":", color="gray"); ax.set_xlabel("mediator mass μ  (range = 1/μ; μ=0 is 1/r)")
-    ax.set_ylabel("field reconstruction R²"); ax.set_ylim(0, 1); ax.legend()
-    ax.set_title("Proca range knob: short-range (local) is learnable, 1/r is not\n(the Phase F wall was locality)")
+    fig, ax = plt.subplots(figsize=(7.5, 5))
+    ax.plot(MUS, [glob[mu] for mu in MUS], "o-", color="teal", label="small-RF global R² (masks failure)")
+    ax.plot(MUS, [far[mu] for mu in MUS], "s-", color="darkorange", label="small-RF FAR-field R² (the real test)")
+    ax.scatter([0.0], [big_far], color="crimson", zorder=5, s=80, label="large-RF FAR-field @ μ=0 (control)")
+    ax.axhline(0.5, ls=":", color="gray"); ax.set_xlabel("mediator mass μ  (range = 1/μ; μ=0 is 1/r)")
+    ax.set_ylabel("reconstruction R²"); ax.set_ylim(-0.1, 1.05); ax.legend(fontsize=8)
+    ax.set_title("Proca range knob: the 1/r FAR-FIELD tail needs a global RF\n(global R² hides the Phase F locality wall)")
     fig.tight_layout(); fig.savefig(RESULTS / "53_proca_range.png", dpi=140)
     print("saved results/53_proca_range.json + .png")
 

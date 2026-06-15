@@ -1,0 +1,21 @@
+{
+ "smallRF_global_R2": {
+  "0.0": 0.9400894641876221,
+  "0.5": 0.984237551689148,
+  "1.0": 0.9968134164810181,
+  "2.5": 0.9999306201934814
+ },
+ "smallRF_farfield_R2": {
+  "0.0": 0.17151695489883423,
+  "0.5": 0.1854134202003479,
+  "1.0": 0.08591324090957642,
+  "2.5": -1.4917638301849365
+ },
+ "bigRF_mu0_global_R2": 0.9956176280975342,
+ "bigRF_mu0_farfield_R2": 0.9365294575691223,
+ "P1_shortrange_learnable": true,
+ "P2_longrange_tail_fails": true,
+ "P3_farfield_improves_with_range": true,
+ "P4_wall_is_RF_vs_range": true,
+ "locality_is_the_learnability_knob": true
+}

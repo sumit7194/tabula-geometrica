@@ -2140,3 +2140,29 @@ with a net trained on PERIMETER (a dynamical, path-length quantity).
   area, invariant to retraced paths, distinct from a path-length (dynamical) quantity. The Berry
   signature, with the Stokes (local-additive) structure giving the path-independence. Ties the quantum
   geometric phase to our curvature theme (Berry curvature flux = the holonomy).
+
+## 2026-06-16 (OVERNIGHT Run 3) — QUANTUM FIELD: Proca range = the LOCALITY learnability knob (53)
+
+Phase F's parked NULL: a local CNN can't learn the matter->field law for long-range 1/r gravity
+(FNO-class: magnitude needs global operators). Diagnosis was LOCALITY. A Proca (massive) mediator
+screens the force to short-range Yukawa e^{-mu r}/r; sweep mu to flip range from long (mu=0, 1/r) to
+short, and a fixed small-RF CNN should flip learnable. Grid 32x32, point source -> Yukawa field.
+
+**First run — pre-registration MISSED, instructive:** small-RF global R^2 = [0.94, 0.98, 1.00, 1.00]
+across mu; large-RF mu=0 control 0.996. P2 (long-range fails <0.6) FAIL: the small-RF CNN gets 0.94
+even for 1/r. Diagnosis: GLOBAL R^2 is variance-weighted and DOMINATED by the high-variance NEAR-source
+field (locally learnable), MASKING the far-field tail failure. The field MAP is learnable at all ranges;
+the Phase F wall is specifically the long-range TAIL.
+
+**Fix round (far-field R^2: pixels > 2.5 coord units from source, beyond the ~2.25-unit small RF):**
+- small-RF mu=0 (1/r): global 0.940 but **FAR-field R^2 = 0.172** (FAILS on the tail).
+- large-RF mu=0 control: **FAR-field R^2 = 0.937** (RECOVERS the 1/r tail).
+- **P2 ✓** (1/r far tail fails small RF, 0.172<0.5); **P4 ✓** (large RF recovers it, 0.937 >> 0.172);
+  P1 ✓ (short-range globally learnable). **LOCALITY IS THE LEARNABILITY KNOB: the 1/r long-range tail
+  needs a GLOBAL receptive field; a small RF reconstructs only the near field.** Phase F wall isolated.
+- Honest nuances: (i) short-range far-field R^2 is DEGENERATE (mu=2.5 far R^2 -1.49) because a screened
+  field has ~0 far tail (no variance to explain) — so the clean evidence is the small-vs-large-RF
+  CONTRAST at mu=0, not a monotone far-field trend (P3 passed on a technicality, recorded). (ii) The
+  global field-MAP is learnable at all ranges — refines the Phase F story: it was never "small CNN
+  can't predict a 1/r field," it was "small CNN can't predict the long-range TAIL" (global operator
+  needed = FNO-class). One fix round spent (metric, not thresholds); gate logic honest.

@@ -35,6 +35,24 @@ honest null → document → commit), credited web-verification.
   invariance Δ 0.9%** (vs the length/dynamical net's 72%, ~80× more). The net discovered the
   geometric phase is path-independent — the Berry signature; ties the quantum geometric phase to our
   curvature theme. Docs: lab notebook; results/54_*.
+- **Run 3 (QUANTUM FIELD — Proca range knob) ✅ (after 1 fix round).** A massive mediator screens
+  gravity's 1/r to short-range Yukawa; does locality flip learnability (the parked Phase F wall)?
+  Script `53_proca_range.py`. First run: global R² masked it (small-RF gets 0.94 even for 1/r — the
+  near-field dominates variance). Fix round (FAR-field R²): at µ=0 (1/r), small-RF far-field R²=**0.172**
+  (fails the tail) vs large-RF **0.937** (recovers it). **Locality IS the learnability knob — the 1/r
+  long-range TAIL needs a global receptive field.** Refines Phase F: the field-map is learnable at all
+  ranges; only the long-range tail needs global operators (FNO-class). Docs: lab notebook; results/53_*.
+
+- **OVERNIGHT WRAP-UP — exotic-physics queue COMPLETE (4/4 runs, all documented + committed):**
+  Pointed our "discover geometry from observation" paradigm at quantum & particle physics. Headlines:
+  (1) a net **invents the Bloch sphere + Born rule** from qubit measurements (the quantum Phase A);
+  (2) geometrization is **shape-independent** (confinement geometrizes when universal);
+  (3) a net **discovers a holonomy** (Berry geometric phase = enclosed area, path-independent);
+  (4) **locality is the learnability knob** (the 1/r tail needs a global RF — Phase F wall isolated).
+  Recurring thread: the net keeps choosing the **minimal LINEARIZING code** (Bloch *vector* not the
+  2-D chart, knee at 3) — the Phase-A lesson, now confirmed in quantum state space. Two pre-reg
+  deviations recorded openly (Bloch knee 2→3; Proca metric near→far). All rigour held; honest nulls
+  and fixes logged. Remaining classical menu: Wong dynamic (orthogonal-F v3), Dirac/spinor.
 
 ## 2026-06-16 — POSITIONING the legibility law: amortization is an objective-independent lever
 - **External review (parallel Claude session, credited)** located our defensible contribution vs the

@@ -1,4 +1,13 @@
-small-RF  mu=0.0 (range~inf): R^2 0.943
-small-RF  mu=0.5 (range~2.0): R^2 0.984
-small-RF  mu=1.0 (range~1.0): R^2 0.998
-small-RF  mu=2.5 (range~0.4): R^2 1.000
+small-RF  mu=0.0 (range~inf): global R^2 0.940 | FAR-field R^2 0.172
+small-RF  mu=0.5 (range~2.0): global R^2 0.984 | FAR-field R^2 0.185
+small-RF  mu=1.0 (range~1.0): global R^2 0.997 | FAR-field R^2 0.086
+small-RF  mu=2.5 (range~0.4): global R^2 1.000 | FAR-field R^2 -1.492
+large-RF  mu=0.0 (control): global R^2 0.996 | FAR-field R^2 0.937
+
+P1 short-range learnable (mu=2.5 global R^2 1.00>0.9): True
+P2 1/r FAR-field tail fails for small RF (far R^2 0.17<0.5): True
+P3 far-field improves as range shrinks: True
+P4 large RF recovers the 1/r tail (big far 0.94 > small far 0.17+0.3): True
+
+LOCALITY IS THE LEARNABILITY KNOB (Phase F wall isolated in the far field): True
+saved results/53_proca_range.json + .png

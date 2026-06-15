@@ -355,11 +355,28 @@ results in `curvature/notes/lab_notebook.md`.
   Phase C) — a free code's legibility depends on how the charge couples
   (one-signed/linear stays legible; signed/nonlinear scrambles; open thread).
 - **Field menu (parked, user-supplied, to extend the survey "when we hit a
-  wall"):** scalar ✓done; dilaton/secondary-hair (test primary vs secondary =
-  amortize/free counting, predict knee=1); Proca/massive-mediator (range knob —
-  does short-range/local let the Phase F law-learner succeed?); Yang-Mills =
-  Wong dynamic (orthogonal-F v3); Dirac/spinor (can a net discover a
+  wall"):** scalar ✓done; dilaton/secondary-hair ✓done (partial: softens, no clean
+  knee=1, capacity-confounded); Proca ✓done (Run 3); Yang-Mills =
+  Wong dynamic (orthogonal-F v3, OPEN); Dirac/spinor (OPEN — can a net discover a
   double-cover state space? edge-of-representability).
+- **OVERNIGHT EXOTIC-PHYSICS QUEUE (2026-06-16, autonomous, 4/4 done):** pointed
+  "discover geometry from observation" at quantum/particle physics.
+  • **Run 1 Bloch sphere (script 51) ✅** — a net INVENTS the Bloch sphere + Born
+    rule from qubit measurements (sphere decode R²=1.000, |r|=1.000±0.011; Born
+    gradient cos=0.998). Knee at K=3 not 2 (pre-reg corrected): the net finds the
+    3-D Cartesian Bloch VECTOR (linearizes Born), not the 2-D chart — Phase-A
+    minimal-linearizing-code lesson in quantum state space. The quantum Phase A.
+  • **Run 2 confinement (52) ✅ 3/3** — a confining force V~|x| geometrizes when
+    universal (ratio 1.06→26.78); geometrization is SHAPE-INDEPENDENT (universality
+    is the whole story), generalizing the equivalence-principle knob (45).
+  • **Run 3 Proca (53) ✅** (1 fix round) — locality IS the learnability knob: the
+    1/r long-range TAIL needs a global RF (small-RF far-field R²=0.17 vs large-RF
+    0.94 at μ=0); global R² masked it. Phase F wall isolated (FNO-class).
+  • **Run 4 Berry holonomy (54) ✅ 3/3** — a net discovers the geometric phase is a
+    HOLONOMY (area, path-independent): whisker-invariance Δ0.9% vs the dynamical
+    length-net's 72%. Web-verified Berry = -½ solid angle. Ties quantum geometric
+    phase to curvature.
+  Two pre-reg deviations recorded openly (Bloch knee 2→3; Proca near→far metric).
 - Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
   Phase H rows (friction, equivalence-breaking); a G-sym legibility-preserving
   variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit
