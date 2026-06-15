@@ -11,6 +11,22 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-16 — NEW FIELD: dilaton (secondary hair) — honest partial, two real nuances
+- **Dilaton = the secondary-hair field** (web-verified: the dilaton scalar charge is DETERMINED by
+  mass & electric charge). Reused the script-24 lane-counter; dilaton arm q2=κq1 (determined) vs
+  independent q2 (script 24). Predicted dilaton knee=1. Script `49_dilaton_secondary_hair.py`.
+- **Honest partial (1/3 gates).** test MSE: dilaton L0 0.106→L1 4.9e-4→L2 1.8e-4; independent
+  L0 0.163→L1 1.8e-3→L2 3.1e-4. DL2 (independent knee=2) PASS; DL1 (dilaton knee=1) FAIL; DL3
+  (1-d lane legible) FAIL. Two real nuances instead:
+  1. **Secondary hair shows as a SOFTENING:** the determined charge halves the value of the 2nd lane
+     (2.7× vs 6.0×) and lets one lane reach a 3.7× lower floor — but not a clean knee=1, because
+     model-capacity slack confounds knee-counting (the known Phase 11/12 lesson).
+  2. **The 1-D rollout lane is linearly illegible (0.31)** — opposite of 48's direct-readout result —
+     because the recurrent rollout F re-scrambles it: that's *leg 2* of the legibility law. So 48's
+     "1-D free code legible" holds for direct readout; a recurrent latent scrambles even 1-D.
+- Honest null on the clean prediction; no fix round (the failures are known limitations). Field menu
+  remaining: Proca (range/learnability knob), Wong dynamic, Dirac. Docs: lab notebook; results/49_*.
+
 ## 2026-06-16 — what makes a free code scramble? → LATENT DIMENSIONALITY (refines the crown finding)
 - **Chased the script-45 anomaly** (a free code that was *legible*) into a refinement of the
   legibility law's first leg. Three experiments:

@@ -2024,3 +2024,31 @@ governed primarily by LATENT DIMENSIONALITY, NOT by sign / coupling-type / the n
   (This is why Phase C's q/m — effectively 1-d — was the SURPRISE that it scrambled: that was the
   neutral-MIX + signed structure; a clean 1-d charge like scalar rho does NOT scramble. The mix
   contributes a secondary scramble, 47: 0.70->0.51.)
+
+## 2026-06-16 — NEW FIELD: DILATON (secondary hair) — honest partial 1/3, two real nuances (49)
+
+Web-verified (Einstein-Maxwell-dilaton): the dilaton scalar charge is SECONDARY hair — DETERMINED by
+mass & electric charge, not stored independently. Toy: reuse the script-24 lane-counter; bodies carry
+two charges to two field bumps; dilaton arm sets q2 = kappa*q1 (determined, corr 1.00), independent
+arm = free q2 (script 24). Sweep lanes L; predict dilaton knee at 1 (true DOF = 1).
+
+**Result (49_dilaton.json), test MSE by L:**
+- dilaton:     L0 0.106, L1 4.9e-4, L2 1.8e-4, L3 1.95e-4  (2nd lane buys 2.71x)
+- independent: L0 0.163, L1 1.8e-3, L2 3.1e-4, L3 2.55e-4  (2nd lane buys 5.98x)
+- **DL2 PASS** independent knee=2 (replicates 24). **DL1 FAIL** dilaton knee NOT cleanly 1 (2nd lane
+  still buys 2.71x > 1.5). **DL3 FAIL** dilaton 1-d lane -> q1 linear |r| = 0.31 (illegible).
+
+**Two real nuances (the honest value):**
+1. **Secondary hair IS present, as a SOFTENING not a clean knee:** the determined charge HALVES the
+   value of the second lane (2.71x vs 5.98x) and lets ONE lane reach a 3.7x lower floor (4.9e-4 vs
+   1.8e-3). The knee isn't sharp at 1 because of MODEL-CAPACITY slack — the known Phase 11/12 lesson
+   ("knee-counting needs near-oracle inference"). The cross-arm floor comparison is the clean signal;
+   the within-arm knee is capacity-confounded.
+2. **A 1-d ROLLOUT lane is linearly ILLEGIBLE (0.31)** — opposite of 48's direct-readout 1-d
+   legibility. Mechanism: the lane feeds a RECURRENT rollout F, and a generic recurrent evolution
+   RE-SCRAMBLES the code = **leg 2 of the legibility law**. So 48's "1-d free code is legible" holds
+   for DIRECT readout; a recurrent/rollout latent scrambles even a 1-d code (consistent with Phase D,
+   which needed behavioral decode). A nice cross-link: legs 1 (dimensionality) and 2 (evolution) both
+   bear on the same lane.
+- 1/3 gates; no fix round spent (the failures are KNOWN limitations — capacity-confounded knee-
+  counting + recurrent re-scramble — not fixable by a tweak). Honest partial. KAPPA=0.7.

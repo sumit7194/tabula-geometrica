@@ -1,0 +1,15 @@
+  dilaton     L=0: test MSE 1.060e-01
+  dilaton     L=1: test MSE 4.944e-04 | L1 lane->q1 |r|=0.31
+  dilaton     L=2: test MSE 1.825e-04
+  dilaton     L=3: test MSE 1.954e-04
+  independent L=0: test MSE 1.633e-01
+  independent L=1: test MSE 1.831e-03 | L1 lane->q1 |r|=0.01
+  independent L=2: test MSE 3.064e-04
+  independent L=3: test MSE 2.551e-04
+
+DL1 dilaton knee=1 (L0/L1 214.3>3 & L1/L2 2.71<1.5): False
+DL2 independent knee=2 (L1/L2 5.98>1.7): True
+DL3 dilaton 1-d lane legible (|r| 0.3101991217763617): False
+
+SECONDARY HAIR (determined charge costs 0 extra lanes): False
+saved results/49_dilaton.json + .png
