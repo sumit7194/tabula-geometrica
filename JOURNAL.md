@@ -11,6 +11,25 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-17 — THE UNIFICATION TEST: geometry = amortized physics (the repo's two laws are one)
+- **The orthogonal "connect the dots" experiment.** The repo's two headline laws — PHYSICS (a label
+  geometrizes iff *universal*; else a per-body force) and ML (a code is legible iff *amortized*; a free
+  multi-D code scrambles) — may be ONE principle: *what's shared across instances collapses into
+  structure; per-instance stays a scrambled tag.* Key realization: the economy-race geometry model IS
+  the maximally-amortized (identity-blind) model and the force model IS the free code — so the two
+  transitions might be the same comparison. Tested on ONE universality knob with three models
+  (blind / amortized in-context / free), 2-D coupling so the free code can scramble. Script `55_unification.py`.
+- **Result: UNIFICATION SUPPORTED (3/3 after one fix round).** Γ = blind/free MSE by σ = [0.30, 3.75,
+  6.90, **26.96**] (geometrization transition; at σ=0 the shared model *beats* free → geometry). The
+  needed per-body code is legible iff amortized: at max σ, amortized **0.97** vs free **0.43**. Both
+  order parameters ride the *same* knob and co-emerge. **Geometry = amortized physics**: a law is
+  geometric exactly when amortizable across bodies; a "force" when it must be stored per-body; and that
+  residual code is legible iff amortized. One selection principle ("shareability") seen from physics
+  and from representation-learning. Honest nuance: amortized legibility is signal-limited at low σ (the
+  split emerges as σ grows). **Weekend-writeup-worthy synthesis** — ties the repo's two halves together.
+- NEXT (user-queued): entropic / emergent gravity (Verlinde-style) — discover an attractive force from
+  a statistical/entropic substrate; connects to It-from-Qubit (Phase J). Docs: lab notebook; results/55_*.
+
 ## 2026-06-16 (OVERNIGHT, autonomous) — exotic-physics queue: quantum/particle fields
 User set an overnight autonomous queue ("try quantum/particle physics, things one conventionally
 won't do"): Bloch sphere → confinement → Proca → Berry phase. Full rigour (pre-register → gate →

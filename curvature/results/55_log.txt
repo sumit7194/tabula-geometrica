@@ -1,0 +1,19 @@
+/Users/sumit/Github/SpaceTime/curvature/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3023: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+/Users/sumit/Github/SpaceTime/curvature/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3023: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+/Users/sumit/Github/SpaceTime/curvature/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3023: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+/Users/sumit/Github/SpaceTime/curvature/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3023: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+σ=0.0: Γ(blind/free)= 0.30 | blind 1.8e-05 free 6.0e-05 amort 8.6e-05 | L_free nan L_amort nan
+σ=0.4: Γ(blind/free)= 3.75 | blind 4.0e-04 free 1.1e-04 amort 1.1e-03 | L_free 0.21 L_amort -0.29
+σ=0.8: Γ(blind/free)= 6.90 | blind 1.4e-03 free 2.1e-04 amort 7.3e-04 | L_free 0.34 L_amort 0.66
+σ=1.6: Γ(blind/free)=26.96 | blind 5.3e-03 free 2.0e-04 amort 6.2e-04 | L_free 0.43 L_amort 0.97
+
+U1 geometrization transition (Γ 0.3->27.0): True
+U2 amortization legibilizes (max-σ L_amort 0.97>0.8 & > L_free 0.43+0.3): True
+U3 one knob, both transitions (σ=0 tie Γ 0.3<2; private amort-vs-free split): True
+
+GEOMETRY = AMORTIZED PHYSICS (universality == amortization): True
+saved results/55_unification.json + .png

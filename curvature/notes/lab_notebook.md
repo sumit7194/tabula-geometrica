@@ -2166,3 +2166,38 @@ the Phase F wall is specifically the long-range TAIL.
   global field-MAP is learnable at all ranges — refines the Phase F story: it was never "small CNN
   can't predict a 1/r field," it was "small CNN can't predict the long-range TAIL" (global operator
   needed = FNO-class). One fix round spent (metric, not thresholds); gate logic honest.
+
+## 2026-06-17 — THE UNIFICATION TEST: geometry = amortized physics (55) — SUPPORTED
+
+User's orthogonal "connect the dots" pick. The repo's two headline laws, long treated separately:
+PHYSICS (a label geometrizes iff UNIVERSAL; else a per-body force — economy race 45/52) and ML (a
+code is legible iff AMORTIZED; a free multi-D code scrambles — legibility law 48/50). Claim: ONE
+principle — "what is SHARED across instances collapses into structure; per-instance stays a scrambled
+tag." Note the economy-race GEOMETRY model IS the maximally-amortized (identity-blind) model and the
+FORCE model IS the free per-body code — so the two transitions may be the SAME comparison. Test: ONE
+universality knob (spread sigma of a 2-D per-body coupling rho), three models (BLIND / AMORTIZED
+in-context encoder / FREE embedding), read out BOTH order parameters on the same data. 2-D rho chosen
+so the free code can scramble (the dimensionality finding, 48).
+
+**Result (55_unification.json) — all gates after 1 fix round (K 16->32, 8k steps, so the 2-D rho
+infers cleanly; first run L_amort was signal-limited at 0.78):**
+- Gamma = blind/free MSE by sigma: **[0.30, 3.75, 6.90, 26.96]** — geometrization transition (U1 ✓).
+  At sigma=0 BLIND BEATS free (Gamma 0.30) — universal => the shared/identity-blind model is strictly
+  best (geometry); free's extra params only hurt. At high sigma a per-body code is needed (Gamma 27).
+- Legibility of rho by sigma: amortized **[nan, -0.29, 0.66, 0.97]** vs free **[nan, 0.21, 0.34, 0.43]**.
+  At max sigma amortized **0.97** vs free **0.43** (split 0.54). U2 ✓ (amortized legible & >> free).
+- **U3 ✓ one knob, both transitions:** sigma=0 -> tie (Gamma<1, code carries nothing, L=nan); as sigma
+  grows the SAME knob makes (a) the shared model insufficient (Gamma rises) AND (b) the needed code
+  legible-iff-amortized (L_amort 0.66->0.97, free stuck 0.34->0.43). Both order parameters co-emerge.
+- **VERDICT: UNIFICATION SUPPORTED — universality and amortization are the same lever (empirically, in
+  our system). Geometry = amortized physics:** a law is geometric exactly when it's amortizable across
+  bodies (universal); it's a "force" exactly when it must be stored per-body; and that residual force-
+  code is legible iff amortized. The geometrize-vs-force verdict and the legible-vs-scrambled verdict
+  are ONE selection principle ("shareability") viewed from physics and from representation-learning.
+- Honest nuances: (i) amortized legibility is SIGNAL-LIMITED at low sigma (-0.29 at 0.4) — there's
+  barely any rho-variance to infer when nearly universal, so the split EMERGES with sigma (which is
+  the point: both transitions co-emerge, not a flat offset). (ii) This is an empirical isomorphism in
+  our toy, not a proven theorem — but it's a clean, falsifiable demonstration. **Weekend-writeup-worthy
+  synthesis: ties the repo's geometry half and legibility half into one principle.**
+- NEXT (user-queued): ENTROPIC / EMERGENT GRAVITY — can a net discover an attractive force arising
+  from a statistical/entropic substrate (Verlinde-style)? Connects to It-from-Qubit (Phase J).

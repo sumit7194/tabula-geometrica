@@ -1,0 +1,44 @@
+{
+ "sweep": [
+  {
+   "sigma": 0.0,
+   "blind_mse": 1.7955570001504384e-05,
+   "free_mse": 6.017454506945796e-05,
+   "amort_mse": 8.615847764303908e-05,
+   "Gamma_geom": 0.2983914540737902,
+   "L_free": NaN,
+   "L_amort": NaN
+  },
+  {
+   "sigma": 0.4,
+   "blind_mse": 0.00040315338992513716,
+   "free_mse": 0.00010739712161011994,
+   "amort_mse": 0.0011074549984186888,
+   "Gamma_geom": 3.7538565641329846,
+   "L_free": 0.21464864450580404,
+   "L_amort": -0.29052709063941823
+  },
+  {
+   "sigma": 0.8,
+   "blind_mse": 0.001416259678080678,
+   "free_mse": 0.00020536371448542923,
+   "amort_mse": 0.0007317242561839521,
+   "Gamma_geom": 6.896348177326931,
+   "L_free": 0.338722209194348,
+   "L_amort": 0.656504183909619
+  },
+  {
+   "sigma": 1.6,
+   "blind_mse": 0.005338981281965971,
+   "free_mse": 0.00019800689187832177,
+   "amort_mse": 0.0006182095967233181,
+   "Gamma_geom": 26.963613394057294,
+   "L_free": 0.43058254405571605,
+   "L_amort": 0.9663983154189577
+  }
+ ],
+ "U1_geometrization_transition": true,
+ "U2_amortization_legibilizes": true,
+ "U3_one_knob_both_transitions": true,
+ "unification_supported": true
+}
