@@ -377,8 +377,24 @@ results in `curvature/notes/lab_notebook.md`.
     length-net's 72%. Web-verified Berry = -½ solid angle. Ties quantum geometric
     phase to curvature.
   Two pre-reg deviations recorded openly (Bloch knee 2→3; Proca near→far metric).
+- **GENERALIST v2 + PHASE BH + EMERGENT/EXOTIC QUEUE (2026-06-16/17):** the
+  strategic pivot to ONE in-context model (script 61, ~12.7M, MPS, full physics
+  span: 6 families gravity/charged/scalar/Schwarzschild/Reissner-Nordström/Bloch).
+  Physics-eval harness (62) caught metric families faking low MSE (M only 2% of
+  ds² var) → fixed worldgen to predict g_vv directly → decode R²→1.000. Phase BH
+  (the black-hole capstone) COMPLETE 3/3 ×4: space↔time flip (60), singularity
+  R~1/r³ (63), charge two-horizons + timelike singularity (64), mech-interp =
+  the spacetime switch is a STEERABLE linear direction (65). Law-space (66).
+  **Overnight emergent/exotic queue, autonomous, 4/4 (scripts 67-70):** entropic
+  gravity (force ∝ T, vanishes at T→0 — gravity as bookkeeping); the FIELD ZOO
+  (why gravity is special — geometrize is bought by UNIVERSAL coupling not
+  masslessness; coupling axis decides by 2-3 orders, mass axis never flips it);
+  exotic matter (wormhole throat learned from rulers needs NEGATIVE energy / NEC
+  violation); the FRICTION BOUNDARY (universal yet not geometry — breaks time-
+  reversal). **Crystallized: a force geometrizes ⟺ UNIVERSAL ∧ CONSERVATIVE**
+  (zoo gives condition 1, friction isolates condition 2; sits atop unification 55).
 - Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
-  Phase H rows (friction, equivalence-breaking); a G-sym legibility-preserving
+  Phase H rows (equivalence-breaking gravity); a G-sym legibility-preserving
   variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit
   bridge, in writeups/curvature_field_guide never-tried list); 3+1 Kaluza with
   vector potential; writeup polish (user, weekends).
