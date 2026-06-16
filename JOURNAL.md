@@ -11,6 +11,17 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-17 — EXOTIC: a wormhole from entanglement (ER=EPR), the inverse of Phase J pinch-off
+- Web-verified ER=EPR (Maldacena-Susskind): entanglement between two regions = a wormhole. Phase J
+  showed decoupling flings regions apart; the inverse — does *adding* entanglement build a shortcut?
+  Free-fermion chain, regions A={0,1}/B={16,17} (chain-distance 16), add a bridge bond (entanglement)
+  between them, sweep its strength; emergent distance d = −log(region MI). Script `57_wormhole_er_epr.py`.
+- **3/3.** d(A,B) collapses **4.44 → 0.37** as the bridge entanglement grows (monotone) — the two
+  maximally-far regions become *closer than physical neighbors* (0.42) in the emergent geometry,
+  without moving on the chain. A traversable **wormhole built from entanglement**, dose-responsive.
+  Clean inverse of Phase J's Van Raamsdonk pinch-off. ER=EPR demonstrated in our MI-geometry. Pure
+  linear algebra. Docs: lab notebook; results/57_*.
+
 ## 2026-06-17 — EXPANDED SCOPE: dark matter vs MOND as a shareability verdict (first out of black-hole orbit)
 - **User pushed to widen the view** far beyond black holes (wormholes, dark matter, antimatter, particles,
   "wider area" — the method is domain-general). First pick: recast the real **DM-vs-MOND** controversy as

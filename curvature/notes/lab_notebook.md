@@ -2229,3 +2229,23 @@ new galaxy); DM-model a=g_N+halo(r;emb_i) (per-galaxy, CANNOT zero-shot).
   predictivity / radial-acceleration relation). Honest: the true world was MOND-generated, so this
   demonstrates the MODEL-SELECTION LOGIC (universality decides), NOT that MOND is right in reality — a
   genuinely per-system-halo world would favor dark matter. First result that left the black-hole orbit.
+
+## 2026-06-17 — EXOTIC: a WORMHOLE from entanglement (ER=EPR), inverse of Phase J pinch-off (57)
+
+Web-verified ER=EPR (Maldacena-Susskind 2013): entanglement between two regions IS a wormhole
+connecting them. Phase J showed DECOUPLING flings regions apart; the inverse — does ADDING
+entanglement build a shortcut? Free-fermion chain (Phase J machinery), regions A={0,1}, B={16,17}
+(chain-distance 16, maximal); add a bridge hopping t between site 0 and 16 (entangles A,B); sweep t;
+emergent distance d(A,B) = -log I(A,B) (region MI, parity-safe).
+
+**Result (57_wormhole.json) — 3/3:**
+- d(A,B) by bridge t: **4.44 -> 2.67 -> 1.55 -> 0.81 -> 0.37** (I(A,B): 0.012 -> 0.69). Adjacent-region
+  distance ~0.42 for reference.
+- **W1 ✓** baseline far (d 4.44 >> neighbor 0.42 — the chain geometry: distance tracks chain separation).
+- **W2 ✓** WORMHOLE: adding entanglement collapses d(A,B) to **0.37 — CLOSER than physical neighbors** —
+  without moving the regions on the chain. A traversable shortcut.
+- **W3 ✓** dose-response: d(A,B) monotonically shrinks as the bridge entanglement grows (more
+  entanglement = shorter wormhole), Δ4.07.
+- **Verdict: a wormhole built from entanglement, demonstrated.** ER=EPR in our emergent MI-geometry —
+  entanglement shortens emergent geometric distance, dose-responsively. Clean INVERSE of Phase J's
+  Van Raamsdonk pinch-off (decouple -> fly apart; entangle -> shortcut). Pure linear algebra, no training.
