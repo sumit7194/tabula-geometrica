@@ -11,6 +11,17 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-17 — EXOTIC: Noether from data — recover a conserved quantum number from reactions
+- Can a net rediscover a conservation law from ONLY allowed-vs-forbidden reaction labels (never the
+  quantum numbers)? P=8 particles with hidden integer quantum numbers Q (1 or 2); reaction = signed
+  count vector n, allowed iff Qn=0. Net learns K conservation functionals; sweep K. Script `59_noether_from_data.py`.
+- **3/3 (one fix round).** N1 classify 1.000. N2 the learned functionals **span the true conserved
+  quantum numbers exactly** (R²=1.000). N3 the recovery-span **knee counts the symmetries** (1-number
+  world recovers at K=1; 2-number needs K=2: span 0.435→1.000). Fix round = N3 metric (accuracy
+  saturates early since one conserved number already rejects most forbidden reactions; the span-R²
+  knee is the right counter). **A net rediscovers conservation laws — which quantum numbers and how
+  many — from reactions alone. Noether, backwards.** Docs: results/59_*.
+
 ## 2026-06-17 — EXOTIC: a net discovers charge conjugation (C / antimatter symmetry)
 - Web-verified C/CPT (EM is C-invariant, Lorentz force odd in q; CPT exact). Can a net DISCOVER C —
   that negating the internal charge = the antiparticle — and DETECT violation? Magnetic dynamics

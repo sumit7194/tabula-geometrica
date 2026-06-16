@@ -2268,3 +2268,24 @@ Amortized net infers a signed charge code from (state,accel) context, predicts a
 - **Verdict: a net discovers charge conjugation** (antimatter = flip the charge coordinate) exactly when
   the law is C-symmetric, and detects violation when it isn't. Ties to signed-charge (46), Kaluza
   charge-as-coordinate (D), and the symmetry theme. Antimatter = a sign in an internal coordinate.
+
+## 2026-06-17 — EXOTIC: NOETHER FROM DATA — recover a conserved quantum number from reactions (59)
+
+Particle reactions obey selection rules (allowed iff conserved quantum numbers balance). Question:
+shown ONLY allowed-vs-forbidden labels (never the quantum numbers), can a net rediscover the conserved
+quantity = recover the symmetry from observation (Noether backwards)? P=8 particle types, hidden integer
+quantum numbers Q (1 or 2); reaction = signed count vector n; ALLOWED iff Q n = 0. Net learns K
+"conservation functionals" W (logit = alpha - beta*||Wn||^2, allowed iff scores ~0); sweep K.
+
+**Result (59_noether.json) — 3/3 (one fix round, metric correction):**
+- N1 ✓ classify: at K>=Ktrue, accuracy 1.000.
+- N2 ✓ recover: the learned functional rowspace SPANS the true Q exactly — span R^2 = **1.000** at
+  K=Ktrue for both worlds. The net rediscovered the conserved quantum number(s).
+- N3 ✓ knee = #conserved numbers, by RECOVERY-SPAN: 1-number world span 1.000 at K=1; 2-number world
+  span **0.435 at K=1 -> 1.000 at K=2** (needs 2 functionals to recover both). Fix round = the N3 metric:
+  ACCURACY saturates early (acc 0.985 at K=1 in the 2-number world, because conserving ONE of two
+  numbers already rejects most forbidden reactions), so the accuracy knee isn't sharp; the SPAN-R^2
+  knee is the correct symmetry-counter. (Accuracy-knee -> span-recovery-knee; one fix round.)
+- **Verdict: a net rediscovers conservation laws from allowed/forbidden reactions alone** — which
+  quantum numbers are conserved AND how many (the recovery-span knee counts the symmetries). Noether
+  in reverse, from observation.

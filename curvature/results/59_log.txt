@@ -1,0 +1,17 @@
+[1-number] 12000 reactions (6000 allowed); Ktrue=1
+  K=0: acc 0.478
+  K=1: acc 1.000 | true-Q span R^2 1.000
+  K=2: acc 1.000 | true-Q span R^2 1.000
+  K=3: acc 1.000 | true-Q span R^2 1.000
+[2-number] 9602 reactions (3602 allowed); Ktrue=2
+  K=0: acc 0.600
+  K=1: acc 0.985 | true-Q span R^2 0.435
+  K=2: acc 1.000 | true-Q span R^2 1.000
+  K=3: acc 1.000 | true-Q span R^2 1.000
+
+N1 classify (>0.95): 1-num 1.000, 2-num 1.000 -> True
+N2 recover quantum number (span R^2>0.95): 1-num 1.000, 2-num 1.000 -> True
+N3 knee=#conserved (1-num knees@1, 2-num needs 2): True
+
+NOETHER FROM DATA (conserved quantum number discovered): True
+saved results/59_noether.json + .png

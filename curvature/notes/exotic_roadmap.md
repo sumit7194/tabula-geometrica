@@ -44,7 +44,11 @@ the learned model is C-equivariant: f(x,v,−code) ≈ −f(x,v,code). A3 (disco
 C-equivariance error is ~0 for the symmetric world but LARGE for the C-violating world — the net
 discovers C exactly when it is present. (Web-verify: EM is C-symmetric; Lorentz force odd in q; CPT.)
 
-### 59 Fundamental particles / symmetry groups (Noether from data)
+### 59 Fundamental particles / symmetry groups (Noether from data) — DONE ✅ (3/3, 1 fix round)
+Net rediscovers conserved quantum numbers from allowed/forbidden reactions alone: learned functionals
+span the true Q exactly (R²=1.000); the recovery-span knee COUNTS the symmetries (1-number recovers at
+K=1; 2-number needs K=2, span 0.435→1.000). Fix round = N3 metric (span-recovery, not accuracy, which
+saturates early). Noether, backwards. Original design below.
 **Question:** from ALLOWED-vs-FORBIDDEN reactions alone, can a net recover the conserved quantum number
 / selection rule — i.e. discover the symmetry from observation?
 **Design:** invent particles each carrying hidden quantum number(s) (e.g. a U(1) charge, or two numbers
