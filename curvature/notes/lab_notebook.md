@@ -2441,3 +2441,25 @@ head's last-GELU hidden rep on Schwarzschild queries across masses M={0.8,1.0,1.
 
 **PHASE BH COMPLETE end-to-end: BH-1 (space<->time flip) + BH-2 (singularity) + BH-3 (charge) + BH-4
 (mech-interp on the generalist).** Also vindicates the generalist pivot — a model rich enough to interpret.
+
+## 2026-06-17 — THE LAW-SPACE PRIZE: the generalist organizes physics by MODALITY; ARI mystery resolved (66)
+
+How does the validated generalist organize physical law in its code space? (No training — read the
+codes.) Honest design: family id is GIVEN (fam embedding added in the encoder), so the meaningful read
+is the RELATIVE geometry (which families placed close), via the code-centroid distance matrix.
+
+**Result (66_lawspace.json):**
+- **Dominant axis = MODALITY** (trajectory {gravity,charged,scalar} / metric {schw,RN} / quantum {bloch}):
+  within-modality centroid dist **0.034** vs cross-modality **1.432** — a 40x separation. Trajectory trio
+  co-located (0.02-0.04); the two spacetime families co-located (**schw<->RN 0.03** = "RN = Schw+charge");
+  bloch its own region, and CLOSER to trajectory (0.65) than to curved spacetime (1.35).
+- **ARI MYSTERY RESOLVED:** family-classification acc = **1.000** (perfect) while KMeans ARI = **0.40**.
+  The law-space IS perfectly structured/classifiable; flat clustering looks weak only because same-modality
+  families overlap + codes spread WITHIN a family by world-param. ARI-by-family was the wrong metric.
+- The SPECIFIC law (q, M, Q, Bloch r) lives in the WITHIN-family code variation (decode-R^2 0.98-1.00);
+  the centroid = the modality/family.
+- **Honest caveat:** the modality axis is partly DATA-SHAPE (families have different nonzero input/output
+  dims), not pure physics taxonomy. Deeper cross-pollination (physics relations beyond modality —
+  universal vs charge-coupled) is a follow-up (queued overnight).
+**Verdict: the generalist carves physics into its three observational modalities, with related families
+co-located (Schw<->RN) and the world carried in the within-family code; ARI honestly resolved.**

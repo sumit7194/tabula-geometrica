@@ -1,0 +1,20 @@
+{
+ "checkpoint_step": 40000,
+ "fam_emb_closest_pair": [
+  "gravity",
+  "reissner_nordstrom",
+  0.8801500201225281
+ ],
+ "code_centroid_closest_pair": [
+  "charged",
+  "scalar",
+  0.024636268615722656
+ ],
+ "modality_within_dist": 0.03372432291507721,
+ "modality_cross_dist": 1.4321773052215576,
+ "ARI": 0.3984436922140002,
+ "family_classification_acc": 1.0,
+ "L1_taxonomy_meaningful": false,
+ "L2_modality_structure": true,
+ "L3_ari_vs_classifiable": true
+}
