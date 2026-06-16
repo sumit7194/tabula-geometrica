@@ -3,3 +3,4 @@ loaded checkpoint @ step 40000 on mps
 gravity            mse 1.06e-06 | floor 1.18e-06 | x  0.9 of floor | extrap 1.06e-06 | world-decode R^2 0.998
 charged            mse 2.07e-06 | floor 1.71e-03 | x  0.0 of floor | extrap 1.53e-03 | world-decode R^2 0.999
 scalar             mse 8.05e-07 | floor 1.53e-06 | x  0.5 of floor | extrap 6.22e-04 | world-decode R^2 0.997
+schwarzschild      mse 8.76e-06 | floor 9.04e-07 | x  9.7 of floor | extrap 1.60e-01 | world-decode R^2 1.000

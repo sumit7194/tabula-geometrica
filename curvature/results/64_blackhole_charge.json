@@ -1,0 +1,19 @@
+{
+ "RN_horizons": [
+  0.3987113833427429,
+  1.625304102897644
+ ],
+ "RN_true_horizons": [
+  0.4,
+  1.6
+ ],
+ "Schwarzschild_horizons": [
+  2.032686948776245
+ ],
+ "gvv_at_r0.2_RN": -6.988236904144287,
+ "gvv_at_r0.2_Schwarzschild": 9.017900466918945,
+ "C1_two_horizons": true,
+ "C2_charge_makes_singularity_timelike": true,
+ "C3_contrast": true,
+ "charge_changes_causal_structure": true
+}

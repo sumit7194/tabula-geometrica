@@ -90,10 +90,12 @@ probe what the space-time switch / singularity MEAN in the net. Each mind-bender
   coordinate flip, not a singularity) but DIVERGES ~1/r^3 toward r→0 (124× blowup → real singularity);
   causal structure SPACELIKE — outgoing-null escape flips +0.25 outside → -0.49 inside (trapped) → r=0
   is an unavoidable future = "a time, the end of time." Original design below.
-- **BH-3 — charge (Reissner-Nordström).** RN: f(r)=1−2M/r+Q²/r², TWO horizons (r±), TIMELIKE singularity
-  (avoidable) — opposite of Schwarzschild's spacelike one. A net learns the RN interval; probe how the
-  causal structure changes with Q (two signature flips at r±; singularity becomes timelike). Use the
-  KNOWN Q→timelike-singularity relation as a calibrated test, then probe what OTHER added properties do.
+- **BH-3 — charge (Reissner-Nordström) ✅ DONE (3/3, script 64).** A net learns g_vv(r,Q); from its
+  learned metric: TWO horizons for Q=0.8 (learned [0.40, 1.63] vs true [0.4, 1.6] — outer + inner/Cauchy);
+  charge makes the singularity TIMELIKE — g_vv(0.2)=−7.0 for Q=0.8 (r spacelike near 0 = avoidable) vs
+  +9.0 for Q=0 (spacelike/unavoidable). Charge → a second horizon + the singularity flips spacelike (end
+  of time) → timelike (avoidable). C2 = the Q→timelike relation the sister glass-box analyzer offered to
+  verify. **PHASE BH interior-physics trilogy COMPLETE (flip + singularity + charge).** Original design below.
 - **BH-4 — scale up + hooks (deep mech-interp).** A larger net; install hidden-layer probes — find the
   internal "inside/outside-horizon" feature, the rotating timelike direction; steer it (does forcing
   the feature flip the predicted causal structure?). The proper mech-interp the proof-of-concept enables.

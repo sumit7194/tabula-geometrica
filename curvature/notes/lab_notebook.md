@@ -2387,3 +2387,24 @@ error -> sensitive test). Causal structure: outgoing-null escape dr/dv = -g_vv/2
   ~1/r^3), and the causal structure makes r=0 SPACELIKE — "a time, not a place; the end of time." The
   mind-bender demonstrated via autodiff curvature + the tipping light cone. Connects to BH-1 (the flip).
   NEXT: BH-3 charge (Reissner-Nordström) — charge flips the singularity SPACELIKE -> TIMELIKE (avoidable).
+
+## 2026-06-17 — PHASE BH-3: what CHARGE does to the causal structure (Reissner-Nordström) (64)
+
+Web-verified RN: f(r)=1-2M/r+Q^2/r^2 -> TWO horizons (r±=M±sqrt(M^2-Q^2)) and a TIMELIKE (avoidable)
+singularity, opposite of Schwarzschild's spacelike "end of time" (as r->0 the Q^2/r^2 term dominates,
+f>0, g_vv<0, r spacelike near 0). A net learns g_vv(r,Q) for M=1, Q in [0,0.9]; read horizons + singularity
+character vs Q.
+
+**Result (64_blackhole_charge.json) — 3/3:**
+- **C1 ✓** TWO horizons for Q=0.8: learned **[0.40, 1.63]** vs true [0.4, 1.6] (outer + inner/Cauchy).
+- **C2 ✓** charge -> TIMELIKE singularity: learned g_vv(0.2) = **-7.0** for Q=0.8 (r spacelike near 0 =
+  avoidable) vs **+9.0** for Q=0 (r timelike = unavoidable). Charge flips the singularity's causal character.
+- **C3 ✓** contrast: Schwarzschild [2.03] (1 horizon, spacelike singularity) vs RN (2 horizons, timelike).
+- **Verdict: charge changes the causal structure** — a second (inner/Cauchy) horizon AND the singularity
+  flips spacelike (end of time) -> timelike (avoidable). The "what happens to OTHER properties (charge)
+  across the horizon" question answered from a learned metric. C2 = the Q->timelike-singularity relation
+  the sister glass-box analyzer offered to INDEPENDENTLY verify ([[conjecture-machine-sister-project]]).
+
+**PHASE BH interior-physics trilogy COMPLETE: BH-1 (space<->time flip) + BH-2 (singularity) + BH-3
+(charge), all read out of LEARNED metrics.** BH-4 (mech-interp on the validated generalist — the
+inside/outside feature, the rotating time-direction, steering) is next, pending the generalist eval/tidy.

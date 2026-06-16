@@ -11,6 +11,21 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-17 — PHASE BH-2 + BH-3: the singularity, and what charge does (interior trilogy complete)
+- Continuing the Phase BH plan (focus on the BH mind-benders). Both read out of LEARNED metrics, on CPU.
+- **BH-2 — the singularity (3/3, script 63).** A net learns g_vv(r) for Schwarzschild; curvature
+  R=-g_vv''=-4M/r³ via autodiff. Horizon SMOOTH (R̂(2M)=-0.50=true, corr 1.000 → coordinate flip, not a
+  singularity); r=0 a REAL singularity (R̂(0.4)=-62.4, 124× blowup ~1/r³); SPACELIKE/end-of-time (escape
+  dr/dv flips +0.25 outside → -0.49 inside trapped → r=0 is an unavoidable future moment).
+- **BH-3 — charge / Reissner-Nordström (3/3, script 64).** A net learns g_vv(r,Q). Charge gives TWO
+  horizons (learned [0.40,1.63] vs true [0.4,1.6], outer+Cauchy) and flips the singularity to TIMELIKE/
+  avoidable (g_vv(0.2)=-7.0 for Q=0.8 vs +9.0 for Q=0). C2 is the Q→timelike relation the sister
+  glass-box analyzer offered to independently verify.
+- **PHASE BH interior-physics trilogy COMPLETE: flip (BH-1) + singularity (BH-2) + charge (BH-3).** BH-4
+  (mech-interp on the validated generalist) is next, pending the eval. Also banked the QFT/Standard-Model
+  general-model idea as future work (honest limit + the why-gravity-is-special and emergent-gravity-from-
+  entanglement reachable angles). Docs: lab notebook; roadmap; results/63_*, 64_*.
+
 ## 2026-06-17 — Generalist v2 EVAL: the harness catches the spacetime families faking loss (fix applied)
 - **User re-corrected:** "checking training is not just watching loss drop — naive"; picking 40k steps
   by round number is the same sin. Built the real eval harness (script `62_generalist_eval.py`): judge by
