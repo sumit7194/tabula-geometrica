@@ -1,0 +1,8 @@
+interval test R^2 0.9999
+BH1a learns metric (g_vv recover R^2 1.000>0.95): True
+BH1b flip discovered — learned g_vv crosses 0 at r*=2.02 (true horizon 2.0, |.|<0.3): True
+BH1c space<->time swap — learned g_vv: -0.59 (out, v timelike) -> +0.99 (in, v spacelike): True
+     (illustrative: timelike-direction angle 37° outside -> 58° inside, tilting toward r)
+
+SPACE<->TIME FLIP EMERGES in the learned black-hole interior: True
+saved results/60_blackhole.json + .png

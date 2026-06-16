@@ -1,0 +1,13 @@
+{
+ "interval_test_R2": 0.9998944997787476,
+ "metric_recover_R2": 0.9998643495263192,
+ "horizon_r_star": 2.016039609216244,
+ "gvv_outside_r5": -0.5933765769004822,
+ "gvv_inside_r1": 0.9868348240852356,
+ "timelike_angle_outside_r5": 36.60084915161133,
+ "timelike_angle_inside_r1": 58.20315170288086,
+ "BH1a_learns_metric": true,
+ "BH1b_flip_discovered_at_horizon": true,
+ "BH1c_spacetime_swap": true,
+ "spacetime_flip_emerges": true
+}

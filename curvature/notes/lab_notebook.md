@@ -2289,3 +2289,34 @@ quantum numbers Q (1 or 2); reaction = signed count vector n; ALLOWED iff Q n = 
 - **Verdict: a net rediscovers conservation laws from allowed/forbidden reactions alone** — which
   quantum numbers are conserved AND how many (the recovery-span knee counts the symmetries). Noether
   in reverse, from observation.
+
+## 2026-06-17 — PHASE BH-1: the SPACE<->TIME FLIP emerges in a learned black-hole interior (60)
+
+The capstone return to black holes with the full toolkit (user's ambitious pivot: simulate the Penrose-
+diagram interior in a NN, then mech-interp the space-time switch + singularity). Web-verified physics:
+inside the Schwarzschild horizon t becomes spacelike and r timelike (causal swap at r=2M); the r=0
+singularity is SPACELIKE (a time, not a place); Eddington-Finkelstein coords are REGULAR across the
+horizon (swap carried by sign of g_vv); Reissner-Nordström (charged) has a TIMELIKE singularity (the
+contrast for later). EF metric (1+1), M=1: ds^2 = -(1-2/r)dv^2 + 2 dv dr.
+
+Experiment: a GENERIC black-box net learns ds^2(r, dv, dr) from local interval observations spanning
+the horizon — NEVER told where the horizon is. Probe: fit the local quadratic form per r -> learned
+metric (g_vv, g_vr, g_rr); read the signature.
+
+**Result (60_blackhole.json) — 3/3:**
+- interval test R^2 = **0.9999** (learned the spacetime). BH1a g_vv recover R^2 = **1.000**.
+- **BH1b ✓** the flip is DISCOVERED: learned g_vv crosses zero at **r*=2.02** (true horizon 2.00) — the
+  net located the horizon as the signature-flip locus, zero supervision about its location.
+- **BH1c ✓** the SWAP: learned g_vv = **-0.59 outside** (v timelike = your time) -> **+0.99 inside** (v
+  spacelike); the v-direction inverts causal character. Timelike-direction tilts 37°->58° toward r (illustrative).
+- **Pre-reg correction (made BEFORE running, recorded):** original BH1c expected a ~90° timelike-
+  eigenvector rotation; in EF the swap lives in the SIGN of g_vv (EF makes ∂_r null), so the eigenvector
+  tilts only ~21°. BH1c reframed to the signature-character inversion (the crisp, true statement). No
+  fix round spent on the run (correction during the physics smoke-test, like Phase A's knee correction).
+- **Verdict: the space<->time flip EMERGES in a net that learned the BH interior from local observation.**
+  Operationally, "the spacetime switch" = the direction the net treats as TIME (negative-norm) becomes a
+  SPACE direction at the horizon it discovered on its own. The capstone proof of concept.
+- **PHASE BH program (notes/exotic_roadmap pending):** BH-1 done; BH-2 singularity (curvature invariant
+  diverges at r->0, FINITE at the horizon = flip is smooth not singular); BH-3 charge (RN timelike
+  singularity — what charge does to the causal structure); BH-4 scale up + hidden-layer hooks (find the
+  internal inside/outside feature, the rotating timelike direction, steer it).

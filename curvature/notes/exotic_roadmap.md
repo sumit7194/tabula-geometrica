@@ -78,6 +78,26 @@ substrate (Verlinde-style) — gravity as bookkeeping, not a field?
 test whether the net discovers an effective attractive force ∝ the entropy gradient (F = T ∂S/∂x), and
 whether it geometrizes (universal) per the unification. Connects to It-from-Qubit (Phase J).
 
+### PHASE BH — black-hole interior, mech-interp of the mind-benders (user's capstone pivot)
+The return to black holes with the full toolkit: simulate the Penrose-diagram interior in a NN, then
+probe what the space-time switch / singularity MEAN in the net. Each mind-bender -> a probeable quantity.
+- **BH-1 — space↔time flip ✅ DONE (3/3, script 60).** A net learns the EF interval across the horizon
+  (never told its location); learned g_vv crosses zero at r*=2.02 (located the horizon as the
+  signature-flip locus); v-direction goes timelike (out, g_vv −0.59) → spacelike (in, +0.99). The
+  space↔time swap = the learned metric's signature flip.
+- **BH-2 — the singularity.** From the learned metric compute the curvature invariant: it should be
+  FINITE at the horizon (the flip is a smooth coordinate effect, not a singularity) but DIVERGE as
+  r→0 (Kretschmann ~1/r^6 in 3+1; in 1+1 use the Ricci scalar / a curvature proxy). And the causal
+  structure makes r=0 spacelike (decreasing-r = advancing-time; the future light cone traps). Gate:
+  curvature(horizon) finite & curvature(r→0) diverges; trapping turns on inside r*.
+- **BH-3 — charge (Reissner-Nordström).** RN: f(r)=1−2M/r+Q²/r², TWO horizons (r±), TIMELIKE singularity
+  (avoidable) — opposite of Schwarzschild's spacelike one. A net learns the RN interval; probe how the
+  causal structure changes with Q (two signature flips at r±; singularity becomes timelike). Use the
+  KNOWN Q→timelike-singularity relation as a calibrated test, then probe what OTHER added properties do.
+- **BH-4 — scale up + hooks (deep mech-interp).** A larger net; install hidden-layer probes — find the
+  internal "inside/outside-horizon" feature, the rotating timelike direction; steer it (does forcing
+  the feature flip the predicted causal structure?). The proper mech-interp the proof-of-concept enables.
+
 ### 62+ Wider non-physics area (stretch)
 Point the whole machinery at non-physics relational data — chemistry (reaction space), networks, language
 embeddings: does a meaningful geometry/invariant/symmetry emerge? The shareability principle as a general

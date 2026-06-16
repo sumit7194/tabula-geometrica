@@ -11,6 +11,22 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-17 — PHASE BH-1: the space↔time flip emerges in a learned black-hole interior (capstone)
+- **User's ambitious pivot:** simulate the Penrose-diagram black-hole interior in a NN, then mech-interp
+  the mind-benders — the space↔time switch inside the horizon, the singularity as a *time* not a place.
+  Web-verified physics (r↔t causal swap at the horizon; spacelike Schwarzschild singularity; EF coords
+  regular; RN charged singularity is timelike). Translated each phenomenon into a probeable net quantity:
+  the swap = the learned metric's *signature flip*.
+- **BH-1 (3/3), script `60_blackhole_spacetime_flip.py`.** A generic net learns ds²(r,dv,dr) in
+  Eddington-Finkelstein coords across the horizon, **never told where the horizon is**; we fit the local
+  metric per r and read the signature. interval R²=0.9999; learned g_vv crosses zero at **r\*=2.02**
+  (true horizon 2.0 — the net *located* it as the flip locus); g_vv = −0.59 outside (v timelike) →
+  +0.99 inside (v spacelike) — **the space↔time swap, emergent.** "The spacetime switch" = the
+  direction the net treats as time becomes a space direction at the horizon it found on its own.
+- Pre-reg correction (before running): in EF the swap is g_vv's sign flip, not a 90° eigenvector
+  rotation — BH1c reframed to the signature-character inversion. Phase BH program registered (BH-2
+  singularity, BH-3 charge/RN, BH-4 scale-up + hidden-layer hooks). Docs: lab notebook; results/60_*.
+
 ## 2026-06-17 — EXOTIC: Noether from data — recover a conserved quantum number from reactions
 - Can a net rediscover a conservation law from ONLY allowed-vs-forbidden reaction labels (never the
   quantum numbers)? P=8 particles with hidden integer quantum numbers Q (1 or 2); reaction = signed
