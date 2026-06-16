@@ -2481,3 +2481,24 @@ entropic (a=T*g(x)) vs energetic (a=g(x)).
   T=0) cleanly distinguished from a fundamental field. The reachable "emergent gravity" angle from the QFT
   discussion (gravity from a statistical substrate), demonstrated. (Geometrization bonus — a universal
   entropic coupling would geometrize per the unification — noted for follow-up.)
+
+## 2026-06-17 (OVERNIGHT #2) — THE FIELD ZOO: why is gravity the odd one out? (68)
+
+The reachable QFT lens (from the Feynman/Standard-Model discussion). The interactions differ on two axes:
+COUPLING (universal=equivalence-principle/gravity vs charge-specific=EM) x MEDIATOR MASS (massless 1/r^2 vs
+massive Yukawa (1+mu r)e^(-mu r)/r^2, web-verified). Economy race per 2x2 cell: GeometryModel (identity-blind
+= amortized) vs ForceModel (one free scalar/body). R = MSE_geom/MSE_force: R~1 geometrize, R>>1 stays a force.
+
+**Result (68_field_zoo.json) — 3/3:**
+| cell                | R (geom/force) | verdict  |
+| universal massless  | 1.53           | GEOMETRY |
+| universal massive   | 0.46           | GEOMETRY |
+| charge   massless   | 428.5          | FORCE    |
+| charge   massive     | 133.4          | FORCE    |
+- Z1 ✓ universal cells geometrize (R<2 both). Z2 ✓ charge cells stay force (R>5 both).
+- **Z3 ✓ COUPLING decides, not MASS**: the coupling axis splits geometrize/force by 2-3 orders of
+  magnitude; swapping massless<->massive NEVER flips a verdict.
+- **Verdict: gravity's place in the geometry basin is bought by UNIVERSAL COUPLING, not masslessness** —
+  even a massive (Yukawa) graviton would geometrize. Answers "why is gravity the odd one out" on-mission:
+  it is the equivalence principle (universality), not the mediator's range, that turns a force into geometry.
+  Direct extension of scripts 45/55 (universality = the geometrize knob) onto the SM field-type axes.

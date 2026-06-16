@@ -1,0 +1,36 @@
+{
+ "cells": {
+  "universal_massless": {
+   "coupling": "universal",
+   "mediator": "massless",
+   "MSE_geometry": 3.709442535182461e-05,
+   "MSE_force": 2.4277926058857702e-05,
+   "ratio": 1.527907438798028
+  },
+  "universal_massive": {
+   "coupling": "universal",
+   "mediator": "massive",
+   "MSE_geometry": 2.8418871806934476e-05,
+   "MSE_force": 6.1464736063499e-05,
+   "ratio": 0.46236058534790514
+  },
+  "charge_massless": {
+   "coupling": "charge",
+   "mediator": "massless",
+   "MSE_geometry": 0.01232671458274126,
+   "MSE_force": 2.876444523280952e-05,
+   "ratio": 428.5399580778673
+  },
+  "charge_massive": {
+   "coupling": "charge",
+   "mediator": "massive",
+   "MSE_geometry": 0.005996403284370899,
+   "MSE_force": 4.496393376030028e-05,
+   "ratio": 133.36028789155847
+  }
+ },
+ "Z1_universal_cells_geometrize": true,
+ "Z2_charge_cells_stay_force": true,
+ "Z3_coupling_not_mass_decides": true,
+ "gravity_is_universal_not_massless": true
+}
