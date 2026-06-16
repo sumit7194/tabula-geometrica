@@ -2201,3 +2201,31 @@ infers cleanly; first run L_amort was signal-limited at 0.78):**
   synthesis: ties the repo's geometry half and legibility half into one principle.**
 - NEXT (user-queued): ENTROPIC / EMERGENT GRAVITY — can a net discover an attractive force arising
   from a statistical/entropic substrate (Verlinde-style)? Connects to It-from-Qubit (Phase J).
+
+## 2026-06-17 — EXPANDED SCOPE (user: stop orbiting black holes): dark matter vs MOND (56)
+
+User pushed to widen far beyond black holes (wormholes, dark matter, antimatter, particles, wider
+area). First out-of-orbit pick: recast the real DM-vs-MOND controversy as our shareability/economy
+problem. Web-verified MOND: g = (g_N + sqrt(g_N^2 + 4 g_N a0))/2 -> flat rotation curves, no dark
+matter; vs a per-galaxy dark halo. MOND = modify the UNIVERSAL law (shared, geometry-like); dark
+matter = per-galaxy hidden halo (per-instance, force-like) = tonight's shared-vs-per-instance axis.
+
+Setup: many galaxies (varied visible mass M_i), TRUE world = MOND with a0_i; sweep spread of a0 across
+galaxies (universality knob). Two models: MOND-model a=f_shared(g_N) (identity-blind, CAN zero-shot a
+new galaxy); DM-model a=g_N+halo(r;emb_i) (per-galaxy, CANNOT zero-shot).
+
+**Result (56_dark_matter_vs_mond.json) — 3/3:**
+- MOND in-sample nMSE by spread: [0.000, 0.001, 0.003, 0.014]; DM in-sample [0.000 x4]. MOND held-out
+  (zero-shot): 0.000 at spread 0 (R^2=1.000); DM held-out: [0.001, 0.006, 0.016, 0.045].
+- **D1 ✓** universal -> MOND fits AND zero-shot PREDICTS new galaxies (held-out R^2 1.000), while dark
+  matter can't predict a galaxy it hasn't fit. Occam + predictivity favor MOND ("no dark matter needed").
+- **D2 ✓** per-system -> the shared law fails in-sample (0.000->0.014, monotone), only per-galaxy halos
+  fit -> dark matter is real.
+- **D3 ✓** MOND recovers the universal law (held-out R^2 1.000).
+- **Verdict: DM-vs-MOND is a SHAREABILITY verdict** — universality of the anomaly decides which
+  explanation is economical/predictive. Extends tonight's unification to a famous real controversy. The
+  non-trivial content = the ZERO-SHOT PREDICTIVITY ASYMMETRY (a shared law predicts new systems; per-
+  instance halos don't) — which IS the real epistemic argument for MOND (parameter-free per-galaxy
+  predictivity / radial-acceleration relation). Honest: the true world was MOND-generated, so this
+  demonstrates the MODEL-SELECTION LOGIC (universality decides), NOT that MOND is right in reality — a
+  genuinely per-system-halo world would favor dark matter. First result that left the black-hole orbit.

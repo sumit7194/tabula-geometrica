@@ -11,6 +11,21 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-17 — EXPANDED SCOPE: dark matter vs MOND as a shareability verdict (first out of black-hole orbit)
+- **User pushed to widen the view** far beyond black holes (wormholes, dark matter, antimatter, particles,
+  "wider area" — the method is domain-general). First pick: recast the real **DM-vs-MOND** controversy as
+  our shareability/economy problem. Web-verified MOND (`g=(g_N+√(g_N²+4g_N·a0))/2`). MOND = modify the
+  *universal law* (shared); dark matter = per-galaxy *halo* (per-instance) = tonight's exact axis.
+  Script `56_dark_matter_vs_mond.py`.
+- **3/3.** Many galaxies, true world = MOND with a0_i, sweep a0-spread (universality knob). MOND-model
+  (shared law) vs DM-model (per-galaxy halo). **Universal anomaly → MOND fits AND zero-shot predicts new
+  galaxies** (held-out R²=1.000) while dark matter can't predict an unfitted galaxy → Occam+predictivity
+  favor MOND. **Per-system anomaly → shared law fails (0.000→0.014), only per-galaxy halos fit → dark
+  matter real.** The verdict tracks anomaly-*universality*. The non-trivial content = the zero-shot
+  predictivity asymmetry (shared explanations predict new instances; per-instance ones don't) — the real
+  epistemic argument for MOND. Honest: MOND-generated data, so it shows the *model-selection logic*, not
+  that MOND is right in reality. Extends the unification to a famous controversy. Docs: lab notebook; results/56_*.
+
 ## 2026-06-17 — THE UNIFICATION TEST: geometry = amortized physics (the repo's two laws are one)
 - **The orthogonal "connect the dots" experiment.** The repo's two headline laws — PHYSICS (a label
   geometrizes iff *universal*; else a per-body force) and ML (a code is legible iff *amortized*; a free

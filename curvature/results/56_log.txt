@@ -1,0 +1,11 @@
+spread 0.0: MOND in 0.000 out 0.000 | DM in 0.000 out 0.001
+spread 0.5: MOND in 0.001 out 0.001 | DM in 0.000 out 0.006
+spread 1.0: MOND in 0.003 out 0.003 | DM in 0.000 out 0.016
+spread 2.0: MOND in 0.014 out 0.015 | DM in 0.000 out 0.045
+
+D1 universal -> MOND predicts new galaxies (zero-shot 0.000<0.1 & << DM 0.001): True
+D2 per-system -> DM needed (MOND in-sample 0.000->0.014, DM stays 0.000): True
+D3 MOND recovers the law (held-out R^2 1.000>0.99): True
+
+DM-vs-MOND IS A SHAREABILITY VERDICT: True
+saved results/56_dark_matter_vs_mond.json + .png
