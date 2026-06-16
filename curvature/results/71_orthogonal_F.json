@@ -1,0 +1,16 @@
+{
+ "orthogonal": {
+  "y_R2": 0.9904844164848328,
+  "Q_decode_R2": 0.9902200698852539,
+  "norm_drift": 1.0215168089189319e-07
+ },
+ "generic": {
+  "y_R2": 0.9900912046432495,
+  "Q_decode_R2": 0.9910504817962646,
+  "norm_drift": 0.4087282419204712
+ },
+ "O1_both_fit": true,
+ "O2_structure_restores_legibility": false,
+ "O3_conservation": true,
+ "structure_restores_confirmed": false
+}

@@ -2540,3 +2540,25 @@ axis: GeometryModel a=f(x) (reversible) vs DissipModel a=f(x)+h(v).
   first condition; friction isolates the second. Universality is necessary but not sufficient — the missing
   ingredient is conservativeness (time-reversibility / existence of a Lagrangian). Completes the
   "where geometrization holds vs breaks" picture.
+
+## 2026-06-17 (OVERNIGHT #5) — STRUCTURE vs LEGIBILITY: the 3rd leg of the legibility law, tested (71)
+
+Tested the legibility law's open third leg ("structure restores legibility") on a rotating Wong-style color
+charge Q(t) in R^3 that parallel-transports by an orthogonal rotation (|Q| conserved, web-verified). Amortized
+GRU encoder infers w0 from the first KOBS steps; a learned update F evolves w(t); readout y_t=<P_t,w_t>.
+GENERIC-F (residual MLP) vs ORTHOGONAL-F (exp(skew(MLP(c))), conserves |w|), SAME 3-D latent. (Fix round:
+first run failed O1 — encoder couldn't infer w0 from random-probe projections; fixed with a cycling-basis
+probe + GRU encoder + gentler rotation. O1 then passed.)
+
+**Result (71_orthogonal_F.json) — 1/3, an instructive NEGATIVE:**
+- O1 ✓ both fit (y R^2 = 0.990 both).
+- **O2 ✗ — but the generic update did NOT scramble:** BOTH stay linearly legible, Q(t) decode R^2 = 0.990
+  (ortho) / 0.991 (generic). No legibility gap.
+- O3 ✓ conservation: orthogonal |w| drift = 0.0000 (exact) vs generic 0.41.
+- **Interpretation (the refinement):** the LINEAR readout y=<P,w> anchors w linearly to Q for BOTH update
+  rules -> legibility here is bought by the linear readout + amortization (Phase I), NOT by structure.
+  Structure's UNIQUE contribution is exact CONSERVATION of the invariant |Q|, not legibility. So "structure
+  restores legibility" is too strong as stated; refined: **structure restores the INVARIANT (conservation);
+  legibility tracks readout-linearity + amortization.** The Phase H Row 2 scramble must have come from its
+  NONLINEAR force-readout (and/or free code), not the rotation per se. Follow-up 71b: nonlinear readout to
+  remove the linear anchor and re-test whether structure then helps legibility.
