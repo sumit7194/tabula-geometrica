@@ -56,9 +56,16 @@ class GeneralistV2(nn.Module):
         return s.head(torch.cat([qt, cc], -1))                # (B,Q,DY)
 
 
-def masked_mse(pred, tgt, ymask):
+def masked_mse(pred, tgt, ymask):                         # RAW physical MSE (for eval / per-family floors)
     m = ymask[:, None, :]
     return ((pred - tgt) ** 2 * m).sum() / (m.expand_as(pred).sum() + 1e-9)
+
+
+def balanced_loss(pred, tgt, ymask, fam, yvar):           # training: per-family scale-balanced so no family dominates
+    m = ymask[:, None, :]
+    se = ((pred - tgt) ** 2 * m).sum(-1) / (m.sum(-1) + 1e-9)   # (B,Q) mean over valid dims
+    w = (1.0 / (yvar[fam] + 1e-9))[:, None]
+    return (se * w).mean()
 
 
 def to_dev(b, dev):
@@ -86,16 +93,20 @@ def main():
     nparams = sum(p.numel() for p in m.parameters())
     print(f"device {dev} | GeneralistV2 params {nparams/1e6:.2f}M | families {wg.NFAM} | steps {a.steps}", flush=True)
     opt = torch.optim.Adam(m.parameters(), lr=3e-4)
+    sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=a.steps, eta_min=1e-5)
+    yvar = torch.from_numpy(wg.fam_yvars()).to(dev)
+    print(f"per-family y-var (loss-balanced): {dict(zip([f.name for f in wg.FAMILIES], yvar.cpu().numpy().round(4)))}", flush=True)
     ckpt = RESULTS / "61_gen2.pt"
     start = 0
     if ckpt.exists():
         start, rng, exact = load_ckpt(ckpt, m, opt, fallback_seed=0)
+        for _ in range(start): sched.step()
         print(f"resumed at step {start} ({'bit-exact' if exact else 'legacy'})", flush=True)
     for step in range(start, a.steps):
         b = to_dev(wg.make_batch(rng, BATCH, K, Q), dev)
         pred = m(b["ctx_u"], b["ctx_y"], b["q_u"], b["fam"])
-        loss = masked_mse(pred, b["q_y"], b["ymask"])
-        opt.zero_grad(); loss.backward(); opt.step()
+        loss = balanced_loss(pred, b["q_y"], b["ymask"], b["fam"], yvar)
+        opt.zero_grad(); loss.backward(); opt.step(); sched.step()
         if step % 100 == 0:
             progress("61_gen2", step, a.steps, loss=float(loss.detach()))
         if step % 4000 == 0 and step > start:

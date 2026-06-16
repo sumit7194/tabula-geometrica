@@ -118,6 +118,17 @@ def make_episode(rng, fam_id, K, Q):
             "ymask": fam.ymask, "world": w}
 
 
+def fam_yvars(n_worlds=80, n_per=400):
+    """Per-family variance of the VALID target dims (across worlds + within) — for balancing the loss so
+    no family's scale dominates the shared gradient. Metric g_vv (~0.5) vs trajectory accel (~1e-3) is ~100x."""
+    rng = np.random.default_rng(7); out = []
+    for fam in FAMILIES:
+        ys = [fam.obs(fam.world(rng), rng, n_per)[1] for _ in range(n_worlds)]
+        y = np.concatenate(ys)
+        out.append(float(np.var(y[:, fam.ymask > 0])))
+    return np.array(out, np.float32)
+
+
 def make_batch(rng, B, K, Q, fam_id=None):
     """Batch of B episodes (random families unless fam_id given). Returns arrays for the model."""
     fams = rng.integers(0, NFAM, B) if fam_id is None else np.full(B, fam_id)

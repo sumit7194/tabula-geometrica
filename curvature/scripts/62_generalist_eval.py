@@ -81,17 +81,19 @@ def heldout_and_code(m, fam_id, N=256, seed=0, extrap=False):
     return mse, code, wv
 
 
-def specialist_floor(fam_id, steps=8000):
-    """Same in-context architecture, trained on ONE family — the honest 'best a dedicated net does' floor."""
+def specialist_floor(fam_id, steps=14000):
+    """Same in-context architecture, trained on ONE family — the honest 'best a dedicated net does' floor.
+    Bumped d/steps after the v×B (charged) baseline failed to converge at d=192/8k (a floor must converge)."""
     torch.manual_seed(1); rng = np.random.default_rng(1)
-    sp = g2.GeneralistV2(d=192, depth=4).to(DEV)            # smaller dedicated net
-    opt = torch.optim.Adam(sp.parameters(), lr=5e-4)
+    sp = g2.GeneralistV2(d=256, depth=5).to(DEV)
+    opt = torch.optim.Adam(sp.parameters(), lr=1e-3)
+    sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=steps, eta_min=1e-5)
     for step in range(steps):
         b = to_dev(wg.make_batch(rng, 64, K, Q, fam_id=fam_id))
         ym = torch.from_numpy(np.broadcast_to(b["ymask"].cpu().numpy() if torch.is_tensor(b["ymask"]) else b["ymask"], (64, wg.DY)).copy()).to(DEV)
         pred = sp(b["ctx_u"], b["ctx_y"], b["q_u"], b["fam"])
         loss = g2.masked_mse(pred, b["q_y"], ym)
-        opt.zero_grad(); loss.backward(); opt.step()
+        opt.zero_grad(); loss.backward(); opt.step(); sched.step()
     sp.eval(); mse, _, _ = heldout_and_code(sp, fam_id, 256, 7)
     return mse
 
