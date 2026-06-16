@@ -1,0 +1,1 @@
+device mps | GeneralistV2 params 12.69M | families 6 | steps 40000

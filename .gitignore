@@ -28,3 +28,4 @@
 
 # Platonic per-config summary caches (regenerable)
 **/37_summ_*.npy
+curvature/results/61_gen2.pt

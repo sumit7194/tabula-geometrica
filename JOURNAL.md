@@ -11,6 +11,28 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-17 — STRATEGIC PIVOT: Generalist v2 becomes the main thread (full span, ~12M, MPS)
+- **User's call:** stop building one-off specialists (they only tell us about one thing or about NNs;
+  no cross-pollination, nothing rich to mech-interp). Commit to ONE bigger generalist where emergence
+  and the BH mech-interp capstone can actually happen. Decisions: FULL data span, ~10-15M params, build
+  now. Honest framing logged: specialists were right for building the lesson library; now the marginal
+  specialist is local optimization and the prize is in the generalist (the Phase-G law-space — EM as its
+  own region — only existed because a generalist saw many physics at once). Keep specialists only as
+  controls. MPS ceiling acknowledged (~10-50M, not frontier; emergence not raw scale is the goal).
+- **Built the foundation (one session):**
+  - `worldgen_v2.py` — unified in-context episode schema across the FULL span: gravity, charged (EM),
+    scalar, Schwarzschild, Reissner-Nordström (charged BH), Bloch (quantum). 3 modalities (trajectory /
+    metric / quantum) in one (u,y)+mask format; the model infers the hidden world (q, M, Q, Bloch
+    vector) in-context. Verified all 6 families generate cleanly.
+  - `61_generalist_v2.py` — GeneralistV2: in-context transformer, **12.69M params** (hit the ~12M
+    target), applying our lessons — amortized in-context inference (legibility), G-sym INVARIANT pool
+    over the exchangeable context, built-in HOOKS (per-layer activation cache + the world code) for
+    mech-interp from day one, MPS, bit-exact checkpoint/resume.
+  - Smoke train (600 steps) proved the pipeline: trajectory families 8-13× over the ctx-mean baseline.
+- **Real 40k-step train LAUNCHED on MPS** (detached, ~35 min, checkpointed to results/61_gen2.pt; loss
+  0.001 by step 2000). NEXT: per-family convergence, then the law-space / world-summary probe (the
+  cross-pollination prize) and the BH region for mech-interp (BH-4 hooks).
+
 ## 2026-06-17 — PHASE BH-1: the space↔time flip emerges in a learned black-hole interior (capstone)
 - **User's ambitious pivot:** simulate the Penrose-diagram black-hole interior in a NN, then mech-interp
   the mind-benders — the space↔time switch inside the horizon, the singularity as a *time* not a place.
