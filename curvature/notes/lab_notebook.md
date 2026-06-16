@@ -2502,3 +2502,20 @@ massive Yukawa (1+mu r)e^(-mu r)/r^2, web-verified). Economy race per 2x2 cell: 
   even a massive (Yukawa) graviton would geometrize. Answers "why is gravity the odd one out" on-mission:
   it is the equivalence principle (universality), not the mediator's range, that turns a force into geometry.
   Direct extension of scripts 45/55 (universality = the geometrize knob) onto the SM field-type axes.
+
+## 2026-06-17 (OVERNIGHT #3) — EXOTIC MATTER: what holds a wormhole throat open? (69, roadmap #60)
+
+Web-verified (Morris-Thorne): traversable throat b(r0)=r0 + flare-out b'(r0)<1 ENTAILS null-energy-condition
+violation -> the source is EXOTIC (negative energy). Zero-redshift diagnostics: rho ∝ b'/r^2, (rho+p_r) ∝
+(r b'-b)/r^3. A net learns b(r) from RULER observations only (local stretch s=dl/dr=1/sqrt(1-b/r); never
+told about energy), then we read the required matter from its LEARNED b_hat via autodiff.
+  THROAT b=r0^2/r (traversable) vs STAR b=r^3/R^2 (uniform-density ball, normal matter).
+
+**Result (69_exotic_matter.json) — 3/3:**
+- X1 ✓ learns both: b-fit R^2 = 0.999 (throat) / 1.000 (star).
+- X2 ✓ NEC sign split: throat (r b'-b) = **-1.68** (NEC violated) vs star **+0.015** (satisfied).
+- X3 ✓ NEGATIVE ENERGY: throat energy density rho_hat = **-0.71** (exotic matter) vs star **+0.05** (clear margin).
+- **Verdict: a net that learned a traversable shortcut from rulers alone needs NEGATIVE-energy / NEC-
+  violating matter to source it** — it rediscovered that holding a wormhole open requires exotic matter,
+  without ever being shown an energy. Ties to 57 (ER=EPR shortcut). NOT a null (the roadmap's "may become
+  an honest null" worry did not materialize — clean sign separation).

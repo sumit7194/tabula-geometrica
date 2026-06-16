@@ -1,0 +1,16 @@
+{
+ "throat": {
+  "b_fit_R2": 0.9994609319307001,
+  "NEC_combo_near_throat": -1.6827722787857056,
+  "energy_density_near_throat": -0.7125308513641357
+ },
+ "star": {
+  "b_fit_R2": 0.9999338560668163,
+  "NEC_combo_inner": 0.015071284957230091,
+  "energy_density_inner": 0.05203215405344963
+ },
+ "X1_learns_both": true,
+ "X2_NEC_sign_split": true,
+ "X3_throat_needs_negative_energy": true,
+ "exotic_matter_discovered": true
+}

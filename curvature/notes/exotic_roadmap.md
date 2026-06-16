@@ -60,7 +60,11 @@ embedding recovers the conserved quantum number(s) — linear-decodes q (R²>0.9
 is "Σ over reaction ≈ 0". N3 knee: #conserved-numbers recovered = #imposed (1 vs 2). N4 generalize to
 unseen reactions / particle counts. (Noether/representation-theory from data.)
 
-### 60 Exotic / negative-energy matter (wormhole traversability)
+### 60 Exotic / negative-energy matter — DONE ✅ (3/3, script 69)
+Net learns a throat geometry from rulers only; required source has NEGATIVE energy density (-0.71) and
+violates NEC (rho+p_r=-1.68); normal-star control positive. Holding a shortcut open needs exotic matter
+(discovered, not a null). Original design below.
+### 60 (design)
 **Question:** what kind of SOURCE does a stable, traversable shortcut require — does the economy push
 toward sign-violating (negative-energy) matter? Ties to 57.
 **Design (loose):** in a metric-from-trajectories or emergent-geometry setup, require a persistent
@@ -71,7 +75,10 @@ coupling to violate a positivity bound.
 in the maintained-shortcut regime; E2 positive-only sources cannot hold the throat (control fails).
 *(Most speculative — design properly when reached; may become an honest null.)*
 
-### 61 Entropic / emergent gravity (user-queued earlier)
+### 61 Entropic / emergent gravity — DONE ✅ (3/3, script 67)
+Net discovers gravity-as-bookkeeping: entropic force ∝ T (a(2T)/a(T)=2.00), vanishes at T->0 (0.10),
+extrapolates the law (a(4)/a(2)=1.85); energetic control T-independent. Original design below.
+### 61 (design)
 **Question:** can a net discover an attractive FORCE arising from a purely statistical/entropic
 substrate (Verlinde-style) — gravity as bookkeeping, not a field?
 **Design (sketch):** a substrate with many microstates; an "entropy gradient" w.r.t. a probe's position;
