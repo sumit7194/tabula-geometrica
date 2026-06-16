@@ -1,0 +1,71 @@
+{
+ "checkpoint_step": 40000,
+ "per_family": {
+  "gravity": {
+   "heldout_mse": 5.342049007595051e-06,
+   "extrap_mse": 5.143234375282191e-06,
+   "specialist_floor": 4.857870862906566e-06,
+   "ratio_to_floor": 1.0996685705906601,
+   "world_decode_R2": 0.9908147420484021
+  },
+  "charged": {
+   "heldout_mse": 2.302492066519335e-05,
+   "extrap_mse": 0.001369978184811771,
+   "specialist_floor": 0.00172149739228189,
+   "ratio_to_floor": 0.013374937862263198,
+   "world_decode_R2": 0.9841478672272338
+  },
+  "scalar": {
+   "heldout_mse": 6.9033121690154076e-06,
+   "extrap_mse": 0.0005446123541332781,
+   "specialist_floor": 4.555686246021651e-06,
+   "ratio_to_floor": 1.5153174035473724,
+   "world_decode_R2": 0.9845922606730448
+  },
+  "schwarzschild": {
+   "heldout_mse": 8.387331763515249e-05,
+   "extrap_mse": 0.0007350943051278591,
+   "specialist_floor": 3.21961342706345e-05,
+   "ratio_to_floor": 2.605074085138777,
+   "world_decode_R2": 0.3662844140895648
+  },
+  "reissner_nordstrom": {
+   "heldout_mse": 7.204907888080925e-05,
+   "extrap_mse": 0.0005775633035227656,
+   "specialist_floor": 9.036572009790689e-05,
+   "ratio_to_floor": 0.7973054163176273,
+   "world_decode_R2": 0.1557539401782767
+  },
+  "bloch": {
+   "heldout_mse": 6.036863487679511e-05,
+   "extrap_mse": 5.8300203818362206e-05,
+   "specialist_floor": 4.9330570618622005e-05,
+   "ratio_to_floor": 1.2237570515806937,
+   "world_decode_R2": 0.999582907951487
+  }
+ },
+ "born_gate": {
+  "born_affine_R2": 0.9999275552962724,
+  "recovered_r_norm": 0.9908303977295944,
+  "cos_to_true_r": 0.9999316682010346
+ },
+ "flip_gate": {
+  "M_values": [
+   0.8,
+   1.0,
+   1.3
+  ],
+  "horizon_r_star": [
+   2.4279889220997477,
+   2.142008188976317,
+   2.6148654731503287
+  ],
+  "true_horizons": [
+   1.6,
+   2.0,
+   2.6
+  ],
+  "horizon_tracks_M": false
+ },
+ "lawspace_ARI": 0.43278171513433056
+}

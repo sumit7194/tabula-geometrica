@@ -11,6 +11,21 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-17 — Generalist v2 EVAL: the harness catches the spacetime families faking loss (fix applied)
+- **User re-corrected:** "checking training is not just watching loss drop — naive"; picking 40k steps
+  by round number is the same sin. Built the real eval harness (script `62_generalist_eval.py`): judge by
+  specialist-floor ratio + held-out/extrapolation + WORLD-CODE DECODE + PHYSICAL GATES, not loss.
+- **It immediately earned its keep.** First eval (40k checkpoint): gravity/scalar/bloch/charged genuinely
+  learned (near floor, decode latents 0.98–1.0, Bloch's Born rule exact). But the **spacetime families
+  faked it**: Schwarzschild had low MSE 8.4e-5 yet world-decode R²=0.37 and the horizon did NOT track M
+  (pinned ~2.2 for true horizons 1.6/2.0/2.6); RN R²=0.16. The families central to the BH capstone are
+  the ones loss hid. **Diagnosis (decisive):** in ds², M is only 2.16% of the target variance; a model
+  ignoring M scores 9.6e-5, the generalist scored 8.4e-5 — right at the ignore-M ceiling.
+- **Fix:** metric families now predict the metric component g_vv(r) directly (M-essential; ignoring M now
+  costs 5.9e-2 vs 1e-4) — and g_vv's sign is the signature-flip probe. Re-training fresh; re-eval gates =
+  decode-R²(M) + horizon-tracks-M. **Gate: no BH-4 mech-interp until the spacetime families represent M.**
+  Methodology banked in memory. Docs: lab notebook; results/62_*.
+
 ## 2026-06-17 — STRATEGIC PIVOT: Generalist v2 becomes the main thread (full span, ~12M, MPS)
 - **User's call:** stop building one-off specialists (they only tell us about one thing or about NNs;
   no cross-pollination, nothing rich to mech-interp). Commit to ONE bigger generalist where emergence

@@ -70,15 +70,19 @@ class Scalar:
         return _pad(u, DU), _pad(np.stack([ax, ay], 1), DY)
 
 
-# ---- METRIC families: u = (r, dv, dr), y = (ds^2) ----  (Eddington-Finkelstein, regular across horizon)
+# ---- METRIC families: u = (r), y = (g_vv) ----  (Eddington-Finkelstein metric COMPONENT, M-essential)
+# NOTE (2026-06-17): the old task (ds^2 from displacement) made M only ~2% of the target variance, so
+# the generalist ignored M (decode R^2=0.37, horizon didn't track M). Predicting g_vv(r) directly makes
+# M a LEADING-ORDER signal (g_vv = -1 + 2M/r), forces in-context M-inference, AND is exactly what the
+# signature-flip probe reads. The specialist BH-1 (script 60) still owns the "discover ds^2 from raw
+# displacements" result; this is the generalist's representation-forcing task.
 class Schwarzschild:
     name = "schwarzschild"; ymask = np.array([1, 0, 0, 0], np.float32)
     def world(self, rng): return {"M": rng.uniform(0.7, 1.5)}
     def obs(self, w, rng, n):
         r = rng.uniform(0.6, 6.0, n).astype(np.float32)
-        dv = rng.uniform(-0.3, 0.3, n).astype(np.float32); dr = rng.uniform(-0.3, 0.3, n).astype(np.float32)
-        ds2 = -(1 - 2 * w["M"] / r) * dv ** 2 + 2 * dv * dr
-        return _pad(np.stack([r, dv, dr], 1), DU), _pad(ds2[:, None], DY)
+        gvv = (-(1 - 2 * w["M"] / r)).astype(np.float32)            # signature: <0 outside, >0 inside r=2M
+        return _pad(r[:, None], DU), _pad(gvv[:, None], DY)
 
 
 class ReissnerNordstrom:
@@ -86,10 +90,8 @@ class ReissnerNordstrom:
     def world(self, rng): return {"M": rng.uniform(0.8, 1.3), "Q": rng.uniform(0.0, 0.8)}
     def obs(self, w, rng, n):
         r = rng.uniform(0.5, 6.0, n).astype(np.float32)
-        dv = rng.uniform(-0.3, 0.3, n).astype(np.float32); dr = rng.uniform(-0.3, 0.3, n).astype(np.float32)
-        f = 1 - 2 * w["M"] / r + w["Q"] ** 2 / r ** 2                # charged: f(r)=1-2M/r+Q^2/r^2
-        ds2 = -f * dv ** 2 + 2 * dv * dr
-        return _pad(np.stack([r, dv, dr], 1), DU), _pad(ds2[:, None], DY)
+        gvv = (-(1 - 2 * w["M"] / r + w["Q"] ** 2 / r ** 2)).astype(np.float32)   # f=1-2M/r+Q^2/r^2; two horizons
+        return _pad(r[:, None], DU), _pad(gvv[:, None], DY)
 
 
 # ---- QUANTUM family: u = (measurement axis n), y = (Born probability) ----

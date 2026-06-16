@@ -2320,3 +2320,33 @@ metric (g_vv, g_vr, g_rr); read the signature.
   diverges at r->0, FINITE at the horizon = flip is smooth not singular); BH-3 charge (RN timelike
   singularity — what charge does to the causal structure); BH-4 scale up + hidden-layer hooks (find the
   internal inside/outside feature, the rotating timelike direction, steer it).
+
+## 2026-06-17 — GENERALIST v2: eval harness catches the metric families FAKING low loss (62), fix applied
+
+User re-corrected (rightly): "checking training is not just watching loss drop — naive," and picking
+40k steps by round number is the same sin. Built the real eval harness (script 62): judge each family
+by SPECIALIST-FLOOR ratio + held-out/EXTRAPOLATION generalization + WORLD-CODE DECODE (recovers the true
+latent?) + PHYSICAL GATES — not loss. (Methodology banked in [[ml-experiment-methodology]].)
+
+**First eval (40k checkpoint, OLD ds^2 metric task):**
+- Genuinely learned: gravity (1.1x floor, decode R^2 0.991, extrap ✓); scalar (1.5x, 0.985); bloch
+  (1.2x floor, decode **1.000**, Born rule EXACT cos 1.000 |r|=0.99); charged (decode 0.984; its floor
+  baseline FAILED to converge -> ratio invalid, a flaw in my floor instrument, noted).
+- **NOT learned — the SPACETIME families, faking low MSE:** schwarzschild mse 8.4e-5 (low!) but
+  world-decode R^2 **0.37**, and the horizon does NOT track M (r* [2.43,2.14,2.61] vs true [1.6,2.0,2.6]
+  — pinned near ~2.2); reissner R^2 **0.16**. The model learned a near-MASS-INDEPENDENT metric. Loss
+  ranked schwarzschild as well-learned (74x baseline); the physics eval says it ignores the mass. The
+  families most central to the BH capstone are exactly the ones the loss hid.
+- Law-space family-cluster ARI 0.43 (moderate).
+
+**Diagnosis (decisive, no training):** in ds^2 = -(1-2M/r)dv^2 + 2 dv dr, M is only **2.16%** of the
+target variance (the M-independent cross-term 2dvdr is 80.8%). A model IGNORING M scores MSE 9.6e-5 —
+and the generalist's actual was **8.4e-5**, i.e. RIGHT AT the ignore-M ceiling. It gets "low" loss by
+ignoring the physics. Low MSE *required* ignoring M.
+
+**Fix (worldgen_v2):** metric families now predict the metric COMPONENT g_vv(r) directly (M-essential:
+g_vv=-1+2M/r), inferring M in-context — and g_vv's sign IS the signature-flip probe. Verified: ignoring
+M now costs **5.9e-2** MSE (vs 1e-4 before), so the model MUST infer M for low loss. Specialist BH-1
+(script 60) still owns the "discover ds^2 from raw displacements" result; this is the generalist's
+representation-forcing task. **Re-training fresh; re-eval gates = decode-R^2(M) high + flip-tracks-M.**
+Do NOT proceed to BH-4 mech-interp until the spacetime families actually represent M.
