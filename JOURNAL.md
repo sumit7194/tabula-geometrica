@@ -1,3 +1,32 @@
+## 2026-06-17 (overnight, autonomous) — emergent/exotic gravity queue: 4 clean results, the geometrization criterion closed
+
+Ran the user-authorized overnight queue ("Law-space prize, then exotic queue") to four 3/3 results, each
+web-verified, pre-registered, gated, documented, committed:
+
+- **#1 Entropic / emergent gravity (script 67)** — a net discovers gravity-as-bookkeeping: entropic force
+  ∝ T (a(2T)/a(T)=2.00), vanishes at T->0 (0.10), extrapolates the law (a(4)/a(2)=1.85); energetic control
+  T-independent. The reachable "emergent gravity" angle from the Feynman/QFT discussion (Verlinde).
+- **#2 The field zoo (script 68)** — why gravity is the odd one out. Economy race across COUPLING
+  (universal vs charge) x MEDIATOR MASS (massless vs massive Yukawa). Universal cells geometrize (R=1.5/0.5),
+  charge cells stay force (R=429/133); the coupling axis decides by 2-3 orders of magnitude and the mass
+  axis never flips a verdict. Gravity's place in the geometry basin is bought by UNIVERSAL COUPLING, not
+  masslessness — even a massive graviton would geometrize.
+- **#3 Exotic matter (script 69, roadmap #60)** — a net learns a wormhole-throat geometry from rulers only;
+  the matter required to source its learned geometry (read via autodiff) has NEGATIVE energy density (-0.71)
+  and violates the NEC (-1.68); a normal-star control is positive. Holding a shortcut open needs exotic
+  matter — discovered without ever being shown an energy (the roadmap's "may be a null" worry didn't land).
+- **#4 The friction boundary (script 70)** — universality is necessary but NOT sufficient. Friction is
+  universal (mass-independent) yet does not geometrize (R=6e5) because it breaks time-reversal (reverse-
+  return error 1.42 vs conservative 0.009). 
+
+**The crystallized refinement:** a force geometrizes <=> it is UNIVERSAL **and** CONSERVATIVE. The field
+zoo establishes the first condition (and places gravity); friction isolates the second. This is a clean
+two-condition criterion sitting on top of the unification (geometry = amortized physics, script 55).
+
+Open threads for next: orthogonal-F Wong v3 (does a structure-preserving update recover the legible
+rotation?), equivalence-breaking gravity (the third "where it breaks" row), and folding the geometrization
+criterion into writeups/curvature_field_guide.md (weekend, user polishes).
+
 # Journal — activity log (SpaceTime: curvature / NN)
 
 *One entry per working session, newest first. What happened, what was decided,

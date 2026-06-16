@@ -2519,3 +2519,24 @@ told about energy), then we read the required matter from its LEARNED b_hat via 
   violating matter to source it** — it rediscovered that holding a wormhole open requires exotic matter,
   without ever being shown an energy. Ties to 57 (ER=EPR shortcut). NOT a null (the roadmap's "may become
   an honest null" worry did not materialize — clean sign separation).
+
+## 2026-06-17 (OVERNIGHT #4) — THE FRICTION BOUNDARY: universality is necessary but NOT sufficient (70)
+
+The sharp refinement of the field zoo (68). Kinetic friction is UNIVERSAL (deceleration mass-independent,
+like the equivalence principle) yet does NOT geometrize. Web-verified why: dissipative forces are
+non-conservative (Bauer 1931: no variational principle gives a first-order dissipation term) and break
+TIME-REVERSAL symmetry, whereas geodesic/Lagrangian dynamics are time-reversible. Universality held FIXED
+(both worlds mass-independent) to isolate conservativeness. Economy race on the conservative-vs-dissipative
+axis: GeometryModel a=f(x) (reversible) vs DissipModel a=f(x)+h(v).
+  CONSERVATIVE a=-x  vs  FRICTION a=-x-gamma*v.
+
+**Result (70_friction_boundary.json) — 3/3:**
+- T1 ✓ both learnable (dissip R^2>0.95).
+- **T2 ✓** geometrization split: conservative R=**0.09** (GEOMETRY) vs friction R=**6.1e5** (geometry model
+  literally cannot represent drag — ignores v, huge residual). SAME universality, opposite verdict.
+- **T3 ✓** the WHY — reversibility: conservative reverse-and-return error **0.009** (retraces) vs friction
+  **1.416** (irreversible). Geometry fails exactly because friction breaks time-reversal.
+- **Verdict: a force geometrizes <=> it is UNIVERSAL AND CONSERVATIVE.** The field zoo (68) established the
+  first condition; friction isolates the second. Universality is necessary but not sufficient — the missing
+  ingredient is conservativeness (time-reversibility / existence of a Lagrangian). Completes the
+  "where geometrization holds vs breaks" picture.

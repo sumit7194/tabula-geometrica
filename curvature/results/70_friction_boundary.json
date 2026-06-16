@@ -1,0 +1,20 @@
+{
+ "conservative": {
+  "MSE_geometry": 4.806527158507379e-07,
+  "MSE_dissip": 5.653903826896567e-06,
+  "R2_dissip": 0.9999980926513672,
+  "ratio": 0.08501252330322095,
+  "return_error": 0.009322972439014409
+ },
+ "friction": {
+  "MSE_geometry": 0.7494807243347168,
+  "MSE_dissip": 1.2362247616692912e-06,
+  "R2_dissip": 0.9999996423721313,
+  "ratio": 606265.2531384587,
+  "return_error": 1.4163534188000972
+ },
+ "T1_both_learnable": true,
+ "T2_geometrization_split": true,
+ "T3_reversibility_explains": true,
+ "friction_boundary_confirmed": true
+}
