@@ -2,52 +2,52 @@
  "checkpoint_step": 40000,
  "per_family": {
   "gravity": {
-   "heldout_mse": 5.6965022849908564e-06,
-   "extrap_mse": 6.303935151663609e-06,
-   "specialist_floor": 4.852247911912855e-06,
-   "ratio_to_floor": 1.1739921814409104,
-   "world_decode_R2": 0.9955775444898358
+   "heldout_mse": 1.0551577815931523e-06,
+   "extrap_mse": 1.0597636901366059e-06,
+   "specialist_floor": 1.181698166874412e-06,
+   "ratio_to_floor": 0.8929157362309386,
+   "world_decode_R2": 0.9981673477431062
   },
   "charged": {
-   "heldout_mse": 1.7474980268161744e-05,
-   "extrap_mse": 0.0013123638927936554,
-   "specialist_floor": 0.001721497275866568,
-   "ratio_to_floor": 0.010151035672835523,
-   "world_decode_R2": 0.9947660800730872
+   "heldout_mse": 2.069521769954008e-06,
+   "extrap_mse": 0.0015342237893491983,
+   "specialist_floor": 0.00170637178234756,
+   "ratio_to_floor": 0.0012128199669910274,
+   "world_decode_R2": 0.9990463271504433
   },
   "scalar": {
-   "heldout_mse": 4.745581009046873e-06,
-   "extrap_mse": 0.0006497058202512562,
-   "specialist_floor": 2.3227401015901705e-06,
-   "ratio_to_floor": 2.043095119726432,
-   "world_decode_R2": 0.9951806662433567
+   "heldout_mse": 8.047112487474806e-07,
+   "extrap_mse": 0.0006219045026227832,
+   "specialist_floor": 1.5261739463312551e-06,
+   "ratio_to_floor": 0.527273266201828,
+   "world_decode_R2": 0.9969266445158826
   },
   "schwarzschild": {
-   "heldout_mse": 0.00020664342446252704,
-   "extrap_mse": 0.17100223898887634,
-   "specialist_floor": 8.14447230368387e-06,
-   "ratio_to_floor": 25.3722268779565,
-   "world_decode_R2": 0.9996508727594471
+   "heldout_mse": 8.755898306844756e-06,
+   "extrap_mse": 0.16035403311252594,
+   "specialist_floor": 9.041855832947476e-07,
+   "ratio_to_floor": 9.683729518457696,
+   "world_decode_R2": 0.999866217385938
   },
   "reissner_nordstrom": {
-   "heldout_mse": 0.000645768188405782,
-   "extrap_mse": 0.10091063380241394,
-   "specialist_floor": 0.00018778227968141437,
-   "ratio_to_floor": 3.438919721618316,
-   "world_decode_R2": 0.9488998899935799
+   "heldout_mse": 4.488831473281607e-05,
+   "extrap_mse": 0.05037866532802582,
+   "specialist_floor": 4.3694522901205346e-05,
+   "ratio_to_floor": 1.0273212916636858,
+   "world_decode_R2": 0.9797556609857152
   },
   "bloch": {
-   "heldout_mse": 0.00012760082609020174,
-   "extrap_mse": 0.000132733432110399,
-   "specialist_floor": 9.81181874522008e-05,
-   "ratio_to_floor": 1.3004808599005442,
-   "world_decode_R2": 0.9994184813617147
+   "heldout_mse": 6.2619046730105765e-06,
+   "extrap_mse": 7.72357452660799e-06,
+   "specialist_floor": 3.284199920017272e-05,
+   "ratio_to_floor": 0.19066757916217428,
+   "world_decode_R2": 0.9997463138786694
   }
  },
  "born_gate": {
-  "born_affine_R2": 0.9998897561285587,
-  "recovered_r_norm": 1.0108493894388957,
-  "cos_to_true_r": 0.9998551622652384
+  "born_affine_R2": 0.9999885786544616,
+  "recovered_r_norm": 0.9998980667254871,
+  "cos_to_true_r": 0.9999885556481292
  },
  "flip_gate": {
   "M_values": [
@@ -56,9 +56,9 @@
    1.3
   ],
   "horizon_r_star": [
-   1.6314641237258911,
-   2.0208826065063477,
-   2.6218810081481934
+   1.6076372861862183,
+   1.9976695775985718,
+   2.603173017501831
   ],
   "true_horizons": [
    1.6,
@@ -67,5 +67,5 @@
   ],
   "horizon_tracks_M": true
  },
- "lawspace_ARI": 0.2809289387896532
+ "lawspace_ARI": 0.3812202805372392
 }

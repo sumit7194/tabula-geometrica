@@ -1,6 +1,22 @@
 loaded checkpoint @ step 40000 on mps
 
+  [floor cached] gravity: 1.18e-06
 gravity            mse 1.06e-06 | floor 1.18e-06 | x  0.9 of floor | extrap 1.06e-06 | world-decode R^2 0.998
+  [floor cached] charged: 1.71e-03
 charged            mse 2.07e-06 | floor 1.71e-03 | x  0.0 of floor | extrap 1.53e-03 | world-decode R^2 0.999
+  [floor cached] scalar: 1.53e-06
 scalar             mse 8.05e-07 | floor 1.53e-06 | x  0.5 of floor | extrap 6.22e-04 | world-decode R^2 0.997
+  [floor cached] schwarzschild: 9.04e-07
 schwarzschild      mse 8.76e-06 | floor 9.04e-07 | x  9.7 of floor | extrap 1.60e-01 | world-decode R^2 1.000
+  [floor cached] reissner_nordstrom: 4.37e-05
+reissner_nordstrom mse 4.49e-05 | floor 4.37e-05 | x  1.0 of floor | extrap 5.04e-02 | world-decode R^2 0.980
+bloch              mse 6.26e-06 | floor 3.28e-05 | x  0.2 of floor | extrap 7.72e-06 | world-decode R^2 1.000
+
+Bloch Born gate: affine-R^2 1.000, |r_rec| 1.00, cos-to-true 1.000
+Schwarzschild flip gate: horizon r* [1.61, 2.0, 2.6] vs true [1.6, 2.0, 2.6] (tracks M: True)
+Law-space: family-cluster ARI 0.381
+
+saved results/62_generalist_eval.json
+
+VERDICT — near specialist floor (<3x): ['gravity', 'charged', 'scalar', 'reissner_nordstrom', 'bloch']
+physical gates: Born PASS, flip-tracks-M PASS

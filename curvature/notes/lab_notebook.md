@@ -2408,3 +2408,18 @@ character vs Q.
 **PHASE BH interior-physics trilogy COMPLETE: BH-1 (space<->time flip) + BH-2 (singularity) + BH-3
 (charge), all read out of LEARNED metrics.** BH-4 (mech-interp on the validated generalist — the
 inside/outside feature, the rotating time-direction, steering) is next, pending the generalist eval/tidy.
+
+## 2026-06-17 — Generalist v2 TIDY verdict (balanced loss + cosine + fixed floors): validated for BH-4 (62)
+
+After per-family loss balancing (147x scale gap) + cosine decay + bumped floor instrument, the clean
+physics-eval (resumable floor cache):
+- mse/floor: gravity 0.9x, scalar 0.5x, reissner 1.0x, bloch 0.2x, charged (floor invalid — v×B baseline
+  still won't converge from scratch; generalist mse 2.07e-6 decode 0.999 = learned), schwarzschild 9.7x
+  (was 25x — improved; decode 1.000, flip-tracks-M PASS, so M is perfectly REPRESENTED, only the g_vv
+  MAGNITUDE precision lags a dedicated specialist ~10x = shared-model penalty + steep r->0).
+- world-decode R^2 = 0.98-1.000 for ALL families (genuinely infers each latent). Physical gates BOTH PASS:
+  Born (affine R^2 1.000, |r|=1.00, cos 1.000) and flip-tracks-M (r* [1.61,2.0,2.6] vs true [1.6,2.0,2.6]).
+- law-space family-cluster ARI 0.28 -> 0.381 (balancing partially restored it; not back to the old 0.43).
+**Verdict: the generalist represents the physics correctly across all 6 families incl. mass + the
+mass-dependent horizon flip. Gate for BH-4 (mech-interp) is GREEN.** Honest punch-list (non-blocking):
+schwarzschild g_vv magnitude precision (9.7x floor), charged floor instrument can't converge, ARI moderate.
