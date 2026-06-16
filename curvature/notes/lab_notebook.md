@@ -2562,3 +2562,27 @@ probe + GRU encoder + gentler rotation. O1 then passed.)
   legibility tracks readout-linearity + amortization.** The Phase H Row 2 scramble must have come from its
   NONLINEAR force-readout (and/or free code), not the rotation per se. Follow-up 71b: nonlinear readout to
   remove the linear anchor and re-test whether structure then helps legibility.
+
+## 2026-06-17 (OVERNIGHT #5 cont.) — Leg 3 boundary condition: structure restores legibility ONLY under INDIRECT observation (71b/71c)
+
+Followed the 71 negative with two more variants to pin down WHEN structure matters for legibility (Leg 3 of
+the legibility law, first shown in scripts 33/34: generic 0.38 -> orthogonal 0.51, but stuck near a ~0.5
+"intrinsic ceiling"). Held everything fixed except how the conserved charge is OBSERVED:
+- **71b — direct obs + NONLINEAR readout** (cycling-basis probe exposes all 3 components/step; y=s+0.7s^3):
+  both stay legible (ortho lin 0.978, generic lin 0.988), no erosion. -> the linear-anchor explanation from
+  71 was incomplete; even a nonlinear readout keeps it legible when observation is DIRECT.
+- **71c — INDIRECT obs** (single fixed probe e3: one projection/step; charge must be reconstructed from the
+  TIME SERIES of its rotation; KOBS=12): **the effect appears, decisively.** orthogonal fits 0.963 and stays
+  legible (linear 0.908, knn 0.957, NO erosion early=late=0.908); GENERIC fits worse (y 0.642) AND scrambles
+  (linear **0.061** / knn 0.421 = info present but illegible = the probe-ladder scramble) and ERODES through
+  time (early 0.116 -> late 0.027). O2 ✓ O3 ✓ (O1 only "fails" because the generic model underfits the
+  indirect task — itself part of the finding; knn 0.42 >> linear 0.06 disambiguates scramble from underfit).
+
+**The refinement (a genuinely new boundary condition for Leg 3):** structure-preservation restores (and a
+generic update scrambles) the legibility of a conserved quantity **only when that quantity is observed
+INDIRECTLY** — i.e. must be inferred by integrating the dynamics. Under DIRECT observation (charge read off
+each step) the update rule is irrelevant; legibility is free for both (0.98-0.99). This reconciles 33/34 +
+Phase H Row 2 (indirect, through a force -> scramble, the regime where structure earns its keep) with the
+otherwise-puzzling robustness of legibility. It also breaks 33/34's apparent ~0.5 legibility ceiling: with a
+clean indirect-but-identifiable harness the structured update reaches 0.91 (not 0.5), and the gap to generic
+(0.06) is far cleaner. Writeup legibility_law.md Leg 3 gets a dated addendum; full polish left to the user.

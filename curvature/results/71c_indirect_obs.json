@@ -1,0 +1,20 @@
+{
+ "orthogonal": {
+  "y_R2": 0.9627638459205627,
+  "Q_linear_decode": 0.9082858562469482,
+  "Q_knn_decode": 0.9570699334144592,
+  "linear_early": 0.9083022475242615,
+  "linear_late": 0.9076429605484009
+ },
+ "generic": {
+  "y_R2": 0.6420989036560059,
+  "Q_linear_decode": 0.06130760908126831,
+  "Q_knn_decode": 0.42122775316238403,
+  "linear_early": 0.11567115783691406,
+  "linear_late": 0.027044177055358887
+ },
+ "O1_both_fit": false,
+ "O2_structure_restores_legibility": true,
+ "O3_scramble_signature": true,
+ "structure_restores_confirmed": false
+}

@@ -143,6 +143,25 @@ legibility here is ~0.5 because decoding a rotating 3-vector from the evolved st
 whole rollout is intrinsically hard — "reaches ceiling" means *as legible as the best
 achievable in this harness*, not linear r → 0.9.)
 
+> **Addendum (2026-06-17) — the boundary condition: Leg 3 only bites under *indirect*
+> observation** (`71/71b/71c`). Re-running the precessing-charge test while varying *how the
+> charge is observed* sharpened Leg 3 and lifted the ~0.5 ceiling:
+> - **Direct observation** (the charge's components are read off ~each step): the update rule
+>   is *irrelevant* — generic and orthogonal both stay legible at **0.98–0.99**, with or
+>   without a nonlinear readout (`71`, `71b`). Structure adds only exact conservation, not
+>   legibility.
+> - **Indirect observation** (a single projection per step; the charge must be reconstructed
+>   from the *time-series* of its rotation, `71c`): the effect appears decisively — orthogonal
+>   stays legible at **0.91** (no erosion), while the generic update **scrambles** it to linear
+>   **0.06** (kNN 0.42 — info present, illegible) and *erodes through time*.
+>
+> So Leg 3 is not "structure always restores legibility" — it is: **structure earns its keep
+> exactly when the conserved quantity must be *inferred through the dynamics* rather than read
+> off directly.** This is the Phase H Row 2 regime (a Wong charge seen through a force) and
+> explains both *why* it scrambled there and why everyday amortized codes often stay legible
+> anyway. With a clean indirect-but-identifiable harness the structured update reaches 0.91
+> (not the 0.5 of `33/34`), and the generic–orthogonal gap is far cleaner.
+
 ---
 
 ## The unified law — and the through-line

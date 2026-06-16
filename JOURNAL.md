@@ -1,3 +1,29 @@
+## 2026-06-17 (overnight cont., autonomous) — legibility law Leg 3: the boundary condition (observation regime)
+
+Probed the legibility law's third leg ("invariant-preserving structure restores legibility") with a fresh
+precessing-charge harness (scripts 71/71b/71c) and found a genuinely new boundary condition that sharpens
+the law and lifts the old ~0.5 ceiling from scripts 33/34:
+
+- **71 (direct obs, linear readout)** — instructive negative: BOTH generic and orthogonal updates keep the
+  rotating charge legible (0.99); structure adds only exact conservation (|w| drift 0 vs 0.41), not
+  legibility. The linear readout anchors the latent to the charge regardless of update.
+- **71b (direct obs, NONLINEAR readout)** — still both legible (0.98/0.99); rules out "it was just the
+  linear anchor." Under direct observation the update rule is simply irrelevant to legibility.
+- **71c (INDIRECT obs — single probe, charge inferred from the time-series of its rotation)** — the effect
+  appears decisively: orthogonal fits (0.96) and stays legible (linear 0.91, no erosion); GENERIC fits worse
+  (0.64) AND scrambles (linear 0.06 / kNN 0.42 = the probe-ladder signature) and erodes through time
+  (0.12->0.03).
+
+**Refinement:** Leg 3 is not "structure always restores legibility." It is — **structure earns its keep
+exactly when the conserved quantity must be INFERRED through the dynamics rather than read off directly.**
+That is the Phase H Row 2 regime (a Wong charge seen through a force), which explains both why it scrambled
+there and why amortized codes often stay legible anyway. The clean indirect harness also breaks 33/34's
+apparent 0.5 ceiling (orthogonal reaches 0.91). Documented in lab notebook + a dated addendum to
+writeups/legibility_law.md (Leg 3). Pre-registration honesty: 71 failed its gate (negative), one
+learnability fix round (cycling probe + GRU), then 71b/71c were new conditions (not gate-tuning) that
+located the boundary.
+
+
 ## 2026-06-17 (overnight, autonomous) — emergent/exotic gravity queue: 4 clean results, the geometrization criterion closed
 
 Ran the user-authorized overnight queue ("Law-space prize, then exotic queue") to four 3/3 results, each
