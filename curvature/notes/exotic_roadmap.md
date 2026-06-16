@@ -27,7 +27,11 @@ iteration. Each entry below is meant to be buildable cold.
   chain regions collapses emergent distance 4.44→0.37 (closer than neighbors) — a traversable shortcut,
   dose-responsive. ER=EPR demonstrated in our MI-geometry. Pure linear algebra.
 
-### NEXT — 58 Antimatter / CPT
+### 58 Antimatter / CPT — DONE ✅ (3/3)
+Net discovers charge conjugation: in a C-symmetric (odd-in-q) world, negating the inferred signed
+charge code FLIPS the predicted force = the antiparticle (C-equivariance cos +0.95); in a C-violating
+(even-in-q) world the cos slams to −0.97 (violation detected). Antimatter = a sign in an internal
+coordinate. Original design below.
 **Question:** does a net discover charge-conjugation (C) as a structure-preserving symmetry — the law
 is invariant under flipping the charge, so matter and antimatter obey the same dynamics?
 **Design:** charged bodies (charges q∈[−1,1], both signs = matter+antimatter) in a magnetic field

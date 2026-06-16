@@ -1,0 +1,9 @@
+C-symmetric world: code->q |r|=0.96 | C-equivariance cos=0.95
+C-violating world: code->q |r|=0.92 | C-equivariance cos=-0.97
+
+A1 signed legible code (sym |r| 0.96>0.9): True
+A2 C discovered — negate code flips force (sym cos 0.95>0.9): True
+A3 C-violation detected (sym 0.95 - vio -0.97 > 0.3): True
+
+CHARGE CONJUGATION (C / antimatter symmetry) DISCOVERED: True
+saved results/58_antimatter_cpt.json + .png

@@ -2249,3 +2249,22 @@ emergent distance d(A,B) = -log I(A,B) (region MI, parity-safe).
 - **Verdict: a wormhole built from entanglement, demonstrated.** ER=EPR in our emergent MI-geometry —
   entanglement shortens emergent geometric distance, dose-responsively. Clean INVERSE of Phase J's
   Van Raamsdonk pinch-off (decouple -> fly apart; entangle -> shortcut). Pure linear algebra, no training.
+
+## 2026-06-17 — EXOTIC: a net discovers CHARGE CONJUGATION (C / antimatter) (58)
+
+Web-verified: C replaces particle by antiparticle (flip charge); EM is C-invariant (Lorentz force odd
+in q -> antiparticle curves oppositely); weak interactions violate C; CPT exact. Question: can a net
+DISCOVER C (negating the internal charge = the antiparticle) and DETECT its violation? Magnetic
+dynamics a=(q/m)v×B (ODD in q = C-symmetric) vs + an even-in-q term eps*q^2*field (C-VIOLATING).
+Amortized net infers a signed charge code from (state,accel) context, predicts accel; C = negate code.
+
+**Result (58_antimatter_cpt.json) — 3/3:**
+- C-symmetric world: code->q |r|=**0.96** (signed legible, A1✓); C-equivariance cos(pred(-code),
+  -pred(code))=**+0.95** (A2✓) — negating the internal charge FLIPS the predicted force = the
+  antiparticle. The net discovered charge conjugation as an involution on the charge coordinate.
+- C-violating world: code->q |r|=0.92 (still legible) but C-equivariance cos=**-0.97** (A3✓) — negating
+  the charge does NOT flip the force (the even q^2 term dominates and is C-even), so the cos slams
+  negative: the net sharply DETECTS the C-violation.
+- **Verdict: a net discovers charge conjugation** (antimatter = flip the charge coordinate) exactly when
+  the law is C-symmetric, and detects violation when it isn't. Ties to signed-charge (46), Kaluza
+  charge-as-coordinate (D), and the symmetry theme. Antimatter = a sign in an internal coordinate.

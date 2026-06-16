@@ -11,6 +11,17 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-06-17 — EXOTIC: a net discovers charge conjugation (C / antimatter symmetry)
+- Web-verified C/CPT (EM is C-invariant, Lorentz force odd in q; CPT exact). Can a net DISCOVER C —
+  that negating the internal charge = the antiparticle — and DETECT violation? Magnetic dynamics
+  (odd in q, C-symmetric) vs an even-in-q term (C-violating). Amortized net infers a signed charge
+  code from (state,accel) context, predicts accel; C = negate the code. Script `58_antimatter_cpt.py`.
+- **3/3.** Symmetric world: code→q |r|=0.96, C-equivariance cos(pred(−code),−pred(code))=**+0.95** —
+  negating the internal charge flips the force = the antiparticle (C discovered as a coordinate
+  involution). Violating world: cos=**−0.97** — negating doesn't flip → the net sharply detects the
+  C-violation. **Antimatter = a sign in an internal coordinate**; the net finds it when the law is
+  C-symmetric and sees it break otherwise. Ties to signed-charge (46) + Kaluza (D). Docs: results/58_*.
+
 ## 2026-06-17 — EXOTIC: a wormhole from entanglement (ER=EPR), the inverse of Phase J pinch-off
 - Web-verified ER=EPR (Maldacena-Susskind): entanglement between two regions = a wormhole. Phase J
   showed decoupling flings regions apart; the inverse — does *adding* entanglement build a shortcut?

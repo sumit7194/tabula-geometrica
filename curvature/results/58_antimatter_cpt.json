@@ -1,0 +1,14 @@
+{
+ "symmetric": {
+  "code_decode_q": 0.9557431036318642,
+  "C_equivariance_cos": 0.9496462345123291
+ },
+ "violating": {
+  "code_decode_q": 0.9208641976779839,
+  "C_equivariance_cos": -0.9702169299125671
+ },
+ "A1_signed_legible_code": true,
+ "A2_C_discovered": true,
+ "A3_violation_detected": true,
+ "charge_conjugation_discovered": true
+}
