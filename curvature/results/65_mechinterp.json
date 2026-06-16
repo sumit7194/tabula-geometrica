@@ -1,0 +1,13 @@
+{
+ "checkpoint_step": 40000,
+ "horizon_feature_decode_acc": 0.9791666666666666,
+ "signature_decode_R2": 0.9997575879096985,
+ "steer_frac_flipped": 1.0,
+ "control_frac_flipped": 0.01282051282051282,
+ "base_gvv_mean_outside": -0.3933945298194885,
+ "steered_gvv_mean": 0.9370905756950378,
+ "M1_horizon_feature_exists": true,
+ "M2_signature_represented": true,
+ "M3_steerable": true,
+ "mechinterp_horizon_understood": true
+}

@@ -96,6 +96,7 @@ probe what the space-time switch / singularity MEAN in the net. Each mind-bender
   +9.0 for Q=0 (spacelike/unavoidable). Charge → a second horizon + the singularity flips spacelike (end
   of time) → timelike (avoidable). C2 = the Q→timelike relation the sister glass-box analyzer offered to
   verify. **PHASE BH interior-physics trilogy COMPLETE (flip + singularity + charge).** Original design below.
+- **BH-4 — mech-interp ✅ DONE (3/3, script 65).** Found an 'inside vs outside the horizon' linear feature (decode 0.979 across masses), the signature represented (hidden->g_vv R²=1.000), and STEERABLE (the feature direction flips 100% of outside queries across the horizon, g_vv -0.39->+0.94; random control 1%). The spacetime switch = a steerable linear direction in the activations. PHASE BH COMPLETE. Original below:
 - **BH-4 — scale up + hooks (deep mech-interp).** A larger net; install hidden-layer probes — find the
   internal "inside/outside-horizon" feature, the rotating timelike direction; steer it (does forcing
   the feature flip the predicted causal structure?). The proper mech-interp the proof-of-concept enables.

@@ -2423,3 +2423,21 @@ physics-eval (resumable floor cache):
 **Verdict: the generalist represents the physics correctly across all 6 families incl. mass + the
 mass-dependent horizon flip. Gate for BH-4 (mech-interp) is GREEN.** Honest punch-list (non-blocking):
 schwarzschild g_vv magnitude precision (9.7x floor), charged floor instrument can't converge, ARI moderate.
+
+## 2026-06-17 — PHASE BH-4: MECH-INTERP inside the generalist — the horizon is a steerable linear feature (65)
+
+The capstone. The validated generalist (decode M=1.000, flip-tracks-M PASS) — go INSIDE. Hooked the
+head's last-GELU hidden rep on Schwarzschild queries across masses M={0.8,1.0,1.3} (horizon r=2M moves).
+**Result (65_mechinterp.json) — 3/3:**
+- **M1 ✓** "inside vs outside the horizon" FEATURE: linear-decode accuracy **0.979** across masses
+  (label = r<2M — accounts for the mass, a genuine horizon feature not just "small r").
+- **M2 ✓** the SIGNATURE is represented: hidden -> g_vv linear R^2 = **1.000**.
+- **M3 ✓** STEERABLE: adding the inside−outside diff-of-means direction to OUTSIDE queries flips **100%**
+  of them across the horizon (g_vv **-0.39 -> +0.94**, causal character inverts); an equal-norm RANDOM
+  direction flips **1%** (specificity control passes — the S4 lesson respected).
+- **Verdict: "the spacetime switch," inside the model, IS a linear direction in the activations** — we
+  read which side of the horizon a point is on AND push a point ACROSS the horizon by writing along it,
+  flipping its causal character. The mech-interp capstone the user envisioned at the BH pivot.
+
+**PHASE BH COMPLETE end-to-end: BH-1 (space<->time flip) + BH-2 (singularity) + BH-3 (charge) + BH-4
+(mech-interp on the generalist).** Also vindicates the generalist pivot — a model rich enough to interpret.
