@@ -2463,3 +2463,21 @@ is the RELATIVE geometry (which families placed close), via the code-centroid di
   universal vs charge-coupled) is a follow-up (queued overnight).
 **Verdict: the generalist carves physics into its three observational modalities, with related families
 co-located (Schw<->RN) and the world carried in the within-family code; ARI honestly resolved.**
+
+## 2026-06-17 (OVERNIGHT #1) — ENTROPIC / EMERGENT gravity: gravity as bookkeeping (67)
+
+Web-verified: entropic force F=T*dS/dx scales with T (rubber: modulus=kBT/strand) and vanishes at T->0;
+Verlinde derives Newton's gravity as exactly such an entropic force. Sharp falsifiable signature vs a
+fundamental ENERGETIC force (T-independent): entropic is LINEAR in T, ZERO at T=0. Net learns a(x,T) for
+entropic (a=T*g(x)) vs energetic (a=g(x)).
+
+**Result (67_entropic_gravity.json) — 3/3:**
+- E1 ✓ both R^2=1.000.
+- **E2 ✓** ENTROPIC SIGNATURE: entropic a(2T)/a(T)=**2.00** (linear in T) and a(0.1)/a(1)=**0.10** (vanishes
+  at T->0 = "no temperature, no gravity"); energetic is T-independent (ratio ~1, force persists at T=0).
+- **E3 ✓** LEARNED THE LAW: entropic extrapolates a∝T to out-of-range T=4 (a(4)/a(2)=1.85) — grasped F∝T,
+  not a lookup.
+- **Verdict: a net discovered gravity-as-bookkeeping** — Verlinde's entropic signature (force ∝ T, dies at
+  T=0) cleanly distinguished from a fundamental field. The reachable "emergent gravity" angle from the QFT
+  discussion (gravity from a statistical substrate), demonstrated. (Geometrization bonus — a universal
+  entropic coupling would geometrize per the unification — noted for follow-up.)

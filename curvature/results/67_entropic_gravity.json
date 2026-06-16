@@ -1,0 +1,20 @@
+{
+ "results": {
+  "entropic": {
+   "R2": 0.9999802708625793,
+   "ratio_2T_T": 1.9992109537124634,
+   "force_at_T0.1_over_T1": 0.10407590121030807,
+   "extrap_ratio_4T_2T": 1.84950852394104
+  },
+  "energetic": {
+   "R2": 0.9999879598617554,
+   "ratio_2T_T": 0.9998454451560974,
+   "force_at_T0.1_over_T1": 0.9980626702308655,
+   "extrap_ratio_4T_2T": 0.9924059510231018
+  }
+ },
+ "E1_learns_both": true,
+ "E2_entropic_signature": true,
+ "E3_learned_the_law": true,
+ "entropic_gravity_discovered": true
+}

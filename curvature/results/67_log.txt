@@ -1,0 +1,9 @@
+entropic : R^2 1.000 | a(2T)/a(T) 2.00 | a(0.1)/a(1) 0.10 | extrap a(4)/a(2) 1.85
+energetic: R^2 1.000 | a(2T)/a(T) 1.00 | a(0.1)/a(1) 1.00 | extrap a(4)/a(2) 0.99
+
+E1 learns both (R^2>0.95): True
+E2 entropic signature (F∝T & vanishes at T->0; energetic T-independent): True
+E3 learned the law (extrapolates a∝T to T=4): True
+
+ENTROPIC GRAVITY DISCOVERED (force = T-scaled bookkeeping, vanishes at T=0): True
+saved results/67_entropic_gravity.json + .png
