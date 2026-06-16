@@ -1,1 +1,19 @@
 device mps | GeneralistV2 params 12.69M | families 6 | steps 40000
+[4000] grav:3.7e-04(10x) char:1.8e-03(2x) scal:2.7e-04(17x) schw:4.8e-03(121x) reis:1.1e-02(40x) bloc:3.0e-03(29x)
+[8000] grav:6.8e-05(53x) char:1.6e-04(27x) scal:6.5e-05(70x) schw:5.1e-04(1160x) reis:2.7e-03(157x) bloc:4.6e-04(190x)
+[12000] grav:2.3e-05(156x) char:5.9e-05(76x) scal:2.8e-05(161x) schw:2.2e-04(2657x) reis:8.3e-04(509x) bloc:2.4e-04(369x)
+[16000] grav:1.9e-05(190x) char:1.2e-04(38x) scal:3.0e-05(151x) schw:6.5e-04(907x) reis:5.7e-04(746x) bloc:3.3e-04(266x)
+[20000] grav:2.0e-05(178x) char:1.0e-04(44x) scal:1.9e-05(234x) schw:2.6e-04(2242x) reis:8.1e-04(522x) bloc:2.6e-04(333x)
+[24000] grav:5.4e-06(666x) char:2.3e-05(193x) scal:5.2e-06(867x) schw:2.1e-04(2756x) reis:5.1e-04(825x) bloc:1.1e-04(783x)
+[28000] grav:2.5e-05(141x) char:3.0e-05(146x) scal:2.4e-05(189x) schw:1.6e-03(361x) reis:1.1e-03(388x) bloc:2.0e-04(442x)
+[32000] grav:6.1e-06(591x) char:1.9e-05(241x) scal:4.3e-06(1039x) schw:6.7e-05(8781x) reis:4.6e-04(930x) bloc:8.7e-05(1015x)
+[36000] grav:3.6e-06(987x) char:1.5e-05(292x) scal:4.4e-06(1036x) schw:1.9e-04(3103x) reis:5.1e-04(833x) bloc:8.8e-05(1007x)
+
+final train loss 5.3275e-05
+per-family test loss:
+  gravity            loss 5.7753e-06  (621.7x better than ctx-mean baseline)
+  charged            loss 1.8989e-05  (234.9x better than ctx-mean baseline)
+  scalar             loss 4.9420e-06  (913.2x better than ctx-mean baseline)
+  schwarzschild      loss 2.2075e-04  (2658.1x better than ctx-mean baseline)
+  reissner_nordstrom loss 4.6956e-04  (904.5x better than ctx-mean baseline)
+  bloch              loss 1.2544e-04  (703.4x better than ctx-mean baseline)

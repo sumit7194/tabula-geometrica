@@ -1,17 +1,17 @@
 loaded checkpoint @ step 40000 on mps
 
-gravity            mse 5.34e-06 | floor 4.86e-06 | x  1.1 of floor | extrap 5.14e-06 | world-decode R^2 0.991
-charged            mse 2.30e-05 | floor 1.72e-03 | x  0.0 of floor | extrap 1.37e-03 | world-decode R^2 0.984
-scalar             mse 6.90e-06 | floor 4.56e-06 | x  1.5 of floor | extrap 5.45e-04 | world-decode R^2 0.985
-schwarzschild      mse 8.39e-05 | floor 3.22e-05 | x  2.6 of floor | extrap 7.35e-04 | world-decode R^2 0.366
-reissner_nordstrom mse 7.20e-05 | floor 9.04e-05 | x  0.8 of floor | extrap 5.78e-04 | world-decode R^2 0.156
-bloch              mse 6.04e-05 | floor 4.93e-05 | x  1.2 of floor | extrap 5.83e-05 | world-decode R^2 1.000
+gravity            mse 5.70e-06 | floor 4.85e-06 | x  1.2 of floor | extrap 6.30e-06 | world-decode R^2 0.996
+charged            mse 1.75e-05 | floor 1.72e-03 | x  0.0 of floor | extrap 1.31e-03 | world-decode R^2 0.995
+scalar             mse 4.75e-06 | floor 2.32e-06 | x  2.0 of floor | extrap 6.50e-04 | world-decode R^2 0.995
+schwarzschild      mse 2.07e-04 | floor 8.14e-06 | x 25.4 of floor | extrap 1.71e-01 | world-decode R^2 1.000
+reissner_nordstrom mse 6.46e-04 | floor 1.88e-04 | x  3.4 of floor | extrap 1.01e-01 | world-decode R^2 0.949
+bloch              mse 1.28e-04 | floor 9.81e-05 | x  1.3 of floor | extrap 1.33e-04 | world-decode R^2 0.999
 
-Bloch Born gate: affine-R^2 1.000, |r_rec| 0.99, cos-to-true 1.000
-Schwarzschild flip gate: horizon r* [2.43, 2.14, 2.61] vs true [1.6, 2.0, 2.6] (tracks M: False)
-Law-space: family-cluster ARI 0.433
+Bloch Born gate: affine-R^2 1.000, |r_rec| 1.01, cos-to-true 1.000
+Schwarzschild flip gate: horizon r* [1.63, 2.02, 2.62] vs true [1.6, 2.0, 2.6] (tracks M: True)
+Law-space: family-cluster ARI 0.281
 
 saved results/62_generalist_eval.json
 
-VERDICT — near specialist floor (<3x): ['gravity', 'charged', 'scalar', 'schwarzschild', 'reissner_nordstrom', 'bloch']
-physical gates: Born PASS, flip-tracks-M FAIL
+VERDICT — near specialist floor (<3x): ['gravity', 'charged', 'scalar', 'bloch']
+physical gates: Born PASS, flip-tracks-M PASS

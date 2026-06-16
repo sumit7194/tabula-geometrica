@@ -2350,3 +2350,17 @@ M now costs **5.9e-2** MSE (vs 1e-4 before), so the model MUST infer M for low l
 (script 60) still owns the "discover ds^2 from raw displacements" result; this is the generalist's
 representation-forcing task. **Re-training fresh; re-eval gates = decode-R^2(M) high + flip-tracks-M.**
 Do NOT proceed to BH-4 mech-interp until the spacetime families actually represent M.
+
+**RE-EVAL after the fix (fresh 40k train, survived a power loss — checkpoint intact at step 40000):
+THE GATES FLIPPED GREEN.**
+- schwarzschild world-decode R^2 **0.37 -> 1.000** (now perfectly recovers M); **horizon-tracks-M
+  FAIL -> PASS**: r* [1.63, 2.02, 2.62] vs true [1.6, 2.0, 2.6] — the signature flip now MOVES with the
+  mass, as it must. reissner decode **0.16 -> 0.949** (recovers M,Q). bloch decode 0.999, Born exact.
+  gravity/scalar/charged decode 0.995-0.996. **The spacetime families now represent the mass — the
+  prerequisite for BH mech-interp is met.** The eval-governed fix loop worked end to end.
+- Honest remaining (non-blocking): schwarzschild g_vv *magnitude* prediction 25x above specialist floor
+  (encodes M + flip correctly, but less precise than a dedicated net -> more training closes it);
+  charged floor baseline STILL fails to converge (floor instrument bug, generalist itself fine);
+  **law-space family-cluster ARI dropped 0.43 -> 0.28** (the cross-family code organization got LESS
+  clean after the metric change — the "prize" needs its own look); extrapolation to out-of-range M/Q
+  poor (expected). Power-loss note: training had finished + saved before the outage; nothing lost.
