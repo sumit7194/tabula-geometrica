@@ -2364,3 +2364,26 @@ THE GATES FLIPPED GREEN.**
   **law-space family-cluster ARI dropped 0.43 -> 0.28** (the cross-family code organization got LESS
   clean after the metric change — the "prize" needs its own look); extrapolation to out-of-range M/Q
   poor (expected). Power-loss note: training had finished + saved before the outage; nothing lost.
+
+## 2026-06-17 — PHASE BH-2: the SINGULARITY — smooth horizon, divergent spacelike singularity (63)
+
+Continuing the Phase BH plan (user: focus on the earlier BH things — flip, singularity). From a learned
+metric, is the horizon SMOOTH (finite curvature = coordinate flip) while r=0 is a REAL singularity
+(curvature diverges), and is the singularity SPACELIKE (the end of time)? 2D Ricci scalar R = f'' =
+-g_vv'' = -4M/r^3 — verified analytically. A smooth net learns g_vv(r) for Schwarzschild M=1 from noisy
+samples; curvature read off the LEARNED metric via autodiff R_hat = -g_vv'' (2nd derivatives amplify fit
+error -> sensitive test). Causal structure: outgoing-null escape dr/dv = -g_vv/2.
+
+**Result (63_blackhole_singularity.json) — 3/3:**
+- **S1 ✓** horizon SMOOTH: learned R_hat(2M) = **-0.50** (true -0.5), curvature corr(outside)=**1.000** —
+  finite curvature at the horizon -> the flip is a COORDINATE effect, not a singularity.
+- **S2 ✓** r=0 REAL singularity: R_hat(0.4) = **-62.4**, a **124x** blowup over the horizon (matches the
+  1/r^3 scaling, true 125x) -> the genuine physical curvature singularity.
+- **S3 ✓** SPACELIKE singularity (end of time): escape dr/dv flips **+0.25 outside -> -0.49 inside**
+  (trapped). The light cone tips over at the horizon; inside, every future direction decreases r -> r=0
+  is an unavoidable FUTURE MOMENT, not a place.
+- **Verdict: the singularity, understood from a learned geometry.** The net's metric correctly separates
+  the smooth coordinate-horizon (finite curvature) from the real curvature-singularity at r=0 (diverges
+  ~1/r^3), and the causal structure makes r=0 SPACELIKE — "a time, not a place; the end of time." The
+  mind-bender demonstrated via autodiff curvature + the tipping light cone. Connects to BH-1 (the flip).
+  NEXT: BH-3 charge (Reissner-Nordström) — charge flips the singularity SPACELIKE -> TIMELIKE (avoidable).

@@ -85,11 +85,11 @@ probe what the space-time switch / singularity MEAN in the net. Each mind-bender
   (never told its location); learned g_vv crosses zero at r*=2.02 (located the horizon as the
   signature-flip locus); v-direction goes timelike (out, g_vv −0.59) → spacelike (in, +0.99). The
   space↔time swap = the learned metric's signature flip.
-- **BH-2 — the singularity.** From the learned metric compute the curvature invariant: it should be
-  FINITE at the horizon (the flip is a smooth coordinate effect, not a singularity) but DIVERGE as
-  r→0 (Kretschmann ~1/r^6 in 3+1; in 1+1 use the Ricci scalar / a curvature proxy). And the causal
-  structure makes r=0 spacelike (decreasing-r = advancing-time; the future light cone traps). Gate:
-  curvature(horizon) finite & curvature(r→0) diverges; trapping turns on inside r*.
+- **BH-2 — the singularity ✅ DONE (3/3, script 63).** From the net's learned g_vv(r), curvature
+  R=-g_vv''=-4M/r^3 read via autodiff: FINITE at the horizon (R_hat(2M)=-0.50, corr 1.000 → smooth
+  coordinate flip, not a singularity) but DIVERGES ~1/r^3 toward r→0 (124× blowup → real singularity);
+  causal structure SPACELIKE — outgoing-null escape flips +0.25 outside → -0.49 inside (trapped) → r=0
+  is an unavoidable future = "a time, the end of time." Original design below.
 - **BH-3 — charge (Reissner-Nordström).** RN: f(r)=1−2M/r+Q²/r², TWO horizons (r±), TIMELIKE singularity
   (avoidable) — opposite of Schwarzschild's spacelike one. A net learns the RN interval; probe how the
   causal structure changes with Q (two signature flips at r±; singularity becomes timelike). Use the
@@ -97,6 +97,23 @@ probe what the space-time switch / singularity MEAN in the net. Each mind-bender
 - **BH-4 — scale up + hooks (deep mech-interp).** A larger net; install hidden-layer probes — find the
   internal "inside/outside-horizon" feature, the rotating timelike direction; steer it (does forcing
   the feature flip the predicted causal structure?). The proper mech-interp the proof-of-concept enables.
+
+### FUTURE / PARKED — the QFT / Standard-Model lens (user idea, 2026-06-17, after a Feynman QFT lecture)
+The dream: a general model spanning the Standard Model's field zoo (quarks/leptons = massive matter
+fields; photon/gluon = massless force carriers; W/Z = massive; Higgs = scalar; gravity = the open one,
+massless graviton, couples universally) — and from it, insight into gravity and its quantum connection.
+**Honest hard limit (banked so we don't chase a mirage):** a net CANNOT learn quantum gravity — there is
+zero data in its regime (Planck scale) and no agreed theory to generate training data; reproducing the
+known SM+GR is not discovering what isn't in the data. **Two REACHABLE, on-mission versions instead:**
+1. WHY gravity is the odd one out (structural): the graviton couples UNIVERSALLY to all energy-momentum
+   (equivalence principle) -> it becomes the geometry/arena; EM/strong couple to SPECIFIC charges -> stay
+   forces. That IS our shareability result (universal->geometrize, scripts 45/55). A generalist with
+   gravity + SM field-types -> study, in its law-space, why gravity sits in the geometry basin. Build a
+   toy "field zoo": massless/massive (= range/c, Proca knob 53) x universal/charge-coupled (= geometrize/
+   force, economy race) x scalar/vector/tensor; read where gravity is isolated and what couples like it.
+2. The actual quantum connection being pursued = emergent gravity from ENTANGLEMENT (It-from-Qubit /
+   holography / ER=EPR), NOT quantizing the graviton. We've toy-demonstrated it: geometry-from-
+   entanglement (Phase J), wormhole-from-entanglement (57), AdS-at-criticality (J4). Keep mining this.
 
 ### 62+ Wider non-physics area (stretch)
 Point the whole machinery at non-physics relational data — chemistry (reaction space), networks, language

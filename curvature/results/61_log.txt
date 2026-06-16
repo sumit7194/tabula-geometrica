@@ -1,2 +1,20 @@
 device mps | GeneralistV2 params 12.69M | families 6 | steps 40000
 per-family y-var (loss-balanced): {'gravity': np.float32(0.0037), 'charged': np.float32(0.0041), 'scalar': np.float32(0.0041), 'schwarzschild': np.float32(0.5385), 'reissner_nordstrom': np.float32(0.4719), 'bloch': np.float32(0.0829)}
+[4000] grav:2.3e-04(16x) char:1.8e-03(3x) scal:2.9e-04(16x) schw:1.3e-03(464x) reis:3.0e-03(143x) bloc:7.9e-04(112x)
+[8000] grav:4.8e-05(75x) char:1.8e-03(2x) scal:3.2e-05(140x) schw:3.3e-04(1767x) reis:1.3e-03(336x) bloc:2.1e-04(429x)
+[12000] grav:5.3e-05(68x) char:1.8e-03(3x) scal:4.6e-05(99x) schw:2.8e-04(2129x) reis:1.2e-03(361x) bloc:3.5e-04(250x)
+[16000] grav:2.2e-05(166x) char:1.8e-03(3x) scal:1.7e-05(266x) schw:2.2e-03(272x) reis:1.6e-03(272x) bloc:1.4e-04(634x)
+[20000] grav:1.3e-05(273x) char:1.8e-04(25x) scal:2.5e-05(180x) schw:5.3e-04(1111x) reis:1.0e-03(422x) bloc:1.3e-04(694x)
+[24000] grav:8.1e-06(441x) char:4.5e-05(98x) scal:8.1e-06(557x) schw:6.4e-05(9109x) reis:3.1e-04(1380x) bloc:7.5e-05(1177x)
+[28000] grav:4.5e-06(804x) char:8.6e-06(518x) scal:2.7e-06(1677x) schw:1.3e-04(4441x) reis:1.9e-04(2181x) bloc:3.0e-05(2927x)
+[32000] grav:1.5e-06(2439x) char:5.6e-06(800x) scal:1.7e-06(2697x) schw:8.1e-05(7222x) reis:9.6e-05(4438x) bloc:1.3e-05(7008x)
+[36000] grav:1.0e-06(3482x) char:2.2e-06(2010x) scal:9.1e-07(4940x) schw:2.4e-05(24121x) reis:5.8e-05(7263x) bloc:1.0e-05(8552x)
+
+final train loss 1.8231e-04
+per-family test loss:
+  gravity            loss 8.8669e-07  (4049.3x better than ctx-mean baseline)
+  charged            loss 1.6823e-06  (2651.4x better than ctx-mean baseline)
+  scalar             loss 8.9017e-07  (5069.7x better than ctx-mean baseline)
+  schwarzschild      loss 9.7199e-06  (60369.1x better than ctx-mean baseline)
+  reissner_nordstrom loss 3.7224e-05  (11409.8x better than ctx-mean baseline)
+  bloch              loss 6.2833e-06  (14044.0x better than ctx-mean baseline)

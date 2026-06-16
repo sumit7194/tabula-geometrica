@@ -81,9 +81,26 @@ def heldout_and_code(m, fam_id, N=256, seed=0, extrap=False):
     return mse, code, wv
 
 
+FLOOR_CACHE = RESULTS / "62_floors.json"
+
+
+def _load_floor_cache():
+    return json.loads(FLOOR_CACHE.read_text()) if FLOOR_CACHE.exists() else {}
+
+
+def _save_floor(name, mse):
+    c = _load_floor_cache(); c[name] = mse
+    tmp = FLOOR_CACHE.with_suffix(".tmp"); tmp.write_text(json.dumps(c)); tmp.replace(FLOOR_CACHE)  # atomic
+
+
 def specialist_floor(fam_id, steps=14000):
     """Same in-context architecture, trained on ONE family — the honest 'best a dedicated net does' floor.
-    Bumped d/steps after the v×B (charged) baseline failed to converge at d=192/8k (a floor must converge)."""
+    Bumped d/steps after the v×B (charged) baseline failed to converge at d=192/8k (a floor must converge).
+    CACHED to disk (resumable: a power loss mid-eval doesn't re-train already-computed floors)."""
+    name = wg.FAMILIES[fam_id].name
+    cache = _load_floor_cache()
+    if name in cache:
+        print(f"  [floor cached] {name}: {cache[name]:.2e}", flush=True); return cache[name]
     torch.manual_seed(1); rng = np.random.default_rng(1)
     sp = g2.GeneralistV2(d=256, depth=5).to(DEV)
     opt = torch.optim.Adam(sp.parameters(), lr=1e-3)
@@ -95,6 +112,7 @@ def specialist_floor(fam_id, steps=14000):
         loss = g2.masked_mse(pred, b["q_y"], ym)
         opt.zero_grad(); loss.backward(); opt.step(); sched.step()
     sp.eval(); mse, _, _ = heldout_and_code(sp, fam_id, 256, 7)
+    _save_floor(name, mse)
     return mse
 
 

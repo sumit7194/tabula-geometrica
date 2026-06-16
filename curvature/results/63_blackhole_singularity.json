@@ -1,0 +1,13 @@
+{
+ "R_at_horizon_r2": -0.503484308719635,
+ "R_true_horizon": -0.5,
+ "R_at_small_r04": -62.3515625,
+ "blowup_ratio": 123.84013050686836,
+ "curvature_corr_outside": 0.999995896682074,
+ "escape_outside_r4": 0.24969767034053802,
+ "escape_inside_r1": -0.49233394861221313,
+ "S1_horizon_smooth": true,
+ "S2_singularity_diverges": true,
+ "S3_spacelike_endoftime": true,
+ "singularity_understood": true
+}
