@@ -1,3 +1,24 @@
+## 2026-06-17 — the spin / binary / light trio (76/77/78): Kerr, the GW chirp, and the photon shadow
+
+User picked all three, one after another. Each a learned simulator reproducing GR-only physics:
+- **Spin — Kerr (76) ✓✓✓:** a net learns equatorial Kerr geodesics and discovers FRAME-DRAGGING (a
+  zero-angular-momentum particle dragged around, dphi/dtau matches 2a/(rDelta) to 3.6%; a=0 control ~0) and
+  the ERGOSPHERE (static-limit surface at 2.14M vs 2M, where even counter-rotating dphi/dt is forced
+  positive). One fix round (domain/capacity + measure dragging in its significant region).
+- **Binary inspiral — GW chirp (77) ✓✓✓:** a net learns the Peters radiation-reaction rate, rolls out the
+  inspiral, and the chirp laws emerge EXACT TO 4 FIGURES: f_GW propto (t_c-t)^-0.3753 (GR -0.375), df/dt
+  propto f^3.666 (GR 11/3). The LIGO chirp, rediscovered.
+- **Light — photon sphere + shadow (78) ✓✓ + ~:** a net learns the photon-ray map; the unstable PHOTON
+  SPHERE emerges at 3.1M (GR 3M); the SHADOW radius recovered to ~8% (b_crit ~5.6 vs 3sqrt3=5.196). The
+  absolute shadow normalization needs the force curvature to ~1% -- structure exact, absolute scale
+  approximate (the recurring probe-ladder lesson).
+
+All web-verified, pre-registered, documented, committed. The black-hole simulation programme now spans:
+Schwarzschild orbits (precession, ISCO) -> many-particle accretion -> collapse (frozen horizon) -> Kerr spin
+-> binary inspiral/chirp -> light/shadow. A net climbed the whole zoo of black-hole phenomena from
+trajectory/observation data, nailing the structure everywhere and the absolute scale where it's representable.
+
+
 ## 2026-06-17 — the black-hole simulation ladder: 1 particle -> many -> a collapsing star (73/74/75)
 
 User's exploration ("simulate one particle near a BH, then many, then a whole star collapsing"). Built the
