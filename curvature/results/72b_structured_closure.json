@@ -1,0 +1,16 @@
+{
+ "structured": {
+  "y_R2": 0.9899641275405884,
+  "cos_360": -0.9980897903442383,
+  "cos_720": 0.9978365302085876
+ },
+ "generic": {
+  "y_R2": 0.6513949632644653,
+  "cos_360": -0.6020973920822144,
+  "cos_720": -0.06860291957855225
+ },
+ "P1_both_fit": false,
+ "P2_structure_closes_4pi": true,
+ "P3_generic_fails_to_close": true,
+ "structure_closes_double_cover": false
+}

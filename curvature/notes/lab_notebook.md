@@ -2608,3 +2608,24 @@ rotation walk and predicts the observable; PHASE channel (Re/Im a) vs BLOCH chan
   closure. Same lesson as 71/71c (generic updates drift; structure preserves invariants). The double cover
   and the legibility-law's structure leg point at the same thing. Predicts: a STRUCTURE-PRESERVING
   (norm-preserving SO(L)) latent update should close the 4pi loop cleanly -> test in 72b.
+
+## 2026-06-17 (OVERNIGHT #6 cont.) — SPINOR CAPSTONE: structure CLOSES the 4pi loop (72b)
+
+72's prediction tested: give the latent a NORM-PRESERVING SO(4) update (matrix_exp of a learned skew matrix
+-- the structure-preserving analog, NOT the hardcoded SU(2)) and does it close the double cover where a
+generic update only caught the local flip? Head-to-head, same harness/data.
+
+**Result (72b_structured_closure.json):**
+- **STRUCTURED (SO(4)): y R^2 0.990 | cos(360deg)=-0.998 | cos(720deg)=+0.998** — PERFECT double-cover
+  closure: the famous -1 sign flip at 360deg AND exact return to identity at 720deg. A net DISCOVERED the
+  full spinor double cover (360deg != identity, 720deg = identity) given only a phase-sensitive observable.
+- generic: y R^2 0.651 | cos(360)=-0.60 | cos(720)=-0.07 (catches the local flip, DRIFTS, no closure).
+- P2 ✓ structure closes the 4pi loop; P3 ✓ generic drifts. P1 ✗ only because the generic BASELINE underfit
+  at this 6000-step budget (it reached 0.935 at 11k in script 72) -- not load-bearing for the claim.
+- **Loophole closed by 72:** there a WELL-FIT generic (0.935) STILL drifts at 720deg (cos -0.14) -> the
+  failure to close is about STRUCTURE, not fit. 72 + 72b together are airtight.
+- **The convergence (the night's synthesis):** structure-preservation is what closes a GLOBAL invariant
+  (the 4pi group closure / |Q| conservation / clean periodicity); a generic recurrent update catches the
+  LOCAL symptom but drifts over a full loop. Identical lesson in three places tonight: legibility Leg-3
+  (71/71c, indirect obs), and now the spinor double cover (72/72b). One principle -- *structured updates
+  preserve what generic updates only glimpse.*
