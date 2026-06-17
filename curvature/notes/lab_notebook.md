@@ -2691,3 +2691,24 @@ provably cannot represent the 1/(R-2M) pole.)
 1 particle: precession (~1%) + ISCO (5.9M). Many particles: ISCO as a collective disk edge (L_crit 3.41 vs
 sqrt12). Star: finite-proper-time collapse + frozen horizon. A learned simulator climbed from one geodesic
 to a collapsing star, reproducing the GR-only physics at each rung.
+
+## 2026-06-17 — SPIN: a Kerr black hole — frame-dragging + the ergosphere (76)
+
+First of the user's three spin/binary/light directions. Web-verified equatorial Kerr geodesics (Boyer-
+Lindquist, M=1): T=E(r^2+a^2)-La, Delta=r^2-2r+a^2; dphi/dtau=[-(aE-L)+aT/Delta]/r^2, dt/dtau=
+[-a(aE-L)+(r^2+a^2)T/Delta]/r^2, rdot^2=[T^2-Delta(r^2+(L-aE)^2)]/r^4. Net learns (a_r, dphi/dtau, dt/dtau)
+from (r,a,E,L) samples. (Fix round: tightened domain off the near-horizon blow-up + capacity/steps ->
+R^2 0.93->0.9997; and measured frame-dragging where it is physically significant, r<6 -- the rate ~2a/(rD)
+vanishes at large r so relative error there is ill-defined; documented.)
+
+**Result (76_kerr_spin.json) — 3/3:**
+- K1 ✓ learns dynamics R^2 = 0.99972.
+- **K2 ✓ FRAME-DRAGGING:** a zero-angular-momentum particle (L=0) is dragged around the spinning hole --
+  net dphi/dtau matches GR 2a/(rDelta) to **3.6%** (positive, rising inward); a=0 Schwarzschild control ~0
+  (0.0005). Spacetime itself rotates.
+- **K3 ✓ ERGOSPHERE:** the static-limit surface emerges at **2.14M** (GR 2M) -- the radius where even a
+  maximally counter-rotating particle (L=-12) has its dphi/dt forced positive (co-rotation). Inside it
+  nothing can stand still.
+- **Verdict: a net discovered the two hallmarks of a spinning black hole** -- frame-dragging and the
+  ergosphere -- from equatorial geodesic data. Next of the trio: binary inspiral + GW chirp; then light
+  (photon sphere + shadow).

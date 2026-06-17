@@ -1,0 +1,12 @@
+{
+ "R2": 0.9997177124023438,
+ "frame_drag_median_relerr": 0.0359333350486829,
+ "frame_drag_positive_rising": true,
+ "schwarzschild_dphi_dtau": 0.0004626065492630005,
+ "ergosphere_r_net": 2.143165467625899,
+ "ergosphere_r_true": 2.0,
+ "K1_learns_dynamics": true,
+ "K2_frame_dragging": true,
+ "K3_ergosphere": true,
+ "kerr_spin_discovered": true
+}
