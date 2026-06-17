@@ -1,7 +1,7 @@
 # Four impossibility certificates a discovery net can issue
 
 *The negative space of the legibility law. Every other result in this project uses a net's **success** at
-finding the cheapest explanation as the signal. These three use its **failure** — and turn that failure into
+finding the cheapest explanation as the signal. These four use its **failure** — and turn that failure into
 a gated, positive, falsifiable certificate.*
 
 > Scripts: `curvature/scripts/84_bell_nolocal.py`, `85_nolaw_chaos.py`, `86_gauge_nounique.py`.
@@ -15,7 +15,7 @@ no cheap explanation exists?* If a net is **architecturally restricted** to a ch
 inability to fit the data is not a bug — it is a measurement. It certifies that the structure the net was
 forbidden from using is really there.
 
-Three classic "no-go" results of physics turn out to be exactly this, each with a sharp number the net's
+Four classic impossibility results of physics turn out to be exactly this, each with a sharp number the net's
 failure must land on.
 
 ---
@@ -116,6 +116,6 @@ Four faces of one principle — *no cheap code / no invariant / no unique code /
 | III — gauge | a unique Lagrangian (none exists) | data flat along the gauge orbit | 1508× gauge/physical split |
 | IV — KCBS | a non-contextual assignment | Σ⟨Pᵢ⟩ = 2 (independence number) | v* = 2/√5 |
 
-The legibility law asked *what is the cheapest legible code?* These three ask its mirror question — *where
+The legibility law asked *what is the cheapest legible code?* These four ask its mirror question — *where
 does no cheap code exist, and can the net certify it?* A net restricted to a cheap hypothesis class is a
 **measuring instrument for the impossible**: its failure, gated against a theorem, is a positive result.
