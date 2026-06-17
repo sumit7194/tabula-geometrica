@@ -2797,3 +2797,26 @@ never expanded, no signal; raised particle speeds so it crosses the box in tens 
   emerges from reversible microdynamics, and it vanishes at equilibrium. Demonstrated the Boltzmann/Loschmidt
   resolution by a net. (Same time-reversal axis as the friction boundary: dissipation/coarse-graining breaks
   the symmetry that the microscopic law preserves.)
+
+## 2026-06-17 — STRONG-FIELD FIDELITY: the sister-session's shadow diagnostic, investigated (82)
+
+A parallel Claude session (the ansatz/glass-box sister project) reviewed the EHT image (79): the shadow edge
+read b_crit=5.76M vs exact 3sqrt3=5.196M (+11%); they proposed turning it into a strong-field fidelity score
+(sweep training depth, watch b_crit -> 5.196) and -- crucially -- asked to confirm the 5.76 is genuine metric
+error and not an imaging/extraction artifact (measure b_crit by direct ray-capture, not brightness threshold).
+
+**Investigation (82_strong_field_fidelity.json) -- gates NOT passed, but a real, useful finding:**
+- The 79 value used b_shadow = bs[cap].max() (LARGEST captured b) -- noise-sensitive. A robust midpoint
+  capture extraction on a fresh net gives b_crit = **4.99**, and capture vs potential AGREE (4.99 vs 4.92).
+  **=> the 5.76 was partly an extraction artifact** (the sister's diagnostic instinct was right).
+- Sweep of training strong-field depth (knob = min impact parameter b_min, b_crit by ray-capture):
+  b_min 4.80->4.74 (8.9%), 5.05->4.99 (4.0%), **5.25->5.16 (0.7%)**, 5.60->4.88 (6.2%), 6.20->4.76 (8.5%).
+  **Sweet spot at b_min~5.25**: near-critical rays WIND around the photon sphere -> dense sampling exactly at
+  r=3M -> best force learning there -> b_crit accurate to 0.7%. Shallow data (no photon-sphere coverage) and
+  data diluted with fast-plunging captures both degrade it.
+- No clean MONOTONE curve: b_crit extraction noise (~+-10%, from net-init stochasticity + boundary-finding)
+  is comparable to the strong-field signal at this scale. Pre-registered F1/F2/F3 not met.
+- **Honest verdict:** the genuine strong-field error is ~1-5% (much smaller than 5.76 implied); it is smallest
+  when training densely samples the photon sphere (near-critical winding rays); the fidelity-score idea is
+  sound but needs lower-variance b_crit estimation (seed-averaging) for a clean learning curve. The cross-
+  project bridge worked: the exact engine (3sqrt3) as ground truth caught an inflated neural reading.

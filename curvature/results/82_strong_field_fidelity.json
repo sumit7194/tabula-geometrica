@@ -1,0 +1,46 @@
+{
+ "curve": [
+  {
+   "b_min": 4.8,
+   "rmin_data": 2.0000407695770264,
+   "b_crit": 4.735195530726257,
+   "rel_err": 0.08871119522322764,
+   "n_points": 85121
+  },
+  {
+   "b_min": 5.05,
+   "rmin_data": 2.0001790523529053,
+   "b_crit": 4.98659217877095,
+   "rel_err": 0.040329887749236557,
+   "n_points": 89083
+  },
+  {
+   "b_min": 5.25,
+   "rmin_data": 3.277918577194214,
+   "b_crit": 5.157541899441341,
+   "rel_err": 0.007430598666922671,
+   "n_points": 86199
+  },
+  {
+   "b_min": 5.6,
+   "rmin_data": 3.918034553527832,
+   "b_crit": 4.875977653631285,
+   "rel_err": 0.06161766303779265,
+   "n_points": 80312
+  },
+  {
+   "b_min": 6.2,
+   "rmin_data": 4.453169345855713,
+   "b_crit": 4.755307262569833,
+   "rel_err": 0.08484069062530825,
+   "n_points": 75802
+  }
+ ],
+ "full_data_capture": 4.98659217877095,
+ "full_data_potential": 4.9211805757494265,
+ "b_true": 5.196152422706632,
+ "F1_monotone_learning_curve": false,
+ "F2_deep_accurate": false,
+ "F3_error_is_strong_field": false,
+ "strong_field_fidelity_demonstrated": false
+}
