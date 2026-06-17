@@ -2820,3 +2820,25 @@ error and not an imaging/extraction artifact (measure b_crit by direct ray-captu
   when training densely samples the photon sphere (near-critical winding rays); the fidelity-score idea is
   sound but needs lower-variance b_crit estimation (seed-averaging) for a clean learning curve. The cross-
   project bridge worked: the exact engine (3sqrt3) as ground truth caught an inflated neural reading.
+
+## 2026-06-17 (cont.) — seed-averaged fidelity curve: honest negative + the WHY (83)
+
+Ran the sister-suggested seed-averaged b_crit learning curve (83), trying three estimators (capture-boundary
+sequential & batched, potential-integral, force-coefficient fit) and several knobs (r_floor, b_min, near-
+critical winding-ray density rho).
+
+**Result (83_fidelity_curve.json) — clean curve NOT achieved, an instructive negative:**
+- Seed-averaged b_crit stays high-variance: rho-sweep gave 5.36+-0.45, 6.65, 5.82+-0.64, 5.48+-0.44,
+  6.27 -- non-monotone, sigma ~ +-0.5M (~10%), and ~1/3 of seeds produced unusable garbage (NaN / grid-edge
+  captures, rejected). Seed-averaging over a few nets does NOT tame it.
+- **The WHY (the real insight):** b_crit is the impact parameter of the PHOTON SPHERE, which is an UNSTABLE
+  circular orbit -- a separatrix. Measuring a separatrix from a LEARNED force is ill-conditioned by
+  construction: tiny strong-field force errors are EXPONENTIALLY amplified into capture-vs-escape divergence.
+  So "shadow-edge error" is a high-variance strong-field probe *precisely because* it sits on the unstable
+  photon orbit. This also explains 79's inflated 5.76 (one spurious deep capture moved the max-captured-b).
+- **Methods conclusion for the cross-project bridge:** a clean strong-field fidelity score should use a
+  STABLE strong-field observable -- the learned metric/curvature value at r=3M directly, or the precession
+  rate of a bound orbit near the ISCO -- NOT the separatrix capture threshold. The robust findings from 82
+  stand (5.76 was partly extraction artifact; robust methods give ~5.0; best near the photon sphere). The
+  fidelity-curve-via-shadow-edge is the wrong instrument; the fidelity-curve-via-stable-observable is the
+  fix. (Pre-registered C1/C2/C3 not met; honest null with a mechanism.)

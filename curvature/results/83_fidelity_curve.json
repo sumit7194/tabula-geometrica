@@ -1,0 +1,44 @@
+{
+ "curve": [
+  {
+   "rho": 0,
+   "b_crit_mean": 5.358579881656805,
+   "b_crit_std": 0.4511834319526624,
+   "rel_err": 0.03125917904955644,
+   "n_seeds": 2
+  },
+  {
+   "rho": 6,
+   "b_crit_mean": 6.652958579881657,
+   "b_crit_std": 0.0,
+   "rel_err": 0.2803624756673684,
+   "n_seeds": 1
+  },
+  {
+   "rho": 16,
+   "b_crit_mean": 5.81715976331361,
+   "b_crit_std": 0.6434911242603554,
+   "rel_err": 0.11951291842272409,
+   "n_seeds": 2
+  },
+  {
+   "rho": 40,
+   "b_crit_mean": 5.484319526627218,
+   "b_crit_std": 0.44197526312222,
+   "rel_err": 0.055457785006715145,
+   "n_seeds": 3
+  },
+  {
+   "rho": 100,
+   "b_crit_mean": 6.268343195266272,
+   "b_crit_std": 0.0,
+   "rel_err": 0.20634321038664702,
+   "n_seeds": 1
+  }
+ ],
+ "b_true": 5.196152422706632,
+ "C1_monotone": false,
+ "C2_deep_accurate": false,
+ "C3_improvement": false,
+ "clean_fidelity_curve": false
+}
