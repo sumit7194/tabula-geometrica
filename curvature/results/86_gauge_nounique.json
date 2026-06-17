@@ -1,0 +1,22 @@
+{
+ "r2_each": [
+  0.9999962449073792,
+  0.9999987483024597,
+  0.9999994039535522,
+  0.999994695186615,
+  0.9999992847442627,
+  0.9999873638153076
+ ],
+ "min_r2": 0.9999873638153076,
+ "std_qddot_field": 0.0016431760741397738,
+ "signal_qddot": 1.0655442476272583,
+ "std_qddot_rel": 0.0015421002720429297,
+ "std_L_even": 0.0009648844134062529,
+ "std_L_odd": 1.4551700353622437,
+ "odd_over_even_ratio": 1508.127302106455,
+ "gauge_flatness_max_dqddot": 0.0,
+ "G1_dynamics_identifiable": true,
+ "G2_lagrangian_not_identifiable": true,
+ "G3_certificate": true,
+ "no_unique_law_certified": true
+}

@@ -2880,3 +2880,30 @@ only non-local-in-time invariants exist, so a local g provably cannot be one).
   chaotic Lorenz, while the same finder recovers E/L for Kepler. Impossibility-as-result, face 2 of 3 (no
   invariant). The diversity ratio is the discriminator: a low along-variance latent is NECESSARY but not
   SUFFICIENT for a conserved quantity (the same free-vs-amortized lesson, in invariant-discovery clothing).
+
+## 2026-06-17 — IMPOSSIBILITY CERTIFICATE III: a net reports "NO UNIQUE LAW" (gauge) (86)
+
+Face 3, the deepest -- the project's recurring villain (gauge freedom) becomes the result. Textbook (Landau-
+Lifshitz): adding a total time derivative dF/dt to a Lagrangian leaves the Euler-Lagrange EOM and every
+trajectory unchanged, so L is non-injective from trajectories. Structured Lagrangian L=1/2 qdot^2 + N(q)qdot
+- V(q): the gauge term N(q)qdot provably CANCELS in the EOM (qddot=-V'(q)) -- no Hessian division, avoids the
+LNN/D-v2 stiffness trap (the first LNN attempt blew up, R^2=-67000; structured form fixed it). Ensemble of 6
+nets, each nudged a hair toward a different total-derivative gauge (N=c_seed q).
+
+**Result (86_gauge_nounique.json) — 3/3:**
+- G1 ✓ DYNAMICS identifiable: every net reproduces the EOM, qddot R^2 = **1.0000**.
+- G2 ✓ LAGRANGIAN not identifiable: ensemble std(gauge part N qdot) = **1.455** vs std(physical part 1/2qd^2-V)
+  = **0.001**, ratio **1508x** -- the nets disagree only on the gauge direction.
+- G3 ✓ THE CERTIFICATE: qddot-field ensemble std = **0.15% of signal** (dynamics pinned); gauge cancels exactly.
+- **Verdict: the net recovers the EQUIVALENCE CLASS + a certificate of identifiability** -- certain about the
+  dynamics, free on the gauge. The honest output of a discovery net is not one equation but an equivalence
+  class plus what's determinable. Face 3 of 3 (no unique law). Converts the Phase B reshaping / MDL-lookup /
+  D-v2 "economy doesn't select gauge" nulls into a positive methodological result.
+
+### THE IMPOSSIBILITY-CERTIFICATE TRIAD COMPLETE (84/85/86) -- a new KIND of result:
+Three faces of one principle -- a discovery net's FAILURE to find a cheap explanation, made into a gated
+positive certificate: (I) no cheap LOCAL code -> certifies quantum nonlocality (Bell, wall at 1/sqrt2);
+(II) no INVARIANT -> certifies no conservation law (chaotic Lorenz, constancy 0.45 vs Kepler 0.000);
+(III) no UNIQUE law -> recovers the gauge equivalence class + identifiability certificate (1508x gauge/physical
+split). This is the NEGATIVE SPACE of the legibility law: not "what is the cheapest code" but "where does no
+cheap code exist, and can the net certify it." Owed: a polished writeup (writeups/impossibility_certificates.md).
