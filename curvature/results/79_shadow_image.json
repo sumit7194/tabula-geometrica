@@ -1,0 +1,9 @@
+{
+ "b_shadow_image": 5.763043478260869,
+ "b_crit_net": 5.6076553224319685,
+ "b_crit_true_3sqrt3": 5.196152422706632,
+ "photon_ring_b": 5.799665551839464,
+ "G1_shadow_disk": true,
+ "G2_photon_ring": true,
+ "shadow_image_rendered": true
+}

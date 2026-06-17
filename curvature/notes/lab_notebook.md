@@ -2752,3 +2752,16 @@ b_crit=3sqrt3~=5.196M (the SHADOW). Net learns the one-step photon-ray map (u,w)
 spin (76) frame-dragging + ergosphere ✓✓✓; binary (77) GW chirp exponents exact to 4 figures ✓✓✓;
 light (78) photon sphere ✓ + shadow ~8%. The simulation ladder now spans Schwarzschild orbits, collapse,
 Kerr spin, binary inspiral, and light.
+
+## 2026-06-17 — THE SHADOW, PROPERLY: an EHT-style image from the net's photon map (79)
+
+Turned the learned photon dynamics (78) into a picture. Schwarzschild radial symmetry -> brightness depends
+only on impact parameter b: trace a radial profile with the net (captured -> dark shadow; near-critical rays
+wind near the photon sphere -> bright ring), map B(b) onto the 2D sky, add Doppler brightening.
+
+**Result (79_shadow_image.json) — 2/2 + the image:**
+- G1 ✓ dark SHADOW disk radius **5.76M** (consistent with net b_crit 5.61; true 3sqrt3=5.20, ~10% larger).
+- G2 ✓ bright PHOTON RING at b=**5.80M**, just outside the shadow.
+- **Deliverable: results/79_shadow_image.png** -- a recognizable EHT black-hole image (dark disk + glowing
+  photon ring + Doppler asymmetry), ray-traced from the net's learned photon map. The picture the Event
+  Horizon Telescope took, reproduced from a neural simulator of light around a black hole.
