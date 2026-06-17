@@ -1,0 +1,11 @@
+{
+ "metric_R2": 0.9999613165855408,
+ "T_vs_M_slope": -0.9756046896008809,
+ "entropy_vs_M_slope": 1.9961528425119124,
+ "S_vs_Aover4_median_relerr": 0.00578911574787149,
+ "S_over_A_ratio": 0.24886302130535576,
+ "H1_T_inverse_M": true,
+ "H2_area_law": true,
+ "H3_S_equals_A_over_4": true,
+ "hawking_thermo_discovered": true
+}
