@@ -1,3 +1,31 @@
+## 2026-06-17 (autonomous, user at office) — impossibility quartet completed + the curvature atlas opened
+
+User handed me the call for the afternoon. Two coherent threads, four experiments, all web-verified /
+pre-registered / documented / committed:
+
+**Completed the impossibility-certificate triad -> QUARTET (87):**
+- Certificate IV — CONTEXTUALITY (KCBS, script 87) 3/3. The single-system cousin of Bell: a non-contextual
+  model (distribution over the 11 independent sets of C_5) tracks quantum exactly to the KCBS bound Sigma=2,
+  knee at v=0.894=2/sqrt5 (exact), can't reach sqrt5. Failure certifies contextuality. Writeup upgraded to
+  "Four impossibility certificates" (Bell/chaos/gauge/KCBS).
+
+**Opened the CURVATURE ATLAS (88/89/90) — curvature/holonomy/topology as the universal signature of "the
+cheapest shared description," far beyond gravity:**
+- Row 1 — FINANCE (88) 3/3: no-arbitrage is a FLAT CONNECTION. A net learns per-currency potentials; N
+  potentials explain all N^2 log-rates (R^2 1.00000); arbitrage = holonomy (measured = planted, slope 1.0);
+  numeraire = gauge (holonomy invariant). Our gravity result, in a market.
+- Row 2 — LANGUAGE/HIERARCHY (89) 2/3 core-clean: hierarchies are intrinsically hyperbolic. Gromov delta:
+  tree 0.000 vs grid 6.0 (theorem-grade negative-curvature signature); grid gets no hyperbolic advantage
+  (data-specific sign). Embedding-magnitude gate (H2) near-miss = vanilla Poincare SGD optimization limit,
+  not physics.
+- Row 3 — NEUROSCIENCE (90) 3/3: a neural population lives on a RING S^1 (Betti b1=1). From co-firing alone,
+  PCA recovers the ring; hidden heading decodes at circ-corr 1.000 (never given); shuffle control 0.020.
+
+Through-line: the same gauge-free invariant (curvature / holonomy / Betti number) that the project found in
+gravity recurs in finance, language, and brains -- "the cheapest description wins" becomes geometry
+everywhere, with a sharp pre-registered number in each. Atlas open for more rows (graph Ollivier-Ricci,
+Turing instability, grid-cell torus).
+
 ## 2026-06-17 — THE IMPOSSIBILITY-CERTIFICATE TRIAD (84/85/86): a new kind of result
 
 User picked "most novel as a body of work." Built three experiments where a discovery net's FAILURE to find a
