@@ -1,0 +1,16 @@
+{
+ "phase": {
+  "y_R2": 0.9354918003082275,
+  "cos_360_vs_start": -0.6552299857139587,
+  "cos_720_vs_start": -0.13725736737251282
+ },
+ "bloch": {
+  "y_R2": 0.9976236820220947,
+  "cos_360_vs_start": 0.8548070192337036,
+  "cos_720_vs_start": 0.8661958575248718
+ },
+ "S1_both_fit": true,
+ "S2_phase_discovers_double_cover": false,
+ "S3_bloch_blind_control": true,
+ "double_cover_discovered": false
+}

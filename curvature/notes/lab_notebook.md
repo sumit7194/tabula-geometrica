@@ -2586,3 +2586,25 @@ Phase H Row 2 (indirect, through a force -> scramble, the regime where structure
 otherwise-puzzling robustness of legibility. It also breaks 33/34's apparent ~0.5 legibility ceiling: with a
 clean indirect-but-identifiable harness the structured update reaches 0.91 (not 0.5), and the gap to generic
 (0.06) is far cleaner. Writeup legibility_law.md Leg 3 gets a dated addendum; full polish left to the user.
+
+## 2026-06-17 (OVERNIGHT #6) — THE SPINOR DOUBLE COVER: a net detects 360deg != identity (72)
+
+Edge-of-representability (parked field menu: "Dirac/spinor — can a net discover a double-cover state
+space?"). Web-verified: spin-1/2 needs 720deg (4pi) to return; 360deg maps the spinor to its NEGATIVE (the
+famous -1); SU(2) double-covers SO(3); the Bloch vector (quadratic in psi) is SIGN-BLIND, a phase amplitude
+a=<ref|psi> (linear) is sign-SENSITIVE. A GENERIC net (no spin structure) infers the hidden spinor from a
+rotation walk and predicts the observable; PHASE channel (Re/Im a) vs BLOCH channel (control). Discovery test
+= clean fixed-axis sweep, read predicted obs at 0/360/720deg. (Fix round: first run measured 697.5deg not
+720deg — off-by; fixed to dtheta=pi/6 -> steps 12/24 land exactly on 360/720deg. Device CPU->MPS revert.)
+
+**Result (72_spinor_double_cover.json) — partial, instructive:**
+- S1 ✓ both fit (phase R^2 0.935, bloch 0.998).
+- S3 ✓ BLOCH control is cleanly 360deg-PERIODIC (cos(360,start)=+0.86) — sign-blind, as predicted.
+- **S2 ✗ but informative:** the PHASE net DETECTS the double cover — it ANTI-correlates at 360deg
+  (cos -0.66 here; -0.90 in the pre-fix run) = it learned 360deg != identity, sharply unlike the +0.86 Bloch
+  control. BUT it does NOT achieve clean 4pi closure (720deg cos -0.14, not +1).
+- **Why (the convergence with tonight's Leg-3 result):** a GENERIC recurrent update catches the LOCAL
+  sign-flip but does not preserve the SU(2) GROUP structure over a full double-loop -> no exact 720deg
+  closure. Same lesson as 71/71c (generic updates drift; structure preserves invariants). The double cover
+  and the legibility-law's structure leg point at the same thing. Predicts: a STRUCTURE-PRESERVING
+  (norm-preserving SO(L)) latent update should close the 4pi loop cleanly -> test in 72b.
