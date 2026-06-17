@@ -2651,3 +2651,18 @@ near-circular training orbits across radii + corrected ISCO extraction = argmin_
 - **Verdict: a learned simulator reproduces both relativistic orbit signatures** (strong-field precession +
   ISCO) it was never told about, from trajectory segments alone. Rung 1 of the BH-simulation ladder.
   Next: Rung 2 (many particles / accretion ensemble), Rung 3 (collapse -> horizon at finite time).
+
+## 2026-06-17 — RUNG 2: many particles — the ISCO as an emergent collective edge (74)
+
+Released a 400-particle swarm around the BH, rolled each through the Rung-1 learned simulator (script 73's
+Sim). Collective fingerprint of the single-particle ISCO: L>sqrt(12) stable (disk), L<sqrt(12) plunge.
+
+**Result (74_accretion_ensemble.json) — 3/3:**
+- A1 ✓ simulator one-step R^2 = 1.00000.
+- **A2 ✓** plunge/stable boundary at L = **3.41** vs GR sqrt(12) = **3.464** (1.6%) — the net knows which
+  orbits survive.
+- **A3 ✓** stable-disk inner edge **5.24M** (eccentric stable orbits dip below 6 at periapsis; circular ISCO=6M).
+- 112/400 plunged through the horizon, 288 formed the stable disk.
+- **Verdict: the ISCO emerges as a COLLECTIVE edge** — the net-simulated swarm self-truncates near 6M with an
+  empty plunging region inside (an accretion-disk inner edge from learned dynamics). Rung 2 done. Next:
+  Rung 3 — gravitational collapse (a star), does a net learn a horizon forms at finite proper time?

@@ -1,0 +1,12 @@
+{
+ "oneStep_R2": 0.9999998211860657,
+ "L_crit_net": 3.4086186511089807,
+ "L_crit_GR_sqrt12": 3.4641016151377544,
+ "inner_edge_net": 5.237368583679199,
+ "n_plunged": 112,
+ "n_stable": 288,
+ "A1_simulator_ok": true,
+ "A2_plunge_split_at_ISCO": true,
+ "A3_inner_edge_6M": true,
+ "accretion_ISCO_emergent": true
+}
