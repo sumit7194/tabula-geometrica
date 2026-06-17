@@ -2928,3 +2928,24 @@ Genuine NC model = learnable distribution over the 11 valid value-assignments (i
 Four faces of one principle -- a discovery net restricted to a cheap hypothesis class is a measuring
 instrument for the impossible; its failure, gated against a theorem, is a positive result. Sharp numbers:
 1/sqrt2 (Bell), constancy 0.45-vs-0.00 (chaos), 1508x gauge split, 2/sqrt5 (KCBS).
+
+## 2026-06-17 — THE CURVATURE ATLAS I: no-arbitrage is a FLAT CONNECTION (markets) (88)
+
+New arc (curvature/holonomy as the universal signature of "the cheapest shared description," beyond gravity).
+Web-verified (Ilinski; Vazquez-Farinelli 0908.3043/1509.03264): exchange rates = exp(gauge potential on the
+currency graph); log R_ij = phi_i - phi_j when arbitrage-free (flat connection); "zero curvature IFF no
+arbitrage"; arbitrage = HOLONOMY of a currency triangle (Wilson loop); arbitrage measure INVARIANT under
+numeraire change (numeraire = gauge). A net learns the per-currency potential from the log-rate matrix.
+
+**Result (88_arbitrage_curvature.json) — 3/3:**
+- A1 ✓ FLAT CONNECTION: 8 potentials reconstruct all 64 log-rates (R^2=**1.00000**), corr(phi_hat,phi)=1.0000
+  (recovered up to gauge), max triangle holonomy **1.2e-7** (zero curvature). The cheapest code: N numbers
+  for N^2 rates.
+- A2 ✓ ARBITRAGE = CURVATURE: planted arbitrage a -> measured holonomy = a (slope **1.0000**); the potential-fit
+  residual grows 0->0.031 (the curl cannot be gauged away).
+- A3 ✓ NUMERAIRE = GAUGE: holonomy std across numeraire shifts = **0.00** (exactly invariant); the potentials
+  shift, the curvature does not.
+- **Verdict: our gravity result, in a market.** No-arbitrage is a flat connection; the net discovers the
+  per-currency potential (the cheapest description); arbitrage is exactly the curvature/holonomy it cannot
+  absorb; the numeraire is the gauge. Same machinery as Phase B (reshaping = gauge) + the curvature invariant
+  (17). Atlas row 1 of the "curvature is everywhere" image.
