@@ -2712,3 +2712,18 @@ vanishes at large r so relative error there is ill-defined; documented.)
 - **Verdict: a net discovered the two hallmarks of a spinning black hole** -- frame-dragging and the
   ergosphere -- from equatorial geodesic data. Next of the trio: binary inspiral + GW chirp; then light
   (photon sphere + shadow).
+
+## 2026-06-17 — TWO BLACK HOLES: the inspiral and the gravitational-wave chirp (77)
+
+Second of the spin/binary/light trio. Web-verified Peters (circular, G=c=1): dr/dt=-(64/5)m1 m2(m1+m2)/r^3;
+omega_orb=sqrt(M_tot/r^3), f_GW=2 f_orb; => f_GW(t)∝(t_c-t)^(-3/8), df/dt∝f^(11/3); chirp mass
+Mc=(m1 m2)^(3/5)/(m1+m2)^(1/5). Net learns the radiation-reaction rate (log|dr/dt| vs r,m1,m2); we roll out
+the inspiral, build f_GW(t), and read the chirp exponents.
+
+**Result (77_binary_chirp.json) — 3/3, exponents exact to 4 figures:**
+- I1 ✓ learns inspiral rate, log R^2 = 0.99992.
+- **I2 ✓ CHIRP TIME-LAW:** rolled-out f_GW ∝ (t_c-t)^**-0.3753** vs GR **-0.375**.
+- **I3 ✓ CHIRP FREQ-LAW:** df/dt ∝ f^**3.666** vs GR 11/3 = **3.667**.
+- **Verdict: a net simulated a binary inspiral and reproduced the gravitational-wave chirp** LIGO detects --
+  the rising-frequency waveform, both Peters exponents to 4 sig figs. Trio: spin ✓ (76), binary ✓ (77);
+  next light (photon sphere + shadow).

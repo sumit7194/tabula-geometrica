@@ -1,0 +1,12 @@
+{
+ "logRate_R2": 0.9999246001243591,
+ "tc": 126511.0527524003,
+ "chirp_time_exponent": -0.3752681772640787,
+ "chirp_time_target": -0.375,
+ "chirp_freq_exponent": 3.665952128173193,
+ "chirp_freq_target": 3.6666666666666665,
+ "I1_learns_inspiral": true,
+ "I2_chirp_time_law": true,
+ "I3_chirp_freq_law": true,
+ "chirp_discovered": true
+}
