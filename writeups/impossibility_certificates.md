@@ -1,4 +1,4 @@
-# Three impossibility certificates a discovery net can issue
+# Four impossibility certificates a discovery net can issue
 
 *The negative space of the legibility law. Every other result in this project uses a net's **success** at
 finding the cheapest explanation as the signal. These three use its **failure** — and turn that failure into
@@ -87,15 +87,34 @@ result: discovery = recover the gauge orbit + certify which directions are gauge
 
 ---
 
+## Certificate IV — no non-contextual code ⇒ quantum contextuality (Kochen–Specker / KCBS)
+
+**Setup.** The single-system cousin of Certificate I: Bell rules out *local* hidden variables (two parties);
+KCBS rules out *non-contextual* ones (one system) — a more fundamental no-go. Five yes/no projectors on a
+qutrit are arranged in a pentagon (5-cycle) with exclusivity (adjacent projectors are mutually exclusive). A
+genuine **non-contextual model** — a learnable distribution over the 11 valid value-assignments (the
+independent sets of C₅) — obeys `Σ⟨Pᵢ⟩ ≤ 2` (the independence number). It is fit to the symmetric quantum
+predictions scaled by visibility v (each `⟨Pᵢ⟩ = v/√5`, `Σ = v·√5`).
+
+**Result (3/3).** The non-contextual model tracks the quantum sum *exactly* until it pins at **Σ = 2.00** — the
+KCBS bound it cannot exceed — precisely at **v* = 2/√5 ≈ 0.894** (measured knee: 0.894, exact). Above that it
+is stuck at 2 while quantum rises to √5 ≈ 2.236.
+
+**The certificate.** The failure to find a cheap *non-contextual* code certifies quantum contextuality at the
+KCBS bound. (Web-verified: non-contextual bound 2; quantum value √5.)
+
+---
+
 ## The through-line
 
-Three faces of one principle — *no cheap code / no invariant / no unique code*:
+Four faces of one principle — *no cheap code / no invariant / no unique code / no non-contextual code*:
 
 | Certificate | Forbidden-but-real structure | The wall the net hits | Sharp number |
 |---|---|---|---|
 | I — Bell | nonlocal correlation | CHSH bound \|S\| = 2 | v* = 1/√2 |
 | II — chaos | conserved quantity (none exists) | unit-variance g can't go constant | constancy 0.45 vs 0.00 |
 | III — gauge | a unique Lagrangian (none exists) | data flat along the gauge orbit | 1508× gauge/physical split |
+| IV — KCBS | a non-contextual assignment | Σ⟨Pᵢ⟩ = 2 (independence number) | v* = 2/√5 |
 
 The legibility law asked *what is the cheapest legible code?* These three ask its mirror question — *where
 does no cheap code exist, and can the net certify it?* A net restricted to a cheap hypothesis class is a

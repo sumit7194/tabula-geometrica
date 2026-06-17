@@ -2907,3 +2907,24 @@ positive certificate: (I) no cheap LOCAL code -> certifies quantum nonlocality (
 (III) no UNIQUE law -> recovers the gauge equivalence class + identifiability certificate (1508x gauge/physical
 split). This is the NEGATIVE SPACE of the legibility law: not "what is the cheapest code" but "where does no
 cheap code exist, and can the net certify it." Owed: a polished writeup (writeups/impossibility_certificates.md).
+
+## 2026-06-17 — IMPOSSIBILITY CERTIFICATE IV: failure certifies CONTEXTUALITY (KCBS) (87)
+
+Rounded the triad into a QUARTET. KCBS = the single-system cousin of Bell (contextuality is more fundamental;
+Bell nonlocality is a special case). Web-verified: 5 projectors on a qutrit in a pentagon (C_5) with
+exclusivity; non-contextual bound sum<P_i> <= 2 (= independence number of C_5); quantum = sqrt5 ~= 2.236.
+Genuine NC model = learnable distribution over the 11 valid value-assignments (independent sets of C_5).
+
+**Result (87_contextuality.json) — 3/3:**
+- K1 ✓ NC regime fits (residual 0.0000 for v<=0.85).
+- K2 ✓ genuine NC model: max achieved sum = **1.999** (respects the KCBS bound 2 by construction).
+- K3 ✓ THE CERTIFICATE: NC model tracks quantum sum=v*sqrt5 perfectly to the bound, knee at **v=0.894 =
+  2/sqrt5** (theory 0.8944, EXACT), then caps at 2 while quantum rises to 2.236; v=1 unfittable (resid 0.106).
+- **Verdict: the FAILURE to find a non-contextual code certifies quantum contextuality** at the KCBS bound.
+  Face 4. Pairs with Bell: "no local code" (I) + "no non-contextual code" (IV) -- the two foundational
+  quantum no-gos, both as gated certificates.
+
+### THE IMPOSSIBILITY-CERTIFICATE QUARTET (84/85/86/87): Bell, chaos, gauge, KCBS.
+Four faces of one principle -- a discovery net restricted to a cheap hypothesis class is a measuring
+instrument for the impossible; its failure, gated against a theorem, is a positive result. Sharp numbers:
+1/sqrt2 (Bell), constancy 0.45-vs-0.00 (chaos), 1508x gauge split, 2/sqrt5 (KCBS).
