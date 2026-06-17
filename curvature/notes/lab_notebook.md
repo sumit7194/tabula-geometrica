@@ -2971,3 +2971,27 @@ concept space). Tree (balanced binary, 127 nodes) vs grid-graph (8x8) control.
   gate needs a Riemannian optimizer to hit 2x; the intrinsic-delta result already certifies the sign. Atlas
   row 2 (ties to J4 AdS / negative curvature). One fix round (deeper tree made it worse -- optimization, not
   physics -- reverted).
+
+## 2026-06-17 — THE CURVATURE ATLAS III: a neural population lives on a RING (90)
+
+Atlas row 3, the coordinate-free integer-topology face. Web-verified (Chaudhuri-Fiete 2019; Gardner 2022):
+head-direction population activity lies on a topological circle S^1 (Betti b1=1). N=120 von Mises neurons
+tuned to a hidden heading theta; from co-firing alone (never given theta), unsupervised PCA must recover the
+ring + decode the heading.
+
+**Result (90_neural_ring.json) — 3/3:**
+- R1 ✓ low-D manifold (top-2 PCA EVR 0.922).
+- R2 ✓ DISCOVERED S^1: circ-corr(theta, ring-angle) = **1.000** (heading decoded perfectly, never given),
+  radial CV **0.009**, center hole **0.976**, full angular coverage => Betti b1 = 1.
+- R3 ✓ shuffle control circ-corr **0.020** (ring destroyed -- topology is in the correlations).
+- **Verdict: the brain's ring discovered from co-firing.** (Fix round diagnosed the real issue: the ring
+  topology was robust throughout; the heading-decode was confounded by PCA ELLIPTICITY -- whitening the two
+  PCs + even-tiled preferred directions de-ellipsed the angle, circ-corr 0.68 -> 1.000. Measurement fix, not
+  topology.) Atlas row 3; coordinate-free integer invariant (Betti), the cousin of Phase J topology.
+
+### THE CURVATURE ATLAS so far (88/89/90): curvature/holonomy/topology as the universal signature of "the
+cheapest shared description," beyond gravity. Row 1 finance (no-arbitrage = flat connection, arbitrage =
+holonomy, numeraire = gauge; 3/3). Row 2 language/hierarchy (trees intrinsically hyperbolic, Gromov delta 0
+vs grid 6, data-specific sign; 2/3 core-clean). Row 3 neuroscience (population activity = ring S^1, Betti
+b1=1, heading decoded; 3/3). Open rows: graph Ollivier-Ricci (community bridges negative; K_n=n/(n-1)),
+Turing instability, grid-cell torus T^2.

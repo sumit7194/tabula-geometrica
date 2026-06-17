@@ -1,0 +1,13 @@
+{
+ "top2_evr": 0.9221460223197937,
+ "circ_corr_theta": 0.9999419107078309,
+ "radial_cv": 0.009003804996609688,
+ "center_hole": 0.9760302901268005,
+ "angular_cover": true,
+ "shuffle_top2_evr": 0.024627141654491425,
+ "shuffle_circ_corr": 0.019807867066883315,
+ "R1_low_dim_manifold": true,
+ "R2_discovered_ring_S1": true,
+ "R3_shuffle_control": true,
+ "neural_ring_discovered": true
+}
