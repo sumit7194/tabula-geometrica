@@ -1,0 +1,12 @@
+{
+ "oneStep_R2": 0.9999999403953552,
+ "precession_net_rad": 2.689991656615142,
+ "precession_true_rad": 2.6575713950337363,
+ "precession_newton_rad": null,
+ "precession_formula_6pi_M_over_L2": 1.1780972450961724,
+ "isco_radius_net": 5.880898876404495,
+ "B1_learns_dynamics": true,
+ "B2_precession_matches_GR": true,
+ "B3_ISCO_at_6M": true,
+ "blackhole_orbit_simulated": true
+}
