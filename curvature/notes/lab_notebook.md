@@ -2862,3 +2862,21 @@ local model provably exists below ~0.66.
   boundary. Impossibility-as-result, face 1 of 3 (no local code). Extends Phase J / It-from-Qubit into the
   nonlocality regime. (Bonus: this is the legibility law's negative space -- not "what is the cheapest code"
   but "where does NO cheap code exist.")
+
+## 2026-06-17 — IMPOSSIBILITY CERTIFICATE II: failure to find an invariant certifies "NO LAW" (chaos) (85)
+
+Face 2. A conservation-law finder (net g: instantaneous state -> scalar, standardized to unit total variance =
+anti-collapse) trained to be constant along trajectories. Kepler (has local invariants E, L) vs chaotic
+Lorenz (sigma=10,rho=28,beta=8/3; web-verified NO nontrivial time-independent analytic constant of motion --
+only non-local-in-time invariants exist, so a local g provably cannot be one).
+
+**Result (85_nolaw_chaos.json) — 3/3:**
+- N1 ✓ KEPLER real invariant: constancy **0.0000** (constant along orbits), diversity rho **52,000**, recovered
+  g matches true **L to 0.984** / E to 0.965. A genuine conserved law, discovered.
+- N2 ✓ LORENZ no-law certified: constancy **0.445** (a unit-variance local g cannot be made constant -- it
+  still wanders along the chaotic flow), rho **1.26**.
+- N3 ✓ separation: rho_Kepler / rho_Lorenz > 4 orders of magnitude.
+- **Verdict: the FAILURE to find a constant-along-flow function certifies "no local conservation law"** for
+  chaotic Lorenz, while the same finder recovers E/L for Kepler. Impossibility-as-result, face 2 of 3 (no
+  invariant). The diversity ratio is the discriminator: a low along-variance latent is NECESSARY but not
+  SUFFICIENT for a conserved quantity (the same free-vs-amortized lesson, in invariant-discovery clothing).

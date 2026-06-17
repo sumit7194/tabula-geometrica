@@ -1,0 +1,12 @@
+{
+ "kepler_constancy": 1.8264843674842268e-05,
+ "kepler_rho": 52341.780218359185,
+ "kepler_corr_E": 0.9646412028123457,
+ "kepler_corr_L": 0.9837298635075118,
+ "lorenz_constancy": 0.4452936053276062,
+ "lorenz_rho": 1.2583882913202886,
+ "N1_kepler_real_invariant": true,
+ "N2_lorenz_no_law_certified": true,
+ "N3_separation": true,
+ "nolaw_certified": true
+}
