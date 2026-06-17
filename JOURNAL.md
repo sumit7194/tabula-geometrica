@@ -1,3 +1,23 @@
+## 2026-06-17 — the black-hole simulation ladder: 1 particle -> many -> a collapsing star (73/74/75)
+
+User's exploration ("simulate one particle near a BH, then many, then a whole star collapsing"). Built the
+ladder, each rung a learned simulator reproducing GR-only physics from trajectory/observation data:
+
+- **Rung 1 (73) — one particle:** a net learns the one-step orbit map from Schwarzschild geodesic segments,
+  rolled out to simulate unseen orbits. Reproduces perihelion PRECESSION (net 2.69 vs true GR 2.66 rad/orbit,
+  ~1%; Newtonian=0) and the ISCO (5.88M vs 6M). Mercury's precession + the innermost stable orbit, learned.
+- **Rung 2 (74) — many particles:** a 400-particle swarm through the same simulator self-organizes into an
+  accretion disk truncated at the ISCO -- plunge/stable boundary at L=3.41 vs GR sqrt12=3.464 (1.6%); 112
+  plunge through the horizon, 288 form the disk. The ISCO as an emergent COLLECTIVE edge.
+- **Rung 3 (75) — a star collapsing:** Oppenheimer-Snyder dust ball. Net A learns the proper-time collapse,
+  net B the redshift clock. Finite proper time to the singularity (32.9 vs cycloid 34.6) AND the frozen
+  horizon (redshift rise 16.0x vs true 16.8x toward 2M, proper time finite). The exact 1/(R-2M) pole is an
+  honest smooth-net representability limit (same as our long-range/FNO tail finding).
+
+All web-verified, pre-registered, one fix round each, documented + committed. A learned simulator climbed
+from a single geodesic to a collapsing star, reproducing the relativistic physics at every rung.
+
+
 ## 2026-06-17 (overnight cont., autonomous) — the spinor double cover: a net discovers 360deg != identity
 
 Pointed "discover structure from observation" at the edge-of-representability question (parked field menu:
