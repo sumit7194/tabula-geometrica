@@ -1,3 +1,26 @@
+## 2026-06-17 (overnight cont., autonomous) — the spinor double cover: a net discovers 360deg != identity
+
+Pointed "discover structure from observation" at the edge-of-representability question (parked field menu:
+"can a net discover a double-cover state space?"). Web-verified spin-1/2 facts (720deg to return, -1 at
+360deg, SU(2) double-covers SO(3), Bloch vector sign-blind, phase amplitude sign-sensitive).
+
+- **72 (generic net):** given a phase-sensitive observable a=<ref|psi>, a generic net DETECTS the double
+  cover -- anti-correlates at 360deg (cos -0.66 / -0.90) = learned 360deg != identity -- sharply unlike the
+  sign-blind Bloch control (cos +0.86, cleanly 360deg-periodic). But it does NOT close the 4pi loop
+  (720deg cos -0.14): a generic recurrent update doesn't preserve the SU(2) group structure over a full
+  double-loop.
+- **72b (structure-preserving net):** a norm-preserving SO(4) latent update (matrix_exp of a learned skew
+  matrix) DISCOVERS THE FULL DOUBLE COVER -- cos(360deg)=-0.998, cos(720deg)=+0.998, fit R^2 0.990. Generic
+  baseline drifts (720deg -0.07). Structure closes the global invariant where generic only glimpses the
+  local flip.
+
+**The night's synthesis (one principle, three places):** structured/invariant-preserving updates CLOSE a
+global invariant -- the 4pi group closure (72b), |Q| conservation + dynamic legibility under indirect
+observation (legibility Leg-3, 71/71c) -- where a generic recurrent update catches only the local symptom
+and drifts. "Structured updates preserve what generic updates only glimpse." Ties the spinor's group
+topology to the legibility law. Documented (lab notebook); all committed.
+
+
 ## 2026-06-17 (overnight cont., autonomous) — legibility law Leg 3: the boundary condition (observation regime)
 
 Probed the legibility law's third leg ("invariant-preserving structure restores legibility") with a fresh
