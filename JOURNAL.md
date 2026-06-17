@@ -1,3 +1,22 @@
+## 2026-06-17 — the shadow image, Hawking's S=A/4, and the arrow of time (79/80/81)
+
+Three more, the last orthogonal to black holes:
+- **The shadow, properly (79):** ray-traced the learned photon map (78) into a 2D image -- a recognizable
+  Event Horizon Telescope picture: dark shadow disk (5.76M) + bright photon ring (5.80M) + Doppler
+  brightening. results/79_shadow_image.png.
+- **Hawking thermodynamics (80) ✓✓✓:** a net learns the metric f(r,M), reads the surface gravity
+  kappa=1/2 f'(r_h) -> T~1/M (slope -0.976), and the thermodynamic entropy int dM/T equals A/4 to 0.6%
+  (ratio 0.249, the Bekenstein-Hawking quarter), scaling as the AREA (holographic, slope 1.996). The
+  Brian-Cox S=A/4 thread, rediscovered by a net.
+- **Arrow of time (81) ✓✓✓ [orthogonal]:** a net discovers the second law from a REVERSIBLE expanding gas --
+  reads time's direction at 98.4% out of equilibrium, its decision IS coarse-grained entropy (ideal rule
+  0.999, corr 0.84), and it drops to chance (0.505) at equilibrium (no arrow when entropy is maximal). The
+  Boltzmann/Loschmidt insight, demonstrated. Same time-reversal axis as the friction boundary (70).
+
+The black-hole programme now also has its picture (the EHT shadow) and its thermodynamics (T~1/M, S=A/4);
+and the method stepped cleanly outside GR to rediscover the second law of thermodynamics.
+
+
 ## 2026-06-17 — the spin / binary / light trio (76/77/78): Kerr, the GW chirp, and the photon shadow
 
 User picked all three, one after another. Each a learned simulator reproducing GR-only physics:
