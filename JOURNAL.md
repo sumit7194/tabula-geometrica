@@ -1,3 +1,27 @@
+## 2026-06-17 — THE IMPOSSIBILITY-CERTIFICATE TRIAD (84/85/86): a new kind of result
+
+User picked "most novel as a body of work." Built three experiments where a discovery net's FAILURE to find a
+cheap explanation becomes a gated, positive, falsifiable certificate -- the negative space of the legibility
+law. Each web-verified, pre-registered, documented, committed; a polished writeup added
+(writeups/impossibility_certificates.md).
+
+- **I — no local code -> nonlocality (Bell, 84) 3/3.** A genuine local hidden-variable net (shared lambda +
+  local responses, no cross-wires) fits Werner correlations and saturates |S|=2.000 exactly at v=1/sqrt2,
+  then can't follow quantum to 2.83. Failure certifies nonlocality at the Tsirelson/CHSH boundary.
+- **II — no invariant -> no-law (chaos, 85) 3/3.** A conservation-law finder recovers Kepler's angular
+  momentum (constancy 0.000, matches L to 0.984) but CANNOT find any constant-along-flow function for chaotic
+  Lorenz (constancy 0.445) -- certifying no local conservation law. Diversity ratio is the discriminator.
+- **III — no unique law -> equivalence class (gauge, 86) 3/3.** Structured Lagrangian (gauge term cancels in
+  EOM, dodges the LNN Hessian-division trap that blew up the first attempt). Ensemble agrees on the dynamics
+  (qddot R^2=1.0000) but disagrees on the gauge part of L by 1508x -- the net recovers the gauge orbit + a
+  certificate of what's identifiable.
+
+Through-line: no cheap code / no invariant / no unique code = three faces of one principle. A net restricted
+to a cheap hypothesis class is a measuring instrument for the impossible -- its failure, gated against a
+theorem, is a positive result. Sharp numbers: 1/sqrt2 (Bell), constancy 0.45-vs-0.00 (chaos), 1508x gauge
+split. This is the negative space of the crown legibility law.
+
+
 ## 2026-06-17 — the shadow image, Hawking's S=A/4, and the arrow of time (79/80/81)
 
 Three more, the last orthogonal to black holes:
