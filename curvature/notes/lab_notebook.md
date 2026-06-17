@@ -2779,3 +2779,21 @@ horizon (f=0), surface gravity (1/2 f' there) -> T, the area, then the thermodyn
 - **Verdict: a net discovered black-hole thermodynamics** -- read the surface gravity off a learned metric
   to get T~1/M, applied the first law, and recovered S=A/4 (holographic, entropy ∝ horizon AREA) to within
   half a percent. The Brian-Cox S=A/4 / Planck-tiles thread, rediscovered by a net.
+
+## 2026-06-17 — PULL BACK: the ARROW OF TIME (second law) from reversible dynamics (81)
+
+Orthogonal to black holes, tied to the time-reversal thread (friction 70, collapse 75). An ideal gas freely
+expands in a box -- microscopically time-REVERSIBLE, yet coarse-grained entropy rises (Boltzmann/Loschmidt).
+Net sees two coarse frames in some order, classifies forward/backward. Start region randomized -> no fixed
+spatial cue, only entropy increase is consistent. (Fix round: original dynamics were ~30x too slow -- gas
+never expanded, no signal; raised particle speeds so it crosses the box in tens of steps, + capacity.)
+
+**Result (81_arrow_of_time.json) — 3/3:**
+- A1 ✓ reads time's arrow: non-equilibrium accuracy **0.984**.
+- A2 ✓ discovered ENTROPY: ideal coarse-entropy rule scores **0.999** (entropy IS the signal), net matches to
+  1.5% and corr(net logit, dS) = **0.84**.
+- A3 ✓ the boundary: at EQUILIBRIUM accuracy = **0.505** (chance) -- no arrow when entropy is saturated.
+- **Verdict: a net rediscovered the second law** -- time's arrow is coarse-grained entropy increase, it
+  emerges from reversible microdynamics, and it vanishes at equilibrium. Demonstrated the Boltzmann/Loschmidt
+  resolution by a net. (Same time-reversal axis as the friction boundary: dissipation/coarse-graining breaks
+  the symmetry that the microscopic law preserves.)

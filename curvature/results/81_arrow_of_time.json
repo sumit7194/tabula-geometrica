@@ -1,0 +1,10 @@
+{
+ "acc_nonequilibrium": 0.984,
+ "acc_equilibrium": 0.5053333333333333,
+ "entropy_rule_acc": 0.9986666666666667,
+ "corr_logit_dS": 0.8433821525326526,
+ "A1_reads_arrow": true,
+ "A2_discovered_entropy": true,
+ "A3_no_arrow_at_equilibrium": true,
+ "arrow_of_time_discovered": true
+}
