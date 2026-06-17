@@ -1,0 +1,14 @@
+{
+ "tree_gromov_delta": 0.0,
+ "grid_gromov_delta": 6.0,
+ "tree_dim2_euclidean_distortion": 0.21687528491020203,
+ "tree_dim2_hyperbolic_distortion": 0.13116832077503204,
+ "tree_hyp_over_euc": 0.604809903648232,
+ "grid_dim2_euclidean_distortion": 0.11829941719770432,
+ "grid_dim2_hyperbolic_distortion": 0.12010909616947174,
+ "grid_hyp_over_euc": 1.015297437631883,
+ "H1_tree_is_hyperbolic": true,
+ "H2_negative_curvature_required": false,
+ "H3_data_specific_sign": true,
+ "hierarchy_is_hyperbolic": false
+}
