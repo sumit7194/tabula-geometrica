@@ -2842,3 +2842,23 @@ critical winding-ray density rho).
   stand (5.76 was partly extraction artifact; robust methods give ~5.0; best near the photon sphere). The
   fidelity-curve-via-shadow-edge is the wrong instrument; the fidelity-curve-via-stable-observable is the
   fix. (Pre-registered C1/C2/C3 not met; honest null with a mechanism.)
+
+## 2026-06-17 — IMPOSSIBILITY CERTIFICATE I: a net's failure certifies nonlocality (Bell) (84)
+
+New ARC (user pick): the impossibility-certificate triad -- use a net's inability to find a CHEAP explanation
+as a gated positive certificate. #I = Bell. A genuine LOCAL hidden-variable model as a net: shared lambda ~
+p(lambda) + LOCAL responses A(a,lambda), B(b,lambda) in [-1,1] (A sees only Alice's setting, B only Bob's --
+no cross-wires), fit to Werner singlet correlations E=-v cos(theta). Such a model obeys |CHSH| <= 2 by
+construction. Web-verified: quantum Werner |S|=2sqrt2 v, crosses 2 at v=1/sqrt2=0.7071 (no local model above);
+local model provably exists below ~0.66.
+
+**Result (84_bell_nolocal.json) — 3/3:**
+- B1 ✓ local regime fits (RMSE@v=0.55 < 0.03).
+- B2 ✓ GENUINE local model: max achieved |S| = **2.000** -- the net saturates the Bell bound exactly and
+  CANNOT exceed it (architectural locality; it cannot fake nonlocality).
+- B3 ✓ THE CERTIFICATE: the net's |S| tracks quantum 2sqrt2 v perfectly to v~0.71 (1.98 vs 2.01) then caps at
+  2.00 while quantum rises to 2.83; knee at v=0.74 vs 1/sqrt2=0.707 (within 6%); v=1 unfittable (RMSE 0.151).
+- **Verdict: the FAILURE to find a cheap LOCAL code certifies quantum nonlocality** at the Tsirelson/CHSH
+  boundary. Impossibility-as-result, face 1 of 3 (no local code). Extends Phase J / It-from-Qubit into the
+  nonlocality regime. (Bonus: this is the legibility law's negative space -- not "what is the cheapest code"
+  but "where does NO cheap code exist.")
