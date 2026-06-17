@@ -1,0 +1,11 @@
+{
+ "oneStep_R2": 0.9999969601631165,
+ "photon_sphere_r_net": 3.1093048917901855,
+ "photon_sphere_unstable": true,
+ "b_crit_net": 5.621032987229492,
+ "b_crit_true_3sqrt3": 5.196152422706632,
+ "P1_learns_photon_dynamics": true,
+ "P2_photon_sphere_3M": true,
+ "P3_shadow_bcrit": false,
+ "light_shadow_discovered": false
+}
