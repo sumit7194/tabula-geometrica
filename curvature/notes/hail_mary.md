@@ -147,3 +147,33 @@ gap (a known knob, not a new idea), so the one fix round (BPTT -> push-forward) 
 three experiments: the projection module holds the CONSTRAINT (Exp 1 G1) and the GAUGE (Exp 2 G1) -- same tool;
 recurrent training holds the DYNAMICS/stability (Exp 3); and the recurring deep wall underneath all of it is
 spectral bias (Exp 2 G2 = Phase F). Three walls, three tools, cleanly separated -- the modular thesis, mapped.**
+
+### Experiment 4 — Plan B (residual stream) vs clean hand-off, capacity-matched, 2026-06-20
+2-stage predictor; ONLY the inter-stage hand-off varies: clean b=3 (narrow), clean_wide b=3/ch60 (capacity-
+matched to stream, ~71.5k vs 71.9k params), stream b=32. Push-forward trained, 3 seeds, projected rollout.
+Long-rollout final field MSE:
+    seed:          0        1        2       mean
+    clean (b=3):  5.3e-3   2.7e-2   1.3e-3   1.1e-2
+    clean_wide :  2.9e-3   2.4e-3   1.8e-3   2.4e-3    <- most reliable, never diverges
+    stream(b=32): 1.1e-3   5.7e-2   2.0e-3   2.0e-2    <- big upside (seed 0, 0.37x) AND divergence (seed 1, 24x)
+**Verdict: Plan B is NOT robust and does NOT beat the clean hand-off overall (B1 mean ratio 8.56, B2 robust both
+FALSE).** The residual stream is HIGH-VARIANCE -- it can win big (seed 0) but also DIVERGES (seed 1) -- while the
+capacity-matched CLEAN hand-off (clean_wide) is the most reliable (best mean, never diverges). This is the
+verifiability/robustness tradeoff we anticipated, now measured: the opaque rich-stream hand-off buys peak
+performance on good seeds at the cost of robustness; the lossy-but-checkable clean hand-off, given adequate
+capacity, is the robust choice. **Decision: since robustness is the project's one rule, Plan A (the clean modular
+DOSnet pipeline) is the recommendation; Plan B's residual stream is not dead but needs STABILIZATION (seed 1's
+divergence is a training-stability failure of the opaque end-to-end hand-off) before it is reliable.** Side note:
+clean_wide (2.4e-3) >> narrow clean (1.1e-2) -- for the clean approach, capacity buys robustness.
+
+## Hail Mary -- arc summary (Exp 1-4)
+Three walls, mapped and individually addressed on the Maxwell NR-warm-up; two hand-off strategies adjudicated:
+- CONSTRAINT wall -> projection module (Exp 1 G1): robust, ~5 orders, by construction.
+- GAUGE wall -> the SAME projection module (Exp 2 G1): dissolved, up to 10,769x with an FNO predictor.
+- STABILITY wall -> recurrent/push-forward training (Exp 3): eliminates divergence, collapses variance ~12x.
+- SPECTRAL bias -> the recurring deep wall (Exp 2 G2 = Phase F); needs global operators, never fully closed.
+- HAND-OFF: clean modular pipeline (Plan A) is robust; residual stream (Plan B) is higher-variance, not reliably
+  better (Exp 4) -> Plan A wins on the project's one rule (robustness).
+The modular "decompose + enforce structure by construction + train for stability" recipe works on the baby
+GR-analogue; the clean hand-off is the robust choice. Next rungs: harder gauge (potential evolution), then climb
+to scalar-field collapse (Choptuik).
