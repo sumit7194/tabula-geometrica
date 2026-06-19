@@ -1,3 +1,25 @@
+## 2026-06-20 — tabula gains a SYMBOLIC DISTILLATION HEAD: from reading instrument to proposal engine (91)
+
+User relayed a bridge-session insight and asked me to extract the lesson for OUR project (forgetting the
+sister repo, minimal cross-contamination): every probe we have READS (detects/counts/decodes) -- a human
+writes the formula. The expansion: make tabula EMIT a verified closed-form invariant. Built it OUR way (no
+imported symbolic-regression engine): the CHEAPEST CONSERVED CODE -- a sparse combination over a physics
+feature library, found by a generalized eigenproblem (within-trajectory variance / total variance; near-zero
+eigenvalues = conserved directions; sparse rotation = formulas). Pure linear algebra + sparsity + MDL.
+
+**Result (91) 3/3 -- calibrated on Kepler, with the no-hallucination guard:**
+- Emits L = +1.00*x*vy - 1.00*y*vx (angular momentum, 2 terms) and E = +0.50*vx^2 + 0.50*vy^2 - 1.00*1/r
+  (energy, 3 terms), BOTH cosine 1.0000 to textbook and self-verified conserved (var-ratio 2e-23 / 6e-8).
+- Cheapest sparse code (2 & 3 terms out of a 12-term library; distractors ~0).
+- No-hallucination guard: chaotic Lorenz smallest eigenvalue 0.777 -> emits "NO closed-form invariant"
+  instead of fabricating one (inherits impossibility certificate II).
+
+Tabula is now a PROPOSAL engine that calibrates on a known answer ("evidence not echo") and honestly refuses
+where no invariant exists. Natural next calibration rung: a harder KNOWN invariant (Kerr's Carter constant --
+quadratic in momenta, from a Killing tensor) to prove the head on curved-spacetime geodesic invariants, all
+within our project.
+
+
 ## 2026-06-17 (autonomous, user at office) — impossibility quartet completed + the curvature atlas opened
 
 User handed me the call for the afternoon. Two coherent threads, four experiments, all web-verified /
