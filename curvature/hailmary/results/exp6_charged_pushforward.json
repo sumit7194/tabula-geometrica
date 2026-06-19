@@ -1,0 +1,22 @@
+{
+ "device": "mps",
+ "K": 4,
+ "constraint_drift": [
+  3.213470336049795e-06,
+  2.921558916568756e-06,
+  2.9944349080324173e-06
+ ],
+ "field_mse": [
+  0.0023556591477245092,
+  0.013295887969434261,
+  0.001122682704590261
+ ],
+ "exp5_1step_charged_mse": [
+  0.345,
+  0.357,
+  0.000403
+ ],
+ "D1_constraint": true,
+ "D2_stability_rescued": false,
+ "charged_pushforward_works": false
+}

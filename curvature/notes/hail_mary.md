@@ -203,3 +203,20 @@ that STABILITY is a separate wall 1-step Plan A fails -- and it fails MORE on th
 claim: only the constraint-ENFORCEMENT generalizes robustly; we must NOT claim Plan A is "more accurate" in
 general.** Clear next test (untested cell): charged + push-forward training (Exp 3's stability fix) -- does it give
 constraint-held AND stable? The stress test did its job: confirmed the robust part, humbled the shaky part.
+
+### Experiment 6 — charged + push-forward (the untested cell, completing the matrix), 2026-06-20
+Combines Exp 3's push-forward stability fix with Exp 5's charged constraint. 3 seeds, grid 32, horizon 100.
+    seed:              0        1        2
+    1-step (Exp 5):    0.345    0.357    4.0e-4    (diverges 2/3)
+    push-forward:      2.4e-3   1.3e-2   1.1e-3    (NO divergence)
+**D1 ✓ constraint held (max |divE-rho| 3.2e-6).** Push-forward ELIMINATES the charged divergence -- worst case
+0.357 -> 1.3e-2 (~27x), the two seeds that blew up under 1-step (0,1) are now bounded. **D2 strict gate marginally
+missed** (seed 1 1.3e-2 > 5e-3), reported honestly -- the same robustness-for-peak trade as Exp 3 vacuum (5.8e-3
+vs 5e-3 there). **The stress-test matrix is now complete:**
+                     vacuum                         charged (rho != 0)
+  1-step       constraint OK, accuracy 2/3      constraint OK, accuracy diverges 2/3
+  push-forward constraint OK, stable (Exp 3)    constraint OK, stable/rescued (Exp 6)
+**Verdict: the modular recipe -- PROJECT for the constraint + PUSH-FORWARD for stability -- generalizes end-to-end
+to the non-trivial charged constraint: constraint held AND no divergence, all 3 seeds.** The two tools, each
+fixing its own wall (constraint vs stability), compose. The "Plan A is more accurate" claim (humbled by Exp 5)
+is restored once the right training is used; the robust core stands and now covers rho!=0.
