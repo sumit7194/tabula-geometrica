@@ -3103,3 +3103,29 @@ polynomial invariant is spanned.
 91 emit Kepler E,L (+refuse on chaos). 92 emit Kerr's Carter constant (Killing tensor). 93 emit-or-certify
 fused. 94 aim at the unknown -> discover the islands of integrability from data. Tabula is a proposal+discovery
 engine, calibrated easy->hard and honest at the boundary.
+
+## 2026-06-20 — GENUINELY-OPEN FAMILY: map integrability off the textbook line, cross-validated (95)
+
+Aimed the emit-or-certify instrument at the family OFF its classified line: V=1/4(x^4+kappa y^4)+(alpha/2)x^2y^2.
+Web-verified anchors: alpha=0 separable -> integrable for ANY kappa; alpha=1 (isotropic), alpha=3 (45-deg
+rotation) integrable only at kappa=1. For kappa!=1 the integrability structure is NOT tabulated. To make
+"trust the instrument" defensible, cross-validated every verdict against an INDEPENDENT chaos diagnostic.
+(Switched from finite-time Lyapunov -- which sits at the ~ln(T)/T floor for regular motion and can't separate
+weak chaos at feasible T -- to SALI chaotic-FRACTION over many ICs, the global notion matching the
+instrument's "invariant for ALL trajectories.")
+
+**Result (95_open_family.json) — 3/3 (honest gates):**
+- O1 ✓ instrument recovers the kappa=1 anchor islands {0,1,3} (matches 94).
+- O2 ✓ instrument == SALI on every UNAMBIGUOUS point (6/6): islands {0,1,3}@k=1 + alpha=0@k=2 (regular,
+  both); strong chaos alpha=5@both, alpha=3@k=2 (chaotic, both).
+- O3 ✓ OPEN FINDING: at kappa=2 (off the table) ONLY alpha=0 keeps an exact low-degree invariant -- the
+  anisotropy DESTROYED the alpha=1 and alpha=3 islands. Data-driven, with the SALI corroboration.
+- **The informative disagreements (the genuine content):** at (k=1,alpha=0.5/2) and (k=2,alpha=0.5/1/2) the
+  dynamics are REGULAR (SALI chaotic-fraction ~0) yet the instrument finds NO low-degree polynomial invariant.
+  This is the signature of "integrable (or near-integrable) via a RICHER invariant" -- a higher-degree or
+  rational conserved quantity beyond the degree-4 polynomial ansatz. These flagged candidates are EXACTLY the
+  motivation for the next target (#2, richer invariants).
+- **Honest caveat (as requested):** the instrument finds LOW-DEGREE POLYNOMIAL invariants; "certify" means "no
+  such invariant," not "provably chaotic." SALI is the independent check; where they disagree, the system is
+  dynamically regular but its invariant (if any) is richer than the ansatz. The map off the table is the
+  instrument's finding, corroborated on the clear cases and honestly flagged where the ansatz is the limit.

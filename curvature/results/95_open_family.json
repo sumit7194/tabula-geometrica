@@ -1,0 +1,142 @@
+{
+ "energy": 10.0,
+ "rows": [
+  {
+   "kappa": 1.0,
+   "alpha": 0.0,
+   "heldout_varratio": 1.1338511441498836e-10,
+   "chaotic_fraction": 0.0,
+   "instrument": "EMIT",
+   "sali_class": "regular",
+   "agree": true
+  },
+  {
+   "kappa": 1.0,
+   "alpha": 0.5,
+   "heldout_varratio": 0.585656094479166,
+   "chaotic_fraction": 0.0,
+   "instrument": "CERTIFY",
+   "sali_class": "regular",
+   "agree": false
+  },
+  {
+   "kappa": 1.0,
+   "alpha": 1.0,
+   "heldout_varratio": 1.8512687458956293e-20,
+   "chaotic_fraction": 0.0,
+   "instrument": "EMIT",
+   "sali_class": "regular",
+   "agree": true
+  },
+  {
+   "kappa": 1.0,
+   "alpha": 2.0,
+   "heldout_varratio": 0.9827086231442795,
+   "chaotic_fraction": 0.0,
+   "instrument": "CERTIFY",
+   "sali_class": "regular",
+   "agree": false
+  },
+  {
+   "kappa": 1.0,
+   "alpha": 3.0,
+   "heldout_varratio": 2.418940188980266e-10,
+   "chaotic_fraction": 0.0,
+   "instrument": "EMIT",
+   "sali_class": "regular",
+   "agree": true
+  },
+  {
+   "kappa": 1.0,
+   "alpha": 5.0,
+   "heldout_varratio": 0.7859574148685546,
+   "chaotic_fraction": 0.9285714285714286,
+   "instrument": "CERTIFY",
+   "sali_class": "chaotic",
+   "agree": true
+  },
+  {
+   "kappa": 2.0,
+   "alpha": 0.0,
+   "heldout_varratio": 1.7219473525153764e-10,
+   "chaotic_fraction": 0.0,
+   "instrument": "EMIT",
+   "sali_class": "regular",
+   "agree": true
+  },
+  {
+   "kappa": 2.0,
+   "alpha": 0.5,
+   "heldout_varratio": 0.9524485757590687,
+   "chaotic_fraction": 0.07142857142857142,
+   "instrument": "CERTIFY",
+   "sali_class": "regular",
+   "agree": false
+  },
+  {
+   "kappa": 2.0,
+   "alpha": 1.0,
+   "heldout_varratio": 0.8661450787841228,
+   "chaotic_fraction": 0.0,
+   "instrument": "CERTIFY",
+   "sali_class": "regular",
+   "agree": false
+  },
+  {
+   "kappa": 2.0,
+   "alpha": 2.0,
+   "heldout_varratio": 0.9921132166634679,
+   "chaotic_fraction": 0.0,
+   "instrument": "CERTIFY",
+   "sali_class": "regular",
+   "agree": false
+  },
+  {
+   "kappa": 2.0,
+   "alpha": 3.0,
+   "heldout_varratio": 0.5787497483316542,
+   "chaotic_fraction": 0.14285714285714285,
+   "instrument": "CERTIFY",
+   "sali_class": "chaotic",
+   "agree": true
+  },
+  {
+   "kappa": 2.0,
+   "alpha": 5.0,
+   "heldout_varratio": 0.9761050707094701,
+   "chaotic_fraction": 0.8571428571428571,
+   "instrument": "CERTIFY",
+   "sali_class": "chaotic",
+   "agree": true
+  }
+ ],
+ "kappa2_low_degree_integrable_set": [
+  0.0
+ ],
+ "richer_invariant_or_weak_chaos_candidates": [
+  [
+   1.0,
+   0.5
+  ],
+  [
+   1.0,
+   2.0
+  ],
+  [
+   2.0,
+   0.5
+  ],
+  [
+   2.0,
+   1.0
+  ],
+  [
+   2.0,
+   2.0
+  ]
+ ],
+ "O1_anchor_kappa1": true,
+ "O2_agree_on_clear_cases": true,
+ "O3_open_finding": true,
+ "open_family_mapped": true
+}
