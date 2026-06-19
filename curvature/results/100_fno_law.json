@@ -1,0 +1,20 @@
+{
+ "device": "mps",
+ "n_params": 1611042,
+ "worlds": 240,
+ "steps": 6000,
+ "P0_overfit_one_batch": 3.69851272807864e-06,
+ "CNN_overfit_wall": 0.047,
+ "oracle_floor": 0.00012,
+ "F1_mse": 0.014405509372591042,
+ "F2_cos": 0.997332537855496,
+ "F3_mse": 0.04967837138101459,
+ "F3_cos": 0.9960172093943802,
+ "F4_blind": 0.38900892324745656,
+ "CNN_baseline_F1": 0.058,
+ "CNN_baseline_F2": 0.937,
+ "P0_breaks_overfit_wall": true,
+ "P1_beats_CNN_F1": true,
+ "P2_beats_CNN_F2": true,
+ "P3_control": true
+}

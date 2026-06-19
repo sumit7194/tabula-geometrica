@@ -3239,3 +3239,31 @@ Evolved bound (r,theta) orbits at fixed (h,L), ran the engine on Kerr (Q=0,eps=0
   integrability-BREAKING one (quadrupole: Carter destroyed) -- the no-hair / Killing-tensor question as a
   data-driven test. Pairs with 97 (the rational deformed Carter): 97 = a deformation that keeps Carter but makes
   it rational; 99 = telling deformations that keep vs destroy Carter.
+
+## 2026-06-20 — F-v2 STEP 2A: the gravity law with a FOURIER NEURAL OPERATOR (100)
+
+Phase F (script 19, the matter->geometry law) was a 1/4 null: a local CNN learned the field only to F1=0.058 /
+F2=0.937, and the diagnostics (22) pinned it as a REPRESENTATIONAL wall (overfit-one-batch stuck at 0.047, oracle
+floor 1.2e-4, the 1/r long-range magnitude needs a GLOBAL operator). The fv2_roadmap pre-registered the fix as
+Step 2A: a spectral layer. Built script 100 = the SAME Phase F (data gen + differentiable Verlet rollout + F1-F4
+gates + evaluate(), all reused from 19) with ONE knob changed -- the field net goes CNN -> Fourier Neural
+Operator (Li et al. 2020; SpectralConv2d: FFT -> keep low modes -> learned complex mix -> iFFT, a GLOBAL
+receptive field in one layer). 1.6M params (width 32, depth 4, 14 of max 24 modes; 99% spectral weights). MPS,
+resumable (survived 2 power losses mid-run via bit-exact checkpoints).
+
+**Result (100_fno_law.json):**
+- P0 ✓✓ ARCHITECTURE WALL BROKEN: overfit-one-batch 3.7e-6 vs the CNN's hard 0.047 -- 4 orders. The Phase F wall
+  was LOCALITY (representational), not data/training/capacity. A global operator fits what a local conv cannot.
+- F2 ✓ FIELD DIRECTION: median cosine 0.9973 on unseen worlds (CNN 0.937, gate > 0.98) -- PASSES the absolute
+  gate the CNN failed. The FNO recovers the 1/r field shape near-perfectly.
+- F3 ✓ SUPERPOSITION: on 3-blob worlds (a count never trained on) cosine 0.9960 (gate > 0.96) -- gravity's
+  LINEARITY in its source emerged. MSE 0.0497.
+- F4 ✓ CONTROL: matter-blind MSE 0.389 = 27x F1 (gate >= 10x) -- the field is really used.
+- F1 (PARTIAL): trajectory MSE 0.0144 -- 4x better than the CNN's 0.058, but NOT yet at the absolute 1e-3 gate
+  (oracle floor 1.2e-4). The remaining gap is field MAGNITUDE precision integrated over the rollout (direction
+  is already 0.997). This is the sweep target: more Fourier modes (14->~20), finer grid (48->64), longer
+  plateau-based training, >=3 seeds -- the throughput-heavy job for the VM, NOT a bigger model (1.6M overfits a
+  batch to 4e-6, so capacity is not the constraint).
+- **Verdict: Phase F goes from 1/4 null to P0+F2+F3+F4 passing (the field-shape, linearity, and control gates --
+  the CNN's actual failures) + F1 4x improved.** The architecture hypothesis (global operator for the long-range
+  law) is confirmed. The absolute trajectory-MSE gate awaits the magnitude-precision sweep on the VM.
