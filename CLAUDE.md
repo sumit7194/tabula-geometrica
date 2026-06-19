@@ -459,6 +459,32 @@ results in `curvature/notes/lab_notebook.md`.
   writes Kerr's Carter (92), emit-or-certify (93), discovers islands (94), maps off the
   textbook line cross-validated (95), catches rational invariants (96 LRL), represents a
   real deformed BH's rational Carter exactly (97).**
+- **98 SPINOR DOUBLE COVER — the function-class rung + an SO(3)-invisibility certificate.**
+  The genuinely-open field-menu item (Dirac/spinor), as the rung past rational. Web-
+  verified SU(2)->SO(3) double cover + Rauch-Werner 720deg neutron interferometry. 3/3:
+  G1 an integer-angle library (the class of every SO(3) observable) gives held-out
+  R2=-0.01 on the spinor interference cos(alpha/2) while a HALF-ANGLE library gives
+  1.0000 -- a required new feature class; G2 the spinor sign is unobservable from the
+  Bloch vector (Bloch identical at alpha and alpha+2pi to 2e-15, interference exactly
+  opposite) -- a 2pi input cannot make a 4pi output, an impossibility certificate; G3
+  -1 at 360deg (destructive), +1 at 720deg (constructive). UNIFIES the function-class
+  arc (91-97) with the impossibility-certificate arc (84-87).
+- **99 SECOND DEFORMED METRIC — separability-preserving vs integrability-breaking.** Can
+  the engine tell a deformation that KEEPS the hidden symmetry from one that DESTROYS it?
+  Faithful Staeckel-separable Kerr-like geodesic Hamiltonian; web-verified Kerr-Newman
+  integrability (arXiv:1202.5228) + bumpy-BH Carter breaking (arXiv:2305.18522). 3/3:
+  C1 Kerr emits the EXACT Carter (held-out 5e-28, cosine 1.000); C2 Kerr-Newman (charge
+  in Delta_r, separability kept) STILL emits the EXACT Carter; C3 a quadrupole bump
+  DESTROYS it (Carter drifts 0.23, engine's best is NOT the Carter at cosine 0.20, 4e25x
+  less exact). Honest KAM caveat: a crude approximate invariant always lingers under
+  bounded confinement, so the decisive test is whether the SPECIFIC Killing-tensor
+  symmetry survives exactly. Build bug fixed (H*Sigma~H r^2 is anti-binding; put H0 r^2
+  in V_r to cancel it in the radial EOM).
+- **NN scaling backlog parked** (notes/scaling_backlog.md) for when the L4 VM frees up
+  (Ludo training now): A=quick wins (Hierarchy H2 Riemannian optimizer, MDL M1 seeds),
+  B=architecture bets (FNO for Phase F long-range, orthogonal-F Wong v3, larger G-sym),
+  C=do-not-scale (the certificates/gauge/function-class walls are the result). Meta:
+  bigger is often WORSE for a discovery project (minimality IS the result).
 - Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
   Phase H rows (equivalence-breaking gravity); a G-sym legibility-preserving
   variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit

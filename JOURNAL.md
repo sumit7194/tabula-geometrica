@@ -1,3 +1,33 @@
+## 2026-06-20 (cont.) — TWO MORE RUNGS: the spinor double cover (98) + a second deformed metric (99)
+
+User asked for both (b) push the function class one rung further, and (c) a second deformed metric to test
+separable vs integrability-breaking. Both landed 3/3. (Also parked the NN scaling backlog,
+notes/scaling_backlog.md, for when the L4 VM frees up -- Ludo training has it now.)
+
+- **98 SPINOR DOUBLE COVER (the function-class rung).** The genuinely-open field-menu item (Dirac/spinor), done
+  as the next rung past rational (91/92 polynomial -> 96/97 rational -> 98 double-cover). Web-verified SU(2)
+  double-covers SO(3) + Rauch-Werner 720-degree neutron interferometry. Prepared a spin-1/2 |+x>, rotated it
+  about z, computed the Bloch vector (2pi-periodic SO(3) observable) and the interference vs an un-rotated
+  reference (= cos(alpha/2), a HALF-ANGLE function, 4pi-periodic). 3/3: G1 an integer-angle library (the class
+  that represents every SO(3) observable) gives held-out R2 = -0.01 on cos(alpha/2) while a half-angle library
+  gives 1.0000 -- the double-cover sheet is a required new feature class; G2 the spinor sign is unobservable
+  from the Bloch vector (identical at alpha and alpha+2pi to 2e-15, interference exactly opposite) -- a
+  2pi-periodic input cannot make a 4pi-periodic output, an impossibility certificate; G3 interference -1 at
+  360deg (destructive), +1 at 720deg (constructive), the fermion signature. The double cover UNIFIES the two
+  arcs: it is both a new function class (the rung past rational) and an impossibility certificate (84-87).
+
+- **99 A SECOND DEFORMED METRIC (separable vs integrability-breaking).** Can the engine tell, from trajectories
+  alone, a deformation that keeps the hidden symmetry from one that destroys it? Built a faithful Staeckel-
+  separable Kerr-like geodesic Hamiltonian (the structure behind Kerr's Carter constant), evolved bound (r,theta)
+  orbits, ran emit-or-certify on three metrics. 3/3: Kerr emits the EXACT Carter (held-out 5e-28, cosine 1.000);
+  Kerr-Newman -- charge sits in Delta_r, separability preserved -- STILL emits the EXACT Carter; a quadrupole
+  bump (non-separable r-theta coupling) DESTROYS it (Carter drifts 0.23, the engine's best invariant is NOT the
+  Carter at cosine 0.20, and is 4e25x less exact). Honest KAM caveat recorded: under bounded confinement a crude
+  approximate invariant always lingers, so the decisive test is whether the SPECIFIC Killing-tensor symmetry
+  survives exactly -- matches the bumpy-BH literature (Carter breaks, KAM tori persist at moderate deformation,
+  chaos only at strong). Pairs with 97: 97 = a deformation that keeps Carter but makes it rational; 99 = telling
+  deformations that keep vs destroy Carter. Web-verified Kerr-Newman integrability + bumpy-BH Carter breaking.
+
 ## 2026-06-20 (cont.) — THE DEFORMED-KERR TARGET, DONE RIGHT (97): a real black hole's rational Carter constant
 
 Closed the original deferred target with the richer-library capability. Web-verified Kerr-de Sitter structure:
