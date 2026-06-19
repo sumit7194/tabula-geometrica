@@ -246,3 +246,37 @@ All headline claims stress-tested:
 The robust CORE (decompose + enforce structure by construction + push-forward for stability) survived every
 stress test. The honest, recurring caveat is long-horizon learned-dynamics error (the spectral/accumulation wall).
 Ready for Phase 2: scalar-field collapse (Choptuik) -- the first rung with genuine high-frequency physics.
+
+## Phase 2 — scalar-field collapse (Choptuik): design + prior art (2026-06-20)
+
+The frontier rung: spherically-symmetric massless scalar field collapsing under its own gravity -- the first
+system with genuine self-similar HIGH-FREQUENCY physics (Choptuik's critical phenomena) and a constraint that
+LITERALLY determines the geometry. All the walls bite together, for real.
+
+**Prior art (research-first):** a Nov-2025 paper (arXiv:2511.15247) does exactly this with PINNs (polar-areal
+Einstein-massless-Klein-Gordon; sub/critical/supercritical; vanilla/ModPINN/KAN/sinusoidal variants), finding it
+HARD near criticality ("no single architecture dominates"; ModPINN best). KEY: that is a SOFT-PINN study. Our
+angle is different and not duplicative -- the MODULAR recipe (predict + project-the-constraint + push-forward)
+that beat soft-PINNs on Maxwell. The question: does decompose+project+push-forward beat the soft-PINN on the
+constraint, exactly where Maxwell showed soft penalties fail and near criticality is hardest?
+
+**Formulation (polar-areal / Schwarzschild-like, Choptuik 1993; G=c=1):**
+  ds^2 = -alpha(t,r)^2 dt^2 + a(t,r)^2 dr^2 + r^2 dOmega^2 ;  Phi = phi', Pi = (a/alpha) phi_dot
+  Constraint (gives the metric from the field, ODE in r, a(0)=1):  a'/a = (1-a^2)/(2r) + 2*pi*r*(Phi^2 + Pi^2)
+  Slicing (polar):                                                 alpha'/alpha = a'/a + (a^2-1)/r
+  Evolution:  Phi_dot = (alpha*Pi/a)' ,  Pi_dot = (1/r^2)(r^2*alpha*Phi/a)'   ; regularity Phi(0)=0
+  Black hole <=> 2m/r = 1 - 1/a^2 -> 1 (apparent horizon).
+The Hamiltonian constraint DETERMINING the metric is the perfect fit for our "enforce the constraint by
+construction" theme -- here the projection/solve literally produces the geometry.
+
+**Careful-build plan (north star = correctness; this is real GR, not flat Maxwell):**
+1. Ground-truth solver FIRST, verified before any learning (like maxwell.py): integrate the constraint ODEs for
+   (a, alpha) each slice, evolve (Phi, Pi) by method-of-lines + RK; verify (i) regularity at r=0, (ii) SUBcritical
+   initial data disperses (2m/r stays small), (iii) SUPERcritical forms an apparent horizon (2m/r -> 1). Only a
+   solver that reproduces disperse-vs-collapse is trustworthy ground truth.
+2. THEN the modular recipe: a predictor for (Phi, Pi) + the constraint "projection" = re-solving (a, alpha) from
+   the field each step (the geometry is the projection), push-forward trained; vs a soft-PINN baseline.
+3. Gate near criticality (where the Nov-2025 paper struggled): does the modular recipe hold the constraint +
+   track the self-similar echoing better than the soft-PINN?
+Honest scoping: step 1 (correct, verified collapse ground truth) is itself a substantial build and the
+correctness-critical part -- do it carefully, verify disperse/collapse, before touching the net.
