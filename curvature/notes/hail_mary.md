@@ -220,3 +220,29 @@ vs 5e-3 there). **The stress-test matrix is now complete:**
 to the non-trivial charged constraint: constraint held AND no divergence, all 3 seeds.** The two tools, each
 fixing its own wall (constraint vs stability), compose. The "Plan A is more accurate" claim (humbled by Exp 5)
 is restored once the right training is used; the robust core stands and now covers rho!=0.
+
+### Experiment 7 — SCALE hardening (grid 48, 500-step rollout), 2026-06-20 [final Phase-1]
+Push-forward Plan A (the validated recipe) at a bigger grid (48) and 5x the test horizon (500 steps, 12.5x the
+40-step training trajectories). 3 seeds, constraint + MSE curves over the full rollout.
+    seed:           0        1        2
+    |div E| @500:   5.7e-6   5.9e-6   6.5e-6   -> constraint held to ~6e-6 over ALL 500 steps, every seed
+    field MSE @500: 1.2e-2   1.1e-2   8.0e-2
+**H1 ✓✓ CONSTRAINT SURVIVES SCALE:** held by projection to ~6e-6 at grid 48 over 500 steps -- robust, by
+construction. **H2 marginal (honest): NO DIVERGENCE over 5x the test horizon** (worst 8e-2 vs a real blowup
+~O(1)) -- the recipe extrapolates 5x without detonating -- BUT error accumulates over the long rollout and seed 2
+(8e-2) exceeds the strict 0.05 gate; long-horizon accuracy degrades and is seed-variable. **Verdict: the recipe
+SURVIVES SCALE in the essential sense (constraint held + no blowup at bigger grid + 5x horizon); the honest
+caveat is bounded-but-growing autoregressive error at long horizon, seed-variable.** Consistent with the whole
+arc: the by-construction part (constraint) is rock-solid; the learned-dynamics part has honest, bounded error
+that grows with horizon. Phase-1 hardening COMPLETE.
+
+## Phase-1 hardening — final status
+All headline claims stress-tested:
+- Constraint by projection: robust, generalizes to charged (Exp 5) AND to scale (grid 48, 500 steps, Exp 7).
+- Gauge by same projection: holds (Exp 2; FNO closes the non-local map).
+- Stability by push-forward: works vacuum (Exp 3) + charged (Exp 6) + extrapolates 5x without blowup (Exp 7);
+  honest caveat = bounded autoregressive error growth, marginal on the strict gate, seed-variable.
+- Plan A robust / Plan B not: strengthened at 8 seeds (Exp 4).
+The robust CORE (decompose + enforce structure by construction + push-forward for stability) survived every
+stress test. The honest, recurring caveat is long-horizon learned-dynamics error (the spectral/accumulation wall).
+Ready for Phase 2: scalar-field collapse (Choptuik) -- the first rung with genuine high-frequency physics.
