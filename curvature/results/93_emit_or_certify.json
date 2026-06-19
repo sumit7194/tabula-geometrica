@@ -1,0 +1,44 @@
+{
+ "energy": 10.0,
+ "curve": [
+  {
+   "lambda": 0.0,
+   "lambda_E": 0.0,
+   "train_eigenvalue": -4.550993957898613e-16,
+   "heldout_varratio": 1.2610962058433772e-29,
+   "decision": "EMIT invariant"
+  },
+  {
+   "lambda": 0.05,
+   "lambda_E": 0.5,
+   "train_eigenvalue": 0.12865535475171574,
+   "heldout_varratio": 0.12109628793391625,
+   "decision": "CERTIFY no invariant"
+  },
+  {
+   "lambda": 0.12,
+   "lambda_E": 1.2,
+   "train_eigenvalue": 0.2142501532501005,
+   "heldout_varratio": 0.2522498016267739,
+   "decision": "CERTIFY no invariant"
+  },
+  {
+   "lambda": 0.25,
+   "lambda_E": 2.5,
+   "train_eigenvalue": 0.48560293729227677,
+   "heldout_varratio": 0.48155346128924414,
+   "decision": "CERTIFY no invariant"
+  },
+  {
+   "lambda": 0.5,
+   "lambda_E": 5.0,
+   "train_eigenvalue": 0.6338248967247587,
+   "heldout_varratio": 0.6214289021523648,
+   "decision": "CERTIFY no invariant"
+  }
+ ],
+ "D1_emit_at_lambda0": true,
+ "D2_integrability_diagnostic": true,
+ "D3_certify_at_strong_deformation": true,
+ "emit_or_certify": true
+}

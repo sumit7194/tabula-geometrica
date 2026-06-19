@@ -3043,3 +3043,33 @@ library of features that VARY along the orbit, distilled.
   that created spurious zero-eigenvalue directions -- a library-design lesson, not a physics fix); C1 reframed
   from a brittle "exactly 1-D subspace" to "cleanest direction = Carter + spectral gap" (a weak near-invariant
   of the finite sampled arcs sits at 1.2e-3, 13 orders above Carter -- reported transparently).
+
+## 2026-06-20 — EMIT-OR-CERTIFY: the distillation head x the impossibility certificate, fused (93)
+
+The payoff the bridge note envisioned, built entirely in our project: one instrument that PROPOSES an invariant
+when it exists and CERTIFIES chaos when it doesn't. Pullen-Edmonds Hamiltonian H=1/2(px^2+py^2)+1/2(x^2+y^2)+
+lambda*x^2y^2 -- bounded at every (lambda,E) (no escape, no poles), with an EXACT quadratic invariant
+E_x=1/2(px^2+x^2) at lambda=0 (the un-deformed isotropic oscillator; the Carter-analog). Turning on the
+non-separable coupling deforms then destroys it -> chaos. Honest decision = HELD-OUT verification: does the
+best conserved quadratic found on TRAIN trajectories stay conserved on NEW ones? (Real invariant generalizes;
+finite-sample artifact does not -- the project's verify-not-echo.)
+
+**Result (93_emit_or_certify.json) — 3/3, E=10:**
+- D1 ✓ EMIT at lambda=0: head finds the exact quadratic invariant, held-out var-ratio **1.3e-29**.
+- D2 ✓ DIAGNOSTIC: held-out var-ratio rises monotonically (1.3e-29 -> 0.12 -> 0.25 -> 0.48 -> **0.62**) as the
+  deformation breaks integrability.
+- D3 ✓ CERTIFY at strong deformation: held-out var-ratio 0.62 (>> 0.1) -> NO conserved quadratic survives ->
+  the head certifies "no hidden invariant (chaos)."
+- **Verdict: emit-or-certify, one instrument.** Proposes a verified invariant when integrable, refuses to
+  fabricate (certifies) when chaotic -- the inductive-discovery payoff. Distillation head (91/92) + the
+  impossibility-certificate honesty (84-87), fused.
+- Honest path notes: first attempt was a literal deformed-KERR angular sector, but its 1/sin^2 pole forced a
+  theta-clip that PINNED chaotic trajectories -> spurious "conservation" (a clip artifact that even survived
+  held-out because test trajectories pinned too). Diagnosed and pivoted to Pullen-Edmonds (bounded, pole-free,
+  exact quadratic at lambda=0). Henon-Heiles intermediate attempt rejected (no exact quadratic invariant at
+  any deformation -> emit end never clean). The held-out criterion was the key honest fix throughout.
+
+### THE DISTILLATION ARC (91/92/93): tabula reads AND writes.
+91 emits Kepler's E, L (Killing vectors) + refuses on chaos. 92 emits Kerr's Carter constant (Killing tensor,
+cosine 1.0000). 93 fuses emit + certify into one instrument (propose-or-prove-impossible). Tabula is now a
+proposal engine, calibrated easy->hard and honest at the boundary.
