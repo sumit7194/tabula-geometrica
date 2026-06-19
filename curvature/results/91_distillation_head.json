@@ -1,0 +1,40 @@
+{
+ "kepler_eigenvalues": [
+  -1.4457165041983639e-15,
+  4.543479829434988e-06,
+  0.311876397629859,
+  0.5404401875926919,
+  0.6852467386079386,
+  0.8724859043280038
+ ],
+ "n_conserved": 2,
+ "Evec_residual": 0.0007863913765851773,
+ "Lvec_residual": 1.7164542436753297e-14,
+ "emitted_formula_1": "+1.00*x*vy + -1.00*y*vx",
+ "verify_1_varratio": 1.516078707202702e-23,
+ "terms_1": 2,
+ "emitted_formula_2": "+0.50*vx^2 + +0.50*vy^2 + -1.00*1/r",
+ "verify_2_varratio": 6.490211949241755e-08,
+ "terms_2": 3,
+ "match_to_textbook": {
+  "formula_1": {
+   "vs_E": 1.5934327965596107e-08,
+   "vs_L": 0.9999999999999998
+  },
+  "formula_2": {
+   "vs_E": 0.9999507085882123,
+   "vs_L": 0.00989757763879659
+  }
+ },
+ "lorenz_eigenvalues": [
+  0.7770843179922333,
+  0.9683912076576364,
+  0.9918861663515223,
+  0.9984379068369975
+ ],
+ "lorenz_min_lambda": 0.7770843179922333,
+ "E1_calibrate_recover_E_and_L": true,
+ "E2_cheapest_sparse_code": true,
+ "E3_no_hallucination_guard": true,
+ "distillation_head_works": true
+}

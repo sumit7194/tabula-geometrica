@@ -2995,3 +2995,28 @@ holonomy, numeraire = gauge; 3/3). Row 2 language/hierarchy (trees intrinsically
 vs grid 6, data-specific sign; 2/3 core-clean). Row 3 neuroscience (population activity = ring S^1, Betti
 b1=1, heading decoded; 3/3). Open rows: graph Ollivier-Ricci (community bridges negative; K_n=n/(n-1)),
 Turing instability, grid-cell torus T^2.
+
+## 2026-06-20 — THE SYMBOLIC DISTILLATION HEAD: tabula stops reading, starts WRITING (91)
+
+Project expansion (user, after the bridge-session note): every probe so far is a READING instrument (85
+detects WHETHER an invariant exists; 59 COUNTS; legibility probes decode) -- a human reads the table and
+writes the formula. This head makes tabula EMIT a closed-form invariant and SELF-VERIFY it. Built OUR way (no
+imported symbolic-regression tooling): the CHEAPEST CONSERVED CODE -- a sparse combination over a physics
+feature library Phi(state), found by a generalized eigenproblem (min within-trajectory variance cᵀA c s.t.
+unit total variance cᵀB c=1; near-zero eigenvalues = conserved directions; their count = #conserved; sparse
+rotation of that null space = the FORMULAS). Pure linear algebra + sparsity + MDL = the project's own toolkit.
+
+**Result (91_distillation_head.json) — 3/3:**
+- E1 ✓ CALIBRATE on Kepler: 2 near-zero eigenvalues (1e-15, 4.5e-6) -> 2 conserved; subspace contains E
+  (resid 0.001) and L (resid 0.000). **EMITTED both as closed forms:**
+  - K1 = **+1.00*x*vy - 1.00*y*vx** = angular momentum L (2 terms, cosine-to-textbook 1.0000, verified
+    conserved var_along/var_total = **2e-23**).
+  - K2 = **+0.50*vx^2 + 0.50*vy^2 - 1.00*1/r** = energy E (3 terms, cosine 1.0000, verified **6e-8**).
+- E2 ✓ CHEAPEST CODE: both sparse (2 and 3 terms out of a 12-term library; distractors ~0).
+- E3 ✓ NO-HALLUCINATION GUARD: chaotic Lorenz smallest eigenvalue = **0.777** (>> 0) -> the head emits "NO
+  closed-form invariant" instead of fabricating one. Inherits impossibility certificate II.
+- **Verdict: tabula is now a PROPOSAL engine, not just a reading instrument.** It emits verified closed-form
+  invariants (rediscovered Kepler's E AND L exactly, self-verified conserved) and HONESTLY refuses where none
+  exists. The calibration ("evidence not echo": prove the instrument on a known answer first) passed.
+  (Two fix rounds on the sparse-emission step only -- the eigenvalue/verify physics was right first try:
+  geometric-orthogonal-complement -> independent L1 minima -> distinctness-by-vector-cosine.)
