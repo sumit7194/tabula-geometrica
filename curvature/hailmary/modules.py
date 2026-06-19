@@ -38,6 +38,43 @@ def leray_project(Ex, Ey, KX, KY, K2safe):
     return torch.fft.ifft2(Fx - KX * kdotF).real, torch.fft.ifft2(Fy - KY * kdotF).real
 
 
+class SpectralConv2d(nn.Module):
+    """global-receptive-field layer (keep low Fourier modes, learned complex channel mix) -- for non-local maps."""
+
+    def __init__(self, cin, cout, modes):
+        super().__init__()
+        self.modes = modes; scale = 1.0 / (cin * cout)
+        self.w1 = nn.Parameter(scale * torch.randn(cin, cout, modes, modes, dtype=torch.cfloat))
+        self.w2 = nn.Parameter(scale * torch.randn(cin, cout, modes, modes, dtype=torch.cfloat))
+
+    def forward(self, x):
+        B, C, H, W = x.shape; m = self.modes
+        xf = torch.fft.rfft2(x)
+        out = torch.zeros(B, self.w2.shape[1], H, W // 2 + 1, dtype=torch.cfloat, device=x.device)
+        out[:, :, :m, :m] = torch.einsum("bixy,ioxy->boxy", xf[:, :, :m, :m], self.w1)
+        out[:, :, -m:, :m] = torch.einsum("bixy,ioxy->boxy", xf[:, :, -m:, :m], self.w2)
+        return torch.fft.irfft2(out, s=(H, W))
+
+
+class FNO2d(nn.Module):
+    """global operator cin->cout (the fix for non-local maps like inverse-curl / 1-over-k^2; Phase F's lesson)."""
+
+    def __init__(self, cin, cout, width=32, modes=12, depth=4, residual=False):
+        super().__init__()
+        self.residual = residual
+        self.lift = nn.Conv2d(cin, width, 1)
+        self.spec = nn.ModuleList([SpectralConv2d(width, width, modes) for _ in range(depth)])
+        self.point = nn.ModuleList([nn.Conv2d(width, width, 1) for _ in range(depth)])
+        self.proj = nn.Sequential(nn.Conv2d(width, width, 1), nn.GELU(), nn.Conv2d(width, cout, 1))
+
+    def forward(self, s):
+        x = self.lift(s)
+        for sp, p in zip(self.spec, self.point):
+            x = nn.functional.gelu(sp(x) + p(x))
+        out = self.proj(x)
+        return s + out if self.residual else out
+
+
 class PredictorCNN(nn.Module):
     """small periodic CNN: state (B,3,H,W) -> next state via a learned residual."""
 

@@ -118,3 +118,15 @@ long-range wall reappearing inside the gauge experiment** -- the gauge-fix (G1) 
 architecture is the limit. Fix (clear, ties straight to Phase F): swap the CNN predictor for an FNO/global
 operator and G2 should close. Verdict: gauge wall dissolved by the projection module (G1, the point); full
 invariant recovery (G2) needs a global predictor -- two walls cleanly separated, and Phase F's lesson recurs.
+
+### Experiment 2 with an FNO predictor (closing the non-local map), 2026-06-20
+Swapped the local CNN predictor for an FNO (the Phase F fix for non-local maps). **G1 (gauge wall) gets
+STRONGER and the map-learning gap closes:** gauge-fix vs raw-gauge baseline ratio 214x (CNN) -> 1294x (FNO-12) ->
+10,769x (FNO-16), and the residual Bz->Coulomb-A error the CNN couldn't crack collapses (plan test MSE: CNN
+3.8e-2 -> FNO-12 6.2e-3 -> FNO-16 7.2e-4). So the global operator DOES learn the non-local inverse-curl --
+confirming the Phase F diagnosis was the right call. **G2 (curl(plan A) recovers B_z to <1e-2) still not met but
+improves monotonically with modes** (rel-MSE 1.4 CNN -> 0.28 -> 0.16): it is the strictest metric because curl
+AMPLIFIES the highest, least-resolved modes, so it is resolution-bound at grid 32 (max 16 modes) -- the spectral
+wall in derivative-amplified form. **Verdict: gauge wall decisively dissolved by the projection module (G1, the
+point of Exp 2); perfect high-frequency field recovery (G2) is spectral/resolution-limited -- Phase F's recurring
+wall, now isolated as a curl-amplified high-k issue.** Two walls cleanly separated, both understood.

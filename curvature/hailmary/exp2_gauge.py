@@ -35,7 +35,7 @@ import numpy as np
 import torch
 from torch import nn
 
-from modules import leray_project, wavenumbers
+from modules import FNO2d, leray_project, wavenumbers
 
 L = 2 * np.pi
 
@@ -61,6 +61,8 @@ def main():
     ap.add_argument("--gauges", type=int, default=4)       # random gauges per physical field (makes the valley explicit)
     ap.add_argument("--steps", type=int, default=3000)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--predictor", default="cnn", choices=["cnn", "fno"])
+    ap.add_argument("--fno-modes", type=int, default=12)
     a = ap.parse_args(); dev = a.device; n = a.grid
     print(f"device={dev} grid={n} nphys={a.nphys} gauges={a.gauges} steps={a.steps} seed={a.seed}")
 
@@ -103,7 +105,7 @@ def main():
             nn.Conv2d(ch, 2, 3, padding=1, padding_mode="circular"))
 
     def run(mode):
-        torch.manual_seed(a.seed); net = cnn().to(dev); opt = torch.optim.Adam(net.parameters(), lr=2e-3)
+        torch.manual_seed(a.seed); net = (FNO2d(1, 2, modes=a.fno_modes) if a.predictor == "fno" else cnn()).to(dev); opt = torch.optim.Adam(net.parameters(), lr=2e-3)
         rng = np.random.default_rng(a.seed)
         tgt = (Araw_tr if mode == "baseline" else Acoul_tr)
         for st in range(a.steps):
@@ -140,15 +142,15 @@ def main():
     print(f"G2 invariant preserved (curl(plan A) recovers B_z, rel-MSE {plan_inv:.2e} < 1e-2): {g2}")
     print(f"\nPREDICT-INVARIANT BEATS PREDICT-GAUGE-DEPENDENT (gauge wall dissolved by the projection module): {out['invariant_beats_gaugedependent']}")
     res = Path(__file__).resolve().parent / "results"; res.mkdir(exist_ok=True)
-    (res / f"exp2_gauge_s{a.seed}.json").write_text(json.dumps(out, indent=1))
+    (res / f"exp2_gauge_{a.predictor}_s{a.seed}.json").write_text(json.dumps(out, indent=1))
 
     fig, ax = plt.subplots(figsize=(7, 5))
     ax.bar(["baseline\n(predict raw-gauge A)", "plan\n(gauge-fix projection)"], [base_mse, plan_mse],
            color=["navy", "crimson"]); ax.set_yscale("log"); ax.set_ylabel("held-out potential MSE")
     ax.set_title(f"The gauge wall: predicting a gauge-dependent potential is ill-posed\n"
                  f"(floored by gauge variance); the gauge-fix projection makes it well-posed ({out['ratio']:.0f}x)")
-    fig.tight_layout(); fig.savefig(res / f"exp2_gauge_s{a.seed}.png", dpi=140)
-    print(f"saved hailmary/results/exp2_gauge_s{a.seed}.json + .png")
+    fig.tight_layout(); fig.savefig(res / f"exp2_gauge_{a.predictor}_s{a.seed}.png", dpi=140)
+    print(f"saved hailmary/results/exp2_gauge_{a.predictor}_s{a.seed}.json + .png")
 
 
 if __name__ == "__main__":
