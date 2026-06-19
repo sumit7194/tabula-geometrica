@@ -104,3 +104,17 @@ constraint wall is necessary but not sufficient; the long-time STABILITY wall (w
 recurrent-training / conservation tools, not projection. (The robustness rule did its job -- it caught a G2
 over-claim the single run would have hidden. The headline -- constraint by construction, ~5 orders, robust --
 stands.)
+
+### Experiment 2 — the gauge wall (predict-invariant vs predict-gauge-dependent), 2026-06-20
+Grid 32, 200 distinct B_z x 4 random gauges each, map B_z -> potential A. **G1 ✓ (gauge wall real): predicting
+the raw gauge-dependent A is ill-posed** -- test MSE 8.07 (floored by gauge variance) -- while the gauge-fix
+projection (div A = 0, the SAME Leray tool as Exp 1's Gauss constraint) brings it to 3.8e-2, a 214x gap. One
+physical input -> many potentials defeats the naive net; fixing the gauge by projection dissolves the
+ill-posedness (our "judge by invariants" thesis + cert #86, ported to Maxwell; and the gauge-fix is structurally
+the SAME module as the constraint -- one tool, both walls). **G2 ✗ for an independent, understood reason:**
+curl(plan's A) recovers B_z only at rel-MSE 1.4 -- the residual map B_z -> Coulomb-A is the INVERSE CURL (1/k^2,
+non-local Poisson-like), which the LOCAL CNN predictor structurally cannot represent. **This is the Phase F
+long-range wall reappearing inside the gauge experiment** -- the gauge-fix (G1) is sound; the predictor
+architecture is the limit. Fix (clear, ties straight to Phase F): swap the CNN predictor for an FNO/global
+operator and G2 should close. Verdict: gauge wall dissolved by the projection module (G1, the point); full
+invariant recovery (G2) needs a global predictor -- two walls cleanly separated, and Phase F's lesson recurs.
