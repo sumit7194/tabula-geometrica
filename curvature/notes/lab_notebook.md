@@ -3182,3 +3182,28 @@ library to represent K_Lambda -- least squares, then held-out within-geodesic va
   (93), discovers integrable islands (94), maps off the textbook line cross-validated (95), catches rational
   invariants the polynomial ansatz misses (96 LRL), and represents a real deformed black hole's rational Carter
   constant exactly (97 Kerr-de Sitter).
+
+## 2026-06-20 — THE FUNCTION-CLASS RUNG: the spinor double cover (98)
+
+The genuinely-open field-menu item, done as the next rung of the distillation arc's function-class ladder
+(polynomial 91/92 -> rational 96/97 -> double-cover 98). Web-verified (SU(2) double-covers SO(3); Rauch-Werner
+neutron interferometry 1974): a spin-1/2 state needs 4*pi (720 deg) to return; a 2*pi rotation flips its SIGN;
+all SO(3) observables are 2*pi-periodic, only an interference fringe (vs an un-rotated reference) sees the sign
+and is 4*pi-periodic, going as cos(alpha/2) -- a HALF-ANGLE function on the other sheet of the double cover.
+Built the spinor numerically (|+x> rotated about z), computed Bloch + interference, asked the library to
+represent the interference.
+
+**Result (98_spinor_double_cover.json) — 3/3:**
+- G1 ✓ FUNCTION-CLASS RUNG: an INTEGER-angle library (the class that represents every SO(3) observable) gives
+  held-out R^2 = -0.01 on cos(alpha/2) (orthogonal to all integer harmonics over [0,4pi]); a HALF-ANGLE library
+  gives R^2 = 1.0000. The double-cover sheet is a required NEW feature class.
+- G2 ✓ DOUBLE-COVER CERTIFICATE (an impossibility, like 84-87): representing the interference from the SO(3)
+  Bloch vector fails (R^2 = -0.01), and the collision is exact -- Bloch(alpha) == Bloch(alpha+2pi) to 2.4e-15
+  while the interference is exactly opposite (5.7e-16). A 2*pi-periodic input cannot produce a 4*pi-periodic
+  output -> the spinor sign is structurally unobservable from expectation values.
+- G3 ✓ THE 720 DEGREES: interference at 360 deg = -1.0000 (destructive), 720 deg = +1.0000 (constructive) --
+  the Rauch-Werner fermion signature; the Bloch vector already repeats at 2*pi.
+- **Verdict:** the double cover UNIFIES the two arcs -- it is both a new FUNCTION CLASS (half-angle, the rung
+  past rational) and an IMPOSSIBILITY CERTIFICATE (the SU(2) sign is invisible to SO(3) data). The edge-of-
+  representability item is closed: a net's library can reach the half-angle sheet only if you give it half-angle
+  features; from SO(3) observables alone the sign is provably out of reach.

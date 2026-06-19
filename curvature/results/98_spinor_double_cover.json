@@ -1,0 +1,14 @@
+{
+ "R2_integer_lib": -0.013133807870085112,
+ "R2_halfangle_lib": 1.0,
+ "R2_bloch_observable_lib": -0.010714930888540808,
+ "bloch_collision_gap_alpha_vs_alpha+2pi": 2.3939183968479938e-15,
+ "interference_sign_flip": 5.655198531684391e-16,
+ "interference_at_360deg": -0.9999999999999998,
+ "interference_at_720deg": 0.9999999999999998,
+ "bloch_period_repeat_at_2pi": 0.0,
+ "G1_function_class_rung": true,
+ "G2_double_cover_certificate": true,
+ "G3_the_720_degrees": true,
+ "double_cover_caught": true
+}
