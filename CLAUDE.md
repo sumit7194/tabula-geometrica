@@ -431,7 +431,21 @@ results in `curvature/notes/lab_notebook.md`.
   of a 2-DOF system); complete degree-2+4 monomial library; held-out verification.
   The instrument reconstructs the integrability structure of parameter space with no
   analytic input — the capability transfers to families where the islands are NOT known.
-  DISTILLATION ARC COMPLETE (91/92/93/94): tabula reads, writes, AND discovers.
+  DISTILLATION ARC (91/92/93/94): tabula reads, writes, AND discovers.
+- **95 OPEN FAMILY + 96 RICHER INVARIANTS.** 95: aimed emit-or-certify OFF the
+  classified line (anisotropic quartic V=1/4(x^4+kappa y^4)+(alpha/2)x^2y^2),
+  cross-validated against an INDEPENDENT chaos diagnostic (SALI chaotic-fraction).
+  3/3 honest gates: recovers the kappa=1 anchor {0,1,3}; agrees with SALI on every
+  unambiguous point; open finding -- at kappa=2 only alpha=0 keeps an exact low-degree
+  invariant (anisotropy destroys the alpha=1,3 islands). The informative disagreements
+  (regular dynamics but NO low-degree polynomial invariant) flag RICHER-invariant
+  candidates + the honest caveat (certify = no low-degree invariant, not provably
+  chaotic). 96: extend the library to RATIONAL features and catch the Kepler LRL vector
+  (the hidden SO(3) invariant, Kepler's analog of Kerr's Carter constant) -- RATIONAL
+  (x/r term), so a polynomial library MISSES it (finds E,L), a rational library CATCHES
+  it (finds E,L,A_x,A_y, held-out 6e-6). The capability for Carter-analogs in deformed
+  black holes. Open next: aim the rational/trig library at an actual deformed-Kerr
+  (Kerr-de Sitter Carter-analog) done right.
 - Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
   Phase H rows (equivalence-breaking gravity); a G-sym legibility-preserving
   variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit

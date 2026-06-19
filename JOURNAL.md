@@ -1,3 +1,25 @@
+## 2026-06-20 (cont.) — OPEN FAMILY (95) + RICHER INVARIANTS (96): the discovery engine, pushed two rungs
+
+Two user-picked targets, in order:
+- **95 -- a genuinely-open family.** Aimed emit-or-certify OFF the classified line: the anisotropic quartic
+  V=1/4(x^4+kappa y^4)+(alpha/2)x^2y^2. To make "trust the instrument" defensible, cross-validated every
+  verdict against an INDEPENDENT chaos diagnostic (SALI chaotic-fraction; finite-time Lyapunov couldn't
+  separate weak chaos). 3/3 honest gates: recovers the kappa=1 anchor {0,1,3}; agrees with SALI on every
+  unambiguous point; OPEN FINDING -- at kappa=2 ONLY alpha=0 keeps an exact low-degree invariant (the
+  anisotropy destroys the alpha=1,3 islands). The informative disagreements (regular dynamics, no low-degree
+  polynomial invariant) flag richer-invariant candidates, with the honest caveat that "certify" = "no
+  low-degree polynomial invariant," not "provably chaotic" (SALI is the independent check).
+- **96 -- richer invariants.** Extended the library to RATIONAL features and caught the Kepler
+  Laplace-Runge-Lenz vector -- the hidden SO(3) invariant (orbits don't precess), Kepler's exact analog of
+  Kerr's Carter constant. It is RATIONAL (an x/r term), so a POLYNOMIAL library MISSES it (finds only E,L) and
+  a RATIONAL library CATCHES it (finds E,L,A_x,A_y; held-out 6e-6; the x/r coefficient read out). 3/3. This is
+  the capability for Carter-analogs in deformed black holes -- and it resolves #1's caveat: a poor-library
+  "certify" can be a library limit, not chaos.
+
+The instrument is now a discovery engine that (a) maps integrability off the textbook line, cross-validated by
+an independent method, and (b) catches rational/richer invariants the polynomial ansatz misses. Open next:
+point the rational/trig library at an actual deformed black hole (Kerr-de Sitter Carter-analog).
+
 ## 2026-06-20 (cont.) — UNKNOWN REGIME: the instrument discovers the islands of integrability (94)
 
 The payoff: aimed the fused emit-or-certify instrument at a regime where the answer is not obvious. Coupled
