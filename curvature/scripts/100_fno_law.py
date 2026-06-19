@@ -89,12 +89,14 @@ def main():
     ap.add_argument("--steps", type=int, default=5000)
     ap.add_argument("--lr", type=float, default=2e-3)
     ap.add_argument("--seed", type=int, default=100)
-    ap.add_argument("--modes", type=int, default=14)        # FNO Fourier modes kept (sweep knob; max 24 on a 48-grid)
+    ap.add_argument("--modes", type=int, default=14)        # FNO Fourier modes kept (max grid//2)
     ap.add_argument("--width", type=int, default=32)
+    ap.add_argument("--grid", type=int, default=48)         # field grid resolution (NEW knob: data + FNO both at this res)
     ap.add_argument("--tag", default="")                    # suffix for ckpt/results/progress so sweep arms don't collide
     a = ap.parse_args(); dev = a.device
+    law19.GRID_N = a.grid; GRID_N = a.grid                  # propagate resolution into the data generator + plot
     OVF, LAW = f"100_fno_overfit{a.tag}", f"100_fno_law{a.tag}"
-    print(f"device={dev}  worlds={a.worlds}  overfit_steps={a.overfit_steps}  steps={a.steps}  modes={a.modes}  width={a.width}  tag='{a.tag}'  seed={a.seed}")
+    print(f"device={dev}  worlds={a.worlds}  steps={a.steps}  grid={a.grid}  modes={a.modes}  width={a.width}  tag='{a.tag}'  seed={a.seed}")
 
     print("generating worlds ...")
     tr = law19.make_dataset(a.worlds, 80, (1, 2), seed=0)
@@ -157,7 +159,7 @@ def main():
     p2 = bool(f2 > 0.937)
     p3 = bool(f1c >= 10 * f1)
     out = {"device": dev, "n_params": nparam, "worlds": a.worlds, "steps": a.steps,
-           "modes": a.modes, "width": a.width, "seed": a.seed, "tag": a.tag,
+           "grid": a.grid, "modes": a.modes, "width": a.width, "seed": a.seed, "tag": a.tag,
            "P0_overfit_one_batch": overfit_loss, "CNN_overfit_wall": 0.047, "oracle_floor": 1.2e-4,
            "F1_mse": f1, "F2_cos": f2, "F3_mse": f1s, "F3_cos": f2s, "F4_blind": f1c,
            "CNN_baseline_F1": 0.058, "CNN_baseline_F2": 0.937,
