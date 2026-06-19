@@ -1,3 +1,31 @@
+## 2026-06-20 (cont.) — HAIL MARY launched: neural-NR-as-ML, three walls mapped on the Maxwell testbed
+
+Reframed the black-hole-merger problem to ML and started attacking it our way (curvature/notes/hail_mary.md +
+curvature/hailmary/). The six walls of neural NR, the "fixes conflict" obstruction, the representation/modular
+reframe, and two plans (DOSnet pipeline + residual-stream). Then built it on the canonical NR warm-up (2-D
+Maxwell, constraint div E = 0 as the Einstein-constraint analogue; ground truth verified to 4e-14).
+
+- **Exp 1 (constraint wall):** modular predict-then-project beats the soft-penalty monolith on the Gauss
+  constraint by ~5 orders (|div E| 0.16 -> 4e-6), ROBUST across 3 seeds (by construction). Honest refinement
+  (the 3-seed rule earned its keep): accuracy (G2) NOT robust -- 2/3 seeds, seed 1 diverged WITH the constraint
+  satisfied. Projection holds the constraint, not stability.
+- **Exp 2 (gauge wall):** the gauge-fix projection -- the SAME Leray tool as the constraint -- dissolves the
+  gauge wall (predicting a gauge-dependent potential is ill-posed), 214x (CNN) -> 10,769x (FNO predictor). G2
+  (perfect field recovery) is spectral-bias-limited: curl amplifies the highest unresolved modes -> Phase F's
+  long-range wall recurs inside the gauge experiment. One tool, two walls (constraint + gauge); FNO confirms the
+  Phase F diagnosis.
+- **Exp 3 (stability wall):** recurrent / push-forward training (no-grad warmup rollout + 1 graded step + grad-
+  clip; BPTT-through-rollout NaN'd) ELIMINATES Exp 1's divergence and collapses seed variance ~60x -> ~5x
+  (worst-case 2.5e-2 -> 5.8e-3), at a modest cost on good seeds. Pre-reg gates marginally missed (5.8e-3 vs 5e-3;
+  4.3x vs 5x), reported honestly; qualitative win clear.
+
+**Synthesis:** projection holds the CONSTRAINT (Exp 1) and the GAUGE (Exp 2) with one tool; recurrent training
+holds the DYNAMICS/stability (Exp 3); spectral bias is the recurring deep wall under all of it (Exp 2 G2 = Phase
+F). Three walls, three tools, cleanly separated -- the modular ("decompose + enforce structure by construction")
+thesis, mapped on a real (baby) GR-analogue. Encouraging first rungs of the moonshot. All local, committed,
+pushed; VM left to the user. Next open: Plan B (residual-stream variant), the harder gauge (full potential
+evolution), and climbing the ladder (scalar-field collapse).
+
 ## 2026-06-20 (cont.) — TWO MORE RUNGS: the spinor double cover (98) + a second deformed metric (99)
 
 User asked for both (b) push the function class one rung further, and (c) a second deformed metric to test
