@@ -1,0 +1,29 @@
+{
+ "eigenvalues": [
+  -3.720353230900508e-16,
+  0.0011981141299907247,
+  0.39601717864240665,
+  0.6954611091954194,
+  0.8203896210734453,
+  0.9836565503918223
+ ],
+ "n_below_1e-2": 2,
+ "carter_eigenvalue": -3.720353230900508e-16,
+ "next_eigenvalue": 0.0011981141299907247,
+ "spectral_gap": 3220431114012.04,
+ "cosine_to_Carter": 1.0,
+ "verify_varratio": 1.1074502864968805e-28,
+ "emitted_coeffs": {
+  "p_th^2": 1.0,
+  "cos^2": 0.81,
+  "E^2*cos^2": -0.81,
+  "Lz^2*cos^2/sin^2": 1.0
+ },
+ "p_theta2_coeff": 1.0,
+ "carter_coeff_ratios_ok": true,
+ "a_squared": 0.81,
+ "C1_found_hidden_invariant": true,
+ "C2_correct_carter_form": true,
+ "C3_killing_tensor_quadratic": true,
+ "carter_constant_distilled": true
+}

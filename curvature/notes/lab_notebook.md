@@ -3020,3 +3020,26 @@ rotation of that null space = the FORMULAS). Pure linear algebra + sparsity + MD
   exists. The calibration ("evidence not echo": prove the instrument on a known answer first) passed.
   (Two fix rounds on the sparse-emission step only -- the eigenvalue/verify physics was right first try:
   geometric-orthogonal-complement -> independent L1 minima -> distinctness-by-vector-cosine.)
+
+## 2026-06-20 — DISTILLATION HEAD, HARD CALIBRATION: rediscover Kerr's CARTER CONSTANT (92)
+
+The basic head (91) emitted Kepler's E and L -- but those come from MANIFEST symmetries (cyclic coordinates /
+Killing VECTORS). The real test: a hidden invariant that is NOT a manifest symmetry. Kerr's Carter constant
+comes from an irreducible Killing TENSOR and is QUADRATIC in the momenta. Web-verified (Boyer-Lindquist, mu=1):
+Q = p_theta^2 + cos^2(theta)[a^2(1-E^2) + L_z^2/sin^2(theta)]. Generated angular-sector samples (theta,p_theta)
+on 160 geodesics directly from the conserved Q (E,L_z fixed per geodesic, varied across), fed the head a
+library of features that VARY along the orbit, distilled.
+
+**Result (92_carter_distill.json) — 3/3, a=0.9:**
+- C1 ✓ FOUND THE HIDDEN INVARIANT: cleanest conserved direction = Carter, **cosine 1.0000** to textbook Q,
+  self-verified **var-ratio 1.1e-28**, in a **~3e12 spectral gap** (Carter eigenvalue ~1e-16 vs next 1.2e-3).
+- C2 ✓ CORRECT FORM: emitted **+1.00 p_th^2 + 0.81 cos^2 - 0.81 E^2cos^2 + 1.00 Lz^2cos^2/sin^2** = exactly
+  Q's structure, coefficient ratios (1 : a^2 : -a^2 : 1) = (1 : 0.81 : -0.81 : 1); distractors 0.
+- C3 ✓ KILLING-TENSOR: genuinely quadratic in momentum (p_th^2 coeff 1.0) -- a hidden conserved quantity, not
+  a cyclic-coordinate symmetry.
+- **Verdict: the distillation head is proven from EASY (E,L = Killing vectors) to HARD (Carter = Killing
+  tensor) invariants.** Tabula emits the conserved quantity nobody can read off the metric, and self-verifies.
+  Honest notes: 2 fix rounds on the LIBRARY (removed linear identities cos^2+sin^2=1 and E^2(cos^2+sin^2)=E^2
+  that created spurious zero-eigenvalue directions -- a library-design lesson, not a physics fix); C1 reframed
+  from a brittle "exactly 1-D subspace" to "cleanest direction = Carter + spectral gap" (a weak near-invariant
+  of the finite sampled arcs sits at 1.2e-3, 13 orders above Carter -- reported transparently).
