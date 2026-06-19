@@ -3267,3 +3267,31 @@ resumable (survived 2 power losses mid-run via bit-exact checkpoints).
 - **Verdict: Phase F goes from 1/4 null to P0+F2+F3+F4 passing (the field-shape, linearity, and control gates --
   the CNN's actual failures) + F1 4x improved.** The architecture hypothesis (global operator for the long-range
   law) is confirmed. The absolute trajectory-MSE gate awaits the magnitude-precision sweep on the VM.
+
+## 2026-06-20 — FNO modes-sweep on the L4 VM: F1 magnitude gap is NOT modes/training-limited (100, run_fno_sweep)
+
+Ran the pre-registered one-knob sweep on the L4 (alphaludo-l4): Fourier modes {14, 24} x seeds {0,1,2}, fixed
+12k-step budget (P0/F2/F3/F4 already pass at modes=14; this targeted the absolute F1 trajectory-MSE gate of 1e-3,
+oracle floor 1.2e-4). Setup on the VM: isolated ~/spacetime clone, CUDA venv (torch cu130, L4), ~4x faster than
+the Mac MPS. Results (results/vm_fno_sweep/):
+
+  modes  seed   F1_mse   F2_cos  F3_cos  F4_blind
+   14     0    1.57e-2  0.9949  0.9936  3.90e-1
+   14     1    1.45e-2  0.9961  0.9949  3.88e-1
+   14     2    1.50e-2  0.9949  0.9936  3.88e-1
+   24     0    1.54e-2  0.9954  0.9940  3.89e-1
+   24     1    1.47e-2  0.9953  0.9945  3.88e-1
+   24     2    1.51e-2  0.9958  0.9940  3.88e-1
+  modes=14: F1 mean 0.0150 +/- 0.0005 ; modes=24: F1 mean 0.0150 +/- 0.0003
+
+**Clean finding: F1 is saturated at ~0.015, independent of modes (14 vs 24 identical) AND training time
+(12k matches the 6k Mac run's 0.0144).** Two hypotheses ruled out cleanly (one knob, 3 seeds, tight variance):
+the F1 gap is NOT spectral-mode-limited and NOT training-time-limited. The field DIRECTION is essentially solved
+(F2/F3 cosine ~0.995); what remains is field MAGNITUDE precision near masses (where trajectories curve most),
+integrated over the rollout. The oracle floor 1.2e-4 (true field injected) vs our 0.015 (field cosine 0.995)
+is the magnitude gap.
+
+**Next knob (untested): GRID RESOLUTION.** 48^2 under-resolves the softened-1/r field near masses; 64^2/96^2
+is the principled next one-knob test (requires parameterizing GRID_N, currently hardcoded in script 19). Modes
+are saturated -- do NOT increase them further. Phase-F-with-FNO status: P0 (architecture wall broken) + F2 + F3
++ F4 PASS; F1 4x better than the CNN (0.058 -> 0.015) but the absolute 1e-3 gate awaits the resolution test.
