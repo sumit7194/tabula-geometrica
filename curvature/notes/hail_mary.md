@@ -187,3 +187,19 @@ robust; Plan B (residual stream) is NOT -- it diverges ~half the time.** The cle
 right default; the stream has real upside (won 2/8, sometimes big) but its instability makes it unusable without
 serious stabilization (the opaque end-to-end latent hand-off is hard to train stably). Stress-testing converted
 a tentative finding into a decisive one -- exactly its job.
+
+### Experiment 5 STRESS TEST — non-vacuum (charged) constraint, 2026-06-20
+Stress-tests the Exp 1 headline ("projection enforces the constraint") on a NON-trivial affine constraint: static
+charges rho!=0, div E = rho, affine Leray projection (E_new = E - grad phi, lap phi = div E - rho). Ground truth
+preserves div E = rho (2e-6, verified). 3 seeds, grid 32, 1-step training (mirroring Exp 1).
+    seed:                0        1        2     (baseline)
+    C1 plan |divE-rho|:  3.6e-6   3.3e-6   2.9e-6   (~0.16)  -> holds the CHARGED constraint, robust
+    C2 plan field MSE:   0.345    0.357    4.0e-4   (~7.5e-4)
+**C1 ✓✓ ROBUST: the constraint-projection GENERALIZES from vacuum to the non-trivial charged constraint** (~3e-6
+every seed, by construction) -- the headline is not a vacuum-only trick. **C2 ✗ (humbling, honest): Plan A's
+ACCURACY does NOT generalize** -- with 1-step training it DIVERGES on 2/3 charged seeds (0.35), and the soft
+baseline (7.5e-4) is MORE accurate. This reconfirms, more starkly than vacuum (Plan A diverged 1/3 there),
+that STABILITY is a separate wall 1-step Plan A fails -- and it fails MORE on the harder charged case. **Refined
+claim: only the constraint-ENFORCEMENT generalizes robustly; we must NOT claim Plan A is "more accurate" in
+general.** Clear next test (untested cell): charged + push-forward training (Exp 3's stability fix) -- does it give
+constraint-held AND stable? The stress test did its job: confirmed the robust part, humbled the shaky part.

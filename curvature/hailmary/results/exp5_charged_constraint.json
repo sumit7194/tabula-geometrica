@@ -1,19 +1,27 @@
 {
- "device": "cpu",
- "ground_truth_constraint_drift": 7.018393679558699e-07,
+ "device": "mps",
+ "ground_truth_constraint_drift": 2.01235743185757e-06,
  "base_div": [
-  0.21552777290344238
+  0.1563061624765396,
+  0.17097537219524384,
+  0.16126757860183716
  ],
  "plan_div": [
-  1.303415047004819e-06
+  3.546476364135742e-06,
+  3.292079782113433e-06,
+  2.912827767431736e-06
  ],
  "base_mse": [
-  0.0077890693210065365
+  0.0007292738882824779,
+  0.0008350007119588554,
+  0.0007494526798836887
  ],
  "plan_mse": [
-  0.0036921072751283646
+  0.34476208686828613,
+  0.3573792576789856,
+  0.00040291156619787216
  ],
  "C1_constraint_generalizes": true,
- "C2_accuracy": true,
- "projection_generalizes_to_charged": true
+ "C2_accuracy": false,
+ "projection_generalizes_to_charged": false
 }
