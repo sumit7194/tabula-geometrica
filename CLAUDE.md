@@ -393,6 +393,32 @@ results in `curvature/notes/lab_notebook.md`.
   violation); the FRICTION BOUNDARY (universal yet not geometry — breaks time-
   reversal). **Crystallized: a force geometrizes ⟺ UNIVERSAL ∧ CONSERVATIVE**
   (zoo gives condition 1, friction isolates condition 2; sits atop unification 55).
+- **IMPOSSIBILITY-CERTIFICATE QUARTET (2026-06-17/19, scripts 84-87):** a new KIND
+  of result — a net's FAILURE to find a cheap explanation, gated against a theorem,
+  as a positive certificate. Bell/no-local-code (84, wall at 1/√2), chaos/no-invariant
+  (85, Lorenz constancy 0.45 vs Kepler 0.00), gauge/no-unique-law (86, equivalence
+  class + 1508× gauge split), KCBS/contextuality (87, wall at 2/√5). The negative
+  space of the legibility law. Writeup: writeups/impossibility_certificates.md.
+- **CURVATURE ATLAS (2026-06-19, scripts 88-90):** curvature/holonomy/topology as the
+  universal signature of "the cheapest shared description," beyond gravity. Finance
+  (88, no-arbitrage = flat connection, arbitrage = holonomy, numéraire = gauge, 3/3);
+  hierarchy (89, trees intrinsically hyperbolic, Gromov δ 0 vs grid 6, 2/3 core-clean);
+  neuroscience (90, population activity = ring S¹, Betti b1=1, 3/3). Open rows: graph
+  Ollivier-Ricci, Turing patterns, grid-cell torus.
+- **SYMBOLIC DISTILLATION HEAD (2026-06-20, scripts 91-92) — tabula is now a PROPOSAL
+  engine, not just a reading instrument.** It EMITS verified closed-form invariants
+  (not scalars/counts/embeddings) as the CHEAPEST CONSERVED CODE: a sparse combination
+  over a physics feature library, found by a generalized eigenproblem (within-traj /
+  total variance; near-zero eigenvalues = conserved directions; sparse rotation =
+  formulas). 91: calibrated on Kepler — emits E and L exactly, self-verified, and
+  REFUSES to hallucinate on chaotic Lorenz (no-hallucination guard, inherits cert II).
+  92: hard calibration — emits Kerr's CARTER CONSTANT (a hidden Killing-TENSOR
+  invariant, quadratic in momenta, not readable off the metric) at cosine 1.0000, exact
+  coefficients, verified 1e-28. Proven from easy (Killing vectors E,L) to hard (Killing
+  tensor). Built OUR way (linear algebra + sparsity + MDL; no imported symbolic
+  regression). NEXT RUNG (open): aim at a DEFORMED/non-integrable metric → either emit
+  a deformed-Carter analog OR certify NO hidden invariant exists (distillation head ×
+  impossibility certificate = the inductive-discovery payoff, all in our repo).
 - Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
   Phase H rows (equivalence-breaking gravity); a G-sym legibility-preserving
   variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit
