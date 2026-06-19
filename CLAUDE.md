@@ -416,9 +416,13 @@ results in `curvature/notes/lab_notebook.md`.
   invariant, quadratic in momenta, not readable off the metric) at cosine 1.0000, exact
   coefficients, verified 1e-28. Proven from easy (Killing vectors E,L) to hard (Killing
   tensor). Built OUR way (linear algebra + sparsity + MDL; no imported symbolic
-  regression). NEXT RUNG (open): aim at a DEFORMED/non-integrable metric → either emit
-  a deformed-Carter analog OR certify NO hidden invariant exists (distillation head ×
-  impossibility certificate = the inductive-discovery payoff, all in our repo).
+  regression). 93 EMIT-OR-CERTIFY (DONE): distillation head × impossibility certificate
+  FUSED into one instrument — proposes a verified invariant when integrable, certifies
+  chaos (no hidden invariant) when a deformation destroys integrability. Pullen-Edmonds
+  (bounded, exact quadratic at λ=0); HELD-OUT verification as the honest decision; 3/3
+  (held-out var-ratio 1.3e-29 emit → 0.62 certify). The inductive-discovery payoff
+  (propose-or-prove-impossible), all in our repo. (Deformed-Kerr angular sector tried
+  first but hit a 1/sin²θ pole + θ-clip artifact — diagnosed, pivoted to Pullen-Edmonds.)
 - Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
   Phase H rows (equivalence-breaking gravity); a G-sym legibility-preserving
   variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit

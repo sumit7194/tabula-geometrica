@@ -1,3 +1,21 @@
+## 2026-06-20 (cont.) — EMIT-OR-CERTIFY: the distillation arc completed (92/93)
+
+Pushed the distillation head from easy to hard, then fused it with the impossibility certificate:
+- **92 hard calibration:** the head emits Kerr's CARTER CONSTANT -- a hidden Killing-TENSOR invariant
+  (quadratic in momenta, not readable off the metric) -- at cosine 1.0000 to textbook, exact coefficients,
+  self-verified to 1e-28. Proven from easy (E,L = Killing vectors) to hard (Carter = Killing tensor).
+- **93 emit-or-certify:** one instrument that PROPOSES an invariant when it exists and CERTIFIES chaos when it
+  doesn't. Pullen-Edmonds Hamiltonian (bounded, exact quadratic invariant at lambda=0); held-out verification
+  as the honest decision. 3/3: emit at lambda=0 (held-out 1.3e-29) -> certify (held-out 0.62) as the
+  non-separable coupling breaks integrability. The inductive-discovery payoff, all in our repo.
+
+Honest path: 93 first tried a literal deformed-Kerr angular sector, but its 1/sin^2 pole forced a theta-clip
+that pinned chaotic trajectories -> spurious "conservation" (clip artifact, survived even held-out). Diagnosed,
+pivoted to Pullen-Edmonds. Held-out verification was the key honest fix.
+
+The distillation arc (91/92/93): tabula now READS and WRITES -- a proposal engine calibrated easy->hard and
+honest at the boundary (refuses to fabricate where no invariant exists).
+
 ## 2026-06-20 — tabula gains a SYMBOLIC DISTILLATION HEAD: from reading instrument to proposal engine (91)
 
 User relayed a bridge-session insight and asked me to extract the lesson for OUR project (forgetting the
