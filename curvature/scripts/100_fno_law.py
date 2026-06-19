@@ -81,15 +81,20 @@ class FNOLawNet(law19.LawNet):
 
 
 def main():
+    _def_dev = "cuda" if torch.cuda.is_available() else ("mps" if torch.backends.mps.is_available() else "cpu")
     ap = argparse.ArgumentParser()
-    ap.add_argument("--device", default="mps" if torch.backends.mps.is_available() else "cpu")
+    ap.add_argument("--device", default=_def_dev)
     ap.add_argument("--worlds", type=int, default=240)
     ap.add_argument("--overfit-steps", type=int, default=1200)
     ap.add_argument("--steps", type=int, default=5000)
     ap.add_argument("--lr", type=float, default=2e-3)
     ap.add_argument("--seed", type=int, default=100)
+    ap.add_argument("--modes", type=int, default=14)        # FNO Fourier modes kept (sweep knob; max 24 on a 48-grid)
+    ap.add_argument("--width", type=int, default=32)
+    ap.add_argument("--tag", default="")                    # suffix for ckpt/results/progress so sweep arms don't collide
     a = ap.parse_args(); dev = a.device
-    print(f"device={dev}  worlds={a.worlds}  overfit_steps={a.overfit_steps}  steps={a.steps}")
+    OVF, LAW = f"100_fno_overfit{a.tag}", f"100_fno_law{a.tag}"
+    print(f"device={dev}  worlds={a.worlds}  overfit_steps={a.overfit_steps}  steps={a.steps}  modes={a.modes}  width={a.width}  tag='{a.tag}'  seed={a.seed}")
 
     print("generating worlds ...")
     tr = law19.make_dataset(a.worlds, 80, (1, 2), seed=0)
@@ -100,7 +105,7 @@ def main():
 
     # ---------------- P0: the decisive architecture test -- can the FNO overfit ONE batch? ----------------
     if a.overfit_steps > 0:
-        torch.manual_seed(a.seed); fno = FNOLawNet().to(dev)
+        torch.manual_seed(a.seed); fno = FNOLawNet(width=a.width, modes=a.modes).to(dev)
         opt = torch.optim.Adam(fno.parameters(), lr=a.lr)
         rng = np.random.default_rng(0); ob = rng.integers(0, len(wid), 192)
         rb, xb, yb = rho_t[wid[ob]], Xtr[ob], Ytr[ob]
@@ -109,20 +114,20 @@ def main():
             loss = nn.functional.mse_loss(fno(rb, xb), yb)
             opt.zero_grad(); loss.backward(); opt.step()
             if step % 200 == 0:
-                progress("100_fno_overfit", step, a.overfit_steps, loss=loss.item())
+                progress(OVF, step, a.overfit_steps, loss=loss.item())
                 print(f"  [overfit] step {step:5d}  loss {loss.item():.5f}")
         overfit_loss = float(loss.item())
         print(f"P0 FNO overfit-one-batch final loss {overfit_loss:.5f}  (CNN wall 0.047; gate < 5e-3)  [{time.time()-t0:.0f}s]")
     else:                                                              # resume: P0 already established in a prior run
-        hb = RESULTS / "progress" / "100_fno_overfit.json"
+        hb = RESULTS / "progress" / f"{OVF}.json"
         overfit_loss = float(json.loads(hb.read_text())["metrics"]["loss"]) if hb.exists() else float("nan")
         print(f"P0 overfit skipped (resume); prior overfit-one-batch final loss {overfit_loss:.5f} (CNN wall 0.047)")
 
     # ---------------- P1-P3: full training (fresh net), resumable ----------------
-    torch.manual_seed(a.seed); fno = FNOLawNet().to(dev)
+    torch.manual_seed(a.seed); fno = FNOLawNet(width=a.width, modes=a.modes).to(dev)
     nparam = sum(p.numel() for p in fno.parameters())
     opt = torch.optim.Adam(fno.parameters(), lr=a.lr)
-    ckpt = RESULTS / "100_fno_ckpt.pt"; start = 0; rng = np.random.default_rng(1000)
+    ckpt = RESULTS / f"100_fno_ckpt{a.tag}.pt"; start = 0; rng = np.random.default_rng(1000)
     if ckpt.exists():
         start, rng, exact = load_ckpt(ckpt, fno, opt, fallback_seed=1000)
         print(f"resumed full-train at step {start} ({'bit-exact' if exact else 'legacy'})")
@@ -132,7 +137,7 @@ def main():
         loss = nn.functional.mse_loss(fno(rho_t[w], Xtr[idx]), Ytr[idx])
         opt.zero_grad(); loss.backward(); opt.step()
         if step % 250 == 0:
-            progress("100_fno_law", step, a.steps, loss=loss.item())
+            progress(LAW, step, a.steps, loss=loss.item())
             if step % 500 == 0 and step > start:                      # frequent ckpt (repeated power losses)
                 save_ckpt(ckpt, fno, opt, step, rng)
             if step % 1000 == 0:
@@ -152,13 +157,14 @@ def main():
     p2 = bool(f2 > 0.937)
     p3 = bool(f1c >= 10 * f1)
     out = {"device": dev, "n_params": nparam, "worlds": a.worlds, "steps": a.steps,
+           "modes": a.modes, "width": a.width, "seed": a.seed, "tag": a.tag,
            "P0_overfit_one_batch": overfit_loss, "CNN_overfit_wall": 0.047, "oracle_floor": 1.2e-4,
            "F1_mse": f1, "F2_cos": f2, "F3_mse": f1s, "F3_cos": f2s, "F4_blind": f1c,
            "CNN_baseline_F1": 0.058, "CNN_baseline_F2": 0.937,
            "P0_breaks_overfit_wall": p0, "P1_beats_CNN_F1": p1, "P2_beats_CNN_F2": p2, "P3_control": p3}
     print(f"\nP0 FNO breaks the overfit-one-batch wall (architecture, not data): {p0}")
     print(f"P1 beats CNN F1 / P2 beats CNN F2 / P3 control: {p1} / {p2} / {p3}")
-    (RESULTS / "100_fno_law.json").write_text(json.dumps(out, indent=1))
+    (RESULTS / f"100_fno_law{a.tag}.json").write_text(json.dumps(out, indent=1))
 
     # plot: learned vs true field on a 3-blob world (the superposition test)
     w = 0; g = np.linspace(-DOM, DOM, GRID_N); GX, GY = np.meshgrid(g, g)
@@ -175,8 +181,8 @@ def main():
         ax.set_title(ttl)
     fig.suptitle(f"F-v2 Step 2A: a Fourier Neural Operator for the gravity law\n"
                  f"overfit-one-batch {overfit_loss:.4f} (CNN wall 0.047) — F1 {f1:.3e} (CNN 0.058)")
-    fig.tight_layout(); fig.savefig(RESULTS / "100_fno_law.png", dpi=140)
-    print(f"saved results/100_fno_law.json + .png")
+    fig.tight_layout(); fig.savefig(RESULTS / f"100_fno_law{a.tag}.png", dpi=140)
+    print(f"saved results/100_fno_law{a.tag}.json + .png")
 
 
 if __name__ == "__main__":
