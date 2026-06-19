@@ -423,6 +423,15 @@ results in `curvature/notes/lab_notebook.md`.
   (held-out var-ratio 1.3e-29 emit → 0.62 certify). The inductive-discovery payoff
   (propose-or-prove-impossible), all in our repo. (Deformed-Kerr angular sector tried
   first but hit a 1/sin²θ pole + θ-clip artifact — diagnosed, pivoted to Pullen-Edmonds.)
+- **94 UNKNOWN-REGIME DISCOVERY (DONE) — the payoff.** Aimed emit-or-certify at the
+  coupled quartic oscillator (bounded; integrable ONLY at α=0,1,3, chaotic otherwise —
+  invisible in the Hamiltonian) and DISCOVERED the integrable islands {0,1,3} EXACTLY
+  from trajectory data alone (held-out ~1e-10 at islands vs ~0.8 chaos, 10-order
+  separation; U1/U2/U3 all pass). Test = a SECOND H-independent invariant (integrability
+  of a 2-DOF system); complete degree-2+4 monomial library; held-out verification.
+  The instrument reconstructs the integrability structure of parameter space with no
+  analytic input — the capability transfers to families where the islands are NOT known.
+  DISTILLATION ARC COMPLETE (91/92/93/94): tabula reads, writes, AND discovers.
 - Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
   Phase H rows (equivalence-breaking gravity); a G-sym legibility-preserving
   variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit

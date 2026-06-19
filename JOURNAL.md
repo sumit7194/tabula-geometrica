@@ -1,3 +1,19 @@
+## 2026-06-20 (cont.) — UNKNOWN REGIME: the instrument discovers the islands of integrability (94)
+
+The payoff: aimed the fused emit-or-certify instrument at a regime where the answer is not obvious. Coupled
+quartic oscillator H=1/2(px^2+py^2)+1/4(x^4+y^4)+(alpha/2)x^2y^2 -- bounded for all alpha, integrable ONLY at
+alpha=0,1,3 (islands invisible in the Hamiltonian), chaotic otherwise. The instrument DISCOVERED the island
+set {0,1,3} EXACTLY from trajectory data alone (held-out var-ratio ~1e-10 at islands vs ~0.8 in the chaotic
+gaps -- a 10-order-of-magnitude separation). Test = a second H-independent invariant (deflate the always-
+conserved energy; integrability of a 2-DOF system = a second invariant); complete degree-2+4 polynomial
+library; held-out verification as the honest decision. 3/3.
+
+The integrable values {0,1,3} are known (so this validates that the instrument recovers them), but the
+CAPABILITY -- mapping integrability from data with zero analytic input -- transfers to families where the
+islands are NOT known. The distillation arc is complete (91/92/93/94): tabula reads (probes), writes (emits
+verified closed-form invariants), and discovers (maps integrability, emit-or-certify) -- a proposal+discovery
+engine, calibrated easy->hard and honest at the boundary.
+
 ## 2026-06-20 (cont.) — EMIT-OR-CERTIFY: the distillation arc completed (92/93)
 
 Pushed the distillation head from easy to hard, then fused it with the impossibility certificate:
