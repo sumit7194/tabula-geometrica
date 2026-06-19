@@ -1,0 +1,25 @@
+{
+ "a": 0.6,
+ "L": 1.0,
+ "H": 0.2,
+ "kerr": {
+  "heldout": 4.611224177082392e-28,
+  "cosine_Carter": 0.9999999999999999,
+  "known_K_drift": 6.359002995097177e-28
+ },
+ "kerr_newman": {
+  "heldout": 4.590942727877263e-28,
+  "cosine_Carter": 0.9999999999999998,
+  "known_K_drift": 6.635126395007375e-28
+ },
+ "bumpy": {
+  "heldout": 0.018578152213719026,
+  "cosine_Carter": 0.19560139958767186,
+  "known_K_drift": 0.22565584837077013
+ },
+ "bump_exactness_gap_vs_kerr": 4.020179827209407e+25,
+ "C1_separable_baseline": true,
+ "C2_charge_preserves": true,
+ "C3_bump_destroys_carter": true,
+ "engine_tells_separable_from_breaking": true
+}

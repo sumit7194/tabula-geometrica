@@ -3207,3 +3207,35 @@ represent the interference.
   past rational) and an IMPOSSIBILITY CERTIFICATE (the SU(2) sign is invisible to SO(3) data). The edge-of-
   representability item is closed: a net's library can reach the half-angle sheet only if you give it half-angle
   features; from SO(3) observables alone the sign is provably out of reach.
+
+## 2026-06-20 — A SECOND DEFORMED METRIC: separability-preserving vs integrability-breaking (99)
+
+The user's sharper question: can emit-or-certify tell, from trajectory data alone, whether a metric deformation
+KEEPS the hidden symmetry (Carter survives) or DESTROYS it? Web-verified: Kerr-Newman's charge enters
+Delta_r = r^2-2r+a^2+Q^2 (a function of r only) -> geodesics still separate, Carter SURVIVES (arXiv:1202.5228);
+a bumpy/quadrupole deformation (kappa != 1) breaks the Carter/Killing-tensor symmetry -> r,theta coupled, no
+separation constant -> non-integrable (arXiv:2305.18522). Built a faithful Staeckel-separable Kerr-like geodesic
+Hamiltonian H = [1/2 Delta(r)p_r^2 + V_r(r) + 1/2 p_theta^2 + V_theta(theta) + eps*C(r,theta)]/Sigma with
+Sigma=r^2+a^2cos^2(theta); the Carter constant is K = 1/2 p_theta^2 + 1/2 L^2/sin^2(theta) - a^2 cos^2(theta) H.
+Evolved bound (r,theta) orbits at fixed (h,L), ran the engine on Kerr (Q=0,eps=0), Kerr-Newman (Q=0.5), bumpy
+(eps=0.35, C=(r-R)^2 cos^2(theta) non-separable coupling).
+
+**Result (99_deformed_metrics.json) — 3/3:**
+- C1 ✓ SEPARABLE BASELINE (Kerr): engine emits the EXACT Carter constant (held-out 4.6e-28, cosine to the known
+  K vector 1.000).
+- C2 ✓ CHARGE PRESERVES (Kerr-Newman): with the separability-preserving charge, the engine STILL emits the EXACT
+  Carter (held-out 4.6e-28, cosine 1.000) -- it reads the charge as integrability-PRESERVING.
+- C3 ✓ BUMP DESTROYS CARTER (quadrupole): the known Carter drifts 0.23 (vs ~1e-27 separable), the engine's best
+  invariant is NOT the Carter (cosine 0.20), and it is 4e25x less exact than Kerr -- the hidden symmetry is gone.
+- **HONEST CAVEAT (recorded):** at moderate bump the bounded confinement keeps the motion in the KAM regime, so
+  a CRUDE approximate invariant (held-out ~1e-2) always lingers -- "certify NO invariant" would be too strong
+  (and false). The decisive discriminator is whether the SPECIFIC Carter (the Killing-tensor symmetry) survives
+  EXACTLY: yes for Kerr/Kerr-Newman, destroyed for the bump. Matches the bumpy-BH literature (Carter breaks, KAM
+  tori persist at moderate deformation, full chaos only at strong deformation).
+- **Bug fixed in build:** first run gave 0/150 bound orbits -- the conserved H*Sigma ~ H r^2 acts as an anti-
+  binding potential (orbits escape). Fixed by putting H0 r^2 into V_r so its derivative cancels the H*dSigma
+  term in the radial EOM, leaving a clean well of depth U0 centered at R (recorded in the script header).
+- **Verdict:** the engine tells a separability-PRESERVING deformation (charge: Carter exact) from an
+  integrability-BREAKING one (quadrupole: Carter destroyed) -- the no-hair / Killing-tensor question as a
+  data-driven test. Pairs with 97 (the rational deformed Carter): 97 = a deformation that keeps Carter but makes
+  it rational; 99 = telling deformations that keep vs destroy Carter.
