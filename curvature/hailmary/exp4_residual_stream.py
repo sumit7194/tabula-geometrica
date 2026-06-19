@@ -86,6 +86,7 @@ def main():
     ap.add_argument("--grid", type=int, default=32); ap.add_argument("--traj", type=int, default=96)
     ap.add_argument("--K", type=int, default=4); ap.add_argument("--steps", type=int, default=2500)
     ap.add_argument("--horizon", type=int, default=100); ap.add_argument("--stream", type=int, default=32)
+    ap.add_argument("--nseeds", type=int, default=3)
     a = ap.parse_args(); dev = a.device
     KX, KY, K2safe = wavenumbers(a.grid, 2 * np.pi, dev)
     res = Path(__file__).resolve().parent / "results"; res.mkdir(exist_ok=True)
@@ -96,7 +97,7 @@ def main():
     print(f"device={dev} grid={a.grid} K={a.K} steps={a.steps} | params {P}")
 
     cm, cwm, sm = [], [], []
-    for seed in [0, 1, 2]:
+    for seed in range(a.nseeds):
         tr, sim = make_dataset(n_traj=a.traj, nsteps=40, grid=a.grid, seed=seed)
         rng = np.random.default_rng(777 + seed)
         s0 = np.stack([sim.random_state(rng) for _ in range(16)]).astype(np.float32)
@@ -112,7 +113,7 @@ def main():
 
     c, cw, s = np.array(cm), np.array(cwm), np.array(sm)
     b1 = bool(s.mean() < cw.mean())                                   # FAIR: stream vs capacity-matched clean
-    b2 = bool(np.sum(s <= cw) >= 2 and s.max() <= cw.max())
+    b2 = bool(np.mean(s <= cw) >= 0.6 and s.max() <= cw.max())       # robust = wins on a clear majority AND never diverges
     out = {"device": dev, "stream_width": a.stream, "params": P,
            "clean_mse": cm, "clean_wide_mse": cwm, "stream_mse": sm,
            "clean_mean": float(c.mean()), "clean_wide_mean": float(cw.mean()), "stream_mean": float(s.mean()),
@@ -125,11 +126,11 @@ def main():
     print(f"\nRESIDUAL-STREAM HAND-OFF BEATS CLEAN HAND-OFF (capacity-matched): {out['residual_stream_beats_clean']}")
     (res / "exp4_residual_stream.json").write_text(json.dumps(out, indent=1))
 
-    fig, ax = plt.subplots(figsize=(8.5, 5)); x = np.arange(3); w = 0.27
+    fig, ax = plt.subplots(figsize=(8.5, 5)); x = np.arange(a.nseeds); w = 0.27
     ax.bar(x - w, np.clip(c, 1e-6, None), w, color="silver", label="clean b=3 (narrow)")
     ax.bar(x, np.clip(cw, 1e-6, None), w, color="navy", label=f"clean b=3, ch{CHW} (capacity-matched)")
     ax.bar(x + w, np.clip(s, 1e-6, None), w, color="crimson", label=f"residual stream b={a.stream}")
-    ax.set_yscale("log"); ax.set_xticks(x); ax.set_xticklabels([f"seed {i}" for i in range(3)])
+    ax.set_yscale("log"); ax.set_xticks(x); ax.set_xticklabels([f"s{i}" for i in range(a.nseeds)])
     ax.set_ylabel("long-rollout final field MSE"); ax.legend(fontsize=8)
     ax.set_title(f"Plan B: rich latent hand-off vs clean state hand-off (capacity-matched)\nmean stream/clean_wide = {s.mean()/cw.mean():.2f}")
     fig.tight_layout(); fig.savefig(res / "exp4_residual_stream.png", dpi=140)
