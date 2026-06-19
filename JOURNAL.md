@@ -1,3 +1,27 @@
+## 2026-06-20 (cont.) — THE DEFORMED-KERR TARGET, DONE RIGHT (97): a real black hole's rational Carter constant
+
+Closed the original deferred target with the richer-library capability. Web-verified Kerr-de Sitter structure:
+the cosmological constant Lambda adds Delta_theta = 1 + (Lambda a^2/3) cos^2(theta) to the angular function, so
+the Carter constant becomes RATIONAL in cos^2(theta). Generated angular-sector geodesics and asked a Kerr-tuned
+(polynomial-trig) library vs a Lambda-aware (Delta_theta-weighted, rational) library to represent the deformed
+Carter constant. 3/3 (revised honest gates): both exact at Lambda=0; the Lambda-aware library represents the
+deformed Carter EXACTLY at every Lambda (held-out 3e-29, cosine to the textbook K_Lambda = 1.0000) while the
+polynomial library only APPROXIMATES it, its error growing monotonically with Lambda (4e-31 -> 2e-4).
+
+Honest deviation, recorded: the first pre-reg expected the polynomial library to MISS the invariant entirely
+(certify). It does not -- a polynomial approximates a rational function well over the physically-accessible
+theta band (the L_z^2/sin^2 barrier forbids near-pole sampling). The sharper, mathematically meaningful finding
+is EXACT vs APPROXIMATE: a rational invariant is not a polynomial; only the rational library is exact, and the
+polynomial's error grows with the deformation. This is exactly why Carter needed the right ansatz -- the hidden
+symmetry's invariant lives in the rational function class.
+
+**The distillation arc (91-97) is complete:** the instrument reads probes (91), writes Kerr's Carter constant
+in closed form (92), emits-or-certifies (93), discovers the integrable islands of a parameter family from data
+(94), maps integrability off the textbook line cross-validated by an independent chaos diagnostic (95), catches
+rational invariants the polynomial ansatz misses (96, the Kepler LRL vector), and represents a real deformed
+black hole's rational Carter constant exactly (97, Kerr-de Sitter). A proposal + discovery engine, calibrated
+easy->hard, honest at every boundary.
+
 ## 2026-06-20 (cont.) — OPEN FAMILY (95) + RICHER INVARIANTS (96): the discovery engine, pushed two rungs
 
 Two user-picked targets, in order:

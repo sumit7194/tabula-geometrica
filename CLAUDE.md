@@ -444,8 +444,21 @@ results in `curvature/notes/lab_notebook.md`.
   (the hidden SO(3) invariant, Kepler's analog of Kerr's Carter constant) -- RATIONAL
   (x/r term), so a polynomial library MISSES it (finds E,L), a rational library CATCHES
   it (finds E,L,A_x,A_y, held-out 6e-6). The capability for Carter-analogs in deformed
-  black holes. Open next: aim the rational/trig library at an actual deformed-Kerr
-  (Kerr-de Sitter Carter-analog) done right.
+  black holes.
+- **97 THE DEFORMED-KERR TARGET, DONE RIGHT — Kerr-de Sitter's rational Carter
+  constant.** Web-verified Kerr-de Sitter separation: the cosmological constant adds
+  Delta_theta = 1+(Lambda a^2/3)cos^2(theta), making Carter's constant RATIONAL. 3/3
+  (revised honest gates): D1 both libraries exact at Lambda=0; D2 the Lambda-aware
+  (Delta_theta-weighted, rational) library represents the deformed Carter EXACTLY
+  (held-out 3e-29, cosine to textbook K_Lambda 1.0000) while the Kerr-tuned polynomial
+  library only APPROXIMATES it, error growing monotonically with Lambda (4e-31->2e-4);
+  D3 reduces to Kerr's Carter at Lambda->0. Honest deviation: the polynomial doesn't
+  MISS the invariant (it approximates a rational function well over the accessible band)
+  -- the sharper finding is EXACT vs growing-approximation, which is WHY Carter needed
+  the rational ansatz. **The distillation arc (91-97) is complete: reads probes (91),
+  writes Kerr's Carter (92), emit-or-certify (93), discovers islands (94), maps off the
+  textbook line cross-validated (95), catches rational invariants (96 LRL), represents a
+  real deformed BH's rational Carter exactly (97).**
 - Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
   Phase H rows (equivalence-breaking gravity); a G-sym legibility-preserving
   variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit
