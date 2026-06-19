@@ -1,0 +1,61 @@
+{
+ "energy": 10.0,
+ "known_integrable": [
+  0.0,
+  1.0,
+  3.0
+ ],
+ "discovered_islands": [
+  0.0,
+  1.0,
+  3.0
+ ],
+ "curve": [
+  {
+   "alpha": 0.0,
+   "heldout_varratio": 1.1980083986130126e-10,
+   "decision": "EMIT 2nd invariant",
+   "known": true
+  },
+  {
+   "alpha": 0.5,
+   "heldout_varratio": 0.9701943902237952,
+   "decision": "CERTIFY chaos",
+   "known": false
+  },
+  {
+   "alpha": 1.0,
+   "heldout_varratio": 1.495902824705093e-18,
+   "decision": "EMIT 2nd invariant",
+   "known": true
+  },
+  {
+   "alpha": 2.0,
+   "heldout_varratio": 0.7917614482386331,
+   "decision": "CERTIFY chaos",
+   "known": false
+  },
+  {
+   "alpha": 3.0,
+   "heldout_varratio": 2.088645451211581e-10,
+   "decision": "EMIT 2nd invariant",
+   "known": true
+  },
+  {
+   "alpha": 5.0,
+   "heldout_varratio": 0.8240121407761624,
+   "decision": "CERTIFY chaos",
+   "known": false
+  },
+  {
+   "alpha": 9.0,
+   "heldout_varratio": 0.9098259146609421,
+   "decision": "CERTIFY chaos",
+   "known": false
+  }
+ ],
+ "U1_find_islands": true,
+ "U2_certify_chaos": true,
+ "U3_correct_map": true,
+ "islands_discovered": true
+}

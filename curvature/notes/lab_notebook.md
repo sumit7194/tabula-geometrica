@@ -3073,3 +3073,33 @@ finite-sample artifact does not -- the project's verify-not-echo.)
 91 emits Kepler's E, L (Killing vectors) + refuses on chaos. 92 emits Kerr's Carter constant (Killing tensor,
 cosine 1.0000). 93 fuses emit + certify into one instrument (propose-or-prove-impossible). Tabula is now a
 proposal engine, calibrated easy->hard and honest at the boundary.
+
+## 2026-06-20 — UNKNOWN REGIME: discover the ISLANDS OF INTEGRABILITY from data (94, the payoff)
+
+Aimed the emit-or-certify instrument at a regime where the answer is NOT obvious: scan a deformation and have
+it MAP which deformations are secretly integrable. System (web-verified): coupled quartic oscillator
+H=1/2(px^2+py^2)+1/4(x^4+y^4)+(alpha/2)x^2y^2 -- BOUNDED for all alpha (confining, no escape/poles), INTEGRABLE
+only at alpha=0,1,3 (three islands invisible in the Hamiltonian), CHAOTIC otherwise. The test is a SECOND,
+H-independent invariant (integrability of a 2-DOF system); decision = held-out verification (the project's
+verify-not-echo). Library = complete degree-2 + degree-4 monomials (45 features, standardized) so any
+polynomial invariant is spanned.
+
+**Result (94_discover_islands.json) — 3/3, the instrument reconstructed the map:**
+| alpha | 0 | 0.5 | 1 | 2 | 3 | 5 | 9 |
+| held-out var-ratio | **1e-10** | 0.97 | **1e-18** | 0.79 | **2e-10** | 0.82 | 0.91 |
+| verdict | EMIT | certify | EMIT | certify | EMIT | certify | certify |
+- U1 ✓ EMIT at all three islands {0,1,3}; U2 ✓ CERTIFY chaos at all generic alpha; U3 ✓ discovered set ==
+  known {0,1,3} EXACTLY. Separation is **10 orders of magnitude** (islands ~1e-10 vs chaos ~0.8) -> threshold-
+  robust.
+- **Verdict: the instrument discovered the integrable islands from trajectory data alone** -- structure
+  invisible in the Hamiltonian. Two earlier issues fixed: incomplete library missed alpha=3's quartic
+  invariant (-> complete degree-4 basis, alpha=3 dropped 2.5e-2 -> 2e-10); H must be DEFLATED (energy is always
+  conserved -> search for a SECOND invariant); proper deflation + complete basis also turned a spurious
+  alpha=0.5 near-emit into clean chaos (0.97). Honest framing: {0,1,3} are KNOWN (validation that the
+  instrument recovers them), but the CAPABILITY -- mapping integrability from data with no analytic input --
+  is what transfers to families where the islands are NOT known.
+
+### THE DISTILLATION ARC COMPLETE (91/92/93/94): tabula reads, writes, AND discovers.
+91 emit Kepler E,L (+refuse on chaos). 92 emit Kerr's Carter constant (Killing tensor). 93 emit-or-certify
+fused. 94 aim at the unknown -> discover the islands of integrability from data. Tabula is a proposal+discovery
+engine, calibrated easy->hard and honest at the boundary.
