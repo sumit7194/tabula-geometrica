@@ -1,0 +1,38 @@
+{
+ "lambda": 0.6,
+ "Lambda": 2.222222222222222,
+ "L0_kerr_lib_heldout": 3.5934299193906663e-31,
+ "L0_aware_lib_heldout": 3.5934299193906663e-31,
+ "deformed_kerr_lib_heldout": 0.00023905801668679808,
+ "deformed_kerr_lib_R2": 0.9997947656710273,
+ "deformed_aware_lib_heldout": 3.060834504201276e-29,
+ "deformed_aware_lib_R2": 1.0,
+ "deformed_aware_cosine_to_Klambda": 0.9999999999998261,
+ "kerr_sweep_heldout": [
+  3.5934299193906663e-31,
+  1.9991445327629748e-05,
+  5.593804210248991e-05,
+  0.00011832141666154844,
+  0.00023905801668679808
+ ],
+ "aware_sweep_heldout": [
+  3.5934299193906663e-31,
+  1.2657101254631475e-30,
+  1.5783124284835134e-29,
+  2.8780081600313236e-30,
+  3.060834504201276e-29
+ ],
+ "lambda_sweep": [
+  0.0,
+  0.15,
+  0.3,
+  0.45,
+  0.6
+ ],
+ "kerr_error_grows_with_Lambda": true,
+ "aware_exact_all_Lambda": true,
+ "D1_validation_lambda0": true,
+ "D2_deformed_carter": true,
+ "D3_carter_readout": true,
+ "deformed_carter_caught": true
+}

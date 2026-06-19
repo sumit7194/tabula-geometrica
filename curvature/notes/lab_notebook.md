@@ -3151,3 +3151,34 @@ need (Carter has the rational cos^2/sin^2 term).
   in all directions and both components vary across trajectories -- without it A_y is ~0 everywhere and
   invisible.) This is the capability for Carter-analogs in deformed black holes: certify "no invariant" with a
   poor library can be a library limit, not chaos -- the richer library resolves it (cross-checked by SALI/#1).
+
+## 2026-06-20 — THE DEFORMED-KERR TARGET, DONE RIGHT: Kerr-de Sitter's rational Carter constant (97)
+
+The capstone: aim the richer-library capability (96) at an ACTUAL deformed black hole. Web-verified Kerr-de
+Sitter structure (Hackmann-Laemmerzahl analytical-solution refs, arXiv:1009.6117 and the photon-motion
+literature): geodesics still separate (Carter's hidden symmetry survives the cosmological constant), but the
+angular function gains Delta_theta = 1 + (Lambda a^2/3) cos^2(theta), making the Carter constant RATIONAL:
+    K_Lambda = [ p_theta^2 + I^2 (aE sin^2 theta - L_z)^2 / sin^2 theta ] / Delta_theta ,  I = 1 + Lambda a^2/3.
+At Lambda=0 this is the ordinary Kerr Carter constant. Generated angular-sector geodesics (fixed a=0.9, sampled
+E, L_z, K), and asked a KERR-tuned (polynomial-trig) library vs a Lambda-AWARE (Delta_theta-weighted, rational)
+library to represent K_Lambda -- least squares, then held-out within-geodesic var-ratio.
+
+**Result (97_kerr_desitter.json) — 3/3 (revised honest gates):**
+- D1 ✓ VALIDATION (Lambda=0): both libraries represent the ordinary Carter constant EXACTLY (held-out 3.6e-31)
+  -- they coincide when Delta_theta=1.
+- D2 ✓ DEFORMED CARTER (lambda=0.6): the Lambda-AWARE library is EXACT (held-out 3.1e-29, cosine to textbook
+  K_Lambda = 1.0000) while the KERR-tuned library is only APPROXIMATE (held-out 2.4e-4) and its error GROWS
+  monotonically with Lambda (4e-31 -> 2e-4 across lambda 0->0.6).
+- D3 ✓ the aware representation IS the cosmological-constant-deformed Carter (cosine 1.0000), reducing to the
+  Kerr Carter at Lambda->0 -- the rational Delta_theta weighting read out exactly.
+- **HONEST DEVIATION (recorded):** the first pre-reg expected the polynomial library to MISS the invariant
+  (certify). It does not -- a polynomial APPROXIMATES the rational K_Lambda very well over the physically-
+  accessible theta band (the L_z^2/sin^2 barrier forbids sampling near the poles, keeping cos^2 bounded; even
+  widening the band toward the poles only reached ~1e-3). The sharper, mathematically meaningful finding is
+  EXACT vs APPROXIMATE: a rational invariant is not a polynomial; only the rational library is exact, the
+  polynomial's error grows with the deformation. Gates revised to test exactness, not miss. This is WHY Carter
+  needed the right ansatz -- the hidden symmetry's invariant lives in the rational function class.
+- **The distillation arc (91-97) is complete:** reads probes (91), writes Kerr's Carter (92), emit-or-certify
+  (93), discovers integrable islands (94), maps off the textbook line cross-validated (95), catches rational
+  invariants the polynomial ansatz misses (96 LRL), and represents a real deformed black hole's rational Carter
+  constant exactly (97 Kerr-de Sitter).
