@@ -1,0 +1,19 @@
+{
+ "device": "mps",
+ "K": 4,
+ "recurrent_final_mse": [
+  0.0011449333978816867,
+  0.005785169079899788,
+  0.002601340878754854
+ ],
+ "onestep_final_mse": [
+  0.0004303408495616168,
+  0.02498610131442547,
+  0.0004189486789982766
+ ],
+ "recurrent_max_mse": 0.005785169079899788,
+ "worst_1step_seed": 1,
+ "S1_stable_all_seeds": false,
+ "S2_fixes_divergence": false,
+ "recurrent_fixes_stability": false
+}

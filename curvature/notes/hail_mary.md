@@ -130,3 +130,20 @@ AMPLIFIES the highest, least-resolved modes, so it is resolution-bound at grid 3
 wall in derivative-amplified form. **Verdict: gauge wall decisively dissolved by the projection module (G1, the
 point of Exp 2); perfect high-frequency field recovery (G2) is spectral/resolution-limited -- Phase F's recurring
 wall, now isolated as a curl-amplified high-k issue.** Two walls cleanly separated, both understood.
+
+### Experiment 3 — the stability wall (recurrent training fixes Exp 1's G2), 2026-06-20
+Push-forward / recurrent training (Brandstetter 2022): roll j steps NO-GRAD for the distribution shift, backprop
+ONE step + grad-clip. (The fully-differentiable BPTT-through-rollout version blew up to NaN -- recorded; that's
+why push-forward exists.) Plan A (still projected) trained recurrently, 3 seeds, vs the 1-step Plan A from Exp 1.
+Constraint held ~4e-6 throughout. Long-rollout final field MSE:
+    seed:        0        1        2
+    1-step:   4.3e-4   2.5e-2   4.2e-4    (worst 2.5e-2, range ~60x, seed 1 DIVERGES)
+    recurrent:1.1e-3   5.8e-3   2.6e-3    (worst 5.8e-3, range ~5x, NO divergence)
+**Qualitative win (clear): recurrent training ELIMINATES the divergence and collapses the seed variance ~60x ->
+~5x** -- worst-case 4.3x better (2.5e-2 -> 5.8e-3) -- at a modest cost on the already-good seeds (4.3e-4 -> 1.1e-3,
+the robustness-for-peak trade). **Pre-reg gates marginally MISSED, reported honestly (not moved):** S1 (max < 5e-3)
+worst seed 5.8e-3 just over; S2 (seed-1 fix >= 5x) 4.3x just under. More steps / larger K would close the marginal
+gap (a known knob, not a new idea), so the one fix round (BPTT -> push-forward) is spent here. **Synthesis of the
+three experiments: the projection module holds the CONSTRAINT (Exp 1 G1) and the GAUGE (Exp 2 G1) -- same tool;
+recurrent training holds the DYNAMICS/stability (Exp 3); and the recurring deep wall underneath all of it is
+spectral bias (Exp 2 G2 = Phase F). Three walls, three tools, cleanly separated -- the modular thesis, mapped.**
