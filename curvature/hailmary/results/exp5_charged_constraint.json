@@ -1,0 +1,19 @@
+{
+ "device": "cpu",
+ "ground_truth_constraint_drift": 7.018393679558699e-07,
+ "base_div": [
+  0.21552777290344238
+ ],
+ "plan_div": [
+  1.303415047004819e-06
+ ],
+ "base_mse": [
+  0.0077890693210065365
+ ],
+ "plan_mse": [
+  0.0036921072751283646
+ ],
+ "C1_constraint_generalizes": true,
+ "C2_accuracy": true,
+ "projection_generalizes_to_charged": true
+}

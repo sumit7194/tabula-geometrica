@@ -177,3 +177,13 @@ Three walls, mapped and individually addressed on the Maxwell NR-warm-up; two ha
 The modular "decompose + enforce structure by construction + train for stability" recipe works on the baby
 GR-analogue; the clean hand-off is the robust choice. Next rungs: harder gauge (potential evolution), then climb
 to scalar-field collapse (Choptuik).
+
+### Experiment 4 STRESS TEST (8 seeds), 2026-06-20 — verdict strengthened, not overturned
+Re-ran capacity-matched Plan A (clean_wide) vs Plan B (stream) at 8 seeds (north star: a 3-seed robustness claim
+is itself not robust). Decisive: clean_wide mean 8.3e-3 / max 3.5e-2, NEVER diverges; stream mean 3.86e-1
+(46x WORSE) / max 1.54, DIVERGES on 4/8 seeds (>10x clean), wins only 2/8. The earlier 3-seed read (1 divergence)
+UNDERSTATED how unreliable the residual stream is. **Verdict (now solid): Plan A (clean modular hand-off) is
+robust; Plan B (residual stream) is NOT -- it diverges ~half the time.** The clean, checkable hand-off is the
+right default; the stream has real upside (won 2/8, sometimes big) but its instability makes it unusable without
+serious stabilization (the opaque end-to-end latent hand-off is hard to train stably). Stress-testing converted
+a tentative finding into a decisive one -- exactly its job.
