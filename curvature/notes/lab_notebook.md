@@ -3129,3 +3129,25 @@ instrument's "invariant for ALL trajectories.")
   such invariant," not "provably chaotic." SALI is the independent check; where they disagree, the system is
   dynamically regular but its invariant (if any) is richer than the ansatz. The map off the table is the
   instrument's finding, corroborated on the clear cases and honestly flagged where the ansatz is the limit.
+
+## 2026-06-20 — RICHER INVARIANTS: catch a RATIONAL invariant the polynomial ansatz misses (96)
+
+#1 flagged systems that are dynamically regular but have no low-degree POLYNOMIAL invariant -- the signature
+that the conserved quantity is RICHER than a polynomial. Made the capability concrete on the cleanest case:
+2-D Kepler's fourth invariant, the Laplace-Runge-Lenz vector A (the hidden SO(3) symmetry that makes orbits
+close), which is RATIONAL: A_x = vy*L - x/r, A_y = -vx*L - y/r. The x/r term means a POLYNOMIAL library cannot
+represent it; a rational library (x/r, y/r added) can. LRL : Kepler :: Carter : Kerr -- the extra invariant
+from a hidden symmetry/tensor; the rational features are exactly what Carter-analogs in deformed black holes
+need (Carter has the rational cos^2/sin^2 term).
+
+**Result (96_richer_invariants.json) — 3/3:**
+- R1 ✓ POLYNOMIAL library: 2 conserved (E, L; residuals 0.000) but MISSES the LRL (A_x, A_y residuals 1.000).
+- R2 ✓ RATIONAL library (+x/r, y/r): **4 conserved** -- E, L, AND the LRL components A_x, A_y (residuals 0.000),
+  each self-verified conserved on held-out (var-ratio 6e-6 / 3e-6).
+- R3 ✓ the emitted extra invariant IS the LRL (cosine to textbook > 0.95) and carries the rational x/r term
+  (coefficient 0.58) -- the rational signature read out explicitly.
+- **Verdict: extending the library to RATIONAL features catches an invariant the polynomial ansatz cannot
+  represent** -- the LRL vector, Kepler's Carter-analog. (Fix: randomized orbit ORIENTATION so the LRL points
+  in all directions and both components vary across trajectories -- without it A_y is ~0 everywhere and
+  invisible.) This is the capability for Carter-analogs in deformed black holes: certify "no invariant" with a
+  poor library can be a library limit, not chaos -- the richer library resolves it (cross-checked by SALI/#1).

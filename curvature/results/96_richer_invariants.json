@@ -1,0 +1,25 @@
+{
+ "poor": {
+  "n_conserved": 2,
+  "resid_E": 0.00023514438291544074,
+  "resid_L": 1.2535013928636533e-15,
+  "resid_Ax": 1.0,
+  "resid_Ay": 1.0
+ },
+ "rich": {
+  "n_conserved": 4,
+  "resid_E": 0.0002727758379333517,
+  "resid_L": 6.836989165703951e-15,
+  "resid_Ax": 0.00017818795586371707,
+  "resid_Ay": 0.00015950441968320581
+ },
+ "LRL_Ax_heldout_varratio": 6.338241175201973e-06,
+ "LRL_Ay_heldout_varratio": 3.403751891341502e-06,
+ "LRL_rational_xr_coeff": 0.5773502691896258,
+ "poor_n": 2,
+ "rich_n": 4,
+ "R1_polynomial_misses_LRL": true,
+ "R2_rational_catches_LRL": true,
+ "R3_LRL_is_rational": true,
+ "richer_invariants_caught": true
+}
