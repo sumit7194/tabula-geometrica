@@ -74,18 +74,19 @@ def main():
     ap.add_argument("--train-steps", type=int, default=4000)
     ap.add_argument("--horizon", type=int, default=120)       # eval rollout (>> 40-step training trajectories)
     ap.add_argument("--lam", type=float, default=1.0)
-    a = ap.parse_args(); dev = a.device
+    ap.add_argument("--seed", type=int, default=0)
+    a = ap.parse_args(); dev = a.device; tag = f"_s{a.seed}"
     print(f"device={dev} grid={a.grid} traj={a.traj} train_steps={a.train_steps} horizon={a.horizon} lam={a.lam}")
 
-    tr, sim = make_dataset(n_traj=a.traj, nsteps=40, grid=a.grid, seed=0)
+    tr, sim = make_dataset(n_traj=a.traj, nsteps=40, grid=a.grid, seed=a.seed)
     X, Y = pairs(tr)
     KX, KY, K2safe = wavenumbers(a.grid, 2 * np.pi, dev)
 
-    base = train("baseline", X, Y, KX, KY, K2safe, dev, a.train_steps, a.lam)
-    plana = train("plana", X, Y, KX, KY, K2safe, dev, a.train_steps, a.lam)
+    base = train("baseline", X, Y, KX, KY, K2safe, dev, a.train_steps, a.lam, a.seed)
+    plana = train("plana", X, Y, KX, KY, K2safe, dev, a.train_steps, a.lam, a.seed)
 
     # held-out test initial states + ground-truth long rollout
-    rng = np.random.default_rng(777)
+    rng = np.random.default_rng(777 + a.seed)
     s0 = np.stack([sim.random_state(rng) for _ in range(16)]).astype(np.float32)
     truth = np.stack([sim.rollout(s0[i], a.horizon) for i in range(len(s0))]).astype(np.float32)  # (16,H+1,3,n,n); f32 for MPS
     truth_t = torch.tensor(truth).to(dev)
@@ -115,7 +116,7 @@ def main():
     print(f"G2 Plan A accuracy <= baseline at long horizon: {g2}")
     print(f"\nMODULAR (predict+project) BEATS MONOLITH (soft penalty): {out['modular_beats_monolith']}")
     res = Path(__file__).resolve().parent / "results"; res.mkdir(exist_ok=True)
-    (res / "exp1_constraint.json").write_text(json.dumps(out, indent=1))
+    (res / f"exp1_constraint{tag}.json").write_text(json.dumps(out, indent=1))
 
     fig, ax = plt.subplots(1, 2, figsize=(13, 5)); t = np.arange(a.horizon + 1)
     ax[0].semilogy(t, db + 1e-12, color="navy", label="baseline (soft penalty)")
@@ -128,8 +129,8 @@ def main():
     ax[1].axvline(40, color="gray", ls=":", lw=0.8)
     ax[1].set_xlabel("rollout step"); ax[1].set_ylabel("field MSE vs ground truth")
     ax[1].legend(fontsize=8); ax[1].set_title("Accuracy over a long rollout (beyond the training horizon)")
-    fig.tight_layout(); fig.savefig(res / "exp1_constraint.png", dpi=140)
-    print(f"saved hailmary/results/exp1_constraint.json + .png")
+    fig.tight_layout(); fig.savefig(res / f"exp1_constraint{tag}.png", dpi=140)
+    print(f"saved hailmary/results/exp1_constraint{tag}.json + .png")
 
 
 if __name__ == "__main__":

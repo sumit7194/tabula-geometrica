@@ -92,3 +92,15 @@ accurate** — Plan A's premise confirmed on the canonical NR warm-up. Honest no
 (the headline is the constraint); single seed (multi-seed queued for robustness); this is the EASY half (vacuum
 div-free constraint) — real gauge freedom (potential formulation) and Plan B (residual stream) are the next rungs.
 Code: hailmary/{maxwell,modules,exp1_constraint}.py.
+
+### Experiment 1 robustness (3 seeds), 2026-06-20 — G1 robust, G2 NOT (the refinement)
+3-seed re-run (grid 32, 3000 steps). **G1 (constraint) ROBUST:** Plan A holds |div E| ~3.9e-6 every seed (vs
+baseline ~0.16-0.21) -- by construction, no seed dependence. **G2 (accuracy) NOT robust:** Plan A beats the
+baseline's field MSE in 2/3 seeds; on seed 1 Plan A's rollout DIVERGED (mse 2.5e-2 vs baseline 1.3e-3) even
+though the constraint stayed satisfied. **Refined verdict: the projection module robustly enforces the constraint
+but does NOT guarantee stability/accuracy** -- the predictor can still drift in the physical (divergence-free)
+directions, which projection doesn't touch. This confirms the doc's "honest catch" (error coupling): solving the
+constraint wall is necessary but not sufficient; the long-time STABILITY wall (wall 4) is separate and needs the
+recurrent-training / conservation tools, not projection. (The robustness rule did its job -- it caught a G2
+over-claim the single run would have hidden. The headline -- constraint by construction, ~5 orders, robust --
+stands.)

@@ -1,0 +1,14 @@
+{
+ "device": "mps",
+ "grid": 16,
+ "gauges": 4,
+ "seed": 0,
+ "baseline_test_mse": 7.569014072418213,
+ "plan_test_mse": 0.007224166300147772,
+ "ratio": 1047.7353035485426,
+ "baseline_curl_recovers_Bz": 7.785452365875244,
+ "plan_curl_recovers_Bz": 0.18296998739242554,
+ "G1_gauge_wall": true,
+ "G2_invariant_preserved": false,
+ "invariant_beats_gaugedependent": false
+}
