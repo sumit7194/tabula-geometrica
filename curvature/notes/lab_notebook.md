@@ -3295,3 +3295,13 @@ is the magnitude gap.
 is the principled next one-knob test (requires parameterizing GRID_N, currently hardcoded in script 19). Modes
 are saturated -- do NOT increase them further. Phase-F-with-FNO status: P0 (architecture wall broken) + F2 + F3
 + F4 PASS; F1 4x better than the CNN (0.058 -> 0.015) but the absolute 1e-3 gate awaits the resolution test.
+
+## 2026-06-20 (running, autonomous) — FNO GRID-RESOLUTION sweep on the L4 (next knob for F1)
+
+Launched on alphaludo-l4 while the user is on the bridge project: grid {64, 96} with modes=grid//2 (full Nyquist
+band) x seeds {0,1,2}, 12k steps (run_fno_grid_sweep.sh). Pre-registration in the script header. Hypothesis:
+since F1 saturated at the 48-grid Nyquist limit (modes sweep), a finer grid resolves the sharp near-mass field
+MAGNITUDE and drops F1 toward the 1e-3 gate (floor 1.2e-4); baseline grid=48 modes=24 F1 ~0.0150. Results to be
+documented when the 6 arms finish (~4h). If F1 still ~0.015 at grid 96, the gap is not resolution either ->
+the field-magnitude limit is intrinsic to trajectory-only supervision (honest null, next would be a
+field-magnitude-aware probe), and we bank the FNO architecture win (P0/F2/F3/F4) as the Phase F result.
