@@ -1,0 +1,13 @@
+{
+ "device": "mps",
+ "horizon": 120,
+ "lam": 1.0,
+ "baseline_divE_final": 0.13213036954402924,
+ "plana_divE_final": 3.885477781295776e-06,
+ "plana_divE_max": 4.280358552932739e-06,
+ "baseline_mse_final": 0.0011825298424810171,
+ "plana_mse_final": 0.0009683980024419725,
+ "G1_constraint_held": true,
+ "G2_accuracy": true,
+ "modular_beats_monolith": true
+}

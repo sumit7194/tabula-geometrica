@@ -79,3 +79,16 @@ robustness result.
   on a toy — independent of ever touching a real merger.
 - This is the negative-space/representation thesis of tabula, pointed at dynamics. Research prior art FIRST on
   each new rung (see memory: research-first-habit).
+
+## Results log
+
+### Experiment 1 — Maxwell constraint (DOSnet pipeline vs monolith), 2026-06-20 ✅
+First real run (grid 32, vacuum, 4000 train steps, 120-step rollout, MPS). Same predictor/data/budget; only the
+loss + rollout differ. **G1 ✓** baseline |div E| drifts to 0.13 while Plan A (predict+project) holds 3.9e-6
+(~34,000x, by construction). **G2 ✓** Plan A field MSE 9.7e-4 vs baseline 1.18e-3 (better even past the training
+horizon). Reproduced at tiny scale too (grid 16 / 60 steps: 0.23 vs 1e-6, MSE 0.0136 vs 0.0062). **Verdict: the
+modular predict-then-project pipeline beats the soft-penalty monolith on the constraint by ~5 orders AND is more
+accurate** — Plan A's premise confirmed on the canonical NR warm-up. Honest notes: the accuracy margin is modest
+(the headline is the constraint); single seed (multi-seed queued for robustness); this is the EASY half (vacuum
+div-free constraint) — real gauge freedom (potential formulation) and Plan B (residual stream) are the next rungs.
+Code: hailmary/{maxwell,modules,exp1_constraint}.py.
