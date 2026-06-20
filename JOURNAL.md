@@ -1,3 +1,19 @@
+## 2026-06-20 (cont.) — HAIL MARY Phase 2: Choptuik scalar collapse (verified solver + learning v1/v2)
+
+Built + VERIFIED a ground-truth Choptuik collapse solver (polar-areal Einstein-massless-Klein-Gordon; geometry
+slaved to the Hamiltonian constraint): subcritical disperses, supercritical forms an apparent horizon with lapse
+collapse -- correct critical-collapse physics. Then two learning attempts, both honest:
+- v1 (pure (Phi,Pi) emulator): FAILS criticality -- collapses every amplitude (class_acc 0.67). The first run
+  looked like a pass (peak-2m/r r=0.94) but the north-star ground-truth check exposed it as a degenerate
+  all-supercritical amplitude range; with amplitudes spanning the transition, the emulator collapses everything.
+- v2 (hybrid: coarse physics + neural corrector): the CONSTRAINT-RESPECTING PHYSICS alone cracks criticality
+  (acc 1.00, incl near-critical), the 1-step neural corrector DEGRADES it (0.80). Value is in the physics.
+Phase-2 conclusion: on the merger's hardest analogue, the modular recipe's win is the constraint-enforcement
+(the geometry/constraint solve), NOT the learned dynamics (fragile, no value here). This bounds the hail_mary
+honestly and reinforces the project's deepest lesson -- structure-by-construction is the robust, transferable
+result; the learned part is the fragile, secondary piece. All verified, committed, pushed. The north star caught
+a false positive (v1) and kept every claim honest.
+
 ## 2026-06-20 (cont.) — HAIL MARY launched: neural-NR-as-ML, three walls mapped on the Maxwell testbed
 
 Reframed the black-hole-merger problem to ML and started attacking it our way (curvature/notes/hail_mary.md +

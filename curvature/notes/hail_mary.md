@@ -333,3 +333,20 @@ now on Choptuik criticality. **v2.1 (the fix-round, consistent with Phase 1): PU
 (through its own rollout, as Exp 3/6 did for the emulator) -- can proper training stop it degrading and let it add
 accuracy over the coarse physics? Open. Caveat: coarse-alone here uses down/up + fine-grid geometry re-solve each
 step (so the FINE Hamiltonian constraint solve is doing the criticality readout on a coarse-evolved field).
+
+## Phase 2 — conclusion (2026-06-20)
+The merger's hardest analogue (Choptuik scalar collapse) gave the project's deepest recurring lesson its sharpest
+demonstration:
+- Ground-truth solver VERIFIED (disperse vs horizon + lapse collapse).
+- v1 pure (Phi,Pi) emulator: FAILS criticality (collapses every amplitude, acc 0.67) -- caught only by stress-
+  testing the amplitude range (the first apparent r=0.94 "pass" was a degenerate all-supercritical artifact).
+- v2 hybrid: the CONSTRAINT-RESPECTING PHYSICS (even coarse) cracks criticality (acc 1.00); the neural corrector
+  (1-step) DEGRADES it (0.80). The value is in the physics, not the net.
+**Conclusion: on genuinely hard (critical, high-frequency) GR, the modular recipe's WIN is the constraint-
+enforcement (the physics/geometry solve), NOT the learned dynamics -- which are fragile (rollout drift) and add
+no value here.** This honestly BOUNDS the hail_mary: enforce-structure-by-construction is the robust, transferable
+result (validated Maxwell -> charged -> scale -> and now the constraint-solve cracks Choptuik criticality); the
+learned-dynamics half does not crack criticality. Open (expensive, likely low ceiling): v2.1 push-forward
+corrector -- can proper training make the net at least not degrade, maybe add accuracy over the physics? The
+physics already classifies perfectly, so the net beating it is unlikely. The honest, transferable takeaway:
+structure-by-construction is what ports back to the merger; the net is the fragile, secondary piece.
