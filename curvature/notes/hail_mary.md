@@ -296,3 +296,20 @@ convergence study is the NR gold standard and is deferred; for ground-truth-for-
 reproduction suffices. **NEXT (the learning step): the modular recipe -- a predictor for (Phi,Pi) + the constraint
 "projection" = re-solving the geometry from the field (here the projection literally IS the Einstein constraint),
 push-forward trained, vs a soft-PINN baseline -- gated near criticality (where the Nov-2025 PINN paper struggled).
+
+### Phase 2 learning v1 — learned collapse emulator: HONEST NEGATIVE (the transition is not learned), 2026-06-20
+Push-forward predictor for (Phi,Pi); geometry re-solved at rollout (constraint by construction) for the 2m/r
+diagnostic. **The first full run LOOKED like a pass (push-forward peak-2m/r Pearson r=0.938) -- but the north-star
+ground-truth check KILLED it:** the test amplitudes (0.075-0.325) were ALL SUPERCRITICAL (critical amplitude ~0.05,
+diagnosed and resolution-robust: n=300 vs n=600 agree), so the "disperse->collapse trend" was never actually
+tested (every case collapses). The r=0.938 was a degenerate-range artifact.
+**Corrected run, amplitudes SPANNING the transition** (truth peak 2m/r: 0.10, 0.21 disperse | 0.72, 0.83, 0.73,
+0.85 collapse): **the emulator FAILS** -- push-forward predicts peak 2m/r ~0.96 for EVERY held-out amplitude
+(including disperse A=0.025/0.035), class_acc 0.67 (= majority class; both disperse cases misclassified),
+Pearson r 0.41. **Honest negative: a learned (Phi,Pi) emulator does NOT capture Choptuik criticality** -- the
+autoregressive rollout amplifies toward the collapse attractor and does not preserve small-amplitude DISPERSAL
+(the field must spread and 2m/r DECREASE, which it never learns). Consistent with the Nov-2025 PINN paper finding
+criticality hard. **The apparent pass was an artifact caught ONLY by stress-testing the amplitude range** -- the
+clearest demonstration yet of why the north star insists on the hard case. v2 directions: a constraint-aware /
+physics-hybrid step (not pure emulation), or directly attacking the autoregressive collapse-amplification; the
+pure emulator does not crack criticality. (Ground-truth solver itself remains verified + trustworthy.)

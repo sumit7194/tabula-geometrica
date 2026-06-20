@@ -106,6 +106,21 @@ class ScalarCollapse:
         a, _ = self.solve_metric(Phi, Pi)
         return float(np.max(1 - 1 / a ** 2))
 
+    def trajectory(self, A, t_end=12.0, r0=5.0, sig=1.0, stride=10, bh_thresh=0.9):
+        """ground-truth (Phi, Pi) snapshots + the 2m/r(t) curve, for training/testing a learned predictor.
+        Returns snaps (T,2,n), twomr (T,), collapsed (bool). Stops early if a horizon forms (lapse collapse)."""
+        Phi, Pi = self.initial_data(A, r0, sig); nsteps = int(t_end / self.dt)
+        snaps, twomr = [np.stack([Phi, Pi])], [self.max_2m_over_r(Phi, Pi)]; collapsed = False
+        for s in range(nsteps):
+            Phi, Pi = self.step(Phi, Pi)
+            if not np.isfinite(Phi).all():
+                break
+            if (s + 1) % stride == 0:
+                m = self.max_2m_over_r(Phi, Pi); snaps.append(np.stack([Phi, Pi])); twomr.append(m)
+                if m > bh_thresh:
+                    collapsed = True; break
+        return np.array(snaps, dtype=np.float32), np.array(twomr, dtype=np.float32), collapsed
+
     def evolve(self, A, t_end=25.0, r0=5.0, sig=1.0, bh_thresh=0.9):
         # NOTE: polar slicing is horizon-AVOIDING -- as a horizon forms, 2m/r -> 1 from below and the central
         # lapse alpha(0) COLLAPSES toward 0 (the evolution freezes). So black-hole formation = 2m/r -> ~1 AND
