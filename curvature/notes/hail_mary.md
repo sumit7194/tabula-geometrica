@@ -280,3 +280,19 @@ construction" theme -- here the projection/solve literally produces the geometry
    track the self-similar echoing better than the soft-PINN?
 Honest scoping: step 1 (correct, verified collapse ground truth) is itself a substantial build and the
 correctness-critical part -- do it carefully, verify disperse/collapse, before touching the net.
+
+### Phase 2 foundation — ground-truth scalar-collapse solver VERIFIED, 2026-06-20
+Built hailmary/collapse.py: spherical massless-scalar collapse in polar-areal coords (Choptuik). Geometry slaved
+to the field by the Hamiltonian constraint (a) + polar slicing (alpha), RE-SOLVED each RK4 substep; field (Phi,Pi)
+evolved by method-of-lines + RK4, cell-centered grid (parity ghosts at r=0), outgoing outer BC.
+**VERIFIED (the correctness gate -- the whole point of building it first):**
+  subcritical A=0.02 -> DISPERSES (peak 2m/r 0.06, central lapse 0.86)
+  supercritical A=0.40 -> COLLAPSES (peak 2m/r 0.978, central lapse -> 0.000)
+The supercritical lapse collapse (alpha(0)->0) is the horizon-avoiding behavior of polar slicing -- correct
+Choptuik physics (the slicing approaches but never penetrates the horizon), NOT a bug; that is also why 2m/r
+plateaus just below 1. Disperse-vs-collapse dichotomy unambiguous (0.06 vs 0.98). Honest caveat: verified
+QUALITATIVELY (the right correctness check for a testbed: dichotomy + lapse collapse) -- a full Richardson
+convergence study is the NR gold standard and is deferred; for ground-truth-for-learning the qualitative
+reproduction suffices. **NEXT (the learning step): the modular recipe -- a predictor for (Phi,Pi) + the constraint
+"projection" = re-solving the geometry from the field (here the projection literally IS the Einstein constraint),
+push-forward trained, vs a soft-PINN baseline -- gated near criticality (where the Nov-2025 PINN paper struggled).
