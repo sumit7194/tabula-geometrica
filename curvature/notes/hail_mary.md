@@ -313,3 +313,23 @@ criticality hard. **The apparent pass was an artifact caught ONLY by stress-test
 clearest demonstration yet of why the north star insists on the hard case. v2 directions: a constraint-aware /
 physics-hybrid step (not pure emulation), or directly attacking the autoregressive collapse-amplification; the
 pure emulator does not crack criticality. (Ground-truth solver itself remains verified + trustworthy.)
+
+### Phase 2 learning v2 — HYBRID (coarse physics + neural corrector): honest result, 2026-06-20
+v1 (pure emulator) failed criticality (collapses everything, acc 0.67). v2: coarse-grid physics carries the
+constraint/geometry, net corrects. Fine n=300, coarse n=100, amplitudes spanning the transition (truth: 0.10,
+0.21 disperse | 0.72,0.83,0.73,0.85 collapse):
+    v1 pure emulator:      class_acc 0.67                      (collapses everything)
+    coarse physics ALONE:  class_acc 1.00,  field MSE 2.49e-3  (classifies ALL, incl near-critical A=0.05)
+    hybrid (coarse + net): class_acc 0.80,  field MSE 5.20e-3  (the corrector DEGRADES the physics)
+**Key (precise) finding: the constraint-respecting PHYSICS DYNAMICS preserve the disperse/collapse structure and
+crack criticality (coarse-alone acc 1.00) where the learned emulator could not (0.67) -- a coarse physics field
+dispersed correctly, then the fine-grid constraint solve reads 2m/r right; the neural emulator's field amplified
+to collapse everywhere. The neural CORRECTOR (1-step) makes it WORSE (0.80, higher MSE) -- rollout drift, the same
+fragility as v1 (a 1-step net sees OOD states along its own rollout and pulls the good physics off-track).**
+Honest negative for the learned half: on the merger's hardest analogue, the value is entirely in the
+constraint-respecting physics; the net does not add value and degrades unless stabilized. This is the project's
+recurring lesson (structure-by-construction is the robust win; the learned part is the fragile, secondary piece),
+now on Choptuik criticality. **v2.1 (the fix-round, consistent with Phase 1): PUSH-FORWARD train the corrector**
+(through its own rollout, as Exp 3/6 did for the emulator) -- can proper training stop it degrading and let it add
+accuracy over the coarse physics? Open. Caveat: coarse-alone here uses down/up + fine-grid geometry re-solve each
+step (so the FINE Hamiltonian constraint solve is doing the criticality readout on a coarse-evolved field).
