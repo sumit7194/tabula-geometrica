@@ -1,3 +1,24 @@
+## 2026-06-21 — HAIL MARY Phase 2 v3: RIGOROUS re-examination of the learned-half negative (user challenge)
+
+The user pushed back, correctly: "could a bigger NN / better architecture / more training fix the negatives, or did
+we really try everything?" Under the north star the v1/v2 negatives were OVERSTATED (one modest config). So we ran
+the strongest untried levers, rigorously, and diagnosed the failure:
+- **exp10 — spectral architecture (1-D FNO) vs CNN:** both collapse everything (0.78 = always-collapse baseline);
+  a spectral net does NOT crack criticality in the autoregressive-emulator framing.
+- **exp11 — mechanism:** the FNO can't even reproduce ONE disperse trajectory it overfit (rollout -> 2m/r 0.999,
+  truth 0.06; field MSE tiny -- the stiff geometry readout amplifies accumulated errors). CNN fails too (-> 0.63,
+  then -inf). Not architecture, not capacity, not data, not criticality.
+- **exp12 — the decisive test:** on balanced varied-profile data, a GLOBAL one-shot net (no rollout) scores 0.99
+  while the autoregressive emulator scores 0.50 (chance). Same data/info/arch-family -- the ROLLOUT is the wall.
+- **exp4b — Plan B proper (Coconut) recipe, 6 seeds:** the residual-stream hand-off diverges on ~1/3 of seeds
+  (either recipe); clean (Plan A) never diverges. The bootstrap does not unlock it.
+- **Literature (research-first):** the one published NN-Choptuik success (arXiv:2511.15247, w/ M. Choptuik) is a
+  PINN -- a GLOBAL solve, physics-in-loss, no rollout -- sidestepping exactly this wall. It wins by building the
+  physics in: our own structure-by-construction thesis.
+**Net effect:** the negative is now SCOPED + DIAGNOSED, not vague. The learned autoregressive emulator fails for an
+understood reason; the approach that works is the structure-by-construction principle the project already champions.
+The user's challenge made the result stronger and more honest. Docs scope-corrected (hail_mary.md), committed, pushed.
+
 ## 2026-06-20 (cont.) — HAIL MARY Phase 2: Choptuik scalar collapse (verified solver + learning v1/v2)
 
 Built + VERIFIED a ground-truth Choptuik collapse solver (polar-areal Einstein-massless-Klein-Gordon; geometry

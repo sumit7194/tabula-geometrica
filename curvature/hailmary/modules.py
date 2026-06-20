@@ -56,6 +56,41 @@ class SpectralConv2d(nn.Module):
         return torch.fft.irfft2(out, s=(H, W))
 
 
+class SpectralConv1d(nn.Module):
+    """1-D global-receptive-field layer (keep low Fourier modes, learned complex channel mix)."""
+
+    def __init__(self, cin, cout, modes):
+        super().__init__()
+        self.modes = modes; scale = 1.0 / (cin * cout)
+        self.w = nn.Parameter(scale * torch.randn(cin, cout, modes, dtype=torch.cfloat))
+
+    def forward(self, x):
+        B, C, N = x.shape; m = self.modes
+        xf = torch.fft.rfft(x)
+        out = torch.zeros(B, self.w.shape[1], xf.shape[-1], dtype=torch.cfloat, device=x.device)
+        out[..., :m] = torch.einsum("bix,iox->box", xf[..., :m], self.w)
+        return torch.fft.irfft(out, n=N)
+
+
+class FNO1d(nn.Module):
+    """1-D Fourier Neural Operator cin->cout (global operator; the Phase-F fix for high-freq/long-range)."""
+
+    def __init__(self, cin=2, cout=2, width=64, modes=32, depth=4, residual=True):
+        super().__init__()
+        self.residual = residual
+        self.lift = nn.Conv1d(cin, width, 1)
+        self.spec = nn.ModuleList([SpectralConv1d(width, width, modes) for _ in range(depth)])
+        self.point = nn.ModuleList([nn.Conv1d(width, width, 1) for _ in range(depth)])
+        self.proj = nn.Sequential(nn.Conv1d(width, width, 1), nn.GELU(), nn.Conv1d(width, cout, 1))
+
+    def forward(self, s):
+        x = self.lift(s)
+        for sp, p in zip(self.spec, self.point):
+            x = nn.functional.gelu(sp(x) + p(x))
+        out = self.proj(x)
+        return s + out if self.residual else out
+
+
 class FNO2d(nn.Module):
     """global operator cin->cout (the fix for non-local maps like inverse-curl / 1-over-k^2; Phase F's lesson)."""
 

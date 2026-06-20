@@ -485,6 +485,26 @@ results in `curvature/notes/lab_notebook.md`.
   B=architecture bets (FNO for Phase F long-range, orthogonal-F Wong v3, larger G-sym),
   C=do-not-scale (the certificates/gauge/function-class walls are the result). Meta:
   bigger is often WORSE for a discovery project (minimality IS the result).
+- **HAIL MARY (long-shot/hobby track, curvature/hailmary/ + notes/hail_mary.md):
+  neural numerical relativity reframed as ML.** Phase 1 (Maxwell testbed): the
+  modular recipe -- decompose + enforce the constraint/gauge BY CONSTRUCTION
+  (Leray projection) + push-forward for stability -- is robust (charged, scale,
+  8 seeds); the learned-dynamics half has bounded autoregressive error. Phase 2
+  (verified Choptuik collapse solver, collapse.py): the constraint-respecting
+  PHYSICS cracks criticality; the learned autoregressive emulator does NOT.
+  **v3 rigorous re-examination (2026-06-21, user challenge "did we try
+  everything?"):** the learned-half negative is now SCOPED + DIAGNOSED, not
+  overstated. exp10 a spectral FNO collapses everything too (== CNN); exp11 even
+  OVERFITTING one disperse trajectory fails (rollout -> 2m/r 0.999 via the stiff
+  geometry readout) -- not arch/capacity/data; exp12 DECISIVE: a GLOBAL one-shot
+  net scores 0.99 where the autoregressive emulator scores 0.50 (chance) on
+  identical balanced data -- **the AUTOREGRESSIVE ROLLOUT is the wall**; exp4b
+  the residual-stream (Plan B) diverges ~1/3 of seeds (6 seeds, either recipe),
+  clean (Plan A) never. Literature (arXiv:2511.15247, w/ M. Choptuik): the
+  published NN-Choptuik win is a PINN (global solve, physics-in-loss, no rollout)
+  -- sidesteps this wall, wins by building physics in = OUR structure-by-
+  construction thesis. Untried lever the literature validates = a global PINN
+  solve (different paradigm; re-confirms the thesis). Pivot freely; nothing waits.
 - Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
   Phase H rows (equivalence-breaking gravity); a G-sym legibility-preserving
   variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit

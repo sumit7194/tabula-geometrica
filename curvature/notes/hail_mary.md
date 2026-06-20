@@ -363,3 +363,77 @@ Choptuik criticality; the physics alone (acc 1.00) is best, the net is superfluo
 bounds the hail_mary -- structure-by-construction (the constraint/geometry solve) is the entire win on hard
 critical physics; the learned-dynamics half adds no value and the Phase-1 stabilization does not change that.
 The transferable result is firm: port back the constraint-by-construction principle, not a learned solver.
+
+## Phase 2 — v3 RIGOROUS RE-EXAMINATION of the learned-half negative (2026-06-20)
+**Why:** the user challenged the negative ("could a bigger NN / better architecture / more training fix it? did we
+really try everything?"). Correct challenge under the north star: the v1/v2 negatives tested ONE modest config, so
+"the learned half fails criticality" was OVERSTATED -- honest only for THAT config, not a general claim. So we ran
+the strongest untried levers, and (research-first) re-checked the literature: the published NN success on Choptuik
+is Ferrer-Sanchez et al., arXiv:2511.15247 (with M. Choptuik) -- a **PINN** (a GLOBAL spacetime solve, physics in
+the loss + adaptive sampling), which never rolls out step-by-step. That reframes the question: is our wall the
+ARCHITECTURE, or the AUTOREGRESSIVE EMULATOR FORMULATION?
+
+### exp10 -- spectral architecture (1-D FNO) vs local CNN, collapse criticality
+Phase F showed spectral nets crack high-frequency/long-range structure a local CNN cannot, so the FNO was the
+single most likely lever. CNN vs 1-D FNO (width 64, modes 48), 6000 steps, push-forward, 3 seeds, dense amplitudes
+spanning the transition (n=300, t_end=10). **Result: BOTH collapse everything.** Every held-out amplitude predicted
+peak 2m/r > 0.9 (incl. the dispersing ones); FNO 0.78 == CNN 0.78 == the always-collapse baseline (the held-out set
+was 2-disperse / 7-collapse, so 0.78 = majority rate; neither arch ever predicts disperse). **A spectral
+architecture does NOT crack criticality in the autoregressive emulator framing.** (exp10_collapse_fno.{py,json,png})
+
+### exp11 -- MECHANISM diagnostic (why it fails)
+- **D1 overfit-ONE-disperse: FALSE (the key result).** An FNO trained 8000 steps on a SINGLE disperse trajectory
+  (A=0.03, truth peak 2m/r ~0.06), then rolled out, drives peak 2m/r to **0.999** -- full spurious collapse on the
+  very trajectory it overfit. Field MSE is SMALL (3.7e-3): the field rollout is roughly right, but the **stiff
+  nonlinear geometry readout (2m/r) amplifies tiny accumulated errors into "collapse."** So the wall is NOT
+  capacity, NOT data, NOT criticality -- it is the autoregressive rollout + the hypersensitive constraint diagnostic.
+- **D2 disperse-only -> held-out disperse: net concentrates, truth spreads = TRUE.** It tracks the early implosion
+  (both peak ~0.17), then as rollout error accumulates it spuriously RE-concentrates (climbs to 0.20) while the
+  truth disperses (0.04). The divergence is in the LATE rollout. (exp11_diagnose_fno.{json,png})
+
+### exp4b -- Plan B done PROPERLY (the Coconut recipe we had skipped)
+Exp 4 trained the wide-stream net end-to-end FROM SCRATCH -- NOT the latent-communication recipe. exp4b runs the
+real one: pretrain a clean narrow-interface (b=3) pipeline, then WIDEN to a b=32 latent stream (init preserves the
+function exactly -- stage2 ignores the new channels at init), then fine-tune JOINTLY. Fair: every arm sees the same
+total budget; clean_wide is the capacity control. **Result did NOT unlock the stream, robustly (6 seeds):** BOTH
+the proper recipe AND from-scratch DIVERGE on ~1/3 of seeds (proper blows up on seeds 2,3 -> 1.52; from-scratch on
+seeds 4,5 -> ~1.55), while clean and clean_wide NEVER diverge. Means: clean 6.4e-3, clean_wide 2.3e-2,
+stream_scratch 0.52, stream_proper 0.51. **The wide residual-stream hand-off is fundamentally unstable regardless
+of the training recipe; the Coconut bootstrap did not fix it. The clean hand-off (Plan A) is the robust choice.**
+(exp4b_residual_stream_proper.{py,json,png}, exp4b_6seed.log)
+
+### exp12 -- the DECISIVE mechanism test: global one-shot vs autoregressive rollout (balanced data)
+On a BALANCED, varied-profile dataset (vary A, r0, sig so collapse is a nontrivial function of the profile; held-out
+50% collapse, majority-rate 0.50): a GLOBAL net that maps initial (Phi0,Pi0) -> peak 2m/r DIRECTLY (no rollout)
+vs the exp10 autoregressive FNO emulator on the SAME data. **GLOBAL 0.99 vs AUTOREGRESSIVE 0.50 (= chance).**
+W1 ✓ (global >= 0.9 and beats autoregressive by >= 0.2), W2 ✓ (global beats majority by >= 0.2). **Same data, same
+information, same architecture family -- the ONLY difference is whether you roll out. The disperse/collapse outcome
+is fully learnable ONE-SHOT (0.99); the autoregressive rollout destroys it (0.50). The rollout IS the wall.**
+(exp12_global_vs_autoregressive.{py,json,png})
+
+### exp11 CNN -- not FNO-specific
+The CNN emulator ALSO fails D1 (overfit-one-disperse: rollout drives 2m/r to 0.63, truth 0.15) and D2 (numerically
+blows up to -inf on the held-out disperse). Both the local CNN and the spectral FNO fail to reproduce dispersal
+autoregressively -- the wall is the formulation, not the architecture. (exp11_diagnose_cnn.{json,png})
+
+## Phase 2 — v3 CONCLUSION: the learned-half negative is now SCOPED and DIAGNOSED (2026-06-20)
+The user's challenge ("did we try everything?") was right, and the rigorous follow-up makes the result STRONGER and
+more honest than the original "the learned half fails criticality":
+- **It is NOT architecture** (local CNN and spectral FNO both fail identically), **NOT capacity** (neither can even
+  reproduce ONE disperse trajectory it overfit), **NOT data**, **NOT criticality-as-such** (the disperse/collapse
+  outcome is learnable ONE-SHOT at 0.99, exp12).
+- **The wall is the AUTOREGRESSIVE ROLLOUT + the stiff constraint readout:** tiny per-step field errors compound,
+  and the hypersensitive geometry functional (2m/r) amplifies them into spurious collapse (exp11 D1/D2; exp12
+  global 0.99 vs autoregressive 0.50 on identical data).
+- **This is CONSISTENT WITH, AND PREDICTED BY, the literature:** the published NN-Choptuik success (arXiv:2511.15247,
+  with M. Choptuik) is a PINN -- a GLOBAL spacetime solve with physics in the loss + adaptive sampling, which never
+  rolls out and so sidesteps exactly this wall, winning by building the physics in.
+- **The residual-stream hand-off (Plan B) is robustly unstable** (~1/3 of seeds diverge, either recipe); the clean
+  by-construction hand-off (Plan A) is robust.
+**Scoped verdict (replaces the earlier overstatement):** we did NOT show "nets can't do Choptuik" -- we showed the
+LEARNED AUTOREGRESSIVE EMULATOR fails for a DIAGNOSED reason (rollout amplification through a stiff constraint),
+across architectures, capacities, and the proper residual-stream recipe; and the approach that DOES work
+(global/PINN, physics-in-the-loss) is the SAME structure-by-construction principle this project champions. The
+untried lever that the literature validates -- a global PINN-style solve -- is a different paradigm we did not
+build (it re-confirms our own thesis rather than challenging it). **Net effect: the structure-by-construction
+conclusion is unchanged and now rests on a mechanism + the literature, not a single config.**
