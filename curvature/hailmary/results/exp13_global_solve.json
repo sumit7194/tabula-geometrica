@@ -1,0 +1,47 @@
+{
+ "T": 90,
+ "test_class": [
+  true,
+  false,
+  true,
+  false,
+  true,
+  false,
+  false,
+  true,
+  false,
+  true,
+  true,
+  true,
+  true,
+  false,
+  false,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  false,
+  false,
+  true
+ ],
+ "global": {
+  "rel_mse": [
+   0.3083025813102722,
+   0.3083411157131195,
+   0.3084559738636017
+  ],
+  "mean_rel_mse": 0.3083665569623311,
+  "accs": [
+   0.375,
+   0.375,
+   0.375
+  ],
+  "mean_acc": 0.375
+ },
+ "autoregressive_curve_rel_mse": 1.7700197369437871,
+ "C1_global_captures_dynamics": false,
+ "C2_beats_autoregressive_on_curve": false,
+ "global_solve_works": false
+}

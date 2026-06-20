@@ -12,6 +12,10 @@ the strongest untried levers, rigorously, and diagnosed the failure:
   while the autoregressive emulator scores 0.50 (chance). Same data/info/arch-family -- the ROLLOUT is the wall.
 - **exp4b — Plan B proper (Coconut) recipe, 6 seeds:** the residual-stream hand-off diverges on ~1/3 of seeds
   (either recipe); clean (Plan A) never diverges. The bootstrap does not unlock it.
+- **exp13 — constructive cap (global predicts the full 2m/r(t) curve): honest PARTIAL.** Seed 0 nails the dynamics
+  (rel-MSE 0.047, acc 1.00 = existence proof) but it is seed-fragile; the one fix round (target standardization)
+  backfired (all seeds -> mean predictor). Lesson: predict the discriminative quantity DIRECTLY -> robust (exp12,
+  0.99); ask for the whole curve -> fragile. The robust in-repo constructive positive is exp12, not exp13.
 - **Literature (research-first):** the one published NN-Choptuik success (arXiv:2511.15247, w/ M. Choptuik) is a
   PINN -- a GLOBAL solve, physics-in-loss, no rollout -- sidestepping exactly this wall. It wins by building the
   physics in: our own structure-by-construction thesis.

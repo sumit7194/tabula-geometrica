@@ -416,6 +416,20 @@ The CNN emulator ALSO fails D1 (overfit-one-disperse: rollout drives 2m/r to 0.6
 blows up to -inf on the held-out disperse). Both the local CNN and the spectral FNO fail to reproduce dispersal
 autoregressively -- the wall is the formulation, not the architecture. (exp11_diagnose_cnn.{json,png})
 
+### exp13 -- constructive cap (global predicts the FULL 2m/r(t) curve): honest PARTIAL
+Tried to elevate exp12's robust OUTCOME result (0.99) to the full DYNAMICS: a global net mapping initial data ->
+the whole 2m/r(t) curve (one shot, no rollout). **v1 (3 seeds): seed-fragile.** Seed 0 nails it (curve rel-MSE
+0.047, class_acc 1.00 -- an EXISTENCE PROOF that a global net CAN reproduce the criticality dynamics), but seeds
+1,2 collapse to predicting the MEAN curve (rel-MSE ~0.35, acc 0.50). **Fix round (target standardization + 2x
+data): BACKFIRED** -- standardizing per-time-step equalized the loss weights, removing the strong gradient from the
+high-amplitude collapse cases that let seed 0 escape; ALL seeds then locked to the mean predictor (acc 0.38 = the
+disperse fraction). **One fix round spent; verdict = honest partial.** The clean lesson (consistent with the whole
+arc): the discriminative signal (the peak) is a small fraction of the full-curve loss, so a generic curve-net
+collapses to the mean -- **predict the discriminative quantity DIRECTLY and it is robust (exp12, the outcome/peak,
+0.99); ask for the whole curve and it is fragile.** The robust constructive positive is exp12, not exp13; the full
+robust dynamics solve is the literature's PINN paradigm (global + physics-in-loss). (exp13_global_solve.{py,json,png},
+exp13.log = v1, exp13_fix.log = fix round)
+
 ## Phase 2 — v3 CONCLUSION: the learned-half negative is now SCOPED and DIAGNOSED (2026-06-20)
 The user's challenge ("did we try everything?") was right, and the rigorous follow-up makes the result STRONGER and
 more honest than the original "the learned half fails criticality":
@@ -430,6 +444,11 @@ more honest than the original "the learned half fails criticality":
   rolls out and so sidesteps exactly this wall, winning by building the physics in.
 - **The residual-stream hand-off (Plan B) is robustly unstable** (~1/3 of seeds diverge, either recipe); the clean
   by-construction hand-off (Plan A) is robust.
+- **Constructive positive (what DOES work, in-repo): predict the discriminative quantity directly.** exp12 (the
+  disperse/collapse outcome, one-shot) is robust (0.99, 3/3 seeds). The attempt to extend this to the FULL 2m/r(t)
+  curve (exp13) is only an existence proof (1 seed nails it, rel-MSE 0.047) and is seed-fragile -- the discriminative
+  peak is a small fraction of the curve loss, so a generic curve-net collapses to the mean. Robust global dynamics =
+  the literature's PINN paradigm; our in-repo robust positive is the direct-observable one-shot map (exp12).
 **Scoped verdict (replaces the earlier overstatement):** we did NOT show "nets can't do Choptuik" -- we showed the
 LEARNED AUTOREGRESSIVE EMULATOR fails for a DIAGNOSED reason (rollout amplification through a stiff constraint),
 across architectures, capacities, and the proper residual-stream recipe; and the approach that DOES work
