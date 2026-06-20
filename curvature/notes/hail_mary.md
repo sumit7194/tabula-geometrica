@@ -350,3 +350,16 @@ learned-dynamics half does not crack criticality. Open (expensive, likely low ce
 corrector -- can proper training make the net at least not degrade, maybe add accuracy over the physics? The
 physics already classifies perfectly, so the net beating it is unlikely. The honest, transferable takeaway:
 structure-by-construction is what ports back to the merger; the net is the fragile, secondary piece.
+
+### Phase 2 learning v2.1 — push-forward corrector (the fix-round): does NOT rescue it, 2026-06-20
+Push-forward-trained the corrector (roll net+coarse_physics j steps no-grad, backprop 1; B=8, 1500 steps, CPU) --
+the Phase-1 stability fix that rescued the emulator (Exp 3/6). Result: hybrid class_acc 0.50, field MSE 3.65e-3 --
+STILL worse than coarse-physics-alone (1.00, 2.49e-3) and no better than the 1-step corrector (0.80). **Push-
+forward does NOT rescue the corrector.** Why (vs Phase 1): there push-forward fixed the emulator's rollout-
+distribution drift; here the corrector sits on an ALREADY-CORRECT physics backbone, so the net has nothing useful
+to add -- any correction (1-step or push-forward) only injects error and degrades the near-optimal physics.
+**v2 CLOSED (one fix-round spent): the neural corrector does not beat the constraint-respecting physics on
+Choptuik criticality; the physics alone (acc 1.00) is best, the net is superfluous-to-harmful.** This DEFINITIVELY
+bounds the hail_mary -- structure-by-construction (the constraint/geometry solve) is the entire win on hard
+critical physics; the learned-dynamics half adds no value and the Phase-1 stabilization does not change that.
+The transferable result is firm: port back the constraint-by-construction principle, not a learned solver.

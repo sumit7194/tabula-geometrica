@@ -55,6 +55,7 @@ def main():
     ap.add_argument("--nf", type=int, default=300); ap.add_argument("--nc", type=int, default=100)
     ap.add_argument("--t-end", type=float, default=10.0); ap.add_argument("--stride", type=int, default=8)
     ap.add_argument("--steps", type=int, default=3000); ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--pf", action="store_true")   # v2.1: push-forward corrector training (roll the net+physics, backprop 1 step)
     a = ap.parse_args(); dev = a.device
     fine = ScalarCollapse(n=a.nf, R=20.0, cfl=0.2); coarse = ScalarCollapse(n=a.nc, R=20.0, cfl=0.2)
     res = Path(__file__).resolve().parent / "results"; res.mkdir(exist_ok=True)
@@ -92,10 +93,26 @@ def main():
 
     torch.manual_seed(a.seed); net = Corrector().to(dev); opt = torch.optim.Adam(net.parameters(), lr=1e-3)
     rng = np.random.default_rng(a.seed)
-    for st in range(a.steps):
-        idx = rng.integers(0, len(Xs), 64)
-        loss = nn.functional.mse_loss(net(X[idx], C[idx]), Y[idx])
-        opt.zero_grad(); loss.backward(); torch.nn.utils.clip_grad_norm_(net.parameters(), 1.0); opt.step()
+    if a.pf:                                              # v2.1: push-forward -- roll net+coarse_physics j steps no-grad, backprop 1
+        K, B = 4, 8
+        for st in range(a.steps):
+            opt.zero_grad(); total = 0.0
+            for _ in range(B):
+                i = int(rng.integers(0, len(train_amps))); j = int(rng.integers(0, K)); t0 = int(rng.integers(0, T - j - 1))
+                st_ = tr[i, t0].copy()
+                for _ in range(j):
+                    cp = coarse_step(st_)
+                    with torch.no_grad():
+                        st_ = net(torch.tensor(st_[None]).to(dev), torch.tensor(cp[None]).to(dev))[0].cpu().numpy()
+                cp = coarse_step(st_)
+                pred = net(torch.tensor(st_[None]).to(dev), torch.tensor(cp[None]).to(dev))
+                total = total + nn.functional.mse_loss(pred, torch.tensor(tr[i, t0 + j + 1][None]).to(dev))
+            (total / B).backward(); torch.nn.utils.clip_grad_norm_(net.parameters(), 1.0); opt.step()
+    else:
+        for st in range(a.steps):
+            idx = rng.integers(0, len(Xs), 64)
+            loss = nn.functional.mse_loss(net(X[idx], C[idx]), Y[idx])
+            opt.zero_grad(); loss.backward(); torch.nn.utils.clip_grad_norm_(net.parameters(), 1.0); opt.step()
     net.eval()
 
     # rollouts on held-out amplitudes
@@ -129,7 +146,7 @@ def main():
     print(f"\nH1 hybrid recovers criticality (acc {out['hybrid']['class_acc']:.2f} == 1.0, beats coarse {out['coarse']['class_acc']:.2f} and v1 0.67): {h1}")
     print(f"H2 hybrid field MSE {out['hybrid']['mse']:.2e} < coarse {out['coarse']['mse']:.2e}: {h2}")
     print(f"\nHYBRID (coarse physics + neural corrector) CRACKS CRITICALITY where pure emulation failed: {out['hybrid_works']}")
-    (res / "exp9_hybrid.json").write_text(json.dumps(out, indent=1))
+    (res / f"exp9_hybrid{'_pf' if a.pf else ''}.json").write_text(json.dumps(out, indent=1))
 
     fig, ax = plt.subplots(figsize=(7.5, 5))
     ax.axhline(0.5, color="gray", ls=":", lw=0.8, label="disperse/collapse threshold")
@@ -138,7 +155,7 @@ def main():
     ax.plot(test_amps, out["coarse"]["peaks"], "navy", marker="^", ls="--", label=f"coarse-alone (acc {out['coarse']['class_acc']:.2f})")
     ax.set_xlabel("pulse amplitude A (held-out)"); ax.set_ylabel("peak 2m/r")
     ax.legend(fontsize=8); ax.set_title("v2 hybrid: coarse physics carries the constraint, net corrects criticality\n(pure emulator v1 collapsed everything: acc 0.67)")
-    fig.tight_layout(); fig.savefig(res / "exp9_hybrid.png", dpi=140)
+    fig.tight_layout(); fig.savefig(res / f"exp9_hybrid{'_pf' if a.pf else ''}.png", dpi=140)
     print("saved hailmary/results/exp9_hybrid.json + .png")
 
 
