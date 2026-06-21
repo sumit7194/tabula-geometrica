@@ -410,12 +410,28 @@ results in `curvature/notes/lab_notebook.md`.
   violation); the FRICTION BOUNDARY (universal yet not geometry — breaks time-
   reversal). **Crystallized: a force geometrizes ⟺ UNIVERSAL ∧ CONSERVATIVE**
   (zoo gives condition 1, friction isolates condition 2; sits atop unification 55).
-- **IMPOSSIBILITY-CERTIFICATE QUARTET (2026-06-17/19, scripts 84-87):** a new KIND
+- **IMPOSSIBILITY-CERTIFICATE QUINTET (2026-06-17/22, scripts 84-87, 101):** a new KIND
   of result — a net's FAILURE to find a cheap explanation, gated against a theorem,
   as a positive certificate. Bell/no-local-code (84, wall at 1/√2), chaos/no-invariant
   (85, Lorenz constancy 0.45 vs Kepler 0.00), gauge/no-unique-law (86, equivalence
   class + 1508× gauge split), KCBS/contextuality (87, wall at 2/√5). The negative
   space of the legibility law. Writeup: writeups/impossibility_certificates.md.
+- **CERTIFICATE V — NO OBSERVER-INDEPENDENT TIME (2026-06-22, script 101):** the
+  deepest face of the "no fixed reference" wall (the map's recurring villain under 4
+  masks: problem of time / background independence / complementarity / dS observables),
+  for the case of TIME. Page-Wootters universe (web-verified Page-Wootters 1983 +
+  Trinity arXiv:1912.00033): history state |Ψ⟩=(1/√T)Σ_t|t⟩U_S^t|ψ0⟩, an exact
+  constraint fixed point. **C1 ✓** no global time (||G|Ψ⟩-|Ψ⟩||=3e-15 timeless; system
+  marginal frozen [ρ_S,H_S]=1e-16 — no clock ⇒ no dynamics); **C2 ✓** relational time
+  exists (condition on the clock → learner recovers the propagator, overlap 1.0000);
+  **C3 ✓** time is GAUGE (a non-uniform second clock reads the same frozen state →
+  identical history, different inferred law: var A 3e-32 autonomous vs B 0.24
+  non-autonomous; no preferred clock, the clock-ambiguity theorem). 5/5 seeds. Honest:
+  exact-by-construction structural certificate (like the 84/87 theorem walls), not an
+  empirical fit; non-relativistic regime; Kuchař relativistic subtleties out of scope.
+  Also the honest answer to "is time a field/emergent" (= Page-Wootters relational
+  time). Came out of the emergent-spacetime physics-discussion arc (the map's central
+  wall, made a positive result).
 - **CURVATURE ATLAS (2026-06-19, scripts 88-90):** curvature/holonomy/topology as the
   universal signature of "the cheapest shared description," beyond gravity. Finance
   (88, no-arbitrage = flat connection, arbitrage = holonomy, numéraire = gauge, 3/3);

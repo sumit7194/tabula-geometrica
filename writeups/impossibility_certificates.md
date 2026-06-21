@@ -1,10 +1,11 @@
-# Four impossibility certificates a discovery net can issue
+# Five impossibility certificates a discovery net can issue
 
 *The negative space of the legibility law. Every other result in this project uses a net's **success** at
-finding the cheapest explanation as the signal. These four use its **failure** — and turn that failure into
-a gated, positive, falsifiable certificate.*
+finding the cheapest explanation as the signal. These five use its **failure** (or, for V, a provable
+structural obstruction) — and turn it into a gated, positive, falsifiable certificate.*
 
-> Scripts: `curvature/scripts/84_bell_nolocal.py`, `85_nolaw_chaos.py`, `86_gauge_nounique.py`.
+> Scripts: `curvature/scripts/84_bell_nolocal.py`, `85_nolaw_chaos.py`, `86_gauge_nounique.py`,
+> `87_contextuality.py`, `101_time_gauge_certificate.py`.
 > All physics web-verified; all gates pre-registered; one fix round each where noted.
 
 ## The idea
@@ -105,9 +106,38 @@ KCBS bound. (Web-verified: non-contextual bound 2; quantum value √5.)
 
 ---
 
+## Certificate V — no observer-independent time ⇒ time is a gauge choice of clock (the problem of time)
+
+**Setup.** The deepest face of the project's recurring villain (gauge / no fixed reference). In canonical quantum
+gravity the Hamiltonian constraint *freezes* the universe: the Wheeler–DeWitt equation has no time, the global
+state is stationary. Yet time re-emerges *relationally* — the Page–Wootters mechanism (web-verified, Page–Wootters
+1983; Trinity of relational dynamics, arXiv:1912.00033). We build a Page–Wootters universe: a system `S` (cyclic
+`H_S`, so the orbit closes exactly) and a clock `C` (T time states), in the history state
+`|Ψ⟩ = (1/√T) Σ_t |t⟩_C ⊗ U_S^t|ψ₀⟩_S`, an *exact* fixed point of the joint constraint flow.
+
+**Result (3/3, 5 seeds).**
+- **C1 no global time:** `|Ψ⟩` is a constraint fixed point (`‖G|Ψ⟩−|Ψ⟩‖ = 3e−15`) and the system *alone* is
+  frozen (`‖[ρ_S, H_S]‖/‖H_S‖ = 1e−16`) — an observer without the clock sees **no dynamics at all**.
+- **C2 relational time exists:** conditioning `S` on the clock recovers full unitary evolution — a learner
+  recovers the propagator (`‖Û−U_S‖ = 1e−15`, median trajectory overlap **1.0000**).
+- **C3 time is gauge:** a second observer with a *non-uniform* clock reads the **same** frozen state — identical
+  physical history (overlap 1.0000) but a **different inferred law** (observer A's per-tick law is autonomous,
+  variance 3e−32; observer B's is non-autonomous, variance 0.24). "Is time flowing uniformly?" has no
+  observer-independent answer — gated against the clock-ambiguity theorem (no preferred clock).
+
+**The certificate.** There is no observer-independent time: the global state is timeless, time exists only
+system-relative-to-a-clock, and the clock choice is gauge. This is the *problem of time* turned into a positive
+certificate — and the project's "no fixed reference frame" wall, for the case of time. (Honest scope: an
+exact-by-construction faithful toy — a structural certificate like I/IV's theorem walls, not an empirical fit;
+non-relativistic Page–Wootters, the regime the recent covariant-clock work validates; relativistic clock
+subtleties, Kuchař, are out of scope.)
+
+---
+
 ## The through-line
 
-Four faces of one principle — *no cheap code / no invariant / no unique code / no non-contextual code*:
+Five faces of one principle — *no cheap code / no invariant / no unique code / no non-contextual code / no
+observer-independent time*:
 
 | Certificate | Forbidden-but-real structure | The wall the net hits | Sharp number |
 |---|---|---|---|
@@ -115,7 +145,11 @@ Four faces of one principle — *no cheap code / no invariant / no unique code /
 | II — chaos | conserved quantity (none exists) | unit-variance g can't go constant | constancy 0.45 vs 0.00 |
 | III — gauge | a unique Lagrangian (none exists) | data flat along the gauge orbit | 1508× gauge/physical split |
 | IV — KCBS | a non-contextual assignment | Σ⟨Pᵢ⟩ = 2 (independence number) | v* = 2/√5 |
+| V — time | an observer-independent time | global state frozen; relational only | var 3e−32 (auto) vs 0.24 (gauge) |
 
-The legibility law asked *what is the cheapest legible code?* These four ask its mirror question — *where
+The legibility law asked *what is the cheapest legible code?* These five ask its mirror question — *where
 does no cheap code exist, and can the net certify it?* A net restricted to a cheap hypothesis class is a
 **measuring instrument for the impossible**: its failure, gated against a theorem, is a positive result.
+(Certificate V is the structural limit case — not a learned failure but a provable obstruction the same machinery
+makes explicit — and it is the deepest, since "no fixed reference" is the wall under every approach to quantum
+gravity: the problem of time, background independence, complementarity, the de Sitter observables problem.)

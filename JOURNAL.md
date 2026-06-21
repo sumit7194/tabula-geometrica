@@ -1,3 +1,21 @@
+## 2026-06-22 — CERTIFICATE V: no observer-independent time (script 101)
+
+Second result of the physics-discussion arc (after J5). The emergent-spacetime discussion kept circling one wall —
+"no fixed reference frame" — which appears as the problem of time, background independence, complementarity, and the
+de Sitter observables problem. Turned it into a positive impossibility certificate (extending the 84-87 quartet to
+a quintet), for the case of TIME.
+- Method = Page-Wootters (web-verified Page-Wootters 1983; Trinity of relational dynamics arXiv:1912.00033; problem
+  of time arXiv:2312.10272). A history state |Ψ⟩=(1/√T)Σ_t|t⟩_C U_S^t|ψ0⟩_S, an exact constraint fixed point.
+- 3/3 gates, 5 seeds: C1 no global time (||G|Ψ⟩-|Ψ⟩||=3e-15 timeless; system marginal frozen, [ρ_S,H_S]=1e-16 — an
+  observer without the clock sees NO dynamics); C2 relational time exists (condition on the clock → a learner
+  recovers the propagator, trajectory overlap 1.0000); C3 time is GAUGE (a non-uniform second clock reads the same
+  frozen state → identical physical history, different inferred law: var A 3e-32 autonomous vs B 0.24 non-autonomous;
+  no preferred clock = the clock-ambiguity theorem).
+- Honest scope: exact-by-construction structural certificate (like the 84/87 theorem walls), not an empirical fit;
+  non-relativistic Page-Wootters; Kuchař relativistic subtleties out of scope. Bonus: it's the honest answer to the
+  earlier "is time a field / emergent" question — Page-Wootters IS emergent relational time.
+Docs: writeup (quartet → quintet), CLAUDE, lab_notebook. Certificate V = the project's gauge villain at its deepest.
+
 ## 2026-06-22 — PHASE J5: the curvature of the geometry that emerges from entanglement (script 42)
 
 Picked up the deferred emergence rung (CLAUDE.md flagged "full 2D bulk + Brioschi K-map, fragile, deferred").

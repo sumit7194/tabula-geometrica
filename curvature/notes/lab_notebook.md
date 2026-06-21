@@ -3332,3 +3332,26 @@ being the CFT log); the NEW content over J4 = the explicit curved 2D geometry + 
 c-read-from-curvature + the gapped-degenerates control. (3) Brioschi K=12/c is the convention of g_uv=Omega/2 (the
 spline conformal formula gives 6/c; both constant, factor-2 metric-normalization). **Emergence arc J1->J3->J4->J5
 closed: geometry, its hyperbolic scale-dimension, AND its coordinate-free curvature all emerge from entanglement.**
+
+## Certificate V — no observer-independent time (problem of time), 2026-06-22 (script 101)
+**Pre-reg (2026-06-22):** extend the impossibility-certificate quartet (84-87) to the deepest face of the "no fixed
+reference" wall: TIME. Page-Wootters universe -- system S (cyclic H_S so the orbit closes exactly) + clock C (T
+states), history state |Psi>=(1/sqrt T)Sum_t |t>_C U_S^t|psi0>_S. Gates: C1 no global time (||G|Psi>-|Psi>||<1e-9
+AND frozen marginal ||[rho_S,H_S]||/||H_S||<1e-6); C2 relational time (learner recovers propagator, ||U_hat-U_S||
+<1e-6, median overlap>0.999); C3 time is gauge (non-uniform 2nd clock: same history overlap>0.999 AND var_A<1e-9
+autonomous AND var_B>1e-2 non-autonomous).
+**Research-first:** web-verified Page-Wootters 1983 + Trinity of relational dynamics (arXiv:1912.00033) + problem
+of time (arXiv:2312.10272) + the clock-ambiguity / multiple-choice problem (no preferred clock partition). Kuchar's
+criticisms (relativistic localization/propagators) noted as OUT of scope -> stay in the clean non-relativistic
+regime the recent covariant-clock work validates.
+**Result (3/3, 5 seeds):** C1 ||G|Psi>-|Psi>||=3.4e-15, [rho_S,H_S]/||H_S||=9.8e-17 (timeless + frozen marginal).
+C2 ||U_hat-U_S||=1.1e-15, overlap 1.0000 (relational time recovered). C3 history overlap 1.0000, var_A=3.4e-32
+(autonomous) vs var_B=0.240 (non-autonomous) -> same physics, different law, no preferred clock. All 5 seeds pass.
+**Honest scope (key):** EXACT-BY-CONSTRUCTION structural certificate -- a faithful toy / demonstration of the
+problem-of-time STRUCTURE (same category as the 84/87 theorem walls), NOT an empirical discovery. The 5-seed sweep
+confirms it is general, not seed-tuned. First-run C3 reported an uninformative variance ratio (2e29 = var_B/eps
+since A is exactly autonomous) -> refined to report var_A and var_B separately (interpretable). Bonus: this is the
+honest answer to the deferred "is time a field/emergent" question -- Page-Wootters = emergent relational time.
+**Context:** came out of the emergent-spacetime physics-discussion arc; the map's recurring "no fixed reference"
+wall (problem of time / background independence / complementarity / dS observables) made into a positive result --
+the gauge villain at its deepest. Certificate quartet -> QUINTET.

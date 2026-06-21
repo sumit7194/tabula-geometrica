@@ -1,0 +1,24 @@
+{
+ "dS": 4,
+ "T": 60,
+ "seeds": 5,
+ "C1_no_global_time": {
+  "constraint_fixed_point": 3.420117137357661e-15,
+  "frozen_marginal_comm": 9.827417105064248e-17,
+  "pass_all_seeds": true
+ },
+ "C2_relational_time": {
+  "propagator_err": 1.0943451867069151e-15,
+  "median_overlap": 1.0000000000000497,
+  "pass_all_seeds": true
+ },
+ "C3_time_is_gauge": {
+  "observerB_history_overlap": 1.0000000000000269,
+  "law_var_A_autonomous": 3.3704526343161154e-32,
+  "law_var_B_nonautonomous": 0.2404548014835809,
+  "pass_all_seeds": true
+ },
+ "certificate": true,
+ "note": "Exact-by-construction faithful toy (a demonstration/structural certificate, like the 84-87 theorem walls), not an empirical fit; the 5-seed sweep confirms it is general, not seed-tuned.",
+ "verdict": "CERTIFIED: there is no observer-independent time. The global state is timeless (a constraint fixed point; the system alone is frozen), yet conditioning on a CLOCK recovers full unitary evolution -- and a different clock gives a different, equally-valid time (same physical history, different law). Time is a GAUGE choice of observer's clock. The problem of time, turned into a positive certificate -- and the project's 'no fixed reference frame' wall, for the case of time."
+}
