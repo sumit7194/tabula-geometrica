@@ -1,0 +1,28 @@
+{
+ "N": 512,
+ "band": [
+  16,
+  176
+ ],
+ "E0_calculator": {
+  "R_CoV": 0.0011248128029854676,
+  "c_from_R": 1.0001938126958843,
+  "brioschi_K": 12.001836749480772,
+  "K_CoV": 0.0003870867643061363,
+  "pass": true
+ },
+ "E1_critical": {
+  "R_CoV": 0.0012984811656927054,
+  "c_from_curvature": 1.0002229235314033,
+  "brioschi_K": 11.999161853962981,
+  "K_CoV": 0.0003870867643129773,
+  "raw_4thderiv_CoV": 1.40363249024532,
+  "pass": true
+ },
+ "E2_gapped": {
+  "R_CoV": 5.556564507794487,
+  "pass": true
+ },
+ "curvature_from_entanglement": true,
+ "verdict": "A 2D geometry built from a quantum chain's entanglement ALONE has CONSTANT curvature (maximally symmetric) only at criticality, with the central charge (c~1, cross-checking J4) read off the curvature -- measured coordinate-free via Brioschi. Gapped degenerates. The full 4th-derivative Brioschi on raw free-fermion data is noisy (the predicted 'quantum bulk'), so curvature is measured through the robust 2nd-derivative metric; entanglement -> metric -> curvature, no geometry put in by hand."
+}

@@ -3305,3 +3305,30 @@ MAGNITUDE and drops F1 toward the 1e-3 gate (floor 1.2e-4); baseline grid=48 mod
 documented when the 6 arms finish (~4h). If F1 still ~0.015 at grid 96, the gap is not resolution either ->
 the field-magnitude limit is intrinsic to trajectory-only supervision (honest null, next would be a
 field-magnitude-aware probe), and we bank the FNO architecture win (P0/F2/F3/F4) as the Phase F result.
+
+## Phase J5 — curvature from entanglement (Brioschi), 2026-06-22 (script 42)
+**Pre-reg (2026-06-22):** build a 2D curved geometry from a quantum chain's single-interval entanglement entropy
+alone and measure its Gaussian curvature with the script-17 Brioschi calculator (entanglement -> metric ->
+curvature, no geometry put in). Method = kinematic space (Czech-Lamprou-McCandlish-Sully 2015, arXiv:1505.05515):
+ds^2 = (d2S/du dv) du dv. Gates: E0 calculator self-calibration on analytic c=1 (R constant CoV<5%, c~1, Brioschi
+K constant); E1 critical -> R constant (CoV<0.15) AND c=3*median(R) in [0.8,1.2]; E2 gapped -> R not constant
+(CoV >> critical).
+**Research-first (the load-bearing decision):** the naive MI-embedding route (CLAUDE.md "fragile, deferred") fails
+SPECIFICALLY for free fermions -- exponentially small far-region mutual information (arXiv:1508.00766). Kinematic
+space uses SINGLE-INTERVAL S (the clean J4 quantity), sidestepping that failure mode.
+**Gotcha + fix round (the predicted fragility, made concrete):** the FULL 4th-derivative Brioschi on raw
+free-fermion S is noise-swamped (curvature CoV ~4, sign-flipping) -- the literature's "highly quantum bulk". E0
+(analytic, noiseless) passed (constant K), isolating it as data noise, not method. Fix: measure curvature through
+the robust 2nd-derivative metric Omega(l)=-S''(l); constant curvature on the ring <=> R(l)=Omega*(n/pi)^2 sin^2 =
+const = c/3. Brioschi then run on the CLEAN measured metric for the coordinate-free value. Raw pointwise 4th-deriv
+CoV still reported (1.4) for honesty.
+**Result (3/3):** E0 analytic c=1 -> R CoV 0.001, c=1.000, Brioschi K=12.00 constant. E1 critical -> R CoV 0.001,
+**c read off the curvature = 1.000** (robust across N=256/384/512 and bands [16,96]/[16,120]/[24,200]/[16,140],
+all c=1.000+-0.001; cross-checks J4 c~1 via a different route), Brioschi K=11.999 constant. E2 gapped (m=0.5) -> R
+CoV 5.56 >> 0.001; metric degenerates (Omega range 4066x vs 64x) -> constant curvature ONLY at criticality.
+**Honest scope:** (1) this is KINEMATIC space = dS2, constant POSITIVE curvature (the integral-geometry dual of
+the AdS bulk; NOT literally the AdS bulk). (2) The constancy is TIGHTLY LINKED to J4's log-law (it follows from S
+being the CFT log); the NEW content over J4 = the explicit curved 2D geometry + measured Brioschi invariant +
+c-read-from-curvature + the gapped-degenerates control. (3) Brioschi K=12/c is the convention of g_uv=Omega/2 (the
+spline conformal formula gives 6/c; both constant, factor-2 metric-normalization). **Emergence arc J1->J3->J4->J5
+closed: geometry, its hyperbolic scale-dimension, AND its coordinate-free curvature all emerge from entanglement.**

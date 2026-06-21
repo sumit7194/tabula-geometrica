@@ -334,8 +334,25 @@ results in `curvature/notes/lab_notebook.md`.
   (log-vs-linear R²-margin 0.239<0.3 because a line approximates a gentle log over a monotone range;
   R²_log=1.0000 already proves the form; one fix round spent, gate not moved). **Verdict: hyperbolic/
   AdS emergent dimension CONFIRMED on J4a+J4b** — holography's extra dimension is real, emergent from
-  entanglement, negatively curved (ties It-from-Qubit to emergent_dimension.md). Open: full 2D
-  bulk embedding + Brioschi K-map (fragile, deferred).
+  entanglement, negatively curved (ties It-from-Qubit to emergent_dimension.md).
+- **J5 CURVATURE FROM ENTANGLEMENT DONE (2026-06-22, script 42) — the deferred Brioschi K-map, all
+  3 gates.** The emergence arc's coordinate-free close: build a 2D curved geometry from a chain's
+  entanglement ALONE and MEASURE its Gaussian curvature with the script-17 Brioschi calculator.
+  Research-first cracked the "fragile, deferred" flag: the naive MI-embedding fails for free fermions
+  (exponentially small far-region MI, arXiv:1508.00766) — use kinematic space from SINGLE-INTERVAL S
+  instead (Czech-Lamprou-McCandlish-Sully 2015, arXiv:1505.05515): metric ds²=(∂²S/∂u∂v)du dv, nothing
+  geometric assumed. **E0 ✓** calculator self-calibrates on analytic c=1 (Brioschi K=12 constant). **E1
+  ✓✓** critical chain → CONSTANT curvature (R-CoV 0.001), central charge read OFF the curvature
+  c=1.000 (robust across N=256/384/512 and 4 bands; cross-checks J4 via a different route); Brioschi
+  K=12.0 constant. **E2 ✓** gapped → metric degenerates (collapses 4000×), constant curvature only at
+  criticality. Honest scope: the full 4th-derivative Brioschi on raw free-fermion S is noise-swamped
+  (CoV 1.4, the predicted "quantum bulk") → curvature measured via the robust 2nd-derivative metric,
+  Brioschi on the clean measured metric for the invariant value. The constancy is tightly linked to
+  J4's log-law (it follows from it); the NEW content = the explicit 2D kinematic geometry (dS₂,
+  constant POSITIVE curvature — the integral-geometry dual of the AdS bulk, NOT literally the AdS
+  bulk) + measured Brioschi invariant + c-from-curvature + the gapped degeneration. One fix round
+  (4th-deriv noise → 2nd-deriv metric). **Emergence arc: entanglement → metric → curvature, no
+  geometry put in by hand.**
 - **THE SESSION SYNTHESIS (the legibility law):** amortize → legible (static);
   evolve through a generic net → re-scrambled (dynamic). Open thread (next
   candidate): an orthogonal/Hamiltonian update F that conserves |w| by

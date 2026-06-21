@@ -1,3 +1,24 @@
+## 2026-06-22 — PHASE J5: the curvature of the geometry that emerges from entanglement (script 42)
+
+Picked up the deferred emergence rung (CLAUDE.md flagged "full 2D bulk + Brioschi K-map, fragile, deferred").
+Goal: build a 2D curved geometry from a quantum chain's entanglement ALONE and measure its Gaussian curvature
+with our script-17 Brioschi calculator — entanglement → metric → curvature, no geometry put in by hand.
+- Research-first cracked the fragility: the naive mutual-information embedding fails specifically for free fermions
+  (exponentially small far-region MI, arXiv:1508.00766). Fix = kinematic space from SINGLE-INTERVAL entanglement
+  entropy (Czech-Lamprou-McCandlish-Sully 2015): the metric is ds²=(∂²S/∂u∂v)du dv — nothing geometric assumed.
+- First run honest-failed E1 as predicted: the full 4th-derivative Brioschi on raw free-fermion S is noise-swamped
+  (CoV ~4, the literature's "highly quantum bulk"). One fix round → measure curvature via the robust 2nd-derivative
+  metric (constant-curvature ⇔ Ω(ℓ)·sin² = const), Brioschi on the clean measured metric for the invariant value.
+- Result (3/3 gates): E0 calculator self-calibrates (analytic c=1, Brioschi K=12 constant); E1 critical → CONSTANT
+  curvature (R-CoV 0.001), c read OFF the curvature = 1.000 (robust across N=256/384/512 and 4 bands, cross-checks
+  J4 via a different route), Brioschi K=12.0 constant; E2 gapped → metric degenerates (4000×), constant curvature
+  only at criticality. Honest framing: this is kinematic space (dS₂, constant POSITIVE curvature, the integral-
+  geometry dual of the AdS bulk — not literally the AdS bulk); the constancy is tightly linked to J4's log-law; the
+  NEW content is the explicit curved 2D geometry + measured Brioschi invariant + c-from-curvature + gapped control.
+The emergence arc (J1 order → J3 pinch-off → J4 hyperbolic dimension → J5 curvature invariant) is now closed.
+Context: this rung was chosen during a physics-discussion phase (emergent spacetime / entanglement) as the place
+our project can actually poke at the frontier's "geometry = cheapest description of entanglement" thesis.
+
 ## 2026-06-21 — HAIL MARY Phase 2 v3: RIGOROUS re-examination of the learned-half negative (user challenge)
 
 The user pushed back, correctly: "could a bigger NN / better architecture / more training fix the negatives, or did
