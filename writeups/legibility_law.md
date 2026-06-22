@@ -320,18 +320,29 @@ own toy (`102_read_vs_write_direction.py`, 3 seeds) reproduces the functional di
 direction is **legible** (r ≈ 0.89) but a **markedly weaker control lever** (matched-norm reach ≈ 0.4) than
 diff-of-means (≈ 1.0), and it points in a partially-different direction (cos(read, diff-of-means) ≈ 0.55). Two
 calibrations (credit: Phronesis) keep this honest:
-- **the cosine claim is qualitative, not numerical.** Our 0.55 and the LLM's 0.34 are both "distinct-but-partially-
-  aligned," but the values are *not* comparable across dimensionality — random-pair |cos| is ≈ **0.20** in our 16-d
-  code vs ≈ 0.02 in the LLM's 2560-d residual. So the shared claim is the *phenomenon* (read ≠ write direction),
-  not a quantitative match.
+- **the geometric direction-mismatch is strong on the LLM, only marginal in the toy.** cos(read, diff-of-means) =
+  0.34 on the LLM is ~17σ from random in 2560-d; our 0.55 sits right at our 16-d random p95 (≈ 0.48, mean 0.20) —
+  barely above chance. So the *directions-literally-differ* claim is carried mainly by the LLM; in the toy it is
+  only suggestive. (The **functional** dissociation below is the part that is strong in *both*.)
 - **the up/down asymmetry was a baseline-position confound — withdrawn.** Re-run from a *centered* baseline (mid
   tercile), the control lever (diff-of-means) is **symmetric** (|Δup|/|Δdown| ≈ 1.0); the strong asymmetry first
   seen came from steering out of the *low* group (the analog of the LLM's −12.66 starting point). So we do **not**
-  claim intrinsic asymmetry — this *confirms* Phronesis's caution rather than resolving it.
+  claim intrinsic asymmetry — this *confirms* Phronesis's caution. (Their −side behaviour was independently
+  diagnosed as fluency degeneration, so the asymmetry was a starting-point artifact on **both** sides.)
 
-The robust shared result is the **legible-but-weak-lever / direction-mismatch** dissociation; the toy *additionally*
-has the engineered redundancy of script 39 (two dissociable causes of read ≠ control). Both the earlier "redundancy
-explains the LLM" claim and the "intrinsic asymmetry" bonus are **withdrawn**. Reciprocal credit: Phronesis session.
+The strongly-shared result is the **functional** dissociation — the read-optimal direction is *legible but a weak
+lever* in **both** systems; the **geometric** direction-mismatch is strong on the LLM and marginal in the toy. The
+toy *additionally* has the engineered redundancy of script 39 (a real but toy-specific second cause that does **not**
+transfer to the LLM). Both the earlier "redundancy explains the LLM" claim and the "intrinsic asymmetry" bonus are
+**withdrawn**.
+
+**Settled joint statement (both projects carry this, referee-proof):** (1) legibility ≠ steerability in both the toy
+and a real 4B LLM; (2) read-direction ≠ write-direction is the shared mechanism — *functionally* strong in both
+(reads-but-weak-lever), *geometrically* strong on the LLM (cos 0.34, ~17σ) and marginal in the 16-d toy (cos 0.55 ≈
+random p95); (3) redundancy is a real but toy-specific extra cause; (4) the up/down asymmetry was a baseline confound
+on both sides — withdrawn as intrinsic; the LLM −behaviour attribution stays open pending Phronesis's near-boundary
+test. Reciprocal credit: Phronesis session — they tested our toy-derived claim on a real model, we tested their
+model-derived mechanism in a controlled toy, and each corrected the other (cross-validation working as designed).
 
 Phronesis also sharpened the reading into a **three-way distinction** — on Qwen3-4B, the *monosemantic SAE feature*
 that semantically reads as the concept ("I don't know") was **not** the direction carrying the model's calibration

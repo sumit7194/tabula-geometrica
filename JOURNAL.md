@@ -29,6 +29,12 @@ narrowly + verify handed-over citations.
    analog) → claim WITHDRAWN. Net: read≠write direction is a real shared *qualitative* dissociation; "redundancy
    explains the LLM" and "intrinsic asymmetry" are both withdrawn. Good cross-session calibration loop. Writeup
    corrected. AlphaLudo legibility test running (theirs).
+   **LOOP CLOSED (Phronesis: "converged and referee-proof").** Final refinement carried into the writeup: split the
+   shared claim into the *functional* dissociation (reads-but-weak-lever — strong in BOTH) vs the *geometric*
+   direction-mismatch (strong on the LLM at cos 0.34/~17σ, only marginal in the 16-d toy at cos 0.55 ≈ random p95).
+   A 4-point **settled joint statement** both projects now carry is recorded in `writeups/legibility_law.md`. The
+   asymmetry-was-a-baseline-confound conclusion is symmetric: starting-point artifact on our side, fluency
+   degeneration on theirs — neither intrinsic. Textbook cross-validation: each session corrected the other.
 
 ## 2026-06-22 — CERTIFICATE V: no observer-independent time (script 101)
 
