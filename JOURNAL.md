@@ -1,3 +1,24 @@
+## 2026-06-22 — External prior-art audit + Phronesis cross-test: two honest corrections to the legibility writeup
+
+The user ran a parallel prior-art audit across all sister projects and a Phronesis cross-test of our "second law".
+Triaged to what touches THIS repo (ignored the EdGB/subsolar/GP/frontend items = sister projects):
+1. **Prior-art (verified, not trusted blindly):** the legibility law has a published adjacent result we missed —
+   O'Neill et al. "Compute Optimal Inference and Provable Amortisation Gap in SAEs" (arXiv:2411.13117): amortised
+   SAE inference is provably sub-optimal (an amortisation gap), more expressive inference improves sparse-code
+   recovery in LLM activations. Web-confirmed it's real, then cited it in `writeups/legibility_law.md` prior-work
+   section as same-family ("amortization is not neutral") but adjacent-not-identical (their amortisation *gap* vs
+   our free-vs-amortized *legibility flip*). Our one-variable isolation still stands.
+2. **Phronesis cross-test REFUTED a claim (corrected):** they pre-registered the read-vs-control test on Qwen3-4B
+   (TruthfulQA, layer 20). Our writeup said the toy's *redundancy* mechanism explained the LLM's weak steering.
+   It does NOT transfer: the full-rank "all-copies" readout direction is INERT as a steering vector (≈ random);
+   the only clean lever is diff-of-means (~8×, sign-dependent, fluency-degrading); read-optimal ≠ write-optimal
+   (cos ≈ 0.34). Corrected the writeup: **legibility ≠ steerability holds in both settings, by DIFFERENT
+   mechanisms** — engineered redundancy-rank in the toy, read-direction ≠ write-direction in the LLM; the
+   "redundancy explains the LLM" claim is withdrawn. (Our toy redundancy is real-by-construction and stands.)
+Memory: strengthened [[research-first-habit]] — search EACH claim separately + ADJACENT fields + scope novelty
+narrowly + verify handed-over citations. Open reciprocal test (ours to run): is read-optimal ≠ write-optimal in
+our toy too (39_read_vs_control.py)? — would unify the two mechanisms. AlphaLudo legibility test running (theirs).
+
 ## 2026-06-22 — CERTIFICATE V: no observer-independent time (script 101)
 
 Second result of the physics-discussion arc (after J5). The emergent-spacetime discussion kept circling one wall —

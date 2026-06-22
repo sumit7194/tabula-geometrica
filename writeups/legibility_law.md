@@ -249,6 +249,17 @@ real contribution sharper, not smaller:
   ([ICML 2024](https://arxiv.org/abs/2403.03867)) derive linearity from the *next-token softmax-CE
   loss* + implicit bias of GD; Ravfogel et al. derive it from concept co-occurrence. So we are *not*
   first to "why linear."
+- **"Amortization is not a neutral approximation step"** is published in the SAE/interpretability
+  setting: **O'Neill et al.** ([arXiv:2411.13117](https://arxiv.org/pdf/2411.13117)) prove an
+  *amortisation gap* — a shared linear-nonlinear SAE encoder cannot implement optimal sparse inference
+  even when the dictionary is fully recoverable, and more expressive inference improves sparse-code
+  recovery in LLM activations. That is the closest published "amortization shapes
+  identifiability/legibility" result. It is *adjacent, not identical*: O'Neill is about amortized
+  inference being **sub-optimal** (a gap vs exact sparse coding); ours is the orthogonal axis —
+  amortized-vs-**free-parameter** *legibility flip* (a free per-object code scrambles; a shared
+  encoder's inferred code is linearly legible). We cite it as same-family prior art; the one-variable
+  free-vs-amortized isolation below is still ours. *(Found by a parallel prior-art audit — flagged here
+  because a referee would expect it.)*
 
 **What is genuinely ours** is the controlled, one-variable isolation none of them ran: hold the
 objective and data fixed and vary **only amortization** (free embedding vs shared encoder), and show
@@ -293,14 +304,29 @@ So reading is easy from any copy, but *controlling* requires writing all the red
 single causal bottleneck, so there read *did* equal control, 3.8× over random — read=control holds
 when the legible code *is* the bottleneck, breaks when the property is distributed.)
 
-This explains the LLM observation it came from (Phronesis): a distributed feature is readable but
-single-direction steering is weak. And Phronesis sharpened it into a **three-way distinction** —
-on Qwen3-4B, the *monosemantic SAE feature* that semantically reads as the concept ("I don't
-know") was **not** the direction carrying the model's calibration signal (AUC 0.53 vs a 0.64
-supervised probe). So **legibility (linearly readable), monosemanticity (a clean single feature),
-and task-causality (actually drives behavior) are three different things** — a representation can
-have any subset. The legibility law governs the first; the second law and the SAE caution say the
-other two do not come for free. (Credit: Phronesis session.)
+**Cross-project test on a real LLM (Phronesis, pre-registered) — and a correction.** The earlier version of
+this section claimed the toy's *redundancy* mechanism explained the LLM observation ("a distributed feature is
+readable but single-direction steering is weak"). A direct, pre-registered test on Qwen3-4B (TruthfulQA, layer 20,
+matched injection norm, directions fit on a disjoint split) **refutes that mechanism**: writing the full-rank
+optimal *readout* (the "all redundant copies" direction) is **inert as a steering vector** (≈ a random direction),
+not a strong lever. The only clean causal lever is the diff-of-means (correct − incorrect) direction (~8× stronger,
+sign-dependent), and even that is modest and inseparable from fluency degradation. The LLM mechanism is therefore
+**not redundancy but read-direction ≠ write-direction**: the discrimination-optimal *read* probe and the *write*-
+optimal direction are nearly orthogonal (cos ≈ 0.34).
+
+So the honest cross-project claim is the modest, true one: **legibility ≠ steerability holds in both settings, by
+different mechanisms** — engineered *redundancy-rank* in the toy (control needs all copies), *read ≠ write
+direction* in the LLM. (Our toy's redundancy is real but built in by construction; whether read ≠ write *also*
+holds in the toy is an open reciprocal test — `39_read_vs_control.py` has the intervention apparatus. The claim
+that the toy redundancy *explains* the LLM is withdrawn.)
+
+Phronesis also sharpened the reading into a **three-way distinction** — on Qwen3-4B, the *monosemantic SAE feature*
+that semantically reads as the concept ("I don't know") was **not** the direction carrying the model's calibration
+signal (AUC 0.53 vs a 0.64 supervised probe), and (above) the *read*-optimal probe is not the *write*-optimal
+lever. So **legibility (linearly readable), monosemanticity (a clean single feature), and task-causality (actually
+drives behavior) are three different things** — a representation can have any subset. The legibility law governs the
+first; the second law and the SAE caution say the other two do not come for free. (Credit + the corrected numbers:
+Phronesis session.)
 
 ## Honest limits / scope
 
