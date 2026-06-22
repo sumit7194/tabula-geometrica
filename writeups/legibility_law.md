@@ -314,11 +314,17 @@ sign-dependent), and even that is modest and inseparable from fluency degradatio
 **not redundancy but read-direction ≠ write-direction**: the discrimination-optimal *read* probe and the *write*-
 optimal direction are nearly orthogonal (cos ≈ 0.34).
 
-So the honest cross-project claim is the modest, true one: **legibility ≠ steerability holds in both settings, by
-different mechanisms** — engineered *redundancy-rank* in the toy (control needs all copies), *read ≠ write
-direction* in the LLM. (Our toy's redundancy is real but built in by construction; whether read ≠ write *also*
-holds in the toy is an open reciprocal test — `39_read_vs_control.py` has the intervention apparatus. The claim
-that the toy redundancy *explains* the LLM is withdrawn.)
+So the cross-project claim, now tested **both ways**: **legibility ≠ steerability holds in both settings, and the
+deeper mechanism is shared.** A reciprocal test back in our own toy (`102_read_vs_write_direction.py`, 3 seeds)
+reproduces the LLM's signature: the read-optimal probe direction and the control-optimal direction are
+**misaligned** (cos ≈ 0.39 to the gradient-optimal lever — essentially the LLM's 0.34; ≈ 0.55 to diff-of-means),
+and the read-optimal direction, though legible (r ≈ 0.89), is a **markedly weaker control lever** (matched-norm
+reach ≈ 0.4) than diff-of-means (≈ 1.0). So *read-direction ≠ write-direction* is present in **both** the toy and the
+LLM; the toy *additionally* has the engineered redundancy of script 39. Two dissociable causes of read ≠ control —
+direction-mismatch (shared) and redundancy (toy-specific). Bonus: the up/down steering asymmetry reproduces in the
+clean toy (no fluency to degrade), so it is **intrinsic to the representation**, not an LLM fluency artifact —
+resolving an open caveat from the Phronesis test. (The earlier claim that the toy's redundancy *explains* the LLM
+was withdrawn; this unified, both-ways-tested claim replaces it. Reciprocal credit: Phronesis session.)
 
 Phronesis also sharpened the reading into a **three-way distinction** — on Qwen3-4B, the *monosemantic SAE feature*
 that semantically reads as the concept ("I don't know") was **not** the direction carrying the model's calibration

@@ -1,0 +1,117 @@
+{
+ "seeds": [
+  0,
+  1,
+  2
+ ],
+ "cos_read_diffmeans": [
+  0.5997847299353392,
+  0.5064855898222631,
+  0.5553496652852628
+ ],
+ "cos_read_grad": [
+  0.34636304870217066,
+  0.4183223728263583,
+  0.3896014882672719
+ ],
+ "reach_read_up": [
+  0.4004838466644287,
+  0.3805958926677704,
+  0.4690399169921875
+ ],
+ "reach_diff_up": [
+  1.0074814558029175,
+  1.0056509971618652,
+  1.0084807872772217
+ ],
+ "decision_B_count": 3,
+ "per_seed": [
+  {
+   "cos_read_diffmeans": 0.5997847299353392,
+   "cos_read_grad": 0.34636304870217066,
+   "cos_diff_grad": 0.7341340738475318,
+   "directions": {
+    "read_optimal(probe)": {
+     "read_r": 0.884032694443439,
+     "reach_up": 0.4004838466644287,
+     "reach_down": -0.6200764179229736
+    },
+    "diff_of_means": {
+     "read_r": 0.8582588913436467,
+     "reach_up": 1.0074814558029175,
+     "reach_down": -1.1234196424484253
+    },
+    "grad_optimal": {
+     "read_r": 0.8555352098373898,
+     "reach_up": 1.0209544897079468,
+     "reach_down": -1.8244343996047974
+    }
+   },
+   "scale_matched_norm": 1.309091567993164,
+   "base": -0.06549108028411865,
+   "hi_y": -0.008628875017166138,
+   "decision_A_pure_redundancy": false,
+   "decision_B_also_read_neq_write": true,
+   "verdict": "B: ALSO read != write (two causes)"
+  },
+  {
+   "cos_read_diffmeans": 0.5064855898222631,
+   "cos_read_grad": 0.4183223728263583,
+   "cos_diff_grad": 0.7403732005668404,
+   "directions": {
+    "read_optimal(probe)": {
+     "read_r": 0.898230363718943,
+     "reach_up": 0.3805958926677704,
+     "reach_down": -0.7370848655700684
+    },
+    "diff_of_means": {
+     "read_r": 0.8496720818326836,
+     "reach_up": 1.0056509971618652,
+     "reach_down": -1.0742384195327759
+    },
+    "grad_optimal": {
+     "read_r": 0.8520062872766789,
+     "reach_up": 0.9373328685760498,
+     "reach_down": -1.7865533828735352
+    }
+   },
+   "scale_matched_norm": 1.4309033155441284,
+   "base": -0.06668341159820557,
+   "hi_y": -0.011170067824423313,
+   "decision_A_pure_redundancy": false,
+   "decision_B_also_read_neq_write": true,
+   "verdict": "B: ALSO read != write (two causes)"
+  },
+  {
+   "cos_read_diffmeans": 0.5553496652852628,
+   "cos_read_grad": 0.3896014882672719,
+   "cos_diff_grad": 0.757695313758348,
+   "directions": {
+    "read_optimal(probe)": {
+     "read_r": 0.8892495131389835,
+     "reach_up": 0.4690399169921875,
+     "reach_down": -0.7465966939926147
+    },
+    "diff_of_means": {
+     "read_r": 0.8532753895749128,
+     "reach_up": 1.0084807872772217,
+     "reach_down": -1.0775967836380005
+    },
+    "grad_optimal": {
+     "read_r": 0.8517429443309373,
+     "reach_up": 0.978721022605896,
+     "reach_down": -1.6438910961151123
+    }
+   },
+   "scale_matched_norm": 1.3072346448898315,
+   "base": -0.06796300411224365,
+   "hi_y": -0.01099481899291277,
+   "decision_A_pure_redundancy": false,
+   "decision_B_also_read_neq_write": true,
+   "verdict": "B: ALSO read != write (two causes)"
+  }
+ ],
+ "robust_read_neq_write": true,
+ "verdict": "RECIPROCAL CONFIRMED (3/3 seeds): read != write direction holds in OUR controlled toy too (cos 0.56 to diff-of-means, 0.39 to the control-optimal gradient -- the latter matches the LLM's 0.34); the read-optimal probe is legible (~0.89) but a markedly WEAKER up-lever (reach ~0.4) than diff-of-means (~1.0). So 'read != control' has TWO dissociable causes: engineered redundancy (script 39) AND read-direction != write-direction (here). The up/down asymmetry appears in this clean toy (no fluency to degrade) -> it is INTRINSIC to the representation, not an LLM fluency artifact (resolves the Phronesis open caveat).",
+ "note": "Reciprocal to the Phronesis LLM read-vs-control test (cos 0.34 on Qwen3-4B). 3-seed robustness."
+}

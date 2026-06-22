@@ -16,8 +16,15 @@ Triaged to what touches THIS repo (ignored the EdGB/subsolar/GP/frontend items =
    mechanisms** — engineered redundancy-rank in the toy, read-direction ≠ write-direction in the LLM; the
    "redundancy explains the LLM" claim is withdrawn. (Our toy redundancy is real-by-construction and stands.)
 Memory: strengthened [[research-first-habit]] — search EACH claim separately + ADJACENT fields + scope novelty
-narrowly + verify handed-over citations. Open reciprocal test (ours to run): is read-optimal ≠ write-optimal in
-our toy too (39_read_vs_control.py)? — would unify the two mechanisms. AlphaLudo legibility test running (theirs).
+narrowly + verify handed-over citations.
+3. **Reciprocal test RUN (script 102, 3 seeds) — confirms + unifies.** Asked whether read-optimal ≠ write-optimal
+   in OUR toy too (Phronesis's reciprocal question). YES, robustly: cos(read-optimal, control-optimal gradient) =
+   0.39 (≈ the LLM's 0.34), cos to diff-of-means 0.55; the read-optimal probe is legible (r≈0.89) but a markedly
+   weaker control lever (matched-norm reach ≈0.4 vs diff-of-means ≈1.0); decision-B in 3/3 seeds. So *read ≠ write
+   direction* is the SHARED mechanism across toy AND LLM; the toy *additionally* has engineered redundancy (39).
+   Two dissociable causes of read≠control. Bonus: the up/down asymmetry reproduces in the clean toy (no fluency to
+   degrade) → intrinsic to the representation, not an LLM fluency artifact (resolves Phronesis's open caveat).
+   Writeup updated to the unified, both-ways-tested claim. AlphaLudo legibility test running (theirs).
 
 ## 2026-06-22 — CERTIFICATE V: no observer-independent time (script 101)
 
