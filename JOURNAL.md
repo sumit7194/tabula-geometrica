@@ -17,14 +17,18 @@ Triaged to what touches THIS repo (ignored the EdGB/subsolar/GP/frontend items =
    "redundancy explains the LLM" claim is withdrawn. (Our toy redundancy is real-by-construction and stands.)
 Memory: strengthened [[research-first-habit]] — search EACH claim separately + ADJACENT fields + scope novelty
 narrowly + verify handed-over citations.
-3. **Reciprocal test RUN (script 102, 3 seeds) — confirms + unifies.** Asked whether read-optimal ≠ write-optimal
-   in OUR toy too (Phronesis's reciprocal question). YES, robustly: cos(read-optimal, control-optimal gradient) =
-   0.39 (≈ the LLM's 0.34), cos to diff-of-means 0.55; the read-optimal probe is legible (r≈0.89) but a markedly
-   weaker control lever (matched-norm reach ≈0.4 vs diff-of-means ≈1.0); decision-B in 3/3 seeds. So *read ≠ write
-   direction* is the SHARED mechanism across toy AND LLM; the toy *additionally* has engineered redundancy (39).
-   Two dissociable causes of read≠control. Bonus: the up/down asymmetry reproduces in the clean toy (no fluency to
-   degrade) → intrinsic to the representation, not an LLM fluency artifact (resolves Phronesis's open caveat).
-   Writeup updated to the unified, both-ways-tested claim. AlphaLudo legibility test running (theirs).
+3. **Reciprocal test RUN (script 102, 3 seeds) + a calibration round — confirms ONE thing, withdraws another.**
+   Asked whether read-optimal ≠ write-optimal in OUR toy too (Phronesis's reciprocal question). The robust shared
+   result (3/3 seeds): the read-optimal probe is **legible (r≈0.89) but a markedly weaker control lever** (reach
+   ≈0.4) than diff-of-means (≈1.0), pointing in a partially-different direction (cos 0.55) — the read≠write
+   functional dissociation reproduces. Then the Phronesis session **calibrated** two overshoots (both right):
+   (1) the cosine "0.39≈0.34 match" compared mismatched pairs across different dimensionalities — random-pair |cos|
+   is 0.20 in our 16-d toy vs ~0.02 in their 2560-d space, so the claim must stay QUALITATIVE (phenomenon, not a
+   numerical match). (2) my "intrinsic asymmetry" was a BASELINE-POSITION CONFOUND — re-run from a CENTERED baseline,
+   the lever is symmetric (|Δup|/|Δdown|≈1.0); the asymmetry came from steering out of the low group (the −12.66
+   analog) → claim WITHDRAWN. Net: read≠write direction is a real shared *qualitative* dissociation; "redundancy
+   explains the LLM" and "intrinsic asymmetry" are both withdrawn. Good cross-session calibration loop. Writeup
+   corrected. AlphaLudo legibility test running (theirs).
 
 ## 2026-06-22 — CERTIFICATE V: no observer-independent time (script 101)
 

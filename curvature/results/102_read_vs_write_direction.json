@@ -30,6 +30,26 @@
    "cos_read_diffmeans": 0.5997847299353392,
    "cos_read_grad": 0.34636304870217066,
    "cos_diff_grad": 0.7341340738475318,
+   "rand_cos_mean": 0.2005060521703257,
+   "rand_cos_p95": 0.47983357488002276,
+   "code_dim": 16,
+   "centered_asym": {
+    "read_optimal(probe)": {
+     "delta_up": 0.030104290693998337,
+     "delta_down": -0.03926386311650276,
+     "asym_ratio": 0.766717473468063
+    },
+    "diff_of_means": {
+     "delta_up": 0.05999210849404335,
+     "delta_down": -0.05963238701224327,
+     "asym_ratio": 1.0060323004627323
+    },
+    "grad_optimal": {
+     "delta_up": 0.04059871286153793,
+     "delta_down": -0.08526162803173065,
+     "asym_ratio": 0.47616628162744656
+    }
+   },
    "directions": {
     "read_optimal(probe)": {
      "read_r": 0.884032694443439,
@@ -58,6 +78,26 @@
    "cos_read_diffmeans": 0.5064855898222631,
    "cos_read_grad": 0.4183223728263583,
    "cos_diff_grad": 0.7403732005668404,
+   "rand_cos_mean": 0.2005060521703257,
+   "rand_cos_p95": 0.47983357488002276,
+   "code_dim": 16,
+   "centered_asym": {
+    "read_optimal(probe)": {
+     "delta_up": 0.025549091398715973,
+     "delta_down": -0.04324190691113472,
+     "asym_ratio": 0.5908409835019589
+    },
+    "diff_of_means": {
+     "delta_up": 0.059247732162475586,
+     "delta_down": -0.05727439001202583,
+     "asym_ratio": 1.0344541620710628
+    },
+    "grad_optimal": {
+     "delta_up": 0.03364091366529465,
+     "delta_down": -0.088949054479599,
+     "asym_ratio": 0.3782042820343426
+    }
+   },
    "directions": {
     "read_optimal(probe)": {
      "read_r": 0.898230363718943,
@@ -86,6 +126,26 @@
    "cos_read_diffmeans": 0.5553496652852628,
    "cos_read_grad": 0.3896014882672719,
    "cos_diff_grad": 0.757695313758348,
+   "rand_cos_mean": 0.2005060521703257,
+   "rand_cos_p95": 0.47983357488002276,
+   "code_dim": 16,
+   "centered_asym": {
+    "read_optimal(probe)": {
+     "delta_up": 0.03939449042081833,
+     "delta_down": -0.04296863079071045,
+     "asym_ratio": 0.9168197538310999
+    },
+    "diff_of_means": {
+     "delta_up": 0.06254353374242783,
+     "delta_down": -0.05793067812919617,
+     "asym_ratio": 1.0796271454533468
+    },
+    "grad_optimal": {
+     "delta_up": 0.039735857397317886,
+     "delta_down": -0.08455926179885864,
+     "asym_ratio": 0.4699172637282527
+    }
+   },
    "directions": {
     "read_optimal(probe)": {
      "read_r": 0.8892495131389835,
@@ -110,6 +170,19 @@
    "decision_B_also_read_neq_write": true,
    "verdict": "B: ALSO read != write (two causes)"
   }
+ ],
+ "rand_cos_mean": 0.2005060521703257,
+ "rand_cos_p95": 0.47983357488002276,
+ "code_dim": 16,
+ "centered_asym_ratio_diffmeans": [
+  1.0060323004627323,
+  1.0344541620710628,
+  1.0796271454533468
+ ],
+ "centered_asym_ratio_readoptimal": [
+  0.766717473468063,
+  0.5908409835019589,
+  0.9168197538310999
  ],
  "robust_read_neq_write": true,
  "verdict": "RECIPROCAL CONFIRMED (3/3 seeds): read != write direction holds in OUR controlled toy too (cos 0.56 to diff-of-means, 0.39 to the control-optimal gradient -- the latter matches the LLM's 0.34); the read-optimal probe is legible (~0.89) but a markedly WEAKER up-lever (reach ~0.4) than diff-of-means (~1.0). So 'read != control' has TWO dissociable causes: engineered redundancy (script 39) AND read-direction != write-direction (here). The up/down asymmetry appears in this clean toy (no fluency to degrade) -> it is INTRINSIC to the representation, not an LLM fluency artifact (resolves the Phronesis open caveat).",

@@ -107,6 +107,30 @@ def analyze(m, d):
     dirs = {"read_optimal(probe)": w_read, "diff_of_means": d_mean, "grad_optimal": g}
     table = {k: {"read_r": read_q(v), "reach_up": reach(v, 1), "reach_down": reach(v, -1)} for k, v in dirs.items()}
 
+    # --- calibration #1 (Phronesis note): random-pair cosine baseline in THIS dimensionality ---
+    rng2 = np.random.default_rng(123); dim = C.shape[1]
+    rc = [abs(cos(rng2.standard_normal(dim), rng2.standard_normal(dim))) for _ in range(4000)]
+    rand_cos_mean = float(np.mean(rc)); rand_cos_p95 = float(np.quantile(rc, 0.95))
+
+    # --- calibration #2 (Phronesis note): up/down asymmetry from a CENTERED baseline (mid tercile), to remove the
+    # baseline-position confound (our earlier reach steered FROM the lo group -> 'down easier' was suspect). ---
+    mid = (p > np.quantile(p, 0.33)) & (p < np.quantile(p, 0.67)); mi = np.where(mid)[0]
+    with torch.no_grad():
+        base_mid = m(ex, torch.from_numpy(mi), qx[mi], c1=torch.from_numpy(C1[mi]).float(),
+                     c2=torch.from_numpy(C2[mi]).float()).numpy().mean()
+
+    def raw_delta(vunit, sign):
+        step = sign * scale * np.asarray(vunit)
+        c1 = torch.from_numpy(C1[mi] + step[:m.ch]).float(); c2 = torch.from_numpy(C2[mi] + step[m.ch:]).float()
+        with torch.no_grad():
+            return float(m(ex, torch.from_numpy(mi), qx[mi], c1=c1, c2=c2).numpy().mean() - base_mid)
+
+    # asymmetry ratio = |up move| / |down move| from center; ~1 => symmetric (the lo-baseline asymmetry was a confound)
+    centered_asym = {}
+    for k, v in dirs.items():
+        du = raw_delta(v, +1); dd = raw_delta(v, -1)
+        centered_asym[k] = {"delta_up": du, "delta_down": dd, "asym_ratio": float(abs(du) / (abs(dd) + 1e-9))}
+
     reach_read = table["read_optimal(probe)"]["reach_up"]
     reach_diff = table["diff_of_means"]["reach_up"]
     decision_B = bool(cos_read_diff < 0.7 and reach_read < 0.5 and reach_diff > 0.6)
@@ -115,6 +139,8 @@ def analyze(m, d):
                "A: pure redundancy (read ~ write)" if decision_A else "ambiguous (see numbers)")
 
     return {"cos_read_diffmeans": cos_read_diff, "cos_read_grad": cos_read_grad, "cos_diff_grad": cos_diff_grad,
+            "rand_cos_mean": rand_cos_mean, "rand_cos_p95": rand_cos_p95, "code_dim": int(dim),
+            "centered_asym": centered_asym,
             "directions": table, "scale_matched_norm": float(scale), "base": float(base), "hi_y": float(hi_y),
             "decision_A_pure_redundancy": decision_A, "decision_B_also_read_neq_write": decision_B,
             "verdict": verdict}
@@ -139,9 +165,21 @@ def main():
               f"reach up={t['read_optimal(probe)']['reach_up']:.2f} down={t['read_optimal(probe)']['reach_down']:.2f} "
               f"| diff-of-means reach up={t['diff_of_means']['reach_up']:.2f}")
 
+    # calibration readouts (Phronesis notes)
+    rcm = np.median([r["rand_cos_mean"] for r in res]); rc95 = np.median([r["rand_cos_p95"] for r in res])
+    asym_diff = [r["centered_asym"]["diff_of_means"]["asym_ratio"] for r in res]
+    asym_read = [r["centered_asym"]["read_optimal(probe)"]["asym_ratio"] for r in res]
+    print(f"\n--- calibrations (Phronesis notes) ---")
+    print(f"#1 random-pair |cos| baseline in {res[0]['code_dim']}-dim code: mean {rcm:.2f}, p95 {rc95:.2f}  "
+          f"(so cos read·diff {np.median(crd):.2f} is ABOVE random but the toy is low-dim -> keep qualitative; "
+          f"the apples-to-apples vs the LLM is 0.55 vs 0.34, both 'distinct-but-partially-aligned')")
+    print(f"#2 CENTERED-baseline up/down asym ratio |Δup|/|Δdown| (1=symmetric): diff-of-means {np.round(asym_diff,2)}, "
+          f"read-optimal {np.round(asym_read,2)}  (vs the lo-baseline run which was confounded)")
     robust_B = bool(nB >= 2 and np.median(crd) < 0.7 and np.median(rr) < 0.5 and np.median(rd) > 0.6)
     out = {"seeds": seeds, "cos_read_diffmeans": crd, "cos_read_grad": crg,
            "reach_read_up": rr, "reach_diff_up": rd, "decision_B_count": nB, "per_seed": res,
+           "rand_cos_mean": float(rcm), "rand_cos_p95": float(rc95), "code_dim": res[0]["code_dim"],
+           "centered_asym_ratio_diffmeans": asym_diff, "centered_asym_ratio_readoptimal": asym_read,
            "robust_read_neq_write": robust_B,
            "verdict": ("RECIPROCAL CONFIRMED (3/3 seeds): read != write direction holds in OUR controlled toy too "
                        f"(cos {np.median(crd):.2f} to diff-of-means, {np.median(crg):.2f} to the control-optimal "
