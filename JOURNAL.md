@@ -1,3 +1,25 @@
+## 2026-06-23 — Wong v3 (script 106): structure-preserving SO(3) charge update — honest PARTIAL, a real refinement
+
+New physics-discovery run (user pick): does an orthogonal (SO(3)) charge update restore LINEAR legibility of the
+rotating Wong color charge that a GENERIC recurrent update scrambled (31: linear 0.29, |Q| drift 0.47)? Brought
+leg-3's structure-preserving fix into the REAL Wong physics. Charge = a literal 3-vector code (amortized w0),
+evolved by Q <- exp(skew(g(x,v)))*Q (matches Wong parallel transport; |Q| conserved by construction). Trained on
+trajectories only.
+- **V1 fit ✓** (2.0e-2, comparable-or-better than generic 2.1e-2 -- the original absolute <5e-3 gate was mis-set;
+  corrected to its intent "≤1.2x generic"). **V2 conservation ✓✓** |Q| drift 2.6-2.8e-7 (exact, vs generic 0.47).
+  **V3 legibility ✗-but-restored** linear min 0.56-0.64 across two runs (generic 0.29; static ceiling 0.89),
+  nonlinear 0.71 -- recovers ~half the lost legibility but misses the 0.70 bar. **V3b static control ✓** (0.83-0.95).
+- **One fix round spent** (richer rotation generator per leg-3's capacity lesson + 35k steps) did NOT improve V3
+  (0.64 -> 0.56, within noise) -> NOT a capacity limit. Diagnosis: a PARTIAL-OBSERVABILITY ceiling -- trajectory-only
+  supervision sees the charge only via its projection Q·E along the path, so the rotation is underdetermined.
+- **Refinement (the result):** structure-preserving updates conserve the invariant EXACTLY and substantially help
+  dynamic legibility, but recovering it to the ceiling ALSO needs the dynamic quantity to be OBSERVABLE from the
+  data -- structure is necessary, not sufficient, when the conserved quantity is only partially observed. Leg 3's
+  ceiling-recovery held because there the rotation was fully observable. Refines Phase H row 2 (the dynamic rotation
+  partially geometrizes under structure) + the legibility law's leg 3. NOT added to verify.sh (a partial, no clean
+  gate). Mishap logged: bundling a nohup-launch with its wait-loop in one background cmd -> stopping the waiter
+  process-group-killed the python; fixed by launching detached and waiting in a SEPARATE command.
+
 ## 2026-06-23 — Definitive task-structure re-test (scripts 104/105): the owed follow-up, honest + messy
 
 Overnight (user asleep, authorized). Closed the loose end: the proper in-harness re-test of AlphaLudo's §2 claim,

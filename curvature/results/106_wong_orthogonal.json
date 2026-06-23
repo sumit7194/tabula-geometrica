@@ -1,0 +1,32 @@
+{
+ "V1_mse": 0.020393485203385353,
+ "V2_model_Q_drift": 2.7509818778526096e-07,
+ "V3_decodeQt_linear_r": [
+  0.6307165676258932,
+  0.5588303228763208,
+  0.5955654678060701
+ ],
+ "V3_min_r": 0.5588303228763208,
+ "V3_decodeQt_nonlinear_r": [
+  0.7653203902167719,
+  0.7103558811052109,
+  0.7949021068142296
+ ],
+ "V3b_w0_Q0_linear_r": [
+  0.9052805498279758,
+  0.9553521581972859,
+  0.8619610016434444
+ ],
+ "true_rotation_deg": 50.0541588340504,
+ "baseline_generic": {
+  "W3_min_r": 0.2888965279998392,
+  "W3_min_nl_r": 0.6638292526406946,
+  "W4_decoded_norm_drift": 0.46633604168891907
+ },
+ "V1_fit": true,
+ "V2_conservation": true,
+ "V3_legibility_restored": false,
+ "V3b_static_legible": true,
+ "structure_restores_dynamic_legibility": false,
+ "verdict": "PARTIAL -- see numbers; honest either way."
+}

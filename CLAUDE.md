@@ -371,10 +371,19 @@ results in `curvature/notes/lab_notebook.md`.
   (4th-deriv noise → 2nd-deriv metric). **Emergence arc: entanglement → metric → curvature, no
   geometry put in by hand.**
 - **THE SESSION SYNTHESIS (the legibility law):** amortize → legible (static);
-  evolve through a generic net → re-scrambled (dynamic). Open thread (next
-  candidate): an orthogonal/Hamiltonian update F that conserves |w| by
-  construction — does STRUCTURE recover the legible rotation? Other survey rows
-  open: friction (predicted failure), equivalence-breaking gravity.
+  evolve through a generic net → re-scrambled (dynamic). **Open thread RESOLVED
+  (Wong v3, script 106, 2026-06-23) — honest PARTIAL:** an orthogonal SO(3)
+  update in the REAL Wong physics conserves |Q| EXACTLY (drift 2.7e-7 vs generic
+  0.47) and roughly doubles legibility of the rotating charge (linear 0.29 →
+  0.56-0.64, nonlinear 0.71) BUT does not reach the static ceiling (0.89) / the
+  0.70 gate; one fix round (richer rotation generator, leg-3's lever) did NOT
+  help → it's a PARTIAL-OBSERVABILITY ceiling (trajectory-only supervision sees
+  the charge only via Q·E along the path). Refined lesson: structure-preserving
+  updates conserve the invariant and substantially help, but FULL dynamic
+  legibility ALSO needs the quantity to be OBSERVABLE — structure necessary, not
+  sufficient (leg 3 hit the ceiling only because there the rotation was fully
+  observable). NOT in verify.sh (partial). Other survey rows still open: friction
+  (predicted failure), equivalence-breaking gravity.
 - **SCALAR FIELD = the equivalence-principle knob (2026-06-16, script 45) — 4/4
   first attempt.** New-field direction (user: extend methods, "what can we
   learn"). Scalar (spin-0) force is attractive-only (web-verified), what matters

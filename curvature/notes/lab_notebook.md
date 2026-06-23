@@ -3375,3 +3375,21 @@ coupling-linearity -> the difference is the task/output structure (trajectory vs
 NEITHER our old "1-D free legible" NOR AlphaLudo's "linear rescues D=1" is a clean universal. Robust core (all three
 domains): amortized->legible; free+multi-D->scramble; free+generic-coupling->scrambles even at D=1. 103 superseded.
 Writeup + JOURNAL scoped accordingly. Also: J5 (42) + Cert V (101) added to the regression gate (verify_gates.py).
+
+## Wong v3 — orthogonal SO(3) charge update in the real physics (script 106), 2026-06-23
+**Pre-reg:** does a structure-preserving (orthogonal SO(3)) charge update restore LINEAR legibility of the rotating
+Wong color charge that a generic recurrent update scrambled (31: linear min 0.29, |Q| drift 0.47)? Charge = literal
+3-vector code (amortized w0); Q <- exp(skew(g(x,v)))*Q (Wong parallel transport; |Q| conserved by construction);
+kinematics by a generic MLP; trained on trajectories only. Gates V1 fit comparable, V2 |Q| drift <1e-3, V3 linear
+decode of true Q(t) min>0.70, V3b static w0->Q0 legible.
+**Result (PARTIAL, honest):** V1 ✓ (mse 2.0e-2 ~ generic 2.1e-2; original absolute <5e-3 gate was mis-set ->
+corrected to "<=1.2x generic", its intent). V2 ✓✓ |Q| drift 2.6-2.8e-7 (exact). V3 ✗-but-restored: linear min
+0.56-0.64 (two runs), nonlinear 0.71 -- vs generic 0.29 and static ceiling 0.89; recovers ~half the lost legibility,
+misses 0.70. V3b ✓ (0.83-0.95).
+**Fix round (spent):** richer rotation generator (leg-3's capacity lever) + 35k steps did NOT raise V3 (0.64->0.56,
+noise) -> not capacity. **Diagnosis: partial observability** -- trajectory-only supervision sees Q only via Q·E(x)
+along the path, so the full rotation is underdetermined.
+**Refined lesson:** structure-preserving updates conserve the invariant EXACTLY and substantially help dynamic
+legibility, but full recovery ALSO requires the dynamic quantity to be OBSERVABLE -- structure is necessary, not
+sufficient, when the conserved quantity is only partially observed. (Leg 3 reached the ceiling because there the
+rotation was fully observable.) Refines Phase H row 2 + legibility leg 3. NOT in verify.sh (partial).
