@@ -398,8 +398,14 @@ results in `curvature/notes/lab_notebook.md`.
   updates conserve the invariant and substantially help, but FULL dynamic
   legibility ALSO needs the quantity to be OBSERVABLE — structure necessary, not
   sufficient (leg 3 hit the ceiling only because there the rotation was fully
-  observable). NOT in verify.sh (partial). Other survey rows still open: friction
-  (predicted failure), equivalence-breaking gravity.
+  observable). NOT in verify.sh (partial). **Survey-row status corrected
+  (2026-06-23): friction is DONE (script 70 — universal but dissipative does NOT
+  geometrize, geom/dissip MSE ratio 606,265× vs 0.085 for a conservative force;
+  reversibility explains it), and equivalence-breaking gravity is already covered
+  by the field zoo (68) + EM (Phase C): non-universal coupling → no geometry. So
+  the geometrization survey is ESSENTIALLY COMPLETE: a force geometrizes ⟺
+  UNIVERSAL ∧ CONSERVATIVE. Genuinely-open directions are now the frontier pokes
+  (de Sitter learnability) + consolidation, not more survey rows.**
 - **SCALAR FIELD = the equivalence-principle knob (2026-06-16, script 45) — 4/4
   first attempt.** New-field direction (user: extend methods, "what can we
   learn"). Scalar (spin-0) force is attractive-only (web-verified), what matters
