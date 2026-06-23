@@ -36,6 +36,10 @@ BATTERIES = [
      "101_time_gauge.json",
      {"C1_no_global_time.pass_all_seeds": (">", 0.5), "C2_relational_time.pass_all_seeds": (">", 0.5),
       "C3_time_is_gauge.pass_all_seeds": (">", 0.5)}),
+    ("de Sitter anchor (AdS-easy/dS-hard learnability)", ["scripts/111_desitter_anchor.py"],
+     "111_desitter_anchor.json",
+     {"G1_relational_learnable_both": (">", 0.5), "G2_absolute_needs_anchor": (">", 0.5),
+      "G3_no_frame_without_anchor": (">", 0.5)}),
 ]
 
 

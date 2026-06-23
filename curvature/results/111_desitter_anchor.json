@@ -1,0 +1,51 @@
+{
+ "N": 64,
+ "D": 2,
+ "K_anchor": 4,
+ "seeds": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7
+ ],
+ "selection": "best-of-restarts (min distance-stress)",
+ "anchor": {
+  "raw_best": 5.201862829373738e-10,
+  "aligned_best": 2.4627524908282794e-07,
+  "raw_all": [
+   2.326141981257024e-07,
+   1.401472806930542,
+   5.549317847908242e-06,
+   1.4014668464660645,
+   0.00018181747873313725,
+   1.4014685153961182,
+   5.201862829373738e-10,
+   7.402721166727133e-06
+  ]
+ },
+ "free": {
+  "raw_best": 1.4565097093582153,
+  "aligned_best": 5.97642099364748e-07,
+  "raw_all": [
+   1.4577046632766724,
+   0.22499977052211761,
+   1.452359914779663,
+   1.4563168287277222,
+   1.4565097093582153,
+   0.9310563206672668,
+   1.4743173122406006,
+   1.3901488780975342
+  ],
+  "raw_min_over_starts": 0.22499977052211761
+ },
+ "raw_ratio_free_over_anchor": 958112650.8679451,
+ "G1_relational_learnable_both": true,
+ "G2_absolute_needs_anchor": true,
+ "G3_no_frame_without_anchor": true,
+ "ads_easy_ds_hard_demonstrated": true,
+ "verdict": "AdS-easy / dS-hard DEMONSTRATED as learnability: the SHAPE is recovered from relational data in BOTH arms (aligned err anchor 0.00, free 0.00), but the ABSOLUTE FRAME is recovered ONLY with a boundary anchor (raw err anchor 0.00 vs free 1.46, 958112651x). Without an anchor the data fixes geometry only up to the rigid-motion gauge -> no observer-independent global frame (the dS obstruction); the anchor (AdS boundary) restores it."
+}

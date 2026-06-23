@@ -3420,3 +3420,13 @@ climbs MONOTONICALLY with alpha: 0.21 (a=0.05) -> 0.58 (0.15) -> 0.87 (0.40) -> 
 0.37->0.68->0.83->0.85 (at weak alpha info itself is faint). M1 PASS. So 109's target-dependence is, mechanistically,
 the property's SIGNAL STRENGTH in the observations: weak/diffuse -> scramble, strong/distinct -> legible. Completes
 the 107->110 elimination chain (output/capacity/batching refuted; target=driver; signal-strength=mechanism).
+
+## de Sitter poke -- AdS-easy/dS-hard as learnability (script 111), 2026-06-23
+Boundary ANCHOR makes absolute geometry identifiable; without it only the rigid-motion-invariant (relational)
+structure is. Learner discovers a 2D geometry from pairwise distances (rigid-motion gauge, web-verified
+arXiv:1804.04310), anchor=K points clamped to truth (the AdS boundary). Best-of-8-restarts. G1 aligned err 0.00
+both (shape learnable); G2 raw err 0.000 anchor vs 1.46 no-anchor (absolute frame needs anchor); G3 no-anchor shape
+recovered but frame is gauge (raw 1.46, varies across starts) = no observer-independent global frame -- restarts fix
+optimization (anchor) but not identifiability (no-anchor). 3/3. Honest scope: toy of the anchor mechanism, not
+literal dS holography. Complements Cert V (no observer-independent time): together = the "no fixed reference" wall
+for time (101) + frame (111). In verify.sh.

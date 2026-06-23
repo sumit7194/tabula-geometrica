@@ -480,6 +480,21 @@ results in `curvature/notes/lab_notebook.md`.
   Also the honest answer to "is time a field/emergent" (= Page-Wootters relational
   time). Came out of the emergent-spacetime physics-discussion arc (the map's central
   wall, made a positive result).
+- **DE SITTER ANCHOR — AdS-easy/dS-hard as LEARNABILITY (2026-06-23, script 111),
+  3/3.** The frame-gauge companion to Cert V (which did the TIME-gauge): the map's
+  "no fixed reference" wall, for SPACE/frame. A learner discovers a 2D geometry
+  from relational (rigid-motion-invariant) pairwise distances, with vs without a
+  boundary ANCHOR (K=4 points clamped to truth = the AdS boundary). Web-verified:
+  distance-geometry is unique only up to rigid motions (arXiv:1804.04310) = the
+  clean analog of "no fixed frame". Best-of-8-restarts. G1 ✓ relational SHAPE
+  recovers in both (aligned err 0.00); G2 ✓ absolute FRAME recovers only WITH the
+  anchor (raw err 0.000 vs 1.46); G3 ✓ no-anchor recovers shape but not frame
+  (raw 1.46, varies across restarts) → data fixes geometry only up to the
+  rigid-motion gauge = no observer-independent global frame (dS); the anchor (AdS)
+  restores it. Restarts fix OPTIMIZATION (anchor converges) but NOT IDENTIFIABILITY
+  (no-anchor stays gauge). Honest scope: toy of the ANCHOR MECHANISM, not literal
+  dS holography. In verify.sh. Cert V (time, 101) + this (frame, 111) = the
+  no-fixed-reference wall mapped for both axes.
 - **CURVATURE ATLAS (2026-06-19, scripts 88-90):** curvature/holonomy/topology as the
   universal signature of "the cheapest shared description," beyond gravity. Finance
   (88, no-arbitrage = flat connection, arbitrage = holonomy, numéraire = gauge, 3/3);

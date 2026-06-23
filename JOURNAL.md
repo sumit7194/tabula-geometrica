@@ -24,6 +24,25 @@ target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **M
 0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
 strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
+## 2026-06-23 — de Sitter poke: AdS-easy / dS-hard as a LEARNABILITY result (script 111)
+
+Frontier poke from the emergent-spacetime map (topic c1), turning "why is de Sitter hard" into a measured result.
+Mechanism (web-verified, arXiv:1804.04310): reconstructing geometry from pairwise distances is unique only UP TO
+RIGID MOTIONS -- that gauge degeneracy is the clean analog of "no fixed frame"; anchor points (the AdS boundary)
+break it. Toy: a learner discovers a 2D geometry from relational (rigid-motion-invariant) distances, with vs without
+a boundary anchor (K=4 points clamped to truth). Multi-start (8), best-of-restarts.
+- G1 RELATIONAL LEARNABLE both: aligned (Procrustes) error 0.00 in both arms -- the SHAPE recovers from relational
+  data regardless of anchor.
+- G2 ABSOLUTE NEEDS ANCHOR: raw (unaligned) error 0.000 WITH anchor vs 1.46 WITHOUT -- the absolute frame is
+  recoverable only with a boundary anchor.
+- G3 CERTIFICATE: no-anchor recovers shape (aligned 0.00) but not frame (raw 1.46, varies across restarts) -> data
+  fixes geometry only up to the rigid-motion gauge = no observer-independent global frame (the dS obstruction); the
+  anchor (AdS boundary) restores it. Restarts fix OPTIMIZATION (anchor converges) but NOT IDENTIFIABILITY (no-anchor
+  frame stays gauge) -- the clean distinction.
+Honest scope: a toy of the ANCHOR MECHANISM (why AdS tractable / dS hard), not literal dS holography. Complements
+Cert V (no observer-independent TIME) -- together they map the "no fixed reference" wall for both time (101) and
+space/frame (111). Added to verify.sh. Genuinely-novel frontier result, not a survey-row redo.
+
 ## 2026-06-23 — Wong v3 (script 106): structure-preserving SO(3) charge update — honest PARTIAL, a real refinement
 
 New physics-discovery run (user pick): does an orthogonal (SO(3)) charge update restore LINEAR legibility of the
