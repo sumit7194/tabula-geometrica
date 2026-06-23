@@ -34,8 +34,8 @@ BATTERIES = [
       "E1_critical.c_from_curvature": (">", 0.8)}),
     ("Certificate V (no observer-independent time)", ["scripts/101_time_gauge_certificate.py"],
      "101_time_gauge.json",
-     {"C1_no_global_time.pass": (">", 0.5), "C2_relational_time.pass": (">", 0.5),
-      "C3_time_is_gauge.pass": (">", 0.5)}),
+     {"C1_no_global_time.pass_all_seeds": (">", 0.5), "C2_relational_time.pass_all_seeds": (">", 0.5),
+      "C3_time_is_gauge.pass_all_seeds": (">", 0.5)}),
 ]
 
 
