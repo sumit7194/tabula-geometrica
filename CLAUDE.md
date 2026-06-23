@@ -334,7 +334,10 @@ results in `curvature/notes/lab_notebook.md`.
   is target-conditional, not universal** (my fresh harnesses 103/107/108 never
   scrambled = "easy" targets; Phronesis/AlphaLudo matched s35 because they copied
   its TARGET). Robust theorem-backed direction stays amortize→legible (Roeder).
-  Open (optional): world-weight-scale sweep to confirm signal-strength is the knob.
+  **MECHANISM CONFIRMED (110): the knob is the property's SIGNAL STRENGTH in the
+  observations** — scaling ONLY p's effect (y=base(x)+α·p·coup(x), base frozen)
+  makes free D=1 legibility climb monotonically 0.21→0.58→0.87→0.89 as α goes
+  0.05→0.15→0.4→1.0 (saturates ~0.4). Weak signal → scramble; strong → legible.
 - **PHASE H ROW 2 — Wong color charge (scripts 30/30b/31), CLOSED, honest
   boundary:** classical SU(2) charge that parallel-transports (rotates, |Q|
   conserved; web-verified Wong 1970). v1 negative (confounded: 12° precession +

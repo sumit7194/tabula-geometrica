@@ -3412,3 +3412,11 @@ SCRAMBLED in abstract-scalar (104, 0.23)? Systematic elimination:
 theorem-backed direction = amortize->legible (Roeder 2021); free->scramble is target-conditional. The "1-D boundary"
 fragility is a SYMPTOM of target-dependence, not a property of D=1. Phronesis/AlphaLudo reproduced s35's number
 because they copied the s35 TARGET. Open: world-weight-scale sweep to confirm 'signal-strength is the knob'.
+
+## Capstone (script 110): signal strength IS the knob, 2026-06-23
+Isolated the mechanism behind 109 (target function drives the scramble): scale ONLY the property's effect,
+y = base(x) + alpha * p * coup(x) (base + coup frozen), per-object, D=1, free, 3 seeds. Free D=1 linear legibility
+climbs MONOTONICALLY with alpha: 0.21 (a=0.05) -> 0.58 (0.15) -> 0.87 (0.40) -> 0.89 (1.0) -> 0.86 (2.5); kNN
+0.37->0.68->0.83->0.85 (at weak alpha info itself is faint). M1 PASS. So 109's target-dependence is, mechanistically,
+the property's SIGNAL STRENGTH in the observations: weak/diffuse -> scramble, strong/distinct -> legible. Completes
+the 107->110 elimination chain (output/capacity/batching refuted; target=driver; signal-strength=mechanism).

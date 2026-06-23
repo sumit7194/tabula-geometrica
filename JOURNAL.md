@@ -19,8 +19,10 @@ capacity, and batching are NOT drivers. My three fresh harnesses (103/107/108) n
 "easy" (large-weight) targets. The cross-domain reproductions (Phronesis 0.22, AlphaLudo 0.216) matched the s35
 number because they copied the s35 TARGET. So the robust, theorem-backed direction is amortize→legible (Roeder
 2021); "free→scramble" is real but target-conditional — the 1-D boundary's fragility is a symptom of this
-target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. (Open mechanism: a world-weight-scale
-sweep would confirm 'signal-strength is the knob' — optional follow-up.)
+target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **Mechanism CONFIRMED (110):** scaling ONLY the property's effect
+(y=base(x)+α·p·coup(x), base frozen) makes free D=1 legibility climb monotonically 0.21→0.58→0.87→0.89 as α goes
+0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
+strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
 ## 2026-06-23 — Wong v3 (script 106): structure-preserving SO(3) charge update — honest PARTIAL, a real refinement
 

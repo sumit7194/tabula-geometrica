@@ -1,0 +1,43 @@
+{
+ "alphas": [
+  0.05,
+  0.15,
+  0.4,
+  1.0,
+  2.5
+ ],
+ "seeds": [
+  0,
+  1,
+  2
+ ],
+ "results": {
+  "0.05": {
+   "linear": 0.20856843345994946,
+   "std": 0.15525821438757403,
+   "knn": 0.37059624434282284
+  },
+  "0.15": {
+   "linear": 0.5784774276012257,
+   "std": 0.14353241293004612,
+   "knn": 0.681412423078238
+  },
+  "0.4": {
+   "linear": 0.8701058166029924,
+   "std": 0.1029961581026399,
+   "knn": 0.8344417023653254
+  },
+  "1.0": {
+   "linear": 0.8897281245344372,
+   "std": 0.13101791252655312,
+   "knn": 0.8509102951616615
+  },
+  "2.5": {
+   "linear": 0.8644246071939317,
+   "std": 0.11167710239587084,
+   "knn": 0.8455766953904301
+  }
+ },
+ "M1_signal_strength_is_the_knob": true,
+ "verdict": "SIGNAL STRENGTH IS THE KNOB: free D=1 linear legibility climbs from 0.21 (weak signal, alpha=0.05) to 0.86 (strong signal, alpha=2.5) as ONLY the property's effect on the output is scaled (base fixed). Confirms 109's target-dependence is, mechanistically, the property's signal strength in the observations."
+}

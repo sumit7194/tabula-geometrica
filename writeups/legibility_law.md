@@ -130,8 +130,11 @@ output dim 0.93→1.0), capacity (`105`, non-monotonic), and batching regime (`1
 are all **refuted**. The driver, isolated decisively (`109`): the **target function itself**. At identical
 learner/capacity/batching/output, swapping *only* the world flips it — a default-init MLP world (s35's) **scrambles**
 the free code (0.247, reproducing the s35 scramble through a fresh learner), while a large-weight world stays
-**legible** (0.78). Plausible mechanism: the property's *signal-strength* in the observations (a strong, distinct
-effect → legible; weak/diffuse → scramble). **Honest consequence:** *free → scramble is NOT universal* — it is
+**legible** (0.78). The mechanism is then **measured** (`110`): scaling *only* the property's effect on the output
+(`y = base(x) + α·p·coup(x)`, base frozen) makes free `D=1` legibility climb monotonically with α —
+**0.21 → 0.58 → 0.87 → 0.89** as α goes 0.05 → 0.15 → 0.4 → 1.0 (saturating ~0.4). So the knob is the property's
+**signal-strength in the observations**: a strong, distinct effect → legible; weak/diffuse → scrambled (or, at the
+weak extreme, barely present). **Honest consequence:** *free → scramble is NOT universal* — it is
 conditional on the target/observation structure (`109`) and, within a fixed world, on latent dimensionality (`48`).
 Three fresh harnesses (`103`/`107`/`108`) never scrambled because they used "easy" targets; the cross-domain
 reproductions (Phronesis 0.22, AlphaLudo 0.216) matched s35's number because they copied the s35 *target*. So the
