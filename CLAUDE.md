@@ -305,6 +305,23 @@ results in `curvature/notes/lab_notebook.md`.
   legible for free (r~0.97); a free per-body parameter scrambles (linear 0.50,
   info in nonlinear 0.86). The Phase C illegible q/m code was a FREE-PARAMETER
   artifact. Consensus bet (parallel session) falsified; their question was right.
+- **LEGIBILITY LAW — CROSS-SESSION VALIDATION (2026-06-22/23, writeups/legibility_law.md):**
+  three parallel projects pressure-tested the law and each corrected the others
+  (adversarial peer review, not echo). **Phronesis (real 4B LLM):** refuted our
+  "redundancy explains weak steering" cross-claim → the LLM mechanism is
+  read-direction≠write-direction (cos 0.34); calibrated two of our overshoots
+  (cosine must stay qualitative; up/down asymmetry was a baseline confound,
+  withdrawn). Our reciprocal toy test (102) reproduced read≠write functionally;
+  settled joint statement recorded. **AlphaLudo (game-RL):** third domain;
+  positive control reproduced our 0.22; identity-only free code stays legible
+  (boundary: scramble needs free-STORAGE of a multi-D property). **Owed re-test
+  (104/105):** generic coupling scrambles free D=1 (confirmed in the validated
+  harness; toy 103 was too easy and failed), but "linear coupling rescues D=1" is
+  FRAGILE/task-specific (legible in physics-trajectory harness 48, scrambled in
+  abstract-scalar 104; capacity hypothesis refuted by 105). **Robust core (all 3
+  domains): amortized→legible; free+multi-D→scramble; free+generic→scrambles even
+  at D=1. The D=1-legible boundary is fragile, not universal.** Cited O'Neill
+  amortisation-gap (arXiv:2411.13117). verify.sh ALL GREEN incl. J5+CertV.
 - **PHASE H ROW 2 — Wong color charge (scripts 30/30b/31), CLOSED, honest
   boundary:** classical SU(2) charge that parallel-transports (rotates, |Q|
   conserved; web-verified Wong 1970). v1 negative (confounded: 12° precession +
