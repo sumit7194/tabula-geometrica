@@ -1,0 +1,54 @@
+{
+ "seeds": [
+  0,
+  1,
+  2
+ ],
+ "results": {
+  "generic_p1_free": {
+   "linear": 0.244043487909383,
+   "linear_std": 0.07430363593590432,
+   "nonlinear": 0.5876221703627679
+  },
+  "generic_p1_amortized": {
+   "linear": 0.9929298474207743,
+   "linear_std": 0.0014387882190356747,
+   "nonlinear": 0.9930337352903434
+  },
+  "generic_p2_free": {
+   "linear": 0.2623046526626265,
+   "linear_std": 0.06926977192374591,
+   "nonlinear": 0.5513347428458638
+  },
+  "generic_p2_amortized": {
+   "linear": 0.7554054939018946,
+   "linear_std": 0.019426921746884616,
+   "nonlinear": 0.7381085304037797
+  },
+  "linear_p1_free": {
+   "linear": 0.22733372777964134,
+   "linear_std": 0.032799896706266145,
+   "nonlinear": 0.6687368621324777
+  },
+  "linear_p1_amortized": {
+   "linear": 0.9993802044645969,
+   "linear_std": 5.910568377640485e-05,
+   "nonlinear": 0.999049421598964
+  },
+  "linear_p2_free": {
+   "linear": 0.46359845062300975,
+   "linear_std": 0.07859495086061817,
+   "nonlinear": 0.6810410923435759
+  },
+  "linear_p2_amortized": {
+   "linear": 0.8387931290557503,
+   "linear_std": 0.010664982406734443,
+   "nonlinear": 0.8914465940180455
+  }
+ },
+ "G1_baseline_scramble_reproduces": true,
+ "G2_linear_rescues_D1": false,
+ "G3_flip_is_real": false,
+ "alphaludo_refinement_confirmed_in_validated_harness": false,
+ "verdict": "PARTIAL/NEGATIVE: see numbers. If G1 failed, our generic harness does not scramble at D=1 either (gen free D=1 linear 0.24) \u2014 then AlphaLudo's D=1 scramble is setup-specific, not general (honest either way)."
+}

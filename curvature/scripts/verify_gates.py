@@ -28,6 +28,14 @@ BATTERIES = [
      {"isotonic_r2": (">", 0.95), "alignment": (">", 0.95)}),
     ("Phase E + curvature", ["scripts/17_curvature_invariant.py"], "17_curvature.json",
      {"G0_sphere_err": ("<", 0.01), "K1_corr": (">", 0.95)}),
+    ("Phase J5 (curvature from entanglement)", ["scripts/42_curvature_from_entanglement.py"],
+     "42_curvature_entanglement.json",
+     {"E0_calculator.pass": (">", 0.5), "E1_critical.pass": (">", 0.5), "E2_gapped.pass": (">", 0.5),
+      "E1_critical.c_from_curvature": (">", 0.8)}),
+    ("Certificate V (no observer-independent time)", ["scripts/101_time_gauge_certificate.py"],
+     "101_time_gauge.json",
+     {"C1_no_global_time.pass": (">", 0.5), "C2_relational_time.pass": (">", 0.5),
+      "C3_time_is_gauge.pass": (">", 0.5)}),
 ]
 
 

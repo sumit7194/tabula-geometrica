@@ -104,17 +104,24 @@ capacity modulates the level — a roomier code softens the collapse, a tight on
 clause is **task-dependent**, not universal. The AlphaLudo session (a trained Ludo RL agent) reimplemented our
 harness — reproducing our scramble as a positive control (free `D=2` linear **0.216**, matching our 0.22) — and
 found that under a *generic (random-MLP)* property→output map, even a **1-D** free code **scrambles** (their abstract
-task: linear 0.36), whereas a *linear-in-property* world (charge acting monotonically, as in **our physics**) flips
-`D=1` back to **legible** (0.61). They ruled out embedding width as the cause. So the honest mechanism is: **both
-latent dimensionality *and* coupling-linearity gate free-code legibility** — our `D=1`-legible result holds because
-our charge couples *linearly* (script 48's wells are linear in `c`); it is not a pure dimensionality effect.
-*Honest note on our own re-test:* a quick abstract `(x,c)→Y` regression toy (`103_legibility_task_structure.py`,
-3 seeds) **failed to reproduce even the baseline scramble** (the free code stayed linearly legible at `D=2` and
-under random-MLP coupling, ~0.93–1.0), so it could **not** test the refinement — instructive in itself (the scramble
-is *not* a generic property of "free code + nonlinear map"; it needs the harder contrastive/trajectory task
-structure of scripts 35/48). We therefore adopt the refinement on AlphaLudo's validated test (their positive control
-+ our metric), with the definitive in-our-harness re-test (script-35 World, linear-vs-generic coupling) as an owed
-follow-up.
+task: linear 0.36), whereas a *linear-in-property* world flipped `D=1` back to **legible** (0.61).
+
+**We then ran the definitive re-test in our own validated harness** (`104_task_structure_validated.py` — script 35's
+World, which provably scrambles, with a linear-coupling variant; plus a capacity sweep `105_capacity_check.py`),
+3 seeds each. Two honest outcomes:
+- **Confirmed (robust):** under *generic* coupling the free code scrambles **even at `D=1`** (linear 0.24, info
+  present in kNN 0.59) — reproducing AlphaLudo's main point in our harness, and what the easy toy `103` (which
+  failed to scramble at all, 0.93–1.0) could **not** show.
+- **Not cleanly reproduced (fragile):** "linear coupling rescues `D=1`" did **not** hold in our *abstract-scalar*
+  harness — the linear-world free `D=1` stayed scrambled across capacities (0.19–0.30 at cdim 2–16; a noisy 0.61
+  only at cdim 32, where kNN also drops). Yet our *physics-trajectory* harness (script 48) shows linear `D=1`
+  clearly **legible** (0.86). Same coupling-linearity, opposite outcome → the rescue depends on the **task / output
+  structure** (trajectory vs scalar), not coupling or capacity alone (the capacity hypothesis was **refuted**, 105).
+
+So the honest, scoped conclusion: the **`D=1` boundary is genuinely fragile and task-specific** — *neither* our old
+"1-D free is legible" *nor* AlphaLudo's "linear coupling rescues `D=1`" is a clean universal. What is **robust across
+all three domains** is the core: *amortized → legible; free + multi-D → scramble; free + generic-coupling → scrambles
+even at `D=1`*. The earlier inconclusive toy `103` is superseded by `104`/`105`. Credit: AlphaLudo + Phronesis sessions.
 
 ## Leg 2 — Generic evolution → re-scrambled
 

@@ -3355,3 +3355,23 @@ honest answer to the deferred "is time a field/emergent" question -- Page-Wootte
 **Context:** came out of the emergent-spacetime physics-discussion arc; the map's recurring "no fixed reference"
 wall (problem of time / background independence / complementarity / dS observables) made into a positive result --
 the gauge villain at its deepest. Certificate quartet -> QUINTET.
+
+## Definitive task-structure re-test (scripts 104/105), 2026-06-23
+**Context:** AlphaLudo (§2) claimed our "1-D free code is legible" is task-dependent -- generic coupling scrambles
+even D=1, linear coupling rescues D=1 (their 0.36 -> 0.61). My quick toy (103) was too easy (no baseline scramble),
+so I re-tested in script 35's VALIDATED harness (which provably scrambles) with a linear-coupling variant (104) +
+a capacity sweep (105). 3 seeds each.
+**104 result:** G1 ✓ generic coupling free scrambles EVEN AT D=1 (linear 0.24/0.26 at D=1/D=2, kNN 0.59/0.55) --
+reproduces AlphaLudo's main point in our harness, which 103 failed to. G2/G3 ✗ linear coupling did NOT rescue D=1
+in this abstract-scalar harness (linear D=1 0.23) -- contradicting AlphaLudo's 0.61. Amortized legible everywhere
+(0.75-0.999, control).
+**105 result (capacity sweep cdim 2-32):** REFUTED the capacity hypothesis. linear-world free D=1: 0.30/0.19/0.19/
+0.23/0.61 across cdim 2/4/8/16/32 -- scrambled at most capacities, only a noisy 0.61 at cdim 32 (kNN drops to 0.63
+there -> confounded, non-monotonic). generic stays scrambled across cdim (0.22-0.49). So capacity is NOT a clean
+driver.
+**Honest conclusion:** the D=1 boundary is FRAGILE + TASK-SPECIFIC. Our physics-trajectory harness (48) shows linear
+D=1 LEGIBLE (0.86); our abstract-scalar harness (104/105) shows linear D=1 SCRAMBLED (0.19-0.23) at the same
+coupling-linearity -> the difference is the task/output structure (trajectory vs scalar), not coupling or capacity.
+NEITHER our old "1-D free legible" NOR AlphaLudo's "linear rescues D=1" is a clean universal. Robust core (all three
+domains): amortized->legible; free+multi-D->scramble; free+generic-coupling->scrambles even at D=1. 103 superseded.
+Writeup + JOURNAL scoped accordingly. Also: J5 (42) + Cert V (101) added to the regression gate (verify_gates.py).

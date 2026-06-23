@@ -1,0 +1,61 @@
+{
+ "cdims": [
+  2,
+  4,
+  8,
+  16,
+  32
+ ],
+ "seeds": [
+  0,
+  1,
+  2
+ ],
+ "linear_world": {
+  "2": [
+   0.29467282456907706,
+   0.9436072866189796
+  ],
+  "4": [
+   0.1887172378118078,
+   0.8543223253557519
+  ],
+  "8": [
+   0.18750787183495032,
+   0.79191015886886
+  ],
+  "16": [
+   0.22733372777964134,
+   0.6687368621324777
+  ],
+  "32": [
+   0.6099333509348471,
+   0.6297298771695977
+  ]
+ },
+ "generic_world": {
+  "2": [
+   0.3427679320118589,
+   0.9480163743097135
+  ],
+  "4": [
+   0.21656206783070844,
+   0.8839594050624277
+  ],
+  "8": [
+   0.276874616025849,
+   0.8338919293076025
+  ],
+  "16": [
+   0.244043487909383,
+   0.5876221703627679
+  ],
+  "32": [
+   0.48541427948754096,
+   0.43543105093985734
+  ]
+ },
+ "P1_capacity_drives_linear_D1": false,
+ "P2_generic_stays_scrambled": true,
+ "verdict": "Capacity is NOT the driver of linear-coupling D=1 legibility: a tight free code (cdim 2) is scrambled (r 0.29) while a roomy one (cdim 32) is legible (r 0.61). Generic coupling stays scrambled across capacity (yes). This does NOT explain the 48-vs-104 divergence: '1-D free legible' needs BOTH near-linear coupling AND a tight enough code."
+}

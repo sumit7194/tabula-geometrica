@@ -1,3 +1,21 @@
+## 2026-06-23 — Definitive task-structure re-test (scripts 104/105): the owed follow-up, honest + messy
+
+Overnight (user asleep, authorized). Closed the loose end: the proper in-harness re-test of AlphaLudo's §2 claim,
+in script 35's VALIDATED scramble-producing World (my earlier toy 103 was too easy and couldn't test it).
+- **104 (linear-vs-generic coupling, 2 PDIM × 2 modes × 3 seeds):** G1 ✓ — generic coupling scrambles the free code
+  EVEN AT D=1 (linear 0.24, kNN 0.59), reproducing AlphaLudo's main point (what 103 couldn't). G2/G3 ✗ — "linear
+  coupling rescues D=1" did NOT reproduce in the abstract-scalar harness (linear D=1 still 0.23), UNLIKE our physics
+  harness (48: linear D=1 legible 0.86). Amortized legible everywhere (control).
+- **105 (capacity sweep, cdim 2–32):** REFUTED the capacity hypothesis (P1 false) — linear-world free D=1 is
+  scrambled at cdim 2–16 (0.19–0.30) and only a noisy 0.61 at cdim 32 (kNN drops there → confounded); non-monotonic.
+  Generic stays scrambled across cdim (P2 ✓).
+- **Honest conclusion:** the D=1 boundary is genuinely FRAGILE and TASK-SPECIFIC. Same coupling-linearity gives
+  opposite outcomes in the physics-trajectory harness (legible) vs the abstract-scalar harness (scrambled) → it's
+  the task/output structure, not coupling or capacity alone. So NEITHER our old "1-D free legible" NOR AlphaLudo's
+  "linear rescues D=1" is a clean universal. Scoped the writeup to the ROBUST core: amortized→legible; free+multi-D→
+  scramble; free+generic-coupling→scrambles even at D=1 (confirmed across all three domains). 103 superseded by
+  104/105. Also wired J5 (42) + Cert V (101) into the regression gate (verify_gates.py).
+
 ## 2026-06-22 — AlphaLudo: third domain (game-RL) confirms the legibility law's BOUNDARY + refines the 1-D clause
 
 The AlphaLudo session (trained 2-player Ludo RL agent) landed its legibility test — a third independent domain
