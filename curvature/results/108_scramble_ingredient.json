@@ -1,0 +1,33 @@
+{
+ "seeds": [
+  0,
+  1,
+  2
+ ],
+ "results": {
+  "perquery_OUT1": {
+   "linear": 0.9328587645588887,
+   "std": 0.0820954667123895,
+   "knn": 0.8788464422371076
+  },
+  "perquery_OUT16": {
+   "linear": 0.9982236405601069,
+   "std": 0.0006504375205455518,
+   "knn": 0.9200638429008391
+  },
+  "perobject_OUT1": {
+   "linear": 0.8897281245344372,
+   "std": 0.13101791252655312,
+   "knn": 0.8509102951616615
+  },
+  "perobject_OUT16": {
+   "linear": 0.998452523814659,
+   "std": 0.00024017559063429876,
+   "knn": 0.8807133665476802
+  }
+ },
+ "B1_perobject_scrambles": false,
+ "B2_perquery_legible": true,
+ "B3_batching_is_the_driver": false,
+ "verdict": "Batching does NOT cleanly explain it (per-query 0.93, per-object 0.89) -- honest; the scramble ingredient remains unisolated (see numbers)."
+}

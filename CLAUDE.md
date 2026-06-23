@@ -322,6 +322,19 @@ results in `curvature/notes/lab_notebook.md`.
   domains): amortized→legible; free+multi-D→scramble; free+generic→scrambles even
   at D=1. The D=1-legible boundary is fragile, not universal.** Cited O'Neill
   amortisation-gap (arXiv:2411.13117). verify.sh ALL GREEN incl. J5+CertV.
+- **1-D MYSTERY CRACKED — free→scramble driver = the TARGET FUNCTION (scripts
+  107-109, 2026-06-23).** Process of elimination on "why same linear coupling →
+  D=1 legible in physics-traj (48, 0.86) but scrambled in abstract-scalar (104,
+  0.23)": output richness REFUTED (107, legible at every OUT), capacity REFUTED
+  (105), batching regime REFUTED (108). DECISIVE (109): swap ONLY the world at
+  identical learner → s35's default-init MLP world SCRAMBLES the free code
+  (0.247) while a large-weight world stays LEGIBLE (0.78). So free→scramble is
+  driven by the TARGET / observation structure (plausibly the property's
+  signal-strength), NOT output/capacity/batching. **Honest bound: free→scramble
+  is target-conditional, not universal** (my fresh harnesses 103/107/108 never
+  scrambled = "easy" targets; Phronesis/AlphaLudo matched s35 because they copied
+  its TARGET). Robust theorem-backed direction stays amortize→legible (Roeder).
+  Open (optional): world-weight-scale sweep to confirm signal-strength is the knob.
 - **PHASE H ROW 2 — Wong color charge (scripts 30/30b/31), CLOSED, honest
   boundary:** classical SU(2) charge that parallel-transports (rotates, |Q|
   conserved; web-verified Wong 1970). v1 negative (confounded: 12° precession +

@@ -3393,3 +3393,22 @@ along the path, so the full rotation is underdetermined.
 legibility, but full recovery ALSO requires the dynamic quantity to be OBSERVABLE -- structure is necessary, not
 sufficient, when the conserved quantity is only partially observed. (Leg 3 reached the ceiling because there the
 rotation was fully observable.) Refines Phase H row 2 + legibility leg 3. NOT in verify.sh (partial).
+
+## The 1-D mystery cracked — free-code scramble driver = the TARGET FUNCTION (scripts 107-109), 2026-06-23
+**Question:** why does the SAME linear coupling give free D=1 LEGIBLE in physics-trajectory (48, 0.86) but
+SCRAMBLED in abstract-scalar (104, 0.23)? Systematic elimination:
+- **107 output richness REFUTED:** fresh free harness legible at every OUT (1->64: 0.93->1.0). (Also did not
+  reproduce the s35 scramble at all -- like 103.)
+- **105 capacity REFUTED** (non-monotonic, earlier).
+- **108 batching REFUTED:** per-object 0.89 vs per-query 0.93 -- both legible in fresh code.
+- **109 TARGET FUNCTION = the ingredient (decisive):** identical learner/capacity/batching/output, swap ONLY the
+  world -> s35 default-init MLP world SCRAMBLES (linear 0.247, reproduces s35's 0.24 through my learner); my
+  large-weight (x0.7) randnet world stays LEGIBLE (0.78). The free->scramble is driven by the target / how the
+  property is expressed in observations (plausibly property signal-strength: strong distinct effect -> legible;
+  weak/diffuse -> scramble).
+**Why 103/107/108 never scrambled:** they used "easy" large-weight targets. The scramble needs the s35-class target.
+**Honest bound on the law:** free->scramble is NOT universal -- conditional on the target/observation structure
+(109) and, within a fixed world, on latent dimensionality (48). Output/capacity/batching are not drivers. Robust,
+theorem-backed direction = amortize->legible (Roeder 2021); free->scramble is target-conditional. The "1-D boundary"
+fragility is a SYMPTOM of target-dependence, not a property of D=1. Phronesis/AlphaLudo reproduced s35's number
+because they copied the s35 TARGET. Open: world-weight-scale sweep to confirm 'signal-strength is the knob'.

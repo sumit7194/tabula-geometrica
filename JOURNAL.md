@@ -1,3 +1,27 @@
+## 2026-06-23 — The 1-D mystery, cracked: the free-code scramble's driver is the TARGET FUNCTION (scripts 107-109)
+
+User pick ("crack the 1-D boundary mystery": why does the SAME linear coupling give D=1 legible in physics-traj (48,
+0.86) but scrambled in abstract-scalar (104, 0.23)?). A systematic process of elimination — and the answer was none
+of the obvious suspects:
+- **107 (output richness): REFUTED.** A fresh free-embedding harness stays LEGIBLE at every output dim (OUT 1→64,
+  linear 0.93→1.0). Output dimensionality is not the driver. (Also: this fresh harness, like 103, did NOT reproduce
+  the s35 scramble at all.)
+- **105 (capacity): REFUTED earlier** (non-monotonic).
+- **108 (batching regime): REFUTED.** per-object vs per-query batching both legible (0.89 vs 0.93) in fresh code.
+- **109 (the target function): THE INGREDIENT (decisive).** At IDENTICAL learner/capacity/batching/output, swapping
+  ONLY the world: s35's default-init MLP world SCRAMBLES the free code (linear 0.247, reproducing the s35 0.24
+  through my learner) while my large-weight (×0.7) world stays LEGIBLE (0.78). So the free→scramble is driven by the
+  TARGET FUNCTION / how the property is expressed in the observations — plausibly the property's signal-strength
+  (strong, distinct effect on outputs → legible; weak/diffuse → scramble).
+**Resolution + honest bound on the law:** the free-code scramble is NOT universal to free codes; it is CONDITIONAL on
+the target/observation structure (109) and, within a fixed world, on latent dimensionality (48). Output richness,
+capacity, and batching are NOT drivers. My three fresh harnesses (103/107/108) never scrambled because they used
+"easy" (large-weight) targets. The cross-domain reproductions (Phronesis 0.22, AlphaLudo 0.216) matched the s35
+number because they copied the s35 TARGET. So the robust, theorem-backed direction is amortize→legible (Roeder
+2021); "free→scramble" is real but target-conditional — the 1-D boundary's fragility is a symptom of this
+target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. (Open mechanism: a world-weight-scale
+sweep would confirm 'signal-strength is the knob' — optional follow-up.)
+
 ## 2026-06-23 — Wong v3 (script 106): structure-preserving SO(3) charge update — honest PARTIAL, a real refinement
 
 New physics-discovery run (user pick): does an orthogonal (SO(3)) charge update restore LINEAR legibility of the

@@ -123,6 +123,22 @@ So the honest, scoped conclusion: the **`D=1` boundary is genuinely fragile and 
 all three domains** is the core: *amortized → legible; free + multi-D → scramble; free + generic-coupling → scrambles
 even at `D=1`*. The earlier inconclusive toy `103` is superseded by `104`/`105`. Credit: AlphaLudo + Phronesis sessions.
 
+**The 1-D mystery, cracked — and a real bound on the law (`107`–`109`).** Chasing *why* the same linear coupling
+gives free `D=1` legible in physics-trajectory (`48`, 0.86) but scrambled in abstract-scalar (`104`, 0.23), we ran a
+process of elimination and the answer is **none of the obvious suspects**: output richness (`107`, legible at every
+output dim 0.93→1.0), capacity (`105`, non-monotonic), and batching regime (`108`, per-object 0.89 vs per-query 0.93)
+are all **refuted**. The driver, isolated decisively (`109`): the **target function itself**. At identical
+learner/capacity/batching/output, swapping *only* the world flips it — a default-init MLP world (s35's) **scrambles**
+the free code (0.247, reproducing the s35 scramble through a fresh learner), while a large-weight world stays
+**legible** (0.78). Plausible mechanism: the property's *signal-strength* in the observations (a strong, distinct
+effect → legible; weak/diffuse → scramble). **Honest consequence:** *free → scramble is NOT universal* — it is
+conditional on the target/observation structure (`109`) and, within a fixed world, on latent dimensionality (`48`).
+Three fresh harnesses (`103`/`107`/`108`) never scrambled because they used "easy" targets; the cross-domain
+reproductions (Phronesis 0.22, AlphaLudo 0.216) matched s35's number because they copied the s35 *target*. So the
+**robust, theorem-backed** direction is *amortize → legible* (Roeder); *free → scramble* is real but
+**target-conditional**, and the "1-D boundary" fragility is a symptom of that target-dependence, not a property of
+`D=1` itself.
+
 ## Leg 2 — Generic evolution → re-scrambled
 
 What if the property is not static but **evolves**? We use a classical SU(2) "color charge"

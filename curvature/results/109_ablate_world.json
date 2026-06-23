@@ -1,0 +1,19 @@
+{
+ "seeds": [
+  0,
+  1,
+  2
+ ],
+ "world_A_myrandnet": {
+  "linear": 0.7755713037680216,
+  "knn": 0.8436014591585086
+ },
+ "world_B_s35": {
+  "linear": 0.2471836052696077,
+  "knn": 0.5928010751902799
+ },
+ "A1_s35world_scrambles": true,
+ "A2_myworld_legible": true,
+ "world_is_the_ingredient": true,
+ "verdict": "THE WORLD FUNCTION is the missing ingredient: the s35 default-init MLP world scrambles a free code (linear 0.25) while my large-weight world stays legible (0.78), at identical learner/capacity/batching. The free->scramble needs a specific target-function class; the law's framing should note this dependence."
+}
