@@ -1,3 +1,28 @@
+## 2026-06-22 — AlphaLudo: third domain (game-RL) confirms the legibility law's BOUNDARY + refines the 1-D clause
+
+The AlphaLudo session (trained 2-player Ludo RL agent) landed its legibility test — a third independent domain
+(physics → LLM → game-RL), with our harness reproduced as a positive control.
+- **Positive control:** reimplemented our abstract task with our metric, recovered the scramble (free D=2 linear
+  0.216 ≈ our 0.22) — their probe detects a scramble when one exists.
+- **Boundary confirmation (6 seeds):** an identity-only free per-token-ID embedding stays EXACTLY as legible as
+  amortized (Δ −0.001±0.007 position, −0.004±0.020 danger); the free code is genuinely used (norms 1.2–2.9); the
+  same probe shows Δ≈−0.6 when a scramble is forced (true zero). Why: in a real agent the per-object properties are
+  computed by the amortized backbone from the board; the free code carries only IDENTITY, not the property → nothing
+  to scramble. Maps the boundary: *a free code scrambles only when it STORES the multi-D property.*
+- **§2 refinement (task structure):** our "1-D free code is legible for free" is TASK-dependent — holds under
+  linear/monotone coupling (our physics) but a generic random-MLP map scrambles even D=1 (their abstract task 0.36
+  vs linear-world 0.61); embedding width ruled out. So BOTH dimensionality AND coupling-linearity gate free-code
+  legibility.
+- **Our re-test of §2 (script 103, 3 seeds) — INCONCLUSIVE, honestly.** A quick abstract (x,c)→Y regression toy did
+  NOT reproduce even the baseline scramble (free code stays linearly legible at D=2 and under random-MLP coupling,
+  ~0.93–1.0) → it can't test the refinement. Instructive: the scramble is NOT a generic property of (free code +
+  nonlinear map); it needs the harder contrastive/trajectory task of scripts 35/48. So we ADOPT AlphaLudo's
+  refinement (their validated test + positive control), flag our re-test as inconclusive, and owe a definitive
+  in-harness re-test (script-35 World, linear-vs-generic coupling). Honest scope: Ludo does NOT test the core
+  free-storage scramble (4 tokens, dynamic board-computed properties) — confirmation + boundary, not a toy re-run.
+Writeup updated (third-domain section + refinement-of-the-refinement). The legibility law now has three independent
+domains and a mapped boundary; the cross-session triangulation (each project testing + correcting the others) held.
+
 ## 2026-06-22 — External prior-art audit + Phronesis cross-test: two honest corrections to the legibility writeup
 
 The user ran a parallel prior-art audit across all sister projects and a Phronesis cross-test of our "second law".

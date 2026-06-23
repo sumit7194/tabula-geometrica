@@ -100,6 +100,22 @@ So leg 1 sharpens to: **free + multi-dimensional latent → scramble; a 1-D free
 free.** (Amortization restores legibility at any `D` by biasing toward smooth inference. Embedding
 capacity modulates the level — a roomier code softens the collapse, a tight one sharpens it.)
 
+**Refinement of the refinement (AlphaLudo cross-session, credited).** The "1-D free code is legible for free"
+clause is **task-dependent**, not universal. The AlphaLudo session (a trained Ludo RL agent) reimplemented our
+harness — reproducing our scramble as a positive control (free `D=2` linear **0.216**, matching our 0.22) — and
+found that under a *generic (random-MLP)* property→output map, even a **1-D** free code **scrambles** (their abstract
+task: linear 0.36), whereas a *linear-in-property* world (charge acting monotonically, as in **our physics**) flips
+`D=1` back to **legible** (0.61). They ruled out embedding width as the cause. So the honest mechanism is: **both
+latent dimensionality *and* coupling-linearity gate free-code legibility** — our `D=1`-legible result holds because
+our charge couples *linearly* (script 48's wells are linear in `c`); it is not a pure dimensionality effect.
+*Honest note on our own re-test:* a quick abstract `(x,c)→Y` regression toy (`103_legibility_task_structure.py`,
+3 seeds) **failed to reproduce even the baseline scramble** (the free code stayed linearly legible at `D=2` and
+under random-MLP coupling, ~0.93–1.0), so it could **not** test the refinement — instructive in itself (the scramble
+is *not* a generic property of "free code + nonlinear map"; it needs the harder contrastive/trajectory task
+structure of scripts 35/48). We therefore adopt the refinement on AlphaLudo's validated test (their positive control
++ our metric), with the definitive in-our-harness re-test (script-35 World, linear-vs-generic coupling) as an owed
+follow-up.
+
 ## Leg 2 — Generic evolution → re-scrambled
 
 What if the property is not static but **evolves**? We use a classical SU(2) "color charge"
@@ -230,6 +246,33 @@ free-embedding scramble **persists with a transformer set-encoder** (free: linea
 nonlinear 0.56 = scramble; amortized: linear 0.70 = legible) — so the scramble is not an
 MLP artifact, and the LLM null is purely "pretraining has no free regime," exactly as the
 reframe predicts.
+
+## Third domain — a trained game-RL agent (AlphaLudo, credited)
+
+A second parallel project (AlphaLudo — a trained 2-player Ludo RL agent, whose 4 own tokens are natural per-object
+slots) gave the law a **third independent domain** (physics → LLM → game-RL), with our harness reproduced as a
+control.
+
+- **Positive control reproduces.** They reimplemented our abstract task with our exact metric and recovered the
+  scramble: free `D=2` linear **0.216** (our 0.22), kNN 0.63, amortized 0.84 — so their probe provably detects a
+  scramble when one exists.
+- **The game-RL boundary test (6 seeds).** Identical Ludo model, one arm adding a free per-token-ID embedding
+  (`nn.Embedding(4, 96)`), the other not; same data + seed; probed on a shared state set with our Pearson-r metric.
+  The free arm is **exactly as legible as amortized**: Δ(free − amortized) linear r = **−0.001 ± 0.007** (token
+  position), **−0.004 ± 0.020** (capture-danger). The free code is **genuinely used** (per-slot embedding norms
+  1.2–2.9), and the *same* probe shows Δ ≈ **−0.6** when a scramble is forced — so this is a **true zero**, not a
+  blind instrument.
+- **Why — and the boundary it maps.** In a real agent the per-object properties (position, danger) are computed by
+  the **amortized backbone from the board**; the free per-ID code carries only **identity**, not the property — so
+  there is **nothing to scramble**. That is exactly the boundary the law implies: *a free code scrambles only when
+  it STORES the multi-D property; an identity-only free code stays legible even when actively used.*
+- **Honest scope.** This does **not** test the core free-*storage* scramble inside Ludo — only 4 tokens (too few for
+  a manifold scramble) and the per-token properties are dynamic/board-computed (cannot live in a static per-ID
+  embedding). So AlphaLudo's contribution is **confirmation + boundary-mapping of the *refined* law** (an
+  identity-only free code stays legible; the scramble needs free-*storage* of a multi-D property), plus the
+  task-structure refinement above — **not** a re-run of the toy storage claim. (An earlier cross-session suggestion
+  that AlphaLudo would be "the cleaner test" was wrong — it has no native free-storage arm and its properties are
+  dynamic; this is the honest version.)
 
 ## Prior work, and what is actually ours (positioning)
 
