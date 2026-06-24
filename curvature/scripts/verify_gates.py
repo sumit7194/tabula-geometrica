@@ -42,6 +42,9 @@ BATTERIES = [
       "G3_no_frame_without_anchor": (">", 0.5)}),
     ("Page curve + information return", ["scripts/112_page_curve.py"], "112_page_curve.json",
      {"P1_page_turnover": (">", 0.5), "P2_information_return": (">", 0.5), "P3_thermal_contrast": (">", 0.5)}),
+    ("Aharonov-Bohm holonomy", ["scripts/113_aharonov_bohm.py"], "113_aharonov_bohm.json",
+     {"AB1_learns_holonomy": (">", 0.5), "AB2_topological_not_geometric": (">", 0.5),
+      "AB3_no_local_field_code": (">", 0.5)}),
 ]
 
 

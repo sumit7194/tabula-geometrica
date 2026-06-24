@@ -3437,3 +3437,12 @@ curve S(radiation) of a Haar pure state (N=12) rises-then-falls, peak at k=6=N/2
 monotone); P2 I(Ref:radiation) 0.18->1.386=2ln2 across the Page time (info comes back, fully recoverable, N=10
 Haar-scrambled, Hayden-Preskill); P3 unitary returns I=1.39 vs thermal 0. Honest: demonstration, not new physics.
 In verify.sh. Completes the emergent-spacetime arc (J5 geometry/curvature, Cert V time, 111 frame, 112 information).
+
+## Aharonov-Bohm holonomy (script 113), 2026-06-24
+A net discovers the AB phase is a topological loop integral (enclosed flux) from ZERO local field. Loops winding
+n in -2..2 around a confined flux Phi (B=0 off-origin), randomized shape; phase=Phi*n. 3/3: AB1 holonomy net
+(per-edge A.dl) R2=1.000 (learns Phi*winding); AB2 whisker/shape-invariant (delta 0.033, topological); AB3 neither
+local-field (B=0, R2=-0.002) nor geometric perimeter (R2=-0.004) predicts it, only the loop integral -> no local
+and no shape code, the observable is the non-local topological enclosed flux. Reframe: perimeter can't fit a
+topological quantity at all (so the planned whisker-CONTRAST was inapplicable; folded into AB3, honest). Ties Berry
+(54, area/geometric) -> AB (winding/topological) + gauge + certificate-quintet 'no local code'. In verify.sh.

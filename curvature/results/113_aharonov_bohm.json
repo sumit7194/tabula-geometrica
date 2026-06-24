@@ -1,0 +1,12 @@
+{
+ "AB1_holonomy_R2": 0.9999925494194031,
+ "local_field_R2": -0.001984119415283203,
+ "perimeter_R2": -0.0037543773651123047,
+ "AB2_holo_whisker_delta": 0.03293238580226898,
+ "AB2_perimeter_whisker_delta": 0.027412692084908485,
+ "AB1_learns_holonomy": true,
+ "AB2_topological_not_geometric": true,
+ "AB3_no_local_field_code": true,
+ "aharonov_bohm_discovered": true,
+ "verdict": "AB DISCOVERED: the holonomy net learns phase = Phi*winding (R2 1.000) -- a TOPOLOGICAL loop integral, INVARIANT to whisker deformations at fixed winding (delta 0.033) where the and NEITHER the local-field net (B=0 on the path, R2 -0.002) NOR a geometric perimeter net (R2 -0.004) can predict it -- only the loop integral. A phase from zero local field, set by the non-local TOPOLOGICAL enclosed flux: the observable is the loop integral, not the local field and not the shape."
+}

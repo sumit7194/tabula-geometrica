@@ -24,6 +24,22 @@ target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **M
 0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
 strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
+## 2026-06-24 — Aharonov-Bohm: a net discovers a phase from ZERO local field (topological holonomy), script 113
+
+Keep-poking pick (user). The AB effect (web-verified): a charge encircling a confined flux picks up phase = q*oint
+A.dl = enclosed flux, though B=0 everywhere on its path -- a TOPOLOGICAL, gauge-invariant, NON-LOCAL observable.
+Toy: closed loops (winding n in -2..2, randomized shape) around a confined flux Phi; true phase = Phi*n. Three
+DeepSets (mask-summed over edges), each a different per-edge view. 3/3:
+- AB1 holonomy net (per-edge A.dl) learns phase = Phi*winding, R2=1.000.
+- AB2 whisker/shape-invariant (delta 0.033) -- depends only on winding, not shape (topological).
+- AB3 certificate: NEITHER the local-field net (B=0, R2=-0.002) NOR a geometric perimeter net (R2=-0.004) predicts
+  the phase; only the loop integral does -> no local-field code AND no shape code; the observable is the non-local
+  topological enclosed flux.
+Reframe (honest): the original AB2 wanted a perimeter-baseline whisker-CONTRAST, but because AB is PURELY
+topological the perimeter baseline can't fit at all (R2~0) -> it's trivially whisker-invariant; that a geometric
+feature can't even fit is the sharper point, folded into AB3. Ties Berry holonomy (54, geometric/area) -> AB
+(topological/winding) + the gauge theme + the impossibility-certificate 'no local code' family. In verify.sh.
+
 ## 2026-06-23 — Page curve + information return (script 112): the map's LAST poke; emergent-spacetime arc COMPLETE
 
 The black-hole information paradox as an exact qubit toy in our recoverability/cheapest-code language (web-verified

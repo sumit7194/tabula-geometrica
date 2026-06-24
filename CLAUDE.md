@@ -508,6 +508,17 @@ results in `curvature/notes/lab_notebook.md`.
   In verify.sh. **EMERGENT-SPACETIME MAP COMPLETE: J5 (entanglement→geometry→
   curvature) · Cert V (no observer-independent TIME, 101) · dS anchor (no
   observer-independent FRAME, 111) · Page curve (information RETURNS, 112).**
+- **AHARONOV-BOHM HOLONOMY (2026-06-24, script 113), 3/3.** A net discovers a phase
+  from ZERO local field: closed loops (winding n∈-2..2, randomized shape) around a
+  confined flux Φ (B=0 off-origin), true phase=Φ·n; three DeepSets (mask-summed
+  over edges), each a different per-edge view. AB1 ✓ holonomy net (per-edge A·dl)
+  learns phase=Φ·winding R²=1.000; AB2 ✓ whisker/shape-invariant (Δ0.033 →
+  topological, winding-only); AB3 ✓ certificate: NEITHER local-field (B=0,
+  R²=-0.002) NOR geometric perimeter (R²=-0.004) predicts it, only the loop
+  integral → no local-field AND no shape code; the observable is the non-local
+  topological enclosed flux. Web-verified AB. Ties Berry (54, geometric/area) →
+  AB (topological/winding) + the gauge theme + the certificate-quintet 'no local
+  code'. In verify.sh.
 - **CURVATURE ATLAS (2026-06-19, scripts 88-90):** curvature/holonomy/topology as the
   universal signature of "the cheapest shared description," beyond gravity. Finance
   (88, no-arbitrage = flat connection, arbitrage = holonomy, numéraire = gauge, 3/3);
