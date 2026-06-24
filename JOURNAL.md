@@ -24,6 +24,22 @@ target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **M
 0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
 strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
+## 2026-06-24 — The arrow of time: a net discovers entropy production / the fluctuation theorem (script 119)
+
+Poke 3 of 3 (plan: notes/topology_rg_arrow_plan.md) -- ALL THREE DONE. Extends the friction boundary (70). From
+trajectories ALONE a net discovers the second law. Web-verified Crooks 1999: P_F[x]/P_R[x~]=e^sigma -> the Bayes-
+optimal forward-vs-reverse discriminator's log-odds IS the entropy production. Toy: overdamped Langevin (gamma=kT=1)
+in a dragged harmonic trap U=1/2 k(x-lambda)^2; dF=0 so sigma = dissipated work W. 3/3:
+- A1 a DeepSets net trained ONLY to classify forward vs time-reversed trajectories has a logit that matches the
+  analytic entropy production, corr=0.995 -- the cheapest forward-vs-reverse code IS the second law.
+- A2 fluctuation theorem: Crooks ln[P_F(W)/P_R(-W)] linear in W with slope 1.01 (~1); Jarzynski <e^-W>=0.87 (~1=e^-dF;
+  slight low bias is the known finite-sample bias of the exponential average -- Crooks slope is the cleaner test).
+- A3 certificate (reversibility boundary): near-quasistatic protocol -> ~zero entropy (mean sigma 0.014) -> forward and
+  reverse INDISTINGUISHABLE (classifier AUC 0.55 ~ 0.5); fast driving (sigma 3.28) -> readable (AUC 0.96). Time's arrow
+  is legible iff entropy is produced -- ties friction (70).
+Ties: friction (70), the cheapest-code/legibility framing, certificates (84-87/101), time (Cert V 101). In verify.sh.
+The three-poke arc (topological band theory 117 + emergent dimension from RG 118 + arrow of time 119) is COMPLETE.
+
 ## 2026-06-24 — Emergent dimension from coarse-graining (RG): the holographic depth=scale, real-space route (script 118)
 
 Poke 2 of 3 (plan: notes/topology_rg_arrow_plan.md). Makes emergent_dimension.md executable via REAL-SPACE block-RG on

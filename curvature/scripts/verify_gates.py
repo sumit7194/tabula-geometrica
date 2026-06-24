@@ -57,6 +57,9 @@ BATTERIES = [
     ("Emergent dimension from RG (depth=log xi)", ["scripts/118_emergent_dimension_rg.py"],
      "118_emergent_dimension_rg.json",
      {"R1_emergent_depth_eq_logxi": (">", 0.5), "R2_radial_homogeneity_critical": (">", 0.5)}),
+    ("Arrow of time (fluctuation theorem)", ["scripts/119_arrow_of_time.py"], "119_arrow_of_time.json",
+     {"A1_discover_arrow": (">", 0.5), "A2_fluctuation_theorem": (">", 0.5),
+      "A3_reversibility_certificate": (">", 0.5)}),
 ]
 
 

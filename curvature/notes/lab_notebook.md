@@ -3497,3 +3497,11 @@ slope~1, critical->max depth; R2 rho_s flat at criticality (slope 0.008 = scale-
 isometry) vs gapped flows (0.131, >16x); R3 hyperbolic geometry = WEAK instrument in 1D classical (crit corr ~1 ->
 -ln rho tiny/noisy; 1/k^2 critical limit is rough not power-law; C(r) power-vs-exp inconclusive) -> deferred to J4
 (entanglement route, exact log-law). One fix round (N 4096->16384) confirmed R2 not R3. Gate on R1+R2 in verify.sh.
+
+## The arrow of time / fluctuation theorem (script 119), 2026-06-24 -- Poke 3 of 3, all three done
+From trajectories alone a net discovers entropy production. Web-verified Crooks: P_F/P_R=e^sigma -> optimal forward-
+vs-reverse discriminator = entropy production. Overdamped Langevin in a dragged harmonic trap (dF=0 -> sigma=W). 3/3:
+A1 DeepSets classifier (forward vs time-reversed) logit ~ analytic W, corr=0.995; A2 Crooks log-ratio slope 1.01,
+Jarzynski <e^-W>=0.87 (~1, finite-sample low bias); A3 certificate slow AUC 0.55 (sigma 0.014, reversible) vs fast
+AUC 0.96 (sigma 3.28) -- arrow legible iff entropy produced, ties friction 70. Fixed hash()-seed (per-process salt ->
+flaky) to fixed seeds. In verify.sh. Three-poke arc (117/118/119) COMPLETE.

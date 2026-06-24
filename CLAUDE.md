@@ -565,6 +565,17 @@ results in `curvature/notes/lab_notebook.md`.
   per-cell convergence needs the reference's full scale (90k-batch × 8000 epochs).
   Model saved (116_grid_model.pt); fast --probe-only gate in verify.sh. The
   curvature-atlas grid-cell-torus row is now a FULL emergent result.
+- **ARROW OF TIME — entropy production / fluctuation theorem (2026-06-24, script
+  119), 3/3.** Poke 3 of 3 (the arc COMPLETE). Extends the friction boundary (70).
+  From trajectories ALONE a net discovers the second law. Web-verified Crooks:
+  P_F/P_R=e^σ → the optimal forward-vs-reverse discriminator's log-odds IS the
+  entropy production. Overdamped Langevin in a dragged harmonic trap (ΔF=0 → σ=W).
+  A1 ✓ a DeepSets net trained ONLY to classify forward vs time-reversed
+  trajectories has a logit matching analytic W, corr=0.995 (cheapest forward-vs-
+  reverse code = the second law); A2 ✓ Crooks log-ratio slope 1.01 + Jarzynski
+  ⟨e⁻ᵂ⟩=0.87 (~1, finite-sample low bias); A3 ✓ certificate: quasistatic→σ≈0→
+  forward/reverse INDISTINGUISHABLE (AUC 0.55), fast→σ=3.28→readable (AUC 0.96) —
+  time's arrow legible iff entropy produced (ties friction 70). In verify.sh.
 - **EMERGENT DIMENSION FROM RG — real-space coarse-graining (2026-06-24, script
   118), honest 2/3.** Poke 2 of 3. Makes emergent_dimension.md executable via
   real-space block-RG on 1D classical Gaussian fields (distinct from J4/J5's
