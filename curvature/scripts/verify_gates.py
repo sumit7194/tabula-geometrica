@@ -50,6 +50,8 @@ BATTERIES = [
       "S3_two_sheets_720_return": (">", 0.5)}),
     ("Grid-cell torus (topology instrument)", ["scripts/115_grid_torus.py"], "115_grid_torus.json",
      {"T0_instrument_validated": (">", 0.5), "T1_grid_torus_place_not": (">", 0.5)}),
+    ("Emergent grid torus (saved model probe)", ["scripts/116_grid_torus_emergence.py", "--probe-only"],
+     "116_grid_probe.json", {"H2_emergent_torus_controlled": (">", 0.5)}),
 ]
 
 

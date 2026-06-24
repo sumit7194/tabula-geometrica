@@ -3469,3 +3469,16 @@ H0 = #infinite bars. De-risked in stages:
   grids (0% > 0.3) -> place-like code -> learned manifold [1,0,0] (plane, not torus). PI + nonnegativity necessary
   but not sufficient; toroidal grids need the conformal-NORMALIZATION architecture (Xu/Wu/Gao 2023). 3 trainer rounds
   (DoG-MSE no-train; softmax-CE learns PI; +isometry nudge), disciplined stop. Added ripser+persim to venv.
+
+## FULL emergent grid torus -- conformal-isometry model (script 116), 2026-06-24
+"Chase the full emergent torus" (user). Faithful PyTorch port of ruiqigao/grid-cell-path (NeurIPS 2021): learnable
+code v[40,40,192]=16x12, decode u>=0, antisym Lie generators Bx/By, motion M=I+A+A^2/2; losses kernel + transformation
+(PI) + ISOMETRY (||B(t1)v||=||B(t2)v||, the hexagon driver) + reg_u; block-normalize v + clip u>=0 each step. Why 115b
+only nudged: isometry must be INTRINSIC to the transport, not a soft penalty.
+Results (2 runs): vanilla lr 0.003 -> hexagons form (max 0.84) then degrade; fix = cosine lr 2e-3->3e-4 + best-frac
+checkpoint + peak-tracking. H1 PASS: peak gridness 0.84 (vs 115b 0.12) -- genuine hexagons emerge. H2 PASS (controlled):
+11/16 block-modules read [1,2,1] (torus) vs 0/16 untrained control (all [1,0,0]) and [1,0,0] for 115b place code ->
+emergent toroidal topology, NOT a reader artifact. Nuance: module=torus iff code is 2D-periodic (weaker than strict
+hexagonal gridness) -> topology robust (11/16) even with modest per-cell frac>0.3 (0.03). Honest scope: training
+transiently forms then degrades grids; full stable convergence needs reference scale (90k-batch x 8000 epochs).
+Model saved (116_grid_model.pt); fast --probe-only gate in verify.sh. Curvature-atlas grid-torus row now FULL.

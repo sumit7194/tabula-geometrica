@@ -24,6 +24,31 @@ target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **M
 0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
 strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
+## 2026-06-24 — FULL emergent grid torus: faithful conformal-isometry model grows hexagons -> tori (script 116)
+
+User: "chase the full emergent torus." Turned 115b's honest partial into a real positive. Research-first: cloned the
+reference repo (ruiqigao/grid-cell-path, NeurIPS 2021 "Group Representation and Isotropic Scaling"; web-verified),
+read model.py/main.py/data.py/train.py, ported to PyTorch (MPS). Why 115b only nudged: the isometry must be INTRINSIC
+to the transport, not a soft add-on. The representational model: learnable code v[40,40,192]=16 blocks x12, decode u>=0,
+antisymmetric Lie generators Bx/By (2-generator form), motion M=I+A+A^2/2; losses = kernel <v(x),u(x')>=exp(-||dx||^2
+/2sigma^2) + transformation (path integration) + ISOMETRY ||B(t1)v||=||B(t2)v|| per block (the hexagon driver) +
+L2 reg u; block-normalize v + clip u>=0 each step. Reference weights (kernel 1.05/transform 0.5/isometry 0.5/reg 1.2),
+sigma=0.07, arena 1x1 (40x40), max_dx=3.
+- Run history (honest): vanilla lr 0.003 -> hexagons form (max gridness 0.84!) then DEGRADE (instability); fix =
+  cosine-decay lr 2e-3->3e-4 + best-checkpoint (anti-oscillation) + track peak-gridness. Training transiently forms
+  then degrades grids (end-of-run max ~0.12) -> rely on best checkpoint; full STABLE convergence needs the reference's
+  full scale (90k-batch x 8000 epochs), beyond this budget.
+- H1 HEXAGONS EMERGE: peak single-cell gridness 0.84 during training (vs 115b's vanilla 0.12) -> genuine hexagonal
+  grid cells DO emerge. PASS.
+- H2 EMERGENT TORUS (controlled): the trained model's block-modules' population manifolds read as TORI -- 11/16 blocks
+  [1,2,1] via the validated 115 instrument, vs 0/16 for an UNTRAINED control (all planes [1,0,0]) and [1,0,0] for the
+  115b place code. The toroidal topology is emergent from training, NOT a reader artifact. PASS.
+- Key nuance: a module is a torus whenever its code is 2D-PERIODIC, a weaker condition than every cell scoring high on
+  the strict HEXAGONAL gridness metric -> the TOPOLOGY (tori) is robust (11/16, controlled) even with modest per-cell
+  hexagonal gridness (frac>0.3 = 0.03). The topological claim is the headline; perfect-hexagon-everywhere is the
+  under-converged part. Model saved (116_grid_model.pt); fast --probe-only gate in verify.sh (loads model, re-checks
+  11/16 vs 0 control, no retraining). Curvature-atlas grid-cell-torus row: now a FULL emergent result.
+
 ## 2026-06-24 — Grid-cell torus: reading the topology of a navigation code with persistent homology (scripts 115/115b)
 
 Keep-poking pick (user; the higher-risk emergent-topology one). Curvature-atlas open row (neuroscience, after the

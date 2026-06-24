@@ -547,6 +547,24 @@ results in `curvature/notes/lab_notebook.md`.
   but NOT sufficient; toroidal grids need the conformal-NORMALIZATION architecture
   (Xu/Wu/Gao 2023, arXiv:2310.19192), beyond this budget (3 trainer rounds,
   disciplined stop). Added ripser+persim to venv. 115 in verify.sh.
+- **FULL EMERGENT GRID TORUS (2026-06-24, script 116) — chased down, both gates.**
+  User: "chase the full emergent torus." Faithful PyTorch port of the Gao-Wu
+  representational model (ruiqigao/grid-cell-path, NeurIPS 2021; cloned + read the
+  repo): code v[40,40,192]=16 blocks×12, decode u≥0, antisym Lie generators Bx/By,
+  motion M=I+A+A²/2; losses = kernel ⟨v(x),u(x')⟩=Gaussian + transformation (PI) +
+  **ISOMETRY** ‖B(θ1)v‖=‖B(θ2)v‖ (the hexagon driver) + reg_u; block-normalize v +
+  clip u≥0 each step. Why 115b only nudged: the isometry must be INTRINSIC to the
+  transport, not a soft add-on. **H1 ✓** genuine hexagons emerge (peak gridness
+  0.84 vs 115b's 0.12); **H2 ✓ (controlled)** 11/16 block-modules' population
+  manifolds read as TORI [1,2,1] via the 115 instrument vs **0/16 for an untrained
+  control** (all planes) and [1,0,0] for the 115b place code → emergent toroidal
+  topology from training, NOT a reader artifact. Nuance: module=torus iff the code
+  is 2D-PERIODIC (weaker than strict hexagonal gridness) → topology robust (11/16)
+  even at modest per-cell frac>0.3 (0.03). Honest scope: training transiently
+  forms then degrades grids (cosine lr + best-checkpoint used); full STABLE
+  per-cell convergence needs the reference's full scale (90k-batch × 8000 epochs).
+  Model saved (116_grid_model.pt); fast --probe-only gate in verify.sh. The
+  curvature-atlas grid-cell-torus row is now a FULL emergent result.
 - **CURVATURE ATLAS (2026-06-19, scripts 88-90):** curvature/holonomy/topology as the
   universal signature of "the cheapest shared description," beyond gravity. Finance
   (88, no-arbitrage = flat connection, arbitrage = holonomy, numéraire = gauge, 3/3);
