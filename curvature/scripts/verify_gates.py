@@ -45,6 +45,9 @@ BATTERIES = [
     ("Aharonov-Bohm holonomy", ["scripts/113_aharonov_bohm.py"], "113_aharonov_bohm.json",
      {"AB1_learns_holonomy": (">", 0.5), "AB2_topological_not_geometric": (">", 0.5),
       "AB3_no_local_field_code": (">", 0.5)}),
+    ("Spinor double cover (discovery)", ["scripts/114_spinor_double_cover.py"], "114_spinor_double_cover.json",
+     {"S1_learnable": (">", 0.5), "S2_representability_certificate": (">", 0.5),
+      "S3_two_sheets_720_return": (">", 0.5)}),
 ]
 
 

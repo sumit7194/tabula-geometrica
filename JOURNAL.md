@@ -24,6 +24,21 @@ target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **M
 0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
 strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
+## 2026-06-24 — Spinor double cover, discovery paradigm: a net invents the 720-degree state space (script 114)
+
+Keep-poking pick (user). Companion to script 98 (symbolic-library version: half-angle features + sign-unobservable
+certificate); 114 is the DISCOVERY version and adds what 98 lacked: a NET learns the double cover, shown as TWO
+SHEETS over the same lab-frame point, framed as a continuous-rotation HOLONOMY (the spinor-sign cousin of AB/Berry,
+113/54). SU(2)->SO(3) double cover (web-verified): a 360deg rotation gives -1 on the STATE, 720deg returns; the
+interference S(alpha)=cos(alpha/2) is 720-periodic (Rauch-Werner), the lab-frame Bloch vector only 360. Two nets
+predict S. 3/3:
+- S1 spinor-net (input = continuous rotation alpha) learns cos(alpha/2), R2=1.000.
+- S2 certificate: bloch-net (input = lab-frame cos a, sin a) CANNOT (R2=-0.001) -- no 2pi-periodic input yields a
+  4pi output; the double cover is invisible to single-time spin measurements (rigorous).
+- S3 two sheets: at the SAME lab orientation (alpha vs alpha+2pi) spinor-net gives OPPOSITE preds (diff 1.27 = the
+  predicted 2*<|cos(a/2)|>; bloch forced to 0.00, blind); pred(360deg)=-1.00, pred(720deg)=+1.01 -- 720deg to return.
+Ties: 98 (function class) + 51 (Bloch-vector discovery) + the holonomy cluster (AB 113, Berry 54). In verify.sh.
+
 ## 2026-06-24 — Aharonov-Bohm: a net discovers a phase from ZERO local field (topological holonomy), script 113
 
 Keep-poking pick (user). The AB effect (web-verified): a charge encircling a confined flux picks up phase = q*oint

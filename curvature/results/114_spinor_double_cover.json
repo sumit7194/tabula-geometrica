@@ -1,0 +1,13 @@
+{
+ "S1_spinor_R2": 0.9999807660695477,
+ "S2_bloch_R2": -0.000645963128738547,
+ "spinor_sheet_diff": 1.2740962505340576,
+ "bloch_sheet_diff": 0.0,
+ "pred_at_360deg": -0.9978423714637756,
+ "pred_at_720deg": 1.0147981643676758,
+ "S1_learnable": true,
+ "S2_representability_certificate": true,
+ "S3_two_sheets_720_return": true,
+ "double_cover_discovered": true,
+ "verdict": "SPINOR DOUBLE COVER DISCOVERED: a net learns the 720-degree interference cos(alpha/2) (R2 1.000) from the continuous rotation parameter, but a net restricted to the lab-frame observable (cos a, sin a) CANNOT (R2 -0.00) -- no 2pi-periodic input yields a 4pi output. Over the SAME lab orientation the spinor-net gives OPPOSITE predictions (sheet diff 1.27; bloch-net forced to 0.00) -- two sheets, with -1 at 360deg and +1 at 720deg: 720 degrees to return. The double cover is a holonomy of the continuous rotation, invisible to single-time spin measurements (cousin of AB/Berry)."
+}

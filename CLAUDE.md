@@ -519,6 +519,19 @@ results in `curvature/notes/lab_notebook.md`.
   topological enclosed flux. Web-verified AB. Ties Berry (54, geometric/area) →
   AB (topological/winding) + the gauge theme + the certificate-quintet 'no local
   code'. In verify.sh.
+- **SPINOR DOUBLE COVER, DISCOVERY PARADIGM (2026-06-24, script 114), 3/3.**
+  Companion to 98 (symbolic-library: half-angle features + sign-unobservable
+  certificate); 114 adds what 98 lacked — a NET learns the double cover, shown as
+  TWO SHEETS over the same lab-frame point, framed as a continuous-rotation
+  HOLONOMY (spinor-sign cousin of AB/Berry). SU(2)→SO(3) double cover (web-verified):
+  360° gives -1 on the STATE, 720° returns; interference cos(α/2) is 720-periodic
+  (Rauch-Werner), the Bloch vector only 360. S1 ✓ spinor-net (input=continuous α)
+  learns cos(α/2) R²=1.000; S2 ✓ certificate: bloch-net (lab-frame cos α,sin α)
+  CANNOT (R²=-0.001) — no 2π input yields a 4π output, double cover invisible to
+  single-time measurements; S3 ✓ two sheets: at the same lab orientation (α vs
+  α+2π) spinor gives OPPOSITE preds (diff 1.27, bloch forced 0.00), pred(360°)=-1.00,
+  pred(720°)=+1.01. Ties 98 + 51 (Bloch discovery) + holonomy cluster (AB 113,
+  Berry 54). In verify.sh.
 - **CURVATURE ATLAS (2026-06-19, scripts 88-90):** curvature/holonomy/topology as the
   universal signature of "the cheapest shared description," beyond gravity. Finance
   (88, no-arbitrage = flat connection, arbitrage = holonomy, numéraire = gauge, 3/3);

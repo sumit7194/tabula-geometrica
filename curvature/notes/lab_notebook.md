@@ -3446,3 +3446,12 @@ local-field (B=0, R2=-0.002) nor geometric perimeter (R2=-0.004) predicts it, on
 and no shape code, the observable is the non-local topological enclosed flux. Reframe: perimeter can't fit a
 topological quantity at all (so the planned whisker-CONTRAST was inapplicable; folded into AB3, honest). Ties Berry
 (54, area/geometric) -> AB (winding/topological) + gauge + certificate-quintet 'no local code'. In verify.sh.
+
+## Spinor double cover, discovery paradigm (script 114), 2026-06-24
+A net invents the 720-degree state space. Companion to 98 (symbolic-library); 114 = discovery + two-sheets +
+holonomy framing. spin-1/2 rotated by continuous alpha in [0,4pi]; interference S=cos(alpha/2) [720-periodic], lab-
+frame Bloch (cos a, sin a) [360]. 3/3: S1 spinor-net (input alpha) R2=1.000; S2 certificate bloch-net (lab-frame)
+R2=-0.001 (no 2pi input yields a 4pi output); S3 two sheets over the same lab orientation (alpha vs alpha+2pi):
+spinor diff 1.27 (= predicted 2*<|cos(a/2)|>; bloch forced 0.00), pred(360)=-1.00, pred(720)=+1.01 -- 720 to return.
+Dropped a fragile latent-periodicity gate (a monotonic-alpha net needn't build a periodic latent) for the cleaner
+two-sheets demonstration. Ties 98 + 51 (Bloch discovery) + holonomy cluster (AB 113, Berry 54). In verify.sh.
