@@ -24,6 +24,20 @@ target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **M
 0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
 strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
+## 2026-06-24 — Topological band theory: a net discovers the SSH winding number + bulk-boundary correspondence (script 117)
+
+Poke 1 of 3 (plan: notes/topology_rg_arrow_plan.md). Caps the topology/holonomy cluster (AB winding 113 -> Berry
+curvature 54 -> grid torus 115/116 -> band topology). Web-verified SSH (BDI class): d(k)=(v+w cos k, w sin k); the
+WINDING NUMBER of d(k) around the origin over the Brillouin zone is the topological invariant (0 trivial v>w / 1
+topological w>v), a HOLONOMY of the d-vector; bulk-boundary: #zero-energy edge modes = 2*winding. 3/3:
+- B1 a DeepSets net summing per-BZ-segment angle increments (unit d-vectors) recovers the winding number, R2=0.999,
+  integer-rounding accuracy 100% -- the quantized invariant.
+- B2 quantized/robust (certificate): gap-preserving deformations leave winding unchanged (delta 0.029); a v-sweep
+  flips it 0->1 ONLY across the gap closing at v=w (below->1, above->0).
+- B3 BULK-BOUNDARY: the bulk winding predicts the boundary -- 2*round(winding) == open-chain edge-mode count for 97%
+  of held-out configs (exact diagonalization). The few misses are near v=w (finite-size near-gap-closing).
+Ties AB (113, winding) + Berry (54, curvature) + certificate quantization. In verify.sh. (Chern/2D left as future.)
+
 ## 2026-06-24 — FULL emergent grid torus: faithful conformal-isometry model grows hexagons -> tori (script 116)
 
 User: "chase the full emergent torus." Turned 115b's honest partial into a real positive. Research-first: cloned the

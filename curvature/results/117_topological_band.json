@@ -1,0 +1,13 @@
+{
+ "B1_winding_R2": 0.9990267157554626,
+ "B1_round_accuracy": 1.0,
+ "B2_deform_delta": 0.028750000521540642,
+ "B2_sweep_below_vw": 1.0,
+ "B2_sweep_above_vw": 0.0,
+ "B3_bulk_boundary_accuracy": 0.96875,
+ "B1_learns_invariant": true,
+ "B2_quantized_robust": true,
+ "B3_bulk_boundary": true,
+ "topological_invariant_discovered": true,
+ "verdict": "TOPOLOGICAL INVARIANT DISCOVERED: a DeepSets net reading the bulk SSH d(k) trajectory recovers the WINDING NUMBER as a quantized integer (R2 0.999, rounding accuracy 100%) -- a holonomy of the d-vector over the Brillouin zone. It is ROBUST to gap-preserving deformations (|delta|=0.029) and flips 0<->1 only across the gap closing at v=w (below 1.0, above 0.0). And the BULK winding predicts the BOUNDARY: 2*winding = open-chain zero-energy edge modes for 97% of configs (bulk-boundary correspondence). Ties AB (113, winding) + Berry (54, curvature) + the certificate quantization."
+}

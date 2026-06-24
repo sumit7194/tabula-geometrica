@@ -91,6 +91,6 @@ double well. Generate forward-protocol trajectories and time-reversed ones.
 ---
 
 ## Status tracker
-- [ ] Poke 1 — topological band theory (117)
+- [x] Poke 1 — topological band theory (117) DONE 3/3: B1 R2 0.999, B2 robust+gap-flip, B3 bulk-boundary 97%
 - [ ] Poke 2 — emergent dimension from RG (118)
 - [ ] Poke 3 — arrow of time / fluctuation theorem (119)

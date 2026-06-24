@@ -52,6 +52,8 @@ BATTERIES = [
      {"T0_instrument_validated": (">", 0.5), "T1_grid_torus_place_not": (">", 0.5)}),
     ("Emergent grid torus (saved model probe)", ["scripts/116_grid_torus_emergence.py", "--probe-only"],
      "116_grid_probe.json", {"H2_emergent_torus_controlled": (">", 0.5)}),
+    ("Topological band theory (SSH winding)", ["scripts/117_topological_band.py"], "117_topological_band.json",
+     {"B1_learns_invariant": (">", 0.5), "B2_quantized_robust": (">", 0.5), "B3_bulk_boundary": (">", 0.5)}),
 ]
 
 

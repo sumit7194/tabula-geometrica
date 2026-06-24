@@ -565,6 +565,17 @@ results in `curvature/notes/lab_notebook.md`.
   per-cell convergence needs the reference's full scale (90k-batch × 8000 epochs).
   Model saved (116_grid_model.pt); fast --probe-only gate in verify.sh. The
   curvature-atlas grid-cell-torus row is now a FULL emergent result.
+- **TOPOLOGICAL BAND THEORY — SSH winding + bulk-boundary (2026-06-24, script 117),
+  3/3.** Poke 1 of 3 (notes/topology_rg_arrow_plan.md). Caps the topology/holonomy
+  cluster (AB 113 → Berry 54 → grid torus → band topology). Web-verified SSH (BDI):
+  d(k)=(v+w cos k, w sin k); winding of d over the BZ = invariant (0 trivial v>w /
+  1 topological w>v), a HOLONOMY; bulk-boundary #edge modes = 2·winding. B1 ✓ a
+  DeepSets net over BZ segments (unit d-vectors → angles) learns the winding,
+  R²=0.999, integer-round-acc 100%; B2 ✓ quantized/robust — gap-preserving
+  deformations leave it unchanged (Δ0.029), a v-sweep flips 0↔1 only at the gap
+  closing v=w; B3 ✓ bulk-boundary — 2·round(net winding) == open-chain edge-mode
+  count for 97% (misses near v=w finite-size). Ties AB (winding) + Berry (curvature)
+  + certificate quantization. In verify.sh. (2D Chern left as future.)
 - **CURVATURE ATLAS (2026-06-19, scripts 88-90):** curvature/holonomy/topology as the
   universal signature of "the cheapest shared description," beyond gravity. Finance
   (88, no-arbitrage = flat connection, arbitrage = holonomy, numéraire = gauge, 3/3);

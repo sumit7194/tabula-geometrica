@@ -3482,3 +3482,10 @@ emergent toroidal topology, NOT a reader artifact. Nuance: module=torus iff code
 hexagonal gridness) -> topology robust (11/16) even with modest per-cell frac>0.3 (0.03). Honest scope: training
 transiently forms then degrades grids; full stable convergence needs reference scale (90k-batch x 8000 epochs).
 Model saved (116_grid_model.pt); fast --probe-only gate in verify.sh. Curvature-atlas grid-torus row now FULL.
+
+## Topological band theory -- SSH winding + bulk-boundary (script 117), 2026-06-24
+Poke 1 of 3. Web-verified SSH: d(k)=(v+w cos k, w sin k); winding of d over BZ = invariant (0 v>w / 1 w>v), a
+holonomy; bulk-boundary #edge modes = 2*winding. 3/3: B1 DeepSets-over-BZ-segments net learns winding R2=0.999,
+round-acc 100%; B2 robust to gap-preserving deformations (delta 0.029) + v-sweep flips only at gap closing v=w;
+B3 2*round(net winding) == open-chain edge-mode count, 97% (misses near v=w finite-size). Feed unit d-vectors so the
+net sees angles only (the angle-sum = winding). Ties AB 113 + Berry 54 + certificate quantization. In verify.sh.
