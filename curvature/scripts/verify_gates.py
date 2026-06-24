@@ -48,6 +48,8 @@ BATTERIES = [
     ("Spinor double cover (discovery)", ["scripts/114_spinor_double_cover.py"], "114_spinor_double_cover.json",
      {"S1_learnable": (">", 0.5), "S2_representability_certificate": (">", 0.5),
       "S3_two_sheets_720_return": (">", 0.5)}),
+    ("Grid-cell torus (topology instrument)", ["scripts/115_grid_torus.py"], "115_grid_torus.json",
+     {"T0_instrument_validated": (">", 0.5), "T1_grid_torus_place_not": (">", 0.5)}),
 ]
 
 

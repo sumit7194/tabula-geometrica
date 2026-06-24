@@ -1,0 +1,16 @@
+{
+ "ce_initial": 6.238462448120117,
+ "ce_final": 3.510626792907715,
+ "gridness_mean": -0.45502312114645604,
+ "gridness_max": 0.12013769812436731,
+ "frac_grid_cells_gt0.3": 0.0,
+ "learned_manifold_betti": [
+  1,
+  0,
+  0
+ ],
+ "n_active": 461,
+ "grids_emerged": false,
+ "manifold_is_torus": false,
+ "verdict": "HONEST PARTIAL: the net LEARNS path integration (CE 6.24->3.51) and the conformal-isometry term nudges gridness (max 0.12), but clean hexagonal grids do NOT emerge (frac grid cells 0.0%) -- it settles on a PLACE-LIKE code, so its learned manifold reads [1, 0, 0] (b1=0, NOT a torus). Path-integration + nonnegativity is necessary but not sufficient; the toroidal grid code needs the conformal-NORMALIZATION architecture (Xu/Wu/Gao 2023), beyond this budget."
+}

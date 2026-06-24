@@ -532,6 +532,21 @@ results in `curvature/notes/lab_notebook.md`.
   α+2π) spinor gives OPPOSITE preds (diff 1.27, bloch forced 0.00), pred(360°)=-1.00,
   pred(720°)=+1.01. Ties 98 + 51 (Bloch discovery) + holonomy cluster (AB 113,
   Berry 54). In verify.sh.
+- **GRID-CELL TORUS — topology of a navigation code (2026-06-24, scripts
+  115/115b).** Curvature-atlas neuroscience row (after ring 90). Web-verified
+  Gardner 2022: a grid MODULE's population = a TORUS (b0=1,b1=2,b2=1; Ripser
+  Z_p). Built a Betti reader (ratio-gap + RMS norm), de-risked in stages. **T0 ✓
+  (gated):** reader validated on synthetic torus/sphere/plane/circle 4/4. **T1 ✓
+  (gated):** ideal hexagonal grid module → [1,2,1] (torus); ideal place code →
+  b1=0 (not a torus) — the instrument distinguishes the codes by topology
+  (Gardner result reproduced on ideal codes). **T2 EMERGENCE = HONEST PARTIAL
+  (115b, not gated):** a trained path-integrator (Sorscher softmax-PC + CE + ReLU
+  + conformal-isometry regularizer) LEARNS path integration (CE 6.24→3.51),
+  isometry nudges gridness (max −0.02→0.12), but NO clean grids (0%) → place-like
+  code → learned manifold [1,0,0] (plane, not torus). PI + nonnegativity necessary
+  but NOT sufficient; toroidal grids need the conformal-NORMALIZATION architecture
+  (Xu/Wu/Gao 2023, arXiv:2310.19192), beyond this budget (3 trainer rounds,
+  disciplined stop). Added ripser+persim to venv. 115 in verify.sh.
 - **CURVATURE ATLAS (2026-06-19, scripts 88-90):** curvature/holonomy/topology as the
   universal signature of "the cheapest shared description," beyond gravity. Finance
   (88, no-arbitrage = flat connection, arbitrage = holonomy, numéraire = gauge, 3/3);

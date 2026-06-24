@@ -24,6 +24,27 @@ target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **M
 0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
 strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
+## 2026-06-24 — Grid-cell torus: reading the topology of a navigation code with persistent homology (scripts 115/115b)
+
+Keep-poking pick (user; the higher-risk emergent-topology one). Curvature-atlas open row (neuroscience, after the
+ring 90). Web-verified Gardner 2022 (Nature): a grid-cell MODULE's population activity is a TORUS -- barcode b0=1,
+b1=2, b2=1 (Ripser, Vietoris-Rips, Z_p). Built a Betti reader (ratio-gap heuristic + RMS normalization), de-risked
+in stages:
+- T0 INSTRUMENT (115, gated): validated on synthetic torus[1,2,1]/sphere[1,0,1]/plane[1,0,0]/circle[1,1,0] -- 4/4.
+- T1 GRID=TORUS, PLACE!=TORUS (115, gated): an ideal hexagonal grid module reads [1,2,1] (a torus); an ideal place
+  code has b1=0 (no toroidal loops -> not a torus). The instrument distinguishes the two codes by TOPOLOGY (the
+  Gardner result, reproduced on ideal codes).
+- T2 EMERGENCE (115b, HONEST PARTIAL, not gated): a trained path-integrator (Sorscher recipe: softmax place-cell
+  targets + cross-entropy + ReLU nonnegativity, plus a conformal-isometry regularizer ||Dg||~||Dx||) LEARNS path
+  integration (CE 6.24->3.51) and the isometry term nudges gridness (max -0.02->0.12), but clean hexagonal grids do
+  NOT emerge (0% grid cells) -- it settles on a PLACE-like code, so its learned manifold reads [1,0,0] (a plane,
+  b1=0), NOT a torus. Path-integration + nonnegativity is necessary but NOT sufficient; the toroidal grid code needs
+  the conformal-NORMALIZATION representational-model architecture (Xu/Wu/Gao 2023, arXiv:2310.19192), beyond a soft
+  regularizer on a vanilla RNN + this compute budget. Three trainer rounds (DoG-MSE didn't train; softmax-CE learned
+  PI; +isometry nudged) -> disciplined stop, honest partial.
+Robust deliverable = a validated TDA instrument + the grid(torus)/place(plane) topological signature; emergence is
+the scoped partial with a clear literature-backed path. Added ripser+persim to the venv. 115 in verify.sh.
+
 ## 2026-06-24 — Spinor double cover, discovery paradigm: a net invents the 720-degree state space (script 114)
 
 Keep-poking pick (user). Companion to script 98 (symbolic-library version: half-angle features + sign-unobservable

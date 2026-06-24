@@ -3455,3 +3455,17 @@ R2=-0.001 (no 2pi input yields a 4pi output); S3 two sheets over the same lab or
 spinor diff 1.27 (= predicted 2*<|cos(a/2)|>; bloch forced 0.00), pred(360)=-1.00, pred(720)=+1.01 -- 720 to return.
 Dropped a fragile latent-periodicity gate (a monotonic-alpha net needn't build a periodic latent) for the cleaner
 two-sheets demonstration. Ties 98 + 51 (Bloch discovery) + holonomy cluster (AB 113, Berry 54). In verify.sh.
+
+## Grid-cell torus -- topology of a navigation code (scripts 115/115b), 2026-06-24
+Curvature-atlas neuroscience row. Web-verified Gardner 2022: grid-module population = torus (b0=1,b1=2,b2=1; Ripser
+Z_p). Betti reader = ratio-gap (count bars above the largest >=1.6x gap, above a noise floor) + RMS normalization;
+H0 = #infinite bars. De-risked in stages:
+- T0 (115, gated): reader validated on synthetic torus[1,2,1]/sphere[1,0,1]/plane[1,0,0]/circle[1,1,0], 4/4.
+- T1 (115, gated): ideal hexagonal grid module -> [1,2,1] (torus); ideal place code -> b1=0 (not a torus). The
+  instrument distinguishes the codes by topology. (Place full betti [1,0,1]; the b2=1 is a curved-place-sheet dome
+  artifact, robust to thresh -- so the honest discriminator is b1: torus has 2 loops, place has 0.)
+- T2 (115b, HONEST PARTIAL, NOT gated): trained PI RNN (Sorscher softmax-PC + CE + ReLU + conformal-isometry
+  regularizer ||Dg||~||Dx||) learns PI (CE 6.24->3.51), isometry nudges gridness (max -0.02->0.12), but NO clean
+  grids (0% > 0.3) -> place-like code -> learned manifold [1,0,0] (plane, not torus). PI + nonnegativity necessary
+  but not sufficient; toroidal grids need the conformal-NORMALIZATION architecture (Xu/Wu/Gao 2023). 3 trainer rounds
+  (DoG-MSE no-train; softmax-CE learns PI; +isometry nudge), disciplined stop. Added ripser+persim to venv.

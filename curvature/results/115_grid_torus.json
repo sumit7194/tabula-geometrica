@@ -1,0 +1,71 @@
+{
+ "reader": "ratio-gap (1.6x) + RMS-normalize; H0=#infinite bars; Ripser maxdim2 Z47",
+ "T0_synthetic": {
+  "torus": {
+   "betti": [
+    1,
+    2,
+    1
+   ],
+   "expected": [
+    1,
+    2,
+    1
+   ],
+   "ok": true
+  },
+  "sphere": {
+   "betti": [
+    1,
+    0,
+    1
+   ],
+   "expected": [
+    1,
+    0,
+    1
+   ],
+   "ok": true
+  },
+  "plane": {
+   "betti": [
+    1,
+    0,
+    0
+   ],
+   "expected": [
+    1,
+    0,
+    0
+   ],
+   "ok": true
+  },
+  "circle": {
+   "betti": [
+    1,
+    1,
+    0
+   ],
+   "expected": [
+    1,
+    1,
+    0
+   ],
+   "ok": true
+  }
+ },
+ "T1_grid_betti": [
+  1,
+  2,
+  1
+ ],
+ "T1_place_betti": [
+  1,
+  0,
+  1
+ ],
+ "T0_instrument_validated": true,
+ "T1_grid_torus_place_not": true,
+ "grid_torus_topology_read": true,
+ "verdict": "EMERGENT-TOPOLOGY INSTRUMENT: a persistent-homology Betti reader validated on synthetic torus/sphere/plane/circle (4/4) identifies a hexagonal GRID module as a TORUS [1,2,1] (two independent loops + a void) and a PLACE code as NOT a torus (b1=0) -- the Gardner-2022 topological signature, read by our instrument. (Emergence-from-training: honest partial in 115b -- a trained path-integrator learns a planar place-like code; clean emergent grids need the conformal-normalization architecture, Xu/Wu/Gao 2023.)"
+}
