@@ -54,6 +54,9 @@ BATTERIES = [
      "116_grid_probe.json", {"H2_emergent_torus_controlled": (">", 0.5)}),
     ("Topological band theory (SSH winding)", ["scripts/117_topological_band.py"], "117_topological_band.json",
      {"B1_learns_invariant": (">", 0.5), "B2_quantized_robust": (">", 0.5), "B3_bulk_boundary": (">", 0.5)}),
+    ("Emergent dimension from RG (depth=log xi)", ["scripts/118_emergent_dimension_rg.py"],
+     "118_emergent_dimension_rg.json",
+     {"R1_emergent_depth_eq_logxi": (">", 0.5), "R2_radial_homogeneity_critical": (">", 0.5)}),
 ]
 
 

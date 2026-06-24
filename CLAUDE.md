@@ -565,6 +565,20 @@ results in `curvature/notes/lab_notebook.md`.
   per-cell convergence needs the reference's full scale (90k-batch × 8000 epochs).
   Model saved (116_grid_model.pt); fast --probe-only gate in verify.sh. The
   curvature-atlas grid-cell-torus row is now a FULL emergent result.
+- **EMERGENT DIMENSION FROM RG — real-space coarse-graining (2026-06-24, script
+  118), honest 2/3.** Poke 2 of 3. Makes emergent_dimension.md executable via
+  real-space block-RG on 1D classical Gaussian fields (distinct from J4/J5's
+  entanglement route). Web-verified MERA=discrete AdS (Swingle): emergent extra
+  dimension = RG length scale. Massive free field P(k)=1/(k²+m²), ξ=1/m. **R1 ✓**
+  emergent depth = log₂ξ (active RG-tower depth where neighbor-corr drops, fit
+  R²=1.000, slope~1; criticality→maximal depth) — coarse-graining GENERATES the
+  scale dimension, extent=log ξ; **R2 ✓** radial homogeneity only at criticality
+  (ρ_s flat, slope 0.008 = scale-invariant = AdS radial isometry; gapped flows
+  0.131, >16×). **R3 hyperbolic geometry = honest WEAK INSTRUMENT** (not claimed):
+  d_geo and C(r) don't cleanly separate hyperbolic from flat in 1D classical
+  (crit corr ~1 → tiny noisy geodesic; 1/k² critical limit is rough) — the
+  hyperbolic/AdS geometry is established cleanly in J4 (entanglement, exact
+  log-law). One fix round (N→16384) confirmed R2 not R3. Gate R1+R2 in verify.sh.
 - **TOPOLOGICAL BAND THEORY — SSH winding + bulk-boundary (2026-06-24, script 117),
   3/3.** Poke 1 of 3 (notes/topology_rg_arrow_plan.md). Caps the topology/holonomy
   cluster (AB 113 → Berry 54 → grid torus → band topology). Web-verified SSH (BDI):

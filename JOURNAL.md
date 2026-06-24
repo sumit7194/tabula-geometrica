@@ -24,6 +24,26 @@ target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **M
 0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
 strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
+## 2026-06-24 — Emergent dimension from coarse-graining (RG): the holographic depth=scale, real-space route (script 118)
+
+Poke 2 of 3 (plan: notes/topology_rg_arrow_plan.md). Makes emergent_dimension.md executable via REAL-SPACE block-RG on
+classical Gaussian fields (distinct from J4/J5's entanglement route). Web-verified (Swingle; MERA=discrete AdS): the
+emergent extra dimension = the RG length scale; scale-invariance of critical systems = homogeneity along it; scale-
+space is hyperbolic (AdS) at criticality. Toy: 1D massive free field P(k)=1/(k^2+m^2), xi=1/m (m=0 critical). Honest 2/3:
+- R1 EMERGENT DEPTH = log2(xi) PASS: active RG-tower depth (scale where neighbor-corr rho_s drops below 0.3) is linear
+  in log2(xi), fit R2=1.000, slope ~1; criticality -> maximal depth (xi->inf). Coarse-graining GENERATES the scale
+  dimension; its extent = log(correlation length).
+- R2 RADIAL HOMOGENEITY only at criticality PASS: rho_s is flat (scale-invariant, slope 0.008) at criticality -- the
+  emergent dimension is HOMOGENEOUS (the AdS radial isometry) -- vs gapped which flows (slope 0.131, >16x). 
+- R3 HYPERBOLIC geometry = honest WEAK INSTRUMENT (not claimed): the bulk geodesic d_geo(r)=sum(-ln rho_s) doesn't
+  cleanly separate log(r) (hyperbolic) from flat in 1D classical fields -- at criticality correlations are ~1 (so
+  -ln rho is tiny/noisy) and the massive-field critical limit (1/k^2) is rough, not power-law-correlated; a C(r)
+  power-law-vs-exponential test was also inconclusive (1D, slow decay). The hyperbolic/AdS geometry is established
+  CLEANLY in J4 (script 41) via the quantum entanglement route (exact log-law S(l)~log[sin(pi l/n)]). One fix round
+  (N 4096->16384, well-sampled scales) confirmed R2 but not R3 -> disciplined stop, honest 2/3.
+Real-space-RG route to the emergent holographic dimension; cross-validates J4 on R1/R2, defers the geometry to J4. In
+verify.sh (R1+R2).
+
 ## 2026-06-24 — Topological band theory: a net discovers the SSH winding number + bulk-boundary correspondence (script 117)
 
 Poke 1 of 3 (plan: notes/topology_rg_arrow_plan.md). Caps the topology/holonomy cluster (AB winding 113 -> Berry

@@ -3489,3 +3489,11 @@ holonomy; bulk-boundary #edge modes = 2*winding. 3/3: B1 DeepSets-over-BZ-segmen
 round-acc 100%; B2 robust to gap-preserving deformations (delta 0.029) + v-sweep flips only at gap closing v=w;
 B3 2*round(net winding) == open-chain edge-mode count, 97% (misses near v=w finite-size). Feed unit d-vectors so the
 net sees angles only (the angle-sum = winding). Ties AB 113 + Berry 54 + certificate quantization. In verify.sh.
+
+## Emergent dimension from RG -- real-space coarse-graining (script 118), 2026-06-24
+Poke 2 of 3. Real-space block-RG on 1D massive free fields P(k)=1/(k^2+m^2), xi=1/m. Web-verified MERA=discrete AdS
+(Swingle): emergent dimension = RG scale. Honest 2/3: R1 active depth (rho_s<0.3 crossing) = log2(xi), fit R2=1.000
+slope~1, critical->max depth; R2 rho_s flat at criticality (slope 0.008 = scale-invariant/homogeneous = AdS radial
+isometry) vs gapped flows (0.131, >16x); R3 hyperbolic geometry = WEAK instrument in 1D classical (crit corr ~1 ->
+-ln rho tiny/noisy; 1/k^2 critical limit is rough not power-law; C(r) power-vs-exp inconclusive) -> deferred to J4
+(entanglement route, exact log-law). One fix round (N 4096->16384) confirmed R2 not R3. Gate on R1+R2 in verify.sh.
