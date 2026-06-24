@@ -495,6 +495,19 @@ results in `curvature/notes/lab_notebook.md`.
   (no-anchor stays gauge). Honest scope: toy of the ANCHOR MECHANISM, not literal
   dS holography. In verify.sh. Cert V (time, 101) + this (frame, 111) = the
   no-fixed-reference wall mapped for both axes.
+- **PAGE CURVE + INFORMATION RETURN (2026-06-23, script 112), 3/3 — the map's
+  LAST poke; emergent-spacetime arc COMPLETE.** The info paradox as an exact qubit
+  toy (web-verified Page 1993 + Hayden-Preskill 2007) in recoverability/cheapest-
+  code language. P1 ✓ Page curve: S(radiation) of a Haar pure state (N=12) rises
+  then FALLS, peak at k=6=N/2, purifies to S=-0.000 (vs thermal monotone). P2 ✓
+  information return: I(Ref:radiation) 0.18→1.386=2ln2 across the Page time
+  (N=10 Haar-scrambled; the info comes back, fully recoverable -- Hayden-Preskill
+  mirror). P3 ✓ unitary returns I=1.39 vs thermal 0 → unitarity = the
+  information-RECOVERABLE description; the Page time = the recoverability
+  transition (a decoder exists iff I>0). Honest: a demonstration, not new physics.
+  In verify.sh. **EMERGENT-SPACETIME MAP COMPLETE: J5 (entanglement→geometry→
+  curvature) · Cert V (no observer-independent TIME, 101) · dS anchor (no
+  observer-independent FRAME, 111) · Page curve (information RETURNS, 112).**
 - **CURVATURE ATLAS (2026-06-19, scripts 88-90):** curvature/holonomy/topology as the
   universal signature of "the cheapest shared description," beyond gravity. Finance
   (88, no-arbitrage = flat connection, arbitrage = holonomy, numéraire = gauge, 3/3);

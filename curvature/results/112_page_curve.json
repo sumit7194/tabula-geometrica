@@ -1,0 +1,48 @@
+{
+ "page": {
+  "N": 12,
+  "reps": 6,
+  "S": [
+   -1.0518145402946823e-30,
+   0.6926788241830352,
+   1.3845228350085603,
+   2.0716758098369374,
+   2.740677624080364,
+   3.3410693059085887,
+   3.659708540345937,
+   3.339199615962068,
+   2.741385368786718,
+   2.071531420275047,
+   1.3844997258064753,
+   0.6927764635881543,
+   -1.0518145402946823e-30
+  ],
+  "peak_k": 6,
+  "S_peak": 3.659708540345937,
+  "S_end": -1.0518145402946823e-30
+ },
+ "info_return": {
+  "Nsys": 10,
+  "I_RefR": [
+   1.7763568394002505e-15,
+   0.0013710227175414147,
+   0.009642603041317255,
+   0.04263991918615062,
+   0.18051397249330048,
+   0.6754337874657081,
+   1.1919103146094865,
+   1.3361965573262324,
+   1.3729059170973006,
+   1.3823953632705595,
+   1.3862943611198895
+  ],
+  "I_before_page": 0.18051397249330048,
+  "I_after_full": 1.3862943611198895,
+  "I_max_2ln2": 1.3862943611198906
+ },
+ "P1_page_turnover": true,
+ "P2_information_return": true,
+ "P3_thermal_contrast": true,
+ "page_curve_and_recovery": true,
+ "verdict": "Page curve + information return, exact qubit toy: S(radiation) RISES THEN FALLS (peak at k=6~N/2, returns to -0.00~0 -- the radiation purifies), vs the thermal account that only rises. And the infalling info COMES BACK: I(Ref:radiation) goes 0.18->1.39 nats (~2ln2=1.39) across the Page time -- recoverable from the radiation only after it. Unitarity = the information-recoverable description; the Page time is the recoverability transition (a decoder exists iff I>0). Demonstration of Page 1993 + Hayden-Preskill 2007 in our cheapest-code language; the map's last poke."
+}

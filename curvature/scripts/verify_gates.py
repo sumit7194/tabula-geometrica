@@ -40,6 +40,8 @@ BATTERIES = [
      "111_desitter_anchor.json",
      {"G1_relational_learnable_both": (">", 0.5), "G2_absolute_needs_anchor": (">", 0.5),
       "G3_no_frame_without_anchor": (">", 0.5)}),
+    ("Page curve + information return", ["scripts/112_page_curve.py"], "112_page_curve.json",
+     {"P1_page_turnover": (">", 0.5), "P2_information_return": (">", 0.5), "P3_thermal_contrast": (">", 0.5)}),
 ]
 
 

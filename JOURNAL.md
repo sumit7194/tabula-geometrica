@@ -24,6 +24,22 @@ target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **M
 0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
 strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
+## 2026-06-23 — Page curve + information return (script 112): the map's LAST poke; emergent-spacetime arc COMPLETE
+
+The black-hole information paradox as an exact qubit toy in our recoverability/cheapest-code language (web-verified
+Page 1993 + Hayden-Preskill 2007). 3/3:
+- P1 PAGE TURNOVER: S(radiation) of a Haar pure state (N=12) rises then FALLS, peak exactly at k=6=N/2, returns to
+  S=-0.000 (radiation fully purifies) -- vs the thermal/Hawking line that only rises (info lost).
+- P2 INFORMATION RETURN: with a reference qubit entangled to an infalling diary + Haar scrambling (N=10),
+  I(Ref:radiation) goes 0.18 -> 1.386 nats = EXACTLY 2ln2 (maximal) across the Page time -- the info comes back,
+  fully recoverable from the radiation only after it (Hayden-Preskill 'information mirror').
+- P3 CONTRAST: unitary returns I=1.39; thermal returns 0 -> unitarity = the information-RECOVERABLE description; the
+  Page time is the recoverability transition (a decoder exists iff I>0).
+Honest scope: exact DEMONSTRATION of Page + Hayden-Preskill cast in our language, not new physics. Added to
+verify.sh. **This completes the emergent-spacetime physics-discussion arc -- all four map pokes done: J5
+(entanglement->geometry->curvature), Cert V (no observer-independent TIME, 101), de Sitter anchor (no
+observer-independent FRAME, 111), and the Page curve (information returns, 112).**
+
 ## 2026-06-23 — de Sitter poke: AdS-easy / dS-hard as a LEARNABILITY result (script 111)
 
 Frontier poke from the emergent-spacetime map (topic c1), turning "why is de Sitter hard" into a measured result.

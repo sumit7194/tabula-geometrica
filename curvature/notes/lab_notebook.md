@@ -3430,3 +3430,10 @@ recovered but frame is gauge (raw 1.46, varies across starts) = no observer-inde
 optimization (anchor) but not identifiability (no-anchor). 3/3. Honest scope: toy of the anchor mechanism, not
 literal dS holography. Complements Cert V (no observer-independent time): together = the "no fixed reference" wall
 for time (101) + frame (111). In verify.sh.
+
+## Page curve + information return (script 112), 2026-06-23 -- map's last poke
+Exact qubit toy of the info paradox (Page 1993 + Hayden-Preskill 2007), in recoverability language. 3/3: P1 Page
+curve S(radiation) of a Haar pure state (N=12) rises-then-falls, peak at k=6=N/2, purifies to S=-0.000 (vs thermal
+monotone); P2 I(Ref:radiation) 0.18->1.386=2ln2 across the Page time (info comes back, fully recoverable, N=10
+Haar-scrambled, Hayden-Preskill); P3 unitary returns I=1.39 vs thermal 0. Honest: demonstration, not new physics.
+In verify.sh. Completes the emergent-spacetime arc (J5 geometry/curvature, Cert V time, 111 frame, 112 information).
