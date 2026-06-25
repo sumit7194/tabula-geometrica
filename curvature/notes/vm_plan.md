@@ -38,17 +38,18 @@ a GPU, sized + pre-registered, executable cold.
 - **Do:** run 21 to completion on CUDA; evaluate its pre-registered gates; document + (if a saved gate) verify.sh.
 - **Value:** quickest win (no new code); a locality probe in 3D (larger relative receptive field than 2D).
 
-### A (headline) — Phase F law via FNO: crack the 1/r long-range wall
-- **Why GPU:** the documented Phase-F wall — a local CNN provably can't represent the 1/r long-range tail (overfit-
-  one-batch failed at 0.047; Proca 53 isolated locality as the knob). A **Fourier Neural Operator** (global spectral
-  conv) CAN represent long-range/global kernels (FNO-class result). Training FNOs over fields, many epochs = GPU.
-- **Build:** new script (127) — FNO mapping matter density -> acceleration field, differentiable rollout, trajectories-
-  only (same task as 19/22). 2D first, then 3D. Oracle discretization floor banked (1.2e-4) -> the gate IS feasible.
-- **Pre-reg gates (from fv2_roadmap):** F1 traj MSE <= ~1e-3 (vs CNN 0.058); F2 field cos > 0.98 (vs CNN 0.937);
-  F3 superposition cos > 0.96 on unseen multi-blob; F4 blind/identity-removal control >= 10x. PLUS the methodology:
-  oracle floor first, 3-pt LR sweep, diagnostic trio (overfit-one-batch, RF sweep), THEN the FNO.
-- **Value:** the biggest scientific payoff — turning a documented NULL (Phase F) into a positive by the literature-
-  identified fix (global operator). Honest either way (if FNO also misses, that's a sharper FNO-class statement).
+### A (headline, ALREADY BUILT — just run the sweep) — Phase F law via FNO: the 1/r long-range wall
+- **Status:** script 100_fno_law.py EXISTS and ALREADY CRACKS THE WALL on the Mac (MPS): P0 overfit-one-batch
+  3.7e-6 (vs the CNN's 0.047 representational wall -> the Phase-F failure WAS locality), F2 field cos 0.997 (gate
+  0.98 PASS; CNN 0.937), F1 MSE 0.0144 (CNN 0.058), F4 control 0.39 (>>10x). P0-P3 all pass. The architecture
+  hypothesis is CONFIRMED -- a global spectral operator carries the 1/r tail a local CNN cannot.
+- **Remaining (VM):** only the absolute F1 trajectory-MSE gate (1e-3, oracle floor 1.2e-4). The modes sweep
+  (run_fno_sweep.sh) already showed F1 SATURATES at ~0.015 at the 48-grid (Nyquist-limited: modes 24 == 14) -> the
+  fix is a FINER GRID. **Run `scripts/run_fno_grid_sweep.sh` (grid 64/96, modes=grid//2, 3 seeds, 12k steps,
+  --device cuda)** to resolve the near-mass field magnitude and drive F1 toward 1e-3. Pure scaling run, no new code.
+- **Why GPU:** finer grids (64/96) x 12k steps x 3 seeds x 2 grids = the methodology-heavy budget the Mac can't do.
+- **Value:** the biggest payoff -- turning the documented Phase-F NULL into a positive (P0 already does the headline
+  adjudication; the grid sweep closes the last magnitude gate, or honestly bounds it at the grid-resolution floor).
 
 ### C — hail-mary global PINN (Choptuik), the untried lever
 - **Why GPU:** PINN global solve (collocation + 2nd-order autodiff over a space-time domain) — moderate GPU.
@@ -76,13 +77,29 @@ a GPU, sized + pre-registered, executable cold.
 ---
 
 ## RECOMMENDED ORDER
-B0 (finish 21, shovel-ready) -> A (FNO, the headline wall) -> C (global PINN) -> D (G-sym) -> E (Wong). A is the
-highest-value; B0 is the fastest. Methodology-heavy (LR sweeps x seeds) applies throughout — the GPU's other win.
+A and B0 are BOTH shovel-ready (scripted, --device cuda) -> run them FIRST, in parallel-ish:
+  A: `bash scripts/run_fno_grid_sweep.sh`  (FNO grid sweep -> F1 toward 1e-3; the headline)
+  B0: `python scripts/21_matter_to_geometry_3p1.py --device cuda`  (finish the 3+1 law; gate F1-F4)
+then the BUILDS: C (global PINN) -> D (G-sym + legibility reg) -> E (Wong fuller observability).
 
-## PRE-BUILD LOCALLY (while the VM spins up)
-- Write + CPU-smoke-test the FNO script (127) and a CUDA device path, so it's launch-ready on the VM.
-- Confirm 21's --device cuda path + gates are wired.
-- A tiny `vm_setup.sh` (clone + venv + cuda-torch + sanity) to paste on the VM.
+## PRE-BUILD STATUS (checked 2026-06-25 — mostly already done by past work)
+- FNO (A): script 100 BUILT + Mac-validated (P0-P3 pass); modes sweep done (F1 saturates 0.015 @ 48-grid);
+  run_fno_sweep.sh + run_fno_grid_sweep.sh scripted for the VM. -> JUST RUN the grid sweep.
+- 3+1 law (B0): script 21 BUILT + --device cuda + F1-F4 gates wired. -> JUST RUN on CUDA.
+- The only missing piece is environment bring-up on the VM:
+
+## VM BRING-UP (paste once the VM is up + GPU verified free)
+```
+nvidia-smi                                            # confirm GPU free (Ludo not training); else STOP, ask user
+cd ~/spacetime/tabula-geometrica 2>/dev/null || git clone https://github.com/sumit7194/tabula-geometrica ~/spacetime/tabula-geometrica
+cd ~/spacetime/tabula-geometrica && git pull
+cd curvature
+python3.12 -m venv .venv 2>/dev/null; . .venv/bin/activate
+pip install -q torch --index-url https://download.pytorch.org/whl/cu124   # CUDA torch (NOT the CPU pin)
+pip install -q -r requirements.txt
+python -c "import torch; assert torch.cuda.is_available(); print('CUDA OK', torch.cuda.get_device_name(0))"
+```
+(The repo + venv likely already exist from the earlier modes-sweep run -> then it's just `git pull` + verify CUDA.)
 
 ## STATUS
 - [ ] VM spun up + GPU verified free
