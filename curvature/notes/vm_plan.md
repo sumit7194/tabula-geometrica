@@ -102,5 +102,12 @@ python -c "import torch; assert torch.cuda.is_available(); print('CUDA OK', torc
 (The repo + venv likely already exist from the earlier modes-sweep run -> then it's just `git pull` + verify CUDA.)
 
 ## STATUS
-- [ ] VM spun up + GPU verified free
-- [ ] B0 (21) · [ ] A (FNO 127) · [ ] C (PINN) · [ ] D (G-sym) · [ ] E (Wong)
+- [x] VM spun up + GPU verified free (2026-06-26: L4 stockout cleared; GPU 0 MiB, Ludo not training; CUDA torch 2.12.1+cu130)
+- [x] **A (FNO grid sweep) DONE — honest negative:** F1 SATURATES ~0.015 across modes 14/24 + grids 48/64/96 (g64
+  0.0141-0.0144, g96 0.0163-0.0169 x3 seeds), F2_cos ~0.995. Finer-grid/Nyquist hypothesis REFUTED (F1 doesn't track
+  resolution). FNO confirms locality was the wall (F2 0.995 vs CNN 0.937, beats CNN F1 4x, P0 3.7e-6) but the absolute
+  F1 gate (1e-3) stays open, bounded ~0.015 by a non-resolution factor. Was already run Jun 19; closed 2026-06-26.
+- [x] **B0 (21, 3+1 law) DONE — NULL:** F1 0.041, F2_cos 0.417 (<< 2+1's 0.937) -> locality wall WORSE in 3D; the
+  Conv3d CNN can't carry the 3D 1/r tail. FNO-class operator needed in 3D too (future). Was run Jun 19; closed 2026-06-26.
+- [ ] C (global PINN Choptuik) · [ ] D (G-sym + legibility reg) · [ ] E (Wong v3 fuller observability) — the BUILDS, not
+  yet started (involved new code; need a go-decision given GPU cost).
