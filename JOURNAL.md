@@ -24,6 +24,21 @@ target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **M
 0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
 strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
+## 2026-06-25 — Quick wins assessed (build-queue item 7): MDL already done; H2 optimizer-swap regressed (honest)
+
+Build-queue item 7 (the scaling_backlog-A quick wins). Honest outcome -- not every backlog item yields a green gate:
+- MDL multi-seed (13): ALREADY COMPLETE. Script 13_mdl_multiseed.py IS the multi-seed M1 follow-up (charged d=1
+  minimum decisive +8870 bits; neutral ordering marginal). Nothing to do.
+- Hierarchy H2 (89): attempted the "RiemannianAdam" optimizer-swap quick win to push the tree's hyperbolic distortion
+  past the strict 0.5x-Euclidean gate (it stalled at ratio 0.605). BOTH attempts REGRESSED vs the original tanh-reparam
+  Adam (0.131, ratio 0.605): Euclidean-retraction RSGD -> 0.160 (0.74); exp-map RSGD-Adam -> 0.462 (2.13, unstable).
+  RESTORED the original (no regression shipped). H2 stays an honest optimization-limited partial: the hyperbolic
+  advantage IS real (ratio 0.605 < 1; tree Gromov delta = 0 -- the cleanest hyperbolicity signature), but crossing the
+  strict 2x gate needs a dedicated tree EMBEDDING CONSTRUCTION (Sarkar 2011), not an optimizer swap -> logged as a
+  future option, not a quick win. Disciplined stop (2 attempts, both worse -> restore).
+PHASE 1 of the build queue COMPLETE: 120 (2D Chern) / 121 (Fisher=GR metric) / 122 (S=A/4) / 123 (grav waves) / 124
+(Ollivier-Ricci) / 125 (entanglement dimension+grid) all clean-gated in verify.sh; 126 assessed honestly (no change).
+
 ## 2026-06-25 — Geometry from entanglement: dimension + 2D grid (closing Phase J's J2, script 125)
 
 Build-queue item 6 (notes/build_queue.md). Phase J (32) recovered a chain's 1D order from mutual information + the Van

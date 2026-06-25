@@ -3551,3 +3551,11 @@ Closes Phase J's J2 (PCA overcounted dimension; 2D grid needed spectral embeddin
 MDS grid recovery Procrustes corr 0.99; J2c recovered geodesic vs true distance spearman 1.00/0.95. Fix: ball-growth-
 on-kNN undercounted + raw single-site MI short-ranged (gapped -> ties) -> use correlation-dim on Isomap geodesics +
 geodesic monotonicity (geometry built by geodesic completion, validated by J2b). networkx kNN+dijkstra. In verify.sh.
+
+## Quick wins assessed (build-queue item 7), 2026-06-25
+MDL multi-seed (13): already complete (13 IS the multi-seed refinement; charged d=1 decisive, neutral marginal).
+H2 (89): RiemannianAdam optimizer-swap quick win to cross the 0.5x gate -- BOTH attempts regressed vs original tanh-
+reparam Adam (0.131/0.605): Euclidean-retraction RSGD 0.160; exp-map RSGD-Adam 0.462 (unstable). Restored original;
+no regression shipped. H2 partial stands (hyperbolic advantage real -- ratio 0.605<1, tree Gromov delta=0 -- but the
+strict 2x gate needs a Sarkar tree-embedding construction, not an optimizer swap; logged as future). Disciplined stop.
+Phase 1 of the build queue (120-125) all clean-gated; 126 honest no-change.

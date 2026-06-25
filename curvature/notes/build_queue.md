@@ -30,8 +30,7 @@ _weyl_quadrupole.py) or pkill broadly. Our dashboard is :8788. No resource conte
   edges / bridges, positive within; Ricci flow detects communities. Web-verify Ollivier-Ricci + Ni et al.
 - [x] **125 · J2 spectral dimension + 2D entanglement grid** DONE 3/3 (J2a dim chain 1.11/grid 1.83 vs PCA overcount; J2b grid Procrustes 0.99; J2c geodesic spearman 1.00/0.95) -- — close geometry-from-entanglement loose ends: swap
   PCA→spectral/persistent-homology dimension; recover a 2D grid via spectral embedding. Reuses s32/s42 machinery.
-- [ ] **126 · Quick wins** — Hierarchy H2 with RiemannianAdam (89 stalled at 0.61); MDL multi-seed (13). From
-  scaling_backlog A.
+- [x] **126 · Quick wins** ASSESSED (honest): MDL multi-seed (13) ALREADY DONE; H2 (89) RiemannianAdam swap REGRESSED (0.131->0.160/0.462) -> restored original; H2 partial stands (needs Sarkar tree-construction, not a swap -- logged as future, not shipped). From scaling_backlog A.
 
 ## PHASE 1b — more separate-angle probes (after the above, as appetite allows)
 - [ ] Discrete/graph worlds (does geometry emerge without a continuum?) · operational observers (noisy clocks/finite
