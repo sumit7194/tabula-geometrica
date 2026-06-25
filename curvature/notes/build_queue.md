@@ -38,9 +38,10 @@ _weyl_quadrupole.py) or pkill broadly. Our dashboard is :8788. No resource conte
 - [x] **operational observers (130)** DONE 3/3: interval from radar light-timings (Bondi k-calculus), not coordinates;
   K=1 isotonic R2 0.999, clock-noise robust (R2 0.994), invariant is the Doppler-invariant PRODUCT T_s*T_r (CoV 0.000 vs
   euclidean 0.95). Deepens "no fixed reference" (Cert V/111).
-- [ ] Discrete/graph worlds (does geometry emerge without a continuum?) · relativistic-regime learning · Huygens-tail
-  PINN (2+1 vs 3+1) · Hashimoto depth=bulk · extrapolation-failure probe · communication-game-for-gauge (amortized-
-  protocol reframe).
+- [x] **relativistic regime / rapidity (131)** DONE 3/3 (clean): additive-bottleneck net discovers boosts compose
+  additively in RAPIDITY atanh(v) (R1 R2 1.000, R2 psi=atanh |r|1.000, R3 Galilean superluminal 36% + MSE 732x).
+- [ ] Discrete/graph worlds (does geometry emerge without a continuum?) · Huygens-tail PINN (2+1 vs 3+1) · Hashimoto
+  depth=bulk · extrapolation-failure probe · communication-game-for-gauge (amortized-protocol reframe).
 
 ## PHASE 2 — compute bets (need the L4; defer until it frees from Ludo)
 - [ ] Phase F law via FNO (the 1/r long-range wall) · larger G-sym + legibility regularizer · Wong v3 fuller

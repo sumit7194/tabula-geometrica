@@ -3592,3 +3592,29 @@ increasing="auto" (latent decreases with s^2); O3 product-vs-euclidean by latent
 timing magnitude) -> reframed to the Doppler-invariance CoV test (the actual physics). Deepens the "no fixed reference"
 theme (Cert V 101 / dS anchor 111): the interval is operationally real, surviving the move from given coordinates to
 noisy light-signal measurements. In verify.sh.
+
+## 2026-06-25 — Phase 1b probe #4: relativistic regime, rapidity is the additive coordinate (script 131)
+Gravity phases ran slow-motion; here we go relativistic. Velocities compose as w=(v1+v2)/(1+v1v2); the 1+1 Lorentz
+group is the real line under ADDITION in RAPIDITY phi=atanh(v) (phi=phi1+phi2). Toy = additive-bottleneck net
+psi(v1)+psi(v2)->decode w; only bias = "boosts compose additively in some learned coordinate", net must discover which.
+3/3 (clean, no fix round): R1 held-out R2=1.000 on Einstein composition; R2 learned psi recovers atanh(v) |corr|=1.000
+(vs 0.985 for velocity) -- discovers rapidity; R3 relativistic not Galilean -- w=v1+v2 goes superluminal |w|>1 on 36%
+of high-speed pairs, MSE 732x worse, psi nonlinear (= v only near 0). Relativity from the composition law alone. The
+additive parameter of the 1+1 Lorentz group is unique up to scale, so the net is FORCED to find rapidity. Ties Phase A
+(interval) + 130 (k-calculus). In verify.sh.
+
+## 2026-06-25 — For TheBridge: ZV gamma-metric legibility (script 132), extends A10/leg Q
+Bridge follow-up: leg Q's legible<->KY-integrable correlation had one non-integrable test (the §127 bump); add a 2nd,
+independent one in a different deformation + coordinates -- the Zipoy-Voorhees gamma-metric (static axisym VACUUM Weyl;
+delta=1==Schwarzschild integrable, delta=2 proven non-integrable: no KY tensor up to valence 11, no poly integral
+deg<=6; web-verified Lukes-Gerakopoulos 1206.0660 + Kruglikov-Matveev 1111.4690). Built ZV geodesic Hamiltonian in
+prolate-spheroidal (x,y) (diagonal inverse metric, autograd RK4, bound geodesics at E,L), reused s99 emit-or-certify.
+DERIVED the target invariant: HJ cross-term (x^2-y^2)^(1-delta^2) is y-independent IFF delta=1 -> separation constant
+C=(1-y^2)p_y^2+L^2/(1-y^2) (=L_total^2). 3/3 (1 fix round): Z1 delta=1 EMITS (held-out 6.9e-24, cosine to C 1.000, C
+exact to 1.1e-23); Z2 delta=2 CERTIFIES (same C drifts 8.0e-6 = 7e17x the integrable floor at matched E=0.97,L=4; 3.0e-4
+nearer ISCO -- the Killing-tensor invariant destroyed); Z3 legible<->integrable. Fix: absolute legibility threshold
+(1e-4) mislabeled delta=2's KAM remnant -> switched to the s99 RELATIVE-EXACTNESS test (conserved to integration
+precision or not; 1e-10 floor) + strong-chaos point for a macroscopic confirmation. Orbit-tuning gotcha: E=0.95 is below
+the L=4 effective-potential minimum (no real p_x on the mass shell) -> use E=0.97 (V_min~0.962). Deliverable:
+results/132_zv_gamma_metric.json + 2 rows in notes/A10_for_bridge.md (6th metric, 2nd independent non-integrable case).
+In verify.sh.

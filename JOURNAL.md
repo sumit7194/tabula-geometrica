@@ -24,6 +24,47 @@ target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **M
 0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
 strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
+## 2026-06-25 — For TheBridge: ZV gamma-metric legibility — a 2nd independent non-integrable case (script 132)
+
+Sister-project help (TheBridge's follow-up to A10/leg Q, before resuming our work). Leg Q's "legible (our §127 emit-or-
+certify) <-> KY-integrable (their symbolic survey)" correlation had only ONE non-integrable test (the §127 bump). They
+added a literature-standard second one in a DIFFERENT deformation + DIFFERENT coordinates: the Zipoy-Voorhees gamma-
+metric (exact static axisymmetric VACUUM Weyl solution; delta=1==Schwarzschild integrable, delta=2 proven non-integrable
+-- no Killing tensor up to valence 11, no poly integral degree<=6; web-verified Lukes-Gerakopoulos arXiv:1206.0660 +
+Kruglikov-Matveev arXiv:1111.4690). Ask: run §127's probe on ZV geodesics, predict delta=1 emits / delta=2 certifies.
+Built the ZV geodesic Hamiltonian in prolate-spheroidal (x,y) (full diagonal inverse metric, autograd integrator, bound
+geodesics), reused the §99 emit-or-certify engine. DERIVED the invariant to look for: the HJ cross-term is
+(x^2-y^2)^(1-delta^2), y-independent IFF delta=1, giving the separation constant C=(1-y^2)p_y^2+L^2/(1-y^2) (=total
+ang. mom. squared, conserved iff delta=1). 3/3 (one fix round):
+- Z1 delta=1 (Schwarzschild) EMITS: engine held-out 6.9e-24, the emitted invariant IS C (cosine 1.000), C exact to
+  integration precision (drift 1.1e-23).
+- Z2 delta=2 (ZV) CERTIFIES: at MATCHED (E=0.97,L=4) the SAME C drifts 8.0e-6 = 7e17x the integrable floor (NOT exact),
+  and macroscopically (3.0e-4) nearer ISCO where chaos is stronger -- the Killing-tensor invariant is destroyed.
+- Z3 legible<->integrable holds: ZV(1)=legible+integrable, ZV(2)=illegible+non-integrable.
+Fix round: an absolute legibility threshold (1e-4) mislabeled delta=2's weakly-perturbed KAM remnant as "conserved" ->
+switched to the §99 RELATIVE-EXACTNESS discriminator (conserved to integration precision = exact Killing-tensor
+invariant, vs not; 1e-10 floor) + added the strong-chaos point for a macroscopic confirmation. Deliverable for the
+bridge: results/132_zv_gamma_metric.json + the two new rows in notes/A10_for_bridge.md (6th metric, 2nd independent
+non-integrable case -> strengthens leg Q / their §9 beyond the single bump). In verify.sh.
+
+## 2026-06-25 — Phase 1b: relativistic regime — a net discovers rapidity is the additive coordinate of boosts (script 131)
+
+Separate-angle probe #4. The gravity phases (C, E) all ran slow-motion (Newtonian); here we go relativistic and ask
+the cleanest question in that regime: how do velocities combine? Galileo says w=v1+v2; Einstein says
+w=(v1+v2)/(1+v1 v2). The deep fact (web-known SR): the 1+1 Lorentz group is just the real line under ADDITION,
+parameterized by RAPIDITY phi=atanh(v) -- boosts compose by phi=phi1+phi2, and velocity addition is its tanh shadow.
+Toy = an ADDITIVE-bottleneck net: a shared per-velocity map psi(v), summed psi(v1)+psi(v2), decoded to w. The only
+bias baked in is "boosts compose additively in SOME coordinate"; the net must DISCOVER which. Since the additive
+parameter of the 1+1 Lorentz group is unique up to scale, it is forced to find rapidity. 3/3 (clean, no fix round):
+- R1 ADDITIVE COORDINATE FITS: held-out R2=1.000 on Einstein composition (boosts do compose additively in the learned
+  coordinate).
+- R2 THE COORDINATE IS RAPIDITY: learned psi(v) recovers atanh(v) at |corr|=1.000 (vs 0.985 for velocity) -- the net
+  discovers rapidity as the natural additive coordinate of the Lorentz group.
+- R3 RELATIVISTIC NOT GALILEAN: the Galilean baseline w=v1+v2 predicts SUPERLUMINAL |w|>1 on 36% of high-speed pairs
+  and its MSE is 732x the relativistic net's; psi is nonlinear, coinciding with the Galilean psi=v only near v=0.
+Relativity learned from the composition law alone. Ties to Phase A (the interval) + the Lorentz/k-calculus theme
+(130). In verify.sh.
+
 ## 2026-06-25 — Phase 1b: operational observers — the interval from radar light-timings, not coordinates (script 130)
 
 Separate-angle probe #3. Phase A discovered the Minkowski interval from GIVEN coordinates (t,x). Here the observers are

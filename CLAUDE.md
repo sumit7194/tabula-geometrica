@@ -611,6 +611,18 @@ results in `curvature/notes/lab_notebook.md`.
   correlation → Doppler-invariance CoV test. Deepens "no fixed reference" (Cert V 101
   / dS anchor 111): the interval is operationally real (survives given-coords → noisy
   light-signals). In verify.sh.
+- **RELATIVISTIC RAPIDITY (2026-06-25, script 131), 3/3 (clean).** Phase 1b probe #4 —
+  the gravity phases ran slow-motion; here we go relativistic. Velocities compose as
+  w=(v1+v2)/(1+v1v2), but the 1+1 Lorentz group is the real line under ADDITION in
+  RAPIDITY φ=atanh(v) (φ=φ1+φ2). Toy = an additive-bottleneck net ψ(v1)+ψ(v2)→decode w;
+  only bias = "boosts compose additively in some learned coordinate", the net must
+  discover which. R1 ✓ held-out R²=1.000 on Einstein composition; R2 ✓ learned ψ
+  recovers atanh(v) at |r|=1.000 (vs 0.985 for velocity) — discovers rapidity; R3 ✓
+  relativistic not Galilean (w=v1+v2 goes superluminal |w|>1 on 36% of high-speed
+  pairs, MSE 732× worse, ψ nonlinear = v only near 0). The additive parameter of the
+  1+1 Lorentz group is unique up to scale → the net is forced to find rapidity.
+  Relativity from the composition law alone. Ties Phase A (interval) + 130 (k-calculus).
+  In verify.sh.
 - **HUYGENS' PRINCIPLE BY DIMENSION (2026-06-25, script 128), 3/3.** Phase 1b
   probe #1; validates dimensional_ladder §5. Web-verified (Hadamard; Ehrenfest):
   the wave eq satisfies Huygens in ODD spatial dim (3D sharp, field→0 after the
@@ -632,6 +644,21 @@ results in `curvature/notes/lab_notebook.md`.
   separation). Deliverable: results/127 JSON + notes/A10_for_bridge.md (bridge reads
   read-only; repos independent). Strengthens our distillation arc (91-99) into a clean
   integrability↔legibility correlation. In verify.sh.
+- **ZV GAMMA-METRIC — A10 extension for TheBridge (2026-06-25, script 132), 3/3.**
+  Bridge follow-up: leg Q had only ONE non-integrable test (the 127 bump); added a
+  literature-standard 2nd in a DIFFERENT deformation + coordinates — the Zipoy-Voorhees
+  γ-metric (static axisym VACUUM Weyl; δ=1≡Schwarzschild integrable, δ=2 proven non-
+  integrable: no Killing tensor up to valence 11, no poly integral deg≤6; web-verified
+  Lukes-Gerakopoulos 1206.0660 + Kruglikov-Matveev 1111.4690). Built the ZV geodesic
+  Hamiltonian in prolate-spheroidal (x,y) (autograd RK4, bound geodesics), reused the 99
+  emit-or-certify engine. DERIVED the target: HJ cross-term (x²−y²)^(1−δ²) is y-indep iff
+  δ=1 → separation constant C=(1−y²)p_y²+L²/(1−y²) (=L_total²). Z1 ✓ δ=1 EMITS (held-out
+  6.9e-24, cosine to C 1.000); Z2 ✓ δ=2 CERTIFIES (same C drifts 7e17× the integrable
+  floor at matched E,L; 3e-4 macroscopic nearer ISCO — Killing-tensor invariant
+  destroyed); Z3 ✓ legible⟺integrable. Fix round: absolute threshold mislabeled δ=2's
+  KAM remnant → switched to the 99 RELATIVE-EXACTNESS test (conserved to integration
+  precision or not). Deliverable: results/132 JSON + 2 rows in notes/A10_for_bridge.md
+  (6th metric, 2nd independent non-integrable case). In verify.sh.
 - **GEOMETRY FROM ENTANGLEMENT — dimension + 2D grid, closing J2 (2026-06-25,
   script 125), 3/3.** Build-queue item 6. Phase J (32) recovered a chain's 1D order
   + Van Raamsdonk pinch-off but left J2 open (PCA overcounted dimension; 2D grid

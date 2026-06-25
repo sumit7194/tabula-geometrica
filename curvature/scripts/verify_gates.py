@@ -88,6 +88,14 @@ BATTERIES = [
      "130_operational_observers.json",
      {"O1_interval_from_timings": (">", 0.5), "O2_clock_noise_robust": (">", 0.5),
       "O3_product_not_euclidean": (">", 0.5)}),
+    ("Relativistic rapidity (additive coordinate of boosts)", ["scripts/131_relativistic_rapidity.py"],
+     "131_relativistic_rapidity.json",
+     {"R1_additive_coordinate_fits": (">", 0.5), "R2_coordinate_is_rapidity": (">", 0.5),
+      "R3_relativistic_not_galilean": (">", 0.5)}),
+    ("ZV gamma-metric legibility (for TheBridge, A10 ext)", ["scripts/132_zv_gamma_metric.py"],
+     "132_zv_gamma_metric.json",
+     {"Z1_integrable_emit": (">", 0.5), "Z2_nonintegrable_certify": (">", 0.5),
+      "Z3_legible_iff_integrable": (">", 0.5)}),
 ]
 
 
