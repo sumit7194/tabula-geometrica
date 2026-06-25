@@ -3528,3 +3528,12 @@ slope -1.00 (area not volume); H3 negative specific heat (T decreases with M) + 
 Two principled fixes (H1 clean first run): H2 log-log->linear-in-M^2 fit (offset-robust) + train wider than eval;
 H3 lower obs noise 2%->0.5% + train 4k->8k (the residual was noise+fit limited). S=A/4 (H1) IS the integrated first
 law. In verify.sh.
+
+## Gravitational waves -- radiation is quadrupolar (script 123), 2026-06-25 -- build-queue item 4
+The GR-dynamics step (first non-static geometry). Web-verified Einstein 1918 quadrupole formula + no monopole/dipole
+radiation. Toy G=c=1: binary (quadrupole) / octahedral breathing (monopole) / rigid translation (dipole), multipoles
+about COM. 3/3: W1 net predicts L from Q_ij(t) R2=0.993 vs from monopole+dipole 0.053; W2 certificate L binary 1e2 vs
+monopole 8.6e-25 / dipole 2.3e-24 (~1e27x) -- no monopole/dipole GW; W3 h=Qddot(t-r/c)/r outgoing wave, speed 1.026=c,
+1/r falloff (-1.00). Smoke-test caught 2 physics bugs: breathing needed octahedral (not random) dirs for Q=0; Q must
+be computed about the COM (else translation radiates spuriously). W3 needed a long window + finite wave-packet. Honest
+scope: linearized GW. In verify.sh.

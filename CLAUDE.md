@@ -590,6 +590,18 @@ results in `curvature/notes/lab_notebook.md`.
   (crit corr ~1 → tiny noisy geodesic; 1/k² critical limit is rough) — the
   hyperbolic/AdS geometry is established cleanly in J4 (entanglement, exact
   log-law). One fix round (N→16384) confirmed R2 not R3. Gate R1+R2 in verify.sh.
+- **GRAVITATIONAL WAVES — radiation is quadrupolar (2026-06-25, script 123), 3/3.**
+  Build-queue item 4 — the GR-DYNAMICS step (first non-static learned geometry).
+  Web-verified Einstein 1918 quadrupole formula: h∝Q̈(t-r/c); NO monopole (mass-
+  energy conservation) or dipole (momentum conservation) radiation. Toy (G=c=1):
+  binary (quadrupole) / octahedral breathing (monopole) / rigid translation
+  (dipole), multipoles about COM. W1 ✓ a net predicts radiated power from the
+  quadrupole Q_ij(t) (R²=0.993) but not from monopole+dipole (R²=0.053); W2 ✓
+  certificate: breathing & translating sources radiate ~0 vs binary (~10²⁷×) — no
+  monopole/dipole GW; W3 ✓ outgoing wave at speed c (1.026), 1/r far-field falloff.
+  Smoke-test caught 2 physics bugs (breathing needs octahedral dirs for Q=0; Q
+  about the COM). Honest scope: linearized GW (Newtonian sources + quadrupole
+  formula), not full GR. In verify.sh.
 - **HORIZON THERMODYNAMICS — Bekenstein-Hawking S = A/4 (2026-06-25, script 122),
   3/3.** Build-queue item 3 — closes the loop to the project's ORIGIN (the Brian-Cox
   black-hole chat: holography, S=A/4, the M² law). Web-verified Schwarzschild:

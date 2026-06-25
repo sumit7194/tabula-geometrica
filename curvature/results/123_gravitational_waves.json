@@ -1,0 +1,14 @@
+{
+ "W1_quad_R2": 0.9925989508628845,
+ "W1_monopole_dipole_R2": 0.05280190706253052,
+ "W2_L_binary": 99.56384398538721,
+ "W2_L_monopole": 8.620277541802607e-25,
+ "W2_L_dipole": 2.278542468262968e-24,
+ "W3_speed": 1.0263682907482632,
+ "W3_falloff_exponent": -1.0000872033257304,
+ "W1_quadrupole_sourcing": true,
+ "W2_no_monopole_dipole_radiation": true,
+ "W3_propagation_at_c": true,
+ "gravitational_waves_discovered": true,
+ "verdict": "GRAVITATIONAL RADIATION IS QUADRUPOLAR (discovered): a net predicts the radiated power from the source's QUADRUPOLE moment (R2 0.993) but CANNOT from the monopole+dipole (R2 0.053) -- radiation is quadrupolar. Certificate: a breathing (monopole) source radiates 8.6e-25 and a translating (dipole) source 2.3e-24, vs the binary's 1.0e+02 (99563843985301x / 99563843985160x) -- NO monopole or dipole gravitational radiation (the conservation laws). And the field is an OUTGOING wave: propagation speed 1.026 (=c) with 1/r far-field falloff (exponent -1.00). Einstein's 1918 quadrupole formula, as a learned result -- the project's first DYNAMICAL geometry."
+}

@@ -24,7 +24,7 @@ _weyl_quadrupole.py) or pkill broadly. Our dashboard is :8788. No resource conte
   find the cleanest learnable toy where entropy ∝ horizon AREA (microstate counting / Hawking / Rindler). Verify it's
   unbuilt (Phase BH did geometry, 112 did info-return; the area-LAW link appears unbuilt). Gates pre-registered after
   research. Highest thematic payoff.
-- [ ] **123 · Time-dependent geometry → gravitational-wave toy** ⭐ — all learned geometry so far is static. Moving/
+- [x] **123 · Time-dependent geometry → gravitational-wave toy** DONE 3/3 (W1 quadrupole R2 0.993 vs mono+dipole 0.053; W2 no mono/dipole radiation ~1e27x; W3 speed c, 1/r) ⭐ — all learned geometry so far is static. Moving/
   breathing well; toward radiative structure (quadrupole formula). RESEARCH-FIRST. Gates after research.
 - [ ] **124 · Graph Ollivier-Ricci curvature** — curvature-atlas row. Ricci curvature negative on inter-community
   edges / bridges, positive within; Ricci flow detects communities. Web-verify Ollivier-Ricci + Ni et al.

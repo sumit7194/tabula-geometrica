@@ -67,6 +67,9 @@ BATTERIES = [
     ("Horizon entropy S=A/4 (Bekenstein-Hawking)", ["scripts/122_horizon_entropy.py"], "122_horizon_entropy.json",
      {"H1_discovers_S_eq_A_over_4": (">", 0.5), "H2_holographic_area_not_volume": (">", 0.5),
       "H3_black_hole_surprises": (">", 0.5)}),
+    ("Gravitational waves (quadrupole radiation)", ["scripts/123_gravitational_waves.py"], "123_gravitational_waves.json",
+     {"W1_quadrupole_sourcing": (">", 0.5), "W2_no_monopole_dipole_radiation": (">", 0.5),
+      "W3_propagation_at_c": (">", 0.5)}),
 ]
 
 

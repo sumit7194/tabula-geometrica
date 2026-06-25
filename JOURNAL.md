@@ -24,6 +24,25 @@ target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **M
 0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
 strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
+## 2026-06-25 — Gravitational waves: a net discovers radiation is QUADRUPOLAR (script 123)
+
+Build-queue item 4 (notes/build_queue.md) -- the GR-DYNAMICS step (every learned geometry so far was static; this is
+the road to gravitational waves). Web-verified Einstein 1918 quadrupole formula: h_ij = (2G/r c^4) Qddot_ij(t-r/c);
+L=(G/5c^5)<Qdddot^2>; NO monopole radiation (mass-energy conservation), NO dipole radiation (momentum conservation /
+equivalence of inertial & gravitational mass). Toy (G=c=1): prescribed point-mass sources (binary=quadrupole,
+octahedral breathing shell=monopole, rigid translation=dipole), multipoles about the COM. 3/3:
+- W1 a net predicts the radiated power from the source's QUADRUPOLE time-series Q_ij(t) (R2=0.993) but CANNOT from the
+  monopole+dipole (R2=0.053) -- radiation is quadrupolar.
+- W2 certificate: breathing (monopole) radiates 8.6e-25 and translating (dipole) 2.3e-24 vs the binary's 1.0e2 (~1e27x)
+  -- NO monopole/dipole gravitational radiation (the conservation laws; unlike EM).
+- W3 the field h(t,r)=Qddot(t-r/c)/r is an OUTGOING wave: fitted propagation speed 1.026 (=c) with 1/r far-field
+  falloff (exponent -1.00).
+Two physics bugs caught by the smoke test (good): (1) breathing used random (non-isotropic) directions -> spurious Q;
+fixed to octahedral (exact Q=0). (2) Q about a fixed origin made a translating source radiate; fixed to the COM frame
+(rigid translation -> constant Q -> no radiation). And W3 window was shorter than the r-range -> propagate a finite
+wave-packet over a long window. Honest scope: linearized GW (prescribed Newtonian sources + quadrupole formula), not
+full GR. The project's first DYNAMICAL geometry. In verify.sh.
+
 ## 2026-06-25 — Horizon thermodynamics: a net discovers Bekenstein-Hawking S = A/4 (script 122)
 
 Build-queue item 3 (notes/build_queue.md) -- closes the loop to the project's ORIGIN (the Brian-Cox black-hole chat:
