@@ -1,0 +1,20 @@
+{
+ "F1_fisher_rel_err": 0.004748765682117463,
+ "F2_natural_path_div": 0.0045646318373484766,
+ "F2_ordinary_path_div": 0.4699765943870496,
+ "F3_natural_final_kls": {
+  "sigma": 1.3003249701104558e-05,
+  "log_sigma": 1.3842632697658175e-05,
+  "sigma_cubed": 1.1492853987382645e-05
+ },
+ "F3_ordinary_final_kls": {
+  "sigma": 2.1316282072803006e-14,
+  "log_sigma": 1.7563417387123081e-10,
+  "sigma_cubed": 0.271858293245982
+ },
+ "F1_fisher_is_metric": true,
+ "F2_general_covariance": true,
+ "F3_invariant_convergence": true,
+ "fisher_gr_bridge": true,
+ "verdict": "FISHER = GR METRIC: the autodiff Fisher matches the analytic Fisher-Rao metric diag(1/sigma^2, 2/sigma^2) (rel err 0.005). The NATURAL gradient is GENERAL COVARIANCE: its path through distribution space is identical across three parameterizations (divergence 0.0046) while ORDINARY gradient is coordinate-dependent (0.470, 103x larger); and natural GD reaches the target in every coord (max final KL 1.4e-05) while ordinary GD's outcome depends on the coordinates (KL spread 2.72e-01). Fisher = GR's g; natural gradient = the covariant update -- the ML face of general covariance."
+}

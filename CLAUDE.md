@@ -590,6 +590,16 @@ results in `curvature/notes/lab_notebook.md`.
   (crit corr ~1 → tiny noisy geodesic; 1/k² critical limit is rough) — the
   hyperbolic/AdS geometry is established cleanly in J4 (entanglement, exact
   log-law). One fix round (N→16384) confirmed R2 not R3. Gate R1+R2 in verify.sh.
+- **FISHER = GR METRIC / natural gradient (2026-06-25, script 121), 3/3.**
+  Build-queue item 2 (nn_and_spacetime §5). The ML↔GR bridge made executable: the
+  shared object is the METRIC. Fisher info = GR's g; natural gradient (Amari)
+  g⁻¹∇L = the covariant, reparameterization-invariant update. Self-verifying toy
+  (1D Gaussian, 3 scale coords σ/log σ/σ³). F1 ✓ autodiff Fisher (Hessian of mean
+  NLL) = analytic diag(1/σ²,2/σ²) rel err 0.005; F2 ✓ general covariance — natural-
+  GD distribution-space path coord-free (div 0.0046 vs ordinary 0.470, 103×); F3 ✓
+  (fixed finite budget) natural converges in all coords (max KL 1.4e-5) vs ordinary
+  lags in σ³ (0.27, >50×). One fix round (finite budget; F2 is the budget-free
+  result). In verify.sh.
 - **2D CHERN NUMBER (2026-06-25, script 120), 3/3.** Build-queue item 1
   (notes/build_queue.md + open_threads_backlog.md = the backlog knock-out). 2D
   cousin of 117 — caps the topology cluster. Web-verified Qi-Wu-Zhang:

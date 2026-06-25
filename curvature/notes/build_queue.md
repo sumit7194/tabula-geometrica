@@ -16,7 +16,7 @@ _weyl_quadrupole.py) or pkill broadly. Our dashboard is :8788. No resource conte
   Chern C=±1 for 0<|m|<2 (sign=sgn m), 0 for |m|>2; C=(1/2π)∫_BZ Berry curvature. Gates: C1 net recovers C=integer
   matching m; C2 quantized/robust, flips only at gap closing (|m|=0,2); C3 bulk-boundary (#chiral edge modes on a
   strip = |C|). Quick (analytic, like 117). Research-first: QWZ/Haldane Berry curvature + bulk-boundary.
-- [ ] **121 · Fisher = GR metric (natural gradient)** — the cleanest ML↔GR bridge. 2-param Gaussian (μ, log σ); Fisher
+- [x] **121 · Fisher = GR metric (natural gradient)** DONE 3/3 (F1 autodiff=analytic 0.005, F2 covariant path 103x, F3 invariant conv) -- — the cleanest ML↔GR bridge. 2-param Gaussian (μ, log σ); Fisher
   g (g_μμ=1/σ², g_σσ=2/σ²). Gates: F1 autodiff Fisher matches analytic; F2 natural GD is reparameterization-INVARIANT
   (same distribution-space path under a coord change) while ordinary GD is not; F3 geometry corrects the step. Frame:
   Fisher = GR's g, natural gradient = general covariance in ML. From nn_and_spacetime §5. Cheap.

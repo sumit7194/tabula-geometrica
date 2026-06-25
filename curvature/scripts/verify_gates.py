@@ -62,6 +62,8 @@ BATTERIES = [
       "A3_reversibility_certificate": (">", 0.5)}),
     ("2D Chern number (topological invariant)", ["scripts/120_chern_number.py"], "120_chern_number.json",
      {"C1_learns_invariant": (">", 0.5), "C2_quantized_robust": (">", 0.5), "C3_bulk_boundary_pass": (">", 0.5)}),
+    ("Fisher = GR metric (natural gradient)", ["scripts/121_fisher_gr_metric.py"], "121_fisher_gr_metric.json",
+     {"F1_fisher_is_metric": (">", 0.5), "F2_general_covariance": (">", 0.5), "F3_invariant_convergence": (">", 0.5)}),
 ]
 
 

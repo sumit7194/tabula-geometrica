@@ -3512,3 +3512,10 @@ flaky) to fixed seeds. In verify.sh. Three-poke arc (117/118/119) COMPLETE.
 (excluding gapless window where Chern ill-defined -- physics not tuning); C2 robust to gap-preserving deformation
 (delta 0.007) + u-sweep flips 0/-1/+1/0 at u=-2,0,2; C3 bulk-boundary strip edge states iff C!=0. Sign convention:
 negated flux to match textbook (+1 for 0<u<2). One fix round (exclude gapless u). In verify.sh.
+
+## Fisher = GR metric / natural gradient (script 121), 2026-06-25 -- build-queue item 2
+The ML<->GR bridge (nn_and_spacetime §5). Fisher = GR's g; natural gradient = general covariance. 1D Gaussian, 3 scale
+coords (sigma/log sigma/sigma^3). 3/3: F1 autodiff Fisher (Hessian of mean NLL) = analytic diag(1/sig^2,2/sig^2),
+rel err 0.005; F2 natural-GD distribution-space path coord-free (div 0.0046 vs ordinary 0.470, 103x); F3 (fixed budget
+70 steps) natural converges in all coords (max KL 1.4e-5) vs ordinary lags in sigma^3 (0.27, >50x). One fix round
+(long budget -> both converge -> use finite budget; F2 is the budget-free result). Self-verifying. In verify.sh.

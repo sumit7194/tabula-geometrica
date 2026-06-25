@@ -24,6 +24,23 @@ target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **M
 0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
 strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
+## 2026-06-25 — Fisher = GR metric: natural gradient is general covariance (script 121)
+
+Build-queue item 2 (notes/build_queue.md), from nn_and_spacetime.md §5. The ML<->GR bridge made executable: the shared
+object is the METRIC TENSOR. Fisher information = GR's g; the natural gradient (Amari) g^-1 grad L = the covariant,
+reparameterization-invariant update; ordinary gradient is coordinate-dependent. Self-verifying toy (1D Gaussian, three
+scale parameterizations c=sigma / log sigma / sigma^3). 3/3:
+- F1 the autodiff Fisher (Hessian of the mean NLL) matches the analytic Fisher-Rao metric diag(1/sigma^2, 2/sigma^2),
+  rel err 0.005 -- the metric is the shared object.
+- F2 GENERAL COVARIANCE: natural GD's path through DISTRIBUTION space (mu,sigma) is identical across all three
+  parameterizations (divergence 0.0046) while ordinary GD's path is coordinate-dependent (0.470, 103x larger).
+- F3 INVARIANT CONVERGENCE (fixed finite budget): natural GD reaches the target in every coord (max KL 1.4e-5) while
+  ordinary GD lags badly in the sigma^3 coord (KL 0.27, >50x) -- the metric removes the coordinate conditioning.
+One fix round: with a long budget ordinary GD also fully converges (final-KL discriminator vanishes) -> use a fixed
+finite budget where the conditioning shows (honest: with infinite steps both converge; the metric's value is the
+covariant PATH (F2, budget-free) + the finite-budget rate (F3)). Ties Fisher-Rao = hyperbolic (mu,sigma) half-plane;
+the ML face of general covariance. In verify.sh.
+
 ## 2026-06-25 — 2D Chern number: a net discovers a quantized topological invariant of a 2D band (script 120)
 
 Build-queue item 1 (notes/build_queue.md; the backlog knock-out). 2D cousin of 117's SSH winding -- caps the topology/
