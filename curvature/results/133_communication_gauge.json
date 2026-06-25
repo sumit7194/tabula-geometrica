@@ -1,0 +1,38 @@
+{
+ "D": 3,
+ "K": 8,
+ "V": 600,
+ "NCAND": 6,
+ "conditions": {
+  "ref_amort": {
+   "success": 0.994677734375,
+   "linear_r2": 0.999354898929596,
+   "nonlinear_r2": 0.9979509115219116,
+   "gap": -0.0014039874076843262
+  },
+  "ref_free": {
+   "success": 0.994482421875,
+   "linear_r2": 0.9856416583061218,
+   "nonlinear_r2": 0.9850074648857117,
+   "gap": -0.0006341934204101562
+  },
+  "recon_amort": {
+   "success": 0.9999962449073792,
+   "linear_r2": 0.9982340335845947,
+   "nonlinear_r2": 0.9979827404022217,
+   "gap": -0.0002512931823730469
+  },
+  "recon_free": {
+   "success": 0.9998953342437744,
+   "linear_r2": 0.9944543838500977,
+   "nonlinear_r2": 0.9967796206474304,
+   "gap": 0.0023252367973327637
+  }
+ },
+ "amortization_legibilizes_both": true,
+ "free_legible_both_games": true,
+ "free_scramble_triggered": false,
+ "all_succeed": true,
+ "free_scramble_is_target_conditional": true,
+ "verdict": "HONEST EASY-TARGET RESULT (a 4th domain that REFINES the legibility law). In a two-agent comms game, the AMORTIZED protocol is legible in both the referential and reconstruction games (linear R^2 1.00/1.00) -- the robust half of the law transfers to emergent communication. BUT the predicted FREE-code scramble did NOT reproduce: the free codebook stayed LEGIBLE in BOTH the grounded referential (gap -0.00) AND the ungrounded reconstruction (gap +0.00) games, despite free storage of a multi-D (D=3) property. So (a) the grounding hypothesis is REFUTED (free is legible even ungrounded), and (b) this comms task is an 'easy target' -- free storage of a multi-D property is NECESSARY but NOT SUFFICIENT to scramble; free->scramble is target-conditional (scripts 107-110, the signal-strength driver). All four protocols communicate (success >0.99). Adds a 4th easy-target harness, sharpening the AlphaLudo multi-D boundary."
+}
