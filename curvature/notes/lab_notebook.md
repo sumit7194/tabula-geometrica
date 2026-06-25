@@ -3580,3 +3580,15 @@ decoder(z, new IC, tq). 3/3 (1 fix round): CB1 1-D R2=1.000; CB2 z decodes K r=0
 CB3 minimality (extra dims +0.000) + bottleneck beats curvature-blind control +0.40 (0.60->1.000). Fix: blind got 0.60
 not <0.5 because flat-space deviation s0+v0t is K-independent (predictable blind); curvature = the geometry-dependent
 correction -> reframed CB3 to "substantially beats blind". In verify.sh.
+
+## 2026-06-25 — Phase 1b probe #3: operational observers (script 130)
+The interval from RADAR light-timings, not given coordinates. Phase A used given (t,x); here observers are operational
+(Bondi k-calculus): radar T_send=t-x, T_receive=t+x, so s^2=T_send*T_receive; a boost Doppler-scales the timings
+(*e^-+phi, Bondi k) but the PRODUCT is invariant -> a strict-distance Siamese on raw timings is forced to discover the
+product. 3/3 (1 fix round): O1 K=1 saturates (acc 0.95) + 1-D latent decodes s^2=T_s*T_r isotonic R2=0.999; O2
+clock-noise robust (5% noise -> acc 0.91, R2 0.994); O3 the invariant is the PRODUCT (latent |r|=0.999) which is
+Doppler-INVARIANT across observers (CoV 0.000) while euclidean T_s^2+T_r^2 is not (CoV 0.95). Fix: isotonic needed
+increasing="auto" (latent decreases with s^2); O3 product-vs-euclidean by latent-correlation was muddy (both grow with
+timing magnitude) -> reframed to the Doppler-invariance CoV test (the actual physics). Deepens the "no fixed reference"
+theme (Cert V 101 / dS anchor 111): the interval is operationally real, surviving the move from given coordinates to
+noisy light-signal measurements. In verify.sh.

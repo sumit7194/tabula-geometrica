@@ -24,6 +24,26 @@ target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **M
 0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
 strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
+## 2026-06-25 — Phase 1b: operational observers — the interval from radar light-timings, not coordinates (script 130)
+
+Separate-angle probe #3. Phase A discovered the Minkowski interval from GIVEN coordinates (t,x). Here the observers are
+OPERATIONAL (Bondi k-calculus, web-known): an observer assigns an event its coordinates by RADAR -- send a light pulse
+at proper time T_send, it reflects off the event, returns at T_receive on the observer's own (noisy) clock. The net
+never sees (t,x), only the raw light timings. For a timelike event, T_send=t-x, T_receive=t+x, so s^2=T_send*T_receive;
+under a boost of rapidity phi the timings Doppler-scale (T_send->T_send*e^-phi, T_receive->T_receive*e^+phi, the Bondi
+k=e^phi) but the PRODUCT is invariant -- so a strict-distance Siamese ("same event seen by two observers' radar?") is
+forced to discover the product. 3/3 (one fix round):
+- O1 INTERVAL FROM TIMINGS: K=1 saturates (same/diff acc 0.95) and the 1-D latent decodes s^2=T_send*T_receive
+  (isotonic R2 0.999) -- the interval emerges from raw light-signal timings, never coordinates.
+- O2 CLOCK-NOISE ROBUST: with 5% multiplicative clock noise, acc 0.91, isotonic R2 0.994.
+- O3 IT IS THE PRODUCT (Lorentz/k-calculus), NOT EUCLIDEAN: latent tracks the product |r|=0.999, and across observers
+  of a fixed event the product is Doppler-INVARIANT (CoV 0.000) while the Euclidean T_s^2+T_r^2 is not (CoV 0.95) -- the
+  only viable invariant is the product.
+Fix round: isotonic R2 needed increasing="auto" (the latent decreases with s^2, monotone either way); O3's "product vs
+euclidean by correlation-with-latent" was muddy (both grow with timing magnitude) -> reframed to the actual physics, the
+Doppler-invariance CoV test. Deepens the "no fixed reference" theme (Cert V 101 / dS anchor 111): the interval is
+operationally real -- it survives going from given coordinates to noisy light-signal measurements. In verify.sh.
+
 ## 2026-06-25 — Phase 1b: curvature AS the bottleneck (script 129)
 
 Separate-angle probe #2 (field_guide sec9 loose end). Phase E read curvature POST-HOC; here curvature is the

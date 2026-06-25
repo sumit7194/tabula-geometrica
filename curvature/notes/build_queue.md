@@ -35,9 +35,12 @@ _weyl_quadrupole.py) or pkill broadly. Our dashboard is :8788. No resource conte
 ## PHASE 1b — more separate-angle probes (after the above, as appetite allows)
 - [x] **Huygens-tail by dimension (128)** DONE 3/3: 3D sharp (tail 0.00) / 2D tail 0.226, same front speed, 2D tail ~1/sqrt(t^2-r^2) corr 1.00 -- validates dimensional_ladder sec5.
 - [x] **curvature-as-bottleneck (129)** DONE 3/3: 1-D bottleneck R2 1.000, latent decodes K r=0.999, minimality + beats blind +0.40.
-- [ ] Discrete/graph worlds (does geometry emerge without a continuum?) · operational observers (noisy clocks/finite
-  signaling) · curvature-as-bottleneck · relativistic-regime learning · Huygens-tail PINN (2+1 vs 3+1) · Hashimoto
-  depth=bulk · extrapolation-failure probe · communication-game-for-gauge (amortized-protocol reframe).
+- [x] **operational observers (130)** DONE 3/3: interval from radar light-timings (Bondi k-calculus), not coordinates;
+  K=1 isotonic R2 0.999, clock-noise robust (R2 0.994), invariant is the Doppler-invariant PRODUCT T_s*T_r (CoV 0.000 vs
+  euclidean 0.95). Deepens "no fixed reference" (Cert V/111).
+- [ ] Discrete/graph worlds (does geometry emerge without a continuum?) · relativistic-regime learning · Huygens-tail
+  PINN (2+1 vs 3+1) · Hashimoto depth=bulk · extrapolation-failure probe · communication-game-for-gauge (amortized-
+  protocol reframe).
 
 ## PHASE 2 — compute bets (need the L4; defer until it frees from Ludo)
 - [ ] Phase F law via FNO (the 1/r long-range wall) · larger G-sym + legibility regularizer · Wong v3 fuller
