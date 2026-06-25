@@ -1,0 +1,13 @@
+{
+ "R2_dim1": 0.9998136162757874,
+ "R2_dim2": 0.9997830986976624,
+ "R2_dim3": 0.9998406171798706,
+ "latent_decodes_K_r": 0.998622974596549,
+ "R2_curvature_blind": 0.602064847946167,
+ "extra_dim_gain": 2.7000904083251953e-05,
+ "CB1_curvature_suffices": true,
+ "CB2_bottleneck_is_curvature": true,
+ "CB3_minimality_and_control": true,
+ "curvature_is_the_bottleneck": true,
+ "verdict": "CURVATURE IS THE BOTTLENECK: a SciNet net compressing its observations of a surface to predict geodesic deviation discovers that a 1-D latent SUFFICES (held-out R2 1.000) and that the latent IS the Gaussian curvature (decodes K at |r|=0.999). Extra latent dims add nothing (+0.000 -- curvature is a 1-number code, emergent minimality) and the bottleneck lifts a curvature-blind control's R2 0.60 -> 1.0 (curvature supplies the geometry-dependent part; the flat s0+v0t part is K-independent). Curvature emerges as the minimal sufficient CODE for geometry's effect on geodesics -- not a post-hoc readout (Phase E) but the bottleneck itself."
+}

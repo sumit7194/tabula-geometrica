@@ -590,6 +590,15 @@ results in `curvature/notes/lab_notebook.md`.
   (crit corr ~1 → tiny noisy geodesic; 1/k² critical limit is rough) — the
   hyperbolic/AdS geometry is established cleanly in J4 (entanglement, exact
   log-law). One fix round (N→16384) confirmed R2 not R3. Gate R1+R2 in verify.sh.
+- **CURVATURE AS THE BOTTLENECK (2026-06-25, script 129), 3/3.** Phase 1b probe #2
+  (field_guide §9 loose end). Phase E read curvature post-hoc; here curvature is the
+  BOTTLENECK. Jacobi geodesic deviation s″=−K s on constant-curvature surfaces; a
+  SciNet encoder(probe curve)→latent z→decoder(z, new IC, query t). CB1 ✓ 1-D
+  bottleneck suffices (held-out R²=1.000); CB2 ✓ the latent IS curvature (decodes K
+  at r=0.999, coordinate-free); CB3 ✓ minimality (extra dims +0.000 — 1-number code)
+  + necessity (bottleneck lifts a curvature-blind control 0.60→1.000; the flat
+  s0+v0t part is K-independent, curvature is the geometry-dependent correction).
+  Curvature emerges as the minimal sufficient code for geodesic behavior. In verify.sh.
 - **HUYGENS' PRINCIPLE BY DIMENSION (2026-06-25, script 128), 3/3.** Phase 1b
   probe #1; validates dimensional_ladder §5. Web-verified (Hadamard; Ehrenfest):
   the wave eq satisfies Huygens in ODD spatial dim (3D sharp, field→0 after the
