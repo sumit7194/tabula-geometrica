@@ -590,6 +590,18 @@ results in `curvature/notes/lab_notebook.md`.
   (crit corr ~1 → tiny noisy geodesic; 1/k² critical limit is rough) — the
   hyperbolic/AdS geometry is established cleanly in J4 (entanglement, exact
   log-law). One fix round (N→16384) confirmed R2 not R3. Gate R1+R2 in verify.sh.
+- **A10 FOR THEBRIDGE — legibility ⟺ integrability (2026-06-25, script 127), 3/3.**
+  Sister-project help (TheBridge SISTER_REQUESTS A10, the tabula-addressed ask). Does
+  a learned geometry become LEGIBLE iff the metric is INTEGRABLE (admits a Killing
+  tensor)? Unified our piecewise results (92 Kerr / 97 KdS / 99 KN+bumpy / 85 chaos)
+  into one emit-or-certify catalog survey + added Taub-NUT (web-verified integrable;
+  NUT shift L→L−2n cosθ). Staeckel Kerr-like geodesic toy, params Q/Lam/nut/eps. G1 ✓
+  integrable {Kerr, Kerr-Newman, Kerr-de Sitter, Taub-NUT} EMIT the Carter constant
+  (held-out ~1e-28); G2 ✓ non-integrable {bumpy×2} CERTIFY (held-out ~1e-2, Carter
+  drift ~0.25); G3 ✓ legible⟺integrable perfect across the catalog (~26 orders of mag
+  separation). Deliverable: results/127 JSON + notes/A10_for_bridge.md (bridge reads
+  read-only; repos independent). Strengthens our distillation arc (91-99) into a clean
+  integrability↔legibility correlation. In verify.sh.
 - **GEOMETRY FROM ENTANGLEMENT — dimension + 2D grid, closing J2 (2026-06-25,
   script 125), 3/3.** Build-queue item 6. Phase J (32) recovered a chain's 1D order
   + Van Raamsdonk pinch-off but left J2 open (PCA overcounted dimension; 2D grid
