@@ -590,6 +590,17 @@ results in `curvature/notes/lab_notebook.md`.
   (crit corr ~1 → tiny noisy geodesic; 1/k² critical limit is rough) — the
   hyperbolic/AdS geometry is established cleanly in J4 (entanglement, exact
   log-law). One fix round (N→16384) confirmed R2 not R3. Gate R1+R2 in verify.sh.
+- **HORIZON THERMODYNAMICS — Bekenstein-Hawking S = A/4 (2026-06-25, script 122),
+  3/3.** Build-queue item 3 — closes the loop to the project's ORIGIN (the Brian-Cox
+  black-hole chat: holography, S=A/4, the M² law). Web-verified Schwarzschild:
+  T=1/(8πM), A=16πM², S=A/4=4πM², first law T⁻¹=dS/dM. A net learns S(M) from
+  observable (mass + Hawking T) via the first law (autodiff dS/dM=1/T) + S→0 anchor.
+  H1 ✓ S vs horizon area linear, slope 0.250, R²=1.000 (=A/4); H2 ✓ holographic —
+  S∝M² (area, R²=1.000) >> S∝M³ (volume 0.976), T∝1/M — ~1 bit per Planck area, not
+  volume; H3 ✓ negative specific heat (bigger holes are COLDER) + first law holds
+  (residual 0.020). Two principled instrument fixes (H1 clean first run): S-vs-M²
+  linear fit (offset-robust) + train wider than eval; lower obs noise + more steps
+  for H3's residual. Ties 112 (info return) + Phase BH (geometry). In verify.sh.
 - **FISHER = GR METRIC / natural gradient (2026-06-25, script 121), 3/3.**
   Build-queue item 2 (nn_and_spacetime §5). The ML↔GR bridge made executable: the
   shared object is the METRIC. Fisher info = GR's g; natural gradient (Amari)

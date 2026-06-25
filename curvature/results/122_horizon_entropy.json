@@ -1,0 +1,14 @@
+{
+ "H1_S_vs_A_slope": 0.25036600157796607,
+ "H1_S_vs_A_R2": 0.99999912041293,
+ "H2_S_vs_M2_R2": 0.9999991204134185,
+ "H2_S_vs_M3_R2": 0.9755528974335541,
+ "H2_logT_logM_slope": -0.9999999878283053,
+ "H3_negative_specific_heat": true,
+ "H3_first_law_residual": 0.019657909870147705,
+ "H1_discovers_S_eq_A_over_4": true,
+ "H2_holographic_area_not_volume": true,
+ "H3_black_hole_surprises": true,
+ "bekenstein_hawking_discovered": true,
+ "verdict": "BEKENSTEIN-HAWKING S = A/4 DISCOVERED: from observable black-hole thermodynamics (mass + Hawking temperature) and the first law, a net learns the entropy state-function and finds it is S = A/4 -- S vs horizon area is linear with slope 0.250 (the famous 1/4), R2=1.000. The entropy is HOLOGRAPHIC: it scales with AREA (S vs M^2 R2=1.000 >> S vs M^3 0.976; T~1/M, slope -1.00), NOT volume (which would give S~M^3 / T~1/M^2). And the black-hole surprises emerge: NEGATIVE specific heat (bigger holes are colder) with the first law holding (residual 0.020). ~1 bit per Planck area -- the holographic bound, the project's origin, now a learned result."
+}

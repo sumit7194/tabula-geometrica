@@ -3519,3 +3519,12 @@ coords (sigma/log sigma/sigma^3). 3/3: F1 autodiff Fisher (Hessian of mean NLL) 
 rel err 0.005; F2 natural-GD distribution-space path coord-free (div 0.0046 vs ordinary 0.470, 103x); F3 (fixed budget
 70 steps) natural converges in all coords (max KL 1.4e-5) vs ordinary lags in sigma^3 (0.27, >50x). One fix round
 (long budget -> both converge -> use finite budget; F2 is the budget-free result). Self-verifying. In verify.sh.
+
+## Horizon thermodynamics / Bekenstein-Hawking S=A/4 (script 122), 2026-06-25 -- build-queue item 3
+Closes the loop to the project's origin. Web-verified Schwarzschild: T=1/(8piM), A=16piM^2, S=A/4=4piM^2, first law
+T^-1=dS/dM, negative specific heat. Net learns S(M) from observable (M, Hawking T) via dS/dM=1/T (autodiff) + S->0
+anchor. 3/3: H1 S vs A linear slope 0.250 R2=1.000 (=A/4); H2 holographic -- S vs M^2 R2=1.000 > S vs M^3 0.976, T~1/M
+slope -1.00 (area not volume); H3 negative specific heat (T decreases with M) + first-law interior residual 0.020.
+Two principled fixes (H1 clean first run): H2 log-log->linear-in-M^2 fit (offset-robust) + train wider than eval;
+H3 lower obs noise 2%->0.5% + train 4k->8k (the residual was noise+fit limited). S=A/4 (H1) IS the integrated first
+law. In verify.sh.

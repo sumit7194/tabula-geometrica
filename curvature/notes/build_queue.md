@@ -20,7 +20,7 @@ _weyl_quadrupole.py) or pkill broadly. Our dashboard is :8788. No resource conte
   g (g_μμ=1/σ², g_σσ=2/σ²). Gates: F1 autodiff Fisher matches analytic; F2 natural GD is reparameterization-INVARIANT
   (same distribution-space path under a coord change) while ordinary GD is not; F3 geometry corrects the step. Frame:
   Fisher = GR's g, natural gradient = general covariance in ML. From nn_and_spacetime §5. Cheap.
-- [ ] **122 · Horizon thermodynamics / S = A/4** ⭐ — the project's origin (Bekenstein-Hawking). RESEARCH-FIRST HEAVY:
+- [x] **122 · Horizon thermodynamics / S = A/4** DONE 3/3 (S=A/4 slope 0.250 R2 1.0; holographic area>volume; neg specific heat) ⭐ — the project's origin (Bekenstein-Hawking). RESEARCH-FIRST HEAVY:
   find the cleanest learnable toy where entropy ∝ horizon AREA (microstate counting / Hawking / Rindler). Verify it's
   unbuilt (Phase BH did geometry, 112 did info-return; the area-LAW link appears unbuilt). Gates pre-registered after
   research. Highest thematic payoff.

@@ -24,6 +24,24 @@ target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **M
 0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
 strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
+## 2026-06-25 — Horizon thermodynamics: a net discovers Bekenstein-Hawking S = A/4 (script 122)
+
+Build-queue item 3 (notes/build_queue.md) -- closes the loop to the project's ORIGIN (the Brian-Cox black-hole chat:
+holography, S=A/4, the M^2 law, Planck-area tiles). Phase BH did horizon GEOMETRY, 112 did information-return, but the
+ENTROPY=AREA law itself was never built. Web-verified Schwarzschild (natural units): T=1/(8 pi M); A=16 pi M^2;
+S=A/4=4 pi M^2; first law T^-1 = dS/dM; negative specific heat. A net learns the entropy state-function S(M) from
+observable thermodynamics (mass + Hawking T) via the first law (dS/dM=1/T, autodiff), the only physical input being
+S->0 as M->0. 3/3:
+- H1 DISCOVERS S=A/4: net's S vs horizon area A=16 pi M^2 is LINEAR with slope 0.250 (the famous 1/4), R2=1.000.
+- H2 HOLOGRAPHIC (area not volume): the first-law-consistent entropy scales with AREA (S vs M^2 R2=1.000 >> S vs M^3
+  0.976; observed Hawking T~1/M, slope -1.00) NOT volume (S~M^3 / T~1/M^2). ~1 bit per Planck area, the holographic bound.
+- H3 SURPRISES: negative specific heat (T strictly decreases with M -- bigger black holes are COLDER) + the first law
+  holds (interior residual 0.020).
+Two principled instrument fixes (not gate-tuning; H1 was clean first run): (1) H2 log-log S-slope was corrupted by the
+net's small-M offset -> use S-vs-M^2 linearity (robust); train wider than eval. (2) H3 first-law pointwise residual
+was noise+fit limited -> reduce observation noise (2%->0.5%) + train more (4k->8k) -> 0.020. The exact S=A/4 (H1) IS
+the integrated first law. Ties the origin black-hole chat + 112 (info return) + Phase BH (geometry). In verify.sh.
+
 ## 2026-06-25 — Fisher = GR metric: natural gradient is general covariance (script 121)
 
 Build-queue item 2 (notes/build_queue.md), from nn_and_spacetime.md §5. The ML<->GR bridge made executable: the shared

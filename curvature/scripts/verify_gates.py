@@ -64,6 +64,9 @@ BATTERIES = [
      {"C1_learns_invariant": (">", 0.5), "C2_quantized_robust": (">", 0.5), "C3_bulk_boundary_pass": (">", 0.5)}),
     ("Fisher = GR metric (natural gradient)", ["scripts/121_fisher_gr_metric.py"], "121_fisher_gr_metric.json",
      {"F1_fisher_is_metric": (">", 0.5), "F2_general_covariance": (">", 0.5), "F3_invariant_convergence": (">", 0.5)}),
+    ("Horizon entropy S=A/4 (Bekenstein-Hawking)", ["scripts/122_horizon_entropy.py"], "122_horizon_entropy.json",
+     {"H1_discovers_S_eq_A_over_4": (">", 0.5), "H2_holographic_area_not_volume": (">", 0.5),
+      "H3_black_hole_surprises": (">", 0.5)}),
 ]
 
 
