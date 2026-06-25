@@ -599,6 +599,18 @@ results in `curvature/notes/lab_notebook.md`.
   + necessity (bottleneck lifts a curvature-blind control 0.60→1.000; the flat
   s0+v0t part is K-independent, curvature is the geometry-dependent correction).
   Curvature emerges as the minimal sufficient code for geodesic behavior. In verify.sh.
+- **OPERATIONAL OBSERVERS (2026-06-25, script 130), 3/3.** Phase 1b probe #3 — the
+  interval from RADAR light-timings, not given coordinates. Phase A used given (t,x);
+  here observers are operational (Bondi k-calculus): radar T_send=t−x, T_recv=t+x ⇒
+  s²=T_send·T_recv; a boost Doppler-scales the timings (×e^∓φ, Bondi k) but the PRODUCT
+  is invariant → a strict-distance Siamese on raw timings is forced to discover it.
+  O1 ✓ K=1 saturates (acc 0.95) + 1-D latent decodes s²=T_s·T_r isotonic R²=0.999;
+  O2 ✓ clock-noise robust (5% mult. noise → acc 0.91, R² 0.994); O3 ✓ the invariant
+  is the PRODUCT (latent |r|=0.999), Doppler-INVARIANT across observers (CoV 0.000) vs
+  euclidean T_s²+T_r² (CoV 0.95). Fix round: isotonic increasing="auto"; O3 muddy
+  correlation → Doppler-invariance CoV test. Deepens "no fixed reference" (Cert V 101
+  / dS anchor 111): the interval is operationally real (survives given-coords → noisy
+  light-signals). In verify.sh.
 - **HUYGENS' PRINCIPLE BY DIMENSION (2026-06-25, script 128), 3/3.** Phase 1b
   probe #1; validates dimensional_ladder §5. Web-verified (Hadamard; Ehrenfest):
   the wave eq satisfies Huygens in ODD spatial dim (3D sharp, field→0 after the

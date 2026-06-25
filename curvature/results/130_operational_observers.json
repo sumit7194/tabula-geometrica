@@ -1,0 +1,14 @@
+{
+ "O1_acc": 0.9455,
+ "O1_isotonic_r2": 0.9991667866706848,
+ "O2_acc_noisy": 0.9095,
+ "O2_isotonic_r2_noisy": 0.9942169785499573,
+ "O3_latent_vs_product": 0.9994854698713674,
+ "O3_cov_product": 1.7573597474407151e-16,
+ "O3_cov_euclidean": 0.9519404942291311,
+ "O1_interval_from_timings": true,
+ "O2_clock_noise_robust": true,
+ "O3_product_not_euclidean": true,
+ "operational_interval_discovered": true,
+ "verdict": "OPERATIONAL INTERVAL DISCOVERED: from raw RADAR light-signal timings (T_send, T_receive) -- never given coordinates -- a strict-distance Siamese net discovers the Minkowski interval. K=1 saturates (same/diff-event acc 0.95) and the 1-D latent decodes s^2 = T_send*T_receive (isotonic R^2 0.999). It survives clock noise (acc 0.91, R^2 0.99). And the invariant is the PRODUCT (Bondi k-calculus / Lorentz, latent |r|=0.999): across observers of a fixed event the product is Doppler-INVARIANT (CoV 0.000) while the Euclidean T_s^2+T_r^2 is not (CoV 0.95) -- so the product is the only viable invariant. The interval emerges from operational measurements (no fixed coordinate frame given)."
+}

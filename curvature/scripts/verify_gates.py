@@ -84,6 +84,10 @@ BATTERIES = [
     ("Curvature as the bottleneck", ["scripts/129_curvature_bottleneck.py"], "129_curvature_bottleneck.json",
      {"CB1_curvature_suffices": (">", 0.5), "CB2_bottleneck_is_curvature": (">", 0.5),
       "CB3_minimality_and_control": (">", 0.5)}),
+    ("Operational observers (interval from radar timings)", ["scripts/130_operational_observers.py"],
+     "130_operational_observers.json",
+     {"O1_interval_from_timings": (">", 0.5), "O2_clock_noise_robust": (">", 0.5),
+      "O3_product_not_euclidean": (">", 0.5)}),
 ]
 
 
