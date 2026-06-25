@@ -1,0 +1,15 @@
+{
+ "O1_intra_mean": 0.12381333709115462,
+ "O1_inter_mean": -0.21116367527371566,
+ "O1_bridge_auc": 1.0,
+ "O2_surgery_ari": 1.0,
+ "O3_random_cut_ari": 0.0,
+ "O3_sbm_gap": 0.33497701236487026,
+ "O3_er_curvature_spread": 0.06362277247909258,
+ "n_negative_edges": 102,
+ "O1_bimodal_signature": true,
+ "O2_ricci_surgery_recovers": true,
+ "O3_curvature_carries_signal": true,
+ "ollivier_ricci_demonstrated": true,
+ "verdict": "OLLIVIER-RICCI CURVATURE = the geometric signature of network structure: on a planted-community graph the edge curvature is BIMODAL -- intra-community edges positively curved (mean 0.12) and inter-community BRIDGES negatively curved (mean -0.21), AUC 1.00 for detecting bridges. RICCI SURGERY (cutting the negative edges) recovers the communities (ARI 1.00) whereas random edge removal of the same count gives ARI 0.00, and an Erdos-Renyi graph has no bimodal gap -- the curvature carries the community signal. Curvature beyond gravity: the cheapest geometric description of a discrete network's structure (curvature-atlas row)."
+}

@@ -26,7 +26,7 @@ _weyl_quadrupole.py) or pkill broadly. Our dashboard is :8788. No resource conte
   research. Highest thematic payoff.
 - [x] **123 · Time-dependent geometry → gravitational-wave toy** DONE 3/3 (W1 quadrupole R2 0.993 vs mono+dipole 0.053; W2 no mono/dipole radiation ~1e27x; W3 speed c, 1/r) ⭐ — all learned geometry so far is static. Moving/
   breathing well; toward radiative structure (quadrupole formula). RESEARCH-FIRST. Gates after research.
-- [ ] **124 · Graph Ollivier-Ricci curvature** — curvature-atlas row. Ricci curvature negative on inter-community
+- [x] **124 · Graph Ollivier-Ricci curvature** DONE 3/3 (O1 bimodal AUC 1.00; O2 Ricci surgery ARI 1.00; O3 control ARI 0.00) -- — curvature-atlas row. Ricci curvature negative on inter-community
   edges / bridges, positive within; Ricci flow detects communities. Web-verify Ollivier-Ricci + Ni et al.
 - [ ] **125 · J2 spectral dimension + 2D entanglement grid** — close geometry-from-entanglement loose ends: swap
   PCA→spectral/persistent-homology dimension; recover a 2D grid via spectral embedding. Reuses s32/s42 machinery.

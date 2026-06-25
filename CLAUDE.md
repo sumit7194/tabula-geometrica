@@ -590,6 +590,16 @@ results in `curvature/notes/lab_notebook.md`.
   (crit corr ~1 → tiny noisy geodesic; 1/k² critical limit is rough) — the
   hyperbolic/AdS geometry is established cleanly in J4 (entanglement, exact
   log-law). One fix round (N→16384) confirmed R2 not R3. Gate R1+R2 in verify.sh.
+- **GRAPH OLLIVIER-RICCI CURVATURE (2026-06-25, script 124), 3/3.** Build-queue
+  item 5; a curvature-atlas row (after finance 88 / hierarchy 89 / neuroscience 90)
+  — curvature as the geometric signature of network structure, beyond gravity.
+  Web-verified (Ollivier; Sia/Ni et al. 2019): ORC κ(x,y)=1−W₁(m_x,m_y)/d(x,y);
+  community graphs → BIMODAL curvature (intra-community positive, inter-community
+  bridges negative). SBM toy; W₁ via a scipy.linprog optimal-transport LP; networkx.
+  O1 ✓ bimodal (intra +0.12 > 0 > inter −0.21, bridge AUC 1.00); O2 ✓ Ricci surgery
+  (cut negative-curvature edges) recovers communities ARI=1.00; O3 ✓ control: random
+  cut ARI 0.00, SBM gap 5× the ER-graph spread — curvature carries the signal. Clean
+  first attempt. networkx added to requirements. In verify.sh.
 - **GRAVITATIONAL WAVES — radiation is quadrupolar (2026-06-25, script 123), 3/3.**
   Build-queue item 4 — the GR-DYNAMICS step (first non-static learned geometry).
   Web-verified Einstein 1918 quadrupole formula: h∝Q̈(t-r/c); NO monopole (mass-

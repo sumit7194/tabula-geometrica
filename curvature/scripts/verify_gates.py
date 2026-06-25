@@ -70,6 +70,9 @@ BATTERIES = [
     ("Gravitational waves (quadrupole radiation)", ["scripts/123_gravitational_waves.py"], "123_gravitational_waves.json",
      {"W1_quadrupole_sourcing": (">", 0.5), "W2_no_monopole_dipole_radiation": (">", 0.5),
       "W3_propagation_at_c": (">", 0.5)}),
+    ("Ollivier-Ricci curvature (network structure)", ["scripts/124_ollivier_ricci.py"], "124_ollivier_ricci.json",
+     {"O1_bimodal_signature": (">", 0.5), "O2_ricci_surgery_recovers": (">", 0.5),
+      "O3_curvature_carries_signal": (">", 0.5)}),
 ]
 
 

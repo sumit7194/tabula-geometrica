@@ -24,6 +24,22 @@ target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **M
 0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
 strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
+## 2026-06-25 — Graph Ollivier-Ricci curvature: curvature as the geometric signature of network structure (script 124)
+
+Build-queue item 5; a curvature-atlas row (after finance 88 / hierarchy 89 / neuroscience 90) -- "curvature is the
+universal signature of the cheapest shared description" extended to discrete networks. Web-verified (Ollivier 2009;
+Sia/Ni et al. Sci Rep 2019): ORC kappa(x,y)=1 - W1(m_x,m_y)/d(x,y), lazy-random-walk measures, W1 = Wasserstein-1
+(earth-mover). Community networks -> BIMODAL curvature: intra-community edges positive, inter-community BRIDGES
+negative. Toy: stochastic block model, ORC for every edge (W1 via a small optimal-transport LP, scipy.linprog;
+networkx for the graph). 3/3 first attempt:
+- O1 BIMODAL: intra ORC mean +0.12 > 0 > inter -0.21; ROC-AUC of (-ORC) detecting bridges = 1.00.
+- O2 RICCI SURGERY: cutting the negatively-curved edges -> connected components recover the planted communities,
+  ARI=1.00.
+- O3 CONTROL: random edge removal of the same count gives ARI=0.00; the SBM intra-inter gap (0.33) is 5x an
+  Erdos-Renyi graph's curvature spread (0.06) -- the curvature carries the community signal, specific to structure.
+W1 via OT LP (POT not installed; scipy.linprog highs). networkx added to requirements. Curvature beyond gravity. In
+verify.sh.
+
 ## 2026-06-25 — Gravitational waves: a net discovers radiation is QUADRUPOLAR (script 123)
 
 Build-queue item 4 (notes/build_queue.md) -- the GR-DYNAMICS step (every learned geometry so far was static; this is

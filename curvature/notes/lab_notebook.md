@@ -3537,3 +3537,9 @@ monopole 8.6e-25 / dipole 2.3e-24 (~1e27x) -- no monopole/dipole GW; W3 h=Qddot(
 1/r falloff (-1.00). Smoke-test caught 2 physics bugs: breathing needed octahedral (not random) dirs for Q=0; Q must
 be computed about the COM (else translation radiates spuriously). W3 needed a long window + finite wave-packet. Honest
 scope: linearized GW. In verify.sh.
+
+## Graph Ollivier-Ricci curvature (script 124), 2026-06-25 -- build-queue item 5
+Curvature-atlas row: curvature = geometric signature of network structure. Web-verified ORC kappa=1-W1(m_x,m_y)/d;
+community nets -> bimodal (intra positive, bridges negative). SBM toy; W1 via scipy.linprog OT LP; networkx. 3/3 first
+attempt: O1 intra +0.12 > 0 > inter -0.21, bridge AUC 1.00; O2 Ricci surgery (cut negative edges) ARI 1.00; O3 random
+cut ARI 0.00 + SBM gap 0.33 >> ER spread 0.06. networkx added to requirements. In verify.sh.
