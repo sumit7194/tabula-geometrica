@@ -1,0 +1,42 @@
+{
+ "C1_chern_R2": 0.9920212626457214,
+ "C1_round_accuracy": 1.0,
+ "C2_deform_delta": 0.006666666828095913,
+ "C2_sweep": {
+  "u<-2": 0.0,
+  "-2<u<0": -1.0,
+  "0<u<2": 1.0,
+  "u>2": 0.0
+ },
+ "C3_bulk_boundary": [
+  {
+   "u": -2.5,
+   "chern": 0,
+   "edge_count": 0.0,
+   "has_edges": false
+  },
+  {
+   "u": -1.0,
+   "chern": -1,
+   "edge_count": 0.44,
+   "has_edges": true
+  },
+  {
+   "u": 1.0,
+   "chern": 1,
+   "edge_count": 0.44,
+   "has_edges": true
+  },
+  {
+   "u": 2.5,
+   "chern": 0,
+   "edge_count": 0.0,
+   "has_edges": false
+  }
+ ],
+ "C1_learns_invariant": true,
+ "C2_quantized_robust": true,
+ "C3_bulk_boundary_pass": true,
+ "chern_number_discovered": true,
+ "verdict": "2D CHERN NUMBER DISCOVERED: a DeepSets net over Brillouin-zone plaquettes (summing local solid angles = Berry flux) recovers the Chern number as a quantized integer (R2 0.992, round-acc 100%) -- the DEGREE of the Gauss map dhat:T^2->S^2. Robust to gap-preserving deformations (|delta|=0.007); the u-sweep flips it only at the gap closings (0->-1->+1->0 across u=-2,0,2). And the bulk Chern predicts the boundary: a QWZ strip has chiral edge states iff C!=0 (bulk-boundary). The 2D cousin of 117's SSH winding -- caps the topology cluster."
+}

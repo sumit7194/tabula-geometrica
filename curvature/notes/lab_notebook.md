@@ -3505,3 +3505,10 @@ A1 DeepSets classifier (forward vs time-reversed) logit ~ analytic W, corr=0.995
 Jarzynski <e^-W>=0.87 (~1, finite-sample low bias); A3 certificate slow AUC 0.55 (sigma 0.014, reversible) vs fast
 AUC 0.96 (sigma 3.28) -- arrow legible iff entropy produced, ties friction 70. Fixed hash()-seed (per-process salt ->
 flaky) to fixed seeds. In verify.sh. Three-poke arc (117/118/119) COMPLETE.
+
+## 2D Chern number (script 120), 2026-06-25 -- build-queue item 1
+2D cousin of 117. Web-verified QWZ d(k)=(sin kx, sin ky, u+cos kx+cos ky); Chern = degree of Gauss map T^2->S^2,
++1(0<u<2)/-1(-2<u<0)/0(|u|>2). 3/3: C1 DeepSets-over-plaquettes (sum solid angles = Berry flux) R2=0.992 round 100%
+(excluding gapless window where Chern ill-defined -- physics not tuning); C2 robust to gap-preserving deformation
+(delta 0.007) + u-sweep flips 0/-1/+1/0 at u=-2,0,2; C3 bulk-boundary strip edge states iff C!=0. Sign convention:
+negated flux to match textbook (+1 for 0<u<2). One fix round (exclude gapless u). In verify.sh.

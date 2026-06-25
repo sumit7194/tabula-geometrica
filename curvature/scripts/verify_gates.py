@@ -60,6 +60,8 @@ BATTERIES = [
     ("Arrow of time (fluctuation theorem)", ["scripts/119_arrow_of_time.py"], "119_arrow_of_time.json",
      {"A1_discover_arrow": (">", 0.5), "A2_fluctuation_theorem": (">", 0.5),
       "A3_reversibility_certificate": (">", 0.5)}),
+    ("2D Chern number (topological invariant)", ["scripts/120_chern_number.py"], "120_chern_number.json",
+     {"C1_learns_invariant": (">", 0.5), "C2_quantized_robust": (">", 0.5), "C3_bulk_boundary_pass": (">", 0.5)}),
 ]
 
 

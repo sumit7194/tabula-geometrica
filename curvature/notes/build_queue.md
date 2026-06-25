@@ -12,7 +12,7 @@ _weyl_quadrupole.py) or pkill broadly. Our dashboard is :8788. No resource conte
 ---
 
 ## PHASE 1 — local, buildable now (the bulk of the knock-out)
-- [ ] **120 · 2D Chern number** — cap the topology cluster. QWZ model H(k)=sin kx σx+sin ky σy+(m+cos kx+cos ky)σz;
+- [x] **120 · 2D Chern number** DONE 3/3 (R2 0.992, round 100%, sweep 0/-1/+1/0, bulk-boundary) -- — cap the topology cluster. QWZ model H(k)=sin kx σx+sin ky σy+(m+cos kx+cos ky)σz;
   Chern C=±1 for 0<|m|<2 (sign=sgn m), 0 for |m|>2; C=(1/2π)∫_BZ Berry curvature. Gates: C1 net recovers C=integer
   matching m; C2 quantized/robust, flips only at gap closing (|m|=0,2); C3 bulk-boundary (#chiral edge modes on a
   strip = |C|). Quick (analytic, like 117). Research-first: QWZ/Haldane Berry curvature + bulk-boundary.

@@ -24,6 +24,21 @@ target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **M
 0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
 strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
+## 2026-06-25 — 2D Chern number: a net discovers a quantized topological invariant of a 2D band (script 120)
+
+Build-queue item 1 (notes/build_queue.md; the backlog knock-out). 2D cousin of 117's SSH winding -- caps the topology/
+holonomy cluster (AB 113 -> Berry 54 -> grid torus -> SSH 117 -> Chern). Web-verified Qi-Wu-Zhang: d(k)=(sin kx,
+sin ky, u+cos kx+cos ky); Chern C = degree of the Gauss map dhat:T^2->S^2 = +1 (0<u<2) / -1 (-2<u<0) / 0 (|u|>2);
+bulk-boundary |C| chiral edge modes. 3/3:
+- C1 a DeepSets net over BZ plaquettes (summing local solid angles = Berry flux) recovers C = integer, R2=0.992,
+  round-acc 100% (excluding the near-gapless window |u|~0,2 where C is genuinely ill-defined -- a Chern number needs a
+  gap; this exclusion is physics, not tuning).
+- C2 quantized/robust: gap-preserving deformations leave C unchanged (delta 0.007); the u-sweep flips 0->-1->+1->0
+  only at the gap closings u=-2,0,2.
+- C3 bulk-boundary: a QWZ strip (open in y) has in-gap chiral edge states iff C!=0 -- verified for u=-2.5/-1/1/2.5.
+One fix round: first pass R2 0.950 / round-acc 96% (misses were configs sampled AT the gap closings) -> exclude the
+gapless window -> clean. Ties 117 (winding) + Berry (curvature) + certificate quantization. In verify.sh.
+
 ## 2026-06-24 — The arrow of time: a net discovers entropy production / the fluctuation theorem (script 119)
 
 Poke 3 of 3 (plan: notes/topology_rg_arrow_plan.md) -- ALL THREE DONE. Extends the friction boundary (70). From

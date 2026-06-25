@@ -590,6 +590,16 @@ results in `curvature/notes/lab_notebook.md`.
   (crit corr ~1 → tiny noisy geodesic; 1/k² critical limit is rough) — the
   hyperbolic/AdS geometry is established cleanly in J4 (entanglement, exact
   log-law). One fix round (N→16384) confirmed R2 not R3. Gate R1+R2 in verify.sh.
+- **2D CHERN NUMBER (2026-06-25, script 120), 3/3.** Build-queue item 1
+  (notes/build_queue.md + open_threads_backlog.md = the backlog knock-out). 2D
+  cousin of 117 — caps the topology cluster. Web-verified Qi-Wu-Zhang:
+  d(k)=(sin kx, sin ky, u+cos kx+cos ky); Chern = degree of the Gauss map
+  T²→S² = +1(0<u<2)/−1(−2<u<0)/0(|u|>2). C1 ✓ DeepSets net over BZ plaquettes
+  (summing solid angles = Berry flux) learns C=integer R²=0.992 round-acc 100%
+  (excluding the gapless window where C is ill-defined — physics, not tuning);
+  C2 ✓ robust to gap-preserving deformations (Δ0.007), u-sweep flips 0/−1/+1/0
+  only at gap closings u=−2,0,2; C3 ✓ bulk-boundary, strip chiral edge states iff
+  C≠0. One fix round (exclude gapless u). In verify.sh.
 - **TOPOLOGICAL BAND THEORY — SSH winding + bulk-boundary (2026-06-24, script 117),
   3/3.** Poke 1 of 3 (notes/topology_rg_arrow_plan.md). Caps the topology/holonomy
   cluster (AB 113 → Berry 54 → grid torus → band topology). Web-verified SSH (BDI):
