@@ -24,6 +24,20 @@ target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **M
 0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
 strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
+## 2026-06-25 — Phase 1b: curvature AS the bottleneck (script 129)
+
+Separate-angle probe #2 (field_guide sec9 loose end). Phase E read curvature POST-HOC; here curvature is the
+BOTTLENECK. Jacobi geodesic deviation s''=-K s on constant-curvature surfaces; a SciNet encoder sees a probe deviation
+curve -> latent z -> decoder predicts deviation for NEW initial conditions/times (needs K). 3/3 (one fix round):
+- CB1 a 1-D bottleneck suffices, held-out R2=1.000 (one number is enough).
+- CB2 the bottleneck IS curvature: z decodes the true Gaussian K at |r|=0.999 (a coordinate-free invariant).
+- CB3 minimality (dim-1 = dim-2/3, extra +0.000 -- 1-number code) + necessity (bottleneck lifts a curvature-blind
+  control 0.60 -> 1.000, +0.40).
+Fix round: the blind control got 0.60 not <0.5 -- correct physics (the flat-space part s0+v0t of geodesic deviation is
+K-INDEPENDENT, predictable blind; curvature supplies the geometry-DEPENDENT correction) -> reframed CB3 to "bottleneck
+substantially beats blind (+0.3 R2)". Curvature emerges as the minimal sufficient CODE for geometry's effect on
+geodesics. In verify.sh.
+
 ## 2026-06-25 — Phase 1b: Huygens' principle by dimension (script 128)
 
 Separate-angle probe #1 (build_queue Phase 1b), validating dimensional_ladder sec 5. Web-verified (Hadamard;

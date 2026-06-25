@@ -3573,3 +3573,10 @@ H1 3D tail/peak 0.0000 (Huygens holds) vs 2D 0.226 (tail); H2 same wavefront arr
 independent -- the WAKE differs); H3 2D tail ~ cylindrical Green 1/sqrt((t-t0)^2-r0^2) corr 1.00. Smoke-test caught the
 IC bug (Gaussian-at-rest splits in/out -> reflected pulse contaminates both dims; fixed to a compact SOURCE pulse ->
 clean outgoing-only). Reliable solver (PINN noted but finicky for long-time waves). In verify.sh.
+
+## Phase 1b #2 -- curvature as the bottleneck (script 129), 2026-06-25
+Phase E read curvature post-hoc; here it's the bottleneck. Jacobi deviation s''=-Ks; SciNet encoder(probe curve)->z->
+decoder(z, new IC, tq). 3/3 (1 fix round): CB1 1-D R2=1.000; CB2 z decodes K r=0.999 (the bottleneck IS curvature);
+CB3 minimality (extra dims +0.000) + bottleneck beats curvature-blind control +0.40 (0.60->1.000). Fix: blind got 0.60
+not <0.5 because flat-space deviation s0+v0t is K-independent (predictable blind); curvature = the geometry-dependent
+correction -> reframed CB3 to "substantially beats blind". In verify.sh.

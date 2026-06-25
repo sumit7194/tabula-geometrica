@@ -34,6 +34,7 @@ _weyl_quadrupole.py) or pkill broadly. Our dashboard is :8788. No resource conte
 
 ## PHASE 1b — more separate-angle probes (after the above, as appetite allows)
 - [x] **Huygens-tail by dimension (128)** DONE 3/3: 3D sharp (tail 0.00) / 2D tail 0.226, same front speed, 2D tail ~1/sqrt(t^2-r^2) corr 1.00 -- validates dimensional_ladder sec5.
+- [x] **curvature-as-bottleneck (129)** DONE 3/3: 1-D bottleneck R2 1.000, latent decodes K r=0.999, minimality + beats blind +0.40.
 - [ ] Discrete/graph worlds (does geometry emerge without a continuum?) · operational observers (noisy clocks/finite
   signaling) · curvature-as-bottleneck · relativistic-regime learning · Huygens-tail PINN (2+1 vs 3+1) · Hashimoto
   depth=bulk · extrapolation-failure probe · communication-game-for-gauge (amortized-protocol reframe).
