@@ -3630,3 +3630,16 @@ storage of multi-D property NECESSARY but NOT SUFFICIENT to scramble -- target-c
 driver). 4th easy-target harness (after 103/107/108); sharpens AlphaLudo's multi-D boundary. NOT in verify.sh (the
 pre-registered scramble failed; honest null, like Phase F). Code bug found en route: sklearn 1.9 MLPRegressor needs
 hidden_layer_sizes= as keyword (positional -> 'loss'). Robust amortize->legible stands; free->scramble stayed fragile.
+
+## 2026-06-26 — Phase 1b probe #6: extrapolation is a CONFOUNDED test of discovery (script 134)
+Acid-test intuition: a net that DISCOVERED a law should extrapolate; one that interpolated should not. Two relativistic
+composition laws, trained only on moderate compositions: VELOCITY (bounded, coord atanh) vs DOPPLER k=k1*k2 (unbounded,
+coord log). STRUCTURED additive-bottleneck (psi(a)+psi(b)->decode) vs GENERIC MLP. Original hypothesis (structured
+extrapolates, generic fails on multiplication) REFUTED. Robust finding (1 fix round; median rel-err, since R^2 unstable
+on narrow extrap bands): G1 benign->BOTH extrapolate (velocity 3.1%/5.3%); G2 growing->BOTH fail (Doppler 48%/24% -- even
+the structured model's exp-DECODER faces OOD growth); G3 structure found (psi=atanh/log |r|=1.000). Extrapolation is
+CONFOUNDED (fails both ways) despite real discovery -> validate discovery by DIRECT structure-verification (the project's
+invariant-decode gates), not extrapolation. Honest scoping of our own claims; original pre-reg failure recorded openly.
+Two metric gotchas: (1) R^2 is range-sensitive -> negative on narrow positive extrap bands (use median rel-err);
+(2) there is NO free lunch in extrapolation -- the structured model always has SOME component (here the decoder) that
+must extrapolate the OOD output. NOT in verify.sh (methodological + trains 4 nets/run).

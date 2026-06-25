@@ -1,3 +1,23 @@
+## 2026-06-26 — Phase 1b: extrapolation is a CONFOUNDED test of discovery (script 134)
+
+Separate-angle probe #6 ("extrapolation-failure probe"). The acid-test intuition: a net that DISCOVERED a law should
+extrapolate beyond its training regime; one that interpolated should not. Tested on two relativistic composition laws,
+each trained only on moderate compositions: VELOCITY w=(v1+v2)/(1+v1v2) (bounded; coordinate atanh) and DOPPLER k=k1*k2
+(Bondi factors multiply, unbounded; coordinate log). Two models per law: STRUCTURED (additive bottleneck psi(a)+psi(b)
+->decode, must discover the coordinate) vs GENERIC MLP. Original hypothesis: structured extrapolates, generic fails
+(multiplication is the canonical MLP extrapolation failure). REFUTED -> a deeper honest finding (one fix round, robust
+median-rel-error metric since R^2 is unstable on narrow extrapolation bands):
+- G1 BENIGN -> BOTH extrapolate: velocity, structured 3.1% / generic 5.3% median rel-err -- a bounded smooth law is
+  interpolable, discovery NOT needed.
+- G2 GROWING -> BOTH fail: Doppler, structured 48% / generic 24% -- even the model that discovered log-additivity cannot
+  extrapolate the exp growth (its DECODER faces the same OOD), discovery NOT sufficient.
+- G3 STRUCTURE FOUND: structured psi recovers atanh / log at |corr|=1.000 in both -- the discovery is REAL, verified
+  directly.
+Conclusion: extrapolation is a CONFOUNDED test of discovery (fails both ways), so discovery must be validated by DIRECT
+structure-verification -- which is exactly the project's invariant-decode gates (e.g. psi=atanh). An honest scoping of
+our own discovery methodology. The original "structure extrapolates" pre-reg failed and is recorded transparently. NOT
+in verify.sh (a methodological scoping result, and trains 4 nets/run; documented, not gated).
+
 ## 2026-06-26 — Phase 1b: communication-game-for-gauge — an honest easy-target null (script 133)
 
 Separate-angle probe #5: the amortized-protocol reframe of the legibility law in a 4th domain, EMERGENT COMMUNICATION
