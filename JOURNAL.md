@@ -1,28 +1,30 @@
-## 2026-06-26 — VM (L4) Phase-2 shovel-ready items closed: FNO grid sweep + 3+1 law (both honest negatives)
+## 2026-06-26 — VM (L4) Phase-2: FNO grid-sweep numbers filled in; 3+1-law "closure" CORRECTED (self-correction)
 
-L4 became available again (the stockout cleared); GPU verified free (0 MiB, Ludo not training). Found the two
-shovel-ready Phase-2 items (vm_plan A + B0) had ALREADY been run on the VM on Jun 19 (a prior session) but were never
-documented/committed -- pulled the results back and closed them honestly.
+L4 became available again (stockout cleared); GPU verified free. Connected to the VM and found the two shovel-ready
+Phase-2 items had been RUN on the VM Jun 19. **Self-correction (user challenged "are you sure they weren't documented"):
+my first write-up here overstated "never documented" and drew an invalid clean conclusion. Corrected below.**
 
-**A -- FNO grid sweep (Phase F long-range wall): F1 SATURATES, the finer-grid hypothesis REFUTED.** Modes sweep
-(m14 F1=0.0157, m24 F1=0.0154) + grid sweep (g64 F1=0.0141-0.0144 x3 seeds, g96 F1=0.0163-0.0169 x3 seeds), F2_cos
-~0.995 throughout. F1 does NOT improve with resolution (g96 even slightly WORSE than g64) -- so the vm_plan Nyquist
-hypothesis ("F1 saturates at the 48-grid because modes 24==14; finer grid -> F1 toward 1e-3") is FALSE. The FNO still
-confirms the ARCHITECTURE hypothesis (locality was the Phase-F wall): F2 cos 0.995 vs the CNN's 0.937, F1 0.014 vs CNN
-0.058 (~4x), P0 overfit 3.7e-6 on the Mac -- a global spectral operator DOES carry the 1/r tail a local CNN cannot. BUT
-the absolute F1 trajectory-MSE gate (1e-3) does NOT close: F1 is bounded at ~0.015 (~12x the gate, ~100x the oracle
-floor 1.2e-4) by a NON-resolution factor (the trajectory-rollout supervision / near-mass field magnitude). Honest:
-Phase F's locality/F2 is RESOLVED by the FNO; the absolute trajectory gate is honestly BOUNDED, not closed.
+**A -- FNO grid sweep: PRE-REGISTERED pending result, now filled in (legitimate).** The grid sweep was launched +
+pre-registered on 2026-06-20 (lab_notebook: "results to be documented when the 6 arms finish"; pre-reg conclusion: "if
+F1 still ~0.015 at grid 96, the gap is not resolution → honest null, bank the FNO architecture win"). The 6 arms
+finished Jun 19 but were never pulled back -- now done: g64 F1=0.0141-0.0144, g96 F1=0.0163-0.0169 (3 seeds each),
+F2_cos ~0.995, i.e. ~0.015 same as the 48-grid modes sweep. So the PRE-REGISTERED honest-null holds: F1 is NOT
+resolution-limited; the FNO resolves Phase-F locality/F2 (F2 0.995 vs CNN 0.937, P0 3.7e-6 on Mac) but the absolute F1
+trajectory gate (1e-3) is bounded ~0.015 by a non-resolution factor. (New content = the g64/g96 numbers; the finding
+itself was pre-registered.)
 
-**B0 -- 3+1 matter->geometry law (script 21, Conv3d CNN): NULL, locality is WORSE in 3D.** 21_law_3p1.json: F1 0.041,
-F2_cos 0.417, F3 0.112, F4_blind 0.141. The 3+1 CNN FAILS (F1 41x the 1e-3 gate; F2 cos 0.417 << 0.98). F2 0.417 is far
-worse than the 2+1 CNN's 0.937 -> the locality wall WORSENS with dimension (the 3D 1/r tail needs even more global
-reach; a local Conv3d cannot carry it). The FNO fix that raised 2+1 F2 to 0.995 was NOT applied in 3D (21 is a CNN) --
-an FNO-class global operator would be needed in 3D too (future). Confirms + extends the Phase-F locality narrative.
+**B0 -- 3+1 law: ALREADY fully documented 2026-06-12; my "closure" was a DUPLICATE + an overstatement (RETRACTED).** The
+3+1 result (21_law_3p1.json: F1 0.041, F2 0.417, F3 0.685/0.112, F4 0.141, failed all gates) was committed at the
+initial commit and written up in the lab_notebook on 2026-06-12 ("3+1 LAW RESULTS: failed all gates, CONFOUNDED"). That
+existing entry FLAGS THE RESULT AS CONFOUNDED -- vs 2+1 it changed three things at once (kernels 5²→3³, channels
+16/32→8/16, 6× fewer training samples), so my claim "the locality wall WORSENS in 3D" was an INVALID clean conclusion
+and is RETRACTED. The only genuinely-stale item was the CLAUDE.md status line "Gates pending" (a status block never
+updated after the 2026-06-12 results); that line is now corrected to point at the existing documentation + its confound
+caveat. Lesson re-logged: search existing docs (lab_notebook + git history) BEFORE writing a "closure"; don't restate a
+confounded comparison as clean.
 
-Neither goes in verify.sh (GPU-only, hours-long; honest negatives, like the Phase F null -- documented, not gated).
-Results pulled to results/100_fno_law_{m14,m24,g64,g96}_s*.json + 21_law_3p1.json. Environment confirmed ready on the
-VM (CUDA torch 2.12.1+cu130 works). Remaining Phase-2 = the BUILDS (C global PINN / D G-sym+legibility / E Wong v3).
+Neither goes in verify.sh (GPU-only). VM env confirmed ready (CUDA torch 2.12.1+cu130). Remaining Phase-2 = the BUILDS
+(C global PINN / D G-sym+legibility / E Wong v3 -- E is running, see below).
 
 ## 2026-06-26 — Phase 1b: extrapolation is a CONFOUNDED test of discovery (script 134)
 

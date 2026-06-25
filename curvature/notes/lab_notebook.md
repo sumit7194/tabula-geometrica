@@ -3644,18 +3644,21 @@ Two metric gotchas: (1) R^2 is range-sensitive -> negative on narrow positive ex
 (2) there is NO free lunch in extrapolation -- the structured model always has SOME component (here the decoder) that
 must extrapolate the OOD output. NOT in verify.sh (methodological + trains 4 nets/run).
 
-## 2026-06-26 — VM Phase-2 shovel-ready closed: FNO grid sweep (A) + 3+1 law (B0), both honest negatives
-L4 free again; GPU verified free (Ludo not training). The two shovel-ready vm_plan items had already been RUN on the VM
-Jun 19 but never documented -- pulled + closed honestly.
-A (FNO grid sweep, Phase F long-range wall): F1 SATURATES ~0.015 across modes 14/24 + grids 48/64/96 (g64 0.0141-0.0144,
-g96 0.0163-0.0169 x3 seeds; g96 even slightly worse), F2_cos ~0.995 throughout. The Nyquist/finer-grid hypothesis
-(vm_plan A) is REFUTED -- F1 does not track resolution. FNO still confirms locality was the wall (F2 0.995 vs CNN 0.937,
-F1 0.014 vs CNN 0.058, P0 3.7e-6 on Mac) but the absolute F1 gate (1e-3) does NOT close: bounded ~0.015 by a
-non-resolution factor (rollout supervision / near-mass field magnitude), ~100x the oracle floor. Honest: locality/F2
-RESOLVED, absolute trajectory gate BOUNDED not closed.
-B0 (3+1 law, script 21, Conv3d CNN): NULL. F1 0.041, F2_cos 0.417, F3 0.112, F4_blind 0.141. 3+1 CNN fails; F2 0.417 <<
-2+1's 0.937 -> locality wall WORSENS in 3D (3D 1/r tail needs more global reach; local Conv3d can't carry it). FNO fix
-not applied in 3D (21 is a CNN) -> FNO-class operator needed in 3D too (future).
-Neither in verify.sh (GPU-only hours-long; honest negatives like the Phase F null). Results: results/100_fno_law_*
-+ 21_law_3p1.json. VM env ready (CUDA torch 2.12.1+cu130). Remaining Phase-2 = builds C (global PINN Choptuik) / D
-(G-sym+legibility) / E (Wong v3 fuller observability).
+## 2026-06-26 — VM Phase-2: FNO grid-sweep numbers filled in; 3+1 "closure" CORRECTED (self-correction)
+SELF-CORRECTION (user challenged "are you sure they weren't documented"). My first write-up here overstated and is fixed:
+A (FNO grid sweep): the sweep was LAUNCHED + PRE-REGISTERED on 2026-06-20 (see "## 2026-06-20 ... FNO GRID-RESOLUTION
+sweep on the L4" above: "results to be documented when the 6 arms finish"; pre-reg: "if F1 still ~0.015 at grid 96, the
+gap is not resolution -> honest null"). The 6 arms finished Jun 19 but were never pulled back; now filled in: g64
+0.0141-0.0144, g96 0.0163-0.0169 (3 seeds), F2_cos ~0.995, i.e. ~0.015 same as the 48-grid. The pre-registered honest-
+null holds (F1 not resolution-limited; FNO resolves locality/F2, absolute F1 gate bounded ~0.015). New = the g64/g96
+numbers; the finding was pre-registered. (NOTE: the modes-saturation finding is ALREADY documented in "## 2026-06-20 ...
+modes" above; do not double-count.)
+B0 (3+1 law): ALREADY fully documented 2026-06-12 -- see "## 2026-06-12 — 3+1 LAW RESULTS (script 21): failed all gates,
+CONFOUNDED" above (full gate table; result file committed at the initial commit). My "closure" was a DUPLICATE. And that
+existing entry FLAGS THE RESULT AS CONFOUNDED (vs 2+1 it changed kernels 5²→3³, channels 16/32→8/16, 6× fewer samples
+ALL AT ONCE), so my claim "locality wall WORSENS in 3D" was an INVALID clean conclusion and is RETRACTED. The only stale
+item was the CLAUDE.md "Gates pending" status line (never updated after the 2026-06-12 results) -- now corrected to point
+at the existing entry + its confound caveat.
+Lesson re-logged (research-first / documentation-habit): grep the lab_notebook + git history BEFORE writing a "closure";
+never restate a confounded comparison as a clean result. Remaining Phase-2 = builds C (global PINN) / D (G-sym) / E (Wong
+v4 observability, running).

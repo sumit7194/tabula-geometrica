@@ -1,0 +1,4 @@
+data shapes: snip (28, 16, 5) qy (2240, 3) field (2240,)
+K=1 smoke: {'mse': 0.066, 'min_linear_r': 0.155, 'min_nonlinear_r': 0.817, 'model_Q_drift': 0.0}
+K=4 smoke: {'mse': 0.054, 'min_linear_r': 0.138, 'min_nonlinear_r': 0.672, 'model_Q_drift': 0.0}
+SMOKE OK
