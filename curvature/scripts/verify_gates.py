@@ -76,6 +76,9 @@ BATTERIES = [
     ("Geometry from entanglement: dimension + grid (J2)", ["scripts/125_entanglement_dimension.py"],
      "125_entanglement_dimension.json",
      {"J2a_intrinsic_dimension": (">", 0.5), "J2b_grid_recovered": (">", 0.5), "J2c_geometry_real": (">", 0.5)}),
+    ("A10 legibility<->integrability (for bridge)", ["scripts/127_integrability_legibility.py"],
+     "127_integrability_legibility.json",
+     {"G1_integrable_emit": (">", 0.5), "G2_nonintegrable_certify": (">", 0.5), "G3_legible_iff_integrable": (">", 0.5)}),
 ]
 
 

@@ -1,0 +1,46 @@
+{
+ "catalog": {
+  "Kerr": {
+   "integrable": true,
+   "engine_heldout": 4.807655628408046e-28,
+   "carter_drift": 6.359002995097177e-28,
+   "legible": true
+  },
+  "Kerr-Newman": {
+   "integrable": true,
+   "engine_heldout": 4.881104053651396e-28,
+   "carter_drift": 6.635126395007375e-28,
+   "legible": true
+  },
+  "Kerr-de Sitter": {
+   "integrable": true,
+   "engine_heldout": 2.0766170995327633e-28,
+   "carter_drift": 2.486104746326765e-28,
+   "legible": true
+  },
+  "Taub-NUT": {
+   "integrable": true,
+   "engine_heldout": 3.2648567814900937e-28,
+   "carter_drift": 5.342262187404992e-28,
+   "legible": true
+  },
+  "bumpy": {
+   "integrable": false,
+   "engine_heldout": 0.01858127970260203,
+   "carter_drift": 0.22565584837077013,
+   "legible": false
+  },
+  "bumpy-strong": {
+   "integrable": false,
+   "engine_heldout": 0.04205927249328065,
+   "carter_drift": 0.2914402248787778,
+   "legible": false
+  }
+ },
+ "G1_integrable_emit": true,
+ "G2_nonintegrable_certify": true,
+ "G3_legible_iff_integrable": true,
+ "legibility_tracks_integrability": true,
+ "for_bridge": "correlate each metric's 'legible' (this JSON) against leg O's 'KY-integrable' column (A10)",
+ "verdict": "A10 (legibility <-> integrability) CONFIRMED on the catalog: the emit-or-certify legibility instrument EMITS a verified hidden invariant (the Carter constant) for every INTEGRABLE metric (Kerr, Kerr-Newman, Kerr-de Sitter, Taub-NUT) and CERTIFIES no exact low-degree invariant for the NON-integrable (bumpy) metrics -- 'a learned geometry becomes legible IFF the metric is integrable (admits a Killing tensor)'. Tabula deliverable for TheBridge: correlate this per-metric 'legible' column against leg O's integrability column."
+}

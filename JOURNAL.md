@@ -24,6 +24,22 @@ target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **M
 0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
 strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
+## 2026-06-25 — A10 for TheBridge: legibility <-> integrability across the BH catalog (script 127)
+
+Sister-project help (TheBridge SISTER_REQUESTS A10, the tabula-addressed ask). Well-posed reframe: does a learned
+geometry become LEGIBLE iff the metric is INTEGRABLE (admits a Killing tensor)? Unified our piecewise results
+(92 Kerr / 97 KdS / 99 KN+bumpy / 85 chaos) into ONE catalog survey on one emit-or-certify pipeline (reusing 99's
+conserved/heldout) + ADDED Taub-NUT (web-verified integrable: Kerr-Taub-NUT shares Kerr's 2nd-rank Killing tensor;
+NUT gravitomagnetic shift L -> L - 2n cos theta). Faithful Staeckel-separable Kerr-like geodesic toy, params Q (KN),
+Lam (KdS cosmological), nut (Taub-NUT), eps (bump = non-separable -> breaks Carter). 3/3, clean first run:
+- G1 integrable -> EMIT: Kerr / Kerr-Newman / Kerr-de Sitter / Taub-NUT each emit a verified Carter (engine held-out
+  ~1e-28, Carter drift ~1e-28).
+- G2 non-integrable -> CERTIFY: bumpy + bumpy-strong, no exact low-degree invariant (held-out 1.9e-2/4.2e-2, Carter
+  drift 0.23/0.29).
+- G3 legible <-> integrable: PERFECT agreement across the catalog (~26 orders of magnitude separating emit/certify).
+Deliverable for the bridge: results/127_integrability_legibility.json + notes/A10_for_bridge.md (read-only; repos stay
+independent). Strengthens our own distillation arc into a clean integrability<->legibility correlation. In verify.sh.
+
 ## 2026-06-25 — Quick wins assessed (build-queue item 7): MDL already done; H2 optimizer-swap regressed (honest)
 
 Build-queue item 7 (the scaling_backlog-A quick wins). Honest outcome -- not every backlog item yields a green gate:

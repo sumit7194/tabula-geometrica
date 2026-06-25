@@ -3559,3 +3559,10 @@ reparam Adam (0.131/0.605): Euclidean-retraction RSGD 0.160; exp-map RSGD-Adam 0
 no regression shipped. H2 partial stands (hyperbolic advantage real -- ratio 0.605<1, tree Gromov delta=0 -- but the
 strict 2x gate needs a Sarkar tree-embedding construction, not an optimizer swap; logged as future). Disciplined stop.
 Phase 1 of the build queue (120-125) all clean-gated; 126 honest no-change.
+
+## A10 for TheBridge -- legibility <-> integrability catalog survey (script 127), 2026-06-25
+Sister help (TheBridge A10). emit-or-certify legibility probe on geodesics from each catalog metric. Unified 92/97/99
++ added Taub-NUT (NUT shift L->L-2n cos, web-verified integrable). Staeckel Kerr-like toy, params Q/Lam/nut/eps. 3/3:
+integrable {Kerr, KN, KdS, Taub-NUT} EMIT Carter (held-out ~1e-28); non-integrable {bumpy, bumpy-strong} CERTIFY
+(held-out ~1e-2, Carter drift ~0.25). Legible<->integrable perfect (G3). Deliverable: 127 JSON + notes/A10_for_bridge.md
+for the bridge to correlate vs leg O's integrability column (repos independent, read-only). In verify.sh.
