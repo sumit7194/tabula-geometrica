@@ -103,11 +103,13 @@ python -c "import torch; assert torch.cuda.is_available(); print('CUDA OK', torc
 
 ## STATUS
 - [x] VM spun up + GPU verified free (2026-06-26: L4 stockout cleared; GPU 0 MiB, Ludo not training; CUDA torch 2.12.1+cu130)
-- [x] **A (FNO grid sweep) DONE — honest negative:** F1 SATURATES ~0.015 across modes 14/24 + grids 48/64/96 (g64
-  0.0141-0.0144, g96 0.0163-0.0169 x3 seeds), F2_cos ~0.995. Finer-grid/Nyquist hypothesis REFUTED (F1 doesn't track
-  resolution). FNO confirms locality was the wall (F2 0.995 vs CNN 0.937, beats CNN F1 4x, P0 3.7e-6) but the absolute
-  F1 gate (1e-3) stays open, bounded ~0.015 by a non-resolution factor. Was already run Jun 19; closed 2026-06-26.
-- [x] **B0 (21, 3+1 law) DONE — NULL:** F1 0.041, F2_cos 0.417 (<< 2+1's 0.937) -> locality wall WORSE in 3D; the
-  Conv3d CNN can't carry the 3D 1/r tail. FNO-class operator needed in 3D too (future). Was run Jun 19; closed 2026-06-26.
+- [x] **A (FNO grid sweep) DONE — pre-registered honest-null confirmed:** the sweep was launched + pre-registered
+  2026-06-20 (lab_notebook); the g64/g96 numbers (filled in 2026-06-26) are F1 0.0141-0.0169 ~ the 48-grid's 0.015,
+  F2_cos ~0.995. F1 is NOT resolution-limited (pre-reg conclusion holds); FNO resolves locality/F2 but the absolute F1
+  gate stays bounded ~0.015. New content = the g64/g96 numbers; the finding was pre-registered.
+- [x] **B0 (21, 3+1 law) — already documented 2026-06-12, NOT new:** the gate table (F1 0.041, F2 0.417, failed all
+  gates) was written up in the lab_notebook on 2026-06-12 and is flagged CONFOUNDED there (3+1 changed kernels/channels/
+  training-samples vs 2+1 all at once) -- so "locality worse in 3D" is NOT a valid clean claim (RETRACTED). Only the
+  stale CLAUDE.md "Gates pending" status line was corrected 2026-06-26.
 - [ ] C (global PINN Choptuik) · [ ] D (G-sym + legibility reg) · [ ] E (Wong v3 fuller observability) — the BUILDS, not
   yet started (involved new code; need a go-decision given GPU cost).

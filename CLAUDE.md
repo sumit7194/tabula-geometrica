@@ -266,24 +266,23 @@ results in `curvature/notes/lab_notebook.md`.
   24³ voxels (nn.Conv3d, 3D rollout), batch 192→48 for 15× CPU speedup. Doubles as
   a locality probe (larger relative receptive field). MPS enabled via trilerp()
   rewrite + --device flag (3D grid_sample backward unimplemented on MPS,
-  pytorch#141287; CPU path verified byte-identical, resume-safe). **GATES CLOSED on
-  CUDA (2026-06-26, VM): NULL — F1 0.041, F2_cos 0.417, F3 0.112, F4_blind 0.141. The
-  3+1 Conv3d CNN fails (F1 41× the 1e-3 gate; F2 0.417 ≪ 0.98), and F2 0.417 is far
-  worse than the 2+1 CNN's 0.937 → the locality wall WORSENS in 3D (the 3D 1/r tail
-  needs even more global reach). The FNO fix (2+1 F2→0.995) was not applied in 3D; an
-  FNO-class global operator would be needed here too (future). Honest negative, not in
-  verify.sh.**
-- **FNO GRID SWEEP CLOSED (2026-06-26, VM L4): F1 SATURATES, finer-grid hypothesis
-  REFUTED.** The vm_plan headline (A): does a finer grid drive Phase F's FNO F1 toward
-  the 1e-3 gate? NO. Modes 14/24 + grids 48/64/96 (3 seeds each): F1 stuck at ~0.015
-  (g64 0.0141–0.0144, g96 0.0163–0.0169, even slightly worse), F2_cos ~0.995 throughout.
-  F1 does NOT track resolution → the Nyquist hypothesis is false. The FNO still confirms
-  LOCALITY was the Phase-F wall (F2 0.995 vs CNN 0.937; F1 0.014 vs CNN 0.058 ~4×; P0
-  overfit 3.7e-6 on Mac — the global spectral operator carries the 1/r tail), but the
-  absolute F1 trajectory gate (1e-3) does NOT close — bounded ~0.015 (~100× the oracle
-  floor 1.2e-4) by a non-resolution factor (rollout supervision / near-mass magnitude).
-  Honest: Phase-F locality/F2 RESOLVED by the FNO, absolute trajectory gate BOUNDED not
-  closed. Results results/100_fno_law_{m14,m24,g64,g96}_s*. Not in verify.sh (GPU-only).
+  pytorch#141287; CPU path verified byte-identical, resume-safe). **Gates were ALREADY
+  documented 2026-06-12 (lab_notebook "3+1 LAW RESULTS: failed all gates, CONFOUNDED"):
+  F1 0.041, F2 0.417, F3 0.685/0.112, F4 0.141 — failed all gates. CRUCIAL CAVEAT (from
+  that entry): the run is CONFOUNDED vs 2+1 — it changed three things at once (kernels
+  5²→3³, channels 16/32→8/16, 6× fewer training samples), so the F2 0.417≪0.937 gap is
+  NOT a clean "locality worse in 3D" claim. (2026-06-26: only the stale "Gates pending"
+  status line above was corrected; the result itself was not new.)**
+- **FNO GRID SWEEP — pre-registered pending result FILLED IN (2026-06-26).** The FNO
+  grid-resolution sweep was launched + PRE-REGISTERED 2026-06-20 (lab_notebook: "results
+  to be documented when the 6 arms finish"; pre-reg conclusion: "if F1 still ~0.015 at
+  grid 96, the gap is not resolution → honest null, bank the FNO architecture win"). The
+  6 arms finished Jun 19 but the numbers were never pulled back — now filled in: grids
+  64/96 (3 seeds each) F1 = 0.0141–0.0169, ~0.015 same as the 48-grid modes sweep, F2_cos
+  ~0.995. So the pre-registered honest-null holds: F1 is NOT resolution-limited; the FNO
+  resolves Phase-F locality/F2 (F2 0.995 vs CNN 0.937; P0 3.7e-6 on Mac) but the absolute
+  F1 trajectory gate (1e-3) is bounded ~0.015 by a non-resolution factor. Results
+  results/100_fno_law_{g64,g96}_s*. Not in verify.sh (GPU-only).
 - **REGRESSION GATE (2026-06-13): `./verify.sh` at SpaceTime root — curvature
   only now.** Re-runs all six curvature probe batteries against saved models
   (Phase A, v0.1, B, C, 3+1, E+curvature; thresholds = the pre-registered
