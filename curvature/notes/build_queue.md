@@ -40,8 +40,12 @@ _weyl_quadrupole.py) or pkill broadly. Our dashboard is :8788. No resource conte
   euclidean 0.95). Deepens "no fixed reference" (Cert V/111).
 - [x] **relativistic regime / rapidity (131)** DONE 3/3 (clean): additive-bottleneck net discovers boosts compose
   additively in RAPIDITY atanh(v) (R1 R2 1.000, R2 psi=atanh |r|1.000, R3 Galilean superluminal 36% + MSE 732x).
+- [x] **communication-game-for-gauge (133)** DONE, honest easy-target NULL: amortized protocol legible in a 2-agent
+  referential game (robust half transfers, linear R2 0.998); free->scramble did NOT reproduce (free legible 0.986; even
+  ungrounded reconstruction-free legible 0.994 -> grounding hypothesis refuted). Free+multi-D NECESSARY not SUFFICIENT to
+  scramble; target-conditional (107-110). 4th easy-target harness. NOT in verify.sh (null).
 - [ ] Discrete/graph worlds (does geometry emerge without a continuum?) · Huygens-tail PINN (2+1 vs 3+1) · Hashimoto
-  depth=bulk · extrapolation-failure probe · communication-game-for-gauge (amortized-protocol reframe).
+  depth=bulk · extrapolation-failure probe.
 
 ## PHASE 2 — compute bets (need the L4; defer until it frees from Ludo)
 - [ ] Phase F law via FNO (the 1/r long-range wall) · larger G-sym + legibility regularizer · Wong v3 fuller

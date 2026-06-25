@@ -3618,3 +3618,15 @@ precision or not; 1e-10 floor) + strong-chaos point for a macroscopic confirmati
 the L=4 effective-potential minimum (no real p_x on the mass shell) -> use E=0.97 (V_min~0.962). Deliverable:
 results/132_zv_gamma_metric.json + 2 rows in notes/A10_for_bridge.md (6th metric, 2nd independent non-integrable case).
 In verify.sh.
+
+## 2026-06-26 — Phase 1b probe #5: communication-game-for-gauge (script 133), honest easy-target null
+Amortized-protocol reframe of the legibility law in a 4th domain (two-agent Lewis referential game). Speaker sees
+target's D=3 properties -> message m; listener picks target among distractors. AMORTIZED (m=net(p)) vs FREE (codebook).
+Pre-reg: amortized->legible, free+multi-D->scramble. Outcome (1 fix round): amortized legible (linear R2 0.998-0.999,
+robust half transfers); free did NOT scramble (linear 0.986). Fix round = added an UNGROUNDED reconstruction contrast
+(listener regresses property from message alone = Phase I's task) to test "grounding legibilizes" -- but recon-free was
+ALSO legible (0.994) -> grounding REFUTED; all 4 conditions legible + communicate (>0.99). HONEST: easy target. Free
+storage of multi-D property NECESSARY but NOT SUFFICIENT to scramble -- target-conditional (107-110 signal-strength
+driver). 4th easy-target harness (after 103/107/108); sharpens AlphaLudo's multi-D boundary. NOT in verify.sh (the
+pre-registered scramble failed; honest null, like Phase F). Code bug found en route: sklearn 1.9 MLPRegressor needs
+hidden_layer_sizes= as keyword (positional -> 'loss'). Robust amortize->legible stands; free->scramble stayed fragile.

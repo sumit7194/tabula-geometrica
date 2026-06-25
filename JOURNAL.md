@@ -1,3 +1,20 @@
+## 2026-06-26 — Phase 1b: communication-game-for-gauge — an honest easy-target null (script 133)
+
+Separate-angle probe #5: the amortized-protocol reframe of the legibility law in a 4th domain, EMERGENT COMMUNICATION
+(a two-agent Lewis referential game). Speaker sees a target object's D=3 properties -> message m; listener picks the
+target among distractors. Two speakers on the identical game: AMORTIZED (m=net(p_target)) vs FREE (per-object codebook).
+Pre-registered the legibility-law dichotomy: amortized->legible, free+multi-D->scramble. Honest outcome (one fix round):
+- The AMORTIZED protocol is legible (linear decode R^2 0.998-0.999) -- the robust half of the law transfers to comms.
+- The predicted FREE-code SCRAMBLE did NOT reproduce (free linear R^2 0.986, gap ~0). My fix round added an UNGROUNDED
+  contrast (a reconstruction game: listener regresses the property from the message alone, = Phase I's task) to test a
+  "grounding legibilizes" hypothesis -- but recon-free was ALSO legible (0.994), REFUTING grounding. All four conditions
+  (referential/reconstruction x amortized/free) are legible AND communicate (success >0.99).
+- Verdict: this comms task is an "EASY TARGET". Free storage of a multi-D property is NECESSARY but NOT SUFFICIENT to
+  scramble -- free->scramble is TARGET-CONDITIONAL (scripts 107-110, the signal-strength driver). Adds a 4th easy-target
+  harness (after 103/107/108), sharpening AlphaLudo's "multi-D free storage scrambles" boundary. Honest null: the
+  pre-registered scramble failed, so NOT added to verify.sh (like the Phase F null). The robust amortize->legible
+  direction stands; the fragile free->scramble direction stayed fragile, as the 1-D-mystery work predicts.
+
 ## 2026-06-23 — The 1-D mystery, cracked: the free-code scramble's driver is the TARGET FUNCTION (scripts 107-109)
 
 User pick ("crack the 1-D boundary mystery": why does the SAME linear coupling give D=1 legible in physics-traj (48,

@@ -338,6 +338,16 @@ results in `curvature/notes/lab_notebook.md`.
   observations** — scaling ONLY p's effect (y=base(x)+α·p·coup(x), base frozen)
   makes free D=1 legibility climb monotonically 0.21→0.58→0.87→0.89 as α goes
   0.05→0.15→0.4→1.0 (saturates ~0.4). Weak signal → scramble; strong → legible.
+  **4TH-DOMAIN EASY-TARGET CONFIRMATION (133, 2026-06-26, communication-game-for-
+  gauge):** the amortized-protocol reframe — a 2-agent Lewis referential game (speaker
+  sees D=3 props → message; listener picks target among distractors). Amortized protocol
+  legible (linear R² 0.998, robust half transfers to emergent comms), but free→scramble
+  did NOT reproduce (free legible 0.986). Fix round added an ungrounded reconstruction
+  contrast to test "grounding legibilizes" → REFUTED (recon-free legible 0.994 too). So
+  this comms task is a 4th easy target (after 103/107/108): free storage of a multi-D
+  property is NECESSARY but NOT SUFFICIENT to scramble (sharpens AlphaLudo's boundary).
+  Honest null, NOT in verify.sh (the pre-registered scramble failed). Robust amortize→
+  legible stands.
 - **PHASE H ROW 2 — Wong color charge (scripts 30/30b/31), CLOSED, honest
   boundary:** classical SU(2) charge that parallel-transports (rotates, |Q|
   conserved; web-verified Wong 1970). v1 negative (confounded: 12° precession +
