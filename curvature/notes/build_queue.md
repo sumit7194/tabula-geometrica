@@ -44,8 +44,12 @@ _weyl_quadrupole.py) or pkill broadly. Our dashboard is :8788. No resource conte
   referential game (robust half transfers, linear R2 0.998); free->scramble did NOT reproduce (free legible 0.986; even
   ungrounded reconstruction-free legible 0.994 -> grounding hypothesis refuted). Free+multi-D NECESSARY not SUFFICIENT to
   scramble; target-conditional (107-110). 4th easy-target harness. NOT in verify.sh (null).
-- [ ] Discrete/graph worlds (does geometry emerge without a continuum?) · Huygens-tail PINN (2+1 vs 3+1) · Hashimoto
-  depth=bulk · extrapolation-failure probe.
+- [x] **extrapolation-failure probe (134)** DONE, honest 3/3 reframe: extrapolation is a CONFOUNDED test of discovery
+  (benign velocity law -> BOTH structured+generic extrapolate; growing Doppler k=k1*k2 -> BOTH fail, even the structured
+  exp-decoder; structure verified directly psi=atanh/log |r|=1). Validate discovery by structure-verification, not
+  extrapolation. Original "structure extrapolates" hypothesis refuted (recorded). NOT in verify.sh (methodological).
+- [ ] Discrete/graph worlds (does geometry emerge without a continuum?, ~covered by 124/125) · Huygens-tail PINN (2+1
+  vs 3+1, ~covered by 128 FDTD) · Hashimoto depth=bulk (the one genuinely-distinct remainder; ~overlaps 118 RG).
 
 ## PHASE 2 — compute bets (need the L4; defer until it frees from Ludo)
 - [ ] Phase F law via FNO (the 1/r long-range wall) · larger G-sym + legibility regularizer · Wong v3 fuller

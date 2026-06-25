@@ -633,6 +633,21 @@ results in `curvature/notes/lab_notebook.md`.
   1+1 Lorentz group is unique up to scale → the net is forced to find rapidity.
   Relativity from the composition law alone. Ties Phase A (interval) + 130 (k-calculus).
   In verify.sh.
+- **EXTRAPOLATION IS A CONFOUNDED TEST OF DISCOVERY (2026-06-26, script 134), honest
+  3/3 reframe.** Phase 1b probe #6. Acid-test intuition: a net that DISCOVERED a law
+  should extrapolate beyond training. Tested on velocity composition (bounded, coord
+  atanh) vs Doppler k=k1·k2 (unbounded, coord log), structured additive-bottleneck vs
+  generic MLP, trained on moderate compositions only. Original "structured extrapolates,
+  generic fails" REFUTED → deeper finding (median-rel-err, R² unstable on narrow bands):
+  G1 benign → BOTH extrapolate (velocity 3%/5%); G2 growing → BOTH fail (Doppler 48%/24%
+  — even the structured exp-decoder faces OOD growth); G3 structure found (ψ=atanh/log
+  |r|=1.000). Extrapolation is confounded (fails both ways) despite real discovery →
+  validate discovery by DIRECT structure-verification (the invariant-decode gates the
+  project already uses), not extrapolation. Honest scoping of our own methodology;
+  no-free-lunch in extrapolation (some component always extrapolates the OOD output).
+  NOT in verify.sh (methodological + trains 4 nets/run). Probe #5 (133 comms-game) was
+  an honest easy-target null; #6 here a methodological scoping. Phase 1b's clean physics
+  wins are 128-131 (+ 132 bridge).
 - **HUYGENS' PRINCIPLE BY DIMENSION (2026-06-25, script 128), 3/3.** Phase 1b
   probe #1; validates dimensional_ladder §5. Web-verified (Hadamard; Ehrenfest):
   the wave eq satisfies Huygens in ODD spatial dim (3D sharp, field→0 after the

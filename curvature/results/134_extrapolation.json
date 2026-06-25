@@ -1,0 +1,25 @@
+{
+ "velocity": {
+  "struct_in": 0.9999402761459351,
+  "struct_ex": 0.1730581521987915,
+  "gen_in": 0.9996272921562195,
+  "gen_ex": -2.0947413444519043,
+  "psi_corr": 0.9999969657224269,
+  "struct_ex_mre": 0.031123368069529533,
+  "gen_ex_mre": 0.05294462665915489
+ },
+ "doppler": {
+  "struct_in": 0.9999712109565735,
+  "struct_ex": -3.6058502197265625,
+  "gen_in": 0.9999775290489197,
+  "gen_ex": -0.7801716327667236,
+  "psi_corr": 0.9999992907071515,
+  "struct_ex_mre": 0.4790661036968231,
+  "gen_ex_mre": 0.242963045835495
+ },
+ "G1_benign_both_extrapolate": true,
+ "G2_growing_both_fail": true,
+ "G3_structure_found": true,
+ "extrapolation_is_confounded": true,
+ "verdict": "EXTRAPOLATION IS A CONFOUNDED TEST OF DISCOVERY (the original pre-reg -- 'the structured model extrapolates while the generic fails' -- is REFUTED; honest deeper finding). The structured model PROVABLY discovered the true coordinate in BOTH laws (psi recovers atanh / log, |corr| 1.000/1.000). Yet extrapolation does NOT track discovery: for the BENIGN bounded velocity law BOTH models extrapolate (median rel-err 3.1% structured / 5.3% generic) -- discovery is not needed; for the GROWING Doppler law BOTH FAIL (48% / 24%) -- even the structured model's decoder cannot extrapolate the exp growth, so discovery is not sufficient. Conclusion: discovery must be validated by DIRECT STRUCTURE-VERIFICATION (the invariant-decode gates the project already uses, e.g. psi=atanh here), NOT by extrapolation. An honest scoping of the project's own discovery methodology."
+}
