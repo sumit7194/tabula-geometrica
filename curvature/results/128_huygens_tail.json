@@ -1,0 +1,12 @@
+{
+ "tail3D_over_peak": 1.2828821464742086e-14,
+ "tail2D_over_peak": 0.22565492452237484,
+ "arrival3D": 5.088,
+ "arrival2D": 5.176,
+ "tail_shape_corr_2D": 0.9999973253046402,
+ "H1_huygens_by_dimension": true,
+ "H2_same_front_speed": true,
+ "H3_analytic_tail_shape": true,
+ "huygens_tail_by_dimension": true,
+ "verdict": "HUYGENS BY DIMENSION (dimensional_ladder sec5 validated): a compact source pulse, propagated by the radial wave equation, leaves the 3D field SHARP -- it returns to 0.000 of peak after the wavefront (Huygens' principle holds) -- while the 2D field retains a TAIL (0.23 of peak). The wavefront ARRIVES at the same time in both (2D 5.18, 3D 5.09: speed c is dimension-independent), so the difference is the WAKE, not the speed. The 2D tail follows the cylindrical Green's-function form 1/sqrt((t-t0)^2 - r0^2) (corr 1.00). A clean 'now' exists only in odd spatial dimension -- a reason our world is 3+1 (Ehrenfest)."
+}

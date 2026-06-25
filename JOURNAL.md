@@ -24,6 +24,18 @@ target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **M
 0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
 strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
+## 2026-06-25 — Phase 1b: Huygens' principle by dimension (script 128)
+
+Separate-angle probe #1 (build_queue Phase 1b), validating dimensional_ladder sec 5. Web-verified (Hadamard;
+Ehrenfest's 3+1 note): the wave equation satisfies Huygens in ODD spatial dim (3D: sharp, field returns to 0 after the
+wavefront) and VIOLATES it in EVEN (2D: a lingering ~1/sqrt(t^2-r^2) cylindrical tail). Source-driven radial FDTD
+u_tt=u_rr+((d-1)/r)u_r, the ONLY difference between runs is d (reliable solver; nn_and_spacetime sec5 suggested a PINN
+but long-time wave PINNs are finicky -- a solver gives the decisive measurement). 3/3 first run:
+- H1 3D tail/peak 0.0000 (Huygens holds) vs 2D 0.226 (tail).
+- H2 same front speed (arrival 2D 5.18, 3D 5.09): c is dimension-independent; the WAKE differs, not the speed.
+- H3 2D tail follows the cylindrical Green form 1/sqrt((t-t0)^2-r0^2), corr 1.00.
+A clean 'now' exists only in odd spatial dimension -- a reason our world is 3+1. In verify.sh.
+
 ## 2026-06-25 — A10 for TheBridge: legibility <-> integrability across the BH catalog (script 127)
 
 Sister-project help (TheBridge SISTER_REQUESTS A10, the tabula-addressed ask). Well-posed reframe: does a learned

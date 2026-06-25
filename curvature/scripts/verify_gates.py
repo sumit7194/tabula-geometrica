@@ -79,6 +79,8 @@ BATTERIES = [
     ("A10 legibility<->integrability (for bridge)", ["scripts/127_integrability_legibility.py"],
      "127_integrability_legibility.json",
      {"G1_integrable_emit": (">", 0.5), "G2_nonintegrable_certify": (">", 0.5), "G3_legible_iff_integrable": (">", 0.5)}),
+    ("Huygens tail by dimension", ["scripts/128_huygens_tail.py"], "128_huygens_tail.json",
+     {"H1_huygens_by_dimension": (">", 0.5), "H2_same_front_speed": (">", 0.5), "H3_analytic_tail_shape": (">", 0.5)}),
 ]
 
 
