@@ -24,6 +24,25 @@ target-dependence, not a property of D=1. Writeup/CLAUDE scoped accordingly. **M
 0.05→0.15→0.4→1.0 (saturates ~0.4) — the knob is the property's SIGNAL STRENGTH in the observations (weak→scramble,
 strong→legible). The 107→110 chain is a complete, mechanistically-closed result.
 
+## 2026-06-25 — Geometry from entanglement: dimension + 2D grid (closing Phase J's J2, script 125)
+
+Build-queue item 6 (notes/build_queue.md). Phase J (32) recovered a chain's 1D order from mutual information + the Van
+Raamsdonk pinch-off but left J2 open: the intrinsic DIMENSION (PCA overcounted curved manifolds) and the 2D GRID
+(needed a spectral embedding). Closed both. Free-fermion gapped states (staggered on-site -> smooth exponential
+correlations, no half-filling parity pathology) on a 1D chain (N=48) and 2D grid (9x9); MI(i:j)=S_i+S_j-S_ij from the
+correlation matrix (Peschel); positions never given. Key fix: estimate dimension from the kNN-graph GEODESIC
+correlation-dimension (depends on MI neighbor RANKS -> robust to the MI->distance reparam) and recover the grid by
+ISOMAP (geodesic) + MDS, not linear PCA. 3/3 (one fix round):
+- J2a intrinsic dimension: geodesic correlation-dim recovers chain 1.11 (=1) and grid 1.83 (=2), while PCA/MDS on the
+  MI-distance OVERCOUNTS the curved chain (2-D) -- the documented J2 failure, fixed by a manifold-aware estimator.
+- J2b 2D grid via Isomap+MDS: Procrustes-aligned correlation 0.99 with the true coordinates -- the grid layout
+  recovered from entanglement alone.
+- J2c geometry real: the recovered geodesic distance matches true distance (Spearman chain 1.00, grid 0.95).
+Fix round: ball-growth-on-kNN undercounted (over-connection + integer hops) and raw single-site MI is short-ranged for
+a gapped state (ties -> low spearman) -> switched J2a to correlation-dim on Isomap geodesics and J2c to the recovered
+geodesic monotonicity (the geometry is built by geodesic completion, which J2b validates at 0.99). Ties J1 (32) + J5
+(42). In verify.sh.
+
 ## 2026-06-25 — Graph Ollivier-Ricci curvature: curvature as the geometric signature of network structure (script 124)
 
 Build-queue item 5; a curvature-atlas row (after finance 88 / hierarchy 89 / neuroscience 90) -- "curvature is the

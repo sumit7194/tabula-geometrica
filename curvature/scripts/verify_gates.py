@@ -73,6 +73,9 @@ BATTERIES = [
     ("Ollivier-Ricci curvature (network structure)", ["scripts/124_ollivier_ricci.py"], "124_ollivier_ricci.json",
      {"O1_bimodal_signature": (">", 0.5), "O2_ricci_surgery_recovers": (">", 0.5),
       "O3_curvature_carries_signal": (">", 0.5)}),
+    ("Geometry from entanglement: dimension + grid (J2)", ["scripts/125_entanglement_dimension.py"],
+     "125_entanglement_dimension.json",
+     {"J2a_intrinsic_dimension": (">", 0.5), "J2b_grid_recovered": (">", 0.5), "J2c_geometry_real": (">", 0.5)}),
 ]
 
 

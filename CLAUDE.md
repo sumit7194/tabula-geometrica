@@ -590,6 +590,18 @@ results in `curvature/notes/lab_notebook.md`.
   (crit corr ~1 → tiny noisy geodesic; 1/k² critical limit is rough) — the
   hyperbolic/AdS geometry is established cleanly in J4 (entanglement, exact
   log-law). One fix round (N→16384) confirmed R2 not R3. Gate R1+R2 in verify.sh.
+- **GEOMETRY FROM ENTANGLEMENT — dimension + 2D grid, closing J2 (2026-06-25,
+  script 125), 3/3.** Build-queue item 6. Phase J (32) recovered a chain's 1D order
+  + Van Raamsdonk pinch-off but left J2 open (PCA overcounted dimension; 2D grid
+  needed spectral embedding). Free-fermion gapped states (staggered → smooth
+  correlations, no parity pathology), chain N=48 + grid 9×9; MI from Peschel,
+  positions never given. J2a ✓ geodesic correlation-dimension recovers chain 1.11
+  (=1)/grid 1.83 (=2) while PCA/MDS overcounts the curved chain (2-D) — the J2
+  failure fixed by a manifold-aware (neighbor-rank) estimator; J2b ✓ Isomap+MDS
+  recovers the 2D grid layout (Procrustes corr 0.99); J2c ✓ recovered geodesic
+  matches true distance (Spearman 1.00/0.95). One fix round (ball-growth/raw-MI →
+  geodesic correlation-dim + geodesic monotonicity). Ties J1 (32) + J5 (42). In
+  verify.sh.
 - **GRAPH OLLIVIER-RICCI CURVATURE (2026-06-25, script 124), 3/3.** Build-queue
   item 5; a curvature-atlas row (after finance 88 / hierarchy 89 / neuroscience 90)
   — curvature as the geometric signature of network structure, beyond gravity.

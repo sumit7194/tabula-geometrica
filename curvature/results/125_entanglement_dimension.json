@@ -1,0 +1,13 @@
+{
+ "J2a_dim_chain": 1.114484665254991,
+ "J2a_dim_grid": 1.8271855816410323,
+ "J2a_mds_dim_chain": 2,
+ "J2b_grid_corr": 0.9920759656485298,
+ "J2c_spearman_chain": 0.9995570655223212,
+ "J2c_spearman_grid": 0.9476374288831632,
+ "J2a_intrinsic_dimension": true,
+ "J2b_grid_recovered": true,
+ "J2c_geometry_real": true,
+ "entanglement_dimension_closed": true,
+ "verdict": "GEOMETRY-FROM-ENTANGLEMENT DIMENSION + 2D GRID (J2 closed): from mutual information alone, the kNN-geodesic ball-growth dimension recovers chain ~ 1.11 (=1) and grid ~ 1.83 (=2), while PCA/MDS on the MI-distance OVERCOUNTS the curved chain (2-D) -- the documented J2 failure, fixed by a manifold-aware (neighbor-rank) estimator. ISOMAP+MDS recovers the 2D GRID layout (Procrustes corr 0.99 with the true coordinates, never given). The recovered geodesic geometry matches true distance (Spearman chain 1.00, grid 0.95). The emergent geometry's dimension & shape, from entanglement -- closing Phase J's open thread."
+}

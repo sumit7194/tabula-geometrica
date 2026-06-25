@@ -28,7 +28,7 @@ _weyl_quadrupole.py) or pkill broadly. Our dashboard is :8788. No resource conte
   breathing well; toward radiative structure (quadrupole formula). RESEARCH-FIRST. Gates after research.
 - [x] **124 · Graph Ollivier-Ricci curvature** DONE 3/3 (O1 bimodal AUC 1.00; O2 Ricci surgery ARI 1.00; O3 control ARI 0.00) -- — curvature-atlas row. Ricci curvature negative on inter-community
   edges / bridges, positive within; Ricci flow detects communities. Web-verify Ollivier-Ricci + Ni et al.
-- [ ] **125 · J2 spectral dimension + 2D entanglement grid** — close geometry-from-entanglement loose ends: swap
+- [x] **125 · J2 spectral dimension + 2D entanglement grid** DONE 3/3 (J2a dim chain 1.11/grid 1.83 vs PCA overcount; J2b grid Procrustes 0.99; J2c geodesic spearman 1.00/0.95) -- — close geometry-from-entanglement loose ends: swap
   PCA→spectral/persistent-homology dimension; recover a 2D grid via spectral embedding. Reuses s32/s42 machinery.
 - [ ] **126 · Quick wins** — Hierarchy H2 with RiemannianAdam (89 stalled at 0.61); MDL multi-seed (13). From
   scaling_backlog A.

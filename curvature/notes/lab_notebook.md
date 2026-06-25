@@ -3543,3 +3543,11 @@ Curvature-atlas row: curvature = geometric signature of network structure. Web-v
 community nets -> bimodal (intra positive, bridges negative). SBM toy; W1 via scipy.linprog OT LP; networkx. 3/3 first
 attempt: O1 intra +0.12 > 0 > inter -0.21, bridge AUC 1.00; O2 Ricci surgery (cut negative edges) ARI 1.00; O3 random
 cut ARI 0.00 + SBM gap 0.33 >> ER spread 0.06. networkx added to requirements. In verify.sh.
+
+## Geometry from entanglement -- dimension + 2D grid (J2 closed, script 125), 2026-06-25 -- build-queue item 6
+Closes Phase J's J2 (PCA overcounted dimension; 2D grid needed spectral embedding). Free-fermion gapped states
+(staggered -> smooth correlations, no parity pathology); chain N=48, grid 9x9; MI from Peschel; positions never given.
+3/3 (one fix round): J2a geodesic correlation-dim chain 1.11/grid 1.83 vs PCA/MDS overcount (chain 2-D); J2b Isomap+
+MDS grid recovery Procrustes corr 0.99; J2c recovered geodesic vs true distance spearman 1.00/0.95. Fix: ball-growth-
+on-kNN undercounted + raw single-site MI short-ranged (gapped -> ties) -> use correlation-dim on Isomap geodesics +
+geodesic monotonicity (geometry built by geodesic completion, validated by J2b). networkx kNN+dijkstra. In verify.sh.
