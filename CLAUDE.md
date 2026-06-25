@@ -590,6 +590,15 @@ results in `curvature/notes/lab_notebook.md`.
   (crit corr ~1 → tiny noisy geodesic; 1/k² critical limit is rough) — the
   hyperbolic/AdS geometry is established cleanly in J4 (entanglement, exact
   log-law). One fix round (N→16384) confirmed R2 not R3. Gate R1+R2 in verify.sh.
+- **HUYGENS' PRINCIPLE BY DIMENSION (2026-06-25, script 128), 3/3.** Phase 1b
+  probe #1; validates dimensional_ladder §5. Web-verified (Hadamard; Ehrenfest):
+  the wave eq satisfies Huygens in ODD spatial dim (3D sharp, field→0 after the
+  front) and violates it in EVEN (2D: a ~1/√(t²−r²) cylindrical tail). Source-driven
+  radial FDTD u_tt=u_rr+((d-1)/r)u_r, only d differs. H1 ✓ 3D tail/peak 0.0000 vs 2D
+  0.226; H2 ✓ same wavefront speed (arrival 5.18 vs 5.09 — the WAKE differs, not c);
+  H3 ✓ 2D tail matches the cylindrical Green form, corr 1.00. A clean 'now' exists
+  only in odd spatial dim (a reason our world is 3+1). Reliable solver (PINN noted
+  but finicky for long-time waves). In verify.sh.
 - **A10 FOR THEBRIDGE — legibility ⟺ integrability (2026-06-25, script 127), 3/3.**
   Sister-project help (TheBridge SISTER_REQUESTS A10, the tabula-addressed ask). Does
   a learned geometry become LEGIBLE iff the metric is INTEGRABLE (admits a Killing

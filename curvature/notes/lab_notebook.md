@@ -3566,3 +3566,10 @@ Sister help (TheBridge A10). emit-or-certify legibility probe on geodesics from 
 integrable {Kerr, KN, KdS, Taub-NUT} EMIT Carter (held-out ~1e-28); non-integrable {bumpy, bumpy-strong} CERTIFY
 (held-out ~1e-2, Carter drift ~0.25). Legible<->integrable perfect (G3). Deliverable: 127 JSON + notes/A10_for_bridge.md
 for the bridge to correlate vs leg O's integrability column (repos independent, read-only). In verify.sh.
+
+## Phase 1b #1 -- Huygens' principle by dimension (script 128), 2026-06-25
+Validates dimensional_ladder sec5. Source-driven radial wave FDTD u_tt=u_rr+((d-1)/r)u_r, d=2 vs d=3. 3/3 first run:
+H1 3D tail/peak 0.0000 (Huygens holds) vs 2D 0.226 (tail); H2 same wavefront arrival (5.18 vs 5.09, speed c dim-
+independent -- the WAKE differs); H3 2D tail ~ cylindrical Green 1/sqrt((t-t0)^2-r0^2) corr 1.00. Smoke-test caught the
+IC bug (Gaussian-at-rest splits in/out -> reflected pulse contaminates both dims; fixed to a compact SOURCE pulse ->
+clean outgoing-only). Reliable solver (PINN noted but finicky for long-time waves). In verify.sh.

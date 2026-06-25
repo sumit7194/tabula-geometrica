@@ -33,6 +33,7 @@ _weyl_quadrupole.py) or pkill broadly. Our dashboard is :8788. No resource conte
 - [x] **126 · Quick wins** ASSESSED (honest): MDL multi-seed (13) ALREADY DONE; H2 (89) RiemannianAdam swap REGRESSED (0.131->0.160/0.462) -> restored original; H2 partial stands (needs Sarkar tree-construction, not a swap -- logged as future, not shipped). From scaling_backlog A.
 
 ## PHASE 1b — more separate-angle probes (after the above, as appetite allows)
+- [x] **Huygens-tail by dimension (128)** DONE 3/3: 3D sharp (tail 0.00) / 2D tail 0.226, same front speed, 2D tail ~1/sqrt(t^2-r^2) corr 1.00 -- validates dimensional_ladder sec5.
 - [ ] Discrete/graph worlds (does geometry emerge without a continuum?) · operational observers (noisy clocks/finite
   signaling) · curvature-as-bottleneck · relativistic-regime learning · Huygens-tail PINN (2+1 vs 3+1) · Hashimoto
   depth=bulk · extrapolation-failure probe · communication-game-for-gauge (amortized-protocol reframe).
