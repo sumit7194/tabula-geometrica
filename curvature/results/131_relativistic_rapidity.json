@@ -1,0 +1,14 @@
+{
+ "R1_R2_fit": 0.9998424649238586,
+ "R2_psi_vs_rapidity": 0.9999558932194053,
+ "R2_psi_vs_velocity": 0.9845767590055321,
+ "R3_frac_superluminal_galilean": 0.36155447605829283,
+ "R3_mse_galilean": 0.0478665754199028,
+ "R3_mse_relativistic": 6.536136788781732e-05,
+ "R3_mse_ratio": 732.3374071626066,
+ "R1_additive_coordinate_fits": true,
+ "R2_coordinate_is_rapidity": true,
+ "R3_relativistic_not_galilean": true,
+ "relativistic_rapidity_discovered": true,
+ "verdict": "RAPIDITY DISCOVERED: an additive-bottleneck net -- biased ONLY to compose boosts additively in some learned coordinate -- predicts Einstein's velocity addition (held-out R^2 1.000) and the coordinate it discovers IS rapidity atanh(v) (|corr| 1.000, vs 0.985 for velocity). Boosts compose additively in rapidity; the messy w=(v1+v2)/(1+v1 v2) is just its tanh shadow. The Galilean law w=v1+v2 fails relativistically: it predicts SUPERLUMINAL |w|>1 on 36% of high-speed pairs and its MSE is 732x the relativistic net's. The net learns relativity from the composition law alone."
+}

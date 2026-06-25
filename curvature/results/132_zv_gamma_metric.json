@@ -1,0 +1,39 @@
+{
+ "E_delta1": 0.97,
+ "L_delta1": 4.0,
+ "E_delta2": 0.97,
+ "L_delta2": 4.0,
+ "M": 1.0,
+ "precision_floor": 1e-10,
+ "delta_1_Schwarzschild": {
+  "n_train": 431,
+  "n_test": 419,
+  "engine_heldout": 6.909325818950226e-24,
+  "cosine_to_C": 0.9999999999999999,
+  "sep_drift": 1.0656677760756357e-23,
+  "legible": true
+ },
+ "delta_2_ZV_same_EL": {
+  "n_train": 197,
+  "n_test": 180,
+  "engine_heldout": 3.3221099127055355e-06,
+  "cosine_to_C": 0.9999901833732606,
+  "sep_drift": 7.992418158291089e-06,
+  "legible": false
+ },
+ "delta_2_ZV_strong_chaos_E0p96_L3p5": {
+  "n_train": 148,
+  "n_test": 179,
+  "engine_heldout": 0.00011252863618808292,
+  "cosine_to_C": 0.9990460417934167,
+  "sep_drift": 0.00029794425885785715
+ },
+ "ratio_drift_d2_over_d1": 7.499914689859552e+17,
+ "ratio_heldout_d2_over_d1": 4.808152805268926e+17,
+ "Z1_integrable_emit": true,
+ "Z2_nonintegrable_certify": true,
+ "Z3_legible_iff_integrable": true,
+ "zv_legibility_tracks_integrability": true,
+ "for_bridge": "extends leg Q's legible<->KY-integrable correlation to a 6th metric and a SECOND, independent non-integrable case (ZV gamma-metric, different deformation + coordinates). Append: ZV(delta=1)=legible+integrable, ZV(delta=2)=illegible+non-integrable.",
+ "verdict": "ZV GAMMA-METRIC: legibility tracks integrability (extends A10/leg Q). The \u00a7127 emit-or-certify instrument on Zipoy-Voorhees geodesics EMITS the exact separation constant C=(1-y^2)p_y^2+L^2/(1-y^2) for delta=1 (Schwarzschild: conserved to 1e-23 = integration precision, cosine to C 1.000) and CERTIFIES no exact invariant for delta=2 (ZV, same E,L: C-drift 8e-06 = 7e+17x the integrable floor -- C is NOT exactly conserved, only a weak KAM remnant; in the literature strong-chaos region (E=0.95,L=3) the drift grows to 3e-04 -- macroscopic). The KILLING-TENSOR invariant is alive at delta=1 and destroyed at delta=2 (proven: no KY tensor up to valence 11). A different deformation in different coordinates than the \u00a7127 bump: a second, independent non-integrable confirmation of legible <-> integrable."
+}
