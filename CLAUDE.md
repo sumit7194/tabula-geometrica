@@ -266,7 +266,24 @@ results in `curvature/notes/lab_notebook.md`.
   24³ voxels (nn.Conv3d, 3D rollout), batch 192→48 for 15× CPU speedup. Doubles as
   a locality probe (larger relative receptive field). MPS enabled via trilerp()
   rewrite + --device flag (3D grid_sample backward unimplemented on MPS,
-  pytorch#141287; CPU path verified byte-identical, resume-safe). Gates pending.
+  pytorch#141287; CPU path verified byte-identical, resume-safe). **GATES CLOSED on
+  CUDA (2026-06-26, VM): NULL — F1 0.041, F2_cos 0.417, F3 0.112, F4_blind 0.141. The
+  3+1 Conv3d CNN fails (F1 41× the 1e-3 gate; F2 0.417 ≪ 0.98), and F2 0.417 is far
+  worse than the 2+1 CNN's 0.937 → the locality wall WORSENS in 3D (the 3D 1/r tail
+  needs even more global reach). The FNO fix (2+1 F2→0.995) was not applied in 3D; an
+  FNO-class global operator would be needed here too (future). Honest negative, not in
+  verify.sh.**
+- **FNO GRID SWEEP CLOSED (2026-06-26, VM L4): F1 SATURATES, finer-grid hypothesis
+  REFUTED.** The vm_plan headline (A): does a finer grid drive Phase F's FNO F1 toward
+  the 1e-3 gate? NO. Modes 14/24 + grids 48/64/96 (3 seeds each): F1 stuck at ~0.015
+  (g64 0.0141–0.0144, g96 0.0163–0.0169, even slightly worse), F2_cos ~0.995 throughout.
+  F1 does NOT track resolution → the Nyquist hypothesis is false. The FNO still confirms
+  LOCALITY was the Phase-F wall (F2 0.995 vs CNN 0.937; F1 0.014 vs CNN 0.058 ~4×; P0
+  overfit 3.7e-6 on Mac — the global spectral operator carries the 1/r tail), but the
+  absolute F1 trajectory gate (1e-3) does NOT close — bounded ~0.015 (~100× the oracle
+  floor 1.2e-4) by a non-resolution factor (rollout supervision / near-mass magnitude).
+  Honest: Phase-F locality/F2 RESOLVED by the FNO, absolute trajectory gate BOUNDED not
+  closed. Results results/100_fno_law_{m14,m24,g64,g96}_s*. Not in verify.sh (GPU-only).
 - **REGRESSION GATE (2026-06-13): `./verify.sh` at SpaceTime root — curvature
   only now.** Re-runs all six curvature probe batteries against saved models
   (Phase A, v0.1, B, C, 3+1, E+curvature; thresholds = the pre-registered
