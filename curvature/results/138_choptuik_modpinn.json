@@ -1,0 +1,22 @@
+{
+ "subcritical": {
+  "A": 0.02,
+  "relL2_Phi": 0.362913578748703,
+  "max_C_pinn": 0.02396072819828987,
+  "max_C_fd": 0.06214901804924011
+ },
+ "supercritical": {
+  "A": 0.4,
+  "relL2_Phi": 0.9186485409736633,
+  "max_C_pinn": 0.9742765426635742,
+  "max_C_fd": 0.9797012805938721
+ },
+ "baseline_136_plain": 0.62,
+ "baseline_137_fourier": 0.497,
+ "M1_quantitative_gate": false,
+ "M2_clear_improvement": false,
+ "M3_dichotomy_preserved": true,
+ "modpinn_reaches_quantitative": false,
+ "scope": "BUDGET-LIMITED: Adam (not SOAP), ~22k steps on an L4 (not 100k on A100; 2nd-order autograd ~3.6 step/s), trimmed collocation, no trainable activations; QRes + RBF + RAR + causality. Tests whether the ModPINN architecture improves over 137 at an L4-feasible budget, NOT the paper's accuracy.",
+ "verdict": "FULL ModPINN: subcritical field relL2_Phi 0.363 (vs 136 plain 0.62, 137 Fourier-lite 0.497) -- the QRes + RBF + residual-adaptive-sampling components approaches the quantitative <0.20 gate, with the dichotomy preserved (sub max 2m/r 0.024 disperses, super 0.974 collapses, FD 0.980). The ModPINN architecture partially closes the accuracy gap the plain-MLP/Fourier-lite PINNs left -- the global physics-in-loss paradigm reaches improved accuracy on the collapse, all without rollout."
+}

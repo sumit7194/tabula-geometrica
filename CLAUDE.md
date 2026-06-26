@@ -909,6 +909,20 @@ results in `curvature/notes/lab_notebook.md`.
   territory, cited). So: the paradigm is demonstrated QUALITATIVELY (dichotomy + no
   spurious collapse, no rollout), not quantitatively — re-confirms structure-by-
   construction (physics-in-loss > learned rollout) honestly scoped. Not in verify.sh.
+  **ACCURACY FOLLOW-UPS (137 ModPINN-lite, 138 full ModPINN, 2026-06-27, L4):** can
+  better ARCHITECTURE close 136's field-accuracy gap? The PINN ACCURACY ARC: 136 plain
+  MLP relL2_Phi **0.62** → 137 (+Fourier features +causality) **0.497** → 138 (full
+  ModPINN: QRes blocks + 32 RBFs + residual-adaptive sampling + causality) **0.363** —
+  a clear MONOTONIC improvement (each upgrade helps; 138 beats 137 by 0.134), dichotomy
+  preserved throughout (sub C 0.024 / super 0.974). BUT all three miss the quantitative
+  <0.20 gate: 138 plateaus ~0.36 at an L4-feasible budget (~22k steps; the paper's 100k
+  on an A100 with SOAP would be ~9h here — the 2nd-order autograd runs ~3.6 step/s).
+  Honest close of the hail-mary PINN arc: the global physics-in-loss paradigm (no
+  rollout) is demonstrated AND better architecture monotonically improves accuracy —
+  the remaining wall is COMPUTE, not the paradigm. 137/138 NOT in verify.sh (GPU-only,
+  honest partials). Op-note (robust VM pattern, last night's idle-cost lesson fixed):
+  4h watchdog self-stop works (gcloud active on the VM's service account); setsid-
+  detached jobs survive Mac power-loss.
 - Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
   Phase H rows (equivalence-breaking gravity); a G-sym legibility-preserving
   variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit

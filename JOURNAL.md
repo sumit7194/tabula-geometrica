@@ -1,3 +1,25 @@
+## 2026-06-27 — Full ModPINN (138) on the L4: the architecture progressively closes the gap, still budget-limited
+
+User pick (after 137): build the paper's full ModPINN to push toward quantitative accuracy. Built 138 with the key
+ModPINN components on 136's verified EMKG physics -- QRes quadratic-residual blocks + 32 trainable Gaussian RBFs +
+polynomial embedding + residual-adaptive refinement (RAR) + temporal causality weighting. Honest scope stated up front:
+BUDGET-LIMITED -- Adam not SOAP, ~22k steps on the L4 (the 2nd-order autograd runs ~3.6 step/s; the paper's 100k epochs
+would be ~9h here), trimmed collocation. Ran on the live L4. Result:
+- **THE PINN ACCURACY ARC: 136 plain MLP 0.62 -> 137 Fourier-lite 0.497 -> 138 full ModPINN 0.363** (subcritical field
+  relL2_Phi). A clear, MONOTONIC improvement -- each architectural upgrade helps; 138 beats 137 by 0.134.
+- M1 quantitative gate (<0.20): FALSE (0.363) -- the L4 budget plateaus ~0.36, short of the <0.20 gate, which needs the
+  paper's 100k-epoch A100/SOAP run. M2 (<0.35 AND beat 137 by >0.1): the beat-137 part holds (0.134); the <0.35 line was
+  just missed (0.363) -- so a clear improvement, honestly short of my own threshold.
+- M3 dichotomy PRESERVED ✓: sub max 2m/r 0.024 disperses, super 0.974 collapses (FD 0.980). The supercritical FIELD is
+  still poorly fit (relL2 0.919) though its collapse is captured.
+Honest verdict: the global physics-in-loss PINN (the untried lever, no rollout) is demonstrated, and BETTER ARCHITECTURE
+progressively improves accuracy (0.62 -> 0.497 -> 0.363), but matching the paper's quantitative/near-critical accuracy
+needs the paper's compute (A100, 100k epochs, SOAP, full adaptive remeshing) -- not reachable on an L4 in feasible time.
+The hail-mary PINN arc (136/137/138) closes as an honest partial that re-confirms structure-by-construction: physics-in-
+loss + richer architecture monotonically helps; the wall now is COMPUTE, not the paradigm. NOT in verify.sh (GPU-only).
+Op-note: the 4h watchdog self-stop worked this time (gcloud active on the VM); the Mac power-loss did NOT kill the VM job
+(setsid-detached) -- the robust pattern held.
+
 ## 2026-06-27 — ModPINN-lite (137) ran overnight on the L4: honest PARTIAL (Fourier helps, not enough)
 
 The overnight retry-launcher caught returning L4 capacity and ran 137 (built last night as the next step on 136's

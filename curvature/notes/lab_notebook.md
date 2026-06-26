@@ -3699,3 +3699,17 @@ Fourier+causality alone insufficient on this stiff system; full paper ModPINN (Q
 A100) needed. Supercritical FIELD poorly fit (relL2 1.108) though collapse captured. NOT in verify.sh (GPU-only, partial,
 like 136). Op-note: Mac rebooted overnight -> killed the retry-launcher before it stopped the VM -> ~6.5h idle cost;
 robust pattern is a VM-side self-stop, not a Mac-side launcher.
+
+## 2026-06-27 — Full ModPINN (138) on the L4: budget-limited, the architecture progressively helps
+User pick after 137. Built the paper's key ModPINN components on 136's verified EMKG physics: QRes blocks + 32 trainable
+Gaussian RBFs + poly embedding + residual-adaptive refinement (RAR) + temporal causality. BUDGET-LIMITED (Adam not SOAP,
+~22k steps on L4; 2nd-order autograd ~3.6 step/s -> the paper's 100k would be ~9h; trimmed collocation NB 56). Result:
+PINN ACCURACY ARC 136 plain 0.62 -> 137 Fourier 0.497 -> 138 ModPINN 0.363 (subcritical relL2_Phi), monotonic
+improvement, 138 beats 137 by 0.134. M1 (<0.20) FALSE (0.363, plateaus ~0.36 at the L4 budget); M2 (<0.35 & beat 137 by
+>0.1) -- the beat holds (0.134), the <0.35 line just missed (0.363); M3 dichotomy ✓ (sub C 0.024 disperses, super 0.974
+collapses, FD 0.980; supercritical field poorly fit relL2 0.919 but collapse captured). Honest: the global physics-in-
+loss PINN (no rollout) is demonstrated + better architecture monotonically improves accuracy, but the paper's
+quantitative/near-critical accuracy needs the paper's compute (A100/100k/SOAP) -- the wall is COMPUTE not the paradigm.
+Hail-mary PINN arc (136/137/138) closes as an honest partial re-confirming structure-by-construction. NOT in verify.sh
+(GPU-only). Op-note: the 4h watchdog self-stop worked (gcloud active on VM); setsid-detached job survived the Mac
+power-loss -- the robust VM pattern held (last night's idle-cost lesson fixed).
