@@ -1,0 +1,50 @@
+{
+ "chi": 0.5,
+ "q_kerr": 0.0,
+ "q_mn": 0.5,
+ "M": 1.0,
+ "E": 0.95,
+ "L": 3.0,
+ "precision_floor": 1e-08,
+ "V0_asymptotic_flatness_kerr": {
+  "gtt_plus_1": 2.309403743572247e-06,
+  "gtphi": 1.5395989399184375e-18
+ },
+ "V0_asymptotic_flatness_mn": {
+  "gtt_plus_1": 2.309403743572247e-06,
+  "gtphi": 1.5395989399184375e-18
+ },
+ "V0_pass": true,
+ "kerr_q0": {
+  "n_train": 338,
+  "n_test": 321,
+  "engine_heldout": 3.356612708924226e-17,
+  "cosine_to_carter": 0.9999999999999999,
+  "carter_drift": 3.3655044396746165e-17,
+  "flatness": {
+   "gtt_plus_1": 2.309403743572247e-06,
+   "gtphi": 1.5395989399184375e-18
+  },
+  "legible": true
+ },
+ "mn_q_moderate": {
+  "n_train": 164,
+  "n_test": 145,
+  "engine_heldout": 0.6028971273658847,
+  "cosine_to_carter": 0.6523743497273533,
+  "carter_drift": 0.6917699406141042,
+  "flatness": {
+   "gtt_plus_1": 2.309403743572247e-06,
+   "gtphi": 1.5395989399184375e-18
+  },
+  "legible": false
+ },
+ "ratio_heldout_mn_over_kerr": 1.796147424941055e+16,
+ "ratio_carterdrift_mn_over_kerr": 2.055471781463362e+16,
+ "M1_kerr_emit": true,
+ "M2_mn_certify": true,
+ "M3_legible_iff_integrable": true,
+ "mn_legibility_tracks_integrability": true,
+ "for_bridge": "extends leg Q's legible<->KY-integrable correlation to an 8th metric and a THIRD independent non-integrable class (Manko-Novikov = rotating quadrupole; joins the \u00a7127 axisymmetric bump and the \u00a7132 static gamma-metric). Append: MN(q=0)=legible+integrable(==Kerr), MN(q=0.5)=illegible+non-integrable. Built independently from Gair-Li-Mandel 0708.0628 (not imported from ansatz) -> an independent cross-check of ansatz \u00a799's no-Carter-for-q!=0 result.",
+ "verdict": "MANKO-NOVIKOV: legibility tracks integrability (extends A10/leg Q to a 3rd non-integrable class). The \u00a7127/\u00a7132 emit-or-certify instrument on MN geodesics EMITS a held-out-exact quadratic invariant at q=0 (== Kerr: held-out 3e-17, Carter drift 3e-17, cosine to Carter 1.000) and CERTIFIES no exact invariant at q=0.5 (held-out 6e-01 = 2e+16x the Kerr floor, Carter drift 7e-01 = 2e+16x). The Killing-tensor (Carter) invariant is alive at q=0 and destroyed by the rotating quadrupole at q!=0 -- exactly ansatz \u00a799's no-quadratic-Carter result, reproduced from an INDEPENDENT build (Gair-Li-Mandel 0708.0628). Asymptotic flatness + the Kerr-Carter control validate the metric."
+}

@@ -1,3 +1,20 @@
+## 2026-06-27 — Bridge help: Manko-Novikov legibility — an 8th metric, a 3rd non-integrable class (script 144)
+
+TheBridge (relayed by the user) asked to add the Manko-Novikov metric (rotating bumpy-Kerr, Geroch-Hansen quadrupole) to
+leg Q's legible<->KY-integrable correlation — a THIRD independent non-integrable class after the §127 bump and §132
+gamma-metric. Built INDEPENDENTLY in tabula from the published Gair-Li-Mandel subclass (web-verified arXiv:0708.0628,
+eqs 3a-3l) rather than importing ansatz's symbolic version — so agreement is an independent cross-check of ansatz §99
+(no quadratic Carter for q!=0), not shared code. Research-first: pulled the explicit f, w, gamma, A, B, C, psi, a, b
+functions via ar5iv (two consistent extractions); derived the stationary inverse metric (the g_tphi cross-term, unlike
+static ZV); fixed the one transcription ambiguity (the "-2" in gamma') by requiring asymptotic flatness.
+Result (3/3 + V0, decisive): V0 asymptotic flatness passes (|g^tt+1|=2.3e-6 = physical 2M/r tail, deformation vanishes
+at infinity); q=0 (Kerr control) EMITS a held-out-EXACT quadratic invariant (3.4e-17) at **cosine 1.000 to the Kerr
+Carter constant** Q=(1-y^2)p_y^2+a^2(1-E^2)y^2+L^2 y^2/(1-y^2) — validating the whole build at the strongest level;
+q=0.5 (MN) CERTIFIES (engine best 0.60 = 2e16x the Kerr floor, Carter drift 0.69 = 2e16x) — the rotating quadrupole
+destroys the Killing-tensor invariant. legible(q=0)=True, legible(q=0.5)=False. So leg Q's legible<->integrable now holds
+across 8 metrics and 3 independent non-integrable deformation classes. Deliverable appended to notes/A10_for_bridge.md
+(bridge reads read-only); honest caveat recorded (gamma' beta-correction transcription, robust to it). In verify.sh.
+
 ## 2026-06-27 — ② EXP-3: the frontier table COMPLETE — one diagnostic, five verdicts (script 143 + writeup)
 
 Closed the first arc of ②: the 5th verdict (PARTIAL-LEGIBLE) + the UNIFIED diagnostic. Script 143 routes by data type

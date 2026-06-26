@@ -108,6 +108,10 @@ BATTERIES = [
       "F4_one_diagnostic_all_three": (">", 0.5)}),    ("Certify-contextual verdict (frontier EXP-2)", ["scripts/142_contextual_certificate.py"],
      "142_contextual_certificate.json",
      {"C1_emit_classical": (">", 0.5), "C2_certify_contextual": (">", 0.5), "C3_locates_the_wall": (">", 0.5)}),
+    ("Manko-Novikov legibility (for TheBridge, A10 ext)", ["scripts/144_manko_novikov.py"],
+     "144_manko_novikov.json",
+     {"M1_kerr_emit": (">", 0.5), "M2_mn_certify": (">", 0.5), "M3_legible_iff_integrable": (">", 0.5),
+      "V0_pass": (">", 0.5)}),
 ]
 
 
