@@ -108,3 +108,21 @@ black-hole GEOMETRY (Phase BH 60/63/64/65); info-return/Page curve (112).
 3. **Fisher/natural-gradient = GR metric** (II-E) — cleanest, cheapest ML↔GR bridge; high insight/effort ratio.
 4. **2D Chern** (I-A) — quick, caps the topology cluster.
 5. **Consolidation writeup** (II-F) — overdue; turns the pile into something shareable.
+
+---
+
+## ★ BIG-SWING DIRECTION (user-approved 2026-06-27, queued for LATER — after the SAE-legibility probe): THE REPRESENTABILITY FRONTIER
+
+A future arc to unify the project's scattered LIMITS-of-discovery into one coherent theory of "what a net can / cannot
+extract from observation, and why." The negative-space results are currently spread across ~15 scripts:
+- Impossibility certificates: Bell / no-local-code (84), chaos / no-invariant (85), gauge / no-unique-law (86),
+  KCBS / contextuality (87), Page-Wootters / no-observer-independent-time (101).
+- The dynamic-legibility ceiling: Wong rotating charge tracked nonlinearly, not linearly (106/135 — clean negative).
+- The no-fixed-reference walls: time (Cert V 101), frame (dS anchor 111).
+- The spinor double-cover / sign-unobservable certificate (98 symbolic + 114 net).
+- The legibility law itself (amortize→legible; free→scramble) is the POSITIVE side of the same coin.
+
+GOAL: a single "DISCOVERY DIAGNOSTIC" that, given a system, PREDICTS whether a net can extract its law (integrable /
+legible / emit) or provably cannot (chaotic / gauge / contextual / certify) — a theory of the discoverable that turns
+the scattered negatives + the legibility law into one framework. The emit-or-certify engine (93/127) is the seed of the
+predictor. Likely the project's most reframing single result. Tackle after the SAE-legibility probe lands.
