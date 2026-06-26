@@ -1,3 +1,24 @@
+## 2026-06-27 — ModPINN-lite (137) ran overnight on the L4: honest PARTIAL (Fourier helps, not enough)
+
+The overnight retry-launcher caught returning L4 capacity and ran 137 (built last night as the next step on 136's
+global Choptuik PINN). Result (results/137_choptuik_pinn_v2.json, finished 06:35):
+- Q1 FIELD ACCURACY: subcritical relL2_Phi 0.62 (136 plain MLP) -> **0.497** with Fourier features + temporal causality
+  weighting. A real ~20% improvement, and it BEATS the no-Fourier ablation (0.555, Q3 ✓ -- the gain is the Fourier
+  embedding, not just training). BUT it does NOT reach the pre-registered <0.30 quantitative gate -> Q1 FALSE.
+- Q2 DICHOTOMY PRESERVED ✓: subcritical max 2m/r 0.024 (disperses), supercritical 0.978 (collapses, matches FD 0.980).
+- Honest verdict: Fourier+causality MOVE the global PINN toward quantitative accuracy but are NOT sufficient on this
+  stiff system; the full paper ModPINN (QRes layers + RBF dictionary + adaptive remeshing + SOAP + 100k epochs + A100)
+  is needed for the <0.30 / near-critical accuracy. The supercritical FIELD is still poorly fit (relL2 1.108) even
+  though its COLLAPSE (max C) is captured -- so the dichotomy is robust but the supercritical field is not.
+NOT in verify.sh (GPU-only PINN, honest partial -- like 136). Logged honestly: a modest improvement that confirms the
+DIRECTION (Fourier helps the oscillatory field) but falls short of the bar.
+
+OPERATIONAL NOTE (honest): the retry-launcher started the VM when capacity returned and ran 137, but the Mac REBOOTED
+overnight (uptime 4 min on wake), killing the launcher's caffeinate'd process before it could stop the VM -> the VM ran
+IDLE from ~06:35 to ~13:07 (~6.5h wasted GPU cost). Lesson: a Mac-side launcher can't survive a reboot; a VM-side
+self-stop (e.g. the job ends with `gcloud instances stop` from the VM's own service account, or a startup-script
+watchdog) is the robust pattern. Flagged to the user on wake.
+
 ## 2026-06-26 — VM build E: Wong v4 (fuller observability) — CLEAN NEGATIVE (observability does NOT resolve the ceiling)
 
 vm_plan E. Wong v3 (106): a structure-preserving orthogonal-SO(3) charge update conserves |Q| exactly and ~doubles the

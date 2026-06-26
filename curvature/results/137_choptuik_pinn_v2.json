@@ -1,0 +1,26 @@
+{
+ "fourier_subcritical": {
+  "A": 0.02,
+  "relL2_Phi": 0.49747204780578613,
+  "max_C_pinn": 0.023747757077217102,
+  "max_C_fd": 0.06214901804924011
+ },
+ "fourier_supercritical": {
+  "A": 0.4,
+  "relL2_Phi": 1.1081589460372925,
+  "max_C_pinn": 0.9778455495834351,
+  "max_C_fd": 0.9797012805938721
+ },
+ "plain_ablation_subcritical": {
+  "A": 0.02,
+  "relL2_Phi": 0.5553310513496399,
+  "max_C_pinn": 0.02399488538503647,
+  "max_C_fd": 0.06214901804924011
+ },
+ "baseline_136_relL2_Phi": 0.62,
+ "Q1_field_accuracy_improves": false,
+ "Q2_dichotomy_preserved": true,
+ "Q3_fourier_ablation": true,
+ "modpinn_lite_improves": false,
+ "verdict": "PARTIAL/HONEST -- Fourier+causality alone did not reach <0.30 (see numbers); the full ModPINN (QRes/RBF/adaptive-sampling) is needed for quantitative accuracy on this stiff system."
+}

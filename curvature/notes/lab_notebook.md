@@ -3689,3 +3689,13 @@ rollout) reproduces the disperse/collapse criticality QUALITATIVELY where the ro
 a quantitative solver (ModPINN territory -- QRes/embeddings/causality/adaptive-sampling/100k-epochs/A100, cited). Honest:
 re-confirms structure-by-construction (physics-in-loss > learned rollout for this stiff system), qualitatively. Not in
 verify.sh (GPU + honest partial).
+
+## 2026-06-27 — ModPINN-lite (137) overnight result: honest PARTIAL
+137 (built last night, ran overnight when the L4 freed): adds Fourier features (raw+FF, sigma_ff=3) + temporal
+causality weighting to 136's plain-MLP global Choptuik PINN. Subcritical relL2_Phi 0.62 -> 0.497 (real ~20% gain, beats
+no-Fourier ablation 0.555 -> Q3 ablation confirms the Fourier embedding is the cause), dichotomy preserved (sub max C
+0.024 disperses, super 0.978 collapses, matches FD). But did NOT reach the <0.30 quantitative gate (Q1 False) ->
+Fourier+causality alone insufficient on this stiff system; full paper ModPINN (QRes/RBF/adaptive-remeshing/SOAP/100k/
+A100) needed. Supercritical FIELD poorly fit (relL2 1.108) though collapse captured. NOT in verify.sh (GPU-only, partial,
+like 136). Op-note: Mac rebooted overnight -> killed the retry-launcher before it stopped the VM -> ~6.5h idle cost;
+robust pattern is a VM-side self-stop, not a Mac-side launcher.
