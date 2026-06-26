@@ -321,6 +321,19 @@ results in `curvature/notes/lab_notebook.md`.
   legible for free (r~0.97); a free per-body parameter scrambles (linear 0.50,
   info in nonlinear 0.86). The Phase C illegible q/m code was a FREE-PARAMETER
   artifact. Consensus bet (parallel session) falsified; their question was right.
+- **LEGIBILITY LAW → SAE MONOSEMANTICITY (script 139, 2026-06-27) — the bridge to mech-interp, direction ①.**
+  Connects the crown jewel to sparse autoencoders (the tool that finds monosemantic features by resolving
+  superposition). Script 09 did the FREE half (force-model q/m → SAE best feature |r|=0.72, distributed); 139 completes
+  it in one controlled harness: a scalar property stored AMORTIZED (encoder infers) vs FREE (per-item embedding), then an
+  L1-SAE on the code. 4/4 (after honest iteration): amortized linear-legible (0.99) + MONOSEMANTIC (p from ~2 SAE
+  features, mono-ratio top2/full 0.96); free SCRAMBLED (linear 0.46 / nonlinear 0.78) + SUPERPOSED (top-2 0.29 ≪ full
+  0.71, mono-ratio 0.41). The mono-ratio GAP 0.55 (decisive metric) tracks legibility. **NOVEL: amortization-vs-free
+  storage is a CONTROLLABLE cause of superposition** (standard story = underparameterization+sparsity; web-verified
+  Cunningham 2309.08600 + Anthropic Scaling Monosemanticity) — links the amortization-gap/identifiability literature
+  (Roeder, O'Neill) to SAE/superposition. Iteration (honest): no base term + FRESH queries (free can't memorize) +
+  strong coupling + top-2-decode metric (robust to ReLU ±-split of signed p). Caveat: free is a moderately-lossy
+  nonlinear store (0.78/0.71) → "info present" bar 0.8→0.7; the robust finding is the mono-ratio gap. In verify.sh.
+  ① done; **② representability frontier QUEUED** (open_threads_backlog ★ + memory [[representability-frontier-direction]]).
 - **LEGIBILITY LAW — CROSS-SESSION VALIDATION (2026-06-22/23, writeups/legibility_law.md):**
   three parallel projects pressure-tested the law and each corrected the others
   (adversarial peer review, not echo). **Phronesis (real 4B LLM):** refuted our

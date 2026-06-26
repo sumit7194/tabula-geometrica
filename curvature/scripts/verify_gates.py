@@ -96,6 +96,9 @@ BATTERIES = [
      "132_zv_gamma_metric.json",
      {"Z1_integrable_emit": (">", 0.5), "Z2_nonintegrable_certify": (">", 0.5),
       "Z3_legible_iff_integrable": (">", 0.5)}),
+    ("Legibility predicts SAE monosemanticity", ["scripts/139_sae_legibility.py"], "139_sae_legibility.json",
+     {"L1_replicates_legibility_law": (">", 0.5), "S1_amortized_monosemantic": (">", 0.5),
+      "S2_free_superposed": (">", 0.5), "S3_legibility_predicts_monosemanticity": (">", 0.5)}),
 ]
 
 

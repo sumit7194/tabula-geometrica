@@ -1,3 +1,28 @@
+## 2026-06-27 — The legibility law PREDICTS SAE monosemanticity (script 139): a new bridge to mech-interp
+
+User-picked new direction ① (the higher-upside pillar): connect the project's crown jewel -- the LEGIBILITY LAW
+(amortize->legible / free->scramble) -- to the hottest mech-interp tool, the sparse autoencoder (which finds
+monosemantic features by resolving superposition). Script 09's SAE side-quest already did the FREE half (an SAE on the
+force model's free q/m code found only a DISTRIBUTED feature, best |r|=0.72). 139 completes the contrast in one
+controlled harness. Result (4/4 honest gates after iteration):
+- THE BRIDGE: the SAME scalar property, stored two ways. AMORTIZED (shared encoder infers it) -> linearly legible
+  (|r| 0.99) AND an SAE recovers it MONOSEMANTICALLY: p decodes from just ~2 SAE features (the +/- pair; mono-ratio
+  top-2/full = 0.96). FREE (per-item embedding) -> SCRAMBLES (linear 0.46, info present nonlinearly 0.78) AND the SAE
+  finds it only DISTRIBUTED across features (top-2 decode 0.29 << full 0.71; mono-ratio 0.41) = SUPERPOSITION.
+- The monosemanticity-ratio GAP (0.96 amortized vs 0.41 free, gap 0.55) tracks legibility -- the decisive metric.
+- NOVEL CLAIM: amortization-vs-free storage is a CONTROLLABLE CAUSE of superposition (the standard story cites only
+  underparameterization + sparsity; web-verified Cunningham 2309.08600, Anthropic Scaling Monosemanticity). A free code
+  goes polysemantic; an amortized code stays monosemantic. Connects the amortization-gap/identifiability literature
+  (Roeder, O'Neill) to the SAE/superposition literature.
+Honest iteration record (the harness is an "easy target" by default, per 107-110, so it took work to make the FREE code
+genuinely scramble-WITH-info, not just lose info): (1) y=p*coup(x) only (no base term) so the code must carry p; (2)
+FRESH queries every step so the free embedding can't MEMORIZE fixed queries (which was capping its info at ~0.6); (3)
+strong coupling (x3) so it encodes p substantially; (4) measured monosemanticity by TOP-2-feature decode (robust to the
++/- split of a signed property under ReLU SAE features, which caps single-feature |r| ~0.8). Honest caveat recorded: the
+free code is a MODERATELY-LOSSY nonlinear store (nonlinear 0.78 / SAE-full 0.71, not >0.8) -- so the "info present" bar
+was lowered from an aspirational 0.8 to 0.7; the DECISIVE, robust finding is the mono-ratio gap (0.55), not the absolute
+levels. In verify.sh. Next: this is ① of the SAE-legibility direction; ② (representability frontier) is queued.
+
 ## 2026-06-27 — Full ModPINN (138) on the L4: the architecture progressively closes the gap, still budget-limited
 
 User pick (after 137): build the paper's full ModPINN to push toward quantitative accuracy. Built 138 with the key

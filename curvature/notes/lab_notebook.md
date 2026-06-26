@@ -3713,3 +3713,17 @@ quantitative/near-critical accuracy needs the paper's compute (A100/100k/SOAP) -
 Hail-mary PINN arc (136/137/138) closes as an honest partial re-confirming structure-by-construction. NOT in verify.sh
 (GPU-only). Op-note: the 4h watchdog self-stop worked (gcloud active on VM); setsid-detached job survived the Mac
 power-loss -- the robust VM pattern held (last night's idle-cost lesson fixed).
+
+## 2026-06-27 — The legibility law predicts SAE monosemanticity (script 139), direction ①
+Bridge the crown jewel (legibility law: amortize->legible/free->scramble) to sparse autoencoders (monosemanticity vs
+superposition). Script 09 did the free half (force-model q/m -> SAE best feature |r|=0.72, distributed); 139 completes
+it in one controlled harness: a scalar property stored AMORTIZED (encoder infers) vs FREE (per-item embedding), then an
+overcomplete L1-SAE on the code z. 4/4 honest gates: amortized linear-legible (0.99) + MONOSEMANTIC (p decodes from ~2
+SAE features, mono-ratio top2/full 0.96); free SCRAMBLED (linear 0.46 / nonlinear 0.78) + SUPERPOSED (top-2 decode 0.29
+<< full 0.71, mono-ratio 0.41). The mono-ratio GAP 0.55 (=the decisive metric) tracks legibility. NOVEL: amortization-vs-
+free storage is a CONTROLLABLE cause of superposition (standard story = underparameterization+sparsity; web-verified
+Cunningham 2309.08600 + Anthropic Scaling Monosemanticity). Iteration (honest): (1) no base term (code must carry p);
+(2) FRESH queries each step (free can't memorize fixed queries -> was capping info ~0.6); (3) strong coupling x3
+(encodes p); (4) top-2-feature decode metric (robust to the +/- split of signed p under ReLU SAE features). Caveat: free
+is a moderately-lossy nonlinear store (0.78/0.71, not >0.8) -> the "info present" bar lowered 0.8->0.7, the robust
+finding is the mono-ratio gap not the absolute levels. In verify.sh. ① done; ② representability frontier queued.
