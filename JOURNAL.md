@@ -1,3 +1,22 @@
+## 2026-06-27 — ② STARTED: the representability frontier — discoverability trichotomy, one diagnostic (script 141)
+
+User: "sharpen [①] then start [②]." Started ② (the representability frontier -- a theory of the discoverable). Wrote
+the framework doc (notes/representability_frontier.md): the project's scattered limits-of-discovery are different ways
+"the cheapest legible code" fails to exist or be unique -- a 5-cell taxonomy (EMIT / CERTIFY-CHAOS / CERTIFY-GAUGE /
+CERTIFY-CONTEXTUAL / PARTIAL-LEGIBLE) under one lens, to become a predictive DISCOVERABILITY DIAGNOSTIC. EXP-1 (141)
+proves ONE diagnostic already separates THREE verdicts on a controlled distance-geometry menu (reusing the dS-anchor 111
+substrate -- pairwise distances), 4/4 clean first attempt:
+- EMIT (2D config + anchor): 2D stress 0.000 (a cheap code exists) AND raw frame error 0.000 (UNIQUE).
+- CERTIFY-GAUGE (same 2D config, relational/no-anchor): stress 0.000 + shape recovered (aligned 0.000) BUT raw frame
+  error 1.417 (the absolute frame is a GAUGE; non-unique) -- the 111 result, now a named verdict.
+- CERTIFY-NO-CODE (6D config): 2D stress 1.293 (does NOT embed in 2D) -- no cheap low-D code, the geometric analog of
+  "no conserved invariant" (chaos).
+The single verdict function (read the residual STRESS -> does a cheap code exist; if so, read the RAW frame error -> is
+it unique or a gauge) classifies all three correctly. So beyond integrable-vs-chaotic, ONE instrument already names the
+GAUGE failure -- the seed of the full frontier table. Honest scope (stated up front): this is the trajectory/geometry
+subset; the CONTEXTUAL (Bell/KCBS) + PARTIAL-LEGIBLE (legibility law) rows are EXP-2/3 (roadmap in the framework doc). In
+verify.sh. ② is now started; the arc continues with EXP-2 (fold in the contextual classical-bound test).
+
 ## 2026-06-27 — SHARPEN the SAE-legibility bridge: it transfers to a REAL trained activation (script 140)
 
 User: "sharpen then start [②]." The sharpening of 139: move from the toy CODE z to a REAL TRAINED, POLYSEMANTIC

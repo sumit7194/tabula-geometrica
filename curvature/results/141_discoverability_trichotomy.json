@@ -1,0 +1,32 @@
+{
+ "menu": {
+  "EMIT": {
+   "verdict": "EMIT",
+   "correct": true,
+   "nstress": 7.522039196201417e-10,
+   "raw": 1.8284964653503266e-09,
+   "aligned": 5.905556932361833e-08
+  },
+  "CERTIFY-GAUGE": {
+   "verdict": "CERTIFY-GAUGE",
+   "correct": true,
+   "nstress": 1.2667920899704344e-07,
+   "raw": 1.4174225330352783,
+   "aligned": 1.4882299126384169e-07
+  },
+  "CERTIFY-NO-CODE": {
+   "verdict": "CERTIFY-NO-CODE",
+   "correct": true,
+   "nstress": 1.2929837064681518,
+   "raw": null,
+   "aligned": null
+  }
+ },
+ "STRESS_THRESH": 0.12,
+ "RAW_THRESH": 0.15,
+ "F1_emit": true,
+ "F2_certify_gauge": true,
+ "F3_certify_no_code": true,
+ "F4_one_diagnostic_all_three": true,
+ "verdict": "DISCOVERABILITY TRICHOTOMY (representability frontier EXP-1): ONE diagnostic, run on pairwise distances, separates THREE discovery verdicts. EMIT -- a 2-D config WITH an anchor reconstructs to a UNIQUE frame (stress 0.000 low, raw 0.000 low). CERTIFY-GAUGE -- the SAME 2-D config WITHOUT an anchor recovers the SHAPE (aligned 0.000 low) but the absolute frame is a GAUGE (raw 1.417 high). CERTIFY-NO-CODE -- a 6-D config does NOT embed in 2-D at all (stress 1.293 high), the geometric analog of 'no conserved invariant'. So beyond integrable-vs-chaotic, ONE instrument already names the GAUGE failure -- the seed of the full frontier table (contextual + partial-legible = EXP-2/3)."
+}

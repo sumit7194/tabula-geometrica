@@ -102,6 +102,10 @@ BATTERIES = [
     ("SAE-legibility in a real activation (sharpen)", ["scripts/140_sae_activations.py"], "140_sae_activations.json",
      {"A1_legibility": (">", 0.5), "A2_amortized_localizable_in_activation": (">", 0.5),
       "A3_localizability_contrast": (">", 0.5)}),
+    ("Discoverability trichotomy (frontier EXP-1)", ["scripts/141_discoverability_trichotomy.py"],
+     "141_discoverability_trichotomy.json",
+     {"F1_emit": (">", 0.5), "F2_certify_gauge": (">", 0.5), "F3_certify_no_code": (">", 0.5),
+      "F4_one_diagnostic_all_three": (">", 0.5)}),
 ]
 
 
