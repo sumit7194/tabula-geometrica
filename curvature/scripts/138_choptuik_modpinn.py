@@ -10,8 +10,10 @@ This builds the ModPINN's KEY components on the SAME verified physics (136's EMK
   (3) Residual-adaptive sampling (RAR) -- periodically concentrate collocation on the highest-residual regions (the
       paper's adaptive remeshing), where the stiff near-mass / near-horizon physics lives.
   (4) Temporal causality weighting (kept from 137).
-HONEST SCOPE: Adam (not the paper's SOAP), ~60k steps on an L4 (not 100k on an A100), no trainable activations. The test
-is whether the ModPINN ARCHITECTURE + adaptive sampling close most of the gap 137 left, NOT byte-for-byte the paper.
+HONEST SCOPE: Adam (not the paper's SOAP), ~22k steps on an L4 (the 2nd-order autograd runs ~3.6 step/s; the paper's
+100k epochs on an A100 would be ~9h here -- infeasible), trimmed collocation, no trainable activations. So this is a
+BUDGET-LIMITED ModPINN: the test is whether the ModPINN ARCHITECTURE + adaptive sampling improve over 137's Fourier-lite
+AT AN L4-FEASIBLE BUDGET, NOT whether it matches the paper's near-critical accuracy (which needs the paper's compute).
 
 Pre-reg (2026-06-27):
   M1 QUANTITATIVE GATE: subcritical relL2_Phi < 0.20 (the gate 136/137 missed at 0.62/0.497) -- the ModPINN reaches
@@ -44,7 +46,7 @@ fd_reference, residuals = p136.fd_reference, p136.residuals
 R_MIN, R_MAX, T_END, N_R, N_T = p136.R_MIN, p136.R_MAX, p136.T_END, p136.N_R, p136.N_T
 
 DEVICE = sys.argv[sys.argv.index("--device") + 1] if "--device" in sys.argv else "cpu"
-STEPS = 60000
+STEPS = 22000                                                     # L4-feasible (~3.6 step/s w/ 2nd-order autograd); NOT the paper's 100k
 M_RBF = 32
 
 
@@ -100,7 +102,7 @@ def solve(A, qres=True, rbf=True, seed=0):
     t_bc = tG; rL = torch.full_like(tG, R_MIN); rR = torch.full_like(tG, R_MAX); yL = Gt[:, 0, :]; yR = Gt[:, -1, :]
     m = ModPINN(qres=qres, rbf=rbf).to(dev); opt = torch.optim.Adam(m.parameters(), lr=1.2e-3)
     sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, STEPS, eta_min=1.5e-4)
-    NT_C, NB = 32, 96                                             # causality time bins x points-per-bin
+    NT_C, NB = 32, 56                                             # causality time bins x points-per-bin (trimmed for L4 speed)
     eps_c = 30.0
     extra = None                                                  # RAR high-residual pool
     tag = f"138_modpinn_{'full' if (qres and rbf) else 'abl'}_A{A}"
@@ -115,7 +117,7 @@ def solve(A, qres=True, rbf=True, seed=0):
                 tcand = torch.rand(8000, device=dev) * T_END; rcand = R_MIN + torch.rand(8000, device=dev) * (R_MAX - R_MIN)
             Rp, Rq, Ra, Rl = residuals(m, tcand, rcand)
             score = (Rp ** 2 + Rq ** 2 + Ra ** 2 + Rl ** 2).detach()
-            top = torch.topk(score, 512).indices
+            top = torch.topk(score, 256).indices
             extra = (tcand[top].detach(), rcand[top].detach())
         if extra is not None:
             jt = (extra[0] + 0.2 * torch.randn_like(extra[0])).clamp(0, T_END)
@@ -159,8 +161,9 @@ def main():
            "baseline_136_plain": 0.62, "baseline_137_fourier": 0.497,
            "M1_quantitative_gate": m1, "M2_clear_improvement": m2, "M3_dichotomy_preserved": m3,
            "modpinn_reaches_quantitative": bool(m1 and m3),
-           "scope": ("Adam (not SOAP), ~60k steps on an L4 (not 100k on A100), no trainable activations; QRes + RBF + "
-                     "RAR + causality. Architecture demonstration, not byte-for-byte arXiv:2511.15247."),
+           "scope": ("BUDGET-LIMITED: Adam (not SOAP), ~22k steps on an L4 (not 100k on A100; 2nd-order autograd ~3.6 "
+                     "step/s), trimmed collocation, no trainable activations; QRes + RBF + RAR + causality. Tests whether "
+                     "the ModPINN architecture improves over 137 at an L4-feasible budget, NOT the paper's accuracy."),
            "verdict": ("FULL ModPINN: subcritical field relL2_Phi {:.3f} (vs 136 plain 0.62, 137 Fourier-lite 0.497) -- "
                        "the QRes + RBF + residual-adaptive-sampling components {} the quantitative <0.20 gate, with the "
                        "dichotomy preserved (sub max 2m/r {:.3f} disperses, super {:.3f} collapses, FD {:.3f}). The "
