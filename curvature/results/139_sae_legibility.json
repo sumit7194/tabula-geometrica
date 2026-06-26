@@ -1,0 +1,28 @@
+{
+ "amortized": {
+  "linear_legibility": 0.9858994473826217,
+  "best_feature_r": 0.7864167778201905,
+  "top2_decode": 0.9514945281985119,
+  "full_feature_decode": 0.9937414596965142,
+  "sae_l0": 28.83,
+  "n_alive": 125
+ },
+ "free": {
+  "linear_legibility": 0.46068030890459943,
+  "nonlinear_decode": 0.7812298328311492,
+  "best_feature_r": 0.2305561955512155,
+  "top2_decode": 0.2882518586666531,
+  "full_feature_decode": 0.7091083350980916,
+  "sae_l0": 41.092,
+  "n_alive": 102
+ },
+ "monosemanticity_ratio_amortized": 0.957486998209382,
+ "monosemanticity_ratio_free": 0.40649904110953644,
+ "baseline_09_free_qm_sae_best_r": 0.72,
+ "L1_replicates_legibility_law": true,
+ "S1_amortized_monosemantic": true,
+ "S2_free_superposed": true,
+ "S3_legibility_predicts_monosemanticity": true,
+ "legibility_predicts_sae_interpretability": true,
+ "verdict": "THE LEGIBILITY LAW PREDICTS SAE MONOSEMANTICITY (a new bridge to mech-interp). The SAME scalar property, stored two ways: the AMORTIZED code (a shared encoder infers it) is linearly legible (|r| 0.99) AND an SAE recovers it MONOSEMANTICALLY -- p decodes from just ~2 features (top-2 decode 0.95, the +/- pair). The FREE per-item code SCRAMBLES (linear |r| 0.46, info present nonlinearly 0.78) AND the SAE finds it only DISTRIBUTED -- top-2 features decode just 0.29 while the FULL feature set gives 0.71 (SUPERPOSITION). So amortization vs free storage is a CONTROLLABLE cause of superposition: a free code goes polysemantic, an amortized code stays monosemantic. Connects the legibility law to the SAE/superposition literature, completing script 09's free-code half (best single feature |r| 0.72)."
+}
