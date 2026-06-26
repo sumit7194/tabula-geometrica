@@ -42,8 +42,10 @@ on demand.
   / chaos). So beyond integrable-vs-chaotic, one instrument names the GAUGE failure. (The trajectory/emit-or-certify
   version of CHAOS proper — Lorenz held-out drift — folds into the same diagnostic in the synthesis; NO-CODE is its
   distance-geometry analog here.)
-- **EXP-2: add CERTIFY-CONTEXTUAL.** Fold the Bell/KCBS classical-bound test (84/87) into the diagnostic (different
-  observation structure: correlation tables, not trajectories) — the instrument routes by data type.
+- **EXP-2 (DONE 2026-06-27, script 142, 3/3): CERTIFY-CONTEXTUAL.** On correlation-table data: fit the cheapest
+  local hidden-variable code (simplex over the 16 deterministic strategies = the local polytope) + read CHSH. Classical
+  table -> EMIT-CLASSICAL (fits, CHSH 0.70); singlet -> CERTIFY-CONTEXTUAL (can't fit, CHSH 2.83>2 = Bell certificate);
+  and a Werner sweep LOCATES the wall (verdict flips at v=0.725 ~ 1/sqrt2). 4/5 verdicts now instrumented.
 - **EXP-3: add PARTIAL-LEGIBLE + synthesize.** The legibility-law linear-vs-nonlinear gap (139) as the 5th verdict;
   then a `writeups/representability_frontier.md` that states the full table as one result.
 

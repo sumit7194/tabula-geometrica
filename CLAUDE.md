@@ -340,7 +340,10 @@ results in `curvature/notes/lab_notebook.md`.
   on a distance-geometry menu (reuses dS-anchor 111) names THREE verdicts — EMIT (2D config + anchor: stress 0, raw 0,
   unique) / CERTIFY-GAUGE (relational: shape recovers, raw frame 1.42 = gauge) / CERTIFY-NO-CODE (6D config: stress 1.29,
   no cheap 2D code). Read STRESS (cheap code exists?) then RAW frame error (unique or gauge?). In verify.sh. Roadmap:
-  EXP-2 add CERTIFY-CONTEXTUAL (Bell/KCBS 84/87), EXP-3 add PARTIAL-LEGIBLE (legibility law) + a synthesis writeup.
+  **EXP-2 (142, 3/3):** CERTIFY-CONTEXTUAL on correlation-table data — fit the cheapest local-hidden-variable code
+  (simplex over the 16 deterministic strategies = local polytope) + read CHSH; classical→EMIT-CLASSICAL, singlet→
+  CERTIFY-CONTEXTUAL (CHSH 2.83>2 = Bell), and a Werner sweep LOCATES the wall at v=0.725~1/√2. 4/5 verdicts done.
+  EXP-3 = add PARTIAL-LEGIBLE (legibility law) + a synthesis writeup (the full 5-cell table).
 - **LEGIBILITY LAW — CROSS-SESSION VALIDATION (2026-06-22/23, writeups/legibility_law.md):**
   three parallel projects pressure-tested the law and each corrected the others
   (adversarial peer review, not echo). **Phronesis (real 4B LLM):** refuted our

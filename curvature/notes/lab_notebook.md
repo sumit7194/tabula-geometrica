@@ -3747,3 +3747,11 @@ stress 1.293, doesn't embed in 2D = no cheap low-D code, the geometric analog of
 residual STRESS (cheap code exists?), then RAW frame error (unique or gauge?). So beyond integrable-vs-chaotic, ONE
 instrument names the GAUGE failure -- the seed of the frontier table. Scope: trajectory/geometry subset; CONTEXTUAL
 (Bell/KCBS 84/87) + PARTIAL-LEGIBLE (legibility law) = EXP-2/3. In verify.sh.
+
+## 2026-06-27 — ② EXP-2: CERTIFY-CONTEXTUAL verdict (script 142)
+Added the 4th frontier verdict on correlation-table data. Cheapest global code = local hidden-variable model (local
+polytope = 16 deterministic strategies = CHSH<=2). Diagnostic fits the simplex over the 16 strategies + reads CHSH. 3/3:
+C1 EMIT-CLASSICAL (LHV table fits, residual 1.5e-8, CHSH 0.70); C2 CERTIFY-CONTEXTUAL (singlet: local code can't fit
+residual 0.83, CHSH 2.83 > 2 = Bell's theorem -> no LHV); C3 LOCATES THE WALL (Werner sweep flips verdict at v=0.725 ~
+1/sqrt2=0.707). 4/5 frontier verdicts now instrumented (141 trichotomy + 142 contextual). PARTIAL-LEGIBLE + synthesis =
+EXP-3. One dtype fix (float32). In verify.sh. Builds on Bell certificate (84).
