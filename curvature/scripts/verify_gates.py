@@ -99,6 +99,9 @@ BATTERIES = [
     ("Legibility predicts SAE monosemanticity", ["scripts/139_sae_legibility.py"], "139_sae_legibility.json",
      {"L1_replicates_legibility_law": (">", 0.5), "S1_amortized_monosemantic": (">", 0.5),
       "S2_free_superposed": (">", 0.5), "S3_legibility_predicts_monosemanticity": (">", 0.5)}),
+    ("SAE-legibility in a real activation (sharpen)", ["scripts/140_sae_activations.py"], "140_sae_activations.json",
+     {"A1_legibility": (">", 0.5), "A2_amortized_localizable_in_activation": (">", 0.5),
+      "A3_localizability_contrast": (">", 0.5)}),
 ]
 
 

@@ -1,0 +1,24 @@
+{
+ "amortized_activation": {
+  "linear_legibility": 0.9858994473826217,
+  "top2_decode": 0.8062090952880983,
+  "rest_decode": 0.9992675261795396,
+  "full_decode": 0.9992962227692058,
+  "l0": 35.919,
+  "n_alive": 128
+ },
+ "free_activation": {
+  "linear_legibility": 0.46068030890459943,
+  "top2_decode": 0.37208755490316214,
+  "rest_decode": 0.9967362562650076,
+  "full_decode": 0.9967598275647109,
+  "l0": 116.7195,
+  "n_alive": 128
+ },
+ "A1_legibility": true,
+ "A2_amortized_localizable_in_activation": true,
+ "A3_localizability_contrast": true,
+ "activation_redundantly_encodes_p": true,
+ "bridge_transfers_to_activation_as_localizability": true,
+ "verdict": "THE BRIDGE TRANSFERS TO A REAL ACTIVATION (as LOCALIZABILITY, with an honest causal caveat). In the decoder's hidden activation (polysemantic -- carries the property AND the query), an SAE can LOCALIZE the AMORTIZED property to a monosemantic feature (top-2 decode 0.81) but CANNOT for the FREE property (top-2 0.37) -- so amortization makes the property SAE-localizable, free leaves it superposed/unlocalizable (the legibility->localizability bridge holds BEYOND the toy code, in a real trained activation). HONEST CAVEAT: the dense activation encodes p REDUNDANTLY -- p still decodes at ~1.00 after ablating the top features, for BOTH amortized and free -- so localizable != causally-isolated; the SAE finds a monosemantic feature but it is a redundant copy, not the unique carrier (this matches known SAE feature redundancy). Robust mech-interp claim: amortization -> SAE-localizable property; free -> superposed."
+}
