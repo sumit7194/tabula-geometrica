@@ -424,17 +424,19 @@ results in `curvature/notes/lab_notebook.md`.
   updates conserve the invariant and substantially help, but FULL dynamic
   legibility ALSO needs the quantity to be OBSERVABLE — structure necessary, not
   sufficient (leg 3 hit the ceiling only because there the rotation was fully
-  observable). **v4 UPDATE (script 135, 2026-06-26, VM): the partial-observability
-  hypothesis was TESTED and is NOT supported at matched budget. K=1 (single field)
-  vs K=4 (four diverse color-electric probe fields, shared SO(3) transport), matched
-  12000 steps: K=4 did NOT cross 0.70 — min linear decode 0.295 ≤ K=1's 0.376;
-  observability did not help (|Q| still exact, 1.4e-7). CAVEAT (honest): CONFOUNDED —
-  K=4 fits 4× the data at the same step count and its nonlinear-r also dropped
-  (0.90→0.82) = under-converged, so "observability doesn't help" can't be cleanly
-  separated from "K=4 needs more steps." Not cleanly refuted; a step-matched-per-field
-  K=4 (4× budget) is the parked follow-up. So the prior "PARTIAL-OBSERVABILITY ceiling"
-  claim is downgraded to a hypothesis NOT supported at matched budget — the ceiling may
-  be a deeper representational limit.** NOT in verify.sh (partial). **Survey-row status corrected
+  observable). **v4 REFUTES the partial-observability hypothesis (script 135,
+  2026-06-26): observability does NOT resolve the ceiling — CLEAN negative.** K=1
+  (single field) vs K=4 (four diverse color-electric probe fields, shared SO(3)
+  transport). First run (matched 12000 steps): K=4 0.295 < K=1 0.376 but CONFOUNDED
+  (K=4 fits 4× data at same steps, under-converged). Fix round — STEP-MATCHED per-field
+  (K=4 at 4×=48000 steps): K=4 now well-converged (nonlinear decode 0.958 > K=1's 0.904,
+  tracks Q(t) BETTER) YET linear decode 0.373 ≈ K=1's 0.376, nowhere near 0.70. So
+  fuller observability does NOT improve LINEAR legibility — the partial-observability
+  hypothesis is REFUTED, and the dynamic-legibility ceiling is a genuine REPRESENTATIONAL
+  limit (the rotating charge is tracked nonlinearly, not linearly, independent of
+  observability). Structure (SO(3)) conserves |Q| (1.4e-7); neither structure nor
+  observability makes the dynamic rotating charge linearly legible. NOT in verify.sh
+  (negative). **Survey-row status corrected
   (2026-06-23): friction is DONE (script 70 — universal but dissipative does NOT
   geometrize, geom/dissip MSE ratio 606,265× vs 0.085 for a conservative force;
   reversibility explains it), and equivalence-breaking gravity is already covered

@@ -1,19 +1,24 @@
-## 2026-06-26 — VM build E: Wong v4 (fuller observability) — did NOT cross the ceiling (honest negative, confounded)
+## 2026-06-26 — VM build E: Wong v4 (fuller observability) — CLEAN NEGATIVE (observability does NOT resolve the ceiling)
 
 vm_plan E. Wong v3 (106): a structure-preserving orthogonal-SO(3) charge update conserves |Q| exactly and ~doubles the
 rotating charge's legibility (0.29→0.56-0.64) but does NOT reach the 0.70 gate. Hypothesis (vm_plan E): the residual
 ceiling is partial OBSERVABILITY -- trajectory-only supervision sees Q only via the scalar a=well+Q.E along ONE field.
 v4 (script 135) tested it: same orthogonal-SO(3) model, K=1 (single field, the 106 baseline) vs K=4 (four diverse
-color-electric probe fields, shared transport), matched 12000-step budget. RESULT: K=4 did NOT cross 0.70 -- min linear
-decode 0.295 (per-component [0.295,0.392,0.475]) vs K=1's 0.376 ([0.491,0.376,0.553]); fuller observability did not
-help. |Q| conserved exactly (1.4e-7, SO(3)). HONEST FRAMING / CAVEAT: this is CONFOUNDED -- the K=4 run fits 4x the
-trajectory data at the SAME step count, and its nonlinear-r ALSO dropped (0.90→0.82), indicating it is relatively
-UNDER-CONVERGED. So I cannot cleanly separate "observability doesn't help" from "K=4 needs more steps." The unconfounded
-conclusion is only: at a MATCHED budget, adding observability did not resolve the ceiling, and the rotating charge
-stayed only-nonlinearly-legible. A step-matched-PER-FIELD K=4 run (4x the budget) is the clean follow-up I did NOT run
-(parked). So the partial-observability hypothesis is NOT supported at matched budget, but not cleanly refuted either.
+color-electric probe fields, shared transport).
+- FIRST run (matched 12000-step budget): K=4 min linear decode 0.295 < K=1's 0.376 -- but CONFOUNDED (K=4 fits 4x the
+  data at the same step count; its nonlinear-r also dropped 0.90→0.82 = under-converged). Flagged, did not conclude.
+- FIX ROUND -- STEP-MATCHED per-field (K=4 at 4x = 48000 steps, so each of the 4 fields gets K=1's per-field budget):
+  K=4 is now WELL-CONVERGED -- nonlinear decode 0.958, even HIGHER than K=1's 0.904 (it tracks Q(t) BETTER) -- YET the
+  LINEAR decode of the rotating charge stays at 0.373, essentially EQUAL to K=1's 0.376, nowhere near 0.70.
+CONCLUSION (clean, confound resolved): fuller observability does NOT improve the LINEAR legibility of the rotating
+charge. The partial-observability hypothesis is REFUTED. The dynamic-legibility ceiling is a genuine REPRESENTATIONAL
+limit -- the rotating charge is tracked NONLINEARLY (info present, nl r 0.96) but NOT linearly, independent of how
+observable Q is. So: structure (SO(3)) conserves |Q| exactly (1.4e-7); neither structure NOR observability makes the
+DYNAMIC rotating charge linearly legible. (V1 "fit" fails only because K=4 fits 4 force-fields -> naturally higher MSE,
+a harder task, not a legibility issue.) Corrects the prior CLAUDE.md "partial-observability ceiling" claim -> refuted.
 Not in verify.sh (honest negative). Compute note: the per-step matrix_exp rollout was GPU-launch-bound (~2hr on the L4);
-switched to the closed-form Rodrigues SO(3) exp (exact, |Q| conserved) + ran on the VM CPU (this workload is CPU-favorable).
+switched to the closed-form Rodrigues SO(3) exp (exact, |Q| conserved) + ran on CPU (this workload is CPU-favorable, not
+GPU -- a useful lesson: tiny-op rollouts are launch-bound and belong on CPU).
 
 ## 2026-06-26 — VM build C: global PINN for scalar-field collapse — qualitative paradigm ✓, quantitative accuracy ✗
 

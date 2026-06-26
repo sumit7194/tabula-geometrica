@@ -111,11 +111,11 @@ python -c "import torch; assert torch.cuda.is_available(); print('CUDA OK', torc
   gates) was written up in the lab_notebook on 2026-06-12 and is flagged CONFOUNDED there (3+1 changed kernels/channels/
   training-samples vs 2+1 all at once) -- so "locality worse in 3D" is NOT a valid clean claim (RETRACTED). Only the
   stale CLAUDE.md "Gates pending" status line was corrected 2026-06-26.
-- [x] **E (Wong v4 fuller observability, script 135) DONE — honest negative (confounded):** K=4 four-field-probe model
-  did NOT cross the 0.70 dynamic-legibility gate (min-r 0.295 ≤ K=1's 0.376); observability did not help at matched
-  budget. |Q| exact (1.4e-7). CAVEAT: confounded (K=4 = 4× data at same steps, under-converged) -> not cleanly refuted;
-  step-matched-per-field K=4 parked. Partial-observability hypothesis NOT supported at matched budget. (Rodrigues SO(3),
-  ran on VM CPU.)
+- [x] **E (Wong v4 fuller observability, script 135) DONE — CLEAN negative (confound resolved):** step-matched per-field
+  (K=4 at 4×=48000 steps, well-converged: nonlinear decode 0.958 > K=1's 0.904, tracks Q(t) BETTER) YET linear decode
+  0.373 ≈ K=1's 0.376, nowhere near 0.70 -> fuller observability does NOT improve LINEAR legibility. Partial-observability
+  hypothesis REFUTED; the ceiling is a genuine REPRESENTATIONAL limit (charge tracked nonlinearly, not linearly). |Q|
+  exact (1.4e-7). (Rodrigues SO(3); CPU is the right home for this tiny-op rollout, not GPU.)
 - [x] **C (global PINN Choptuik, script 136) DONE — honest partial:** plain-MLP global PINN reproduces the disperse/
   collapse DICHOTOMY (G2 ✓: subcritical max 2m/r 0.024 disperses, supercritical 0.977 collapses vs FD 0.980) with ZERO
   rollout -- the qualitative criticality the autoregressive emulator couldn't. BUT field accuracy poor (G1 ✗: relL2_Phi

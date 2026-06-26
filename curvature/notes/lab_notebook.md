@@ -3663,16 +3663,19 @@ Lesson re-logged (research-first / documentation-habit): grep the lab_notebook +
 never restate a confounded comparison as a clean result. Remaining Phase-2 = builds C (global PINN) / D (G-sym) / E (Wong
 v4 observability, running).
 
-## 2026-06-26 — VM build E: Wong v4 fuller observability (script 135) — honest negative (confounded)
-vm_plan E hypothesis: the v3 (106) dynamic-legibility ceiling (rotating color charge linear 0.56-0.64, < 0.70 gate) is
-partial OBSERVABILITY. v4: same orthogonal-SO(3) model, K=1 (single field) vs K=4 (4 diverse color-electric probes,
-shared transport), matched 12000-step budget. RESULT: K=4 min-linear-r 0.295 ([0.295,0.392,0.475]) vs K=1 0.376
-([0.491,0.376,0.553]) -- did NOT cross 0.70; observability did not help. |Q| conserved 1.4e-7 (Rodrigues SO(3)). CAVEAT
-(honest): CONFOUNDED -- K=4 fits 4x the data at the SAME step count and its nonlinear-r also dropped (0.90->0.82) =
-under-converged; can't separate "observability doesn't help" from "K=4 needs more steps." Unconfounded claim only: at
-matched budget, observability did not resolve the ceiling. Clean follow-up (NOT run, parked): step-matched-per-field K=4
-(4x budget). Partial-observability hypothesis NOT supported at matched budget, not cleanly refuted. Not in verify.sh.
-Compute: matrix_exp rollout was GPU-launch-bound (~2hr); switched to Rodrigues SO(3) + VM CPU (CPU-favorable workload).
+## 2026-06-26 — VM build E: Wong v4 fuller observability (script 135) — CLEAN NEGATIVE (confound resolved)
+vm_plan E hypothesis: the v3 (106) dynamic-legibility ceiling (rotating charge linear 0.56-0.64 < 0.70) is partial
+OBSERVABILITY. v4: orthogonal-SO(3) model, K=1 (single field) vs K=4 (4 diverse color-electric probes, shared transport).
+FIRST run (matched 12000 steps): K=4 min-linear-r 0.295 < K=1 0.376 but CONFOUNDED (K=4 fits 4x data at same steps, nl-r
+also dropped 0.90->0.82 = under-converged); flagged, didn't conclude. FIX ROUND -- step-matched per-field (K=4 at 4x =
+48000 steps): K=4 now WELL-CONVERGED (nl-r 0.958 > K=1's 0.904, tracks Q(t) BETTER) YET linear-r 0.373 ~= K=1's 0.376,
+nowhere near 0.70. CLEAN CONCLUSION: fuller observability does NOT improve LINEAR legibility -> partial-observability
+hypothesis REFUTED. The ceiling is a genuine REPRESENTATIONAL limit: the rotating charge is tracked NONLINEARLY (info
+present, nl 0.96) but not linearly, independent of observability. Structure (SO(3)) conserves |Q| (1.4e-7); neither
+structure nor observability makes the dynamic rotating charge linearly legible. (V1 fit fails only because K=4 fits 4
+force-fields = harder/higher-MSE task, not a legibility issue.) Corrects the prior CLAUDE.md partial-observability claim.
+Not in verify.sh. Compute lesson: tiny-op SO(3) rollout is GPU-launch-bound (matrix_exp ~2hr on L4); Rodrigues SO(3) +
+CPU is the right home for this workload (not GPU).
 
 ## 2026-06-26 — VM build C: global PINN for Choptuik collapse (script 136) — qualitative paradigm, not quantitative
 vm_plan C / hail-mary untried lever. Research-first: the literature NN-Choptuik win (arXiv:2511.15247) is a global PINN

@@ -1,30 +1,33 @@
 {
  "K_fields": 4,
+ "K4_step_matched_per_field": true,
+ "K1_steps": 12000,
+ "K4_steps": 48000,
  "single_field_K1": {
-  "mse": 0.018516521900892258,
+  "mse": 0.01851652003824711,
   "decode_linear_r": [
-   0.4914713523206694,
-   0.37559957357537954,
-   0.5534886603250184
+   0.4914712082525968,
+   0.37559921811596214,
+   0.553488743582515
   ],
-  "min_linear_r": 0.37559957357537954,
+  "min_linear_r": 0.37559921811596214,
   "min_nonlinear_r": 0.9037644226139558,
-  "model_Q_drift": 1.3909016161051113e-07
+  "model_Q_drift": 1.4974557416280732e-07
  },
  "full_observability_K4": {
-  "mse": 0.027494942769408226,
+  "mse": 0.055286675691604614,
   "decode_linear_r": [
-   0.29497077884574857,
-   0.39181832368972963,
-   0.474570444996296
+   0.37321479870108304,
+   0.5603608697096513,
+   0.5508628829424747
   ],
-  "min_linear_r": 0.29497077884574857,
-  "min_nonlinear_r": 0.8232058539753817,
-  "model_Q_drift": 1.3832971035299124e-07
+  "min_linear_r": 0.37321479870108304,
+  "min_nonlinear_r": 0.9583346349544601,
+  "model_Q_drift": 1.355313372641831e-07
  },
- "V1_fit": true,
+ "V1_fit": false,
  "V2_conservation": true,
  "V3_observability_crosses_ceiling": false,
  "observability_resolves_ceiling": false,
- "verdict": "PARTIAL/HONEST -- see numbers. If K=4 did not cross 0.70, the ceiling is DEEPER than observability: the rotating charge has an intrinsic legibility limit under trajectory supervision (structure + observability still insufficient)."
+ "verdict": "PARTIAL/HONEST -- K=4 is now STEP-MATCHED per-field (4x steps, so each field gets K=1's budget; the unconfounded test). If K=4 STILL did not cross 0.70 / did not beat K=1, the ceiling is genuinely DEEPER than observability -- the rotating charge has an intrinsic legibility limit under trajectory supervision (structure + observability both insufficient)."
 }

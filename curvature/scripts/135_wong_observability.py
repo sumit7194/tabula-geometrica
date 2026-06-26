@@ -143,8 +143,10 @@ class ModelV4(nn.Module):
         return (torch.cat(xs, 1), torch.stack(Qs, 1)) if keep else torch.cat(xs, 1)
 
 
-def train(d, k_use, seed=0):
-    """train on the first k_use field probes (k_use=1 -> the 106 single-field baseline)."""
+def train(d, k_use, seed=0, steps=None):
+    """train on the first k_use field probes (k_use=1 -> the 106 single-field baseline).
+    steps defaults to STEPS; pass 4*STEPS for K=4 to STEP-MATCH per-field exposure (K=4 sees 4x the data)."""
+    steps = STEPS if steps is None else steps
     dev = DEVICE
     snip = torch.from_numpy(d["snip"]).to(dev)
     X = torch.from_numpy(d["qx"]).to(dev); V = torch.from_numpy(d["qv"]).to(dev); Y = torch.from_numpy(d["qy"]).to(dev)
@@ -152,13 +154,13 @@ def train(d, k_use, seed=0):
     is_h = np.isin(d["body"], d["held"]); use = np.where((~is_h) & (d["field"] < k_use))[0]
     torch.manual_seed(135 + k_use); rng = np.random.default_rng(seed)
     m = ModelV4().to(dev); opt = torch.optim.Adam(m.parameters(), lr=1e-3)
-    for step in range(STEPS):
+    for step in range(steps):
         idx = use[rng.integers(0, len(use), 256)]
         pred = m.rollout(snip, bdy[idx], X[idx], V[idx], F[idx])
         loss = nn.functional.mse_loss(pred, Y[idx])
         opt.zero_grad(); loss.backward(); opt.step()
         if step % 1000 == 0:
-            progress(f"135_wong_K{k_use}", step, STEPS, loss=float(loss.detach()))
+            progress(f"135_wong_K{k_use}", step, steps, loss=float(loss.detach()))
     return m.eval()
 
 
@@ -195,13 +197,14 @@ def main():
     d = make_data(seed=0)
     print(f"device={DEVICE}, K={K_FIELDS} fields, n_bodies=160")
     m1 = train(d, 1); r1 = evaluate(m1, d, 1)                              # single-field baseline (~106)
-    m4 = train(d, K_FIELDS); r4 = evaluate(m4, d, K_FIELDS)               # full observability
+    m4 = train(d, K_FIELDS, steps=4 * STEPS); r4 = evaluate(m4, d, K_FIELDS)  # K=4 STEP-MATCHED per-field (4x steps)
 
     v1 = bool(r4["mse"] < 2 * r1["mse"])
     v2 = bool(r4["model_Q_drift"] < 1e-3)
     v3 = bool(r4["min_linear_r"] > 0.70 and (r4["min_linear_r"] - r1["min_linear_r"]) > 0.10)
 
-    out = {"K_fields": K_FIELDS, "single_field_K1": r1, "full_observability_K4": r4,
+    out = {"K_fields": K_FIELDS, "K4_step_matched_per_field": True, "K1_steps": STEPS, "K4_steps": 4 * STEPS,
+           "single_field_K1": r1, "full_observability_K4": r4,
            "V1_fit": v1, "V2_conservation": v2, "V3_observability_crosses_ceiling": v3,
            "observability_resolves_ceiling": bool(v1 and v2 and v3),
            "verdict": ("OBSERVABILITY CROSSES THE DYNAMIC-LEGIBILITY CEILING. With the same orthogonal-SO(3) structure as "
@@ -212,9 +215,10 @@ def main():
                        "STRUCTURE-PRESERVED (SO(3)) AND OBSERVABLE (multiple projections). Closes the Wong open thread."
                        .format(r4["model_Q_drift"], K_FIELDS, r1["min_linear_r"], r4["min_linear_r"])
                        if (v1 and v2 and v3) else
-                       "PARTIAL/HONEST -- see numbers. If K=4 did not cross 0.70, the ceiling is DEEPER than observability: "
-                       "the rotating charge has an intrinsic legibility limit under trajectory supervision (structure + "
-                       "observability still insufficient).")}
+                       "PARTIAL/HONEST -- K=4 is now STEP-MATCHED per-field (4x steps, so each field gets K=1's budget; "
+                       "the unconfounded test). If K=4 STILL did not cross 0.70 / did not beat K=1, the ceiling is "
+                       "genuinely DEEPER than observability -- the rotating charge has an intrinsic legibility limit "
+                       "under trajectory supervision (structure + observability both insufficient).")}
     print(f"\nsingle-field K=1: min linear r {r1['min_linear_r']:.3f} (nl {r1['min_nonlinear_r']:.3f}), mse {r1['mse']:.2e}")
     print(f"full-obs   K={K_FIELDS}: min linear r {r4['min_linear_r']:.3f} (nl {r4['min_nonlinear_r']:.3f}), mse {r4['mse']:.2e}, |Q|drift {r4['model_Q_drift']:.1e}")
     print(f"V1 fit {v1} | V2 conservation {v2} | V3 observability crosses 0.70 {v3}")
