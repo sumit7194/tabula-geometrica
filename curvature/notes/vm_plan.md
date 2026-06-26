@@ -111,5 +111,14 @@ python -c "import torch; assert torch.cuda.is_available(); print('CUDA OK', torc
   gates) was written up in the lab_notebook on 2026-06-12 and is flagged CONFOUNDED there (3+1 changed kernels/channels/
   training-samples vs 2+1 all at once) -- so "locality worse in 3D" is NOT a valid clean claim (RETRACTED). Only the
   stale CLAUDE.md "Gates pending" status line was corrected 2026-06-26.
-- [ ] C (global PINN Choptuik) · [ ] D (G-sym + legibility reg) · [ ] E (Wong v3 fuller observability) — the BUILDS, not
-  yet started (involved new code; need a go-decision given GPU cost).
+- [x] **E (Wong v4 fuller observability, script 135) DONE — honest negative (confounded):** K=4 four-field-probe model
+  did NOT cross the 0.70 dynamic-legibility gate (min-r 0.295 ≤ K=1's 0.376); observability did not help at matched
+  budget. |Q| exact (1.4e-7). CAVEAT: confounded (K=4 = 4× data at same steps, under-converged) -> not cleanly refuted;
+  step-matched-per-field K=4 parked. Partial-observability hypothesis NOT supported at matched budget. (Rodrigues SO(3),
+  ran on VM CPU.)
+- [x] **C (global PINN Choptuik, script 136) DONE — honest partial:** plain-MLP global PINN reproduces the disperse/
+  collapse DICHOTOMY (G2 ✓: subcritical max 2m/r 0.024 disperses, supercritical 0.977 collapses vs FD 0.980) with ZERO
+  rollout -- the qualitative criticality the autoregressive emulator couldn't. BUT field accuracy poor (G1 ✗: relL2_Phi
+  0.62) -- plain MLP, not the paper's ModPINN. Demonstrates the paradigm qualitatively (physics-in-loss > rollout),
+  honestly scoped. (VM GPU.)
+- [ ] D (G-sym + legibility reg) — not started (the user requested "Wong then PINN"; D not requested).

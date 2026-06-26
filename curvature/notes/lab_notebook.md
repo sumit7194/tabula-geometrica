@@ -3662,3 +3662,27 @@ at the existing entry + its confound caveat.
 Lesson re-logged (research-first / documentation-habit): grep the lab_notebook + git history BEFORE writing a "closure";
 never restate a confounded comparison as a clean result. Remaining Phase-2 = builds C (global PINN) / D (G-sym) / E (Wong
 v4 observability, running).
+
+## 2026-06-26 — VM build E: Wong v4 fuller observability (script 135) — honest negative (confounded)
+vm_plan E hypothesis: the v3 (106) dynamic-legibility ceiling (rotating color charge linear 0.56-0.64, < 0.70 gate) is
+partial OBSERVABILITY. v4: same orthogonal-SO(3) model, K=1 (single field) vs K=4 (4 diverse color-electric probes,
+shared transport), matched 12000-step budget. RESULT: K=4 min-linear-r 0.295 ([0.295,0.392,0.475]) vs K=1 0.376
+([0.491,0.376,0.553]) -- did NOT cross 0.70; observability did not help. |Q| conserved 1.4e-7 (Rodrigues SO(3)). CAVEAT
+(honest): CONFOUNDED -- K=4 fits 4x the data at the SAME step count and its nonlinear-r also dropped (0.90->0.82) =
+under-converged; can't separate "observability doesn't help" from "K=4 needs more steps." Unconfounded claim only: at
+matched budget, observability did not resolve the ceiling. Clean follow-up (NOT run, parked): step-matched-per-field K=4
+(4x budget). Partial-observability hypothesis NOT supported at matched budget, not cleanly refuted. Not in verify.sh.
+Compute: matrix_exp rollout was GPU-launch-bound (~2hr); switched to Rodrigues SO(3) + VM CPU (CPU-favorable workload).
+
+## 2026-06-26 — VM build C: global PINN for Choptuik collapse (script 136) — qualitative paradigm, not quantitative
+vm_plan C / hail-mary untried lever. Research-first: the literature NN-Choptuik win (arXiv:2511.15247) is a global PINN
+(physics-in-loss, no rollout) -- sidesteps the rollout-amplification wall (exp11/exp12). Built a PLAIN-MLP global PINN
+(first-order EMKG: outputs Phi,Pi,C,alpha; residuals = 2 field eqs + 2 metric constraints from collapse.py; IC + spatial
+BC anchored to FD). Pre-reg scope: plain MLP, NOT ModPINN -- demonstrate paradigm, not near-critical accuracy. Result
+(honest partial): G2 DICHOTOMY True -- subcritical A=0.02 max 2m/r 0.024 (disperses, no spurious horizon, the exact
+regime the rollout spuriously collapsed in exp11 D1), supercritical A=0.40 max 2m/r 0.977 (collapses, FD 0.980). G1
+FALSE -- plain-MLP field accuracy poor (relL2 Phi 0.62, C 0.70 vs gate 0.20). So the global physics-in-loss solve (ZERO
+rollout) reproduces the disperse/collapse criticality QUALITATIVELY where the rollout could not, but a plain MLP is not
+a quantitative solver (ModPINN territory -- QRes/embeddings/causality/adaptive-sampling/100k-epochs/A100, cited). Honest:
+re-confirms structure-by-construction (physics-in-loss > learned rollout for this stiff system), qualitatively. Not in
+verify.sh (GPU + honest partial).

@@ -43,9 +43,8 @@ from curvlib import RESULTS, TRAJ_TIMES, V_MAX, WELL_DEPTH, WELL_WIDTH, X_RANGE,
 H = 0.1
 N_ROLL = int(round(TRAJ_TIMES[-1] / H))
 TARGETS = [int(round(t / H)) for t in TRAJ_TIMES]
-DEVICE = "cuda" if "--device" in sys.argv and torch.cuda.is_available() else (
-    sys.argv[sys.argv.index("--device") + 1] if "--device" in sys.argv else "cpu")
-STEPS = 30000
+DEVICE = sys.argv[sys.argv.index("--device") + 1] if "--device" in sys.argv else "cpu"
+STEPS = 12000
 
 A_AMP = np.array([0.9, 0.7, 0.8]); A_C = np.array([-0.5, 0.6, 1.1])        # shared transport (gauge potential)
 E_AMP_K = np.array([[0.30, 0.35, 0.25], [0.32, 0.10, 0.40],                # K=4 diverse color-electric probe fields
@@ -106,10 +105,14 @@ def make_data(seed=0, n_bodies=160, per_body=80):
 
 
 def so3_exp(omega):
+    """Rodrigues' formula: the EXACT SO(3) exponential (orthogonal -> |Q| conserved), far faster than Pade matrix_exp."""
     n = omega.shape[0]; K = omega.new_zeros(n, 3, 3)
     a, b, c = omega[:, 0], omega[:, 1], omega[:, 2]
     K[:, 0, 1] = -c; K[:, 0, 2] = b; K[:, 1, 0] = c; K[:, 1, 2] = -a; K[:, 2, 0] = -b; K[:, 2, 1] = a
-    return torch.matrix_exp(K)
+    th = omega.norm(dim=1).clamp(min=1e-7)
+    A = (torch.sin(th) / th).view(n, 1, 1); B = ((1 - torch.cos(th)) / th ** 2).view(n, 1, 1)
+    eye = torch.eye(3, device=omega.device, dtype=omega.dtype).expand(n, 3, 3)
+    return eye + A * K + B * torch.bmm(K, K)
 
 
 class ModelV4(nn.Module):
