@@ -3755,3 +3755,13 @@ C1 EMIT-CLASSICAL (LHV table fits, residual 1.5e-8, CHSH 0.70); C2 CERTIFY-CONTE
 residual 0.83, CHSH 2.83 > 2 = Bell's theorem -> no LHV); C3 LOCATES THE WALL (Werner sweep flips verdict at v=0.725 ~
 1/sqrt2=0.707). 4/5 frontier verdicts now instrumented (141 trichotomy + 142 contextual). PARTIAL-LEGIBLE + synthesis =
 EXP-3. One dtype fix (float32). In verify.sh. Builds on Bell certificate (84).
+
+## 2026-06-27 — ② EXP-3: frontier table COMPLETE — one diagnostic, 5 verdicts (script 143 + writeup)
+The 5th verdict (PARTIAL-LEGIBLE) + the unified diagnostic. 143 routes by data type, emits all 5 verdicts on a 7-case
+menu (all correct): distances (classical MDS stress + frame) -> EMIT/CERTIFY-GAUGE/CERTIFY-NO-CODE; correlations
+(polytope fit + CHSH) -> EMIT-CLASSICAL/CERTIFY-CONTEXTUAL; code (linear vs nonlinear decode) -> EMIT-LEGIBLE (lin 0.99)
+/ PARTIAL-LEGIBLE (lin 0.45, nl 0.75). Fix round: compact 3000-step code train under-converged the FREE code (nl 0.59);
+10000 steps (139 regime) -> nl 0.75. NOT in verify.sh (re-runs 139's train internally = redundant+slow; the 5 verdicts
+are gated individually by 139/141/142). Synthesis writeup: writeups/representability_frontier.md. Honest open scope: a
+classifier of KNOWN regimes routed by data type, not yet a detector that infers the regime of a fully-unknown system.
+② first arc COMPLETE.

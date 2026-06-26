@@ -64,6 +64,11 @@ verified, say so plainly rather than bluffing.
 - `writeups/legibility_law.md` — the crystallized standalone result: the 3-part legibility
   law (amortize→legible · generic evolution→scrambles · structure→restores), the project's
   most novel finding and its self-explanation.
+- `writeups/representability_frontier.md` — ② the theory of the discoverable: the 5-cell
+  taxonomy of why discovery succeeds/fails (EMIT · CERTIFY-NO-CODE/chaos · CERTIFY-GAUGE ·
+  CERTIFY-CONTEXTUAL · PARTIAL-LEGIBLE), made into ONE diagnostic (script 143) that routes by
+  data type and emits all five verdicts. Unifies the impossibility certificates + the gauge/
+  no-fixed-reference walls + the legibility law into one predictive instrument.
 
 ## Accessibility note (important)
 The user flagged that some responses got "very very technical." Lead with plain-language
@@ -343,7 +348,11 @@ results in `curvature/notes/lab_notebook.md`.
   **EXP-2 (142, 3/3):** CERTIFY-CONTEXTUAL on correlation-table data — fit the cheapest local-hidden-variable code
   (simplex over the 16 deterministic strategies = local polytope) + read CHSH; classical→EMIT-CLASSICAL, singlet→
   CERTIFY-CONTEXTUAL (CHSH 2.83>2 = Bell), and a Werner sweep LOCATES the wall at v=0.725~1/√2. 4/5 verdicts done.
-  EXP-3 = add PARTIAL-LEGIBLE (legibility law) + a synthesis writeup (the full 5-cell table).
+  **EXP-3 (143 + writeup, complete):** PARTIAL-LEGIBLE (the 5th verdict, free code linear 0.45 / nonlinear 0.75) +
+  the UNIFIED diagnostic -- one instrument routes by data type and emits all 5 verdicts on a 7-case menu. ② FIRST ARC
+  COMPLETE (framework + EXP-1/2/3 + writeups/representability_frontier.md). 143 not in verify.sh (redundant train; the 5
+  verdicts gated by 139/141/142). Honest open: classifies KNOWN regimes routed by data type, not yet a detector of the
+  regime of a fully-unknown system (next swing).
 - **LEGIBILITY LAW — CROSS-SESSION VALIDATION (2026-06-22/23, writeups/legibility_law.md):**
   three parallel projects pressure-tested the law and each corrected the others
   (adversarial peer review, not echo). **Phronesis (real 4B LLM):** refuted our

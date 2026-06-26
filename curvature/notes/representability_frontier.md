@@ -46,8 +46,12 @@ on demand.
   local hidden-variable code (simplex over the 16 deterministic strategies = the local polytope) + read CHSH. Classical
   table -> EMIT-CLASSICAL (fits, CHSH 0.70); singlet -> CERTIFY-CONTEXTUAL (can't fit, CHSH 2.83>2 = Bell certificate);
   and a Werner sweep LOCATES the wall (verdict flips at v=0.725 ~ 1/sqrt2). 4/5 verdicts now instrumented.
-- **EXP-3: add PARTIAL-LEGIBLE + synthesize.** The legibility-law linear-vs-nonlinear gap (139) as the 5th verdict;
-  then a `writeups/representability_frontier.md` that states the full table as one result.
+- **EXP-3 (DONE 2026-06-27, script 143 + writeup): PARTIAL-LEGIBLE + the unified diagnostic.** One instrument routes
+  by data type (distances / correlations / code) and emits all FIVE verdicts correctly on a 7-case menu (U1+U2). The 5th
+  verdict PARTIAL-LEGIBLE = a free code (linear 0.45, nonlinear 0.75 = info present, not linear). Synthesis:
+  ../../writeups/representability_frontier.md. NOT in verify.sh (re-runs 139's train; the 5 verdicts gated by 139/141/142).
+  Honest open scope: classifies KNOWN regimes routed by data type; inferring the regime of a fully-unknown system is the
+  next swing.
 
 ## EXP-1 result (script 141, distance-geometry realization)
 
