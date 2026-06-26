@@ -3765,3 +3765,13 @@ menu (all correct): distances (classical MDS stress + frame) -> EMIT/CERTIFY-GAU
 are gated individually by 139/141/142). Synthesis writeup: writeups/representability_frontier.md. Honest open scope: a
 classifier of KNOWN regimes routed by data type, not yet a detector that infers the regime of a fully-unknown system.
 ② first arc COMPLETE.
+
+## 2026-06-27 — Bridge help: Manko-Novikov legibility (script 144, extends A10/leg Q)
+3rd independent non-integrable class for leg Q (after §127 bump, §132 ZV): MN = rotating bumpy-Kerr (quadrupole q).
+Built INDEPENDENTLY from Gair-Li-Mandel 0708.0628 (web-verified, ar5iv x2), NOT ansatz's symbolic version -> independent
+cross-check of ansatz §99. Stationary metric -> derived the g_tphi cross-term inverse (unlike static ZV); fixed gamma'
+"-2" ambiguity via asymptotic flatness. Result (M1/M2/M3/V0 all pass): V0 flat (|g^tt+1|=2.3e-6 = 2M/r tail); q=0 EMITS
+exact Carter (held-out 3.4e-17, COSINE 1.000 to Q=(1-y^2)p_y^2+a^2(1-E^2)y^2+L^2 y^2/(1-y^2)) = genuine Kerr + machinery
+validated; q=0.5 CERTIFIES (engine 0.60 = 2e16x floor, Carter drift 0.69). legible(q=0)=T, legible(q=0.5)=F. Caveat:
+gamma' beta-term transcription (one ambiguity, flatness-fixed) affects q!=0 geodesics quantitatively only; q=0 cosine-1.0
+control + flatness + §99 make the verdict robust. Deliverable: notes/A10_for_bridge.md (MN section). In verify.sh.
