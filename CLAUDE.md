@@ -333,7 +333,14 @@ results in `curvature/notes/lab_notebook.md`.
   (Roeder, O'Neill) to SAE/superposition. Iteration (honest): no base term + FRESH queries (free can't memorize) +
   strong coupling + top-2-decode metric (robust to ReLU ±-split of signed p). Caveat: free is a moderately-lossy
   nonlinear store (0.78/0.71) → "info present" bar 0.8→0.7; the robust finding is the mono-ratio gap. In verify.sh.
-  ① done; **② representability frontier QUEUED** (open_threads_backlog ★ + memory [[representability-frontier-direction]]).
+  ① done (139+140). **② REPRESENTABILITY FRONTIER STARTED (notes/representability_frontier.md + script 141, 2026-06-27):**
+  a theory of the discoverable — the project's scattered limits-of-discovery as a 5-cell taxonomy (EMIT / CERTIFY-CHAOS /
+  CERTIFY-GAUGE / CERTIFY-CONTEXTUAL / PARTIAL-LEGIBLE) under one lens ("the cheapest legible code" fails to exist/be
+  unique/be consistent/be linear), toward a predictive DISCOVERABILITY DIAGNOSTIC. **EXP-1 (141, 4/4):** ONE diagnostic
+  on a distance-geometry menu (reuses dS-anchor 111) names THREE verdicts — EMIT (2D config + anchor: stress 0, raw 0,
+  unique) / CERTIFY-GAUGE (relational: shape recovers, raw frame 1.42 = gauge) / CERTIFY-NO-CODE (6D config: stress 1.29,
+  no cheap 2D code). Read STRESS (cheap code exists?) then RAW frame error (unique or gauge?). In verify.sh. Roadmap:
+  EXP-2 add CERTIFY-CONTEXTUAL (Bell/KCBS 84/87), EXP-3 add PARTIAL-LEGIBLE (legibility law) + a synthesis writeup.
 - **LEGIBILITY LAW — CROSS-SESSION VALIDATION (2026-06-22/23, writeups/legibility_law.md):**
   three parallel projects pressure-tested the law and each corrected the others
   (adversarial peer review, not echo). **Phronesis (real 4B LLM):** refuted our

@@ -3736,3 +3736,14 @@ decode 0.806 in the activation -- a monosemantic feature exists); A3 localizabil
 ablation gate (remove top-2 -> p dies) FAILED because the dense activation encodes p REDUNDANTLY (rest-decode ~1.00 for
 BOTH after ablating any 2 features) -> the bridge transfers as LOCALIZABILITY not causal-necessity; redundancy matches
 known SAE findings, recorded not hidden. Robust claim: amortization -> SAE-localizable; free -> superposed. In verify.sh.
+
+## 2026-06-27 — ② representability frontier STARTED: discoverability trichotomy (script 141, EXP-1)
+Started the big-swing ② (framework: notes/representability_frontier.md -- a 5-cell taxonomy of why discovery succeeds
+or fails, EMIT / CERTIFY-CHAOS / CERTIFY-GAUGE / CERTIFY-CONTEXTUAL / PARTIAL-LEGIBLE, toward a predictive diagnostic).
+EXP-1 (141): ONE diagnostic on a distance-geometry menu (reusing dS-anchor 111's reconstruct/errors/pdist) separates 3
+verdicts, 4/4 clean: EMIT (2D config + anchor -> stress 0.000, raw 0.000, unique); CERTIFY-GAUGE (same config,
+relational -> stress 0.000, shape aligned 0.000, raw 1.417 = absolute frame is a gauge); CERTIFY-NO-CODE (6D config ->
+stress 1.293, doesn't embed in 2D = no cheap low-D code, the geometric analog of chaos). The verdict function: read
+residual STRESS (cheap code exists?), then RAW frame error (unique or gauge?). So beyond integrable-vs-chaotic, ONE
+instrument names the GAUGE failure -- the seed of the frontier table. Scope: trajectory/geometry subset; CONTEXTUAL
+(Bell/KCBS 84/87) + PARTIAL-LEGIBLE (legibility law) = EXP-2/3. In verify.sh.
