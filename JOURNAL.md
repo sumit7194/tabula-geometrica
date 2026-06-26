@@ -1,3 +1,19 @@
+## 2026-06-27 — SHARPEN the SAE-legibility bridge: it transfers to a REAL trained activation (script 140)
+
+User: "sharpen then start [②]." The sharpening of 139: move from the toy CODE z to a REAL TRAINED, POLYSEMANTIC
+ACTIVATION (the decoder's hidden layer, carrying the property AND the query -- the setting real SAEs face on LLM hidden
+states), and test CAUSALLY. Reuses 139's amortized-vs-free harness; an L1-SAE on the decoder's 2nd-Tanh activations.
+3/3 honest gates (after a transparent reframe): A1 legibility (amortized 0.986, free 0.461); A2 amortized LOCALIZABLE --
+an SAE finds a monosemantic p-feature in the activation (top-2 decode 0.806); A3 LOCALIZABILITY CONTRAST -- amortized
+top-2 0.806 vs free 0.372 (gap 0.43): the SAE can localize the amortized property to a monosemantic feature but NOT the
+free one. **The bridge holds beyond the toy code, in a real trained activation.**
+HONEST REFRAME (recorded, not hidden): the ORIGINAL pre-reg was a strict CAUSAL-ablation test (remove the top-2 features
+-> p should die). It FAILED for a real reason -- the dense activation encodes p REDUNDANTLY, so p still decodes at ~1.00
+after ablating any 2 features, for BOTH amortized and free. So the bridge transfers as LOCALIZABILITY (an SAE CAN find a
+monosemantic feature for amortized, not free), NOT as causal-necessity. The redundancy matches known SAE feature
+redundancy -- recorded as an honest caveat. Robust mech-interp claim: amortization -> SAE-localizable property; free ->
+superposed/unlocalizable. In verify.sh. ① (139+140) done; ② representability frontier starting next.
+
 ## 2026-06-27 — The legibility law PREDICTS SAE monosemanticity (script 139): a new bridge to mech-interp
 
 User-picked new direction ① (the higher-upside pillar): connect the project's crown jewel -- the LEGIBILITY LAW

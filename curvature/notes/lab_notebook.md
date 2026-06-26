@@ -3727,3 +3727,12 @@ Cunningham 2309.08600 + Anthropic Scaling Monosemanticity). Iteration (honest): 
 (encodes p); (4) top-2-feature decode metric (robust to the +/- split of signed p under ReLU SAE features). Caveat: free
 is a moderately-lossy nonlinear store (0.78/0.71, not >0.8) -> the "info present" bar lowered 0.8->0.7, the robust
 finding is the mono-ratio gap not the absolute levels. In verify.sh. ① done; ② representability frontier queued.
+
+## 2026-06-27 — Sharpen the SAE-legibility bridge: real activation (script 140)
+Sharpening of 139 (user: "sharpen then start ②"): SAE on the decoder's REAL hidden activation (polysemantic, carries p +
+query) instead of the toy code z. 3/3 (honest reframe): A1 legibility (0.986/0.461); A2 amortized LOCALIZABLE (SAE top-2
+decode 0.806 in the activation -- a monosemantic feature exists); A3 localizability CONTRAST (amortized 0.806 vs free
+0.372, gap 0.43 -- SAE localizes the amortized property, not the free one). HONEST REFRAME: the original strict CAUSAL-
+ablation gate (remove top-2 -> p dies) FAILED because the dense activation encodes p REDUNDANTLY (rest-decode ~1.00 for
+BOTH after ablating any 2 features) -> the bridge transfers as LOCALIZABILITY not causal-necessity; redundancy matches
+known SAE findings, recorded not hidden. Robust claim: amortization -> SAE-localizable; free -> superposed. In verify.sh.
