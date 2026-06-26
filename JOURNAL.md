@@ -1,3 +1,17 @@
+## 2026-06-27 — ② EXP-2: the CERTIFY-CONTEXTUAL verdict — the diagnostic locates the Bell wall (script 142)
+
+Pushed ② to EXP-2: add the 4th frontier verdict (CERTIFY-CONTEXTUAL = no consistent GLOBAL code; Bell/KCBS), on a NEW
+data type -- CORRELATION TABLES (the diagnostic routes by data type). The cheapest global code for a correlation table
+is a LOCAL HIDDEN-VARIABLE model (the local polytope = convex hull of the 16 deterministic strategies = CHSH<=2). The
+diagnostic fits the cheapest local code (a simplex over the 16 strategies) + reads the CHSH value. 3/3 (one dtype fix):
+- C1 EMIT-CLASSICAL (an LHV table): local code fits EXACTLY (residual 1.5e-8), CHSH 0.70 <= 2 -> a global code exists.
+- C2 CERTIFY-CONTEXTUAL (the singlet, CHSH 2.83 = 2sqrt2): the cheapest local code CANNOT fit (residual 0.83 >> classical)
+  AND CHSH > 2 (Bell's theorem PROVES no LHV exists) -> no consistent global code, only context-dependent local ones.
+- C3 LOCATES THE WALL: a Werner-noise sweep flips the verdict at visibility 0.725 ~ the classical/quantum boundary
+  1/sqrt2 = 0.707 (where CHSH crosses 2) -- the diagnostic finds the contextuality wall, not just labels endpoints.
+Builds on the Bell certificate (84). FOUR of the five frontier verdicts now instrumented (EMIT / CERTIFY-GAUGE /
+CERTIFY-NO-CODE from 141 + CERTIFY-CONTEXTUAL here). PARTIAL-LEGIBLE + the synthesis = EXP-3 (next). In verify.sh.
+
 ## 2026-06-27 — ② STARTED: the representability frontier — discoverability trichotomy, one diagnostic (script 141)
 
 User: "sharpen [①] then start [②]." Started ② (the representability frontier -- a theory of the discoverable). Wrote

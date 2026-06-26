@@ -1,0 +1,19 @@
+{
+ "classical": {
+  "verdict": "EMIT-CLASSICAL",
+  "fit_residual": 1.532398151427028e-08,
+  "chsh": 0.6964218644053275
+ },
+ "quantum_singlet": {
+  "verdict": "CERTIFY-CONTEXTUAL",
+  "fit_residual": 0.8286960609034164,
+  "chsh": 2.82842712474619
+ },
+ "wall_flip_visibility": 0.725,
+ "wall_theory": 0.7071067811865475,
+ "C1_emit_classical": true,
+ "C2_certify_contextual": true,
+ "C3_locates_the_wall": true,
+ "contextual_verdict_added": true,
+ "verdict": "CERTIFY-CONTEXTUAL ADDED (frontier EXP-2): the discoverability diagnostic now handles a 4th failure mode, on CORRELATION-TABLE data. A LOCAL-hidden-variable table -> the cheapest global (local) code FITS (residual 2e-08, CHSH 0.70 <= 2) -> EMIT-CLASSICAL. The QUANTUM singlet -> the cheapest local code CANNOT fit (residual 0.829) and CHSH = 2.828 > 2 (Bell's theorem proves NO local code exists) -> CERTIFY-CONTEXTUAL: no consistent GLOBAL code, only context-dependent local ones. And the diagnostic LOCATES the wall -- a Werner-noise sweep flips the verdict at visibility 0.725, the classical/quantum boundary 1/sqrt2 = 0.707 (where CHSH crosses 2). Four of the five frontier verdicts are now instrumented; PARTIAL-LEGIBLE + the synthesis is EXP-3."
+}

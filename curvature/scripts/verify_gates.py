@@ -105,7 +105,9 @@ BATTERIES = [
     ("Discoverability trichotomy (frontier EXP-1)", ["scripts/141_discoverability_trichotomy.py"],
      "141_discoverability_trichotomy.json",
      {"F1_emit": (">", 0.5), "F2_certify_gauge": (">", 0.5), "F3_certify_no_code": (">", 0.5),
-      "F4_one_diagnostic_all_three": (">", 0.5)}),
+      "F4_one_diagnostic_all_three": (">", 0.5)}),    ("Certify-contextual verdict (frontier EXP-2)", ["scripts/142_contextual_certificate.py"],
+     "142_contextual_certificate.json",
+     {"C1_emit_classical": (">", 0.5), "C2_certify_contextual": (">", 0.5), "C3_locates_the_wall": (">", 0.5)}),
 ]
 
 
