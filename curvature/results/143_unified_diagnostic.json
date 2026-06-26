@@ -1,0 +1,50 @@
+{
+ "menu": {
+  "EMIT": {
+   "verdict": "EMIT",
+   "correct": true,
+   "stress": 2.3569322704641849e-07,
+   "raw": 4.500165630568327e-08
+  },
+  "CERTIFY-GAUGE": {
+   "verdict": "CERTIFY-GAUGE",
+   "correct": true,
+   "stress": 2.3569322704641849e-07,
+   "raw": 1.4616786089313616
+  },
+  "CERTIFY-NO-CODE": {
+   "verdict": "CERTIFY-NO-CODE",
+   "correct": true,
+   "stress": 0.46871648684168765,
+   "raw": null
+  },
+  "EMIT-CLASSICAL": {
+   "verdict": "EMIT-CLASSICAL",
+   "correct": true,
+   "fit_residual": 0.0053947647789727715,
+   "chsh": 0.6448069540924393
+  },
+  "CERTIFY-CONTEXTUAL": {
+   "verdict": "CERTIFY-CONTEXTUAL",
+   "correct": true,
+   "fit_residual": 0.8286960609034164,
+   "chsh": 2.82842712474619
+  },
+  "EMIT-LEGIBLE": {
+   "verdict": "EMIT-LEGIBLE",
+   "correct": true,
+   "linear": 0.9857206817359568,
+   "nonlinear": 0.9942504042192878
+  },
+  "PARTIAL-LEGIBLE": {
+   "verdict": "PARTIAL-LEGIBLE",
+   "correct": true,
+   "linear": 0.4536739747533901,
+   "nonlinear": 0.7486845929486657
+  }
+ },
+ "U1_partial_legible_verdict": true,
+ "U2_one_instrument_five_verdicts": true,
+ "frontier_table_complete": true,
+ "verdict": "THE FRONTIER TABLE IS COMPLETE (\u2461 EXP-3): ONE diagnostic, routing by data type, emits all FIVE discoverability verdicts correctly on a full menu. PARTIAL-LEGIBLE (the new 5th) -- a FREE code stores the property non-linearly (linear 0.45 low, nonlinear 0.75 high) = the code exists+used but isn't legible; an AMORTIZED code is EMIT-LEGIBLE (linear 0.99). Together with EMIT / CERTIFY-GAUGE / CERTIFY-NO-CODE (distances) and EMIT-CLASSICAL / CERTIFY-CONTEXTUAL (correlations), every discovery wall the project hit is now one of five ways the cheapest legible code fails -- doesn't exist (chaos/no-code), isn't unique (gauge), isn't globally consistent (contextual), isn't linear (partial-legible) -- with EMIT when it is all four. A theory of the discoverable, executable."
+}

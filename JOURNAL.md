@@ -1,3 +1,22 @@
+## 2026-06-27 — ② EXP-3: the frontier table COMPLETE — one diagnostic, five verdicts (script 143 + writeup)
+
+Closed the first arc of ②: the 5th verdict (PARTIAL-LEGIBLE) + the UNIFIED diagnostic. Script 143 routes by data type
+and emits all five discoverability verdicts correctly on a 7-case menu (U1+U2, all correct):
+- distances -> classical MDS stress + frame error -> EMIT (stress 2e-7, raw 5e-8) / CERTIFY-GAUGE (raw 1.46) /
+  CERTIFY-NO-CODE (stress 0.47);
+- correlations -> local-polytope fit + CHSH -> EMIT-CLASSICAL (CHSH 0.64) / CERTIFY-CONTEXTUAL (CHSH 2.83);
+- code -> linear vs nonlinear decode -> EMIT-LEGIBLE (linear 0.99) / PARTIAL-LEGIBLE (linear 0.45, nonlinear 0.75 = info
+  present but not linear, the legibility law's free-code case = the 5th verdict).
+One fix round: the compact 3000-step code train under-converged the FREE code (nonlinear 0.59); bumped to 10000 steps
+(139's regime) -> nonlinear 0.75, clean. The frontier table is complete: every discovery wall the project hit is one of
+five ways "the cheapest legible code" fails -- doesn't exist (chaos/no-code) / isn't unique (gauge) / isn't globally
+consistent (contextual) / isn't linear (partial-legible) -- with EMIT when it is all four.
+SYNTHESIS WRITEUP: writeups/representability_frontier.md (shareable; the 5-cell table, the one-instrument demo, the five
+verdicts each with evidence, honest scope). NOT adding 143 to verify.sh: it re-runs 139's train internally (redundant +
+slow), and the five verdicts are ALREADY gated individually by 139/141/142 in verify.sh. Honest open scope (in the
+writeup): the diagnostic CLASSIFIES known regimes routed by data type -- it's not yet a detector that infers the regime
+of a fully-unknown system; closing that is the next swing. ② first arc COMPLETE (framework + EXP-1/2/3 + writeup).
+
 ## 2026-06-27 — ② EXP-2: the CERTIFY-CONTEXTUAL verdict — the diagnostic locates the Bell wall (script 142)
 
 Pushed ② to EXP-2: add the 4th frontier verdict (CERTIFY-CONTEXTUAL = no consistent GLOBAL code; Bell/KCBS), on a NEW
