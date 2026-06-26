@@ -1,3 +1,39 @@
+## 2026-06-26 — VM build E: Wong v4 (fuller observability) — did NOT cross the ceiling (honest negative, confounded)
+
+vm_plan E. Wong v3 (106): a structure-preserving orthogonal-SO(3) charge update conserves |Q| exactly and ~doubles the
+rotating charge's legibility (0.29→0.56-0.64) but does NOT reach the 0.70 gate. Hypothesis (vm_plan E): the residual
+ceiling is partial OBSERVABILITY -- trajectory-only supervision sees Q only via the scalar a=well+Q.E along ONE field.
+v4 (script 135) tested it: same orthogonal-SO(3) model, K=1 (single field, the 106 baseline) vs K=4 (four diverse
+color-electric probe fields, shared transport), matched 12000-step budget. RESULT: K=4 did NOT cross 0.70 -- min linear
+decode 0.295 (per-component [0.295,0.392,0.475]) vs K=1's 0.376 ([0.491,0.376,0.553]); fuller observability did not
+help. |Q| conserved exactly (1.4e-7, SO(3)). HONEST FRAMING / CAVEAT: this is CONFOUNDED -- the K=4 run fits 4x the
+trajectory data at the SAME step count, and its nonlinear-r ALSO dropped (0.90→0.82), indicating it is relatively
+UNDER-CONVERGED. So I cannot cleanly separate "observability doesn't help" from "K=4 needs more steps." The unconfounded
+conclusion is only: at a MATCHED budget, adding observability did not resolve the ceiling, and the rotating charge
+stayed only-nonlinearly-legible. A step-matched-PER-FIELD K=4 run (4x the budget) is the clean follow-up I did NOT run
+(parked). So the partial-observability hypothesis is NOT supported at matched budget, but not cleanly refuted either.
+Not in verify.sh (honest negative). Compute note: the per-step matrix_exp rollout was GPU-launch-bound (~2hr on the L4);
+switched to the closed-form Rodrigues SO(3) exp (exact, |Q| conserved) + ran on the VM CPU (this workload is CPU-favorable).
+
+## 2026-06-26 — VM build C: global PINN for scalar-field collapse — qualitative paradigm ✓, quantitative accuracy ✗
+
+vm_plan C / hail-mary. The untried lever the literature validates: the published NN-Choptuik win (Choptuik et al.,
+arXiv:2511.15247, Mach. Learn. Sci. Technol. 2026) is a global PINN (physics-in-loss, no autoregressive rollout), which
+sidesteps the rollout-amplification wall our learned emulator hit (exp11/exp12). Built a global PINN in-repo (script 136,
+plain MLP: first-order EMKG outputs Phi,Pi,C,alpha; residuals = 2 field eqs + 2 metric constraints taken from the
+verified FD solver collapse.py; IC + spatial-boundary anchored to the FD reference). HONEST SCOPE pre-registered up
+front: plain MLP, NOT the paper's ModPINN (QRes layers, RBF/tanh embeddings, causality weighting, adaptive remeshing,
+SOAP, 100k epochs, A100) -- demonstrate the PARADIGM, not match near-critical accuracy. Result (honest partial):
+- G2 DICHOTOMY ✓: subcritical (A=0.02) max 2m/r = 0.024 (DISPERSES, no spurious horizon -- exactly the regime where the
+  autoregressive rollout drove a SPURIOUS collapse, exp11 D1), supercritical (A=0.40) max 2m/r = 0.977 (COLLAPSES to a
+  horizon, matching FD's 0.980). A global physics-in-loss solve with ZERO rollout steps reproduces the disperse/collapse
+  criticality the rollout could not.
+- G1 FAILS: the plain-MLP field accuracy is poor -- relative L2 of Phi 0.62, of C 0.70 (gate <0.20). A plain MLP does NOT
+  match the FD field quantitatively; near-FD accuracy needs the paper's ModPINN (cited, not attempted).
+So the paradigm is demonstrated QUALITATIVELY (dichotomy + no spurious collapse, no rollout) but NOT quantitatively. This
+re-confirms the project's structure-by-construction thesis from the literature's own paradigm, honestly scoped: physics-
+in-the-loss > learned rollout for this stiff constrained system. Not in verify.sh (GPU + honest partial).
+
 ## 2026-06-26 — VM (L4) Phase-2: FNO grid-sweep numbers filled in; 3+1-law "closure" CORRECTED (self-correction)
 
 L4 became available again (stockout cleared); GPU verified free. Connected to the VM and found the two shovel-ready

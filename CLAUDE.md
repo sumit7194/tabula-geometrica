@@ -424,7 +424,17 @@ results in `curvature/notes/lab_notebook.md`.
   updates conserve the invariant and substantially help, but FULL dynamic
   legibility ALSO needs the quantity to be OBSERVABLE — structure necessary, not
   sufficient (leg 3 hit the ceiling only because there the rotation was fully
-  observable). NOT in verify.sh (partial). **Survey-row status corrected
+  observable). **v4 UPDATE (script 135, 2026-06-26, VM): the partial-observability
+  hypothesis was TESTED and is NOT supported at matched budget. K=1 (single field)
+  vs K=4 (four diverse color-electric probe fields, shared SO(3) transport), matched
+  12000 steps: K=4 did NOT cross 0.70 — min linear decode 0.295 ≤ K=1's 0.376;
+  observability did not help (|Q| still exact, 1.4e-7). CAVEAT (honest): CONFOUNDED —
+  K=4 fits 4× the data at the same step count and its nonlinear-r also dropped
+  (0.90→0.82) = under-converged, so "observability doesn't help" can't be cleanly
+  separated from "K=4 needs more steps." Not cleanly refuted; a step-matched-per-field
+  K=4 (4× budget) is the parked follow-up. So the prior "PARTIAL-OBSERVABILITY ceiling"
+  claim is downgraded to a hypothesis NOT supported at matched budget — the ceiling may
+  be a deeper representational limit.** NOT in verify.sh (partial). **Survey-row status corrected
   (2026-06-23): friction is DONE (script 70 — universal but dissipative does NOT
   geometrize, geom/dissip MSE ratio 606,265× vs 0.085 for a conservative force;
   reversibility explains it), and equivalence-breaking gravity is already covered
@@ -882,6 +892,21 @@ results in `curvature/notes/lab_notebook.md`.
   -- sidesteps this wall, wins by building physics in = OUR structure-by-
   construction thesis. Untried lever the literature validates = a global PINN
   solve (different paradigm; re-confirms the thesis). Pivot freely; nothing waits.
+  **UNTRIED LEVER BUILT (script 136, 2026-06-26, VM GPU): the global PINN, honest
+  PARTIAL.** Plain-MLP global PINN (first-order EMKG: outputs Phi,Pi,C,alpha;
+  residuals = 2 field eqs + 2 metric constraints from collapse.py; IC + spatial-BC
+  anchored to the FD reference). Pre-reg scope (stated up front, no overclaim): plain
+  MLP, NOT the paper's ModPINN (QRes/RBF-embeddings/causality-weighting/adaptive-
+  remeshing/SOAP/100k-epochs/A100) — demonstrate the PARADIGM, not near-critical
+  accuracy. Result: **G2 DICHOTOMY ✓** — subcritical (A=0.02) max 2m/r 0.024 (DISPERSES,
+  no spurious horizon — the exact regime the rollout drove to spurious collapse,
+  exp11 D1); supercritical (A=0.40) max 2m/r 0.977 (COLLAPSES, FD 0.980). A global
+  physics-in-loss solve with ZERO rollout steps reproduces the disperse/collapse
+  criticality the rollout could not. **G1 ✗** — plain-MLP field accuracy poor (relL2
+  Phi 0.62, C 0.70 vs gate 0.20); a plain MLP is not a quantitative solver (ModPINN
+  territory, cited). So: the paradigm is demonstrated QUALITATIVELY (dichotomy + no
+  spurious collapse, no rollout), not quantitatively — re-confirms structure-by-
+  construction (physics-in-loss > learned rollout) honestly scoped. Not in verify.sh.
 - Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
   Phase H rows (equivalence-breaking gravity); a G-sym legibility-preserving
   variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit

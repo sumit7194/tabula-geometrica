@@ -1,0 +1,22 @@
+{
+ "subcritical": {
+  "A": 0.02,
+  "relL2_Phi": 0.6208854913711548,
+  "relL2_C": 0.7040308117866516,
+  "max_C_pinn": 0.023871662095189095,
+  "max_C_fd": 0.06214901804924011
+ },
+ "supercritical": {
+  "A": 0.4,
+  "relL2_Phi": 0.5082017779350281,
+  "relL2_C": 0.2122502475976944,
+  "max_C_pinn": 0.9773881435394287,
+  "max_C_fd": 0.9797012805938721
+ },
+ "G1_global_solve_subcritical": false,
+ "G2_dichotomy": true,
+ "G3_no_rollout": true,
+ "global_pinn_demonstrates_paradigm": false,
+ "scope_caveat": "plain-MLP PINN, NOT the paper's ModPINN; demonstrates the global physics-in-loss paradigm (no rollout) + the disperse/collapse dichotomy; does NOT claim near-critical accuracy or mass-scaling (those need ModPINN + adaptive sampling + A100, arXiv:2511.15247).",
+ "verdict": "PARTIAL/HONEST -- see numbers; the plain MLP may not fully resolve the near-horizon supercritical region (expected; ModPINN territory)."
+}
