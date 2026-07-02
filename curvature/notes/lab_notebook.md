@@ -3880,3 +3880,13 @@ SYNTHESIS: localization floor = N_resolve/2, grows 800→3200 (4×) as δ 0.4→
 axis sets TEMPORAL resolution (near-wall switches are temporally blurry). Corrections: dropped logistic (no margin);
 first-crossing localizer noise-fooled by long classical prefix → confidence-based N_resolve/2 floor (right measure). In
 verify.sh. Real-data/temporal arc (13+14) complete.
+
+## 2026-07-02 — ③ EXP-15: Newton from ephemerides (script 156 + 6 Horizons datasets)
+The thesis on real data. Engine on raw JPL Horizons state features (6 bodies incl. Icarus/Phaethon; offline cached).
+P1: emits E from [v²,1/r], μ̂ = GM☉ to 0.0001% (2.959119e-4 vs k²=2.959122e-4); holdout-without-Mercury transfers
+(drift 5e-5). P2: L conserved 2e-6..2e-5. P3: LRL conserved on all 6 (4e-5..4e-3), wrong-μ 535×, sub-library emit
+cosine 1.00000 + SECOND independent μ̂ to 0.0001%, known functionals in conserved set (ratios 2e-10..5e-9). P4 CROWN:
+Mercury LRL azimuth 1900-2020 drifts 568.4″/cy vs known ~575 (1.1%) — the invariant's failure MEASURES the perihelion
+precession. FIX ROUND (recorded): top-7-span gate failed → physics: near-circular orbits have no LRL signal (no
+perihelion!) → added high-e asteroids; eigen-ordering among degenerate zeros unstable → sub-library emit + measured
+functional ratios. In verify.sh (~10s). Data: horizons_*.csv committed.

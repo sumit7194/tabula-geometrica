@@ -92,3 +92,38 @@ gate). Ranked #1 of the fresh options; alternatives noted: ① SAE-legibility on
 1. EXP-13 research-first (verify each data source URL/format/license) → download_data.py → commit CSVs → 154 → gate → doc.
 2. EXP-14 (155) → gate → doc.
 3. Discuss ③ with the user (payoff swing).
+
+---
+
+## ③ EXP-15 — NEWTON FROM EPHEMERIDES (script 156) — DONE 2026-07-02, P1/P2/P3 + P4 soft ALL PASS
+
+**RESULT:** μ̂ = GM☉ to 0.0001% (twice, independently: energy + LRL coefficients); L conserved; LRL conserved on 6
+bodies (wrong-μ 535×, emit cosine 1.00000); Mercury perihelion precession MEASURED from the LRL drift: 568.4″/cy vs
+known ~575 (1.1%). Fix round: near-circular orbits carry no LRL signal → added Icarus/Phaethon; eigen-ordering →
+sub-library emit. The thesis, delivered on the actual solar system.
+
+The payoff swing: point the emit-or-certify engine at REAL solar-system data. Data (fetched + committed, offline gate):
+JPL Horizons state vectors, heliocentric ecliptic, AU & AU/day — Mercury/Venus/EMB/Mars 2023–2025 @1d (732 rows each)
++ Mercury 1900–2020 @10d (4383 rows) for the precession measurement. All invariants are POINTWISE functions of the
+state (no integration), so sampling density is not a limitation.
+
+Known two-body invariants (per unit mass, μ = GM☉): E = ½v² − μ/r; L = r×v; LRL A = v²·r − (r·v)·v − μ·r̂
+(A_x = v²x − (r·v)vx − μx/r). Real planets are PERTURBED (Venus/Jupiter etc.), so these are conserved only to
+perturbation level (~1e-5..1e-3 relative) — the residual is REAL PHYSICS, framed as such (user-agreed). The engine's
+feature library: [v², 1/r, Lx, Ly, Lz, v²x, (r·v)vx, x/r, v²y, (r·v)vy, y/r, v²z, (r·v)vz, z/r] — segments of each
+planet's series are the "trajectories" (invariant constant within a planet, DIFFERENT across planets).
+
+Pre-reg gates:
+- P1 EMIT E + MEASURE GM☉: on the [v², 1/r] library the engine's most-conserved direction is the energy; the
+  coefficient ratio measures μ̂ = −0.5·c₂/c₁, gated within 1% of the known GM☉ = k² = 2.9591220828559e-4 AU³/day²
+  (Gaussian gravitational constant squared). Planet-holdout: μ̂ fitted WITHOUT Mercury keeps Mercury's E conserved
+  (relative drift < 1e-3).
+- P2 EMIT L: angular-momentum components conserved on the real data (relative drift < 1e-3 per planet).
+- P3 LRL — THE 1/r-SPECIFIC INVARIANT (the headline): the LRL vector is conserved ONLY for a 1/r potential with the
+  right μ. Gates: real-data LRL relative drift < 1e-2 (perturbation level) for all planets AND a wrong-μ control
+  (μ×1.2) drifts > 30× more; the engine's full-library conserved span CONTAINS the LRL directions (projection
+  residual < 0.05). Second independent μ̂ from the LRL coefficients.
+- P4 (exploratory, the crown if it lands): Mercury 1900–2020 — the LRL AZIMUTH drifts linearly = the apsidal
+  (perihelion) precession. In the inertial (ICRF/ecliptic) frame the known total is ~575″/century (≈532″ planetary
+  perturbations + 43″ GR). Soft gate: measured slope within ±25% of 575″/cy; report honestly either way. If it lands:
+  "the discovered invariant's slow failure MEASURES Mercury's perihelion precession from real data."

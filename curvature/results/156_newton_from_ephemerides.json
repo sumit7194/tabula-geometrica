@@ -1,0 +1,39 @@
+{
+ "mu_true_AU3_day2": 0.00029591220828559,
+ "P1_mu_hat": 0.000295911917866226,
+ "P1_rel_err": 9.814375881810775e-07,
+ "P1_mu_holdout_no_mercury": 0.0002958624224290731,
+ "P1_mercury_E_drift_with_holdout_mu": 4.98767307920496e-05,
+ "P2_L_drift_by_planet": {
+  "mercury": 2.4366543305282843e-06,
+  "venus": 3.5488812390794926e-06,
+  "emb": 6.4633973817636006e-06,
+  "mars": 1.753810569942816e-05
+ },
+ "P3_LRL_drift_by_body": {
+  "mercury": 4.2619115198967607e-05,
+  "venus": 0.0037989303979677766,
+  "emb": 0.0019195360525337218,
+  "mars": 0.0007883866303797634,
+  "icarus": 5.744236234343224e-05,
+  "phaethon": 0.0001381424830848887
+ },
+ "P3_wrongmu_over_true_drift_ratio": 534.7403195451325,
+ "P3_sublib_cosine_to_LRL": 0.9999999999997862,
+ "P3_mu_hat_LRL": 0.00029591194071890484,
+ "P3_mu_LRL_rel_err": 9.042096867891067e-07,
+ "P3_known_functional_ratios_full_lib": {
+  "E": 2.2819414775372812e-10,
+  "Lz": 4.760181866837122e-09,
+  "Ax": 2.1158726383174996e-09,
+  "Ay": 5.932476204617303e-10
+ },
+ "P4_measured_precession_arcsec_per_century": 568.4348567552803,
+ "P4_known_total": 575.0,
+ "P1_emit_E_measure_GM": true,
+ "P2_emit_L": true,
+ "P3_LRL_one_over_r_specific": true,
+ "P4_perihelion_precession_soft": true,
+ "newton_from_ephemerides": true,
+ "verdict": "NEWTON FROM EPHEMERIDES (\u2462 EXP-15): the emit-or-certify engine, given only raw state features from REAL JPL Horizons data (4 planets + 2 high-e asteroids), EMITS Newton's gravity. (P1) The most-conserved combination of [v^2, 1/r] IS the energy, and its coefficient ratio MEASURES GM_sun: mu_hat = 2.959119e-04 vs true 2.959122e-04 (0.0001% error); fitted without Mercury it still conserves Mercury's E (drift 5.0e-05) -- the law transfers across bodies. (P2) Angular momentum conserved on real data (drift 2e-06..2e-05). (P3, the 1/r-specific headline) the LAPLACE-RUNGE-LENZ vector -- conserved ONLY for a 1/r force with the right mu -- is conserved at perturbation level on all six bodies (drift 4e-05..4e-03), a wrong-mu control drifts 535x more, the engine EMITS the LRL combination from the sub-library at cosine 1.0000 giving a SECOND independent GM_sun measurement mu_hat_LRL = 2.959119e-04 (0.0001% error), and every known invariant functional is in the full library's conserved set (within/total ratios 2e-10..5e-09): the data singles out Newton's inverse-square law specifically. Physics insight from the fix round: near-circular orbits carry NO LRL signal (a circular orbit has no perihelion) -- eccentric asteroids were needed. (P4, the crown) the LRL azimuth of Mercury over 1900-2020 drifts at 568.4 arcsec/century vs the known ~575 (planetary perturbations + GR): the discovered invariant's slow, systematic failure MEASURES Mercury's perihelion precession from real data -- the residual is real physics."
+}
