@@ -1,3 +1,18 @@
+## 2026-07-02 — ② EXP-6: the ABSTAIN-aware detector — underdetermination made honest (script 147)
+
+Direct follow-up to EXP-5's P-C finding ("the detector needs an ABSTAIN output"). Wrapped each 145 branch's decision
+statistic in a BOOTSTRAP confidence interval; the detector ABSTAINS when the CI straddles the decision threshold or the
+sample is below a per-branch reliability floor. A1/A2/A3 all pass:
+- A1 CONFIDENT-CORRECT: 5 well-sampled systems (far singlet N=200k→CONTEXTUAL, LHV→CLASSICAL, 40-pt geometry→GAUGE,
+  Kepler→regular, Lorenz→CHAOS) all correct, NO spurious abstain.
+- A2 HONEST-ABSTAIN: 3 underdetermined inputs (near-boundary Werner N=16 [CHSH CI straddles 2], 6-point distance matrix
+  [below MDS floor], short chaotic series [K CI straddles 0.5]) all ABSTAIN — ZERO wrong verdicts.
+- A3 RESOLVES-WITH-DATA: near-boundary Werner (CHSH 2.21) sweep goes ABSTAIN (N=16/64/256) → CERTIFY-CONTEXTUAL
+  (N=1024/16k/200k), monotonically as the bootstrap CI lower bound crosses 2.
+One bug fixed (T[i,::rate] → T[i,::rate,0]: the 0-1 test needs the scalar observable, not the full state vector).
+Method = bootstrap CIs (standard) + per-branch floors. The detector now says "not enough data" instead of guessing, and
+more data resolves it — EXP-5's epistemic UNDERDETERMINATION axis turned into an explicit, honest output. In verify.sh.
+
 ## 2026-07-02 — ② EXP-5: the sixth-wall hunt — the table is one face of a 3-axis space (script 146)
 
 Exhaustiveness probe: is the 5-cell discoverability table complete? Threw 3 adversarial non-taxonomy systems at the 145

@@ -3799,3 +3799,11 @@ attractor) + Wolfram computational irreducibility (distinct from chaos). W1/W2/W
   at N=16, 100% at N=200k; far singlet robust. Detector needs an ABSTAIN output near boundaries.
 HEADLINE: 5-cell table EXHAUSTIVE for law-discoverability of well-sampled stationary systems (no 6th cell) but ONE FACE
 of a 3-axis space: DISCOVERABILITY × PREDICTABILITY (irreducibility) × SAMPLING (underdetermination). In verify.sh (~1min).
+
+## 2026-07-02 — ② EXP-6: the ABSTAIN-aware detector (script 147)
+Operationalizes EXP-5's P-C: wrap each 145 branch statistic in a bootstrap CI; ABSTAIN when the CI straddles the
+threshold or the sample is below a per-branch floor. A1/A2/A3 pass: A1 confident-correct on 5 well-sampled systems (no
+spurious abstain); A2 honest-abstain on 3 underdetermined inputs (near-boundary Werner N=16, 6-pt distances, short
+chaotic series) with ZERO wrong verdicts; A3 near-boundary Werner (CHSH 2.21) resolves ABSTAIN(N=16/64/256)->CONTEXTUAL
+(N=1024/16k/200k) monotonically. Bug fixed: T[i,::rate]->T[i,::rate,0] (0-1 test needs the scalar observable). Bootstrap
+CIs + per-branch floors. In verify.sh. The detector says "not enough data" instead of guessing; more data resolves it.

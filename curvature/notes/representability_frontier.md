@@ -93,6 +93,19 @@ on demand.
   EXP-5 maps its boundaries — partial obs is ABSORBED (Takens), while computational irreducibility (a PREDICTABILITY
   axis) and finite-sample (an UNDERDETERMINATION axis) are ORTHOGONAL frontiers the table doesn't cover (not 6th cells in
   the same table — a "this table is one face of a larger space" annotation).
+- **EXP-6 (DONE 2026-07-02, script 147, A1/A2/A3): the ABSTAIN-AWARE detector.** RESULT: A1 confident-correct on
+  5 well-sampled systems (no spurious abstain); A2 honest-abstain on 3 underdetermined inputs (ZERO wrong verdicts);
+  A3 near-boundary Werner resolves ABSTAIN(N≤256)→CONTEXTUAL(N≥1024) monotonically. Underdetermination is now an explicit
+  output. In verify.sh. Operationalizes EXP-5's P-C finding
+  (the detector needs an ABSTAIN output near boundaries / under-sampling). Wrap each 145 branch's decision statistic in a
+  BOOTSTRAP confidence interval (resample the data, recompute the statistic); if the CI straddles the decision threshold
+  (or the sample is too small for the branch to be reliable), output **ABSTAIN** instead of a possibly-wrong verdict.
+  Pre-reg: A1 CONFIDENT-CORRECT — on well-sampled menu systems the detector matches 145 (right verdict, no spurious
+  abstain); A2 HONEST-ABSTAIN — on underdetermined inputs (near-boundary Werner at small N; a distance matrix with too
+  few points; a short chaotic series) it ABSTAINS rather than emitting a wrong verdict (wrong-verdict rate ≈ 0, abstain
+  rate high); A3 RESOLVES-WITH-DATA — as N grows the same input goes ABSTAIN → confident-correct (confidence rises
+  monotonically, recovering the right verdict). Method: bootstrap CIs on the branch statistics (standard); abstain =
+  CI-straddles-threshold OR below a per-branch minimum-sample floor.
 
 ## EXP-1 result (script 141, distance-geometry realization)
 

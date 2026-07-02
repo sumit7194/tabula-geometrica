@@ -118,6 +118,8 @@ BATTERIES = [
      "146_sixth_wall_hunt.json",
      {"W1_partial_obs_absorbed": (">", 0.5), "W2_irreducibility_misfit": (">", 0.5),
       "W3_underdetermination_gap": (">", 0.5)}),
+    ("Abstain-aware detector (frontier EXP-6)", ["scripts/147_abstain_detector.py"], "147_abstain_detector.json",
+     {"A1_pass": (">", 0.5), "A2_pass": (">", 0.5), "A3_pass": (">", 0.5)}),
 ]
 
 
