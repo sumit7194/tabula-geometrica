@@ -157,6 +157,21 @@ compression), not the local rule — which is almost always easy.
 - Still untested: genuinely real-world data (measurement noise, types outside the four structural signatures), and
   wiring the mixture/abstain modes into the detector proper (both EXP-6 and EXP-8 demonstrate the fix; folding them into
   the single instrument is a clean engineering follow-up).
+
+**The detector matured into a robust instrument (EXP-9–11).** Three follow-ups took the detector from a menu classifier
+to something that degrades honestly. *EXP-9* ([script 150](../curvature/scripts/150_robust_detector.py)) folds abstain
+(EXP-6) and mixture (EXP-8) into **one data-driven instrument**: on a 9-case menu it returns a confident verdict, an
+ABSTAIN, or a MIXTURE-with-fraction as appropriate, with zero wrong confident verdicts. *EXP-10*
+([script 151](../curvature/scripts/151_noise_robustness.py)) stress-tested it under measurement noise and found the
+brittleness lived not in the regime diagnostics but in **type inference** — a noisy distance matrix violates the strict
+triangle inequality and gets mistyped; the fix is a noise-tolerant distance signature. With that, chaos detection is
+fully noise-robust, and regular-orbit detection degrades gracefully (abstains before it false-positives). *EXP-11*
+([script 152](../curvature/scripts/152_predictability_diagnostic.py)) turns the **predictability axis** — the orthogonal
+axis EXP-5 discovered — into its own instrument: a four-class diagnostic (RANDOM / PREDICTABLE / CHAOTIC / IRREDUCIBLE)
+that classifies systems correctly and confirms the axis is independent of discoverability (all structured systems have a
+learnable one-step law, yet span three predictability classes). So the three-axis frontier now has two of its three axes
+(discoverability, predictability) operationalized as instruments, and the discoverability detector is uncertainty-,
+mixture-, and noise-aware.
 - **The exhaustiveness question, answered (EXP-5, script 146).** We threw three adversarial systems that were *not*
   built to fit the table at the detector. The result: no sixth cell — but the table is **one face of a three-axis
   space**. (a) *Partial observability* is absorbed, not a new wall: a single scalar observable still yields the correct
