@@ -114,7 +114,13 @@ on demand.
   data-driven instrument: infer type, then return a confident VERDICT / ABSTAIN (under-sampled or near a wall) / MIXTURE
   (regimes coexist → report the fraction). 9/9 menu: U1 confident-correct on clean inputs; U2 Hénon-Heiles E=1/8 →
   MIXTURE (fraction 0.42); U3 ABSTAIN on 3 underdetermined inputs (short KAM, Werner N=16, 6-pt matrix) with ZERO wrong
-  confident verdicts; U4 one instrument, all outcomes. The detector now degrades honestly. In verify.sh. The detector assumes ONE clean regime;
+  confident verdicts; U4 one instrument, all outcomes. The detector now degrades honestly. In verify.sh.
+- **EXP-10 (DONE 2026-07-02, script 151, N1/N2/N3): NOISE robustness.** Stress-tested under measurement noise. META-
+  finding: the brittle part was TYPE INFERENCE (a noisy distance matrix violates the strict triangle inequality → mistyped
+  as code) → fixed with a noise-tolerant distance signature (square+symmetric+hollow+nonneg). With the fix the regime
+  diagnostics degrade gracefully: chaos fully robust (Lorenz CERTIFY-CHAOS to σ=0.4), regular graceful (Kepler regular→
+  ABSTAIN→false-chaos only at extreme σ, abstains before wrong), geometry holds then reads NO-CODE at 40% noise (arguably
+  correct). Residual edge → next guard = a noise-level-aware abstain. In verify.sh. The detector assumes ONE clean regime;
   this stress-tests that on a KAM MIXED PHASE SPACE (regular + chaotic orbits coexisting at one energy). Web-verified
   Hénon-Heiles: regular for E<1/12, MIXED for 1/12<E<1/6 (chaotic fraction grows with E), fully chaotic at E=1/6. Per
   orbit: 0-1 test K (chaos) + an independent finite-time max-Lyapunov λ (Benettin two-orbit method) for cross-validation.

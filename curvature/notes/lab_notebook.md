@@ -3837,3 +3837,12 @@ instrument all outcomes. Smoke: native 0-1 K detects KAM mixture at long integra
 data-driven. Bug fixed: 6-pt distance matrix < 145's n≥8 floor → mistyped code → KNN crash; added small-square-hollow
 catch → distances→ABSTAIN. Research-first: abstention+mixture detection established (HMM/GMM/PELT); contribution = folding
 into the frontier detector so it degrades honestly. In verify.sh (~4min).
+
+## 2026-07-02 — ② EXP-10: noise robustness (script 151)
+Stress-tested the robust detector under measurement noise. META-FINDING (the real result): the brittle part is the §145
+TYPE INFERENCE, not the regime diagnostics — noisy distance matrix violates strict triangle inequality → mistyped as
+code → EMIT-LEGIBLE at σ=0.005. Fix (one round): noise-tolerant distance signature (square+symmetric+hollow+nonneg, no
+strict triangle). With fix: N2 chaos fully robust (Lorenz CERTIFY-CHAOS to σ=0.4); regular graceful (Kepler regular→
+ABSTAIN@0.15→false-chaos only@0.4, abstains before wrong); geometry holds to σ=0.15→NO-CODE@0.4 (arguably correct, noise
+destroys the code). N1/N2/N3 pass. Residual edge: regular→false-chaos at extreme noise → next guard = noise-aware abstain
+(EXP-6 extended). Chaos detection is noise-robust; brittleness lived in type inference, fixed. In verify.sh.

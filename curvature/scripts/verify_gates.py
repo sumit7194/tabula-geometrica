@@ -130,6 +130,8 @@ BATTERIES = [
     ("Unified robust detector (frontier EXP-9)", ["scripts/150_robust_detector.py"], "150_robust_detector.json",
      {"U1_confident_correct": (">", 0.5), "U2_mixture_detected": (">", 0.5),
       "U3_abstain_when_underdetermined": (">", 0.5), "U4_one_instrument_all_outcomes": (">", 0.5)}),
+    ("Noise robustness profile (frontier EXP-10)", ["scripts/151_noise_robustness.py"], "151_noise_robustness.json",
+     {"N1_low_noise_correct": (">", 0.5), "N2_chaos_robust": (">", 0.5), "N3_degradation_profiled": (">", 0.5)}),
 ]
 
 

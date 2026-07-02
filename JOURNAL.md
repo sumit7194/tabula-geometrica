@@ -1,3 +1,20 @@
+## 2026-07-02 — ② EXP-10: noise robustness — the brittleness was in TYPE INFERENCE, now fixed (script 151)
+
+Stress-tested the robust detector under measurement noise (the "real data has noise" gap). Added increasing noise to a
+chaos trajectory (Lorenz), a regular trajectory (Kepler), and a relational geometry, profiling graceful (→ABSTAIN) vs
+brittle (→confident wrong) degradation. N1/N2/N3 all pass (after one fix round):
+- META-FINDING (the real result): the FIRST run exposed that the brittle part is the §145 TYPE INFERENCE, not the regime
+  diagnostics — a noisy distance matrix violates the strict triangle inequality → got mistyped as 'code' → crashed/flipped
+  to EMIT-LEGIBLE at σ=0.005. FIX (one round): a noise-tolerant distance signature (square+symmetric+hollow+nonneg, drop
+  the strict triangle check).
+- With the fix, the regime diagnostics degrade gracefully: N2 CHAOS fully ROBUST (Lorenz stays CERTIFY-CHAOS to σ=0.4;
+  noise can't hide sensitive dependence); REGULAR graceful (Kepler EMIT-regular to σ=0.05 → ABSTAIN at 0.15 → false-chaos
+  only at extreme σ=0.4, i.e. it abstains BEFORE it's wrong); GEOMETRY holds to σ=0.15 → CERTIFY-NO-CODE at σ=0.4 (arguably
+  correct — 40% distance noise genuinely destroys the low-D code).
+Honest residual sharp edge: regular→false-chaos at extreme noise names the next guard (a noise-level-aware abstain =
+EXP-6 extended to a noise floor). The headline: chaos detection is noise-robust; the detector's noise-brittleness lived
+in type inference and is fixed. In verify.sh.
+
 ## 2026-07-02 — ② EXP-9: the unified ROBUST detector — verdict | ABSTAIN | MIXTURE, one instrument (script 150)
 
 Folds EXP-4 (detector) + EXP-6 (abstain) + EXP-8 (mixture fraction) into ONE data-driven instrument. Research-first:
