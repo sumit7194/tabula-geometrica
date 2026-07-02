@@ -124,6 +124,9 @@ BATTERIES = [
      "148_law_vs_predictability.json",
      {"G1_law_uniform_for_structured": (">", 0.5), "G2_predictability_dissociates": (">", 0.5),
       "G3_dissociation_real": (">", 0.5)}),
+    ("Mixed-regime robustness (frontier EXP-8)", ["scripts/149_mixed_regime.py"], "149_mixed_regime.json",
+     {"X1_mixture_is_real": (">", 0.5), "X2_single_verdict_loses_it": (">", 0.5),
+      "X3_mixture_aware_recovers_it": (">", 0.5)}),
 ]
 
 
