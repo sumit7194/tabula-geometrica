@@ -114,6 +114,10 @@ BATTERIES = [
       "V0_pass": (">", 0.5)}),
     ("Regime detector (frontier EXP-4)", ["scripts/145_regime_detector.py"], "145_regime_detector.json",
      {"D1_type_inference": (">", 0.5), "D2_trajectory_branch": (">", 0.5), "D3_end_to_end": (">", 0.5)}),
+    ("Sixth-wall exhaustiveness hunt (frontier EXP-5)", ["scripts/146_sixth_wall_hunt.py"],
+     "146_sixth_wall_hunt.json",
+     {"W1_partial_obs_absorbed": (">", 0.5), "W2_irreducibility_misfit": (">", 0.5),
+      "W3_underdetermination_gap": (">", 0.5)}),
 ]
 
 

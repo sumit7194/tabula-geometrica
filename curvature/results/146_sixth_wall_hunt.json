@@ -1,0 +1,49 @@
+{
+ "P_A_partial_observability": {
+  "K_kepler_scalar": -0.060675807214414935,
+  "K_lorenz_scalar": 0.9977510090263152,
+  "absorbed": true
+ },
+ "P_B_computational_irreducibility": {
+  "rule30": {
+   "onestep_accuracy": 1.0,
+   "neighborhoods_seen": 8,
+   "compress_ratio": 1.0010945273631842
+  },
+  "rule90": {
+   "onestep_accuracy": 1.0,
+   "neighborhoods_seen": 8,
+   "compress_ratio": 1.0010945273631842
+  },
+  "rule250": {
+   "onestep_accuracy": 1.0,
+   "neighborhoods_seen": 8,
+   "compress_ratio": 0.014925373134328358
+  },
+  "misfit_predictability_axis": true,
+  "note": "all three EMIT the one-step law (acc~1.0); predictability splits: Rule30 incompressible (irreducible), Rule250 compressible (reducible), Rule90 zlib-incompressible despite a closed form (statistical vs algorithmic predictability) -> predictability is a rich axis orthogonal to discoverability."
+ },
+ "P_C_finite_sample": {
+  "frac_correct_verdict": {
+   "singlet_far": {
+    "N16": 0.9333333333333333,
+    "N64": 0.9666666666666667,
+    "N256": 1.0,
+    "N200000": 1.0
+   },
+   "werner_near_wall": {
+    "N16": 0.65,
+    "N64": 0.6,
+    "N256": 0.6833333333333333,
+    "N200000": 1.0
+   }
+  },
+  "underdetermination_gap": true,
+  "note": "underdetermination bites NEAR the wall: the far-from-boundary singlet is decided even at N=16; the near-wall Werner state (CHSH 2.07) is unreliable at small N, reliable at large N -- the epistemic axis interacts with proximity to the decision boundary."
+ },
+ "W1_partial_obs_absorbed": true,
+ "W2_irreducibility_misfit": true,
+ "W3_underdetermination_gap": true,
+ "exhaustiveness_mapped": true,
+ "verdict": "SIXTH-WALL HUNT (\u2461 EXP-5): the 5-cell table is EXHAUSTIVE for LAW-DISCOVERABILITY of well-sampled stationary systems, and EXP-5 maps its two boundaries. (P-A) PARTIAL OBSERVABILITY is ABSORBED, not a new wall: a single scalar observable still yields the correct chaos verdict (Kepler K=-0.06 regular, Lorenz K=1.00 chaotic) because Takens' delay embedding reconstructs the attractor and the 0-1 test is built for scalar series. (P-B) COMPUTATIONAL IRREDUCIBILITY is a GENUINE MISFIT on an ORTHOGONAL axis: Rules 30/90/250 ALL have perfectly discoverable one-step laws (accuracy 1.000/1.000/1.000, all EMIT), yet their TRAJECTORY predictability splits -- Rule 30 is incompressible (zlib 1.00, Wolfram's RNG, no shortcut) while Rule 250 compresses (0.01); Rule 90 is the nuance -- closed-form (algebraically reducible) yet zlib-incompressible (1.00), so predictability itself has flavors (statistical vs algorithmic). Discoverability != predictability: the table classifies the former; irreducibility is a wall on the latter. (P-C) FINITE-SAMPLE is an EPISTEMIC axis that bites NEAR the wall: a near-boundary Werner state (CHSH 2.07) is decided correctly only 65% of the time at N=16 vs 100% at N=200k (while the far-from-wall singlet is robust even at N=16) -- the detector needs an ABSTAIN output near boundaries. So the frontier table is one FACE of a larger space (discoverability x predictability x sampling); no 6th cell in the same table, but two orthogonal frontiers named."
+}

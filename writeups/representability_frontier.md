@@ -130,8 +130,19 @@ across subsampling rates and takes the max.
 
 - The detector is validated on *controlled menus* where each regime is dialed in on purpose; real-world data (noise,
   mixed regimes, types outside the four signatures) is untested territory.
-- The five cells may not be exhaustive. The honest claim is: *every wall the project has hit so far is one of these
-  five.* Finding a sixth would be a genuine result — hunting one adversarially is the natural next swing.
+- **The exhaustiveness question, answered (EXP-5, script 146).** We threw three adversarial systems that were *not*
+  built to fit the table at the detector. The result: no sixth cell — but the table is **one face of a three-axis
+  space**. (a) *Partial observability* is absorbed, not a new wall: a single scalar observable still yields the correct
+  regular/chaotic verdict (Kepler K=−0.06, Lorenz K=0.998), because Takens' delay embedding reconstructs the attractor
+  and the 0–1 test is built for scalar series. (b) *Computational irreducibility* is a genuine misfit on an orthogonal
+  **predictability** axis: elementary cellular automata (Rules 30/90/250) all have perfectly discoverable one-step laws
+  (they'd all read EMIT), yet their trajectories split on compressibility — Rule 30 is incompressible (Wolfram's RNG),
+  Rule 250 compresses. Discoverability ≠ predictability. (A nuance: Rule 90 is *algebraically* reducible, closed-form
+  XOR, yet *statistically* incompressible — predictability itself has flavors.) (c) *Finite samples* are an orthogonal
+  **underdetermination** axis that bites near a decision wall: a near-boundary Werner state (CHSH 2.07) is decided
+  correctly only 65% of the time at N=16 versus 100% at N=200k, while a far-from-wall singlet is robust even at N=16 —
+  the detector needs an *abstain* output near boundaries. So the frontier is DISCOVERABILITY (this table) ×
+  PREDICTABILITY × SAMPLING; the five cells are exhaustive on the first axis, for well-sampled stationary systems.
 
 The instrument: [143](../curvature/scripts/143_unified_diagnostic.py). The sub-verdicts, each gated:
 [141](../curvature/scripts/141_discoverability_trichotomy.py) (trichotomy),

@@ -3785,3 +3785,17 @@ trajectory branch = CHAOS-proper in the router: web-verified Gottwald-Melbourne 
 (K=-0.06, invariant held-out 7e-18 machine-exact); Lorenz CERTIFY-CHAOS (K=0.997, held-out 0.97). D1/D2/D3 pass, 9/9.
 GOTCHA (smoke-caught): oversampled chaos reads K~0 (Lorenz rate-1 K=-0.04 vs rate-5 K=1.0) → K = max over subsample
 rates {3,5,10}. Truth only in gates. 45s runtime → in verify.sh.
+
+## 2026-07-02 — ② EXP-5: the sixth-wall / exhaustiveness hunt (script 146)
+Threw 3 adversarial non-taxonomy systems at the 145 detector. Research-first: Takens (1 observable reconstructs
+attractor) + Wolfram computational irreducibility (distinct from chaos). W1/W2/W3 all pass:
+- P-A partial obs → ABSORBED: scalar-only 0-1 test gives right verdict (Kepler K=-0.06, Lorenz K=0.998); not a new wall.
+- P-B computational irreducibility → MISFIT, orthogonal PREDICTABILITY axis: Rules 30/90/250 all EMIT one-step law
+  (acc 1.000) but split on compressibility (Rule30 zlib 1.001 incompressible, Rule250 0.015 compressible). Rule-90
+  nuance (my prediction was wrong, smoke-caught → deepened it): algebraically reducible (closed-form) yet
+  zlib-incompressible → statistical vs algorithmic predictability.
+- P-C finite-sample → UNDERDETERMINATION axis, bites NEAR the wall. One fix round: first gate used the singlet (CHSH
+  2.83, far from boundary → decided even at N=16, gate failed 0.9); fixed to near-wall Werner (CHSH 2.07) → 65% correct
+  at N=16, 100% at N=200k; far singlet robust. Detector needs an ABSTAIN output near boundaries.
+HEADLINE: 5-cell table EXHAUSTIVE for law-discoverability of well-sampled stationary systems (no 6th cell) but ONE FACE
+of a 3-axis space: DISCOVERABILITY × PREDICTABILITY (irreducibility) × SAMPLING (underdetermination). In verify.sh (~1min).

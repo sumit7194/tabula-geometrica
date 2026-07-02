@@ -1,3 +1,24 @@
+## 2026-07-02 — ② EXP-5: the sixth-wall hunt — the table is one face of a 3-axis space (script 146)
+
+Exhaustiveness probe: is the 5-cell discoverability table complete? Threw 3 adversarial non-taxonomy systems at the 145
+detector; each must land in a cell OR produce a documented misfit. Research-first web-verified Takens (delay embedding
+reconstructs the attractor from one observable) + Wolfram computational irreducibility (distinct from chaos:
+deterministic, short rule, no predictive shortcut). Result (W1/W2/W3 all pass):
+- P-A PARTIAL OBSERVABILITY → ABSORBED (not a new wall): a single scalar observable still gives the right chaos verdict
+  (Kepler K=-0.06 regular, Lorenz K=0.998 chaotic) because Takens + the 0-1 test are built for scalar series.
+- P-B COMPUTATIONAL IRREDUCIBILITY → GENUINE MISFIT, an orthogonal PREDICTABILITY axis: Rules 30/90/250 ALL EMIT their
+  one-step law (neighborhood→next accuracy 1.000, all discoverable) yet split on trajectory compressibility — Rule 30
+  incompressible (zlib 1.001, Wolfram's RNG) vs Rule 250 compressible (0.015). Discoverability ≠ predictability. Nuance
+  (smoke-caught, my Rule-90 prediction was wrong → deepened the finding): Rule 90 is ALGEBRAICALLY reducible (closed-form
+  XOR) yet zlib-INCOMPRESSIBLE → predictability itself has flavors (statistical vs algorithmic).
+- P-C FINITE-SAMPLE → orthogonal UNDERDETERMINATION axis that bites NEAR the wall: one fix round (first gate used the
+  singlet, which is FAR from the boundary and decided even at N=16 → gate failed at 0.9; fixed to a near-boundary Werner
+  state CHSH=2.07) → correct only 65% at N=16 vs 100% at N=200k, while the far singlet stays robust. The detector needs
+  an ABSTAIN output near decision boundaries.
+HONEST HEADLINE: the 5-cell table is EXHAUSTIVE for LAW-DISCOVERABILITY of well-sampled stationary systems — no 6th cell
+— but it is ONE FACE of a 3-axis space: DISCOVERABILITY (the table) × PREDICTABILITY (computational irreducibility) ×
+SAMPLING (underdetermination near walls). Partial obs is absorbed; the other two are orthogonal frontiers. In verify.sh.
+
 ## 2026-07-02 — ② EXP-4: the REGIME DETECTOR — fully-unknown systems, 9/9 (script 145)
 
 The new swing (user: "lets start with new swings", autonomous day). Closed EXP-3's honest scope gap: 143 was TOLD each

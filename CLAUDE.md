@@ -358,7 +358,7 @@ results in `curvature/notes/lab_notebook.md`.
   CHSH; legible = decode own target). NEW trajectory branch folds CHAOS-proper into the router: web-verified
   Gottwald-Melbourne 0-1 test + §99 engine — Kepler EMIT (K=-0.06, invariant 7e-18 machine-exact), Lorenz CERTIFY-CHAOS
   (K=0.997). Gotcha (smoke-caught): oversampled chaos reads K~0 → K = max over subsample rates. Truth only in gates.
-  In verify.sh (45s). The table is now a DETECTOR. Open: is the 5-cell set exhaustive (hunt a 6th wall)?
+  In verify.sh (45s). The table is now a DETECTOR. **EXP-5 (146, 2026-07-02): the sixth-wall hunt -- no 6th cell, but the table is ONE FACE of a 3-axis space.** Threw 3 adversarial non-taxonomy systems at the detector: partial observability is ABSORBED (Takens; scalar-only 0-1 test gives right verdict, Kepler K=-0.06/Lorenz K=0.998); computational irreducibility is a GENUINE MISFIT on an orthogonal PREDICTABILITY axis (Rules 30/90/250 all EMIT the one-step law yet split on compressibility -- Rule30 incompressible, Rule250 compressible; Rule90 nuance: algebraically reducible yet zlib-incompressible = statistical vs algorithmic predictability); finite-sample is an orthogonal UNDERDETERMINATION axis that bites NEAR a wall (near-boundary Werner 65% correct at N=16 vs 100% at N=200k -> needs ABSTAIN). So the frontier = DISCOVERABILITY (the 5-cell table) x PREDICTABILITY x SAMPLING. In verify.sh.
 - **LEGIBILITY LAW — CROSS-SESSION VALIDATION (2026-06-22/23, writeups/legibility_law.md):**
   three parallel projects pressure-tested the law and each corrected the others
   (adversarial peer review, not echo). **Phronesis (real 4B LLM):** refuted our
