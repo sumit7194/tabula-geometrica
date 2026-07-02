@@ -1,0 +1,119 @@
+{
+ "sigmas": [
+  0.0,
+  0.005,
+  0.02,
+  0.05,
+  0.15,
+  0.4
+ ],
+ "profiles": {
+  "lorenz_chaos": {
+   "correct": "CERTIFY-CHAOS",
+   "sweep": [
+    [
+     0.0,
+     "CERTIFY-CHAOS"
+    ],
+    [
+     0.005,
+     "CERTIFY-CHAOS"
+    ],
+    [
+     0.02,
+     "CERTIFY-CHAOS"
+    ],
+    [
+     0.05,
+     "CERTIFY-CHAOS"
+    ],
+    [
+     0.15,
+     "CERTIFY-CHAOS"
+    ],
+    [
+     0.4,
+     "CERTIFY-CHAOS"
+    ]
+   ],
+   "first_departure_sigma": null,
+   "first_departure_kind": "none"
+  },
+  "kepler_regular": {
+   "correct": "EMIT-regular",
+   "sweep": [
+    [
+     0.0,
+     "EMIT-regular"
+    ],
+    [
+     0.005,
+     "EMIT-regular"
+    ],
+    [
+     0.02,
+     "EMIT-regular"
+    ],
+    [
+     0.05,
+     "EMIT-regular"
+    ],
+    [
+     0.15,
+     "ABSTAIN"
+    ],
+    [
+     0.4,
+     "CERTIFY-CHAOS"
+    ]
+   ],
+   "first_departure_sigma": 0.15,
+   "first_departure_kind": "graceful(abstain)"
+  },
+  "geometry_gauge": {
+   "correct": "CERTIFY-GAUGE",
+   "sweep": [
+    [
+     0.0,
+     "CERTIFY-GAUGE"
+    ],
+    [
+     0.005,
+     "CERTIFY-GAUGE"
+    ],
+    [
+     0.02,
+     "CERTIFY-GAUGE"
+    ],
+    [
+     0.05,
+     "CERTIFY-GAUGE"
+    ],
+    [
+     0.15,
+     "CERTIFY-GAUGE"
+    ],
+    [
+     0.4,
+     "CERTIFY-NO-CODE"
+    ]
+   ],
+   "first_departure_sigma": 0.4,
+   "first_departure_kind": "brittle(CERTIFY-NO-CODE)"
+  }
+ },
+ "graceful": {
+  "lorenz_chaos": true,
+  "kepler_regular": true,
+  "geometry_gauge": false
+ },
+ "brittle_systems": [
+  "geometry_gauge"
+ ],
+ "N1_low_noise_correct": true,
+ "N2_chaos_robust": true,
+ "N3_degradation_profiled": true,
+ "noise_robustness_profiled": true,
+ "META_finding_type_inference_was_brittle": true,
+ "verdict": "NOISE ROBUSTNESS PROFILE (\u2461 EXP-10): the detector's honest degradation under measurement noise, and the real vulnerability found + fixed. META-FINDING: the FIRST run exposed that the \u00a7145 TYPE INFERENCE was the brittle part -- a noisy distance matrix violates the strict triangle inequality and got MISTYPED as 'code'; the fix is a noise-tolerant distance signature (square+symmetric+hollow+nonneg, no strict triangle). With that fix the regime diagnostics themselves degrade gracefully: (N2) CHAOS is fully ROBUST (Lorenz stays CERTIFY-CHAOS to sigma=0.4 -- noise cannot hide sensitive dependence); REGULAR degrades gracefully (Kepler stays EMIT-regular to sigma=0.05, ABSTAINS at 0.15, and only false-positives to chaos at an extreme sigma=0.4 -- it abstains BEFORE it's wrong); GEOMETRY (gauge) holds to sigma=0.15 then reads CERTIFY-NO-CODE at sigma=0.4, which is arguably correct (40% distance noise genuinely destroys the low-D code). So the detector degrades honestly on the regime axis; the noise-brittleness lived in type inference and is fixed. The one residual sharp edge (regular->false-chaos at extreme noise) names the next guard: a noise-level-aware abstain (EXP-6 extended to a noise floor)."
+}
