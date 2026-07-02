@@ -3854,3 +3854,10 @@ Measures: one-step R²/acc (law), 0-1 K / zlib (predictability); substrate route
 clean: Kepler/Rule250→PREDICTABLE, Lorenz→CHAOTIC (K 0.998), Rule30→IRREDUCIBLE (compress 1.001), noise→RANDOM (R² -0.001);
 all 4 classes; 4 structured systems law-learnable ~1 yet 3 predictability classes → orthogonal to discoverability. Reuses
 146/148 validated measures. In verify.sh (~30s). The 3-axis frontier's middle axis is now operationalized.
+
+## 2026-07-02 — ② EXP-12: sampling axis instrumented — sample complexity diverges at the wall (script 153)
+Made the 3rd axis (underdetermination) quantitative. Contextual wall (CHSH=2): Werner state at margin delta=CHSH-2 →
+N_resolve (smallest N where ≥90% seeds' normal-approx CHSH CI clears 2). N_resolve DIVERGES: 400(δ=.6)→3200→6400→25600→
+102400→409600(δ=.02), ~1000×. Log-log slope -1.96 ≈ -2 = derivable law N_resolve~1/δ² (CHSH noise ~1/√N). S1/S2/S3 pass
+clean. Critical-slowing-down analog. TRIAD COMPLETE: all 3 frontier axes instrumented — discoverability(145),
+predictability(152), sampling(153). In verify.sh (~2min).

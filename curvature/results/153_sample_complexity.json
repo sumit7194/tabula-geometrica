@@ -1,0 +1,52 @@
+{
+ "rows": [
+  {
+   "delta": 0.6,
+   "v": 0.9192388155425117,
+   "chsh_true": 2.6,
+   "N_resolve": 400,
+   "frac_at_resolve": 1.0
+  },
+  {
+   "delta": 0.3,
+   "v": 0.8131727983645295,
+   "chsh_true": 2.3,
+   "N_resolve": 3200,
+   "frac_at_resolve": 1.0
+  },
+  {
+   "delta": 0.15,
+   "v": 0.7601397897755385,
+   "chsh_true": 2.15,
+   "N_resolve": 6400,
+   "frac_at_resolve": 0.9583333333333334
+  },
+  {
+   "delta": 0.08,
+   "v": 0.7353910524340094,
+   "chsh_true": 2.08,
+   "N_resolve": 25600,
+   "frac_at_resolve": 1.0
+  },
+  {
+   "delta": 0.04,
+   "v": 0.7212489168102785,
+   "chsh_true": 2.04,
+   "N_resolve": 102400,
+   "frac_at_resolve": 0.9583333333333334
+  },
+  {
+   "delta": 0.02,
+   "v": 0.714177848998413,
+   "chsh_true": 2.02,
+   "N_resolve": 409600,
+   "frac_at_resolve": 1.0
+  }
+ ],
+ "loglog_slope": -1.9615311546952348,
+ "S1_monotonic_divergence": true,
+ "S2_power_law_inverse_delta_sq": true,
+ "S3_quantified_axis": true,
+ "sampling_axis_instrumented": true,
+ "verdict": "SAMPLE COMPLEXITY DIVERGES AT THE WALL (\u2461 EXP-12): the frontier's SAMPLING axis is now a QUANTITY, not a binary abstain. Resolving the contextual verdict for a Werner state a margin delta = CHSH-2 above the wall needs N_resolve samples, and N_resolve DIVERGES as delta -> 0: from 400 samples at delta=0.6 down to 409600 samples at delta=0.02, a 1024x growth. The log-log slope is -1.96 ~ -2, matching the derivable law N_resolve ~ 1/delta^2 (empirical CHSH noise ~ 1/sqrt(N), so you need delta > ~1.96*SE). This is a critical-slowing-down analog: near a decision boundary the data cost to decide blows up as an inverse-square power law. With this, all THREE frontier axes are instrumented -- discoverability (145), predictability (152), and sampling (153) -- the last as a measured sample-complexity divergence."
+}

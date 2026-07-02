@@ -1,3 +1,14 @@
+## 2026-07-02 — ② EXP-12: the SAMPLING axis instrumented — sample complexity diverges at the wall (script 153)
+
+Made the 3rd frontier axis (underdetermination) QUANTITATIVE, not just a binary abstain: how many samples to resolve a
+verdict, as a function of distance to the decision wall? Used the contextual wall (CHSH=2): a Werner state at margin
+delta=CHSH-2 needs N_resolve samples (smallest N where ≥90% of seeds' normal-approx CHSH CI clears 2). Result, clean
+first attempt: N_resolve DIVERGES as delta→0 — 400 (δ=0.6) → 3200 → 6400 → 25600 → 102400 → 409600 (δ=0.02), a ~1000×
+growth. Log-log slope = -1.96 ≈ -2, matching the derivable law N_resolve ~ 1/δ² (empirical CHSH noise ~ 1/√N, so you need
+δ > ~1.96·SE). S1/S2/S3 all pass. A critical-slowing-down analog: near a decision boundary the data cost to decide blows
+up as an inverse-square power law. THE TRIAD IS COMPLETE — all three frontier axes now instrumented: DISCOVERABILITY
+(145) · PREDICTABILITY (152) · SAMPLING (153, as a measured sample-complexity divergence). In verify.sh.
+
 ## 2026-07-02 — ② EXP-11: the PREDICTABILITY diagnostic — the 2nd axis instrumented (script 152)
 
 EXP-5 discovered predictability as an axis orthogonal to the 5-cell discoverability table; EXP-7 showed law-learnability

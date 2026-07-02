@@ -136,6 +136,10 @@ BATTERIES = [
      "152_predictability_diagnostic.json",
      {"P1_classifies_all_five": (">", 0.5), "P2_complete_taxonomy": (">", 0.5),
       "P3_orthogonal_to_discoverability": (">", 0.5)}),
+    ("Sample complexity diverges at wall (frontier EXP-12)", ["scripts/153_sample_complexity.py"],
+     "153_sample_complexity.json",
+     {"S1_monotonic_divergence": (">", 0.5), "S2_power_law_inverse_delta_sq": (">", 0.5),
+      "S3_quantified_axis": (">", 0.5)}),
 ]
 
 

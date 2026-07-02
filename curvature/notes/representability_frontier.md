@@ -125,7 +125,12 @@ on demand.
   standalone 4-class instrument: RANDOM / PREDICTABLE / CHAOTIC / IRREDUCIBLE (one-step R²/acc for law; 0-1 K / zlib for
   predictability; substrate routes chaos-vs-irreducibility). All 5 menu systems classified correctly, all 4 classes
   populated, and the 4 structured systems are all law-learnable (~1) yet span 3 predictability classes → orthogonal to
-  discoverability. The 3-axis frontier's middle axis is now operationalized. In verify.sh. The detector assumes ONE clean regime;
+  discoverability. The 3-axis frontier's middle axis is now operationalized. In verify.sh.
+- **EXP-12 (DONE 2026-07-02, script 153, S1/S2/S3): the SAMPLING axis instrumented — sample complexity diverges at the
+  wall.** Made the 3rd axis quantitative: resolving the contextual verdict for a Werner state a margin δ=CHSH-2 above the
+  wall needs N_resolve samples, and N_resolve DIVERGES as δ→0 (400→409600 as δ 0.6→0.02) with log-log slope -1.96 ≈ -2,
+  matching the derivable law N_resolve ~ 1/δ² (a critical-slowing-down analog). THE TRIAD IS COMPLETE — all three
+  frontier axes are now instruments: discoverability (145) · predictability (152) · sampling (153). In verify.sh. The detector assumes ONE clean regime;
   this stress-tests that on a KAM MIXED PHASE SPACE (regular + chaotic orbits coexisting at one energy). Web-verified
   Hénon-Heiles: regular for E<1/12, MIXED for 1/12<E<1/6 (chaotic fraction grows with E), fully chaotic at E=1/6. Per
   orbit: 0-1 test K (chaos) + an independent finite-time max-Lyapunov λ (Benettin two-orbit method) for cross-validation.
