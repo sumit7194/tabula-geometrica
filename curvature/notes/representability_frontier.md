@@ -96,7 +96,14 @@ on demand.
 - **EXP-6 (DONE 2026-07-02, script 147, A1/A2/A3): the ABSTAIN-AWARE detector.** RESULT: A1 confident-correct on
   5 well-sampled systems (no spurious abstain); A2 honest-abstain on 3 underdetermined inputs (ZERO wrong verdicts);
   A3 near-boundary Werner resolves ABSTAIN(N≤256)→CONTEXTUAL(N≥1024) monotonically. Underdetermination is now an explicit
-  output. In verify.sh. Operationalizes EXP-5's P-C finding
+  output. In verify.sh.
+- **EXP-7 (DONE 2026-07-02, script 148, G1/G2/G3): LAW-learnability vs TRAJECTORY-predictability DISSOCIATE.** Sharpens
+  EXP-5's predictability axis with unambiguous metrics + clarifies two conflated "discoverability" notions: (1) the local
+  RULE (one-step forecast R² / CA accuracy) vs (2) the TRAJECTORY (0-1 K / compressibility). RESULT: all 4 structured
+  systems are law-learnable (Kepler/Lorenz R²=1.0, Rule 30/250 acc=1.0; iid-noise control fails R²=-0.001) but
+  predictability SPLITS (Kepler/Rule 250 predictable; Lorenz/Rule 30 not). Lorenz & Rule 30 = law-learnable-yet-
+  unpredictable → the levels are independent; the 5-cell frontier measures TRAJECTORY-level structure, not the local
+  rule (which is almost always emit-able). In verify.sh. Operationalizes EXP-5's P-C finding
   (the detector needs an ABSTAIN output near boundaries / under-sampling). Wrap each 145 branch's decision statistic in a
   BOOTSTRAP confidence interval (resample the data, recompute the statistic); if the CI straddles the decision threshold
   (or the sample is too small for the branch to be reliable), output **ABSTAIN** instead of a possibly-wrong verdict.

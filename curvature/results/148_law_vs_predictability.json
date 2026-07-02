@@ -1,0 +1,48 @@
+{
+ "rows": {
+  "kepler": {
+   "kind": "continuous",
+   "law_score": 0.9999550736252099,
+   "law_learnable": true,
+   "pred_metric": -0.060675807214414935,
+   "predictable": true
+  },
+  "lorenz": {
+   "kind": "continuous",
+   "law_score": 0.9997484009523449,
+   "law_learnable": true,
+   "pred_metric": 0.9977510090263152,
+   "predictable": false
+  },
+  "iid_noise": {
+   "kind": "continuous",
+   "law_score": -0.0011067621565241659,
+   "law_learnable": false,
+   "pred_metric": 0.9981878958551682,
+   "predictable": false
+  },
+  "rule250": {
+   "kind": "CA",
+   "law_score": 1.0,
+   "law_learnable": true,
+   "pred_metric": 0.014925373134328358,
+   "predictable": true
+  },
+  "rule30": {
+   "kind": "CA",
+   "law_score": 1.0,
+   "law_learnable": true,
+   "pred_metric": 1.0010945273631842,
+   "predictable": false
+  }
+ },
+ "law_learnable_yet_unpredictable": [
+  "lorenz",
+  "rule30"
+ ],
+ "G1_law_uniform_for_structured": true,
+ "G2_predictability_dissociates": true,
+ "G3_dissociation_real": true,
+ "law_vs_predictability_dissociate": true,
+ "verdict": "LAW-LEARNABILITY vs TRAJECTORY-PREDICTABILITY DISSOCIATE (\u2461 EXP-7): the local generating rule is almost always learnable -- Kepler, Lorenz, Rule 30, Rule 250 ALL have a one-step law recovered at R^2/accuracy near 1 (only the iid-noise control fails, R^2=-0.00, confirming law-learnability is a real property). But TRAJECTORY predictability splits among them: Kepler (0-1 K=-0.06) and Rule 250 (compress=0.01) are predictable, while Lorenz (K=1.00) and Rule 30 (compress=1.00) are NOT -- despite identical one-step learnability. So 'discoverability' has two levels that people conflate: the LOCAL RULE (easy, almost always emit-able) and the TRAJECTORY structure (invariants / compression -- what the 5-cell frontier table actually measures). Lorenz and Rule 30 are law-learnable-yet-unpredictable: the two notions are independent, sharpening EXP-5's predictability axis with unambiguous metrics."
+}
