@@ -120,7 +120,12 @@ on demand.
   as code) → fixed with a noise-tolerant distance signature (square+symmetric+hollow+nonneg). With the fix the regime
   diagnostics degrade gracefully: chaos fully robust (Lorenz CERTIFY-CHAOS to σ=0.4), regular graceful (Kepler regular→
   ABSTAIN→false-chaos only at extreme σ, abstains before wrong), geometry holds then reads NO-CODE at 40% noise (arguably
-  correct). Residual edge → next guard = a noise-level-aware abstain. In verify.sh. The detector assumes ONE clean regime;
+  correct). Residual edge → next guard = a noise-level-aware abstain. In verify.sh.
+- **EXP-11 (DONE 2026-07-02, script 152, P1/P2/P3): the PREDICTABILITY diagnostic (the 2nd axis, instrumented).** A
+  standalone 4-class instrument: RANDOM / PREDICTABLE / CHAOTIC / IRREDUCIBLE (one-step R²/acc for law; 0-1 K / zlib for
+  predictability; substrate routes chaos-vs-irreducibility). All 5 menu systems classified correctly, all 4 classes
+  populated, and the 4 structured systems are all law-learnable (~1) yet span 3 predictability classes → orthogonal to
+  discoverability. The 3-axis frontier's middle axis is now operationalized. In verify.sh. The detector assumes ONE clean regime;
   this stress-tests that on a KAM MIXED PHASE SPACE (regular + chaotic orbits coexisting at one energy). Web-verified
   Hénon-Heiles: regular for E<1/12, MIXED for 1/12<E<1/6 (chaotic fraction grows with E), fully chaotic at E=1/6. Per
   orbit: 0-1 test K (chaos) + an independent finite-time max-Lyapunov λ (Benettin two-orbit method) for cross-validation.

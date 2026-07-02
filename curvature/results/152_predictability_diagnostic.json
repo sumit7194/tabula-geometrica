@@ -1,0 +1,44 @@
+{
+ "rows": [
+  {
+   "name": "kepler",
+   "expected": "PREDICTABLE",
+   "verdict": "PREDICTABLE",
+   "ok": true,
+   "law_score": 0.9999550736252099
+  },
+  {
+   "name": "lorenz",
+   "expected": "CHAOTIC",
+   "verdict": "CHAOTIC",
+   "ok": true,
+   "law_score": 0.9997484009523449
+  },
+  {
+   "name": "rule250",
+   "expected": "PREDICTABLE",
+   "verdict": "PREDICTABLE",
+   "ok": true,
+   "law_score": 1.0
+  },
+  {
+   "name": "rule30",
+   "expected": "IRREDUCIBLE",
+   "verdict": "IRREDUCIBLE",
+   "ok": true,
+   "law_score": 1.0
+  },
+  {
+   "name": "iid_noise",
+   "expected": "RANDOM",
+   "verdict": "RANDOM",
+   "ok": true,
+   "law_score": -0.0011067621565241659
+  }
+ ],
+ "P1_classifies_all_five": true,
+ "P2_complete_taxonomy": true,
+ "P3_orthogonal_to_discoverability": true,
+ "predictability_axis_instrumented": true,
+ "verdict": "THE PREDICTABILITY DIAGNOSTIC (\u2461 EXP-11): the frontier's SECOND axis is now a first-class instrument. Given a system it returns one of four predictability classes -- RANDOM (no learnable rule), PREDICTABLE (learnable rule + compressible trajectory), CHAOTIC (learnable smooth rule but sensitive dependence), IRREDUCIBLE (learnable discrete rule but incompressible trajectory). On a 5-system menu it classifies all correctly (Kepler/Rule250 PREDICTABLE, Lorenz CHAOTIC, Rule 30 IRREDUCIBLE, iid-noise RANDOM) and populates all four classes. Crucially (P3) the four STRUCTURED systems all have a learnable one-step law (law-score ~1) yet span three predictability classes -- so predictability is genuinely ORTHOGONAL to law-discoverability, exactly as EXP-5/7 argued, now wielded as an instrument. The 3-axis frontier (discoverability x predictability x sampling) has its middle axis operationalized."
+}
