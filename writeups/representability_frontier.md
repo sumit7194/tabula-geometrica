@@ -126,6 +126,24 @@ detector types and verdicts **all nine correctly**. One instructive gotcha, caug
 chaos reads as regular (Lorenz at the raw sampling rate gives K=−0.04; subsampled, K=1.0) — the detector evaluates K
 across subsampling rates and takes the max.
 
+**Knowing when not to answer ([EXP-6, script 147](../curvature/scripts/147_abstain_detector.py)).** A detector that
+always emits a verdict is dishonest near a decision boundary or under-sampling. So each branch's decision statistic is
+wrapped in a bootstrap confidence interval; when the interval straddles the threshold (or the sample is below a
+reliability floor) the detector returns **ABSTAIN** instead of guessing. On well-sampled inputs it stays confident and
+correct; on three underdetermined inputs — a near-boundary Werner state at 16 samples, a 6-point distance matrix, a
+short chaotic series — it abstains with *zero* wrong verdicts; and as data grows the same input resolves ABSTAIN →
+confident verdict. Underdetermination (EXP-5's third axis) becomes an explicit output: "not enough data," and more data
+fixes it.
+
+**Two levels of "discoverable" ([EXP-7, script 148](../curvature/scripts/148_law_vs_predictability.py)).** People
+conflate two things the frontier keeps separate: the *local rule* (can you predict one step ahead?) and the *trajectory*
+(can you compress or shortcut the whole run?). For a smooth integrable system these coincide, so the distinction hides.
+Measure them separately and they **dissociate**: Kepler, Lorenz, Rule 30 and Rule 250 all have a perfectly learnable
+one-step law (R²/accuracy ≈ 1; only an iid-noise control fails), yet their trajectory predictability splits — Kepler and
+Rule 250 are predictable, Lorenz and Rule 30 are not. Lorenz and Rule 30 sit off-diagonal: a trivially learnable rule, an
+unpredictable trajectory. So the frontier's discoverability axis is a *trajectory-level* property (invariants,
+compression), not the local rule — which is almost always easy.
+
 ## Honest scope and open threads
 
 - The detector is validated on *controlled menus* where each regime is dialed in on purpose; real-world data (noise,
