@@ -3861,3 +3861,12 @@ N_resolve (smallest N where ≥90% seeds' normal-approx CHSH CI clears 2). N_res
 102400→409600(δ=.02), ~1000×. Log-log slope -1.96 ≈ -2 = derivable law N_resolve~1/δ² (CHSH noise ~1/√N). S1/S2/S3 pass
 clean. Critical-slowing-down analog. TRIAD COMPLETE: all 3 frontier axes instrumented — discoverability(145),
 predictability(152), sampling(153). In verify.sh (~2min).
+
+## 2026-07-02 — ② EXP-13: the real-data test (script 154 + curvature/data/)
+Predictability instrument on 3 REAL series, gated vs literature, offline (cached CSVs). R1/R2/R3 pass: laser→CHAOTIC
+(R²0.97/K0.998, matches low-dim-chaos lit), tides→PREDICTABLE (R²0.998/K0.23, tidal quasi-periodic), sunspots "not
+regular"+stable. KEY honest add — surrogate-data test (phase-randomized linear-stochastic null): laser z=10.2 (genuine
+deterministic chaos, positive control) vs sunspots z=1.0 (NO excess nonlinear determinism → consistent with stochastic
+colored-noise cycle, NOT low-dim chaos). Detector-scope finding: 0-1 K flags regular-vs-not but doesn't separate
+chaos-vs-stochastic; the surrogate test does. Data committed. Segmentation caveat noted (segments not independent). In
+verify.sh (~15s). Sources: Santa Fe laser (Weigend-Gershenfeld 1994), NOAA CO-OPS 9414290, SILSO SN_m_tot_V2.0.
