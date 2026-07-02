@@ -52,6 +52,23 @@ on demand.
   ../../writeups/representability_frontier.md. NOT in verify.sh (re-runs 139's train; the 5 verdicts gated by 139/141/142).
   Honest open scope: classifies KNOWN regimes routed by data type; inferring the regime of a fully-unknown system is the
   next swing.
+- **EXP-4 (DONE 2026-07-02, script 145, 9/9 D1/D2/D3): the REGIME DETECTOR — fully-unknown systems.** Closes EXP-3's honest
+  scope gap: 143 was TOLD the data type; 145 must infer it. Given a raw dataset with NO type label and NO ground truth,
+  the detector (1) infers the DATA TYPE from structural signatures alone — square/symmetric/hollow/triangle-inequality
+  → distances; discrete ±1 measurement records → correlations; 3D-array + temporal smoothness (lag-1 autocorr) →
+  trajectories; exchangeable continuous tabular → code — then (2) runs the matching regime diagnostic, TRUTH-FREE:
+  gauge is certified by exhibiting two distinct configs that explain the data equally (a rigid motion) with no anchor
+  side-info to break the tie (anchor coordinates, when present, are DATA, not labels); legibility from decoding the
+  dataset's own target column; contextuality from the samples' CHSH. NEW: the TRAJECTORY branch folds CHAOS-proper into
+  the table — the web-verified 0–1 test for chaos (Gottwald–Melbourne; K→0 regular, K→1 chaotic) + the §99 emit-or-
+  certify engine: Kepler → EMIT (K~0, exact invariant), Lorenz → CERTIFY-CHAOS (K~1, no invariant). Ground truth is used
+  ONLY to gate. Pre-reg: D1 TYPE-INFERENCE all 9 menu systems typed correctly from structure alone; D2 TRAJECTORY branch
+  correct (Kepler emit + its invariant held-out exact; Lorenz certify, K>0.8 vs K<0.2); D3 END-TO-END all 9 verdicts
+  correct (type inferred + regime). Menu: 3 distance (anchored/relational/6D) + 2 measurement (LHV/singlet samples) +
+  2 trajectory (Kepler/Lorenz) + 2 code (amortized/free). RESULT: all 9 typed AND verdicted correctly; Kepler
+  invariant held-out 7e-18 (machine-exact), Lorenz K=0.997; gotcha caught in smoke (oversampled chaos reads K~0 → max
+  over subsample rates). In verify.sh (45s). The table is now a DETECTOR, not just a classifier. Open: is the 5-cell set
+  exhaustive (hunt a 6th wall)?
 
 ## EXP-1 result (script 141, distance-geometry realization)
 

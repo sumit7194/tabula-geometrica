@@ -112,6 +112,8 @@ BATTERIES = [
      "144_manko_novikov.json",
      {"M1_kerr_emit": (">", 0.5), "M2_mn_certify": (">", 0.5), "M3_legible_iff_integrable": (">", 0.5),
       "V0_pass": (">", 0.5)}),
+    ("Regime detector (frontier EXP-4)", ["scripts/145_regime_detector.py"], "145_regime_detector.json",
+     {"D1_type_inference": (">", 0.5), "D2_trajectory_branch": (">", 0.5), "D3_end_to_end": (">", 0.5)}),
 ]
 
 

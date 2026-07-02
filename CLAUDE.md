@@ -351,8 +351,14 @@ results in `curvature/notes/lab_notebook.md`.
   **EXP-3 (143 + writeup, complete):** PARTIAL-LEGIBLE (the 5th verdict, free code linear 0.45 / nonlinear 0.75) +
   the UNIFIED diagnostic -- one instrument routes by data type and emits all 5 verdicts on a 7-case menu. ② FIRST ARC
   COMPLETE (framework + EXP-1/2/3 + writeups/representability_frontier.md). 143 not in verify.sh (redundant train; the 5
-  verdicts gated by 139/141/142). Honest open: classifies KNOWN regimes routed by data type, not yet a detector of the
-  regime of a fully-unknown system (next swing).
+  verdicts gated by 139/141/142). **EXP-4 (145, 2026-07-02, 9/9): the REGIME DETECTOR — the honest-scope gap closed.**
+  Label-free + truth-free: infers the data type from structural signatures (triangle-inequality→distances; discrete ±1
+  records→correlations; temporal smoothness→trajectories; exchangeable tabular→code), then decides the regime truth-free
+  (gauge = two rigid-motion configs explain the data equally unless anchor DATA breaks it; contextual = samples' own
+  CHSH; legible = decode own target). NEW trajectory branch folds CHAOS-proper into the router: web-verified
+  Gottwald-Melbourne 0-1 test + §99 engine — Kepler EMIT (K=-0.06, invariant 7e-18 machine-exact), Lorenz CERTIFY-CHAOS
+  (K=0.997). Gotcha (smoke-caught): oversampled chaos reads K~0 → K = max over subsample rates. Truth only in gates.
+  In verify.sh (45s). The table is now a DETECTOR. Open: is the 5-cell set exhaustive (hunt a 6th wall)?
 - **LEGIBILITY LAW — CROSS-SESSION VALIDATION (2026-06-22/23, writeups/legibility_law.md):**
   three parallel projects pressure-tested the law and each corrected the others
   (adversarial peer review, not echo). **Phronesis (real 4B LLM):** refuted our

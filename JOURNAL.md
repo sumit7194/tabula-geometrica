@@ -1,3 +1,22 @@
+## 2026-07-02 — ② EXP-4: the REGIME DETECTOR — fully-unknown systems, 9/9 (script 145)
+
+The new swing (user: "lets start with new swings", autonomous day). Closed EXP-3's honest scope gap: 143 was TOLD each
+dataset's type; 145 is a DETECTOR — given raw data with NO type label and NO ground truth, it (1) infers the data type
+from structural signatures alone (square/symmetric/hollow/triangle-inequality → distances; discrete ±1 records →
+measurements; 3D-array + temporal smoothness → trajectories; exchangeable tabular → code) and (2) decides the regime
+TRUTH-FREE: gauge = exhibit two rigid-motion configs that explain the data equally, unless anchor coordinates (DATA, not
+labels) break the tie; contextual = the samples' own CHSH; legible = decode the dataset's own target column. Ground
+truth used ONLY in the gates. NEW: the TRAJECTORY branch folds CHAOS-proper into the router — research-first
+web-verified the Gottwald-Melbourne 0-1 TEST FOR CHAOS (K→0 regular, K→1 chaotic, works on raw series) + the §99
+emit-or-certify engine. Result: D1/D2/D3 all pass, 9/9 menu systems typed AND verdicted correctly — EMIT (anchored
+distances, stress 3e-14, anchor resid 2e-15) / CERTIFY-GAUGE (rigid-degenerate) / CERTIFY-NO-CODE (stress 0.47) /
+EMIT-CLASSICAL (CHSH 0.64 from 200k raw samples) / CERTIFY-CONTEXTUAL (CHSH 2.83) / EMIT-trajectories (Kepler: 0-1
+K=-0.06, invariant held-out 7e-18 = machine-exact) / CERTIFY-CHAOS (Lorenz: K=0.997, held-out 0.97) / EMIT-LEGIBLE
+(linear 0.99) / PARTIAL-LEGIBLE (linear 0.45, nonlinear 0.75). Smoke-test caught the known 0-1 pitfall: OVERSAMPLED
+chaos reads K~0 (Lorenz rate-1 K=-0.04 vs rate-5 K=1.0) → K = max over subsample rates {3,5,10}, recorded in-code.
+Runtime 45s → in verify.sh. The frontier table is now a DETECTOR, not just a classifier. Next open: the 5-cell
+exhaustiveness question (hunt a 6th wall).
+
 ## 2026-06-27 — Bridge help: Manko-Novikov legibility — an 8th metric, a 3rd non-integrable class (script 144)
 
 TheBridge (relayed by the user) asked to add the Manko-Novikov metric (rotating bumpy-Kerr, Geroch-Hansen quadrupole) to
