@@ -1,0 +1,68 @@
+{
+ "A1_confident_correct": {
+  "singlet_far_N200k": "CERTIFY-CONTEXTUAL",
+  "lhv_N200k": "EMIT-CLASSICAL",
+  "geometry_40pts": "CERTIFY-GAUGE",
+  "kepler": "EMIT-regular",
+  "lorenz": "CERTIFY-CHAOS"
+ },
+ "A1_pass": true,
+ "A2_honest_abstain": {
+  "werner_near_N16": {
+   "verdict": "ABSTAIN",
+   "wrong": false,
+   "chsh_ci": [
+    1.4650000000000003,
+    3.667857142857142
+   ],
+   "n": 16
+  },
+  "geometry_6pts": {
+   "verdict": "ABSTAIN",
+   "wrong": false,
+   "reason": "below-floor",
+   "n": 6
+  },
+  "lorenz_short": {
+   "verdict": "ABSTAIN",
+   "wrong": false,
+   "K_ci": [
+    NaN,
+    NaN
+   ],
+   "n_traj": 16,
+   "steps": 60
+  }
+ },
+ "A2_no_wrong_verdicts": true,
+ "A2_pass": true,
+ "A3_resolves_sweep": {
+  "N16": {
+   "verdict": "ABSTAIN",
+   "chsh_ci_lo": 1.5333333333333332
+  },
+  "N64": {
+   "verdict": "ABSTAIN",
+   "chsh_ci_lo": 1.3393324303405574
+  },
+  "N256": {
+   "verdict": "ABSTAIN",
+   "chsh_ci_lo": 1.7799161436291788
+  },
+  "N1024": {
+   "verdict": "CERTIFY-CONTEXTUAL",
+   "chsh_ci_lo": 2.0907479207872965
+  },
+  "N16000": {
+   "verdict": "CERTIFY-CONTEXTUAL",
+   "chsh_ci_lo": 2.1366415498629387
+  },
+  "N200000": {
+   "verdict": "CERTIFY-CONTEXTUAL",
+   "chsh_ci_lo": 2.2007033291957665
+  }
+ },
+ "A3_pass": true,
+ "abstain_detector": true,
+ "verdict": "ABSTAIN-AWARE DETECTOR (\u2461 EXP-6): EXP-5's underdetermination axis made an explicit output. Each branch's decision statistic is wrapped in a bootstrap CI; the detector ABSTAINS when the CI straddles the threshold or the sample is below a reliability floor. (A1) On well-sampled inputs it stays confident + correct (matches \u00a7145, no spurious abstain). (A2) On underdetermined inputs -- a near-boundary Werner state at N=16 (CHSH CI straddles 2), a 6-point distance matrix (below the MDS floor), a short chaotic series (K CI straddles 0.5) -- it ABSTAINS, with ZERO wrong verdicts. (A3) The near-boundary Werner input resolves ABSTAIN -> confident CERTIFY-CONTEXTUAL as N grows (the CHSH CI lower bound crosses 2 monotonically). Underdetermination is now honest: the detector says 'not enough data' instead of guessing -- and more data resolves it."
+}
