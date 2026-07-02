@@ -1,0 +1,110 @@
+{
+ "rows": [
+  {
+   "expected": "EMIT",
+   "expected_type": "distances",
+   "inferred_type": "distances",
+   "verdict": "EMIT",
+   "type_ok": true,
+   "verdict_ok": true,
+   "stress": 2.5424107263916085e-14,
+   "anchor_resid": 1.9233594098250163e-15
+  },
+  {
+   "expected": "CERTIFY-GAUGE",
+   "expected_type": "distances",
+   "inferred_type": "distances",
+   "verdict": "CERTIFY-GAUGE",
+   "type_ok": true,
+   "verdict_ok": true,
+   "stress": 2.5424107263916085e-14,
+   "rigid_degenerate": true
+  },
+  {
+   "expected": "CERTIFY-NO-CODE",
+   "expected_type": "distances",
+   "inferred_type": "distances",
+   "verdict": "CERTIFY-NO-CODE",
+   "type_ok": true,
+   "verdict_ok": true,
+   "stress": 0.4687163850086601
+  },
+  {
+   "expected": "EMIT-CLASSICAL",
+   "expected_type": "correlations",
+   "inferred_type": "correlations",
+   "verdict": "EMIT-CLASSICAL",
+   "type_ok": true,
+   "verdict_ok": true,
+   "fit_residual": 0.0002839837526570216,
+   "chsh": 0.63753426730446,
+   "table": [
+    -0.08907677512421862,
+    0.2767667124132307,
+    0.2928945579591347,
+    -0.15694977205631314
+   ]
+  },
+  {
+   "expected": "CERTIFY-CONTEXTUAL",
+   "expected_type": "correlations",
+   "inferred_type": "correlations",
+   "verdict": "CERTIFY-CONTEXTUAL",
+   "type_ok": true,
+   "verdict_ok": true,
+   "fit_residual": 0.8311861988852998,
+   "chsh": 2.8309179481814883,
+   "table": [
+    0.7117891705990562,
+    0.7021816132667847,
+    0.7063059828036786,
+    -0.7106411815119685
+   ]
+  },
+  {
+   "expected": "EMIT",
+   "expected_type": "trajectories",
+   "inferred_type": "trajectories",
+   "verdict": "EMIT",
+   "type_ok": true,
+   "verdict_ok": true,
+   "heldout": 6.909808044308486e-18,
+   "K01": -0.06364515134075632
+  },
+  {
+   "expected": "CERTIFY-CHAOS",
+   "expected_type": "trajectories",
+   "inferred_type": "trajectories",
+   "verdict": "CERTIFY-CHAOS",
+   "type_ok": true,
+   "verdict_ok": true,
+   "heldout": 0.9686535777759979,
+   "K01": 0.9972240934842871
+  },
+  {
+   "expected": "EMIT-LEGIBLE",
+   "expected_type": "code",
+   "inferred_type": "code",
+   "verdict": "EMIT-LEGIBLE",
+   "type_ok": true,
+   "verdict_ok": true,
+   "linear": 0.9857206817359568,
+   "nonlinear": 0.9942504042192878
+  },
+  {
+   "expected": "PARTIAL-LEGIBLE",
+   "expected_type": "code",
+   "inferred_type": "code",
+   "verdict": "PARTIAL-LEGIBLE",
+   "type_ok": true,
+   "verdict_ok": true,
+   "linear": 0.4536739747533901,
+   "nonlinear": 0.7486845929486657
+  }
+ ],
+ "D1_type_inference": true,
+ "D2_trajectory_branch": true,
+ "D3_end_to_end": true,
+ "regime_detector": true,
+ "verdict": "THE REGIME DETECTOR (\u2461 EXP-4): closes EXP-3's honest scope gap. Given RAW datasets with no type labels and no ground truth, ONE detector (a) infers the data type from structural signatures alone (triangle inequality -> distances; discrete +-1 records -> measurements; temporal smoothness -> trajectories; exchangeable tabular -> code) and (b) decides the regime TRUTH-FREE (gauge = two rigid-motion configs explain the data equally unless anchor DATA breaks the tie; contextual = the samples' own CHSH; legible = decoding the dataset's own target). All 9/9 menu systems: type inferred AND verdict correct. NEW: the trajectory branch folds CHAOS-proper into the router -- Kepler EMITS (0-1 test K=-0.06, exact invariant 7e-18) and Lorenz CERTIFIES (K=1.00, no invariant 1e+00) via the web-verified Gottwald-Melbourne 0-1 test + the \u00a799 engine. The frontier table is now a DETECTOR, not just a classifier."
+}

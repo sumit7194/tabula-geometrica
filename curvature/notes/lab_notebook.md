@@ -3775,3 +3775,13 @@ exact Carter (held-out 3.4e-17, COSINE 1.000 to Q=(1-y^2)p_y^2+a^2(1-E^2)y^2+L^2
 validated; q=0.5 CERTIFIES (engine 0.60 = 2e16x floor, Carter drift 0.69). legible(q=0)=T, legible(q=0.5)=F. Caveat:
 gamma' beta-term transcription (one ambiguity, flatness-fixed) affects q!=0 geodesics quantitatively only; q=0 cosine-1.0
 control + flatness + §99 make the verdict robust. Deliverable: notes/A10_for_bridge.md (MN section). In verify.sh.
+
+## 2026-07-02 — ② EXP-4: the REGIME DETECTOR (script 145), 9/9
+Closes 143's honest scope gap (was TOLD the data type). 145 = label-free + truth-free detector: infers type from
+structural signatures (triangle-inequality→distances; discrete ±1 records→correlations; 3D+temporal-smoothness→
+trajectories; exchangeable tabular→code), then decides the regime truth-free (gauge = two rigid-motion configs explain
+data equally unless anchor DATA breaks it; contextual = samples' own CHSH; legible = decode own target col). NEW
+trajectory branch = CHAOS-proper in the router: web-verified Gottwald-Melbourne 0-1 test + §99 engine. Kepler EMIT
+(K=-0.06, invariant held-out 7e-18 machine-exact); Lorenz CERTIFY-CHAOS (K=0.997, held-out 0.97). D1/D2/D3 pass, 9/9.
+GOTCHA (smoke-caught): oversampled chaos reads K~0 (Lorenz rate-1 K=-0.04 vs rate-5 K=1.0) → K = max over subsample
+rates {3,5,10}. Truth only in gates. 45s runtime → in verify.sh.

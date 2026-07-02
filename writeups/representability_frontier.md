@@ -110,16 +110,28 @@ Three things fall out of having the table:
    one (Bell, Liouville, the gauge orbit, Roeder identifiability) — an *impossibility certificate*, the project's most
    distinctive kind of finding.
 
+## The detector (the scope gap, closed)
+
+The first version of the instrument had an honest limitation: it had to be *told* each dataset's type. That gap is now
+closed ([script 145](../curvature/scripts/145_regime_detector.py)): the **regime detector** takes a raw dataset with
+**no type label and no ground truth**, infers the data type from structural signatures alone (a symmetric, hollow matrix
+obeying the triangle inequality is distance data; discrete ±1 records are measurements; temporally smooth ensembles are
+trajectories; exchangeable tables are codes), and then decides the regime *truth-free* — gauge is certified by exhibiting
+two distinct configurations that explain the data equally well (unless anchor coordinates, which are data, break the
+tie); contextuality is read from the samples' own CHSH; legibility from decoding the dataset's own target. Ground truth
+enters only in the gates. It also folds **chaos-proper** into the router via the trajectory branch: the
+Gottwald–Melbourne **0–1 test for chaos** (K→0 regular, K→1 chaotic) plus the invariant engine — Kepler → EMIT (K=−0.06,
+a machine-exact conserved invariant at 7e-18) and Lorenz → CERTIFY-CHAOS (K=0.997, no invariant). On a 9-system menu the
+detector types and verdicts **all nine correctly**. One instructive gotcha, caught in the smoke test: *oversampled*
+chaos reads as regular (Lorenz at the raw sampling rate gives K=−0.04; subsampled, K=1.0) — the detector evaluates K
+across subsampling rates and takes the max.
+
 ## Honest scope and open threads
 
-- The diagnostic proves the table on *controlled menus* where each regime is dialed in. It is a **classifier of known
-  regimes**, not yet a detector that discovers which regime a fully-unknown system is in without being told the data
-  type — routing-by-data-type is a real limitation. Closing that (a single instrument that *infers* the data type and
-  the regime together) is the next swing.
-- CERTIFY-NO-CODE is shown here in its distance-geometry form (no low-D embedding); CHAOS-proper (Lorenz held-out drift)
-  is the same verdict via the trajectory engine — unifying both routes into the one instrument is open.
+- The detector is validated on *controlled menus* where each regime is dialed in on purpose; real-world data (noise,
+  mixed regimes, types outside the four signatures) is untested territory.
 - The five cells may not be exhaustive. The honest claim is: *every wall the project has hit so far is one of these
-  five.* Finding a sixth would be a genuine result.
+  five.* Finding a sixth would be a genuine result — hunting one adversarially is the natural next swing.
 
 The instrument: [143](../curvature/scripts/143_unified_diagnostic.py). The sub-verdicts, each gated:
 [141](../curvature/scripts/141_discoverability_trichotomy.py) (trichotomy),
