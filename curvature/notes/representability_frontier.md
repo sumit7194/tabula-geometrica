@@ -103,17 +103,21 @@ on demand.
   systems are law-learnable (Kepler/Lorenz R²=1.0, Rule 30/250 acc=1.0; iid-noise control fails R²=-0.001) but
   predictability SPLITS (Kepler/Rule 250 predictable; Lorenz/Rule 30 not). Lorenz & Rule 30 = law-learnable-yet-
   unpredictable → the levels are independent; the 5-cell frontier measures TRAJECTORY-level structure, not the local
-  rule (which is almost always emit-able). In verify.sh. Operationalizes EXP-5's P-C finding
-  (the detector needs an ABSTAIN output near boundaries / under-sampling). Wrap each 145 branch's decision statistic in a
-  BOOTSTRAP confidence interval (resample the data, recompute the statistic); if the CI straddles the decision threshold
-  (or the sample is too small for the branch to be reliable), output **ABSTAIN** instead of a possibly-wrong verdict.
-  Pre-reg: A1 CONFIDENT-CORRECT — on well-sampled menu systems the detector matches 145 (right verdict, no spurious
-  abstain); A2 HONEST-ABSTAIN — on underdetermined inputs (near-boundary Werner at small N; a distance matrix with too
-  few points; a short chaotic series) it ABSTAINS rather than emitting a wrong verdict (wrong-verdict rate ≈ 0, abstain
-  rate high); A3 RESOLVES-WITH-DATA — as N grows the same input goes ABSTAIN → confident-correct (confidence rises
-  monotonically, recovering the right verdict). Method: bootstrap CIs on the branch statistics (standard); abstain =
-  CI-straddles-threshold OR below a per-branch minimum-sample floor.
-
+  rule (which is almost always emit-able). In verify.sh. 
+- **EXP-8 (DONE 2026-07-02, script 149, X1/X2/X3): MIXED-REGIME robustness test.** RESULT: the single-regime
+  assumption IS a real limitation, and a fraction-chaotic readout fixes it (Hénon-Heiles KAM, cross-validated by Lyapunov):
+  X1 λ bimodal at E=1/8 (modes coincide with pure ensembles); X2 true chaotic frac 0.55 intermediate (single label
+  inadequate); X3 fraction-chaotic monotonic [0.0,0.12,0.55,0.78] matches KAM. BONUS (ties EXP-6): the 0-1 test
+  false-positives on quasiperiodic orbits only at SHORT integration → an under-sampling artifact (abstain is the guard);
+  λ is robust. In verify.sh. The detector assumes ONE clean regime;
+  this stress-tests that on a KAM MIXED PHASE SPACE (regular + chaotic orbits coexisting at one energy). Web-verified
+  Hénon-Heiles: regular for E<1/12, MIXED for 1/12<E<1/6 (chaotic fraction grows with E), fully chaotic at E=1/6. Per
+  orbit: 0-1 test K (chaos) + an independent finite-time max-Lyapunov λ (Benettin two-orbit method) for cross-validation.
+  X1 MIXTURE-IS-REAL — at E=1/8 the per-orbit K's are BIMODAL (a fraction <0.3 regular AND a fraction >0.7 chaotic), and
+  K agrees with λ (K-chaotic orbits have mean λ ≫ K-regular); unimodal at E_low/E_high. X2 SINGLE-VERDICT-LOSES-IT (the
+  honest limitation) — at E=1/8 the true chaotic fraction is genuinely intermediate (in [0.2,0.8]), so a 145-style single
+  aggregate verdict cannot represent the mixture. X3 MIXTURE-AWARE-RECOVERS-IT (the fix) — the fraction-chaotic readout is
+  monotonic in E and matches KAM (≈0 at E_low, intermediate at E=1/8, ≈1 at E_high). Honest-negative-friendly.
 ## EXP-1 result (script 141, distance-geometry realization)
 
 A distance-geometry menu, one diagnostic (read STRESS, then RAW frame error), correct verdict on each (all PASSED):

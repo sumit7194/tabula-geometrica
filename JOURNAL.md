@@ -1,3 +1,21 @@
+## 2026-07-02 — ② EXP-8: mixed-regime robustness — the detector needs a fraction readout, not one label (script 149)
+
+User-greenlit robustness test: the 145 detector assumes ONE clean regime; stress-test on a KAM MIXED PHASE SPACE.
+Research-first web-verified Hénon-Heiles (regular E<1/12, mixed 1/12<E<1/6, chaotic at 1/6). Per orbit: finite-time max
+Lyapunov λ (Benettin two-orbit, T=600, energy drift 3.6e-7) as the reliable chaos measure. X1/X2/X3 all pass:
+- X1 MIXTURE-IS-REAL: at E=1/8 λ is BIMODAL (frac λ<0.015 regular AND frac λ>0.03 chaotic), and the two modes COINCIDE
+  with the pure ensembles (regular mode ~ E=0.06's λ; chaotic mode ~ E=0.15's chaotic λ) → a superposition of the two
+  regimes, not noise. Cross-validated by the energy sweep matching KAM.
+- X2 SINGLE-VERDICT-LOSES-IT: true chaotic fraction at E=1/8 is 0.55 (genuinely intermediate) → a single aggregate label
+  can't represent it (the honest limitation).
+- X3 MIXTURE-AWARE-RECOVERS-IT: fraction-chaotic (frac λ>0.02) is monotonic in E [0.0, 0.12, 0.55, 0.78] and matches
+  KAM → report a FRACTION/distribution, not one verdict, and the mixture is recovered.
+BONUS (surfaced in smoke, ties to EXP-6): the detector's own 0-1 test K FALSE-POSITIVES on quasiperiodic regular orbits
+at SHORT integration (E=0.06: K short=1.00 vs λ=0.00) but is RELIABLE at long integration (K=0.00) → K's failure is an
+UNDER-SAMPLING (underdetermination) artifact, not intrinsic; EXP-6's abstain mechanism is exactly the guard. Lyapunov is
+the robust measure for Hamiltonian/quasiperiodic systems. In verify.sh. Honest scope: the fix (report a fraction) is
+demonstrated; wiring a mixture/abstain mode into the 145 detector proper is a clean follow-up.
+
 ## 2026-07-02 — ② EXP-7: law-learnability vs trajectory-predictability DISSOCIATE (script 148)
 
 Sharpens EXP-5's predictability axis with unambiguous metrics + adds a clarification: "discoverability" has TWO levels

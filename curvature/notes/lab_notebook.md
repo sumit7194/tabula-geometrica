@@ -3817,3 +3817,13 @@ fails (R²=-0.001). Predictability splits: Kepler(K=-0.06)+Rule250(compress 0.01
 (compress 1.001) NOT. Lorenz & Rule 30 = law-learnable-yet-unpredictable (off-diagonal). Headline: the local RULE is
 almost always emit-able; the 5-cell frontier measures TRAJECTORY-level structure, a distinct level. New piece = continuous
 one-step R² (smoke: Kepler/Lorenz ~1, noise ~0). Reused 146 CA/0-1 + 145 gens. In verify.sh (~30s).
+
+## 2026-07-02 — ② EXP-8: mixed-regime robustness test (script 149)
+User-greenlit. Detector assumes ONE regime; test on KAM mixed phase space (Hénon-Heiles, web-verified regimes). Per
+orbit = finite-time max Lyapunov λ (Benettin, T=600, energy drift 3.6e-7) as reliable chaos measure. X1/X2/X3 pass: X1
+at E=1/8 λ BIMODAL + modes coincide with pure ensembles (superposition, not noise); X2 true chaotic frac 0.55 intermediate
+→ single label inadequate; X3 fraction-chaotic monotonic [0.0,0.12,0.55,0.78] matches KAM → report a FRACTION not a
+verdict. BONUS (ties EXP-6): 0-1 test K false-positives on quasiperiodic orbits at SHORT integration (E=0.06 K short 1.00
+vs λ 0.00) but reliable long (K 0.00) → under-sampling artifact, abstain (EXP-6) is the guard; λ is robust for
+Hamiltonian systems. Smoke caught it (energy conservation + K-vs-λ disagreement at short T). In verify.sh (~4min). Fix
+(mixture readout) demonstrated; wiring it into the 145 detector proper = clean follow-up.
