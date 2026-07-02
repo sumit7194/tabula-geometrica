@@ -3890,3 +3890,13 @@ Mercury LRL azimuth 1900-2020 drifts 568.4″/cy vs known ~575 (1.1%) — the in
 precession. FIX ROUND (recorded): top-7-span gate failed → physics: near-circular orbits have no LRL signal (no
 perihelion!) → added high-e asteroids; eigen-ordering among degenerate zeros unstable → sub-library emit + measured
 functional ratios. In verify.sh (~10s). Data: horizons_*.csv committed.
+
+## 2026-07-03 — KK mass discovery for the quantum sister (script 157)
+Sister ask: discovery version of their KK cylinder toy. Independent FDTD (exact 1D θ-reduction, e^{inθ} discrete
+eigenmode → identical to 2D grid, 60× faster). Net never sees θ; encoder at k_obs, decoder queried at different k_q →
+only MASS transfers. G0 replication: rest freqs 1.007/2.003/2.999 (max 0.66%), vg ≤0.45% — sister toy confirmed. K1:
+K=1 heldout R²=0.9999, iso-R²=1.000. K2: clusters 58× separated, decode 100%, BEHAVIORAL ladder m̂=[0.055,1.008,1.992,
+2.957] (spacing dev 1.8%) — the KK tower. K3: ±n identical (gap 0.0) — orientation is gauge, projection sees m² only.
+Smoke traps: rest-freq aliasing (dense probe); vg packet-spread bias (SIG=8 + exact leapfrog-spectral init). Pre-reg
+correction (recorded): raw-latent equal-spacing gate was gauge-dependent (Phase-A lesson) → cluster separation +
+behavioral ladder (Phase-C lesson). Extends Phase D charge→MASS. In verify.sh (~2min). Deliverable: notes/kk_mass_for_quantum.md.

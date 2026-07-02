@@ -961,6 +961,13 @@ results in `curvature/notes/lab_notebook.md`.
   honest partials). Op-note (robust VM pattern, last night's idle-cost lesson fixed):
   4h watchdog self-stop works (gcloud active on the VM's service account); setsid-
   detached jobs survive Mac power-loss.
+- **KK MASS DISCOVERY for the quantum sister project (script 157, 2026-07-03), all gates:** the discovery version of
+  their cylinder KK toy. Independent FDTD (exact 1D θ-reduction); net never sees θ; encoder at k_obs → decoder queried at
+  different k_q (only MASS transfers). G0 replicates their toy (rest freqs 1.007/2.003/2.999, ≤0.66%); K1 K=1 bottleneck
+  R²=0.9999 + iso 1.000 (mass emerges); K2 quantized ladder (clusters 58×, decode 100%, BEHAVIORAL m̂=[0.055,1.008,1.992,
+  2.957] — the KK tower, spacing dev 1.8%); K3 certificate ±n identical (orientation is gauge; projection sees m² only).
+  Pre-reg correction recorded (raw-spacing gate was gauge-dependent → cluster-sep + behavioral ladder). Extends Phase D
+  (charge→MASS). Deliverable notes/kk_mass_for_quantum.md. In verify.sh.
 - Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
   Phase H rows (equivalence-breaking gravity); a G-sym legibility-preserving
   variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit
