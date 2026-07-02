@@ -3807,3 +3807,13 @@ spurious abstain); A2 honest-abstain on 3 underdetermined inputs (near-boundary 
 chaotic series) with ZERO wrong verdicts; A3 near-boundary Werner (CHSH 2.21) resolves ABSTAIN(N=16/64/256)->CONTEXTUAL
 (N=1024/16k/200k) monotonically. Bug fixed: T[i,::rate]->T[i,::rate,0] (0-1 test needs the scalar observable). Bootstrap
 CIs + per-branch floors. In verify.sh. The detector says "not enough data" instead of guessing; more data resolves it.
+
+## 2026-07-02 — ② EXP-7: law-learnability vs trajectory-predictability DISSOCIATE (script 148)
+Sharpens EXP-5's predictability axis + clarifies two conflated "discoverability" notions: (1) LAW-learnability (one-step
+forecast from local state) vs (2) TRAJECTORY-predictability (compress/shortcut the horizon = invariant/compression).
+Metrics: continuous LAW=one-step R² (Ridge deg-2), CA LAW=one-step accuracy; PREDICTABLE = 0-1 K<0.5 / compress<0.5.
+G1/G2/G3 pass: all 4 structured systems law-learnable (Kepler/Lorenz R²=1.0, Rule30/250 acc=1.0); iid-noise control
+fails (R²=-0.001). Predictability splits: Kepler(K=-0.06)+Rule250(compress 0.015) predictable, Lorenz(K=0.998)+Rule30
+(compress 1.001) NOT. Lorenz & Rule 30 = law-learnable-yet-unpredictable (off-diagonal). Headline: the local RULE is
+almost always emit-able; the 5-cell frontier measures TRAJECTORY-level structure, a distinct level. New piece = continuous
+one-step R² (smoke: Kepler/Lorenz ~1, noise ~0). Reused 146 CA/0-1 + 145 gens. In verify.sh (~30s).

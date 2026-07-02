@@ -1,3 +1,20 @@
+## 2026-07-02 — ② EXP-7: law-learnability vs trajectory-predictability DISSOCIATE (script 148)
+
+Sharpens EXP-5's predictability axis with unambiguous metrics + adds a clarification: "discoverability" has TWO levels
+people conflate — (1) LAW-learnability (predict one step from local state = the generating rule) and (2) TRAJECTORY-
+predictability (shortcut/compress the long horizon = invariant/compression). For smooth integrable systems they coincide;
+EXP-7 shows they DISSOCIATE. Metrics: continuous LAW = one-step forecast R² (Ridge on degree-2 features); CA LAW =
+one-step lookup accuracy; PREDICTABLE = 0-1 K<0.5 (continuous) / zlib compress<0.5 (CA). G1/G2/G3 all pass:
+- G1 LAW-UNIFORM: Kepler R²=1.000, Lorenz R²=1.000, Rule 30 acc=1.000, Rule 250 acc=1.000 all law-learnable; the
+  iid-noise control fails (R²=-0.001) → law-learnability is a genuine property, not automatic.
+- G2 PREDICTABILITY-DISSOCIATES: Kepler (0-1 K=-0.06) and Rule 250 (compress 0.015) predictable; Lorenz (K=0.998) and
+  Rule 30 (compress 1.001) UNpredictable — same one-step learnability (all R²/acc=1.0), opposite predictability.
+- G3 REAL: Lorenz AND Rule 30 are law-learnable-yet-unpredictable → the two notions are independent.
+HEADLINE: the local RULE is almost always learnable (emit-able); what the 5-cell frontier table actually measures is
+TRAJECTORY-level structure (invariants/compression). Lorenz & Rule 30 sit off-diagonal (learnable rule, unpredictable
+trajectory), proving the levels are independent. Reused validated pieces (146 CA + 0-1 test, 145 gens); new piece =
+continuous one-step R² (smoke-verified: Kepler/Lorenz ~1, noise ~0). In verify.sh.
+
 ## 2026-07-02 — ② EXP-6: the ABSTAIN-aware detector — underdetermination made honest (script 147)
 
 Direct follow-up to EXP-5's P-C finding ("the detector needs an ABSTAIN output"). Wrapped each 145 branch's decision

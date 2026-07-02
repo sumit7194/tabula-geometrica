@@ -120,6 +120,10 @@ BATTERIES = [
       "W3_underdetermination_gap": (">", 0.5)}),
     ("Abstain-aware detector (frontier EXP-6)", ["scripts/147_abstain_detector.py"], "147_abstain_detector.json",
      {"A1_pass": (">", 0.5), "A2_pass": (">", 0.5), "A3_pass": (">", 0.5)}),
+    ("Law vs predictability dissociation (frontier EXP-7)", ["scripts/148_law_vs_predictability.py"],
+     "148_law_vs_predictability.json",
+     {"G1_law_uniform_for_structured": (">", 0.5), "G2_predictability_dissociates": (">", 0.5),
+      "G3_dissociation_real": (">", 0.5)}),
 ]
 
 
