@@ -140,6 +140,8 @@ BATTERIES = [
      "153_sample_complexity.json",
      {"S1_monotonic_divergence": (">", 0.5), "S2_power_law_inverse_delta_sq": (">", 0.5),
       "S3_quantified_axis": (">", 0.5)}),
+    ("Real-data test vs literature (frontier EXP-13)", ["scripts/154_real_data.py"], "154_real_data.json",
+     {"R1_laser_chaotic": (">", 0.5), "R2_tides_predictable": (">", 0.5), "R3_sunspots_stable_honest": (">", 0.5)}),
 ]
 
 

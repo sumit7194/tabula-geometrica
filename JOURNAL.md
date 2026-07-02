@@ -1,3 +1,21 @@
+## 2026-07-02 — ② EXP-13: the REAL-DATA test — the instrument leaves the sandbox (script 154)
+
+First of the user-approved real-data / temporal arc (plan: notes/real_data_plan.md). Pointed the predictability
+instrument at THREE real series, gated against LITERATURE consensus (web-verified), offline (datasets downloaded once +
+committed to curvature/data/, verify.sh reads only the cached CSVs). Method: scalar predictability = one-step forecast R²
+(delay embedding) + 0-1 test K; verdict must be STABLE across segments. R1/R2/R3 all pass:
+- R1 LASER→CHAOTIC: Santa Fe far-infrared laser (the canonical real chaotic benchmark, Weigend-Gershenfeld) reads
+  CHAOTIC (R²=0.97 learnable law, K=0.998 sensitive dependence), stable across all 4 segments — matches the low-dim-chaos
+  literature.
+- R2 TIDES→PREDICTABLE: NOAA CO-OPS SF water level (6-min) reads PREDICTABLE (R²=0.998, K=0.23 quasi-periodic), stable —
+  matches the tidal-harmonic character.
+- R3 SUNSPOTS (exploratory): SILSO monthly SSN reads "not regular" (K=0.997) and stable, BUT a SURROGATE-DATA test
+  (phase-randomized linear-stochastic null — the standard chaos-vs-stochastic tool) resolves the honest question: laser
+  z=10.2 (genuine deterministic chaos, positive control) vs sunspots z=1.0 (NO excess nonlinear determinism →
+  consistent with a stochastic/colored-noise cycle, NOT low-dim chaos). Honest detector-scope finding: the 0-1 test flags
+  regular-vs-not but does NOT by itself separate chaos from stochastic — the surrogate test does. Datasets committed
+  (curvature/data/). In verify.sh.
+
 ## 2026-07-02 — ② EXP-12: the SAMPLING axis instrumented — sample complexity diverges at the wall (script 153)
 
 Made the 3rd frontier axis (underdetermination) QUANTITATIVE, not just a binary abstain: how many samples to resolve a
