@@ -132,6 +132,10 @@ BATTERIES = [
       "U3_abstain_when_underdetermined": (">", 0.5), "U4_one_instrument_all_outcomes": (">", 0.5)}),
     ("Noise robustness profile (frontier EXP-10)", ["scripts/151_noise_robustness.py"], "151_noise_robustness.json",
      {"N1_low_noise_correct": (">", 0.5), "N2_chaos_robust": (">", 0.5), "N3_degradation_profiled": (">", 0.5)}),
+    ("Predictability diagnostic (frontier EXP-11)", ["scripts/152_predictability_diagnostic.py"],
+     "152_predictability_diagnostic.json",
+     {"P1_classifies_all_five": (">", 0.5), "P2_complete_taxonomy": (">", 0.5),
+      "P3_orthogonal_to_discoverability": (">", 0.5)}),
 ]
 
 

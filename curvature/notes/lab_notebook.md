@@ -3846,3 +3846,11 @@ strict triangle). With fix: N2 chaos fully robust (Lorenz CERTIFY-CHAOS to σ=0.
 ABSTAIN@0.15→false-chaos only@0.4, abstains before wrong); geometry holds to σ=0.15→NO-CODE@0.4 (arguably correct, noise
 destroys the code). N1/N2/N3 pass. Residual edge: regular→false-chaos at extreme noise → next guard = noise-aware abstain
 (EXP-6 extended). Chaos detection is noise-robust; brittleness lived in type inference, fixed. In verify.sh.
+
+## 2026-07-02 — ② EXP-11: the predictability diagnostic (script 152)
+The 2nd frontier axis as a standalone instrument. 4-class taxonomy: RANDOM (no learnable rule) / PREDICTABLE (learnable
++ compressible) / CHAOTIC (learnable smooth + sensitive dependence) / IRREDUCIBLE (learnable discrete + incompressible).
+Measures: one-step R²/acc (law), 0-1 K / zlib (predictability); substrate routes chaos-vs-irreducibility. P1/P2/P3 pass
+clean: Kepler/Rule250→PREDICTABLE, Lorenz→CHAOTIC (K 0.998), Rule30→IRREDUCIBLE (compress 1.001), noise→RANDOM (R² -0.001);
+all 4 classes; 4 structured systems law-learnable ~1 yet 3 predictability classes → orthogonal to discoverability. Reuses
+146/148 validated measures. In verify.sh (~30s). The 3-axis frontier's middle axis is now operationalized.

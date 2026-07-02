@@ -1,3 +1,17 @@
+## 2026-07-02 — ② EXP-11: the PREDICTABILITY diagnostic — the 2nd axis instrumented (script 152)
+
+EXP-5 discovered predictability as an axis orthogonal to the 5-cell discoverability table; EXP-7 showed law-learnability
+and predictability dissociate but lumped all unpredictable systems together. EXP-11 builds the finer taxonomy as a
+standalone instrument: given a system, classify its trajectory predictability into RANDOM (no learnable rule) /
+PREDICTABLE (learnable rule + compressible) / CHAOTIC (learnable smooth rule + sensitive dependence) / IRREDUCIBLE
+(learnable discrete rule + incompressible). Reuses validated measures (one-step R²/accuracy for law; 0-1 K / zlib for
+predictability); substrate (continuous vs discrete) routes the chaos-vs-irreducibility distinction (honest: chaos is a
+continuous sensitive-dependence notion, irreducibility a discrete no-shortcut notion). P1/P2/P3 all pass, clean first
+attempt: Kepler/Rule250→PREDICTABLE, Lorenz→CHAOTIC (K=0.998), Rule 30→IRREDUCIBLE (compress 1.001), iid-noise→RANDOM
+(one-step R²=-0.001); all four classes populated; the four structured systems all law-learnable (~1.0) yet span three
+predictability classes → orthogonal to discoverability, wielded as an instrument. The 3-axis frontier (discoverability ×
+predictability × sampling) now has its middle axis operationalized. In verify.sh.
+
 ## 2026-07-02 — ② EXP-10: noise robustness — the brittleness was in TYPE INFERENCE, now fixed (script 151)
 
 Stress-tested the robust detector under measurement noise (the "real data has noise" gap). Added increasing noise to a
