@@ -1,0 +1,44 @@
+{
+ "G0_rest_freqs": {
+  "1": 1.0066143265615055,
+  "2": 2.0026779088832627,
+  "3": 2.99891753790532
+ },
+ "G0_vg": {
+  "n1_k1.0": {
+   "measured": 0.7039633636438242,
+   "kg": 0.7071067811865475
+  },
+  "n2_k1.2": {
+   "measured": 0.5139104946683395,
+   "kg": 0.5144957554275266
+  },
+  "n3_k1.5": {
+   "measured": 0.4485569848557676,
+   "kg": 0.4472135954999579
+  }
+ },
+ "G0_max_rest_err": 0.0066143265615055125,
+ "G0_max_vg_err": 0.004445463721120788,
+ "K1_heldout_R2": 0.9999396511307062,
+ "K1_latent_isotonic_R2_vs_n": 0.9999634401511962,
+ "K2_integer_decode_acc": 1.0,
+ "K2_cluster_separation": 58.17647247427304,
+ "K2_behavioral_mass_ladder": [
+  0.05504029409278609,
+  1.0077579016193274,
+  1.9920019437519372,
+  2.956663502369627
+ ],
+ "K2_ladder_err_vs_n": 0.05504029409278609,
+ "K2_ladder_deviation": 0.017613905890744495,
+ "K3_obs_gap_pm": 0.0,
+ "K3_latent_gap_over_spacing": 0.0,
+ "G0_replication": true,
+ "K1_mass_emerges": true,
+ "K2_quantized_ladder": true,
+ "K3_orientation_certificate": true,
+ "kk_mass_discovered": true,
+ "for_quantum_project": "the discovery version of your KK toy, delivered: a K=1 bottleneck trained ONLY on visible-projection packet tracks + brane probe (never theta) invents a single latent that transfers across momenta = MASS; the latent forms a QUANTIZED equally-spaced ladder in the winding number (the visible signature of compactness -- the KK tower); and +-n windings are certified identical in projection (the orientation is gauge; only m^2 = n^2/R^2 is visible -- the latent cannot be the periodic coordinate itself, which answers your (c) honestly). G0 independently replicates your <1% rest-frequency and KG group-velocity numbers with a separate FDTD build.",
+ "verdict": "KK MASS DISCOVERY (sister ask): a bottleneck net DISCOVERS that mass is hidden-dimension momentum. (G0) independent FDTD replication of the sister toy: rest freqs 1.007/2.003/2.999 vs n=1,2,3 (max err 0.66%), group velocities match Klein-Gordon (max err 0.44%). (K1) a K=1 bottleneck trained only on visible projections transfers across momenta (held-out R^2 0.9999) and its latent orders the winding modes (isotonic R^2 1.000) -- the net invents mass. (K2) the latent is a QUANTIZED spectrum (clusters separated 58x their spread; integer winding decoded at 100%) and the DECODER's own dynamics calibrate it to the physical ladder: behavioral masses [np.float64(0.055), np.float64(1.008), np.float64(1.992), np.float64(2.957)] vs n=0,1,2,3 (max err 5.5%, spacings equal to 1.8%) -- the KK tower m_n = n/R, discovered; quantization is the visible signature of the compact dimension. (K3) certificate: +n and -n windings give identical projections (gap 0e+00) and the same latent -- the orientation is a gauge; the projection sees only m^2. Extends Phase D (charge = hidden momentum, r=0.9998) to MASS."
+}

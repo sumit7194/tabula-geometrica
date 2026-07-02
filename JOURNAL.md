@@ -1,3 +1,26 @@
+## 2026-07-03 — KK MASS DISCOVERY for the quantum sister project (script 157): mass = hidden-dimension momentum, discovered
+
+Sister ask (relayed by the user, credited): the discovery version of their numerical Kaluza-Klein toy (massless 2D wave
+on a cylinder; winding-n packets behave as massive particles m_n = n/R, their numbers 1.002/2.003/3.003 <1%). Built
+INDEPENDENTLY (our own leapfrog FDTD; exact 1D theta-reduction since e^{inθ} is a discrete eigenmode — identical to the
+2D grid, 60× faster). The net NEVER sees θ: observations = θ-averaged packet track + on-brane probe. FORCING design:
+encoder observes a packet at k_obs, decoder must predict the track at a DIFFERENT queried momentum — only the MASS
+transfers. All gates pass:
+- G0 INDEPENDENT REPLICATION of the sister toy: rest freqs 1.007/2.003/2.999 (max err 0.66%), group velocities match
+  Klein-Gordon to 0.45% — their result confirmed with separate code.
+- K1 MASS EMERGES: K=1 bottleneck transfers across momenta (held-out R²=0.9999), latent orders the modes (iso-R²=1.000).
+- K2 QUANTIZED LADDER: latent clusters separated 58× their spread; integer winding decoded at 100%; the BEHAVIORAL mass
+  ladder (invert the decoder's own predicted dynamics → m̂) = [0.055, 1.008, 1.992, 2.957] vs n=[0,1,2,3] — the KK tower,
+  spacings equal to 1.8%. Quantization is the visible signature of the compact dimension.
+- K3 ORIENTATION CERTIFICATE: +n and −n windings give IDENTICAL projections (gap exactly 0.0) and the same latent —
+  the hidden dimension's orientation is a gauge; the projection sees only m² = n²/R². Honest answer to their (c): the
+  latent cannot be the periodic coordinate itself; compactness shows as the quantized ladder + this certificate.
+Smoke caught 2 measurement traps (rest-freq ALIASING at coarse frame sampling; v_g packet-spread bias ½v_g″σ_k² → wide
+packets + exact leapfrog-consistent spectral init). One pre-reg correction recorded: raw-latent equal-spacing was a
+GAUGE-DEPENDENT gate (our own Phase-A lesson) → replaced by reparam-invariant cluster separation + behavioral ladder
+(Phase-C lesson). Extends Phase D (charge = hidden momentum, r=0.9998) to MASS. Deliverable:
+notes/kk_mass_for_quantum.md. In verify.sh.
+
 ## 2026-07-02 — ③ EXP-15: NEWTON FROM EPHEMERIDES — the thesis on real data (script 156)
 
 The payoff swing (user-approved ③): the emit-or-certify engine on REAL JPL Horizons state vectors (heliocentric ecliptic;
