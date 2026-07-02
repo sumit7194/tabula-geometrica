@@ -1,0 +1,66 @@
+{
+ "rows": [
+  {
+   "expected": "EMIT-regular",
+   "type": "trajectories",
+   "verdict": "EMIT-regular",
+   "ok": true
+  },
+  {
+   "expected": "CERTIFY-CHAOS",
+   "type": "trajectories",
+   "verdict": "CERTIFY-CHAOS",
+   "ok": true
+  },
+  {
+   "expected": "MIXTURE",
+   "type": "trajectories",
+   "verdict": "MIXTURE",
+   "ok": true
+  },
+  {
+   "expected": "ABSTAIN",
+   "type": "trajectories",
+   "verdict": "ABSTAIN",
+   "ok": true
+  },
+  {
+   "expected": "EMIT-CLASSICAL",
+   "type": "correlations",
+   "verdict": "EMIT-CLASSICAL",
+   "ok": true
+  },
+  {
+   "expected": "CERTIFY-CONTEXTUAL",
+   "type": "correlations",
+   "verdict": "CERTIFY-CONTEXTUAL",
+   "ok": true
+  },
+  {
+   "expected": "ABSTAIN-werner",
+   "type": "correlations",
+   "verdict": "ABSTAIN",
+   "ok": true
+  },
+  {
+   "expected": "ABSTAIN-6pt",
+   "type": "distances",
+   "verdict": "ABSTAIN",
+   "ok": true
+  },
+  {
+   "expected": "CERTIFY-GAUGE",
+   "type": "distances",
+   "verdict": "CERTIFY-GAUGE",
+   "ok": true
+  }
+ ],
+ "mixture_fraction_chaotic": 0.4166666666666667,
+ "U1_confident_correct": true,
+ "U2_mixture_detected": true,
+ "U3_abstain_when_underdetermined": true,
+ "U4_one_instrument_all_outcomes": true,
+ "no_wrong_confident_verdict": true,
+ "robust_detector": true,
+ "verdict": "THE UNIFIED ROBUST DETECTOR (\u2461 EXP-9): one data-driven instrument folds verdict + ABSTAIN + MIXTURE into the frontier detector. On a 9-case menu it (U1) returns confident correct verdicts on clean single-regime inputs (Kepler->regular, Lorenz->chaos, LHV->classical, singlet->contextual, relational geometry->gauge); (U2) flags a KAM mixed ensemble (H\u00e9non-Heiles E=1/8) as MIXTURE with fraction-chaotic 0.42 instead of a single label; (U3) ABSTAINS on every underdetermined input (the SAME KAM ensemble short-integrated, a near-boundary Werner state at N=16, a 6-point distance matrix) -- with ZERO wrong confident verdicts anywhere. (U4) One instrument, all three outcome types, correct across the menu. The frontier detector now degrades honestly: it answers when it can, reports a distribution when regimes coexist, and says 'not enough data' otherwise."
+}

@@ -1,3 +1,22 @@
+## 2026-07-02 — ② EXP-9: the unified ROBUST detector — verdict | ABSTAIN | MIXTURE, one instrument (script 150)
+
+Folds EXP-4 (detector) + EXP-6 (abstain) + EXP-8 (mixture fraction) into ONE data-driven instrument. Research-first:
+abstention + mixture regime-detection are established (HMM/GMM/PELT, abstaining classifiers, web-checked) — the
+contribution is folding them into the discoverability-frontier detector so it degrades HONESTLY. Smoke confirmed the
+native 0-1 test detects the KAM mixture at adequate integration (E=1/8: 38% regular + 28% chaotic, agrees with Lyapunov),
+so the detector stays fully data-driven (no privileged flow access). Trajectory branch: per-orbit 0-1 K → too-short →
+ABSTAIN; both regular+chaotic fractions present → MIXTURE (report fraction); dominant one → verdict. Other branches reuse
+EXP-6 bootstrap/floor abstain. U1/U2/U3/U4 all pass, 9/9 menu:
+- U1 confident-correct on clean inputs (Kepler→EMIT-regular, Lorenz→CERTIFY-CHAOS, LHV→EMIT-CLASSICAL, singlet→
+  CERTIFY-CONTEXTUAL, 40-pt relational→CERTIFY-GAUGE).
+- U2 MIXTURE: Hénon-Heiles E=1/8 (long) → MIXTURE, fraction-chaotic 0.42 (not a single label).
+- U3 ABSTAIN on all 3 underdetermined inputs (same KAM ensemble short-integrated → too-few-points; near-boundary Werner
+  N=16 → CHSH CI straddles; 6-point distance matrix → below floor) — ZERO wrong confident verdicts anywhere.
+- U4 one instrument, all three outcome types, correct across the menu.
+One bug fixed (a 6-point distance matrix fell below 145's is_distance_matrix n≥8 floor → mistyped as code → KNN crash;
+added a small-square-symmetric-hollow catch → routes to distances→ABSTAIN). The frontier detector is now robust:
+it answers when it can, reports a distribution when regimes coexist, and says "not enough data" otherwise. In verify.sh.
+
 ## 2026-07-02 — ② EXP-8: mixed-regime robustness — the detector needs a fraction readout, not one label (script 149)
 
 User-greenlit robustness test: the 145 detector assumes ONE clean regime; stress-test on a KAM MIXED PHASE SPACE.

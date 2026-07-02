@@ -109,7 +109,12 @@ on demand.
   X1 λ bimodal at E=1/8 (modes coincide with pure ensembles); X2 true chaotic frac 0.55 intermediate (single label
   inadequate); X3 fraction-chaotic monotonic [0.0,0.12,0.55,0.78] matches KAM. BONUS (ties EXP-6): the 0-1 test
   false-positives on quasiperiodic orbits only at SHORT integration → an under-sampling artifact (abstain is the guard);
-  λ is robust. In verify.sh. The detector assumes ONE clean regime;
+  λ is robust. In verify.sh.
+- **EXP-9 (DONE 2026-07-02, script 150, U1/U2/U3/U4): the unified ROBUST detector.** Folds EXP-4 + EXP-6 + EXP-8 into ONE
+  data-driven instrument: infer type, then return a confident VERDICT / ABSTAIN (under-sampled or near a wall) / MIXTURE
+  (regimes coexist → report the fraction). 9/9 menu: U1 confident-correct on clean inputs; U2 Hénon-Heiles E=1/8 →
+  MIXTURE (fraction 0.42); U3 ABSTAIN on 3 underdetermined inputs (short KAM, Werner N=16, 6-pt matrix) with ZERO wrong
+  confident verdicts; U4 one instrument, all outcomes. The detector now degrades honestly. In verify.sh. The detector assumes ONE clean regime;
   this stress-tests that on a KAM MIXED PHASE SPACE (regular + chaotic orbits coexisting at one energy). Web-verified
   Hénon-Heiles: regular for E<1/12, MIXED for 1/12<E<1/6 (chaotic fraction grows with E), fully chaotic at E=1/6. Per
   orbit: 0-1 test K (chaos) + an independent finite-time max-Lyapunov λ (Benettin two-orbit method) for cross-validation.
