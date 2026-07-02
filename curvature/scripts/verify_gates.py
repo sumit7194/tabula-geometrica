@@ -142,6 +142,9 @@ BATTERIES = [
       "S3_quantified_axis": (">", 0.5)}),
     ("Real-data test vs literature (frontier EXP-13)", ["scripts/154_real_data.py"], "154_real_data.json",
      {"R1_laser_chaotic": (">", 0.5), "R2_tides_predictable": (">", 0.5), "R3_sunspots_stable_honest": (">", 0.5)}),
+    ("Temporal regime-switching (frontier EXP-14)", ["scripts/155_temporal_switching.py"], "155_temporal_switching.json",
+     {"T1_switch_localized": (">", 0.5), "T2_U_shaped_resolution": (">", 0.5), "T3_temporal_vs_ensemble": (">", 0.5),
+      "T4_sampling_sets_temporal_resolution": (">", 0.5)}),
 ]
 
 

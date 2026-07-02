@@ -1,0 +1,46 @@
+{
+ "N": 12000,
+ "true_change_point": 6000,
+ "window_sweep_W": [
+  50,
+  100,
+  200,
+  400,
+  800,
+  1600,
+  3200,
+  6000
+ ],
+ "loc_error_by_W": [
+  5775,
+  4100,
+  100,
+  0,
+  0,
+  100,
+  100,
+  450
+ ],
+ "whole_stream_chsh": 1.8951252959408538,
+ "best_W": 400,
+ "best_localization_error": 0,
+ "temporal_var": {
+  "switch": 0.2378980121539093,
+  "stationary_classical": 0.02722595188586328,
+  "stationary_quantum": 0.02701478614752409
+ },
+ "localization_floor_by_delta": {
+  "0.4": 800,
+  "0.3": 800,
+  "0.2": 3200,
+  "0.15": 3200
+ },
+ "floor_ratio_0.15_over_0.4": 4.0,
+ "floor_loglog_slope": -1.706111792439631,
+ "T1_switch_localized": true,
+ "T2_U_shaped_resolution": true,
+ "T3_temporal_vs_ensemble": true,
+ "T4_sampling_sets_temporal_resolution": true,
+ "temporal_switching_instrumented": true,
+ "verdict": "TEMPORAL SWITCHING + THE SAMPLING/TIME SYNTHESIS (\u2461 EXP-14): the detector localizes WHEN the law changes, and the sampling axis sets how sharply. A Bell stream switches source classical->quantum at t=6000. (T1) The whole-stream CHSH is one blurred number (1.90); a sliding-window CHSH localizes the switch to 0 steps at W=400. (T2) Localization error vs window is U-SHAPED ([(50, 5775), (100, 4100), (200, 100), (400, 0), (800, 0), (1600, 100), (3200, 100), (6000, 450)]) -- short windows false-cross in the classical part (noisy), long windows smear the switch (~W/2). (T3) within-stream windowed-CHSH variance is 0.238 for the switch vs 0.0272/0.0270 for stationary classical/quantum streams -- a temporal SWITCH is cleanly separable from an ensemble MIXTURE (EXP-8). (T4, the synthesis) the localization FLOOR grows as the margin shrinks: 800 steps at delta=0.4 -> 3200 at delta=0.15 (4x), a log-log slope -1.71 ~ -2 tracking N_resolve ~ 1/delta^2 -- near the decision wall a switch is not just data-hungry, it is temporally BLURRIER. The sampling axis (EXP-12) sets the temporal resolution of law-detection."
+}

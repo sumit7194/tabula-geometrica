@@ -50,7 +50,9 @@ loads ONLY the cached CSVs (offline), segments, runs `s150.detect_robust` (+ the
 
 ---
 
-## EXP-14 — temporal non-stationarity / regime-switching (script 155)
+## EXP-14 — temporal non-stationarity / regime-switching (script 155) — DONE 2026-07-02, T1/T2/T3/T4 pass
+
+**RESULT:** Bell-stream classical→quantum switch (tunable margin; logistic dropped). Sliding-window CHSH localizes the switch (err 0) vs whole-stream blur; U-shaped error-vs-W; temporal-vs-ensemble separable (within-stream variance). SYNTHESIS (T4): localization floor = N_resolve/2, grows ~1/δ² (slope -1.71) as δ→wall — the sampling axis sets the TEMPORAL resolution of law-detection. Corrections logged (logistic→correlation stream; first-crossing→confidence-based floor).
 
 The detector assumes ONE regime for the whole series. Real/interesting systems SWITCH law in time. EXP-8 did mixtures
 ACROSS the ensemble (which orbit is chaotic); EXP-14 does mixtures ACROSS TIME (WHEN the law changes).
