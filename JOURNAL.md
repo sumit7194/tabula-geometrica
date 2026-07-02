@@ -1,3 +1,24 @@
+## 2026-07-02 — ② EXP-14: temporal regime-switching — the sampling axis sets the temporal resolution (script 155)
+
+Second of the real-data/temporal arc. EXP-8 did mixtures ACROSS the ensemble; EXP-14 does mixtures ACROSS TIME (WHEN the
+law changes) + the synthesis the user was excited about. System: a Bell-trial stream whose SOURCE switches classical
+(CHSH~1.41) → quantum (Werner, CHSH=2+δ) mid-stream — a TUNABLE margin δ to the wall (the logistic map's regimes are
+too cleanly separated for a U-shape/synthesis). Research-first: change-point literature (PELT/CUSUM/HMM; ruptures) grounds
+the window tradeoff. T1/T2/T3/T4 all pass:
+- T1 SWITCH-LOCALIZED: sliding-window CHSH localizes the switch to error 0 at W=400, while the whole-stream CHSH (1.90) is
+  one blurred number that misses it.
+- T2 U-SHAPED: localization error vs window is U-shaped [50→5775, 400→0, 6000→450] — short windows false-cross (noisy),
+  long windows smear (~W/2), optimum in between.
+- T3 TEMPORAL vs ENSEMBLE: within-stream windowed-CHSH variance 0.238 (switch) vs 0.027/0.027 (stationary) → a temporal
+  SWITCH is cleanly separable from an ensemble MIXTURE (EXP-8); "when" vs "which member."
+- T4 THE SYNTHESIS: the localization FLOOR = N_resolve/2 (below N_resolve trials into the quantum regime you can't
+  confidently confirm the switch). Floor grows 800→3200 (4×) as δ shrinks 0.4→0.15, log-log slope -1.71 ≈ -2, tracking
+  N_resolve ~ 1/δ² (EXP-12). HEADLINE: near a decision wall a switch isn't just data-hungry, it's temporally BLURRIER —
+  the sampling axis sets the temporal resolution of law-detection.
+Two design corrections logged: logistic map dropped (no tunable margin → correlation stream); the first-crossing localizer
+was noise-fooled by a long classical prefix → replaced the T4 floor with the confidence-based N_resolve/2 (the right,
+EXP-12-tied measure). In verify.sh. The real-data/temporal arc (EXP-13+14) is complete.
+
 ## 2026-07-02 — ② EXP-13: the REAL-DATA test — the instrument leaves the sandbox (script 154)
 
 First of the user-approved real-data / temporal arc (plan: notes/real_data_plan.md). Pointed the predictability

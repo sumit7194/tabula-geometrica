@@ -3870,3 +3870,13 @@ deterministic chaos, positive control) vs sunspots z=1.0 (NO excess nonlinear de
 colored-noise cycle, NOT low-dim chaos). Detector-scope finding: 0-1 K flags regular-vs-not but doesn't separate
 chaos-vs-stochastic; the surrogate test does. Data committed. Segmentation caveat noted (segments not independent). In
 verify.sh (~15s). Sources: Santa Fe laser (Weigend-Gershenfeld 1994), NOAA CO-OPS 9414290, SILSO SN_m_tot_V2.0.
+
+## 2026-07-02 — ② EXP-14: temporal regime-switching (script 155)
+Mixtures across TIME (EXP-8 was across the ensemble) + the sampling/time synthesis. Bell stream switches classical
+(CHSH~1.41)→quantum (CHSH=2+δ) mid-stream (tunable margin; logistic map dropped — too-sharp regimes). T1/T2/T3/T4 pass:
+T1 sliding-window CHSH localizes switch (err 0 @W=400) vs whole-stream blurred (1.90); T2 U-shaped err vs W (short noisy/
+long smeared); T3 within-stream CHSH variance 0.238 switch vs 0.027 stationary → temporal-vs-ensemble separable; T4
+SYNTHESIS: localization floor = N_resolve/2, grows 800→3200 (4×) as δ 0.4→0.15, slope -1.71≈-2 ~ 1/δ² (EXP-12) → sampling
+axis sets TEMPORAL resolution (near-wall switches are temporally blurry). Corrections: dropped logistic (no margin);
+first-crossing localizer noise-fooled by long classical prefix → confidence-based N_resolve/2 floor (right measure). In
+verify.sh. Real-data/temporal arc (13+14) complete.
