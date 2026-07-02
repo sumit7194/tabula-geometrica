@@ -69,6 +69,30 @@ on demand.
   invariant held-out 7e-18 (machine-exact), Lorenz K=0.997; gotcha caught in smoke (oversampled chaos reads K~0 → max
   over subsample rates). In verify.sh (45s). The table is now a DETECTOR, not just a classifier. Open: is the 5-cell set
   exhaustive (hunt a 6th wall)?
+- **EXP-5 (DONE 2026-07-02, script 146, W1/W2/W3): the SIXTH-WALL / EXHAUSTIVENESS hunt.** RESULT: no 6th cell
+  — the 5-cell table is EXHAUSTIVE for law-discoverability of well-sampled stationary systems, but it is ONE FACE of a
+  3-axis space: DISCOVERABILITY (the table) × PREDICTABILITY (computational irreducibility, P-B) × SAMPLING
+  (underdetermination near walls, P-C); partial observability is ABSORBED (Takens, P-A). Numbers below. Throw systems NOT built to fit
+  the 5-cell taxonomy at the 145 detector; each must either land in an existing cell with correct evidence (evidence FOR
+  exhaustiveness) or produce a documented misfit (seed of a new axis). Probes + predictions:
+  - **P-A PARTIAL OBSERVABILITY → predict ABSORBED (not a new wall).** A single scalar observable from Kepler (regular)
+    and Lorenz (chaotic). Web-verified Takens: delay embedding reconstructs the attractor from one observable, and the
+    0–1 chaos test is *designed* for scalar series → the regular/chaotic verdict survives partial observation. Gate:
+    K(Kepler-scalar) < 0.2 AND K(Lorenz-scalar) > 0.8 → partial obs reduces to existing cells.
+  - **P-B COMPUTATIONAL IRREDUCIBILITY → predict GENUINE MISFIT (orthogonal axis).** An elementary cellular automaton
+    (Rule 30/110), deterministic + short rule. Show (1) the one-step LAW is perfectly learnable (neighborhood→next-cell
+    accuracy ≈ 1.0 = discoverable / EMIT-able) BUT (2) the trajectory is incompressible (a cell's column fails a
+    compressibility/predictability proxy). Web-verified Wolfram: computational irreducibility is DISTINCT from chaos
+    (deterministic, no shortcut). Gate: one-step accuracy > 0.99 AND incompressibility signature → documents a
+    PREDICTABILITY axis the 5-cell (discoverability) table lacks.
+  - **P-C FINITE-SAMPLE UNDERDETERMINATION → predict epistemic gap.** The 0–1 verdict on Lorenz degrades with a
+    too-short series (unreliable K at small N) while stable at large N. Gate: short-N K is unreliable (crosses the
+    regular threshold / high variance) while long-N K is stable > 0.8 → the detector needs an ABSTAIN output;
+    underdetermination is an epistemic axis, not a world-cell.
+  Honest conclusion structure: the 5-cell table is exhaustive for LAW-DISCOVERABILITY of well-sampled stationary systems;
+  EXP-5 maps its boundaries — partial obs is ABSORBED (Takens), while computational irreducibility (a PREDICTABILITY
+  axis) and finite-sample (an UNDERDETERMINATION axis) are ORTHOGONAL frontiers the table doesn't cover (not 6th cells in
+  the same table — a "this table is one face of a larger space" annotation).
 
 ## EXP-1 result (script 141, distance-geometry realization)
 
