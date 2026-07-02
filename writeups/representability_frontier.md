@@ -146,8 +146,17 @@ compression), not the local rule — which is almost always easy.
 
 ## Honest scope and open threads
 
-- The detector is validated on *controlled menus* where each regime is dialed in on purpose; real-world data (noise,
-  mixed regimes, types outside the four signatures) is untested territory.
+- **Mixed regimes — a real limitation, and its fix ([EXP-8, script 149](../curvature/scripts/149_mixed_regime.py)).**
+  The detector assumes one clean regime per dataset; a KAM system (Hénon–Heiles at intermediate energy) has regular and
+  chaotic orbits *coexisting*. Cross-validated by the Lyapunov exponent, the per-orbit chaos measure is genuinely
+  bimodal at E=1/8 (its two modes coincide with the pure-regular and pure-chaotic ensembles), so a single verdict can't
+  represent it — but a **fraction-chaotic readout** does, tracking the chaotic fraction monotonically across energy
+  exactly as KAM predicts. The honest fix: report a *distribution*, not a label. (A bonus the test surfaced: the 0–1
+  chaos instrument false-positives on quasiperiodic orbits only at *short* integration — an under-sampling artifact that
+  EXP-6's abstain mechanism guards against; the Lyapunov exponent is the robust measure for Hamiltonian systems.)
+- Still untested: genuinely real-world data (measurement noise, types outside the four structural signatures), and
+  wiring the mixture/abstain modes into the detector proper (both EXP-6 and EXP-8 demonstrate the fix; folding them into
+  the single instrument is a clean engineering follow-up).
 - **The exhaustiveness question, answered (EXP-5, script 146).** We threw three adversarial systems that were *not*
   built to fit the table at the detector. The result: no sixth cell — but the table is **one face of a three-axis
   space**. (a) *Partial observability* is absorbed, not a new wall: a single scalar observable still yields the correct
