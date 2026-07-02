@@ -169,9 +169,14 @@ fully noise-robust, and regular-orbit detection degrades gracefully (abstains be
 ([script 152](../curvature/scripts/152_predictability_diagnostic.py)) turns the **predictability axis** — the orthogonal
 axis EXP-5 discovered — into its own instrument: a four-class diagnostic (RANDOM / PREDICTABLE / CHAOTIC / IRREDUCIBLE)
 that classifies systems correctly and confirms the axis is independent of discoverability (all structured systems have a
-learnable one-step law, yet span three predictability classes). So the three-axis frontier now has two of its three axes
-(discoverability, predictability) operationalized as instruments, and the discoverability detector is uncertainty-,
-mixture-, and noise-aware.
+learnable one-step law, yet span three predictability classes). *EXP-12*
+([script 153](../curvature/scripts/153_sample_complexity.py)) instruments the third axis, **sampling**, as a *quantity*
+rather than a binary abstain: how many samples does it take to resolve a verdict, as a function of distance to a decision
+wall? Near the contextual wall (CHSH = 2) the sample complexity **diverges** — N_resolve grows from 400 to 409,600 as the
+margin shrinks from 0.6 to 0.02, a log-log slope of −1.96 ≈ −2 that matches the derivable law N_resolve ~ 1/δ² (a
+critical-slowing-down analog). So **all three axes of the frontier are now operationalized as instruments** —
+discoverability, predictability, and sampling — and the discoverability detector is uncertainty-, mixture-, and
+noise-aware.
 - **The exhaustiveness question, answered (EXP-5, script 146).** We threw three adversarial systems that were *not*
   built to fit the table at the detector. The result: no sixth cell — but the table is **one face of a three-axis
   space**. (a) *Partial observability* is absorbed, not a new wall: a single scalar observable still yields the correct
