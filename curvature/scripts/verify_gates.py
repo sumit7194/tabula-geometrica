@@ -127,6 +127,9 @@ BATTERIES = [
     ("Mixed-regime robustness (frontier EXP-8)", ["scripts/149_mixed_regime.py"], "149_mixed_regime.json",
      {"X1_mixture_is_real": (">", 0.5), "X2_single_verdict_loses_it": (">", 0.5),
       "X3_mixture_aware_recovers_it": (">", 0.5)}),
+    ("Unified robust detector (frontier EXP-9)", ["scripts/150_robust_detector.py"], "150_robust_detector.json",
+     {"U1_confident_correct": (">", 0.5), "U2_mixture_detected": (">", 0.5),
+      "U3_abstain_when_underdetermined": (">", 0.5), "U4_one_instrument_all_outcomes": (">", 0.5)}),
 ]
 
 

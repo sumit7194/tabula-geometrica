@@ -3827,3 +3827,13 @@ verdict. BONUS (ties EXP-6): 0-1 test K false-positives on quasiperiodic orbits 
 vs λ 0.00) but reliable long (K 0.00) → under-sampling artifact, abstain (EXP-6) is the guard; λ is robust for
 Hamiltonian systems. Smoke caught it (energy conservation + K-vs-λ disagreement at short T). In verify.sh (~4min). Fix
 (mixture readout) demonstrated; wiring it into the 145 detector proper = clean follow-up.
+
+## 2026-07-02 — ② EXP-9: the unified ROBUST detector (script 150)
+Folds EXP-4 detector + EXP-6 abstain + EXP-8 mixture into ONE data-driven instrument. Trajectory branch: per-orbit 0-1 K
+→ too-short=ABSTAIN, both regular+chaotic fractions present=MIXTURE(fraction), dominant=verdict. Other branches reuse
+EXP-6 abstain. U1/U2/U3/U4 pass 9/9: U1 confident-correct clean (Kepler/Lorenz/LHV/singlet/relational-geometry); U2 HH
+E=1/8 long→MIXTURE frac 0.42; U3 ABSTAIN on HH-short + Werner-N16 + 6pt-distances, ZERO wrong confident verdicts; U4 one
+instrument all outcomes. Smoke: native 0-1 K detects KAM mixture at long integration (agrees with λ) → detector stays
+data-driven. Bug fixed: 6-pt distance matrix < 145's n≥8 floor → mistyped code → KNN crash; added small-square-hollow
+catch → distances→ABSTAIN. Research-first: abstention+mixture detection established (HMM/GMM/PELT); contribution = folding
+into the frontier detector so it degrades honestly. In verify.sh (~4min).
