@@ -145,6 +145,10 @@ BATTERIES = [
     ("Temporal regime-switching (frontier EXP-14)", ["scripts/155_temporal_switching.py"], "155_temporal_switching.json",
      {"T1_switch_localized": (">", 0.5), "T2_U_shaped_resolution": (">", 0.5), "T3_temporal_vs_ensemble": (">", 0.5),
       "T4_sampling_sets_temporal_resolution": (">", 0.5)}),
+    ("Newton from ephemerides (real data, EXP-15)", ["scripts/156_newton_from_ephemerides.py"],
+     "156_newton_from_ephemerides.json",
+     {"P1_emit_E_measure_GM": (">", 0.5), "P2_emit_L": (">", 0.5), "P3_LRL_one_over_r_specific": (">", 0.5),
+      "P4_perihelion_precession_soft": (">", 0.5)}),
 ]
 
 

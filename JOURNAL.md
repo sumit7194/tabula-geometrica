@@ -1,3 +1,26 @@
+## 2026-07-02 — ③ EXP-15: NEWTON FROM EPHEMERIDES — the thesis on real data (script 156)
+
+The payoff swing (user-approved ③): the emit-or-certify engine on REAL JPL Horizons state vectors (heliocentric ecliptic;
+Mercury/Venus/EMB/Mars + asteroids Icarus/Phaethon 2023-25 @1d; Mercury 1900-2020 @10d; all fetched once + committed to
+curvature/data/, offline gate). The engine gets raw state features, never the law. P1/P2/P3 pass + P4 soft:
+- P1 EMIT E + MEASURE GM☉: the most-conserved combination of [v², 1/r] IS the energy; its coefficient ratio measures
+  μ̂ = 2.959119e-4 vs true k² = 2.959122e-4 AU³/day² — **0.0001% error, six digits of GM☉ from raw ephemerides**.
+  Fitted WITHOUT Mercury it still conserves Mercury's E (drift 5e-5): the law transfers across bodies.
+- P2 EMIT L: angular momentum conserved on real data (2.4e-6..1.8e-5).
+- P3 THE LRL (1/r-specific): conserved at perturbation level on all SIX bodies (4.3e-5..3.8e-3); wrong-μ control drifts
+  535× more; the engine EMITS the LRL combination (cosine 1.00000) giving a SECOND independent μ̂ to 0.0001%; all known
+  invariant functionals measured in the full library's conserved set (within/total 2e-10..5e-9). PRE-REG DEVIATION
+  (one fix round, recorded): the original top-7-span gate failed for a PHYSICS reason — near-circular orbits (Venus
+  e=0.007) carry NO LRL signal (a circular orbit has no perihelion) → added high-e asteroids (Icarus e=0.827, Phaethon
+  e=0.890); residual eigen-ORDERING instability among degenerate zeros → per-invariant sub-library emit adopted
+  (P1's pattern) + directly-measured functional ratios.
+- P4 THE CROWN: Mercury's LRL azimuth over 1900-2020 drifts at **568.4″/century vs the known ~575** (532 planetary
+  perturbations + 43 GR) — 1.1% agreement. The discovered invariant's slow, systematic failure MEASURES Mercury's
+  perihelion precession from real data. The residual is real physics, exactly as pre-framed.
+The project's title question — can the machinery discover the law from observation — answered on the actual solar
+system: it emits E, L, LRL, measures Newton's constant twice independently to 6 digits, and reads GR's most famous
+anomaly off the drift. In verify.sh.
+
 ## 2026-07-02 — ② EXP-14: temporal regime-switching — the sampling axis sets the temporal resolution (script 155)
 
 Second of the real-data/temporal arc. EXP-8 did mixtures ACROSS the ensemble; EXP-14 does mixtures ACROSS TIME (WHEN the
