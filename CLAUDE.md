@@ -968,6 +968,15 @@ results in `curvature/notes/lab_notebook.md`.
   2.957] — the KK tower, spacing dev 1.8%); K3 certificate ±n identical (orientation is gauge; projection sees m² only).
   Pre-reg correction recorded (raw-spacing gate was gauge-dependent → cluster-sep + behavioral ladder). Extends Phase D
   (charge→MASS). Deliverable notes/kk_mass_for_quantum.md. In verify.sh.
+- **DISCOVER THE AXION (script 158, 2026-07-10, bridge round-6 capstone) — all 7 gates; trilogy complete (charge→mass→
+  axion):** twisted-T² KK discovery, exact winding reduction + mixed-derivative stencil. S0 replicates bridge leg-U by
+  FDTD (Δm² vs 4χ/(1−χ²) err 0.245% = their 0.25%). A1 χ-family knee K=1 (R² 1.0000, latent=axion iso 1.000); A2 BLIND
+  splitting corr 0.9997 med err 1.44%, degenerate ctrl 0.002; B1 3-moduli knee exactly K=3; B2 decode r~0.97 each; C1
+  MODULAR GAUGE CERTIFICATE (τ/τ+1/−1/τ same latent → moduli space = SL(2,Z) fundamental domain); C2 HYPERBOLIC LIMIT
+  from the net's learned spectrum (iso dev 0.083, tr·τ2² CoV 1.4%, cos-to-true 0.9994 = SL(2,R)/SO(2) measured). Design
+  honesty pre-reg'd: raw-latent hyperbolicity is gauge-ill-posed; sensitivity metric provably non-hyperbolic for small
+  sector sets → hyperbolic in the many-mode β-weighted limit (derived + smoke-verified). Deliverable
+  notes/axion_for_bridge.md. In verify.sh (~2min).
 - Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
   Phase H rows (equivalence-breaking gravity); a G-sym legibility-preserving
   variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit

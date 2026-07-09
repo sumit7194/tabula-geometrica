@@ -153,6 +153,11 @@ BATTERIES = [
      "157_kk_mass_discovery.json",
      {"G0_replication": (">", 0.5), "K1_mass_emerges": (">", 0.5), "K2_quantized_ladder": (">", 0.5),
       "K3_orientation_certificate": (">", 0.5)}),
+    ("Axion discovery (bridge capstone, script 158)", ["scripts/158_axion_discovery.py"],
+     "158_axion_discovery.json",
+     {"S0": (">", 0.5), "A1_knee_at_1": (">", 0.5), "A2_blind_splitting": (">", 0.5),
+      "B1_three_latents": (">", 0.5), "B2_moduli_decode": (">", 0.5),
+      "C1_modular_certificate": (">", 0.5), "C2_hyperbolic_limit": (">", 0.5)}),
 ]
 
 

@@ -1,3 +1,29 @@
+## 2026-07-10 — DISCOVER THE AXION (script 158): the bridge round-6 capstone — trilogy complete, all 7 gates
+
+TheBridge ask (+ quantum project convergence): the discovery version of the twisted-T² axion. conjecture_machine proved
+m²(n1,n2)=(n1²−2χn1n2+n2²)/(1−χ²) with the n1·n2-keyed Zeeman splitting; the bridge measured it to 0.25% (leg U). Our
+neural route = the FIFTH route. Extended 157's exact winding-sector reduction to the twisted T² (discrete stencil incl.
+mixed derivative; NTH=192). Pre-registered blind-then-score per the ask. ALL GATES:
+- S0 sim calibration + leg-U replication BY FDTD: rest freqs ≤0.74%, Δm² vs 4χ/(1−χ²) corr 1.00000, max err 0.245% —
+  the same precision as the bridge's own number (0.25%).
+- A1 χ-family knee at K=1 (heldout R²=1.0000, latent iso-R²=1.000) — one latent suffices and it IS the axion.
+- A2 BLIND SPLITTING (scored after training): behavioral Δm̂²(1,−1)−(1,1) vs 4χ/(1−χ²) corr 0.9997, med err 1.44%;
+  (1,0)/(0,1) degenerate control ratio 0.002 — the Zeeman signature, discovered from projections.
+- B1 THREE LATENTS: (Φ1,Φ2,χ) worlds → knee exactly at K=3 (R²: 0.9967→0.9998→0.9997).
+- B2 moduli decode from z(K=3): r = 0.968/0.966/0.972.
+- C1 MODULAR GAUGE CERTIFICATE: unlabeled low spectra at τ, τ+1, −1/τ identical (≤0.22%) with the SAME latent
+  (gaps ≤0.004 of inter-world spread), distinct τ distinct (injectivity 1.4–1.8×) — the net's moduli space is the
+  SL(2,Z) fundamental domain.
+- C2 THE HYPERBOLIC LIMIT (the headline): the β-weighted sensitivity metric from the NET'S OWN learned spectrum is
+  hyperbolic — isotropy dev 0.083, off-diag 0.019, tr(g)·τ2² constant to 1.4% (= ds² ∝ (dτ1²+dτ2²)/τ2²), learned-vs-true
+  cosine 0.9994. SL(2,R)/SO(2), measured from shadows.
+DESIGN HONESTY (pre-registered): "latent metric = hyperbolic" is ill-posed (latents are gauge — Phase-A lesson); the
+canonical object is the behavioral sensitivity metric, provably NOT hyperbolic for small sector sets (τ=i: diag(8,2))
+but → hyperbolic in the many-mode β-weighted limit (derived + smoke-verified) — that's what C2 gates. One fix round
+(recorded): B2 kNN was data-starved (fit on train worlds); NTH 96→192 (stencil breaks exact modular invariance at n=4);
+C2 ball 3→5 (truncation anisotropy). Trilogy complete: charge (Phase D) → mass (157) → axion (158). Deliverable:
+notes/axion_for_bridge.md. In verify.sh (~2min).
+
 ## 2026-07-03 — KK MASS DISCOVERY for the quantum sister project (script 157): mass = hidden-dimension momentum, discovered
 
 Sister ask (relayed by the user, credited): the discovery version of their numerical Kaluza-Klein toy (massless 2D wave
