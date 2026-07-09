@@ -3900,3 +3900,14 @@ K=1 heldout R²=0.9999, iso-R²=1.000. K2: clusters 58× separated, decode 100%,
 Smoke traps: rest-freq aliasing (dense probe); vg packet-spread bias (SIG=8 + exact leapfrog-spectral init). Pre-reg
 correction (recorded): raw-latent equal-spacing gate was gauge-dependent (Phase-A lesson) → cluster separation +
 behavioral ladder (Phase-C lesson). Extends Phase D charge→MASS. In verify.sh (~2min). Deliverable: notes/kk_mass_for_quantum.md.
+
+## 2026-07-10 — DISCOVER THE AXION (script 158, bridge round-6 capstone), all 7 gates
+Twisted-T² KK discovery: exact winding reduction w/ mixed-derivative stencil (NTH=192). S0: FDTD replicates leg-U split
+to 0.245% (their 0.25%!). A1: χ-family K=1 knee (R²=1.0000, iso 1.000). A2 blind: Δm̂² corr 0.9997, med err 1.44%,
+degenerate ctrl 0.002. B1: 3-moduli knee exactly K=3 (0.9967→0.9998). B2: decode r .968/.966/.972 (fix: kNN on train
+worlds, was data-starved). C1: modular certificate — spectra τ/τ+1/−1/τ ≤0.22%, latents same (≤0.004), injective —
+moduli space = fundamental domain. C2: hyperbolic limit from NET's learned spectrum — iso dev 0.083, tr·τ2² CoV 1.4%,
+cos-to-true 0.9994. Design honesty pre-reg'd: raw-latent hyperbolicity ill-posed (gauge); sensitivity metric provably
+non-hyperbolic for small sector sets (τ=i: diag(8,2)) → hyperbolic in many-mode β-weighted limit (smoke: ball-3 aniso
+0.27, ball-6 iso 1.001). Fix round: NTH 96→192 (stencil breaks modular inv at n=4: 0.57%→0.14%), C2 ball 5. Trilogy
+complete (charge→mass→axion). Deliverable notes/axion_for_bridge.md. In verify.sh (~2min).
