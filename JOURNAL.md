@@ -1,3 +1,25 @@
+## 2026-07-24 — BRIDGE ROUND 9 · R1 (script 162): move the basis, does the boundary move? — CERTIFY, with the axis named
+
+TheBridge falsification-v2 R1: rerun round-8 Candidate B's legibility probe with an AUGMENTED basis (blind; B's
+Hamiltonian reused verbatim from §161, _SEALED files untouched). THE SHARPENING, pre-registered before running: round
+8's OWN diagnostic put B's transcendence in the MOMENTA, so the ask's requested "log coordinate terms" extend the wrong
+axis (coordinate coefficients, momenta still polynomial) — only extending the MOMENTUM function class can matter. Ran
+both, separated them. Result (all methodological gates pass; the outcome is a finding):
+- G0 integrator drift 6.0e-14 (reproduces round 8). G1 polynomial control reproduces the illegible monotone-non-
+  converging ladder (1.2e-3 → 1.9e-4 → 2.6e-5).
+- log-COORDINATE arm (R1a, requested): best 1.3e-5 — marginally better than poly, but ~3 orders above emit. Does NOT
+  unlock B, EXACTLY as pre-registered (wrong axis: coordinate logs keep momenta polynomial).
+- rational arm: 1.9e-5 (round-8 reconfirmed). transcendental-MOMENTUM scan exp(a px²+b py²+g px py): best 4.0e-4 — the
+  posited exp(quadratic) family does not contain B's invariant either.
+- VERDICT: CERTIFY-RELATIVE-TO-ALL-BASES-TRIED. B stays illegible across polynomial/rational/log-coordinate + a first
+  momentum family → the obstruction is deeper than the families searched (a real finding: B's transcendental invariant
+  resists linear probing beyond a posited family; the exact family is the un-blind step the bridge holds).
+THE ACTUAL CONTENT for the bridge: "representable-in-basis" has an AXIS — extending the coordinate-coefficient class
+(rational, log) ≠ extending the momentum function class; round 8 localized the transcendence in the momenta, so only the
+latter axis can matter. Blind leg-Q implication unchanged, now sharper: the biconditional's break is localized to
+"invariants representable in the probe's MOMENTUM basis," not integrability per se. --fast mode added for verify.
+Deliverable: notes/round8_for_bridge.md §R1 (round-9 addendum). In verify.sh (~2min fast).
+
 ## 2026-07-23 — CAN A NET HEAR THE SHAPE OF A DRUM? (script 159): bridge Ledger K5 — KILLED, and a bug report on K2
 
 TheBridge round-8 ask C: K5 postulates "a net trained on projections can learn ONLY the spectrum". Their test case is

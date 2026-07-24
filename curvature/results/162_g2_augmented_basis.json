@@ -1,0 +1,46 @@
+{
+ "candidate": "B",
+ "blind": true,
+ "engine": "99_deformed_metrics (leg-Q, unchanged)",
+ "G0_integrator_drift": 6.02295990853124e-14,
+ "residual_vs_basis": {
+  "polynomial": {
+   "deg2": 0.001201234439696428,
+   "deg4": 0.0001896209168447691,
+   "deg6": 2.6113026786255362e-05
+  },
+  "rational": {
+   "deg2": 0.001080596764828531,
+   "deg4": 7.255425956192111e-05,
+   "deg6": 1.940497947924827e-05
+  },
+  "log_coordinate": {
+   "deg2": 0.0009754440478098162,
+   "deg4": 5.0817343803989054e-05,
+   "deg6": 1.3327615171304743e-05
+  },
+  "transcendental_momentum_scan": {
+   "best": 0.0003994094382992801,
+   "argmin_abg": [
+    -1.2,
+    -0.8,
+    0.0
+   ]
+  }
+ },
+ "arms_best": {
+  "polynomial": 2.6113026786255362e-05,
+  "rational": 1.940497947924827e-05,
+  "log_coordinate": 1.3327615171304743e-05,
+  "transcendental_momentum_scan": 0.0003994094382992801
+ },
+ "emitters": [],
+ "log_coordinate_helps": false,
+ "verdict": "CERTIFY-RELATIVE-TO-ALL-BASES-TRIED",
+ "G0_integrator": true,
+ "G1_control_reproduces_round8": true,
+ "G2_augmented_characterized": true,
+ "r1_done": true,
+ "headline": "Candidate B stays ILLEGIBLE across every basis tried -- polynomial (2.6e-05), rational (1.9e-05), log-coordinate (1.3e-05), and a transcendental-MOMENTUM scan exp(a px^2+b py^2+g px py) (4.0e-04 at (-1.2, -0.8, 0.0)). The requested log-COORDINATE augmentation does NOT move the boundary, exactly as pre-registered: round 8's diagnostic put the transcendence in the MOMENTA, and coordinate-coefficient logs keep the momenta polynomial. The momentum scan is the right axis but its finite exp(quadratic) family does not contain B's invariant -> the obstruction is deeper than the families searched (a real finding: B's transcendental invariant resists linear probing beyond a posited family; naming the exact family is the un-blind step the bridge holds).",
+ "for_bridge": "R1 residual-vs-basis for Candidate B, blind. Candidate B stays ILLEGIBLE across every basis tried -- polynomial (2.6e-05), rational (1.9e-05), log-coordinate (1.3e-05), and a transcendental-MOMENTUM scan exp(a px^2+b py^2+g px py) (4.0e-04 at (-1.2, -0.8, 0.0)). The requested log-COORDINATE augmentation does NOT move the boundary, exactly as pre-registered: round 8's diagnostic put the transcendence in the MOMENTA, and coordinate-coefficient logs keep the momenta polynomial. The momentum scan is the right axis but its finite exp(quadratic) family does not contain B's invariant -> the obstruction is deeper than the families searched (a real finding: B's transcendental invariant resists linear probing beyond a posited family; naming the exact family is the un-blind step the bridge holds). Sharpening (the actual content): 'representable-in-basis' has an AXIS -- extending the coordinate-coefficient class (rational, log) is NOT the same as extending the momentum function class; round 8 localized B's transcendence in the momenta, so only the latter axis can matter. Blind leg-Q implication unchanged: if B is sealed-integrable via a transcendental-in-momenta invariant, my instrument misses it in every polynomial/rational/log-coordinate basis and in a first exp(quadratic) momentum family -- localizing the biconditional's break to 'invariants representable in the probe's MOMENTUM basis', not integrability per se. The bridge unseals + scores."
+}

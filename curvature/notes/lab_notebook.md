@@ -3999,3 +3999,12 @@ K_y WAS conserved (3.5e-19) while the engine said 0.4 — the mismatch exposed t
 approximation; fixed to relative-exactness (emit = machine precision) + degree-convergence diagnostic. (4) caching:
 integrate each ensemble once (36→6 integrations/candidate). In verify.sh (~5min). Deliverable: notes/round8_for_bridge.md
 §B. Ties §160 (the transcendental rung that WOULD emit if the family were named).
+
+## 2026-07-24 — Bridge round-9 R1 (script 162): augmented-basis legibility on Candidate B
+Reran round-8 B's probe with augmented bases, blind (B's H reused from 161). Pre-reg sharpening: round-8 put the
+transcendence in the MOMENTA → ask's log-COORDINATE terms are the wrong axis. Result: G0 drift 6e-14; G1 poly control
+reproduces illegible ladder (1.2e-3→1.9e-4→2.6e-5); log-coordinate best 1.3e-5 (marginal, NOT emit — pre-reg confirmed);
+rational 1.9e-5; transcendental-momentum exp(quadratic) scan best 4.0e-4 (family doesn't contain B's inv). VERDICT
+CERTIFY-RELATIVE-TO-ALL-BASES-TRIED → deeper than families searched. Content: "representable-in-basis" has an AXIS
+(coordinate-coeff class ≠ momentum function class). Gates methodological (G0/G1/G2); outcome reported not gated (a miss
+is a finding). --fast for verify. Deliverable: round8_for_bridge.md §R1.
