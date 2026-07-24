@@ -239,3 +239,47 @@ from the frequencies; you can hear it from the timbre.
   naive expectation since D3 is the more restricted task. My guess is that shared-interior
   nodes sit in the drums' bulk and give higher-SNR recordings than thin outlying regions,
   but I have not tested that. Recorded as an observation, not an explanation.
+
+---
+
+## R1 (round-9 addendum, script 162) — move the basis, does the boundary move? **CERTIFY, with the axis named.**
+
+Round-8 Candidate B's legibility probe, rerun with an augmented basis, blind (B's Hamiltonian reused verbatim from §161;
+the `_SEALED` files stayed closed). Results `curvature/results/162_g2_augmented_basis.json`; residual-vs-basis figure
+`162_g2_augmented_basis.png`.
+
+**The pre-registered sharpening (frozen before running).** Round 8's own diagnostic localizes B's transcendence in the
+**momenta** (the polynomial-in-momenta degree ladder descends monotonically without converging — the §97/§160 signature
+of a polynomial *approximating* a non-polynomial invariant). So the requested "log coordinate terms" (R1a) extend the
+**wrong axis**: they enrich the coordinate *coefficients* while the momenta stay polynomial, which cannot represent a
+momentum-transcendental invariant. The axis that can is extending the **momentum function class**. R1 runs both and
+separates them — that separation is the actual content of "which kind of representability matters."
+
+**Residual-vs-basis (best held-out within-trajectory variance ratio, median of 3 seeds; integrator drift 6.0e-14):**
+
+| basis arm | deg 2 / 4 / 6 (or scan) | best | verdict |
+|---|---|---|---|
+| polynomial (control) | 1.2e-3 · 1.9e-4 · 2.6e-5 | 2.6e-5 | illegible (reproduces round 8) |
+| rational | 1.1e-3 · 7.3e-5 · 1.9e-5 | 1.9e-5 | illegible (round-8 arm reconfirmed) |
+| **log-coordinate (R1a, requested)** | 9.8e-4 · 5.1e-5 · 1.3e-5 | 1.3e-5 | **illegible — does NOT emit** |
+| transcendental-**momentum** scan exp(a p_x²+b p_y²+g p_x p_y) | best over grid | 4.0e-4 | illegible (family lacks B's invariant) |
+
+Emit floor (machine-precision, relative-exactness per §160) is ~1e-8. **Every arm stays 3+ orders above it.**
+
+**The finding (one of the two outcomes we pre-registered — the deeper-obstruction one):**
+- The **requested log-coordinate augmentation does not move the boundary**, exactly as pre-registered. It buys a marginal
+  improvement to the *approximation* (2.6e-5 → 1.3e-5) — precisely because coordinate-coefficient logs help a polynomial
+  fit a smooth invariant slightly better — but it is not the axis of the obstruction, so it never approaches emit.
+- The **momentum axis is the right one**, but the first family we posited (exp of a quadratic in the momenta, §160's
+  rung) does **not** contain B's invariant. So B is **CERTIFY-RELATIVE-TO-ALL-BASES-TRIED**: illegible across polynomial,
+  rational, log-coordinate, and a first exp(quadratic)-momentum family. That is *not* "no invariant exists" — it is "the
+  obstruction is deeper than the families searched," and naming the exact transcendental-momentum family is the un-blind
+  step you hold.
+
+**What this sharpens for leg Q.** "Representable-in-basis" has an **axis**: extending the coordinate-coefficient class
+(rational, log) is a different move from extending the momentum function class, and round 8 localized B's transcendence
+in the momenta — so only the momentum axis can matter. If B is sealed-integrable via a transcendental-in-momenta
+invariant, my instrument misses it in every coordinate-basis extension and in a first momentum family, which localizes
+the biconditional's break precisely: *legible ⟺ the invariant is representable in the probe's **momentum** basis*, not
+integrability per se, and not the coordinate basis. If instead the exact momentum family is nameable, the boundary will
+move the instant it is named — that is the clean confirming experiment, and it needs the seal. You unseal + score.
