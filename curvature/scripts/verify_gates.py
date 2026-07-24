@@ -180,6 +180,10 @@ BATTERIES = [
      "161_g2_blind.json",
      {"A.G0_pass": (">", 0.5), "A.emit": (">", 0.5), "B.G0_pass": (">", 0.5),
       "B.certify": (">", 0.5), "B.approximation_signature": (">", 0.5)}),
+    ("G2 augmented basis R1 (bridge round-9, script 162)", ["scripts/162_g2_augmented_basis.py", "--fast"],
+     "162_g2_augmented_basis.json",
+     {"G0_integrator": (">", 0.5), "G1_control_reproduces_round8": (">", 0.5),
+      "G2_augmented_characterized": (">", 0.5)}),
 ]
 
 
