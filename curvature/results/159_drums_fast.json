@@ -1,0 +1,152 @@
+{
+ "D0": {
+  "cell_centred_confound": [
+   {
+    "n": 16,
+    "N": 840,
+    "components": 3,
+    "sizes": [
+     120,
+     360,
+     360
+    ],
+    "ground_state_gap": 5.344405597583819e-13,
+    "pieces_congruent": true,
+    "permutation_similarity_err": 0.0
+   },
+   {
+    "n": 32,
+    "N": 3472,
+    "components": 3,
+    "sizes": [
+     496,
+     1488,
+     1488
+    ],
+    "ground_state_gap": 1.5983121827884567e-12,
+    "pieces_congruent": true,
+    "permutation_similarity_err": 0.0
+   }
+  ],
+  "confound_confirmed": true,
+  "node_centred": [
+   {
+    "n": 12,
+    "N": 451,
+    "components": [
+     1,
+     1
+    ],
+    "spec_rel": 7.894919286223334e-15,
+    "masks_congruent": false,
+    "ground_gap": 0.43516323542257546,
+    "lam1": 10.180382571438196
+   },
+   {
+    "n": 16,
+    "N": 825,
+    "components": [
+     1,
+     1
+    ],
+    "spec_rel": 1.4627188349436447e-14,
+    "masks_congruent": false,
+    "ground_gap": 0.4370449941688489,
+    "lam1": 10.177192102496889
+   }
+  ],
+  "lam1_scaled": 2.5442980256242222,
+  "lam1_rel_err": 0.0025036114367465436,
+  "a_connected": true,
+  "b_noncongruent": true,
+  "c_isospectral": true,
+  "d_literature": true,
+  "passed": true
+ },
+ "device": "cpu",
+ "grid": 12,
+ "n_nodes": 451,
+ "n_modes": 64,
+ "n_time": 256,
+ "shared_nodes": 319,
+ "D1_spectrum": {
+  "acc": 0.4875,
+  "n": 320,
+  "p_value": 0.6956308316759293,
+  "z_vs_chance": -0.4473534152924945,
+  "ci95": [
+   0.4327334571225278,
+   0.5422665428774722
+  ]
+ },
+ "D1_pass": true,
+ "D2_waveform": {
+  "acc": 0.48125,
+  "n": 800,
+  "p_value": 0.30521687463778097,
+  "z_vs_chance": -1.0614067359473363,
+  "ci95": [
+   0.44662613833098624,
+   0.5158738616690137
+  ]
+ },
+ "D2_pass": false,
+ "D2_fixround_modal_all_interior": {
+  "acc": 0.91625,
+  "n": 800,
+  "p_value": 1.6928499514577342e-142,
+  "z_vs_chance": 42.5010674963284,
+  "ci95": [
+   0.8970540115681688,
+   0.9354459884318312
+  ]
+ },
+ "D3_shared": {
+  "acc": 0.5675,
+  "n": 800,
+  "p_value": 0.0001516810852542888,
+  "z_vs_chance": 3.853654519248796,
+  "ci95": [
+   0.5331689515525668,
+   0.6018310484474332
+  ]
+ },
+ "D3_pass": false,
+ "D4_modal": {
+  "acc": 0.89125,
+  "n": 800,
+  "p_value": 4.678061690620205e-123,
+  "z_vs_chance": 35.545525552998065,
+  "ci95": [
+   0.8696762579306463,
+   0.9128237420693537
+  ]
+ },
+ "D4_modal_pass": true,
+ "D4_stripped_waveform": {
+  "acc": 0.51875,
+  "n": 800,
+  "p_value": 0.30521687463778097,
+  "z_vs_chance": 1.0614067359473394,
+  "ci95": [
+   0.4841261383309863,
+   0.5533738616690138
+  ]
+ },
+ "D4_stripped_modal": {
+  "acc": 0.50375,
+  "n": 800,
+  "p_value": 0.8596978337285545,
+  "z_vs_chance": 0.2121380008211437,
+  "ci95": [
+   0.4691027422170961,
+   0.538397257782904
+  ]
+ },
+ "D4_stripped_pass": true,
+ "max_mode_separation": 0.5165901184082031,
+ "verdict": "K5 KILLED",
+ "gates_all_pass": false,
+ "k5_killed": true,
+ "summary": "K5 (K5 KILLED): on a CORRECTED node-centred discretisation of the Gordon-Webb-Wolpert pair (connected, non-congruent, full-spectrum isospectral to 1e-14, lambda_1 within 2.5e-03 of Betcke-Trefethen), nets trained only on strike-and-listen recordings -- never shown the domain, the strike/listen nodes, or the eigenvalues -- separate the two drums. Restricted to the SHARED interior (so the domain mask cannot be the cue) and with strike/listen nodes held out, the waveform CNN reaches 0.5675 (p=1.5e-04) and the modal-power arm 0.8912 (p=4.7e-123). A classifier on the eigenvalue tower sits at 0.4875 (chance) and the amplitude-stripped control at 0.5038, so the signal is carried entirely by the modal amplitudes phi_n(s) phi_n(p) -- eigenfunction information leaking through a scalar projection. Projections are NOT spectrum-limited. The pre-registered STRENGTH gates D2 (0.80) and D3 (0.75) are a separate question from the postulate; see D2/D3 fields. NOTE for the bridge: the cell-centred scheme in k2_drums.py disconnects each drum into three pieces that are congruent piece-by-piece, and an explicit permutation P gives max|L2[P,P]-L1| = 0 exactly, so the two discrete operators are the SAME matrix relabelled; K2's 1e-15 agreement there is trivial rather than transplantation, and K5 is untestable on it (no observable can distinguish them)."
+}

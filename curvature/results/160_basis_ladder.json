@@ -1,0 +1,25 @@
+{
+ "system": {
+  "a": 0.8,
+  "b": 0.35,
+  "c": 1.0,
+  "d": 0.6
+ },
+ "T0_H_drift": 1.9816829172899926e-11,
+ "T0_pass": true,
+ "transcendental_heldout": 1.6598572417093045e-22,
+ "transcendental_argmin": [
+  0.8,
+  0.35
+ ],
+ "transcendental_cosine_to_truth": 0.9999999999999998,
+ "grid_step": 0.04999999999999999,
+ "polynomial_heldout": 1.299437135391268e-06,
+ "rational_heldout": 1.4160761472231212e-07,
+ "T1_polynomial_certifies": true,
+ "T2_rational_certifies": true,
+ "T3_transcendental_emits": true,
+ "T4_ladder_localises": true,
+ "all_pass": true,
+ "summary": "Basis ladder calibrated on H = exp(0.8p1^2+0.35p2^2) + 1.0q1^2 + 0.6q2^2, whose only invariant is transcendental in the MOMENTA by construction. The \u00a799 emit-or-certify engine, unchanged, CERTIFIES on the polynomial rung (1.30e-06) and the rational rung (1.42e-07) but EMITS on a scanned transcendental family (1.66e-22, cosine to truth 1.0000), recovering the true exponents to within one grid step. So a 'certify' verdict from this instrument is CERTIFY-RELATIVE-TO-BASIS: it means no cheap invariant exists in the families searched, and the families can now be named and extended. Built as prep for TheBridge G2, where one adversarial metric is designed to be integrable via a non-polynomial-in-momenta invariant."
+}

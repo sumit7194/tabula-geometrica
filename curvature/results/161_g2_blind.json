@@ -1,0 +1,388 @@
+{
+ "A": {
+  "integrator_drift": 9.949852608471361e-09,
+  "G0_pass": true,
+  "grid": {
+   "polynomial_deg2": {
+    "heldout_median": 3.653565676009352e-19,
+    "heldout_all": [
+     5.883859787689754e-19,
+     3.653565676009352e-19,
+     3.522814493890541e-19
+    ],
+    "top_terms": [
+     [
+      "px0py2*1",
+      0.998258156597092
+     ],
+     [
+      "y2",
+      0.05899705744675615
+     ],
+     [
+      "px1py1*xy",
+      -1.2037567682553496e-09
+     ],
+     [
+      "px2py0*x",
+      7.009514936472527e-10
+     ],
+     [
+      "px2py0*x2",
+      -4.982739702020285e-10
+     ]
+    ]
+   },
+   "polynomial_deg4": {
+    "heldout_median": 2.1788701515381293e-19,
+    "heldout_all": [
+     2.1788701515381293e-19,
+     1.8624440994333602e-19,
+     3.038810125455717e-19
+    ],
+    "top_terms": [
+     [
+      "px0py4*1",
+      0.9926926777014496
+     ],
+     [
+      "px0py2*y2",
+      0.11733627516970928
+     ],
+     [
+      "px0py2*1",
+      -0.02790527231276165
+     ],
+     [
+      "y4",
+      0.0034672868791610755
+     ],
+     [
+      "y2",
+      -0.0016492016467297614
+     ]
+    ]
+   },
+   "polynomial_deg6": {
+    "heldout_median": 3.2178314373916686e-19,
+    "heldout_all": [
+     3.2243608351947724e-19,
+     2.2242887207437763e-19,
+     3.2178314373916686e-19
+    ],
+    "top_terms": [
+     [
+      "px0py4*1",
+      -0.9015053673524082
+     ],
+     [
+      "px0py2*1",
+      -0.41870184512094444
+     ],
+     [
+      "px0py2*y2",
+      -0.10655793632337411
+     ],
+     [
+      "y2",
+      -0.024745279907636836
+     ],
+     [
+      "y4",
+      -0.0031487864034966395
+     ]
+    ]
+   },
+   "rational_deg2": {
+    "heldout_median": 3.6018332495854054e-19,
+    "heldout_all": [
+     5.813922100201372e-19,
+     3.564057267194191e-19,
+     3.6018332495854054e-19
+    ],
+    "top_terms": [
+     [
+      "px0py2*1",
+      -0.9982581565718401
+     ],
+     [
+      "y2",
+      -0.05899705787400963
+     ],
+     [
+      "px2py0*x2",
+      2.035388765969308e-08
+     ],
+     [
+      "px0py2*x2",
+      1.9495238426373946e-08
+     ],
+     [
+      "x4",
+      1.9324530711950732e-08
+     ]
+    ]
+   },
+   "rational_deg4": {
+    "heldout_median": 2.226204212271852e-15,
+    "heldout_all": [
+     2.226204212271852e-15,
+     1.8373328718905837e-15,
+     3.5028772775323405e-14
+    ],
+    "top_terms": [
+     [
+      "px0py4*1",
+      -0.7565916937554311
+     ],
+     [
+      "px2py2*1",
+      0.4389600974951167
+     ],
+     [
+      "px0py2*x2",
+      0.4361475354915114
+     ],
+     [
+      "px0py2*1",
+      -0.17140746505268697
+     ],
+     [
+      "px0py2*y2",
+      -0.11610226072794311
+     ]
+    ]
+   },
+   "rational_deg6": {
+    "heldout_median": 4.1782206701197406e-10,
+    "heldout_all": [
+     4.1782206701197406e-10,
+     3.8631563417834636e-10,
+     4.673420303809809e-10
+    ],
+    "top_terms": [
+     [
+      "px0py2*x2",
+      0.5362775193706248
+     ],
+     [
+      "px2py2*x2",
+      0.48662159974911273
+     ],
+     [
+      "px2py4*1/(1+x2)",
+      0.29222988015902435
+     ],
+     [
+      "px0py4*x2",
+      0.23622574626469023
+     ],
+     [
+      "px2py4*1",
+      0.22292542198643497
+     ]
+    ]
+   }
+  },
+  "best_heldout": 2.1788701515381293e-19,
+  "best_cell": "polynomial_deg4",
+  "emit": true,
+  "certify": false,
+  "approximation_signature": false,
+  "verdict": "LEGIBLE (emit)"
+ },
+ "B": {
+  "integrator_drift": 6.02295990853124e-14,
+  "G0_pass": true,
+  "grid": {
+   "polynomial_deg2": {
+    "heldout_median": 0.001037016181422274,
+    "heldout_all": [
+     0.0014127501750132677,
+     0.0006521528860759507,
+     0.001037016181422274
+    ],
+    "top_terms": [
+     [
+      "px2py0*y2",
+      -0.5911368241292055
+     ],
+     [
+      "px1py1*1",
+      -0.39578187249050023
+     ],
+     [
+      "px2py0*1",
+      -0.38041946021777645
+     ],
+     [
+      "px2py0*y",
+      -0.37635336744930314
+     ],
+     [
+      "px0py2*y2",
+      0.26566449506690115
+     ]
+    ]
+   },
+   "polynomial_deg4": {
+    "heldout_median": 0.00018054213928372632,
+    "heldout_all": [
+     0.00019873936488624776,
+     7.997065715520664e-05,
+     0.00018054213928372632
+    ],
+    "top_terms": [
+     [
+      "px2py2*y2",
+      -0.5250640891101122
+     ],
+     [
+      "px2py2*y",
+      0.4060171928411329
+     ],
+     [
+      "px3py1*y",
+      0.3951009723359792
+     ],
+     [
+      "px1py3*y2",
+      -0.37349454776629365
+     ],
+     [
+      "px4py0*y",
+      0.20838659795304948
+     ]
+    ]
+   },
+   "polynomial_deg6": {
+    "heldout_median": 2.534864830168798e-05,
+    "heldout_all": [
+     2.534864830168798e-05,
+     1.1147635097221538e-05,
+     3.094399153700807e-05
+    ],
+    "top_terms": [
+     [
+      "px3py3*y2",
+      -0.6149352554899039
+     ],
+     [
+      "px4py2*y2",
+      -0.5283045850158495
+     ],
+     [
+      "px2py4*y2",
+      -0.4007933467895415
+     ],
+     [
+      "px5py1*y2",
+      -0.2232277940246083
+     ],
+     [
+      "px1py5*y2",
+      -0.13227060747332656
+     ]
+    ]
+   },
+   "rational_deg2": {
+    "heldout_median": 0.0008761060104375196,
+    "heldout_all": [
+     0.0011616097168807465,
+     0.0006002415774744158,
+     0.0008761060104375196
+    ],
+    "top_terms": [
+     [
+      "px2py0*y2",
+      -0.6690298351034534
+     ],
+     [
+      "px2py0*y",
+      -0.37813870944812117
+     ],
+     [
+      "px1py1*1",
+      -0.35794167190697534
+     ],
+     [
+      "px2py0*1/(1+y2)",
+      -0.24800494104072263
+     ],
+     [
+      "px0py2*y2",
+      0.23966303634527264
+     ]
+    ]
+   },
+   "rational_deg4": {
+    "heldout_median": 0.00011909235262531354,
+    "heldout_all": [
+     0.00016680235534736202,
+     6.696839024540179e-05,
+     0.00011909235262531354
+    ],
+    "top_terms": [
+     [
+      "px2py2*y2",
+      -0.5848470147188566
+     ],
+     [
+      "px1py3*y2",
+      -0.37579233245364835
+     ],
+     [
+      "px3py1*y2",
+      -0.31137627397200984
+     ],
+     [
+      "px3py1*y",
+      0.2633896286750377
+     ],
+     [
+      "px2py2*y",
+      0.2554383401291464
+     ]
+    ]
+   },
+   "rational_deg6": {
+    "heldout_median": 2.188766776103315e-05,
+    "heldout_all": [
+     2.65500507615892e-05,
+     6.774176480164722e-06,
+     2.188766776103315e-05
+    ],
+    "top_terms": [
+     [
+      "px4py2*y",
+      -0.3429624017684382
+     ],
+     [
+      "px3py3*xy",
+      0.32457797581582826
+     ],
+     [
+      "px6py0*y2",
+      -0.28054218720672136
+     ],
+     [
+      "px5py1*y",
+      -0.2803736141754669
+     ],
+     [
+      "px5py1*y2",
+      -0.2714549340419838
+     ]
+    ]
+   }
+  },
+  "best_heldout": 2.188766776103315e-05,
+  "best_cell": "rational_deg6",
+  "emit": false,
+  "certify": true,
+  "approximation_signature": true,
+  "verdict": "ILLEGIBLE relative to {polynomial, rational} up to deg 6"
+ },
+ "blind_protocol": "read only G2_candidate_{A,B}.json; _SEALED files untouched",
+ "summary": "G2 blind legibility (emit-or-certify, \u00a7127/\u00a7132/\u00a7144 instrument, run BLIND -- sealed verdicts untouched): Candidate A -> LEGIBLE (emit): emits an exact invariant conserved to 2.2e-19 (machine precision) already at momentum degree 2, flat across degree -> a genuine (quadratic) Killing-tensor invariant. Candidate B -> ILLEGIBLE relative to {polynomial, rational} up to deg 6: best held-out 2.2e-05, ~15 orders above A in the identical harness; the polynomial degree sequence descends monotonically without converging to machine precision -- the \u00a797/\u00a7160 signature of a polynomial APPROXIMATING a non-polynomial (transcendental) invariant, which a library-based head cannot represent. So B is CERTIFY-RELATIVE-TO-BASIS (no exact invariant polynomial-or-rational up to degree 6 in the momenta); script 160 shows the transcendental rung would emit if the family were named. Method: manifest constants + energy shell fixed globally (so the engine returns only a genuinely NEW invariant), degree x basis ladder, held-out over 3 seeds, well-integrated bound orbits only."
+}

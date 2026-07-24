@@ -1,3 +1,63 @@
+## 2026-07-23 — CAN A NET HEAR THE SHAPE OF A DRUM? (script 159): bridge Ledger K5 — KILLED, and a bug report on K2
+
+TheBridge round-8 ask C: K5 postulates "a net trained on projections can learn ONLY the spectrum". Their test case is
+the Gordon-Webb-Wolpert isospectral pair (Ledger K2).
+
+**Found a confound in the test case before testing.** Their `k2_drums.py` rasterises offset CELL CENTRES against the
+seven open triangles, so cells on shared edges are dropped and a 5-point stencil cannot cross a DIAGONAL glue line —
+each drum falls into THREE 4-connected pieces. Two tells: a doubly-degenerate ground state (impossible for a connected
+Dirichlet domain), and pieces congruent piece-by-piece. Made exact by constructing the explicit permutation:
+**max|L2[P,P] − L1| = 0.000e+00** at n=16 and n=32 — the two discrete operators are the SAME MATRIX RELABELLED. Their
+1e-15 resolution-independent agreement is therefore trivial rather than transplantation, and K5 is UNTESTABLE there:
+no observable can distinguish permutation-similar operators, so a net failing would have read as strong confirmation
+while measuring nothing. K2's headline claim is a theorem (Kac / GWW) and is untouched; only the mechanism claim goes.
+
+**Fix:** node-centred lattice with the interior test against the OUTLINE polygon (exact integer point-in-polygon).
+Genuine discrete GWW pair at n=12/16/24/32 — 1 component each, non-congruent masks, FULL-spectrum isospectral to
+~1e-14, no bad resolutions. Solver validated: λ₁ = 2.5415 vs published Betcke-Trefethen 2.537944 (0.14%, converging).
+
+**The projection** is a literal recording: strike at node s, listen at node p, y(t) = Σ φₙ(s)φₙ(p)cos(ωₙ(t+t₀)). The
+net sees only the waveform — never the domain, s, p, or the eigenvalues; t₀ random so the modal envelope is the carrier.
+Frequencies agree to 8e-15, so any discrimination is necessarily eigenfunction-borne.
+
+**Results:** D1 eigenvalue tower 0.5023 (chance — K5's premise implemented exactly); D2 raw waveform CNN 0.6180
+(z=18.8) MISSES its 0.80 gate; **D3 raw CNN on the SHARED interior, held-out nodes, positions never shown: 0.7627
+(z=47.8) PASSES** — the domain mask cannot be the cue; D4 modal-power arm 0.9793 (z=261); amplitude-stripped controls
+0.5058 / 0.4962, both chance. **K5 KILLED.** The honest statement: a recording is not the spectrum, it is the spectrum
+weighted by eigenfunction overlaps at source and receiver. Trace-like observables (the heat trace — Kac's actual
+question) ARE spectrum-limited; a single strike-and-listen is not. You cannot hear the shape from the frequencies; you
+can from the timbre.
+
+Declared post-hoc (3): gates-vs-postulate separated (0.80 is a strength threshold; every arm now carries a binomial p
+and 95% CI; gate numbers NOT moved); one diagnostic fix round for D2 (same drum-agnostic modal readout on identical
+data → 0.9637, so D2's miss is learnability, not missing information); stripped control run through both readouts.
+Caught the Phase-F stale-artifact trap again — a smoke run's "K5 SURVIVES" JSON was sitting on disk and got quarantined.
+In verify.sh via a 44s `--fast` config. Deliverable: `curvature/notes/round8_for_bridge.md`.
+
+**Ask B (G2 blind adversarial legibility, script 161) — DONE, verdicts filed blind.** ansatz's two adversarial 4D
+metrics arrived; ran the §127/§132/§144 emit-or-certify instrument BLIND (read only the metric-only JSONs; _SEALED
+files never opened; recognised neither). Method = the §93/§94 second-invariant test: fix the manifest constants + energy
+shell globally so they whiten out of the eigenproblem, then a degree×basis ladder (momentum deg {2,4,6} × {poly,
+rational}), held-out over 3 seeds. **A → LEGIBLE:** emits an exact quadratic invariant at machine precision (2.2e-19)
+already at degree 2, flat across degree (independently, the Stäckel constant K_y=p_y²+(1−E²)y² is conserved to 3.5e-19).
+**B → ILLEGIBLE relative to {polynomial, rational} up to deg 6:** best 2.2e-5, ~15 orders worse than A in the identical
+harness, and the degree sequence descends monotonically WITHOUT converging to machine precision — the §97/§160 signature
+of a polynomial approximating a non-polynomial (transcendental) invariant → CERTIFY-RELATIVE-TO-BASIS. Blind leg-Q
+implication: if both are sealed integrable (A polynomial/KY, B transcendental), my instrument agrees on A and misses B —
+a sharp partial kill localising the biconditional to polynomial-representable invariants; if B is non-integrable, the
+certify is correct. Both pre-registered. Bugs caught + recorded: a trajectory-indexing bug that made both falsely read
+illegible (exposed because my hand-derived K_y was conserved while the engine said 0.4); the same §97/§160 absolute-vs-
+relative-exactness gate mistake, corrected. In verify.sh. Deliverable: notes/round8_for_bridge.md §B.
+
+**Prep built while B waits (script 160, the basis ladder), all 5 gates.** Rather than leave the B pre-commitment as a
+promise, built the instrument it names: a calibration system whose ONLY invariant is transcendental in the momenta by
+construction, H = exp(a p₁²+b p₂²) + c q₁²+d q₂². Run as a ladder through the §99 emit-or-certify engine (the exact leg-Q
+instrument): polynomial (1.3e-6) and rational (1.4e-7) rungs CERTIFY, a scanned transcendental family EMITS at the
+integration floor (1.66e-22, exponents recovered exactly, cosine 1.0000). So a G2 transcendental candidate can be
+reported as CERTIFY-relative-to-basis with the ladder shown, not as "no invariant exists". Caught myself re-making the
+§97 mistake in my own gate (absolute-error vs relative-exactness over a bounded band) and corrected to the §99 test,
+recorded. In verify.sh. Deliverable extended in notes/round8_for_bridge.md.
+
 ## 2026-07-10 — DISCOVER THE AXION (script 158): the bridge round-6 capstone — trilogy complete, all 7 gates
 
 TheBridge ask (+ quantum project convergence): the discovery version of the twisted-T² axion. conjecture_machine proved

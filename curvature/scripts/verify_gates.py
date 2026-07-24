@@ -158,6 +158,28 @@ BATTERIES = [
      {"S0": (">", 0.5), "A1_knee_at_1": (">", 0.5), "A2_blind_splitting": (">", 0.5),
       "B1_three_latents": (">", 0.5), "B2_moduli_decode": (">", 0.5),
       "C1_modular_certificate": (">", 0.5), "C2_hyperbolic_limit": (">", 0.5)}),
+    # Isospectral drums (bridge Ledger K5, script 159). --fast is the regression configuration; it asserts the
+    # INSTRUMENT (D0, incl. the permutation-similarity confound in the bridge's cell-centred scheme), K5's premise
+    # (D1), and the MECHANISM (D4 modal arm + both amplitude-stripped controls). The raw-waveform arms D2/D3 need the
+    # full budget and are deliberately NOT asserted here -- D2 misses its pre-registered strength gate even at full
+    # scale (0.618 vs 0.80, though z=18.8), which is recorded as an honest partial, not a green gate.
+    ("Isospectral drums / K5 (bridge round 8, script 159)", ["scripts/159_hearing_the_drum.py", "--fast"],
+     "159_drums_fast.json",
+     {"D0.passed": (">", 0.5), "D0.confound_confirmed": (">", 0.5), "D1_pass": (">", 0.5),
+      "D4_modal_pass": (">", 0.5), "D4_stripped_pass": (">", 0.5), "k5_killed": (">", 0.5)}),
+    # Basis ladder (G2 prep, script 160): calibrates CERTIFY-relative-to-basis on a system whose only invariant is
+    # transcendental in the momenta -- polynomial + rational certify, a scanned transcendental family emits.
+    ("Basis ladder / G2 prep (bridge round 8, script 160)", ["scripts/160_basis_ladder.py"],
+     "160_basis_ladder.json",
+     {"T0_pass": (">", 0.5), "T1_polynomial_certifies": (">", 0.5), "T2_rational_certifies": (">", 0.5),
+      "T3_transcendental_emits": (">", 0.5), "T4_ladder_localises": (">", 0.5)}),
+    # G2 blind legibility (script 161): emit-or-certify on the bridge's two adversarial metrics. A emits an exact
+    # invariant (legible); B certifies (illegible relative to polynomial/rational up to deg 6). Asserts the verdicts +
+    # that both integrators are clean. Runs ~5 min.
+    ("G2 blind legibility (bridge round 8, script 161)", ["scripts/161_g2_blind_legibility.py"],
+     "161_g2_blind.json",
+     {"A.G0_pass": (">", 0.5), "A.emit": (">", 0.5), "B.G0_pass": (">", 0.5),
+      "B.certify": (">", 0.5), "B.approximation_signature": (">", 0.5)}),
 ]
 
 
