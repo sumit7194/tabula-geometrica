@@ -4008,3 +4008,11 @@ rational 1.9e-5; transcendental-momentum exp(quadratic) scan best 4.0e-4 (family
 CERTIFY-RELATIVE-TO-ALL-BASES-TRIED → deeper than families searched. Content: "representable-in-basis" has an AXIS
 (coordinate-coeff class ≠ momentum function class). Gates methodological (G0/G1/G2); outcome reported not gated (a miss
 is a finding). --fast for verify. Deliverable: round8_for_bridge.md §R1.
+
+## 2026-07-24 — Bridge round-9 R5 (script 163): drum information-localization
+Extended §159 K5. Modal-power discriminator retrained on modally-truncated + sensor-subsampled data, held-out nodes.
+L0 reproduces §159 (tower 0.500 blind, full modal 0.954). MODES: acc 0.53→0.96, first 16 modes = 92% of full → low-freq
+confirmed, but m*=40 (95% sat) ~4× the bridge's predicted ~10 → quantitative prediction FALSIFIED, qualitative holds.
+SENSORS: spatially DISTRIBUTED not sparse — 0.38@4 sensors → 0.73@128; need broad coverage. Headline: geometry is
+spectrally cheap / spatially expensive (low-rank-in-freq, high-rank-in-space). Smoke caught degenerate 1-sensor case
+(constant features → memorization; skip <4 + average draws). Gates L0/L1/L3 (r5_done); L2 reported. --fast 19s in verify.

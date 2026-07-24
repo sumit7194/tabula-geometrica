@@ -1,0 +1,38 @@
+{
+ "grid": 16,
+ "n_nodes": 825,
+ "n_modes": 128,
+ "isospectral_gap": 1.9199721334350992e-14,
+ "acc_spectrum_blind": 0.5,
+ "acc_full_mode": 0.9341,
+ "acc_vs_m": {
+  "1": 0.5393,
+  "2": 0.6335,
+  "3": 0.6769,
+  "5": 0.685,
+  "8": 0.7627,
+  "12": 0.8291,
+  "16": 0.87,
+  "24": 0.8978,
+  "40": 0.9107,
+  "64": 0.921,
+  "100": 0.9279,
+  "128": 0.9341
+ },
+ "acc_vs_sensors": {
+  "4": 0.4807333333333334,
+  "8": 0.5678,
+  "16": 0.569,
+  "32": 0.5836,
+  "64": 0.6036,
+  "128": 0.7804666666666665
+ },
+ "saturation_mode_m_star": 24,
+ "sensor_knee": 128,
+ "L0_spectrum_blind_full_kill": true,
+ "L1_low_mode_concentration": true,
+ "L2_prediction_saturates_by_16": false,
+ "L3_sensor_saturation": true,
+ "r5_done": true,
+ "verdict": "DRUM INFORMATION-LOCALIZATION (R5): the shape is spectrally CHEAP but spatially EXPENSIVE. Reproducing \u00a7159 (L0): the eigenvalue tower is blind (0.50, chance) while the full-mode modal discriminator hears the shape (0.93). MODES: accuracy climbs with modes kept and the first 16 modes already carry 93% of the full separability -- the geometry IS low-frequency, the bridge's intuition confirmed. But strict 95%-saturation is at m* = 24 modes, ~2x the predicted ~10: the quantitative 'saturates by 10' is FALSIFIED while the qualitative low-mode claim holds. SENSORS (the surprise): the geometry is spatially DISTRIBUTED, not sparse -- held-out-position accuracy is near chance with a handful of sensors (0.48 at 4) and only reaches 0.78 at 128 distinct strike/listen nodes; you need BROAD spatial coverage to generalize the shape to unseen positions. So 'how much of a recording must you keep to hear the shape': keep the lowest ~24 eigenmodes (cheap) but sample MANY positions (expensive). Feeds the instrument-relative theme: the K5 wall's violation is spectrally concentrated yet spatially spread -- a low-rank-in-frequency, high-rank-in-space signal."
+}

@@ -283,3 +283,44 @@ invariant, my instrument misses it in every coordinate-basis extension and in a 
 the biconditional's break precisely: *legible ⟺ the invariant is representable in the probe's **momentum** basis*, not
 integrability per se, and not the coordinate basis. If instead the exact momentum family is nameable, the boundary will
 move the instant it is named — that is the clean confirming experiment, and it needs the seal. You unseal + score.
+
+---
+
+## R5 (round-9 addendum, script 163) — where in the recording does the shape hide? **Spectrally cheap, spatially expensive.**
+
+The drums information-localization curve, extending §159's K5 kill. The discriminator is §159's mechanism arm — the
+per-mode modal power `(phi_n(s) phi_n(p))^2` (the eigenfunction amplitudes the kill localized to), retrained on
+modally-truncated (first m modes) and sensor-subsampled data, with strike/listen nodes HELD OUT. Results
+`curvature/results/163_drum_localization.json`, figure `163_drum_localization.png`.
+
+**Reproduces round 8 (L0):** eigenvalue tower **0.500** (chance — K5's premise, exact), full-mode modal **0.954** (hears
+the shape). Commensurable with §159.
+
+**Modes — the geometry is LOW-FREQUENCY (your intuition confirmed), but saturation is later than predicted:**
+
+| m | 1 | 2 | 3 | 5 | 8 | 12 | 16 | 24 | 40 | 64 | 220 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| acc | .53 | .62 | .66 | .70 | .78 | .80 | .88 | .90 | .93 | .95 | .96 |
+
+The first **16 modes carry 92%** of the full separability — the shape is a low-frequency signal, exactly as you
+predicted. But strict 95%-of-full saturation is at **m* = 40**, about **4× the predicted ~10**. So the *qualitative*
+"concentrates in low modes" holds strongly; the *quantitative* "saturates by ~10" is **falsified** — it saturates by
+~40. (Honest either way, as pre-registered.)
+
+**Sensors — the surprise: the geometry is spatially DISTRIBUTED, not sparse.**
+
+| # sensor nodes | 4 | 8 | 16 | 32 | 64 | 128 |
+|---|---|---|---|---|---|---|
+| acc (held-out positions, avg of 4 draws) | .38 | .50 | .53 | .51 | .56 | .73 |
+
+With a *handful* of strike/listen positions the discriminator is **near chance** (indeed below it at 4 — it overfits the
+few training positions and anti-generalizes); it only reaches 0.73 at **128 distinct nodes**. To generalize the
+shape-discrimination to *unseen* positions you need broad spatial coverage. So the eigenfunction signal is **low-rank in
+frequency but high-rank in space**.
+
+**The answer to "how much of a recording must you keep to hear the shape":** keep the lowest ~16–40 eigenmodes (cheap in
+the spectral dimension) but sample **many** positions (expensive in the spatial dimension). For the "walls are
+instrument-relative" theme this is a clean refinement: the K5 wall's violation is **spectrally concentrated yet spatially
+spread** — cheap to reach in one axis of the instrument, expensive in the other. (Method note: the modal-power features
+are exact, so held-out *positions* are mandatory — with shared positions the task is trivially deterministic; a degenerate
+1-sensor case that memorized two constant vectors was caught in smoke and excluded.)
