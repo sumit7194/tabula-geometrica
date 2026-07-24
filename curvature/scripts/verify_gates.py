@@ -184,6 +184,10 @@ BATTERIES = [
      "162_g2_augmented_basis.json",
      {"G0_integrator": (">", 0.5), "G1_control_reproduces_round8": (">", 0.5),
       "G2_augmented_characterized": (">", 0.5)}),
+    ("Drum information-localization R5 (bridge round-9, script 163)", ["scripts/163_drum_localization.py", "--fast"],
+     "163_drum_localization_fast.json" if False else "163_drum_localization.json",
+     {"L0_spectrum_blind_full_kill": (">", 0.5), "L1_low_mode_concentration": (">", 0.5),
+      "L3_sensor_saturation": (">", 0.5)}),
 ]
 
 

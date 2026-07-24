@@ -1,3 +1,21 @@
+## 2026-07-24 — BRIDGE ROUND 9 · R5 (script 163): where does the shape hide? — spectrally cheap, spatially expensive
+
+TheBridge round-9 R5 (optional): the drums information-localization curve, extending §159's K5 kill. Retrained the
+mechanism discriminator (per-mode modal power, §159's D4 arm) on modally-TRUNCATED (first m modes) and sensor-SUBSAMPLED
+data, held-out strike/listen nodes. L0/L1/L3 pass; L2 (the bridge's prediction) reported:
+- L0 reproduces §159: eigenvalue tower blind (0.500, chance), full-mode modal hears the shape (0.954).
+- MODES: acc climbs 0.53→0.96; the first 16 modes carry 92% of the full separability -> geometry IS low-frequency
+  (bridge's intuition confirmed). BUT strict 95%-saturation is at m*=40, ~4x the predicted ~10 -> the quantitative
+  "saturates by 10" is FALSIFIED while the qualitative low-mode claim holds (L2 reported, not gated).
+- SENSORS (the surprise): the geometry is spatially DISTRIBUTED, not sparse -- held-out-position accuracy is near
+  chance with a handful (0.38 at 4 sensors) and only reaches 0.73 at 128 distinct nodes; you need BROAD spatial
+  coverage to generalize the shape to unseen positions.
+HEADLINE for the bridge: "how much of a recording must you keep to hear the shape" -> keep the lowest ~16-40 eigenmodes
+(cheap) but sample MANY positions (expensive) -- a low-rank-in-frequency, high-rank-in-space signal. Feeds the
+instrument-relative theme: the K5 wall's violation is spectrally concentrated yet spatially spread. Fixed a degenerate
+sensor case in smoke (1 sensor -> constant features -> memorization fluke; skip <4, average draws). --fast 19s in
+verify. Deliverable: notes/round8_for_bridge.md §R5.
+
 ## 2026-07-24 — BRIDGE ROUND 9 · R1 (script 162): move the basis, does the boundary move? — CERTIFY, with the axis named
 
 TheBridge falsification-v2 R1: rerun round-8 Candidate B's legibility probe with an AUGMENTED basis (blind; B's
