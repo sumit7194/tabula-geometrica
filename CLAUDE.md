@@ -977,6 +977,52 @@ results in `curvature/notes/lab_notebook.md`.
   honesty pre-reg'd: raw-latent hyperbolicity is gauge-ill-posed; sensitivity metric provably non-hyperbolic for small
   sector sets → hyperbolic in the many-mode β-weighted limit (derived + smoke-verified). Deliverable
   notes/axion_for_bridge.md. In verify.sh (~2min).
+- **ISOSPECTRAL DRUMS / K5 (script 159, 2026-07-23, bridge round-8 ask C) — K5 KILLED, plus a bug report on their K2.**
+  Their `k2_drums.py` rasterises offset CELL CENTRES vs the seven open triangles, so cells on shared edges drop and a
+  5-point stencil can't cross a DIAGONAL glue line → each drum splits into THREE 4-connected pieces (840=360+360+120 @
+  n=16). Tells: doubly-degenerate ground state (impossible for a connected Dirichlet domain) + pieces congruent
+  piece-by-piece. Made EXACT via an explicit permutation: **max|L2[P,P]−L1| = 0.000e+00** at n=16 and n=32 → the two
+  discrete operators are the SAME MATRIX RELABELLED. So their 1e-15 resolution-independent agreement is trivial, not
+  transplantation, and **K5 was untestable there** (no observable distinguishes permutation-similar operators — a net
+  failing would have read as confirmation). K2's headline claim is a theorem (Kac/GWW), untouched; only the mechanism
+  claim falls. FIX: node-centred lattice, interior test vs the OUTLINE polygon (exact integer point-in-polygon) →
+  genuine discrete GWW pair at n=12/16/24/32 (1 component each, non-congruent masks, FULL-spectrum isospectral ~1e-14,
+  no bad resolutions); λ1=2.5415 vs published Betcke–Trefethen 2.537944 (0.14%). PROJECTION = a literal recording
+  y(t)=Σφn(s)φn(p)cos(ωn(t+t0)); net sees ONLY the waveform (never domain/s/p/eigenvalues), t0 random. RESULTS: D1
+  eigenvalue tower 0.5023 (chance, premise exact); D2 raw CNN 0.6180 (z=18.8) MISSES its 0.80 gate; **D3 raw CNN on the
+  SHARED interior, held-out nodes 0.7627 (z=47.8) PASSES** (mask can't be the cue); D4 modal arm 0.9793 (z=261);
+  stripped controls 0.5058/0.4962 (chance) ⇒ signal is entirely the modal amplitudes = eigenfunctions. **A recording is
+  not the spectrum — it is the spectrum weighted by eigenfunction overlaps; trace-like observables (heat trace = Kac's
+  actual question) ARE spectrum-limited, a strike-and-listen is not.** Declared post-hoc: gates-vs-postulate separated
+  (binomial p + 95% CI per arm; gate numbers NOT moved), one DIAGNOSTIC fix round (same modal readout on D2's data →
+  0.9637 ⇒ D2's miss is learnability not information), stripped control through both readouts. Stale-artifact trap
+  caught again (smoke JSON said "K5 SURVIVES" → quarantined). In verify.sh via `--fast` (44s); D2/D3 raw arms not
+  asserted. Deliverable: notes/round8_for_bridge.md.
+- **G2 BLIND ADVERSARIAL LEGIBILITY (script 161, 2026-07-23, bridge round-8 ask B) — DONE, verdicts filed blind: A
+  legible, B illegible-rel-basis.** ansatz's two adversarial 4D metrics ran through the §127/§132/§144 emit-or-certify
+  instrument BLIND (read ONLY the metric-only JSONs; _SEALED files never opened; recognised neither). Method = §93/§94
+  second-invariant test: fix manifest constants + energy shell GLOBALLY → they whiten out of the generalized
+  eigenproblem (verified: B's shell H2 across-ensemble std 5e-16 → engine can't return it), so any conserved direction
+  is a genuinely NEW invariant; ladder over momentum degree {2,4,6} × basis {poly, rational}, held-out 3 seeds,
+  well-integrated bound orbits only. **A → LEGIBLE (emit):** exact quadratic invariant at machine precision (2.2e-19)
+  from deg 2, flat across degree; independently the Stäckel constant K_y=p_y²+(1−E²)y² conserved to 3.5e-19. **B →
+  ILLEGIBLE rel {poly,rational} up to deg 6:** best 2.2e-5 (~15 orders worse than A, identical harness) and the degree
+  sequence descends monotonically WITHOUT converging to machine precision = the §97/§160 signature of a polynomial
+  APPROXIMATING a transcendental invariant → CERTIFY-RELATIVE-TO-BASIS. Blind leg-Q implication: if both sealed
+  integrable (A polynomial/KY, B transcendental) my instrument agrees on A + misses B → a sharp PARTIAL KILL localising
+  the biconditional to polynomial/rational-representable invariants; if B non-integrable the certify is correct (both
+  pre-registered). Bugs caught+recorded: trajectory-indexing bug (T[...,0] hit the ntraj axis → engine saw G=4 garbage,
+  both falsely illegible; exposed because hand-derived K_y was conserved while engine said 0.4); same §97/§160
+  absolute-vs-relative-exactness gate mistake, corrected to emit=machine-precision + degree-convergence diagnostic. In
+  verify.sh (~5min). Deliverable: notes/round8_for_bridge.md §B.
+- **BASIS LADDER (script 160, 2026-07-23, G2 prep) — all 5 gates.** Built the instrument the B pre-commitment names,
+  so "my basis can't see it" becomes a MEASURED, NAMED boundary. Calibration system with a provably transcendental-in-
+  momenta invariant: H = exp(a p1²+b p2²) + c q1²+d q2² (a≠b, c≠d; bounded; H generically the only invariant). §99
+  emit-or-certify engine UNCHANGED, run as a ladder: polynomial 1.30e-6 and rational 1.42e-7 rungs CERTIFY (~1e15×
+  worse), a scanned transcendental family EMITS at the integration floor (1.66e-22, argmin = true exponents exactly,
+  cosine 1.0000). Gate = CERTIFY-RELATIVE-TO-BASIS. Pre-reg CORRECTION recorded (the §97 lesson applied to my own gate):
+  T1/T2 were absolute-error (>1e-4) → conflates "no invariant in basis" with "good approximation over a bounded band";
+  fixed to §99 relative-exactness (≥1e6× worse than the emitting rung). In verify.sh.
 - Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
   Phase H rows (equivalence-breaking gravity); a G-sym legibility-preserving
   variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit

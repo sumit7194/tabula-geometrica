@@ -1,0 +1,176 @@
+{
+ "D0": {
+  "cell_centred_confound": [
+   {
+    "n": 16,
+    "N": 840,
+    "components": 3,
+    "sizes": [
+     120,
+     360,
+     360
+    ],
+    "ground_state_gap": 5.344405597583819e-13,
+    "pieces_congruent": true,
+    "permutation_similarity_err": 0.0
+   },
+   {
+    "n": 32,
+    "N": 3472,
+    "components": 3,
+    "sizes": [
+     496,
+     1488,
+     1488
+    ],
+    "ground_state_gap": 1.5983121827884567e-12,
+    "pieces_congruent": true,
+    "permutation_similarity_err": 0.0
+   }
+  ],
+  "confound_confirmed": true,
+  "node_centred": [
+   {
+    "n": 12,
+    "N": 451,
+    "components": [
+     1,
+     1
+    ],
+    "spec_rel": 7.894919286223334e-15,
+    "masks_congruent": false,
+    "ground_gap": 0.43516323542257546,
+    "lam1": 10.180382571438196
+   },
+   {
+    "n": 16,
+    "N": 825,
+    "components": [
+     1,
+     1
+    ],
+    "spec_rel": 1.4627188349436447e-14,
+    "masks_congruent": false,
+    "ground_gap": 0.4370449941688489,
+    "lam1": 10.177192102496889
+   },
+   {
+    "n": 24,
+    "N": 1909,
+    "components": [
+     1,
+     1
+    ],
+    "spec_rel": 2.7757117592052004e-14,
+    "masks_congruent": false,
+    "ground_gap": 0.4385675850657885,
+    "lam1": 10.17037150781798
+   },
+   {
+    "n": 32,
+    "N": 3441,
+    "components": [
+     1,
+     1
+    ],
+    "spec_rel": 2.753353101070389e-14,
+    "masks_congruent": false,
+    "ground_gap": 0.43918690877234756,
+    "lam1": 10.165879621205265
+   }
+  ],
+  "lam1_scaled": 2.5414699053013163,
+  "lam1_rel_err": 0.0013892762414443962,
+  "a_connected": true,
+  "b_noncongruent": true,
+  "c_isospectral": true,
+  "d_literature": true,
+  "passed": true
+ },
+ "device": "mps",
+ "grid": 24,
+ "n_nodes": 1909,
+ "n_modes": 256,
+ "n_time": 1024,
+ "shared_nodes": 1357,
+ "D1_spectrum": {
+  "acc": 0.5022916666666667,
+  "n": 4800,
+  "p_value": 0.7618105213814051,
+  "z_vs_chance": 0.31754598340723017,
+  "ci95": [
+   0.48814673364477273,
+   0.5164365996885606
+  ]
+ },
+ "D1_pass": true,
+ "D2_waveform": {
+  "acc": 0.618,
+  "n": 6000,
+  "p_value": 3.0827821673244735e-75,
+  "z_vs_chance": 18.811858937915883,
+  "ci95": [
+   0.6057056275637998,
+   0.6302943724362002
+  ]
+ },
+ "D2_pass": false,
+ "D2_fixround_modal_all_interior": {
+  "acc": 0.9636666666666667,
+  "n": 6000,
+  "p_value": 0.0,
+  "z_vs_chance": 191.93998670168946,
+  "ci95": [
+   0.9589319228423947,
+   0.9684014104909386
+  ]
+ },
+ "D3_shared": {
+  "acc": 0.7626666666666667,
+  "n": 6000,
+  "p_value": 0.0,
+  "z_vs_chance": 47.82267177693381,
+  "ci95": [
+   0.7519013403572533,
+   0.7734319929760801
+  ]
+ },
+ "D3_pass": true,
+ "D4_modal": {
+  "acc": 0.9793333333333333,
+  "n": 6000,
+  "p_value": 0.0,
+  "z_vs_chance": 260.98333155167506,
+  "ci95": [
+   0.9757335121196657,
+   0.9829331545470008
+  ]
+ },
+ "D4_modal_pass": true,
+ "D4_stripped_waveform": {
+  "acc": 0.5058333333333334,
+  "n": 6000,
+  "p_value": 0.3730452686069976,
+  "z_vs_chance": 0.9037576219351616,
+  "ci95": [
+   0.4931824487865985,
+   0.5184842178800683
+  ]
+ },
+ "D4_stripped_modal": {
+  "acc": 0.49616666666666664,
+  "n": 6000,
+  "p_value": 0.5612794402909055,
+  "z_vs_chance": -0.5938748999983984,
+  "ci95": [
+   0.48351529289526524,
+   0.5088180404380681
+  ]
+ },
+ "D4_stripped_pass": true,
+ "max_mode_separation": 0.4722771644592285,
+ "verdict": "K5 KILLED",
+ "gates_all_pass": false,
+ "k5_killed": true,
+ "summary": "K5 (K5 KILLED): on a CORRECTED node-centred discretisation of the Gordon-Webb-Wolpert pair (connected, non-congruent, full-spectrum isospectral to 3e-14, lambda_1 within 1.4e-03 of Betcke-Trefethen), nets trained only on strike-and-listen recordings -- never shown the domain, the strike/listen nodes, or the eigenvalues -- separate the two drums. Restricted to the SHARED interior (so the domain mask cannot be the cue) and with strike/listen nodes held out, the waveform CNN reaches 0.7627 (p=0.0e+00) and the modal-power arm 0.9793 (p=0.0e+00). A classifier on the eigenvalue tower sits at 0.5023 (chance) and the amplitude-stripped control at 0.4962, so the signal is carried entirely by the modal amplitudes phi_n(s) phi_n(p) -- eigenfunction information leaking through a scalar projection. Projections are NOT spectrum-limited. The pre-registered STRENGTH gates D2 (0.80) and D3 (0.75) are a separate question from the postulate; see D2/D3 fields. NOTE for the bridge: the cell-centred scheme in k2_drums.py disconnects each drum into three pieces that are congruent piece-by-piece, and an explicit permutation P gives max|L2[P,P]-L1| = 0 exactly, so the two discrete operators are the SAME matrix relabelled; K2's 1e-15 agreement there is trivial rather than transplantation, and K5 is untestable on it (no observable can distinguish them)."
+}
