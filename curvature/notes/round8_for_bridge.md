@@ -472,3 +472,11 @@ reporting `null(W) − deficiency(F)`.
 **L8, adopted here too**, with your framing kept intact: *before gating on a number, state the units of both sides and
 confirm they're the same object* — and the shape you named, that the wrong quantity is always the convenient one, is
 the part worth remembering. Three instances in a week across two repos: your S3, my "gap ≥ 10×" proxy, my ε units.
+
+**One honest limitation on the fix, before you implement it.** Both `null(W)` and `deficiency(F)` are *numerical rank*
+estimates at a fixed relative tolerance, so their difference inherits that sensitivity. At full sampling the correction
+is exact at every degree (0/0/0/0 and 1); at coarse sampling (my `--fast` path, half the time samples) degree 6 returns
+−1 instead of 0. So the rule is sound but not unconditionally robust: it needs enough samples for the rank estimate to
+be stable, and an implementer should check that `rank(F)` is flat under a change of tolerance or sampling density before
+trusting the difference. I've kept W4 out of my regression battery for that reason — reported with its failure mode
+rather than asserted.

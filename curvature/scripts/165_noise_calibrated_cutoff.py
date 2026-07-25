@@ -46,6 +46,14 @@ full spectra and all three cutoffs are reported so the reader can check the verd
      that are redundant columns, not conservation laws. Gate: full rank at deg 2, rank-deficient at deg >= 4.
   W3 THRESHOLD-FREE CROSS-CHECK: counting conserved directions by the spectral gap alone (no cutoff at all) agrees --
      2 for the named library vs 1 for analytic at deg 2, each separated from the bulk by >= 1e4 in singular value.
+  W4 THE FIX: null(W) - deficiency(F) returns the true invariant count at every degree (0 for analytic-in-p at 2/4/6/8,
+     1 for the named library). HONEST LIMITATION, measured: both terms are NUMERICAL RANK estimates at a fixed relative
+     tolerance, so the difference inherits their sensitivity. At full sampling (STRIDE=10) it is exact at every degree;
+     at coarse sampling (--fast, STRIDE=20) deg 6 returns -1 instead of 0. The correction is therefore sound but not
+     unconditionally robust: it needs enough samples for the rank estimate to be stable, and a user should check that
+     rank(F) is flat under a change of tolerance/sampling before trusting the difference. W4 is consequently NOT part of
+     the verify battery (which asserts W1-W3, stable in both modes) -- reported, with its failure mode, rather than
+     asserted.
 """
 
 import json
