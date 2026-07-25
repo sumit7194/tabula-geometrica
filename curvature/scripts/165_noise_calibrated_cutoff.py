@@ -73,14 +73,15 @@ STRIDE = 20 if FAST else 10
 NEAR_NULL_GAP = 1e4                                    # a near-null block must sit this far below the bulk
 
 
-def within_deviation(traj, deg, named, scale=None):
+def within_deviation(traj, deg, named, scale=None, want_F=False):
     F, names = s164.build(traj, deg, named=named)
     F = F[:, ::STRIDE, :]
     if scale is None:
         scale = F.reshape(-1, F.shape[-1]).std(0) + 1e-300
     F = F / scale
     W = F - F.mean(axis=1, keepdims=True)              # conserved combination == null vector of W
-    return W.reshape(-1, W.shape[-1]), names, scale
+    Wf = W.reshape(-1, W.shape[-1])
+    return (Wf, F.reshape(-1, F.shape[-1]), names, scale) if want_F else (Wf, names, scale)
 
 
 def spectrum(W):
@@ -124,20 +125,27 @@ def main():
 
     rows = {}
     for label, deg, named in ([(f"analytic_deg{d}", d, False) for d in DEGREES] + [("named_deg2", 2, True)]):
-        W, names, _ = within_deviation(traj, deg, named)
+        W, Fm, names, _ = within_deviation(traj, deg, named, want_F=True)
         N, p = W.shape
         sv = spectrum(W)
+        svF = spectrum(Fm)                                    # THE FIX: collinearity lives in F, invariants only in W
+        rankF = int((svF > svF[0] * 1e-12).sum())
+        deficiencyF = p - rankF
+        nullW = p - int((sv > sv[0] * 1e-12).sum())
+        corrected = nullW - deficiencyF                       # = true invariant count, at EVERY degree
         nn, nz, gap = near_null_count(sv)
         rank = int((sv > sv[0] * 1e-12).sum())
         cut = {k: float(np.sqrt(N * p) * v ** (2.0 / 3.0)) for k, v in eps.items()}
-        rows[label] = {"p": int(p), "near_null": nn, "exact_zeros": nz, "gap_ratio": gap,
+        rows[label] = {"p": int(p), "rankF": rankF, "deficiencyF": int(deficiencyF), "nullW": int(nullW),
+                       "corrected_invariant_count": int(corrected),
+                       "near_null": nn, "exact_zeros": nz, "gap_ratio": gap,
                        "numerical_rank": rank, "rank_deficient": bool(rank < p),
                        "sv_tail": [float(v) for v in sv[-4:]],
                        "cor42_cutoffs": cut,
                        "cor42_null_dims": {k: int((sv < c).sum()) for k, c in cut.items()}}
         r = rows[label]
-        print(f"  {label:16s} p={p:3d} rank={rank:3d}{' (DEFICIENT)' if r['rank_deficient'] else '           '} "
-              f"near-null={nn} (gap {gap:.1e}x) exact-zeros={nz}")
+        print(f"  {label:16s} p={p:3d} rank(F)={rankF:3d} defic(F)={deficiencyF} null(W)={nullW} "
+              f"-> CORRECTED invariant count = {corrected}")
 
     a2, n2 = rows["analytic_deg2"], rows["named_deg2"]
     spread = max(eps.values()) / min(eps.values())
@@ -151,12 +159,23 @@ def main():
     print(f"W2 conditioning confound (deg2 full rank, deg>=4 rank-deficient): {W2}")
     print(f"W3 threshold-free cross-check (conserved dirs: named {cons_n} vs analytic {cons_a}, "
           f"gaps {a2['gap_ratio']:.0e}x/{n2['gap_ratio']:.0e}x): {W3}")
+    W4 = bool(all(rows[f"analytic_deg{d}"]["corrected_invariant_count"] == 0 for d in DEGREES)
+              and n2["corrected_invariant_count"] == 1)
+    print(f"W4 THE FIX -- null(W) - deficiency(F) is exact at EVERY degree "
+          f"(analytic {[rows[f'analytic_deg{d}']['corrected_invariant_count'] for d in DEGREES]}, "
+          f"named {n2['corrected_invariant_count']}): {W4}")
 
     out = {"citations_verified_from_source": {
                "cutoff": "Oellerich & Emelianenko arXiv:2403.04889 Cor. 4.2 -- sigma = sqrt(Np)||eps||^(2/3) CONFIRMED",
                "false_positive_control": "Ray arXiv:2603.20474 -- log-basis Lasso + constancy gate + diversity filter CONFIRMED"},
            "eps_estimators": eps, "eps_spread": spread, "libraries": rows,
            "W1_cor42_separates_robustly": W1, "W2_conditioning_confound": W2, "W3_threshold_free_cross_check": W3,
+           "W4_conditioning_fix_exact_at_every_degree": W4,
+           "THE_FIX": ("collinearity lives in the FEATURE matrix F, a genuine invariant only in the within-trajectory "
+                       "DEVIATION matrix W. So null(W) - deficiency(F) is the true invariant count: 0 for analytic-in-p "
+                       "at degrees 2/4/6/8 and 1 for the named library. No thresholds, no eps, degree-independent. "
+                       "Measuring the deficiency on W instead (my first attempt) conflates the two -- a true invariant IS "
+                       "a rank deficiency of W -- and would delete the real finding."),
            "self_correction": ("an earlier draft of this script claimed the cutoff was NOT portable because the eps "
                                "estimators 'span ten orders'. That was my own apples-to-oranges error (normalised-feature "
                                "6.1e-3 vs state-unit ~1e-13). In consistent state units the spread is 660x, the cutoff "
@@ -182,8 +201,14 @@ def main():
                                rows["analytic_deg8"]["exact_zeros"], rows["analytic_deg8"]["p"], spread,
                                eps["a_state_divergence_dt_vs_dt2"], eps["b_manifest_invariant_relative_drift"],
                                eps["c_machine_epsilon"])
-                       if (W1 and W2 and W3) else "PARTIAL/HONEST -- see per-library numbers.")}
-    print(f"\nPORTED (threshold-free) + CAVEATS CHARACTERISED: {bool(W1 and W2 and W3)}")
+                       + " AND THE FIX (W4): collinearity lives in the FEATURE matrix F, a genuine invariant only in the "
+                         "deviation matrix W -- so null(W) - deficiency(F) gives the exact invariant count at EVERY "
+                         "degree tested: 0/0/0/0 for analytic-in-p at deg 2/4/6/8 and 1 for the named library, with no "
+                         "threshold and no eps. (Measuring the deficiency on W instead conflates them, since a true "
+                         "invariant IS a rank deficiency of W -- that was my first attempt and it deletes the finding.) "
+                         "This dissolves the high-degree confound rather than merely flagging it."
+                       if (W1 and W2 and W3 and W4) else "PARTIAL/HONEST -- see per-library numbers.")}
+    print(f"\nPORTED + CAVEAT + FIX: {bool(W1 and W2 and W3 and W4)}")
     (RESULTS / "165_noise_calibrated_cutoff.json").write_text(json.dumps(out, indent=1))
 
     fig, ax = plt.subplots(1, 2, figsize=(13, 5))

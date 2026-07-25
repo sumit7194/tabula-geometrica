@@ -12,6 +12,10 @@
  "libraries": {
   "analytic_deg2": {
    "p": 21,
+   "rankF": 21,
+   "deficiencyF": 0,
+   "nullW": 0,
+   "corrected_invariant_count": 0,
    "near_null": 1,
    "exact_zeros": 0,
    "gap_ratio": 439957.30992135557,
@@ -36,6 +40,10 @@
   },
   "analytic_deg4": {
    "p": 51,
+   "rankF": 49,
+   "deficiencyF": 2,
+   "nullW": 2,
+   "corrected_invariant_count": 0,
    "near_null": 2,
    "exact_zeros": 2,
    "gap_ratio": 32706.5498426824,
@@ -60,6 +68,10 @@
   },
   "analytic_deg6": {
    "p": 93,
+   "rankF": 89,
+   "deficiencyF": 4,
+   "nullW": 4,
+   "corrected_invariant_count": 0,
    "near_null": 5,
    "exact_zeros": 4,
    "gap_ratio": 1115.5689570482175,
@@ -84,6 +96,10 @@
   },
   "analytic_deg8": {
    "p": 147,
+   "rankF": 139,
+   "deficiencyF": 8,
+   "nullW": 8,
+   "corrected_invariant_count": 0,
    "near_null": 8,
    "exact_zeros": 8,
    "gap_ratio": 30.08431182393281,
@@ -108,6 +124,10 @@
   },
   "named_deg2": {
    "p": 23,
+   "rankF": 23,
+   "deficiencyF": 0,
+   "nullW": 1,
+   "corrected_invariant_count": 1,
    "near_null": 1,
    "exact_zeros": 1,
    "gap_ratio": 380948.844638261,
@@ -134,6 +154,8 @@
  "W1_cor42_separates_robustly": true,
  "W2_conditioning_confound": true,
  "W3_threshold_free_cross_check": true,
+ "W4_conditioning_fix_exact_at_every_degree": true,
+ "THE_FIX": "collinearity lives in the FEATURE matrix F, a genuine invariant only in the within-trajectory DEVIATION matrix W. So null(W) - deficiency(F) is the true invariant count: 0 for analytic-in-p at degrees 2/4/6/8 and 1 for the named library. No thresholds, no eps, degree-independent. Measuring the deficiency on W instead (my first attempt) conflates the two -- a true invariant IS a rank deficiency of W -- and would delete the real finding.",
  "self_correction": "an earlier draft of this script claimed the cutoff was NOT portable because the eps estimators 'span ten orders'. That was my own apples-to-oranges error (normalised-feature 6.1e-3 vs state-unit ~1e-13). In consistent state units the spread is 660x, the cutoff depends on eps^(2/3), and all three estimators give identical verdicts. Claim withdrawn.",
- "verdict": "MOVING OFF THE HAND-SET LINE: the null-space FORMULATION ports, the ABSOLUTE cutoff does not, and trying it surfaced a confound worth sending back. (W1, the substantive result) At the momentum degree where the library is well conditioned, the verdict is readable with NO chosen constant at all: the named library has 1 near-null directions vs 1 for analytic-in-p, each block separated from the bulk by 4e+05x / 4e+05x in singular value. The extra direction is the invariant; no threshold was used. (W2, a caveat for BOTH repos, found by trying [1]'s recipe) at momentum degree >= 4 the polynomial library goes NUMERICALLY RANK-DEFICIENT -- deg 8 has 8 exact-zero singular values out of p=147 -- and those zeros are COLLINEAR COLUMNS, not conservation laws. Any null-space count, [1]'s included, must be preceded by a conditioning check or it will report spurious invariants at high degree: the null-space analogue of the O4 trap you warned me about. (W3, why the cutoff did not port) Cor. 4.2 needs ||eps_x||, and a noise-free simulation does not have one: the three defensible estimators span 7e+02x -- state divergence 1.4e-13 (wrong quantity: orbits separating, not conservation error), manifest-invariant drift 1.5e-13 (the right floor), machine epsilon 2.2e-16 -- giving null dims from 1 to p. The formula presumes noisy DATA. For simulation-based instruments the calibration must come from the conservation floor, which shares no units with ||eps_x||. Recommendation: for this class of experiment use the threshold-free gap readout over BOTH the hand-set line and the calibrated cutoff."
+ "verdict": "MOVING OFF THE HAND-SET LINE: the null-space FORMULATION ports, the ABSOLUTE cutoff does not, and trying it surfaced a confound worth sending back. (W1, the substantive result) At the momentum degree where the library is well conditioned, the verdict is readable with NO chosen constant at all: the named library has 1 near-null directions vs 1 for analytic-in-p, each block separated from the bulk by 4e+05x / 4e+05x in singular value. The extra direction is the invariant; no threshold was used. (W2, a caveat for BOTH repos, found by trying [1]'s recipe) at momentum degree >= 4 the polynomial library goes NUMERICALLY RANK-DEFICIENT -- deg 8 has 8 exact-zero singular values out of p=147 -- and those zeros are COLLINEAR COLUMNS, not conservation laws. Any null-space count, [1]'s included, must be preceded by a conditioning check or it will report spurious invariants at high degree: the null-space analogue of the O4 trap you warned me about. (W3, why the cutoff did not port) Cor. 4.2 needs ||eps_x||, and a noise-free simulation does not have one: the three defensible estimators span 7e+02x -- state divergence 1.4e-13 (wrong quantity: orbits separating, not conservation error), manifest-invariant drift 1.5e-13 (the right floor), machine epsilon 2.2e-16 -- giving null dims from 1 to p. The formula presumes noisy DATA. For simulation-based instruments the calibration must come from the conservation floor, which shares no units with ||eps_x||. Recommendation: for this class of experiment use the threshold-free gap readout over BOTH the hand-set line and the calibrated cutoff. AND THE FIX (W4): collinearity lives in the FEATURE matrix F, a genuine invariant only in the deviation matrix W -- so null(W) - deficiency(F) gives the exact invariant count at EVERY degree tested: 0/0/0/0 for analytic-in-p at deg 2/4/6/8 and 1 for the named library, with no threshold and no eps. (Measuring the deficiency on W instead conflates them, since a true invariant IS a rank deficiency of W -- that was my first attempt and it deletes the finding.) This dissolves the high-degree confound rather than merely flagging it."
 }

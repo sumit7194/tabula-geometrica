@@ -151,8 +151,10 @@ def ensemble_B(seed):
     while len(xs) < 3 * NTRAJ:
         x = rng.uniform(-0.8, 0.8)
         y = rng.uniform(-0.8, 0.8)
-        px = rng.uniform(0.15, 0.9)                    # probe with p_x > 0 -- attribution uncertain (see round8_for_bridge.md provenance note);
-                                                       # the REASON it matters (both atoms of I singular at p_x=0) is ours, derived in 164
+        px = rng.uniform(0.15, 0.9)                    # probe with p_x > 0 -- INSTRUCTION from the bridge's round-8 blind
+                                                       # package (G2_candidate_B.json L50/L57), confirmed 2026-07-24.
+                                                       # The REASON (both atoms of I singular at p_x=0) is ours, from 164 --
+                                                       # and had to be separate: stating it in round 8 would have leaked ln p_x.
         a = 2 + (x + y) ** 2
         b = 1 + y * (x + y)
         c = 1 + y ** 2

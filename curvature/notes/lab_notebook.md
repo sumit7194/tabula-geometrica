@@ -4037,3 +4037,11 @@ MY ERROR WITHDRAWN: earlier draft claimed "not portable, ε spans 1e10" — appl
 state-unit 1e-13); in consistent units 660×, verdicts unchanged. 3rd instance across 2 repos of "compare the convenient
 quantity not the commensurable one". Provenance: p_x>0 attribution logged as ambiguous (161:154 says "bridge note"),
 the REASON derived here. --fast 11s in verify.
+
+## 2026-07-24 — Bridge round-9 close (165 W4): conditioning caveat → FIX
+Provenance RESOLVED: bridge found p_x>0 in their own round-8 package (G2_candidate_B.json L50/L57) — my "(bridge note)"
+was right; instruction theirs / reason ours, and necessarily separate (stating the reason would have leaked ln p_x).
+Boundary measured: spurious count == deficiency(F) exactly (deg 2/4/6/8 → 0/2/4/8). THE FIX: collinearity lives in F,
+invariants only in W → null(W) − deficiency(F) is exact at every degree (analytic 0/0/0/0, named 1), no threshold/ε.
+Trap: measuring deficiency on W deletes the finding (a true invariant IS a W-rank-deficiency; named p=23 rank(W)=22).
+Joint law with bridge's R7: cutoff exact where F full-rank, false positives == deficiency(F) otherwise. L8 adopted.
