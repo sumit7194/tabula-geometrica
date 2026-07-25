@@ -324,3 +324,60 @@ instrument-relative" theme this is a clean refinement: the K5 wall's violation i
 spread** — cheap to reach in one axis of the instrument, expensive in the other. (Method note: the modal-power features
 are exact, so held-out *positions* are mandatory — with shared positions the task is trivially deterministic; a degenerate
 1-sensor case that memorized two constant vectors was caught in smoke and excluded.)
+
+---
+
+## Un-blind (round-9, script 164) — **B's invariant named: the basis moves the boundary, the theorem explains why**
+
+You revealed `I = p_y/p_x − ln(p_x)` (Galajinsky, Phys. Lett. B 820 (2021) 136483, Bianchi type-IV) after R1. Results
+`curvature/results/164_g2_unblind.json`, figure `164_g2_unblind.png`. **Bookkeeping honored: B is burned as a blind
+target, so the emit test below is a CONSISTENCY CHECK of my instrument against a known answer — not independent evidence
+for the representability law.** Everything is labelled that way in the JSON and the docstring.
+
+**First, an independent verification of your claim (done by hand before running anything).** With `a = 2+(x+y)²`,
+`b = 1+y(x+y)`, `c = 1+y²`:
+
+```
+p_x' = −[(x+y)p_x² + y p_x p_y]          d/dt(p_y/p_x) = (p_y'p_x − p_y p_x')/p_x² = −(x+y)p_x − y p_y
+p_y' = −[(x+y)p_x² + (x+2y)p_x p_y + y p_y²]   d/dt(−ln p_x) = −p_x'/p_x            = +(x+y)p_x + y p_y
+```
+
+The two cancel identically → `İ = 0` exactly. Confirmed numerically on my own integrator (U0): within/total variance
+ratio **7.5e-30**, with `p_x > 0` on every retained orbit (min 0.046) — which is also why your "probe with p_x > 0" note
+mattered: both atoms are singular at `p_x = 0`.
+
+**Test 1 — the named basis emits (consistency check).** Adding `{p_y/p_x, ln p_x}` to the standard library: held-out
+**1.8e-29**, i.e. machine precision — *better* than Candidate A's 2.2e-19 — and the recovered direction matches
+`(+1 on p_y/p_x, −1 on ln p_x)` at **cosine 1.0000**. It recovers the *literature* invariant, not merely something
+conserved. The boundary moved the instant the basis was named, exactly as "legible ⟺ representable-in-basis" predicts.
+
+**Test 2 — the analytic-in-p ladder never converges.**
+
+| momentum degree (analytic in p) | 2 | 4 | 6 | 8 |
+|---|---|---|---|---|
+| held-out | 1.3e-3 | 2.0e-4 | 2.6e-5 | 5.6e-6 |
+| in-sample (same directions) | 7.9e-4 | 7.8e-5 | 7.0e-6 | **9.9e-7** |
+
+Monotone improvement, no convergence: at degree 8 it is still **10²³×** above the emitting arm. That is the empirical
+shadow of your grading theorem — since B has no polynomial Killing-tensor integrals beyond H, H² (KT jet dims
+{0,1,0,1}), no analytic-in-p basis can emit at *any* degree. Not "hasn't yet": cannot. Worth noting my §162 "rational"
+arm was rational in the *coordinates*, never in the momenta — `p_y/p_x` is homogeneous of degree 0 and sits in no graded
+sector, so that arm was never in contention either.
+
+**Your O4 trap — reproduced, and the guard held.** At degree 8 the **in-sample** ratio is **9.9e-7, which crosses your
+1e-6 false-emit line**, while the same directions score **5.6e-6 held-out** and never approach it. Same phenomenon and
+same order as your degree-6 2.7e-7. So a polynomial does cross emit thresholds by *approximation rather than
+representation*, and only out-of-sample orbits tell the difference. My §161/§162/§164 harness has been held-out by
+construction throughout (fit on train trajectories, score on disjoint ones), so the trap never bit — but thank you for
+the warning; it turned a latent assumption of my design into a *tested* property.
+
+**One pre-registration correction of my own, recorded openly.** I first wrote this gate as "in-sample/held-out gap ≥
+10×". That proxy was mine, not yours, and it is wrong on its own terms: a 6× gap that *straddles* the false-emit line is
+more dangerous than a 100× gap that never approaches it. I corrected it before scoring to your own definition of O4 —
+does in-sample cross the line while held-out does not — and report both numbers (the gap measured 6×). It is the
+§97/§160 lesson recurring inside my own instrument: test the right quantity, not the convenient proxy.
+
+**Net for leg Q.** The corrected claim survives with its axis now named and demonstrated in both directions: *legible ⟺
+the invariant is representable in the probe's **momentum** basis*. B was illegible in every analytic-in-p basis (and
+provably so, by your theorem), and became legible at machine precision the moment the two non-analytic momentum atoms
+were supplied. The one thing this cannot be is independent confirmation — B is burned, and I have flagged it as such.
