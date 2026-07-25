@@ -188,6 +188,10 @@ BATTERIES = [
      "163_drum_localization_fast.json" if False else "163_drum_localization.json",
      {"L0_spectrum_blind_full_kill": (">", 0.5), "L1_low_mode_concentration": (">", 0.5),
       "L3_sensor_saturation": (">", 0.5)}),
+    ("G2 un-blind: named basis emits (bridge round-9, script 164)", ["scripts/164_g2_unblind.py", "--fast"],
+     "164_g2_unblind.json",
+     {"U0_invariant_verified": (">", 0.5), "U1_named_basis_emits": (">", 0.5),
+      "U2_analytic_ladder_never_converges": (">", 0.5), "U3_O4_trap_confirmed_and_guarded": (">", 0.5)}),
 ]
 
 

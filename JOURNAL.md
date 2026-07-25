@@ -1,3 +1,27 @@
+## 2026-07-24 — G2 CANDIDATE B UN-BLINDED (script 164): the named basis emits, the analytic ladder provably cannot
+
+TheBridge un-blinded B after R1: I = p_y/p_x − ln(p_x) [Galajinsky, Phys. Lett. B 820 (2021) 136483, Bianchi type-IV].
+Two atoms my instrument never had: a momentum RATIO (homogeneous degree 0 — sits in no graded polynomial sector) and a
+log of a MOMENTUM. §162's log arm was "the right function on the wrong argument" — logs on coordinate coefficients when
+the transcendence was in the momenta, which is exactly the axis §162 pre-registered. All 4 gates:
+- INDEPENDENT VERIFICATION (by hand, before running): d/dt(p_y/p_x) = −(x+y)p_x − y p_y cancels d/dt(−ln p_x) =
+  +(x+y)p_x + y p_y identically → İ = 0 exactly. U0 confirms on my flow: within/total 7.5e-30, p_x > 0 throughout.
+- U1 NAMED BASIS EMITS (**CONSISTENCY CHECK, not independent evidence** — B is burned as a blind target, per the bridge's
+  bookkeeping): adding {p_y/p_x, ln p_x} → held-out 1.8e-29 (machine precision, better than Candidate A's 2.2e-19),
+  cosine 1.0000 to the literature direction. The boundary moved the instant the basis was named.
+- U2 ANALYTIC LADDER NEVER CONVERGES (their test 2): deg 2/4/6/8 = 1.3e-3 → 2.0e-4 → 2.6e-5 → 5.6e-6, monotone but
+  still 10²³× above the emitting arm at deg 8 — the empirical shadow of their grading theorem (B has no polynomial
+  Killing-tensor integrals beyond H, H²; KT jet dims {0,1,0,1}, so no analytic-in-p basis can emit at ANY degree).
+- U3 THEIR O4 TRAP REPRODUCED + GUARDED: at deg 8 the IN-SAMPLE ratio 9.9e-7 CROSSES the 1e-6 false-emit line (same
+  phenomenon and order as their deg-6 2.7e-7) while held-out 5.6e-6 stays above — polynomials cross emit thresholds by
+  APPROXIMATION, and only out-of-sample orbits tell the difference. My §161/§162/§164 harness was already held-out by
+  design, so the guard held.
+PRE-REG CORRECTION (recorded openly): U3 was first written as "in-sample/held-out gap ≥ 10×" — my proxy, not theirs, and
+wrong on its own terms (a 6× gap STRADDLING the line is more dangerous than a 100× gap that never approaches it).
+Corrected before scoring to the bridge's own O4 definition (line-crossing); both numbers reported (gap measured 6×). The
+§97/§160 lesson — test the right quantity, not a convenient proxy — recurring in my own gate. Deliverable:
+notes/round8_for_bridge.md §un-blind. In verify.sh (~2min fast).
+
 ## 2026-07-24 — BRIDGE ROUND 9 · R5 (script 163): where does the shape hide? — spectrally cheap, spatially expensive
 
 TheBridge round-9 R5 (optional): the drums information-localization curve, extending §159's K5 kill. Retrained the

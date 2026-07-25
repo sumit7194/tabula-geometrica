@@ -4016,3 +4016,13 @@ confirmed, but m*=40 (95% sat) ~4× the bridge's predicted ~10 → quantitative 
 SENSORS: spatially DISTRIBUTED not sparse — 0.38@4 sensors → 0.73@128; need broad coverage. Headline: geometry is
 spectrally cheap / spatially expensive (low-rank-in-freq, high-rank-in-space). Smoke caught degenerate 1-sensor case
 (constant features → memorization; skip <4 + average draws). Gates L0/L1/L3 (r5_done); L2 reported. --fast 19s in verify.
+
+## 2026-07-24 — G2 Candidate B un-blinded (script 164)
+Bridge revealed I = p_y/p_x − ln(p_x) (Galajinsky 2021, Bianchi type-IV). Verified BY HAND first: d/dt(py/px) =
+−(x+y)px − y py cancels d/dt(−ln px) exactly → İ=0. U0 on my flow: 7.5e-30, px>0 (min 0.046). U1 (CONSISTENCY CHECK —
+B burned): named atoms → held-out 1.8e-29, cosine 1.0000 to literature direction. U2: analytic-in-p ladder 1.3e-3→2.0e-4
+→2.6e-5→5.6e-6 (deg 8), monotone, never converges, 1e23× above emit — shadow of their grading theorem (no poly KT
+integrals beyond H,H²). U3: their O4 trap reproduced — in-sample 9.9e-7 crosses the 1e-6 false-emit line at deg 8 while
+held-out 5.6e-6 doesn't; held-out design is the guard. PRE-REG CORRECTION: U3's original "gap≥10×" was my proxy (actual
+6×) and wrong on its own terms — a straddling 6× gap is more dangerous than a non-crossing 100×; corrected to the
+bridge's line-crossing definition before scoring, both numbers reported (§97/§160 lesson recurring). --fast in verify.
