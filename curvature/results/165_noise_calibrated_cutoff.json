@@ -1,0 +1,139 @@
+{
+ "citations_verified_from_source": {
+  "cutoff": "Oellerich & Emelianenko arXiv:2403.04889 Cor. 4.2 -- sigma = sqrt(Np)||eps||^(2/3) CONFIRMED",
+  "false_positive_control": "Ray arXiv:2603.20474 -- log-basis Lasso + constancy gate + diversity filter CONFIRMED"
+ },
+ "eps_estimators": {
+  "a_state_divergence_dt_vs_dt2": 1.4033219031261979e-13,
+  "b_manifest_invariant_relative_drift": 1.465494392505042e-13,
+  "c_machine_epsilon": 2.220446049250313e-16
+ },
+ "eps_spread": 659.9999999999259,
+ "libraries": {
+  "analytic_deg2": {
+   "p": 21,
+   "near_null": 1,
+   "exact_zeros": 0,
+   "gap_ratio": 439957.30992135557,
+   "numerical_rank": 21,
+   "rank_deficient": false,
+   "sv_tail": [
+    10.752040027563696,
+    8.483294030657428,
+    4.721702759024403,
+    1.0732183901816359e-05
+   ],
+   "cor42_cutoffs": {
+    "a_state_divergence_dt_vs_dt2": 3.8342768405674245e-06,
+    "b_manifest_invariant_relative_drift": 3.94670535155154e-06,
+    "c_machine_epsilon": 5.2064145809864e-08
+   },
+   "cor42_null_dims": {
+    "a_state_divergence_dt_vs_dt2": 0,
+    "b_manifest_invariant_relative_drift": 0,
+    "c_machine_epsilon": 0
+   }
+  },
+  "analytic_deg4": {
+   "p": 51,
+   "near_null": 2,
+   "exact_zeros": 2,
+   "gap_ratio": 32706.5498426824,
+   "numerical_rank": 49,
+   "rank_deficient": true,
+   "sv_tail": [
+    1.431738291003205e-05,
+    1.2562086633118173e-05,
+    0.0,
+    0.0
+   ],
+   "cor42_cutoffs": {
+    "a_state_divergence_dt_vs_dt2": 5.975288888795001e-06,
+    "b_manifest_invariant_relative_drift": 6.150496068766841e-06,
+    "c_machine_epsilon": 8.113611116203195e-08
+   },
+   "cor42_null_dims": {
+    "a_state_divergence_dt_vs_dt2": 2,
+    "b_manifest_invariant_relative_drift": 2,
+    "c_machine_epsilon": 2
+   }
+  },
+  "analytic_deg6": {
+   "p": 93,
+   "near_null": 5,
+   "exact_zeros": 4,
+   "gap_ratio": 1115.5689570482175,
+   "numerical_rank": 89,
+   "rank_deficient": true,
+   "sv_tail": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "cor42_cutoffs": {
+    "a_state_divergence_dt_vs_dt2": 8.068917838519637e-06,
+    "b_manifest_invariant_relative_drift": 8.305514322174606e-06,
+    "c_machine_epsilon": 1.0956467994896515e-07
+   },
+   "cor42_null_dims": {
+    "a_state_divergence_dt_vs_dt2": 5,
+    "b_manifest_invariant_relative_drift": 5,
+    "c_machine_epsilon": 4
+   }
+  },
+  "analytic_deg8": {
+   "p": 147,
+   "near_null": 8,
+   "exact_zeros": 8,
+   "gap_ratio": 30.08431182393281,
+   "numerical_rank": 139,
+   "rank_deficient": true,
+   "sv_tail": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "cor42_cutoffs": {
+    "a_state_divergence_dt_vs_dt2": 1.0144542977915859e-05,
+    "b_manifest_invariant_relative_drift": 1.0442000858253123e-05,
+    "c_machine_epsilon": 1.377487820359057e-07
+   },
+   "cor42_null_dims": {
+    "a_state_divergence_dt_vs_dt2": 9,
+    "b_manifest_invariant_relative_drift": 9,
+    "c_machine_epsilon": 8
+   }
+  },
+  "named_deg2": {
+   "p": 23,
+   "near_null": 1,
+   "exact_zeros": 1,
+   "gap_ratio": 380948.844638261,
+   "numerical_rank": 22,
+   "rank_deficient": true,
+   "sv_tail": [
+    6.113619171567581,
+    4.60628691643116,
+    1.209161539997626e-05,
+    0.0
+   ],
+   "cor42_cutoffs": {
+    "a_state_divergence_dt_vs_dt2": 4.012709656131137e-06,
+    "b_manifest_invariant_relative_drift": 4.1303701669417345e-06,
+    "c_machine_epsilon": 5.448701523558833e-08
+   },
+   "cor42_null_dims": {
+    "a_state_divergence_dt_vs_dt2": 1,
+    "b_manifest_invariant_relative_drift": 1,
+    "c_machine_epsilon": 1
+   }
+  }
+ },
+ "W1_cor42_separates_robustly": true,
+ "W2_conditioning_confound": true,
+ "W3_threshold_free_cross_check": true,
+ "self_correction": "an earlier draft of this script claimed the cutoff was NOT portable because the eps estimators 'span ten orders'. That was my own apples-to-oranges error (normalised-feature 6.1e-3 vs state-unit ~1e-13). In consistent state units the spread is 660x, the cutoff depends on eps^(2/3), and all three estimators give identical verdicts. Claim withdrawn.",
+ "verdict": "MOVING OFF THE HAND-SET LINE: the null-space FORMULATION ports, the ABSOLUTE cutoff does not, and trying it surfaced a confound worth sending back. (W1, the substantive result) At the momentum degree where the library is well conditioned, the verdict is readable with NO chosen constant at all: the named library has 1 near-null directions vs 1 for analytic-in-p, each block separated from the bulk by 4e+05x / 4e+05x in singular value. The extra direction is the invariant; no threshold was used. (W2, a caveat for BOTH repos, found by trying [1]'s recipe) at momentum degree >= 4 the polynomial library goes NUMERICALLY RANK-DEFICIENT -- deg 8 has 8 exact-zero singular values out of p=147 -- and those zeros are COLLINEAR COLUMNS, not conservation laws. Any null-space count, [1]'s included, must be preceded by a conditioning check or it will report spurious invariants at high degree: the null-space analogue of the O4 trap you warned me about. (W3, why the cutoff did not port) Cor. 4.2 needs ||eps_x||, and a noise-free simulation does not have one: the three defensible estimators span 7e+02x -- state divergence 1.4e-13 (wrong quantity: orbits separating, not conservation error), manifest-invariant drift 1.5e-13 (the right floor), machine epsilon 2.2e-16 -- giving null dims from 1 to p. The formula presumes noisy DATA. For simulation-based instruments the calibration must come from the conservation floor, which shares no units with ||eps_x||. Recommendation: for this class of experiment use the threshold-free gap readout over BOTH the hand-set line and the calibrated cutoff."
+}

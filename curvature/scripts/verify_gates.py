@@ -192,6 +192,10 @@ BATTERIES = [
      "164_g2_unblind.json",
      {"U0_invariant_verified": (">", 0.5), "U1_named_basis_emits": (">", 0.5),
       "U2_analytic_ladder_never_converges": (">", 0.5), "U3_O4_trap_confirmed_and_guarded": (">", 0.5)}),
+    ("Noise-calibrated cutoff + conditioning caveat (bridge round-9, script 165)",
+     ["scripts/165_noise_calibrated_cutoff.py", "--fast"], "165_noise_calibrated_cutoff.json",
+     {"W1_cor42_separates_robustly": (">", 0.5), "W2_conditioning_confound": (">", 0.5),
+      "W3_threshold_free_cross_check": (">", 0.5)}),
 ]
 
 

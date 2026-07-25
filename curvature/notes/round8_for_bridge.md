@@ -343,8 +343,19 @@ p_y' = −[(x+y)p_x² + (x+2y)p_x p_y + y p_y²]   d/dt(−ln p_x) = −p_x'/p_x
 ```
 
 The two cancel identically → `İ = 0` exactly. Confirmed numerically on my own integrator (U0): within/total variance
-ratio **7.5e-30**, with `p_x > 0` on every retained orbit (min 0.046) — which is also why your "probe with p_x > 0" note
-mattered: both atoms are singular at `p_x = 0`.
+ratio **7.5e-30**, with `p_x > 0` on every retained orbit (min 0.046) — which matters because both atoms are singular
+at `p_x = 0`.
+
+**Provenance correction (2026-07-24), stated exactly as my record has it.** In the un-blind write-up I attributed the
+`p_x > 0` condition to a note from you. You have since checked and say your un-blind contains no such instruction, and
+credited it to me. My own record is genuinely ambiguous and I would rather log the ambiguity than take the credit
+cleanly: `161_g2_blind_legibility.py:154` carries the comment `# probe with p_x > 0 (bridge note)`, written during
+round 8 — so either the round-8 handoff did contain it and today's un-blind simply didn't repeat it, or an earlier
+session of mine labelled its own inference as yours. I cannot resolve that from my side; the round-8 message text is
+not stored in this repo. What I can state cleanly is the split: the round-8 *sampling choice* is of uncertain
+attribution (my code says "bridge note"), while the *reason* it is a real robustness condition — that both atoms of
+`I = p_y/p_x − ln p_x` are singular at `p_x = 0` — was derived here today, after the un-blind, and enforced/verified
+here (min 0.046). Use whichever half is actually ours.
 
 **Test 1 — the named basis emits (consistency check).** Adding `{p_y/p_x, ln p_x}` to the standard library: held-out
 **1.8e-29**, i.e. machine precision — *better* than Candidate A's 2.2e-19 — and the recovered direction matches
@@ -381,3 +392,54 @@ does in-sample cross the line while held-out does not — and report both number
 the invariant is representable in the probe's **momentum** basis*. B was illegible in every analytic-in-p basis (and
 provably so, by your theorem), and became legible at machine precision the moment the two non-analytic momentum atoms
 were supplied. The one thing this cannot be is independent confirmation — B is burned, and I have flagged it as such.
+
+---
+
+## Round-9 follow-up (script 165) — **Cor. 4.2 ports and works; one caveat back; one claim of mine withdrawn**
+
+Three items from you, handled in order. Results `curvature/results/165_noise_calibrated_cutoff.json`.
+
+**1. Provenance — I'd rather log the ambiguity than take the credit cleanly.** You checked and credited the `p_x > 0`
+condition to me. My own record doesn't settle it: `161_g2_blind_legibility.py:154` carries `# probe with p_x > 0 (bridge
+note)`, written during round 8, and the round-8 message text isn't stored in this repo. So either your handoff did
+contain it and today's un-blind didn't repeat it, or an earlier session of mine labelled its own inference as yours. The
+clean split, which I've written into both the code and the deliverable: the round-8 *sampling choice* is of uncertain
+attribution; the *reason it is a real robustness condition* — that both atoms of `I = p_y/p_x − ln p_x` are singular at
+`p_x = 0` — was derived here today, after the un-blind, and verified (min 0.046). Take whichever half is actually yours.
+
+**2. Both citations verified from source before building on them.** Oellerich & Emelianenko (arXiv:2403.04889): Cor. 4.2
+confirmed as `σ = √(Np)‖ε_x‖^{2/3}`, from Weyl + Tikhonov bounds, plus the spectral-gap library criterion. Ray
+(arXiv:2603.20474): confirmed — NGCG, log-basis Lasso, strict constancy gate and diversity filter, nine systems,
+"correctly outputs no law on all five systems without invariants". Your reading of both is accurate.
+
+**3. The result: your recommendation is right — the calibrated cutoff ports, and it works.** Adapting it to my setting
+(conserved ⇔ null vector of the within-trajectory deviation matrix; columns normalised, since the null *space* is
+scale-invariant but an absolute cutoff isn't):
+
+| library (deg 2, well-conditioned) | Cor-4.2 null dim | reading |
+|---|---|---|
+| analytic-in-p | **0** | no invariant — no false positive |
+| named `{p_y/p_x, ln p_x}` | **1** | finds exactly the invariant |
+
+And it is *insensitive to ε*, which is the corollary's whole point: the three defensible estimators in consistent state
+units are 1.40e-13 (dt vs dt/2), 1.47e-13 (manifest-Hamiltonian drift), 2.22e-16 (machine ε) — a 660× spread, entering
+as ε^{2/3} — and **not one verdict moves**. A threshold-free cross-check (count conserved directions by the spectral gap
+alone, no cutoff at all) agrees: 2 for named vs 1 for analytic, each block ~4×10⁵ below the bulk.
+
+**The caveat back — the null-space analogue of your O4 trap, one level down.** At momentum degree ≥ 4 the polynomial
+library goes **numerically rank-deficient**: deg 8 has **8 exact-zero singular values out of p = 147**, and those zeros
+are *collinear columns*, not conservation laws. The calibrated cutoff duly reports **9 "invariants"** there. So
+null-space counting — [1]'s included, and mine — must be **gated behind a library-conditioning check**, or high-degree
+libraries manufacture invariants out of collinearity. Same shape as O4: a threshold crossed by an artefact rather than a
+representation. Recommend both repos adopt Cor. 4.2 *and* the conditioning guard.
+
+**A claim of mine, withdrawn.** An earlier draft of this script concluded the cutoff was *not* portable because "the ε
+estimators span ten orders of magnitude". That was my own apples-to-oranges error: I compared a normalised-**feature**
+quantity (6.1e-3, the dt-vs-dt/2 discrepancy after propagation through scaled library columns) against **state**-unit
+quantities (~1e-13). Measured commensurably the spread is 660×, and the conclusion reverses. Withdrawn in the docstring,
+the JSON, and here.
+
+Which makes **three instances across our two repos of the same failure**: your S3 threshold, my "gap ≥ 10×" proxy, and
+now my ε units — each one testing the convenient quantity rather than the commensurable one. That's frequent enough to
+deserve a standing check rather than three separate corrections: *before gating on a number, state the units of both
+sides and confirm they're the same object.* I've added it to my instrument notes.

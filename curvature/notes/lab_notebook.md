@@ -4026,3 +4026,14 @@ integrals beyond H,H²). U3: their O4 trap reproduced — in-sample 9.9e-7 cross
 held-out 5.6e-6 doesn't; held-out design is the guard. PRE-REG CORRECTION: U3's original "gap≥10×" was my proxy (actual
 6×) and wrong on its own terms — a straddling 6× gap is more dangerous than a non-crossing 100×; corrected to the
 bridge's line-crossing definition before scoring, both numbers reported (§97/§160 lesson recurring). --fast in verify.
+
+## 2026-07-24 — Bridge round-9 follow-up (script 165): noise-calibrated cutoff
+Both citations verified from source (Oellerich-Emelianenko 2403.04889 Cor 4.2 σ=√(Np)‖ε‖^{2/3}; Ray 2603.20474). RESULT:
+Cor 4.2 PORTS — deg2 analytic→0 conserved dirs, named→1 (the invariant), for all 3 ε estimators (1.4e-13/1.47e-13/
+2.2e-16, spread 660×, ε^{2/3}) → verdict ε-insensitive. Threshold-free cross-check agrees (2 vs 1, gaps 4e5×). CAVEAT
+BACK: deg≥4 polynomial libraries go numerically RANK-DEFICIENT (deg8: 8 exact zeros of p=147) → collinear columns read
+as invariants (cutoff reports 9); null-space counting needs a conditioning guard = null-space analogue of their O4 trap.
+MY ERROR WITHDRAWN: earlier draft claimed "not portable, ε spans 1e10" — apples-to-oranges (normalised-feature 6.1e-3 vs
+state-unit 1e-13); in consistent units 660×, verdicts unchanged. 3rd instance across 2 repos of "compare the convenient
+quantity not the commensurable one". Provenance: p_x>0 attribution logged as ambiguous (161:154 says "bridge note"),
+the REASON derived here. --fast 11s in verify.

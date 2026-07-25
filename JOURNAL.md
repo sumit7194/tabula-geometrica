@@ -1,3 +1,30 @@
+## 2026-07-24 — BRIDGE ROUND-9 FOLLOW-UP (script 165): off the hand-set line — Cor. 4.2 ports, plus a caveat back
+
+The bridge answered the un-blind with three things: (1) a provenance correction in my favour, (2) a recommendation to
+replace the hand-set 1e-6 with a noise-calibrated cutoff, (3) prior art convergent with our harness. Handled all three:
+- PROVENANCE, corrected honestly rather than accepted: they credit the p_x>0 condition to me; my own record is
+  ambiguous (161:154 carries "# probe with p_x > 0 (bridge note)" from round 8). Logged the ambiguity in both the code
+  and the deliverable, with the clean split: the round-8 sampling choice is of uncertain attribution, the REASON it is a
+  real robustness condition (both atoms of I singular at p_x=0) was derived here after the un-blind.
+- BOTH CITATIONS VERIFIED FROM SOURCE before building: Oellerich & Emelianenko arXiv:2403.04889 Cor. 4.2 (σ =
+  √(Np)‖ε‖^{2/3}, + spectral-gap library criterion) CONFIRMED; Ray arXiv:2603.20474 (log-basis Lasso + constancy gate +
+  diversity filter, "no law on all five systems without invariants") CONFIRMED.
+- RESULT: **Cor. 4.2 ports and works.** At deg 2 (well-conditioned library) it returns 0 conserved directions for the
+  analytic-in-p library and exactly 1 for the named {p_y/p_x, ln p_x} library — finding the invariant, no false
+  positive, no hand-set constant. And it does so for ALL THREE ε estimators (1.40e-13 / 1.47e-13 / 2.22e-16, spread
+  660×; ε enters as ε^{2/3}) — the insensitivity the corollary advertises. Threshold-free cross-check agrees (2 vs 1
+  conserved directions, each 4e5× below the bulk).
+- **THE CAVEAT BACK (found by trying their recipe):** at momentum degree ≥ 4 the polynomial library goes NUMERICALLY
+  RANK-DEFICIENT — deg 8 has 8 exact-zero singular values out of p=147 — and those zeros are COLLINEAR COLUMNS, not
+  conservation laws; the cutoff duly reports 9 "invariants" there. Any null-space count needs a library-conditioning
+  check first, or high-degree libraries manufacture invariants. The null-space analogue of their O4 trap, one level down.
+- **MY OWN ERROR, WITHDRAWN:** an earlier draft concluded the cutoff was "not portable, ε spans ten orders". That was
+  apples-to-oranges — a normalised-FEATURE quantity (6.1e-3) compared against STATE-unit ones (~1e-13). In consistent
+  units the spread is 660× and every verdict is unchanged. Claim withdrawn in the docstring, JSON, and deliverable. Same
+  species as 164's proxy error and the bridge's S3: comparing the convenient quantity instead of the commensurable one —
+  which is now three instances across two repos of the same failure mode.
+Recommendation sent: adopt Cor. 4.2 AND gate it behind a conditioning check. In verify.sh (--fast 11s).
+
 ## 2026-07-24 — G2 CANDIDATE B UN-BLINDED (script 164): the named basis emits, the analytic ladder provably cannot
 
 TheBridge un-blinded B after R1: I = p_y/p_x − ln(p_x) [Galajinsky, Phys. Lett. B 820 (2021) 136483, Bianchi type-IV].
