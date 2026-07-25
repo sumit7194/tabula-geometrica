@@ -24,7 +24,9 @@ against the literature before it goes in, with sources cited in each doc.
 | **[writeups/emergent_geometry.md](writeups/emergent_geometry.md)** | ⭐ **The shareable note, now complete:** five acts — interval → light cone → gravity well → why gravity geometrizes (0 vs ~10 bits/body) → **the Kaluza ending** (charge migrates into an internal coordinate, r = 0.9998). With methods, failed-probe corrections, and honest limits. Start here. |
 | **[writeups/curvature_field_guide.md](writeups/curvature_field_guide.md)** | 🧰 **The workshop version** — every phase A→E + the generalist arc (G/H/I/J) + all side quests: setups, mechanisms, numbers, corrections, recurring patterns, and the explicit list of **threads never pulled**. The document to think and argue with. |
 | **[writeups/legibility_law.md](writeups/legibility_law.md)** | 🔑 **The crystallized result** — the project's most novel finding as a standalone, three-part claim: *a learned per-object code is legible when it's **inferred, not stored**; generic evolution re-scrambles it; invariant-preserving structure restores it.* Backed by three controlled experiments; the through-line that explains the whole project. |
-| **[curvature/](curvature/README.md)** | 🧠 *The main thread (the whole repo now):* can a network **invent spacetime geometry** from raw observations? **Phases A → E all passed** + the Kaluza move (charge → internal coordinate, r = 0.9998) + the Gaussian curvature read out coordinate-free (corr 0.99). **Phase G** — one generalist across all world families: its internal world-summary space clusters into a physics taxonomy (ARI 0.82) with electromagnetism as its own region (EM-kinship z=27). **Phase H** — which particle labels become hidden "lanes": two-charge knee at exactly 2; Wong color charge marks the boundary (static labels geometrize, the dynamic rotation doesn't). **Phase I** — the legibility law: *a per-object code is legible iff it's **amortized** (inferred by a shared encoder), not stored as free parameters.* |
+| **[writeups/impossibility_certificates.md](writeups/impossibility_certificates.md)** | 🚫 **The negative-space companion:** a network's *failure* to find a cheap explanation, gated against a real theorem, as a positive result. Bell/no-local-code, chaos/no-invariant, gauge/no-unique-law, contextuality — four certificates, one shape. |
+| **[writeups/representability_frontier.md](writeups/representability_frontier.md)** | 🗺️ **The unifying theory of the discoverable.** Every wall the project has hit is one of five ways "the cheapest legible code" fails (doesn't exist / isn't unique / isn't globally consistent / isn't linear) — crystallized into a single **discoverability diagnostic** that infers a system's regime from raw data (no labels, no ground truth), abstains honestly when underdetermined, and has been run on real chaotic/regular/ambiguous datasets. |
+| **[curvature/](curvature/README.md)** | 🧠 *The main thread (the whole repo now):* can a network **invent spacetime geometry** from raw observations? **Phases A → E all passed** + the full **Kaluza–Klein trilogy** — charge (Phase D, r = 0.9998), mass (a KK cylinder toy, the tower discovered as a quantized ladder), and the axion (a twisted-torus modulus, its modular gauge and hyperbolic moduli-space geometry measured from the net's own learned spectrum) — plus the Gaussian curvature read out coordinate-free (corr 0.99). **Phases G/H/I** — a generalist net's world-summary space clusters into a physics taxonomy (ARI 0.82); which particle labels become hidden "lanes"; the legibility law (amortized codes are legible, free-stored codes scramble). **Phase J** — geometry, curvature, and a holographic (AdS-like) extra dimension recovered from entanglement alone. Since then the project climbed past its own roadmap into **the representability frontier** (a predictive theory of what nets can and cannot discover) and **real-world validation** — a real chaotic laser, tidal records, and ambiguous sunspot data; Newton's constant and Mercury's perihelion precession measured from real JPL ephemerides. Ongoing three-way collaboration with sister projects (see below) has independently cross-checked several of these results. |
 
 > **Black-hole LIGO projects moved out (2026-06-13):** `echoes/` (GW-echo search),
 > `ringdown_spectroscopy/` (no-hair test via SBI), and `primordial_blackhole_search/`
@@ -35,11 +37,41 @@ against the literature before it goes in, with sources cited in each doc.
 
 1. ✅ **3+1 vs 2+1** concept map
 2. ✅ **1+1 rung + scaling laws + 4+1 extrapolation** (incl. shapes, measures, horizons)
-3. ⬜ **Gravity *is* curvature** — mass → Ricci curvature → geodesics that look like
-   "falling"; intrinsic vs extrinsic curvature (*Theorema Egregium*)
-4. ⬜ **The finale** — "is curvature another dimension?" The intrinsic answer (no), then
-   the genuine exception: **Kaluza–Klein**, where adding a real 5th dimension *produces
-   electromagnetism*. Saved as the payoff.
+3. ✅ **Gravity *is* curvature** — curvature emerges as the minimal bottleneck code for
+   geodesic deviation, and its Gaussian invariant is read out coordinate-free (corr 0.99)
+   straight from trajectories, no metric ever shown.
+4. ✅ **The finale, and then some** — Kaluza–Klein confirmed as a full trilogy: **charge**
+   (Phase D), **mass** (a KK cylinder — the tower discovered as a quantized ladder), and
+   **the axion** (a twisted-torus modulus, with its modular gauge and hyperbolic
+   moduli-space geometry measured from the net's own learned spectrum).
+
+The original roadmap is complete — the project kept going. It's now past the finale, into
+**the representability frontier** (a predictive theory of what a network can and cannot
+discover, instrumented as a single diagnostic) and validation against **real data**: a real
+chaotic laser, real tidal records, ambiguous real sunspot data, and Newton's constant plus
+Mercury's perihelion precession measured from real JPL ephemerides. See `curvature/`,
+`writeups/representability_frontier.md`, and `JOURNAL.md` for the current frontier.
+
+## Sister projects
+
+This repo is one of a small constellation of independent projects that periodically
+cross-validate each other's results — proving, inferring, or measuring the same claim by
+different methods, then comparing notes:
+
+- **[ansatz-machine](https://github.com/sumit7194/ansatz-machine)** — a propose → verify →
+  evolve loop hunting exact solutions of Einstein's field equations (genetic programming +
+  SymPy proof, not neural).
+- **[deepstrain](https://github.com/sumit7194/deepstrain)** — deep-learning searches of real
+  LIGO/Virgo data for black-hole signatures (post-merger echoes, ringdown, subsolar mergers).
+- **[trivium](https://github.com/sumit7194/trivium)** ("the Bridge") — cross-validates the
+  others' results directly; several of this repo's findings (the Kaluza–Klein trilogy, the
+  legibility/integrability correlation, the representability frontier) were extended or
+  independently confirmed through Bridge rounds.
+- **[vestigium](https://github.com/sumit7194/vestigium)** — a verified lab for the quantum
+  measurement problem; proposed and cross-checked the Kaluza–Klein mass-discovery experiment
+  with this repo.
+
+Each project stays independent (own code, own gates); only questions and results cross.
 
 ## How to read it
 
