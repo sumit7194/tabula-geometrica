@@ -1,3 +1,24 @@
+## 2026-07-24 — BRIDGE ROUND-9 CLOSE (script 165 W4): the conditioning caveat, turned into a FIX
+
+The bridge corrected themselves (the p_x>0 instruction IS in their round-8 blind package, G2_candidate_B.json L50/L57 —
+my "# (bridge note)" was right; the split now recorded is instruction theirs / reason ours, and they made the sharp point
+that the two HAD to be separate since stating the reason in round 8 would have leaked ln p_x). They also reconciled our
+Cor-4.2 results: my deg-2 success and their deg-6 failure bracket the boundary rather than conflict.
+Measured that boundary in my own harness and it produced the mechanism — and then the fix:
+- The spurious "invariant" count equals the FEATURE-matrix rank deficiency exactly: deg 2/4/6/8 → deficiency(F)
+  0/2/4/8, null(W) 0/2/4/8.
+- **THE FIX (W4): collinearity lives in the FEATURE matrix F; a genuine invariant lives only in the within-trajectory
+  DEVIATION matrix W.** So null(W) − deficiency(F) gives the exact invariant count at EVERY degree: 0/0/0/0 for
+  analytic-in-p and 1 for the named library — no threshold, no ε, degree-independent. The high-degree confound is
+  dissolved, not merely flagged.
+- Trap inside the fix (I fell into it first): measuring deficiency on W instead of F DELETES the finding, because a true
+  invariant IS a rank deficiency of W (named library p=23, rank(W)=22 precisely because I is an exact null vector). Only
+  F separates "redundant column" from "conserved combination"; the conditioning gate must be applied to the library.
+So the joint statement: the calibrated cutoff is exact wherever F is full rank, and its false-positive count equals
+deficiency(F) wherever it isn't — their deg-6 failure and my deg-2 success are one law. Recommendation to both repos:
+Cor. 4.2 + a conditioning gate on F, reporting null(W) − deficiency(F). L8 adopted with the bridge's framing.
+All 4 gates green; in verify.sh (--fast 11s).
+
 ## 2026-07-24 — BRIDGE ROUND-9 FOLLOW-UP (script 165): off the hand-set line — Cor. 4.2 ports, plus a caveat back
 
 The bridge answered the un-blind with three things: (1) a provenance correction in my favour, (2) a recommendation to

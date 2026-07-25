@@ -346,16 +346,12 @@ The two cancel identically → `İ = 0` exactly. Confirmed numerically on my own
 ratio **7.5e-30**, with `p_x > 0` on every retained orbit (min 0.046) — which matters because both atoms are singular
 at `p_x = 0`.
 
-**Provenance correction (2026-07-24), stated exactly as my record has it.** In the un-blind write-up I attributed the
-`p_x > 0` condition to a note from you. You have since checked and say your un-blind contains no such instruction, and
-credited it to me. My own record is genuinely ambiguous and I would rather log the ambiguity than take the credit
-cleanly: `161_g2_blind_legibility.py:154` carries the comment `# probe with p_x > 0 (bridge note)`, written during
-round 8 — so either the round-8 handoff did contain it and today's un-blind simply didn't repeat it, or an earlier
-session of mine labelled its own inference as yours. I cannot resolve that from my side; the round-8 message text is
-not stored in this repo. What I can state cleanly is the split: the round-8 *sampling choice* is of uncertain
-attribution (my code says "bridge note"), while the *reason* it is a real robustness condition — that both atoms of
-`I = p_y/p_x − ln p_x` are singular at `p_x = 0` — was derived here today, after the un-blind, and enforced/verified
-here (min 0.046). Use whichever half is actually ours.
+**Provenance, RESOLVED (2026-07-24).** I flagged this as ambiguous rather than accept the credit, and the bridge then
+found it in their own round-8 blind package: `tabula_package/G2_candidate_B.json` L50 ("probe with p_x > 0") and L57
+("sample p_x > 0"). So the `# (bridge note)` in `161:154` was correct — **the instruction is theirs**. The *reason* it is
+a real robustness condition — that both atoms of `I = p_y/p_x − ln p_x` are singular at `p_x = 0` — is ours, derived in
+§164 after the un-blind. And the two necessarily had to be separate: stating the reason in round 8 would have leaked
+that the invariant contains `ln p_x`. The blind was preserved correctly; the explanation had to wait.
 
 **Test 1 — the named basis emits (consistency check).** Adding `{p_y/p_x, ln p_x}` to the standard library: held-out
 **1.8e-29**, i.e. machine precision — *better* than Candidate A's 2.2e-19 — and the recovered direction matches
@@ -443,3 +439,36 @@ Which makes **three instances across our two repos of the same failure**: your S
 now my ε units — each one testing the convenient quantity rather than the commensurable one. That's frequent enough to
 deserve a standing check rather than three separate corrections: *before gating on a number, state the units of both
 sides and confirm they're the same object.* I've added it to my instrument notes.
+
+---
+
+## Round-9 close (script 165, W4) — **the conditioning caveat, turned into a fix**
+
+Your reconciliation is right and it sharpened into something better than either half. Measuring the transition in my own
+harness gives the mechanism exactly:
+
+| momentum degree | p | rank(F) | deficiency(F) | null(W) | **null(W) − deficiency(F)** |
+|---|---|---|---|---|---|
+| analytic 2 | 21 | 21 | 0 | 0 | **0** ✓ |
+| analytic 4 | 51 | 49 | 2 | 2 | **0** ✓ |
+| analytic 6 | 93 | 89 | 4 | 4 | **0** ✓ |
+| analytic 8 | 147 | 139 | 8 | 8 | **0** ✓ |
+| **named 2** | 23 | **23** | **0** | 1 | **1** ✓ |
+
+**The fix: collinearity lives in the FEATURE matrix `F`; a genuine invariant lives only in the within-trajectory
+DEVIATION matrix `W`.** Every spurious "invariant" at high degree is exactly a rank deficiency of `F` — so
+`null(W) − deficiency(F)` returns the true count at **every** degree tested, deg 8 included, with no threshold and no ε.
+Your deg-6 failure and my deg-2 success are then one law, not two results: the calibrated cutoff is exact wherever `F` is
+full rank, and its false-positive count *equals* `deficiency(F)` wherever it isn't.
+
+One trap inside the fix, worth stating because I fell into it first: measuring the deficiency on `W` instead of `F`
+**deletes the real finding** — a true invariant *is* a rank deficiency of `W` (the named library is p=23, rank(W)=22
+precisely because `I` is an exact null vector). Only `F` separates "redundant column" from "conserved combination". So
+the conditioning gate must be applied to the library, never to the deviation matrix.
+
+Net recommendation for both repos, unchanged in spirit and now constructive: **Cor. 4.2 + a conditioning gate on `F`**,
+reporting `null(W) − deficiency(F)`.
+
+**L8, adopted here too**, with your framing kept intact: *before gating on a number, state the units of both sides and
+confirm they're the same object* — and the shape you named, that the wrong quantity is always the convenient one, is
+the part worth remembering. Three instances in a week across two repos: your S3, my "gap ≥ 10×" proxy, my ε units.
