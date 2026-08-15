@@ -1,3 +1,37 @@
+## 2026-08-16 — THE CERTIFICATE STANDARD (script 166): what a certified null must carry before it counts
+
+User-authorized after the PROGRAM_II round, which the family closed by adopting our recommendation (P4 folds into P3)
+and promoting the convergence we named — ansatz's P1(a′) is a certified classification to stated order, P3 is certify
+non-existence to stated order, our §160–165 ladder is certified basis-relative non-existence: three repos, no
+coordination, one shape. **The certified null is this program's distinctive product** — which is exactly why the
+certification has to be airtight. Pre-registration frozen in notes/certificate_standard.md BEFORE any code.
+
+FOUR clauses, each earned from a way our own certification silently failed:
+- C1 BASIS NAMED — every null scoped to (family, order); the instrument is structurally incapable of an unqualified
+  "no invariant exists" (§162/§164).
+- C2 CONDITIONING GATED — count is null(W) − deficiency(F), never raw null(W) (§165).
+- C3 OUT-OF-SAMPLE — held-out REALIZATIONS, never in-sample (§164 U3 / bridge O4).
+- C4 STATE-FUNCTIONALITY (**NEW**) — a candidate must be a FUNCTION OF THE DYNAMICAL STATE, verified on held-out
+  realizations. Identified in the P4 read; never tested by anyone here before today.
+
+THE HEADLINE (S2), and it is decisive: a planted per-realization nuisance channel — a calibration-offset stand-in with
+no dynamical meaning — is found by the engine at held-out ratio **4.2e-17, MORE conserved than the genuine invariant's
+1.2e-16**, and it **passes C3 completely**. Held-out validation catches OVERFITTING, not CONFOUNDING: a nuisance
+constant generalizes flawlessly because it is genuinely constant. Only C4 rejects it (state-R² −0.688, relative −1.17).
+The gap was real, it was invisible to every defence we had, and it is now closed.
+S1 genuine EMITs (relative 1.03); S3 a true null (Hénon-Heiles chaotic) certifies SCOPED as
+CERTIFY-NO-INVARIANT-IN[poly(state),order2]; S4 an over-rich library's raw null count 3 → corrected 1.
+
+PRE-REG CORRECTION, recorded openly: S1's C4 gate was frozen at absolute R² > 0.9 and was UNREACHABLE BY CONSTRUCTION.
+Measured why — feeding C4 the TRUE ENERGY (definitionally a function of state) scores only 0.658/0.750; the candidate
+scores 0.61–0.70, the same band; more trajectories moved it 0.606→0.698 then plateaued → a held-out-realization
+EXTRAPOLATION ceiling, not a defect of the candidate. Third instance in this family of testing the convenient quantity
+instead of the commensurable one (the bridge's S3, my §164 proxy, now this) — and mine again. THE FIX IS A POSITIVE
+CONTROL, NOT A LOWERED BAR: C4's statistic is the candidate's state-functionality relative to a MANIFEST invariant
+measured in the identical harness (§165 used the same object as its noise floor). Self-calibrating — any implementation
+must ship its own control. Where no manifest invariant exists, C4 can only REJECT, never confirm (stated as scope).
+In verify.sh.
+
 ## 2026-07-24 — BRIDGE ROUND-9 CLOSE (script 165 W4): the conditioning caveat, turned into a FIX
 
 The bridge corrected themselves (the p_x>0 instruction IS in their round-8 blind package, G2_candidate_B.json L50/L57 —

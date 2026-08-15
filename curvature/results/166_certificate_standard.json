@@ -1,0 +1,98 @@
+{
+ "standard": {
+  "C1": "basis named -- every null scoped to (family, order)",
+  "C2": "conditioning gated -- null(W) - deficiency(F), never raw null(W) [165]",
+  "C3": "out-of-sample -- held-out REALIZATIONS, never in-sample [164/R7]",
+  "C4": "state-functionality (NEW) -- candidate must be a function of the DYNAMICAL STATE, verified on held-out realizations; rejects per-realization nuisance constants"
+ },
+ "S1_genuine": {
+  "family": "poly(state)",
+  "order": 2,
+  "verdict": "EMIT",
+  "C1_scoped": true,
+  "C2": {
+   "p": 15,
+   "rankF": 15,
+   "deficiencyF": 0,
+   "nullW_raw": 1,
+   "corrected_count": 1
+  },
+  "C3_heldout_ratio": 1.2172628211425709e-16,
+  "C4_state_R2": 0.6062392052201091,
+  "C4_control_R2": 0.5882126133015335,
+  "C4_relative": 1.030646387906229,
+  "n_features": 15,
+  "has_aux": false
+ },
+ "S2_confound": {
+  "family": "poly(state)+aux",
+  "order": 2,
+  "verdict": "REJECT-CONFOUND (conserved, but not a function of the state)",
+  "C1_scoped": true,
+  "C2": {
+   "p": 16,
+   "rankF": 16,
+   "deficiencyF": 0,
+   "nullW_raw": 2,
+   "corrected_count": 2
+  },
+  "C3_heldout_ratio": 4.170373175344578e-17,
+  "C4_state_R2": -0.6878857897150612,
+  "C4_control_R2": 0.5882126133015335,
+  "C4_relative": -1.1694509334882837,
+  "n_features": 16,
+  "has_aux": true
+ },
+ "S3_true_null": {
+  "family": "poly(state)",
+  "order": 2,
+  "verdict": "CERTIFY-NO-INVARIANT-IN[poly(state),order2]",
+  "C1_scoped": true,
+  "C2": {
+   "p": 15,
+   "rankF": 15,
+   "deficiencyF": 0,
+   "nullW_raw": 0,
+   "corrected_count": 0
+  },
+  "C3_heldout_ratio": 0.5821955424569089,
+  "C4_state_R2": 0.3843950345107373,
+  "C4_control_R2": -0.38026459049981765,
+  "C4_relative": NaN,
+  "n_features": 15,
+  "has_aux": false
+ },
+ "S4_rich": {
+  "family": "poly(state)-RICH",
+  "order": 4,
+  "verdict": "EMIT",
+  "C1_scoped": true,
+  "C2": {
+   "p": 55,
+   "rankF": 53,
+   "deficiencyF": 2,
+   "nullW_raw": 3,
+   "corrected_count": 1
+  },
+  "C3_heldout_ratio": 3.227059665556678e-17,
+  "C4_state_R2": 0.6404748710671675,
+  "C4_control_R2": 0.5882126133015335,
+  "C4_relative": 1.0888492639970693,
+  "n_features": 55,
+  "has_aux": false
+ },
+ "S2_engine_finds_confound": true,
+ "S2_confound_passes_C3": true,
+ "S2_confound_rejected_by_C4": true,
+ "S1_genuine_passes": true,
+ "S2_confound_gap_closed": true,
+ "S3_true_null_scoped": true,
+ "S4_conditioning_fires": true,
+ "certificate_standard_validated": true,
+ "honest_limitations": [
+  "C4 requires the auxiliary/state split to be DECLARED. A confound that contaminates a STATE channel (e.g. a multiplicative per-run gain on an observable) is not caught by C4 as specified.",
+  "C4's power depends on the ensemble spanning enough state space for z -> I to be learnable; a degenerate ensemble makes C4 uninformative rather than negative.",
+  "C2 inherits \u00a7165's measured rank-estimate sensitivity (exact at full sampling, +-1 at coarse)."
+ ],
+ "verdict": "THE CERTIFICATE STANDARD, VALIDATED. Four clauses, each earned from a way our own certification silently failed. The headline is C4 and the gap it closes: a planted per-realization nuisance constant (a calibration-offset stand-in, no dynamical meaning) is found by the engine at held-out ratio 4e-17 -- as conserved as the genuine invariant's 1e-16 -- and it PASSES our existing out-of-sample defence completely. Held-out validation catches overfitting, not confounding: a nuisance constant generalizes flawlessly because it is genuinely constant. Only C4 rejects it, by asking whether the candidate is A FUNCTION OF THE DYNAMICAL STATE: the genuine invariant predicts on held-out realizations at R^2=0.61, the confound at R^2=-0.69. The other three clauses hold their own traps: a true null certifies SCOPED to (family, order) rather than as non-existence, and an over-rich library's raw null count of 3 is corrected to 1 by the conditioning clause. This is the form a certified null has to take here before it counts as one."
+}

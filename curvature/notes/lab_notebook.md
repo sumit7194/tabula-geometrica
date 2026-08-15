@@ -4045,3 +4045,14 @@ Boundary measured: spurious count == deficiency(F) exactly (deg 2/4/6/8 → 0/2/
 invariants only in W → null(W) − deficiency(F) is exact at every degree (analytic 0/0/0/0, named 1), no threshold/ε.
 Trap: measuring deficiency on W deletes the finding (a true invariant IS a W-rank-deficiency; named p=23 rank(W)=22).
 Joint law with bridge's R7: cutoff exact where F full-rank, false positives == deficiency(F) otherwise. L8 adopted.
+
+## 2026-08-16 — the certificate standard (script 166), 4/4
+Pre-reg frozen in notes/certificate_standard.md before code. Four clauses: C1 basis named (scoped null), C2 conditioning
+(null(W)−deficiency(F), §165), C3 out-of-sample realizations (§164/R7), C4 state-functionality (NEW). HEADLINE S2: a
+planted per-realization nuisance channel is MORE conserved than the genuine invariant (4.2e-17 vs 1.2e-16), PASSES C3
+completely, and is rejected ONLY by C4 (state-R² −0.688 vs genuine +0.61, relative −1.17 vs 1.03). Held-out validation
+catches overfitting, not confounding. S1 EMIT, S3 certify SCOPED[poly(state),order2], S4 raw null 3 → corrected 1.
+PRE-REG CORRECTION: C4's absolute 0.9 gate was unreachable by construction — TRUE ENERGY scores only 0.658/0.750 in the
+same harness (held-out-realization extrapolation ceiling; plateaus at ~0.70 with more trajectories). Fixed with a
+POSITIVE CONTROL (manifest invariant, identical harness), not a lowered bar → self-calibrating. 3rd instance of
+"convenient vs commensurable quantity" in this family (bridge S3, my §164 proxy, this). In verify.sh (~2min).

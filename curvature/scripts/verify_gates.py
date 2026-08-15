@@ -196,6 +196,10 @@ BATTERIES = [
      ["scripts/165_noise_calibrated_cutoff.py", "--fast"], "165_noise_calibrated_cutoff.json",
      {"W1_cor42_separates_robustly": (">", 0.5), "W2_conditioning_confound": (">", 0.5),
       "W3_threshold_free_cross_check": (">", 0.5)}),
+    ("The certificate standard (script 166)", ["scripts/166_certificate_standard.py", "--fast"],
+     "166_certificate_standard.json",
+     {"S1_genuine_passes": (">", 0.5), "S2_confound_gap_closed": (">", 0.5),
+      "S3_true_null_scoped": (">", 0.5), "S4_conditioning_fires": (">", 0.5)}),
 ]
 
 
