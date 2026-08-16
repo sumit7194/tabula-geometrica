@@ -1,3 +1,34 @@
+## 2026-08-16 — P3 transcribed to ansatz's metric (script 168): degree 2 certified, degrees 3–4 refused
+
+ansatz asked that both halves of P3 screen the *same* object. Transcribed their parameters verbatim: Kerr in
+Boyer–Lindquist with `g_tt × (1 + ε(3cos²θ−1)/r³)`, spin a = 3/5, canonical sweep ε = 2, 5, 10 (large, **not**
+perturbative — never quoted beside our toy's 0.35). Not a vacuum solution (R_ab ≠ 0), recorded from them. E, L and
+H all vary here, which also closes the zero-width-band scope gap ansatz identified in §167.
+
+**Established.** At ε=0 the control recovers Carter inside the conserved span (residual 1.6e-06); the conserved
+set is exactly the 6 reducibles + Carter. At ε = 2, 5, 10 the bump destroys Carter — drift **2.1e-3 → 1.0e-2 →
+3.8e-2, monotonically growing**, up to 2.4e25× the integrable floor — and the search finds exactly the 6
+reducibles and nothing else. That independently reproduces ansatz's shipped §85 degree-2 result in a different
+harness, basis and integrator (their numbers 3.1e-3 → 5.7e-3 → 1.6e-2; the fixed-(E,L) vs varied-(E,L,H) split
+explains the offset). Two systems sharing no code agreeing on a result is the round's real outcome.
+
+**Not established.** The rank 3–4 question — the actual open part of P3 — **remains unscreened on their metric**.
+Three of four degree-3/4 controls fail outright; the fourth was withdrawn because its irreducible count was
+unstable across the sweep (31, 15, 12 at ε = 2, 5, 10) — a genuine invariant does not change multiplicity with the
+deformation, so that is the noise floor, not a discovery. §167's empty escalation list at degrees 3–4 was on
+**our toy** and does not transfer. Reported as a resource limit, not a null.
+
+**Five instrument bugs, each caught by a control rather than by inspection**, and four of the five would have
+produced a *confident wrong answer* rather than an error: Carter's mass term (μ² = −2H, not 1 — the tell was drift
+*independent of timestep*); greedy column pruning dropping exactly the columns H needs, so the engine reported H
+itself as a discovery; coefficient-space deflation being unsound in an over-complete library (Carter 6e-28 → 2e-3
+*after* deflation, because coefficient vectors aren't unique when columns are correlated); vector-wise Carter
+tests on a degenerate subspace (every eigenvector at cos ≈ 0.53 while the subspace was exactly right); and a floor
+calibrated at one rung not transferring to another (441 "conserved" directions out of p = 410). Fixes: SVD
+truncation instead of greedy pruning, a rotation-invariant subspace readout, and every rung shipping its own ε=0
+control. ansatz adopted the last of these into their §123 (8/8 → 9/9) after measuring the dimensional trend in
+their own shared tolerance, and retracted nothing of ours that survived.
+
 ## 2026-08-16 — P3 Killing-tensor screen (script 167): all five gates, empty escalation list
 
 Built tabula's half of P3 (joint with ansatz, who own the symbolic half): a cheap numerical screen that tells a
