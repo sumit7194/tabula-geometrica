@@ -351,3 +351,46 @@ was made.
 **Also fixed:** the full-length run silently emptied because open Toda *scatters* — positions grow without
 bound, and a `|position| < 60` filter rejects every trajectory at longer integration times. Filter on momenta
 and the exponentials, which are what must stay bounded.
+
+## Why the deformed-Kerr degree-3 control failed — measured, and it is NOT what either side guessed
+
+ansatz proposed that our degree-3 library might be **homogeneous** in momentum degree 3, which would put Carter
+(degree 2) outside its span and make the Carter-recovery control structurally unsatisfiable — a residual flat in
+coverage forever, exactly what §168b measured. Tested by measuring the span directly (their own discipline:
+evaluate the columns, don't read the code):
+
+    rung                p_raw   Carter resid RAW   p_kept   after truncation
+    deg2 rat+metric      224       4.69e-07         180        5.27e-07
+    deg3 rational        314       7.07e-05         266        7.15e-05
+    deg3 rat+metric      524       1.81e-07         363        2.65e-07
+    deg4 rat+metric     1049       6.44e-08         611        1.53e-07
+
+The degree-3 library carries momentum degrees **[0, 1, 2, 3]** — total-degree ≤ 3, **not homogeneous**. Carter is
+in scope at every rung and the SVD truncation does not remove it. **Hypothesis refuted.**
+
+**But it located a real limit one rung over.** `deg3 rational` represents Carter only to **7.07e-05**, ~100×
+worse than every rung carrying the metric components, because Carter needs μ² = −2H and the plain rational
+coordinate family cannot express the inverse-metric components. That rung is genuinely **basis-limited**, and its
+§168 control residual of 9.2e-4 sits against a representability ceiling of 7e-5 — consistent.
+
+**`deg3 rat+metric` is the one with nowhere left to hide:** Carter representable at 1.8e-07, control failed at
+1.6e-3 — four orders between what the basis can express and what the engine recovered. Not sampling (flat in
+coverage, §168b), not representability (measured here). An undiagnosed **readout/conditioning** failure.
+
+**A tidy story rejected.** ansatz suggested a homogeneous degree-N library is the correct design given the
+grading theorem, and that Toda passed because it finally got a degree-N control. The second half is true; the
+first does not describe this instrument, which is total-degree *by design* — the degree-3 reducibles (P·H, p_t·K)
+are inhomogeneous products and must be representable to be deflated. Toda's I3 is a genuine cubic **and** the
+Toda library is total-degree ≤ 3, so that run does not discriminate the two designs. Recorded because the tidy
+version would have left both sides more confident than the evidence supports.
+
+**Reclassification.** The degree-3 rungs on their metric move from REFUSED to **"control failed for a diagnosed
+reason; rung never actually screened"** — basis-limited for `rational`, undiagnosed readout failure for
+`rat+metric`. Neither is a statement about the spacetime.
+
+**Adopted rule** (ansatz's, neither of us had written it down): *diagnose which invariant is missing and why
+before touching anything, then change the library and not the gate — that ordering is the difference between a
+fix and a fudge.* And their generalized form of the momentum-floor bug: *a graded library and an invariant that
+is not homogeneous in the grading will always mismatch, and it presents as an under-count of the reducibles
+rather than as an error.* Three mechanisms now, one symptom — constant column, slice-specific coefficients,
+grading mismatch — the engine reporting confidently on a span that cannot hold the answer.
