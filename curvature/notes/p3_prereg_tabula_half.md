@@ -467,3 +467,38 @@ the first version gated the floor from below, the quantity it guarded sat at the
 the pre-registration would have caught it. Same family as *a control that cannot fail is not a control* and
 *measure the CEILING too* — and this time the mis-specified check was in a script written **to fix** a
 mis-specified check.
+
+## Chaotic-sea calibration: measured to be UNAVAILABLE in this family (closes the open tension)
+
+ansatz identified why no shuffle can work, as a fixed point rather than a bug: *conservation is a property of the
+temporal structure, so any operation that removes conservation by destroying temporal structure removes the thing
+you are calibrating against.* Their way out — don't manufacture absence, **find** it: use real trajectories from
+the **chaotic sea of the same family** (same metric, integrator, library, smoothness), where the extra invariant
+genuinely does not exist, and certify that with an instrument that isn't ours (a positive Lyapunov exponent).
+
+**We validated the certificate before using it, per the rule adopted this session.** A maximal-Lyapunov estimator
+(two-trajectory divergence with renormalization; no library, no eigenproblem) first read **λ = +0.019 on ε=0,
+i.e. on integrable Kerr**, which must read zero. Cause: finite-time bias goes as ln(T)/T ≈ 0.04 at T=120 — the
+same order as the claimed signal. The fix is a better *discriminator*, not a better threshold: measure λ(T) at
+growing T and ask whether it decays like ln(T)/T (regular) or plateaus at a positive constant (chaotic).
+
+    T        ln(T)/T     eps=0            eps=5            eps=20
+     60      0.0682     +0.0357 (24)     +0.0472 (8)      no surviving orbits
+    120      0.0399     +0.0157 (22)     +0.0301 (1)      no surviving orbits
+    240      0.0228     +0.0116 (22)     +0.0129 (1)      no surviving orbits
+    480      0.0129     +0.0066 (22)     +0.0083 (1)      no surviving orbits
+
+**Known-negative passes** (ε=0 decays with ln(T)/T, so the instrument is validated), and the result is that
+**ε=5 decays the same way** — also regular. At ε=20 no orbit survives the radial band at all. So **there is no
+accessible chaotic sea in this family within the band the screen operates in**, consistent with leg J's
+"dynamically regular". Reaching chaos would require leaving that band, which violates ansatz's own
+match-the-exploration-volume requirement and would calibrate the floor on a different region than it is applied to.
+
+**Conclusion, and it is now measured rather than assumed:** the absence-calibrated floor cannot be built for this
+family by either route — surrogates over-destroy (§170), and the chaotic sea does not exist here. Per ansatz's own
+statement of the fallback, the honest position stands: **the band is uncalibrated, and the rungs depending on it
+are REFUSED.** That is where §168 already had them; what changed is that the refusal now rests on a measurement
+of why no calibrator exists, rather than on our having failed to find one.
+
+**Reusable outcome:** the λ(T)-trend Lyapunov instrument is validated (known-pass and known-fail both exercised)
+and is available for any future integrability question in this repo.
