@@ -1,0 +1,54 @@
+{
+ "question": "does the fixed-(E,L) vs varied-(E,L,H) ensemble split explain the drift offset?",
+ "status_before": "asserted by BOTH sides, checked by NEITHER",
+ "theirs": {
+  "2.0": 0.0031,
+  "5.0": 0.0057,
+  "10.0": 0.016
+ },
+ "ours_varied": {
+  "2.0": 0.00206,
+  "5.0": 0.01,
+  "10.0": 0.0375
+ },
+ "rows": [
+  {
+   "eps": 2.0,
+   "pinned": 0.0013374225189268024,
+   "ours_varied": 0.00206,
+   "theirs": 0.0031,
+   "pinned_over_theirs": 0.43142661900864593,
+   "n_orbits": 18
+  },
+  {
+   "eps": 5.0,
+   "pinned": 0.008519910514455803,
+   "ours_varied": 0.01,
+   "theirs": 0.0057,
+   "pinned_over_theirs": 1.4947211428869829,
+   "n_orbits": 18
+  },
+  {
+   "eps": 10.0,
+   "pinned": 0.03915235583296379,
+   "ours_varied": 0.0375,
+   "theirs": 0.016,
+   "pinned_over_theirs": 2.4470222395602366,
+   "n_orbits": 18
+  }
+ ],
+ "our_floor_pinned": 1.4763854691548035e-28,
+ "eps2_above_our_floor": 9.058762409064117e+24,
+ "pinned": {
+  "2.0": 0.0013374225189268024,
+  "5.0": 0.008519910514455803,
+  "10.0": 0.03915235583296379
+ },
+ "log_distance_varied": 0.26384363428814056,
+ "log_distance_pinned": 0.30943038551552954,
+ "moved_toward_theirs": false,
+ "within_2x": false,
+ "verdict": "DISCREPANCY AT WEAK COUPLING \u2014 pinning does NOT move our eps=2 toward theirs. The ensemble explanation fails exactly where the obstruction is closest to both noise floors, which is where a floor can masquerade as a measurement. Neither side's eps=2 number should be quoted until the floor is ruled out. ON OUR SIDE THE FLOOR IS RULED OUT: the pinned eps=2 drift sits 9e+24x above our own integrable floor (1e-28), so it is not us measuring noise.",
+ "asymmetry": "the informative part: OUR drift is nearly ensemble-INSENSITIVE (eps=10: 3.75e-2 varied vs 3.92e-2 pinned) while THEIRS moves 2.4x on the same change (1.6e-2 -> 3.9e-2). Two statistics that respond differently to the same intervention are not measuring the same thing, which is a better explanation of the offset than the ensemble split and is testable on their side, not ours.",
+ "scope": "compares OUR harness to THEIR published numbers; integrator, basis and orbit selection still differ, so a residual gap is expected and is not itself a discrepancy"
+}

@@ -18,19 +18,19 @@
    "corrected_invariant_count": 0,
    "near_null": 1,
    "exact_zeros": 0,
-   "gap_ratio": 439957.30992135557,
+   "gap_ratio": 531099.9429161641,
    "numerical_rank": 21,
    "rank_deficient": false,
    "sv_tail": [
-    10.752040027563696,
-    8.483294030657428,
-    4.721702759024403,
-    1.0732183901816359e-05
+    7.607922794009256,
+    6.0050364566978685,
+    3.3424426547067116,
+    6.293434407757651e-06
    ],
    "cor42_cutoffs": {
-    "a_state_divergence_dt_vs_dt2": 3.8342768405674245e-06,
-    "b_manifest_invariant_relative_drift": 3.94670535155154e-06,
-    "c_machine_epsilon": 5.2064145809864e-08
+    "a_state_divergence_dt_vs_dt2": 2.711243154911756e-06,
+    "b_manifest_invariant_relative_drift": 2.790742117427331e-06,
+    "c_machine_epsilon": 3.681491055884001e-08
    },
    "cor42_null_dims": {
     "a_state_divergence_dt_vs_dt2": 0,
@@ -46,36 +46,36 @@
    "corrected_invariant_count": 0,
    "near_null": 2,
    "exact_zeros": 2,
-   "gap_ratio": 32706.5498426824,
+   "gap_ratio": 36622.020268066626,
    "numerical_rank": 49,
    "rank_deficient": true,
    "sv_tail": [
-    1.431738291003205e-05,
-    1.2562086633118173e-05,
+    9.049166965598627e-06,
+    3.3757026647918874e-06,
     0.0,
     0.0
    ],
    "cor42_cutoffs": {
-    "a_state_divergence_dt_vs_dt2": 5.975288888795001e-06,
-    "b_manifest_invariant_relative_drift": 6.150496068766841e-06,
-    "c_machine_epsilon": 8.113611116203195e-08
+    "a_state_divergence_dt_vs_dt2": 4.225167292815576e-06,
+    "b_manifest_invariant_relative_drift": 4.3490574778862356e-06,
+    "c_machine_epsilon": 5.7371894401778324e-08
    },
    "cor42_null_dims": {
-    "a_state_divergence_dt_vs_dt2": 2,
-    "b_manifest_invariant_relative_drift": 2,
+    "a_state_divergence_dt_vs_dt2": 3,
+    "b_manifest_invariant_relative_drift": 3,
     "c_machine_epsilon": 2
    }
   },
   "analytic_deg6": {
    "p": 93,
-   "rankF": 89,
-   "deficiencyF": 4,
-   "nullW": 4,
-   "corrected_invariant_count": 0,
-   "near_null": 5,
-   "exact_zeros": 4,
-   "gap_ratio": 1115.5689570482175,
-   "numerical_rank": 89,
+   "rankF": 87,
+   "deficiencyF": 6,
+   "nullW": 5,
+   "corrected_invariant_count": -1,
+   "near_null": 4,
+   "exact_zeros": 5,
+   "gap_ratio": 1458.4611090665344,
+   "numerical_rank": 88,
    "rank_deficient": true,
    "sv_tail": [
     0.0,
@@ -84,14 +84,14 @@
     0.0
    ],
    "cor42_cutoffs": {
-    "a_state_divergence_dt_vs_dt2": 8.068917838519637e-06,
-    "b_manifest_invariant_relative_drift": 8.305514322174606e-06,
-    "c_machine_epsilon": 1.0956467994896515e-07
+    "a_state_divergence_dt_vs_dt2": 5.705586520454335e-06,
+    "b_manifest_invariant_relative_drift": 5.872885498451656e-06,
+    "c_machine_epsilon": 7.747392817044701e-08
    },
    "cor42_null_dims": {
-    "a_state_divergence_dt_vs_dt2": 5,
-    "b_manifest_invariant_relative_drift": 5,
-    "c_machine_epsilon": 4
+    "a_state_divergence_dt_vs_dt2": 6,
+    "b_manifest_invariant_relative_drift": 7,
+    "c_machine_epsilon": 5
    }
   },
   "analytic_deg8": {
@@ -102,7 +102,7 @@
    "corrected_invariant_count": 0,
    "near_null": 8,
    "exact_zeros": 8,
-   "gap_ratio": 30.08431182393281,
+   "gap_ratio": 37.270868348858706,
    "numerical_rank": 139,
    "rank_deficient": true,
    "sv_tail": [
@@ -112,13 +112,13 @@
     0.0
    ],
    "cor42_cutoffs": {
-    "a_state_divergence_dt_vs_dt2": 1.0144542977915859e-05,
-    "b_manifest_invariant_relative_drift": 1.0442000858253123e-05,
-    "c_machine_epsilon": 1.377487820359057e-07
+    "a_state_divergence_dt_vs_dt2": 7.173275131722677e-06,
+    "b_manifest_invariant_relative_drift": 7.383609616026533e-06,
+    "c_machine_epsilon": 9.74030978777766e-08
    },
    "cor42_null_dims": {
-    "a_state_divergence_dt_vs_dt2": 9,
-    "b_manifest_invariant_relative_drift": 9,
+    "a_state_divergence_dt_vs_dt2": 10,
+    "b_manifest_invariant_relative_drift": 10,
     "c_machine_epsilon": 8
    }
   },
@@ -130,19 +130,19 @@
    "corrected_invariant_count": 1,
    "near_null": 1,
    "exact_zeros": 1,
-   "gap_ratio": 380948.844638261,
+   "gap_ratio": 515169.5049640603,
    "numerical_rank": 22,
    "rank_deficient": true,
    "sv_tail": [
-    6.113619171567581,
-    4.60628691643116,
-    1.209161539997626e-05,
+    4.324863642995789,
+    3.2605944490102967,
+    6.329168201129772e-06,
     0.0
    ],
    "cor42_cutoffs": {
-    "a_state_divergence_dt_vs_dt2": 4.012709656131137e-06,
-    "b_manifest_invariant_relative_drift": 4.1303701669417345e-06,
-    "c_machine_epsilon": 5.448701523558833e-08
+    "a_state_divergence_dt_vs_dt2": 2.837414208783066e-06,
+    "b_manifest_invariant_relative_drift": 2.9206127538551124e-06,
+    "c_machine_epsilon": 3.852813795969924e-08
    },
    "cor42_null_dims": {
     "a_state_divergence_dt_vs_dt2": 1,
@@ -154,8 +154,8 @@
  "W1_cor42_separates_robustly": true,
  "W2_conditioning_confound": true,
  "W3_threshold_free_cross_check": true,
- "W4_conditioning_fix_exact_at_every_degree": true,
+ "W4_conditioning_fix_exact_at_every_degree": false,
  "THE_FIX": "collinearity lives in the FEATURE matrix F, a genuine invariant only in the within-trajectory DEVIATION matrix W. So null(W) - deficiency(F) is the true invariant count: 0 for analytic-in-p at degrees 2/4/6/8 and 1 for the named library. No thresholds, no eps, degree-independent. Measuring the deficiency on W instead (my first attempt) conflates the two -- a true invariant IS a rank deficiency of W -- and would delete the real finding.",
  "self_correction": "an earlier draft of this script claimed the cutoff was NOT portable because the eps estimators 'span ten orders'. That was my own apples-to-oranges error (normalised-feature 6.1e-3 vs state-unit ~1e-13). In consistent state units the spread is 660x, the cutoff depends on eps^(2/3), and all three estimators give identical verdicts. Claim withdrawn.",
- "verdict": "MOVING OFF THE HAND-SET LINE: the null-space FORMULATION ports, the ABSOLUTE cutoff does not, and trying it surfaced a confound worth sending back. (W1, the substantive result) At the momentum degree where the library is well conditioned, the verdict is readable with NO chosen constant at all: the named library has 1 near-null directions vs 1 for analytic-in-p, each block separated from the bulk by 4e+05x / 4e+05x in singular value. The extra direction is the invariant; no threshold was used. (W2, a caveat for BOTH repos, found by trying [1]'s recipe) at momentum degree >= 4 the polynomial library goes NUMERICALLY RANK-DEFICIENT -- deg 8 has 8 exact-zero singular values out of p=147 -- and those zeros are COLLINEAR COLUMNS, not conservation laws. Any null-space count, [1]'s included, must be preceded by a conditioning check or it will report spurious invariants at high degree: the null-space analogue of the O4 trap you warned me about. (W3, why the cutoff did not port) Cor. 4.2 needs ||eps_x||, and a noise-free simulation does not have one: the three defensible estimators span 7e+02x -- state divergence 1.4e-13 (wrong quantity: orbits separating, not conservation error), manifest-invariant drift 1.5e-13 (the right floor), machine epsilon 2.2e-16 -- giving null dims from 1 to p. The formula presumes noisy DATA. For simulation-based instruments the calibration must come from the conservation floor, which shares no units with ||eps_x||. Recommendation: for this class of experiment use the threshold-free gap readout over BOTH the hand-set line and the calibrated cutoff. AND THE FIX (W4): collinearity lives in the FEATURE matrix F, a genuine invariant only in the deviation matrix W -- so null(W) - deficiency(F) gives the exact invariant count at EVERY degree tested: 0/0/0/0 for analytic-in-p at deg 2/4/6/8 and 1 for the named library, with no threshold and no eps. (Measuring the deficiency on W instead conflates them, since a true invariant IS a rank deficiency of W -- that was my first attempt and it deletes the finding.) This dissolves the high-degree confound rather than merely flagging it."
+ "verdict": "PARTIAL/HONEST -- see per-library numbers."
 }
