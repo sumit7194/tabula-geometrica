@@ -569,3 +569,33 @@ applied to two arms is only meaningful if the arms were produced under the same 
 selection criterion depends on the swept variable, the arms differ by construction — no amount of care within an
 arm fixes it.* Both of today's instances are that corollary with opposite symptoms: our survivorship filter
 **hid** a signal (chaos at ε=20), theirs **manufactured** one (growth that was composition).
+
+## Degree-4 positive control (script 171), 5/5 — the last unvalidated rung
+
+§169 closed degree 3; **degree 4 was left explicitly uncontrolled**, so §168's degree-4 rungs and the degree-4
+half of every CERTIFY we have written rested on an instrument never shown to find a degree-4 invariant when one
+exists. Closed now.
+
+**System:** the 4-particle open Toda chain, extending §169's by one site. The quartic invariant is **tr L⁴ from
+the Lax matrix, evaluated numerically at every sample** — no recalled polynomial, which is what nearly cost us
+§169. ansatz's Cariglia–Galajinsky metrics (arXiv:1503.02162) remain the exotic route; this is the simple member
+of the same family, chosen because a positive control needs a *known* answer, not an exotic one.
+
+**Result (220 train / 220 test, 700 samples each), 5/5 first attempt:**
+- **Q0** tr L⁴ conserved, drift 6.76e-12 (H 2.88e-12, P 2.89e-14); the **known-fail control drifts at 6.24e-01**
+- **Q1** irreducible: R² = 0.973 regressed on all ten degree-≤4 reducibles {P, P², P³, P⁴, H, H², P·H, P²·H, I3, P·I3}
+- **Q2** the readout **finds it**: 11 conserved = 10 reducibles + 1, tr L⁴ in the conserved span at **5.11e-11**
+- **Q3** residual spectrum separates by **3.70e+09**
+- **Q4** *(the known-fail half)* a smooth non-conserved degree-4 function is **correctly excluded**, residual 2.55e-01
+
+**Every criterion carries a known-pass and a known-fail**, per the rule adopted this session after two
+pre-registrations in one day turned out to be the faulty check. Q4 exists precisely because §170's floor passed a
+one-directional test while admitting the entire library.
+
+**What this licenses.** Degree 4 now has what degree 3 got in §169: a demonstration that the readout resolves a
+genuine irreducible quartic invariant when one is present in a representing library. A degree-4 null elsewhere in
+the ladder is therefore a statement about the *basis*, not about the instrument. It does **not** revalidate
+§168's degree-4 rungs on bumped Kerr — those failed their own controls and remain REFUSED on their own terms.
+
+**Scope:** natural Hamiltonian, not geodesic flow, so the grading argument does not apply and this is not a claim
+about any spacetime. In verify.sh.

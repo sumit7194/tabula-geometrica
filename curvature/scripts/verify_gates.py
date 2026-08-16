@@ -213,6 +213,13 @@ BATTERIES = [
      {"T0_cubic_conserved": (">", 0.5), "T1_cubic_irreducible": (">", 0.5),
       "T2_readout_finds_it": (">", 0.5), "T3_spectrum_separates": (">", 0.5),
       "separation": (">", 1e3)}),
+    # 171: the degree-4 POSITIVE control (Toda tr L^4 from the Lax matrix). Q4 is the known-FAIL half -- a smooth
+    # non-conserved function must be EXCLUDED -- without which the criteria are tested in one direction only.
+    ("Degree-4 positive control, Toda tr L^4 (script 171)",
+     ["scripts/171_degree4_positive_control.py", "--fast"], "171_degree4_positive_control.json",
+     {"Q0_conserved": (">", 0.5), "Q1_irreducible": (">", 0.5), "Q2_readout_finds_it": (">", 0.5),
+      "Q3_spectrum_separates": (">", 0.5), "Q4_known_fail_excluded": (">", 0.5),
+      "separation": (">", 1e3)}),
 ]
 
 
