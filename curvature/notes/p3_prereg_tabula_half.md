@@ -433,3 +433,37 @@ screenable at the pre-registered standard, and now for a named reason rather tha
 **Correction to our own earlier reading of §168b.** We described *both* degree-3 rungs as "flat in coverage".
 Only `rational` was flat (3.63e-4 → 3.01e-4). `rat+metric` was **descending** (4.28e-3 → 4.36e-3 → 1.13e-3) and
 we read it as flat because it sat next to one that was. It plateaus, but it does not start flat.
+
+## The absence-calibrated floor (script 170) — HONEST NEGATIVE: right idea, wrong model of absence
+
+ansatz's sharpening of our sixth failure mode is the general form and it is correct: *a floor set by things that
+are PRESENT inherits their representation quality; a floor set by a library KNOWN TO CONTAIN NOTHING inherits
+only the dimension.* **Calibrate against absence, not against other presences.** Their §123 per-degree
+structureless control does this by construction, which is why their pipeline could not have hit our sixth mode.
+
+**Our implementation of "absence" was wrong, and it failed in the mirror direction of the bug it was meant to
+fix.** Modelling absence by pooling all samples and re-dealing them into groups destroys the trajectories'
+**temporal structure** as well as their conservation. Chance conservation on structureless data is then
+essentially nil, the floor comes out at **~1.0**, and the band admits the entire library — 73 directions at Toda
+degree 3, 178 at Kerr degree 2, **354** at Kerr degree 3. A floor that accepts everything is exactly as useless
+as one that rejects the target, and both were reached in the same session from opposite directions.
+
+**The gate that let it through was our own, and it was mis-specified.** A1 was pre-registered as "the floor is
+non-trivial: far above machine precision" — a *lower* bound only. A floor of 1.0 satisfies that while admitting
+everything. **Testing a threshold in one direction only is how a vacuous control passes.** Fixed by adding the
+missing half: a **known negative** — a smooth, non-conserved function of the state, which the floor must reject.
+It scores 3.10e-01 against a floor of 9.95e-01 and is **wrongly admitted**, so A1 fails and the instrument is
+**not adopted**. §168's recorded verdicts stand exactly as they were.
+
+**What a correct absence model must do:** preserve *every* property of the real data except the invariant itself
+— in particular the smoothness and limited phase-space exploration of a trajectory, which are what make ordinary
+library directions look partly conserved. Shuffling removes the confound and the signal together. The natural
+candidate is trajectories from a system in the same family with the extra invariant genuinely destroyed (the
+deformed case), rather than synthetic noise — but that reintroduces a *presence* to calibrate against, so the
+design tension is real and unresolved. Recorded as open.
+
+**Running count of the shape.** This is the seventh instance today of a check that could only come out one way:
+the first version gated the floor from below, the quantity it guarded sat at the top of its range, and nothing in
+the pre-registration would have caught it. Same family as *a control that cannot fail is not a control* and
+*measure the CEILING too* — and this time the mis-specified check was in a script written **to fix** a
+mis-specified check.
