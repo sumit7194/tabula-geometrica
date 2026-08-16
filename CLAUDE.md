@@ -1023,6 +1023,31 @@ results in `curvature/notes/lab_notebook.md`.
   cosine 1.0000). Gate = CERTIFY-RELATIVE-TO-BASIS. Pre-reg CORRECTION recorded (the §97 lesson applied to my own gate):
   T1/T2 were absolute-error (>1e-4) → conflates "no invariant in basis" with "good approximation over a bounded band";
   fixed to §99 relative-exactness (≥1e6× worse than the emitting rung). In verify.sh.
+- **THE CERTIFICATE STANDARD + P3 SCREEN (scripts 166/167, 2026-08-16) — the four-clause standard, then its first
+  real use.** 166 froze **what a certified null must carry**: C1 basis named · C2 conditioning gated
+  (`null(W) − deficiency(F)`) · C3 out-of-sample realizations · **C4 state-functionality** (new). Headline S2: a planted
+  per-realization nuisance constant is found by the engine at held-out **4.2e-17 — MORE conserved than the genuine
+  invariant** — and **passes C3 completely**; only C4 rejects it. **Held-out validation catches overfitting, not
+  confounding.** Correction: C4's absolute R²>0.9 gate was unreachable (the true energy scores only 0.658 in the same
+  harness) → fixed with a **positive control**, not a lowered bar; and `--fast` must trim time samples, never trajectory
+  count (C4 *rejects* cheaply, *confirms* only with coverage). 4/4, in verify.sh. ansatz reproduced the confound in their
+  §123 engine (a constant column defeats every guard structurally) and added a cheaper **informativeness pre-filter**.
+  **167 = P3's numerical half** (joint with ansatz; the open leg-J question — does a higher-rank Killing tensor survive
+  the quadrupole bump?). Rank-r KT ⇔ momentum degree r. All 5 gates: **K0 the control — at ε=0, deflating only the
+  reducible L-powers, the engine REDISCOVERS Carter unaided** (cos 0.975, held-out 3.1e-26); K1 the bump destroys Carter
+  (7.0e26× the integrable floor) and the identical search finds **nothing in its place**; K2 degrees 3,4 × {poly,
+  rational} all CERTIFY → **empty escalation list**, pre-registered as a real outcome. Three corrections: (i) K0 FAILED
+  first — over L∈[0.85,1.15] **corr(L,L²)=0.99923** so two conserved directions are near-parallel and only two resolve;
+  widening to ±50% fixed it (**coverage, not algorithm** — 2nd script running where that was the binding constraint);
+  (ii) the verdict logic silently **certified on under-count** → now REFUSED-LIBRARY, never absorbed into a null;
+  (iii) the statistic is the **irreducible quotient** — deflate the reducibles out *before* the eigenproblem (ansatz's
+  correction, adopted and pushed further). **Two of our own claims WITHDRAWN:** odd rank is NOT excluded (p_t, p_φ are
+  degree-1 odd invariants — the discrete symmetry grades, it does not forbid), and the grading argument gives rung
+  INDEPENDENCE but **not finiteness** (nothing bounds the degree) → the certificate reads **"screened to degree 4"** and
+  the degree axis now carries the same *map of where we looked, not a theorem* clause the family axis always did.
+  Metric identity checked: our bump is a product term so it *does* break Stäckel separability (their sharpest worry does
+  not apply), but ours is a Kerr-LIKE toy and theirs is bumped Kerr in BL — **transcribing their metric is the next
+  build**; this run validates the instrument, not their spacetime. Both in verify.sh.
 - Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
   Phase H rows (equivalence-breaking gravity); a G-sym legibility-preserving
   variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit

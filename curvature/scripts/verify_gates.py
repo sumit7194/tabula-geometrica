@@ -200,6 +200,12 @@ BATTERIES = [
      "166_certificate_standard.json",
      {"S1_genuine_passes": (">", 0.5), "S2_confound_gap_closed": (">", 0.5),
       "S3_true_null_scoped": (">", 0.5), "S4_conditioning_fires": (">", 0.5)}),
+    # P3 screen (script 167): the K0 control is the load-bearing assert -- at eps=0 the engine must REDISCOVER
+    # Carter unaided after deflating the reducibles, which is what makes every CERTIFY at eps>0 meaningful.
+    ("P3 Killing-tensor screen (script 167)", ["scripts/167_p3_killing_tensor_screen.py", "--fast"],
+     "167_p3_killing_tensor_screen.json",
+     {"K0_control_limit": (">", 0.5), "K1_carter_dies": (">", 0.5), "K2_rank34_screened": (">", 0.5),
+      "K3_conditioning_honesty": (">", 0.5), "carter_drift_ratio": (">", 1e6)}),
 ]
 
 

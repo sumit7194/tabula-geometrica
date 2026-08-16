@@ -4056,3 +4056,40 @@ PRE-REG CORRECTION: C4's absolute 0.9 gate was unreachable by construction — T
 same harness (held-out-realization extrapolation ceiling; plateaus at ~0.70 with more trajectories). Fixed with a
 POSITIVE CONTROL (manifest invariant, identical harness), not a lowered bar → self-calibrating. 3rd instance of
 "convenient vs commensurable quantity" in this family (bridge S3, my §164 proxy, this). In verify.sh (~2min).
+
+## 2026-08-16 — script 167, P3 Killing-tensor screen (tabula's half). 5/5 gates.
+
+Pre-reg: `notes/p3_prereg_tabula_half.md` (frozen before code, sent to ansatz before building; post-run record
+appended there with the full correction list). Joint item — ansatz own the symbolic half.
+
+**Numbers.** K0: ε=0, deflate only the reducible L-powers, engine finds **1** direction, cos to known Carter
+**0.975**, held-out **3.1e-26**, Carter drift 9.5e-29. K1: ε=0.35 → Carter drift 6.6e-2 = **7.0e26×** the
+integrable floor, search finds **0**. K2: deg3 poly (p=79, deflated 3, searched 76) → 0; deg3 rational (p=120,
+searched 117) → 0; deg4 poly (p=139, searched 135) → 0; deg4 rational (p=210, searched 206) → 0. All CERTIFY.
+Escalation list **empty**. Full 5m35s / `--fast` 1m27s.
+
+**Gotcha 1 — the control failed, and the fix was the ensemble.** K0 gave count 2 vs reference 3. Ruled out in
+order: representability (all three known invariants fit at residual ~1e-14), conservation (their explicit fits
+scored held-out 4.6e-29 / 1.8e-29 / 2.5e-18), conditioning (count invariant across pruning tol 1e-10…1e-3).
+Actual cause: `L_LO,L_HI = 0.85,1.15` → **corr(L,L²)=0.99923**, two conserved directions near-parallel, solver
+resolves two. Band → ±50% (corr 0.9917) → all three at machine precision, ~20-decade gap. *The ensemble must span
+enough for the invariants to be independently resolvable.*
+
+**Gotcha 2 — under-count was certifying.** `CERTIFY if count <= expected` let three broken rungs read as clean
+rule-outs. Now REFUSED-LIBRARY. This is the certificate standard's own failure mode appearing inside the first
+script that used it.
+
+**Design change — deflate, don't compare.** Reducible products L^a K^b are near-parallel powers of one scalar and
+are the worst-conditioned directions in the problem. Deflating them out of the feature space before the
+eigenproblem makes the null expectation exactly zero, so a survivor is irreducible by construction — and leaving
+Carter *undeflated* at ε=0 turns K0 into a control that checks **what** was found, not how many.
+
+**Withdrawn:** "odd rank may be forbidden by discrete symmetry" (p_t, p_φ are degree-1 odd invariants) and "the
+analytic-in-p axis is decidable and finite" (grading ⇒ independence, not finiteness; and with a potential the
+bracket lands in k±1 so the grading result is specific to geodesic flow). Certificate now reads **screened to
+degree 4**.
+
+**Scope.** CERTIFY = no irreducible invariant in {poly, rational}(coord) × momentum-degree ≤ 4, on **our Kerr-like
+toy**, not on ansatz's bumped Kerr. Our bump is a product term so it does break Stäckel separability, but the two
+spacetimes are still different objects; transcribing theirs is the next build. C4 is **vacuous** here (library is
+pure state, no auxiliary channels) — reported, not credited.
