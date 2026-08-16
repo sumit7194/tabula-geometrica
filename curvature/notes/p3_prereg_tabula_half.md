@@ -166,3 +166,54 @@ described that way, and their leg-Q "bumpy" metric (`1 + 6εcos²θ/r`) is a **t
 - ansatz's cheaper **informativeness pre-filter** (does the emitted quantity separate orbits? planted constant
   scores 0.0, a real invariant 3.1e-1) is a strictly cheaper first pass than C4's coverage-hungry confirm step, and
   should sit ahead of it in any future screen.
+
+---
+
+## Transcription to ansatz's metric (script 168, 2026-08-16) — HONEST PARTIAL: degree 2 certified, degrees 3–4 NOT screened
+
+§167 validated the instrument on *our* Kerr-like toy. ansatz asked that both halves share the object exactly, and
+sent their parameters verbatim: Kerr in Boyer–Lindquist with `g_tt × (1 + ε(3cos²θ−1)/r³)`, spin **a = 3/5**,
+canonical sweep **ε = 2, 5, 10** (large, *not* perturbative — never to be quoted beside our toy's 0.35), RK4.
+Recorded from them: **not a vacuum solution** (R_ab ≠ 0), and their leg-Q "bumpy" metric is a third, inequivalent
+object. Here E, L **and** H all vary across realizations — which also closes the scope gap ansatz identified in
+§167, where H was held fixed at a band of zero width.
+
+**What is established (B0, B1).** At ε=0 the control recovers Carter *inside the conserved span* (residual
+1.6e-06) and the conserved set is exactly the 6 reducibles + Carter. At ε = 2, 5, 10 the bump destroys Carter —
+drift **2.1e-3 → 1.0e-2 → 3.8e-2, growing monotonically**, 1.3e24 → 2.4e25× the integrable floor — and the search
+finds **exactly the 6 reducibles and nothing else**. This independently reproduces ansatz's §85 degree-2 result in
+a different harness, integrator and basis.
+
+**What is NOT established (B2).** The rank 3–4 question — the actual open part of P3 — **remains unscreened on
+their metric**. Three of the four degree-3/4 controls fail outright (the ε=0 run does not cleanly recover Carter
+at those library sizes), and the one whose control passed was **withdrawn for instability**: it reported 31, 15
+and 12 irreducible directions at ε = 2, 5, 10. A genuine invariant does not change multiplicity with the
+deformation, so that is the instrument's noise floor being crossed, not a discovery. §167's empty escalation list
+at degrees 3–4 was obtained on *our toy* and does not transfer.
+
+**Five instrument bugs found and fixed on the way, each caught by a control rather than by inspection.**
+1. *Carter's mass term.* Drift sat at 2.1e-4 **independently of the timestep** — the tell that it was a
+   transcription error, not integration error. K = p_θ² + cos²θ[a²(μ²−E²) + L²/sin²θ] carries μ² = −2H, and the
+   ensemble deliberately varies H, so hard-coding μ=1 was wrong.
+2. *Greedy column pruning destroyed the result.* It keeps early columns and drops later ones; the metric
+   components sit last, so exactly the columns H needs were dropped, H stopped being representable, the deflation
+   missed it, and the engine reported H and its products as ESCALATE. Replaced by **SVD truncation**, which
+   preserves anything representable in the full library whatever the column order.
+3. *Coefficient-space deflation is unsound in an over-complete library.* The coefficient vectors for E, L, H and
+   Carter are not unique, so projecting out one damages the others — measured, Carter went from conserved at
+   6e-28 to 2e-3 *after* deflation. Replaced by a **subspace readout**: irreducible dim = rank[reducible |
+   conserved] − rank[reducible], plus "does Carter lie in the conserved span".
+4. *Vector-wise Carter tests are meaningless on a degenerate subspace.* Every eigenvector sat at cos ≈ 0.53 to
+   Carter while the subspace was exactly right — the eigenbasis is an arbitrary rotation within it. Both
+   replacement statistics are rotation-invariant.
+5. *A floor calibrated at one rung does not transfer to another.* Calibrated at degree 2 (163-dim) and applied at
+   degree 4 (442-dim), it let a rung report 441 "conserved" directions out of p=410. **Every rung now ships its
+   own ε=0 control**, and a rung whose control fails issues no verdict at all.
+
+**The through-line.** Four of these five would have produced a *confident wrong answer* rather than an error, and
+every one was caught by a control whose answer was known in advance. That is the §144/§166 lesson paying for
+itself twice in two scripts.
+
+**Scope.** Degree 2 is screened and certified on their object. Degrees 3–4 are REFUSED at this configuration; the
+binding constraint is ensemble coverage relative to library size (p grows to 250–580 while the conserved-subspace
+readout degrades). Not run at larger scale — stated as a resource limit, not as a null.
