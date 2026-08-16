@@ -1,0 +1,47 @@
+{
+ "fix": "calibrate the acceptance band against ABSENCE (a library known to contain nothing), not against the reducibles (whose representation quality leaks into the band)",
+ "credit": "sharpened form due to ansatz; their \u00a7123 per-degree structureless control does this",
+ "rows": [
+  {
+   "case": "toda_deg3",
+   "floor": 0.994705856571415,
+   "target_heldout": 6.133807685335122e-22,
+   "admitted": true,
+   "n_inside": 73,
+   "known_negative_heldout": 0.310307654252442,
+   "known_negative_admitted": true
+  },
+  {
+   "case": "kerr_deg2 rat+metric",
+   "floor": 0.9911601179149586,
+   "target_heldout": 1.2047818085377564e-11,
+   "admitted": true,
+   "n_inside": 178
+  },
+  {
+   "case": "kerr_deg3 rational",
+   "floor": 0.9906964746139687,
+   "target_heldout": 2.2508263093943343e-07,
+   "admitted": true,
+   "n_inside": 263
+  },
+  {
+   "case": "kerr_deg3 rat+metric",
+   "floor": 0.9907215098790498,
+   "target_heldout": 1.1985858284085529e-10,
+   "admitted": true,
+   "n_inside": 354
+  }
+ ],
+ "A1_floor_nontrivial": false,
+ "A2_toda_positive_admitted": true,
+ "A3_kerr_deg2_admitted": true,
+ "A4_deg3_remeasured": true,
+ "deg3_admitted_under_absence_floor": {
+  "deg3 rational": true,
+  "deg3 rat+metric": true
+ },
+ "validated": false,
+ "verdict": "NOT VALIDATED, NOT ADOPTED. Shuffling destroys the trajectories' TEMPORAL structure as well as their conservation, so it under-estimates what chance can manufacture on smooth data and returns a floor of ~1 that admits the entire library -- vacuous in the opposite direction from the bug it was meant to fix, and it wrongly admits a smooth non-conserved control. The IDEA (calibrate against absence) stands; this MODEL of absence does not. A correct one must preserve every property of the real data except the invariant itself.",
+ "scope": "fixes the sixth failure mode by construction: no present quantity enters the calibration, so no calibrator's representation quality can leak into the band. Does not touch the pre-registered thresholds."
+}
