@@ -1,0 +1,216 @@
+{
+ "purpose": "cost the rank 3-4 screen by measuring what coverage the eps=0 CONTROL needs",
+ "not_a_screen": "no deformed arm is run here; no verdict about the spacetime is issued",
+ "spin": 0.6,
+ "rows": [
+  {
+   "deg": 2,
+   "with_metric": true,
+   "ntraj": 110,
+   "p": 179,
+   "n_conserved": 7,
+   "reducible_rank": 6,
+   "irreducible": 1,
+   "carter_residual": 1.5578283353790228e-06,
+   "control_ok": true,
+   "seconds": 6.000592947006226
+  },
+  {
+   "deg": 2,
+   "with_metric": true,
+   "ntraj": 250,
+   "p": 181,
+   "n_conserved": 7,
+   "reducible_rank": 6,
+   "irreducible": 1,
+   "carter_residual": 1.0909635536516498e-06,
+   "control_ok": true,
+   "seconds": 8.283697128295898
+  },
+  {
+   "deg": 2,
+   "with_metric": true,
+   "ntraj": 500,
+   "p": 183,
+   "n_conserved": 7,
+   "reducible_rank": 6,
+   "irreducible": 1,
+   "carter_residual": 1.0596758544949314e-06,
+   "control_ok": true,
+   "seconds": 12.762947082519531
+  },
+  {
+   "deg": 2,
+   "with_metric": true,
+   "ntraj": 1000,
+   "p": 184,
+   "n_conserved": 7,
+   "reducible_rank": 6,
+   "irreducible": 1,
+   "carter_residual": 1.1033908399783932e-06,
+   "control_ok": true,
+   "seconds": 22.684081077575684
+  },
+  {
+   "deg": 2,
+   "with_metric": true,
+   "ntraj": 2000,
+   "skipped_gb": 3.2256
+  },
+  {
+   "deg": 3,
+   "with_metric": false,
+   "ntraj": 110,
+   "p": 264,
+   "n_conserved": 13,
+   "reducible_rank": 12,
+   "irreducible": 4,
+   "carter_residual": 0.00036321234997653806,
+   "control_ok": false,
+   "seconds": 7.226102828979492
+  },
+  {
+   "deg": 3,
+   "with_metric": false,
+   "ntraj": 250,
+   "p": 266,
+   "n_conserved": 13,
+   "reducible_rank": 12,
+   "irreducible": 4,
+   "carter_residual": 0.0003541916147308575,
+   "control_ok": false,
+   "seconds": 10.659310102462769
+  },
+  {
+   "deg": 3,
+   "with_metric": false,
+   "ntraj": 500,
+   "p": 269,
+   "n_conserved": 13,
+   "reducible_rank": 12,
+   "irreducible": 4,
+   "carter_residual": 0.0002992540268713911,
+   "control_ok": false,
+   "seconds": 17.78906273841858
+  },
+  {
+   "deg": 3,
+   "with_metric": false,
+   "ntraj": 1000,
+   "p": 270,
+   "n_conserved": 13,
+   "reducible_rank": 12,
+   "irreducible": 4,
+   "carter_residual": 0.00030081762899127,
+   "control_ok": false,
+   "seconds": 32.83621907234192
+  },
+  {
+   "deg": 3,
+   "with_metric": false,
+   "ntraj": 2000,
+   "skipped_gb": 4.5216
+  },
+  {
+   "deg": 3,
+   "with_metric": true,
+   "ntraj": 110,
+   "p": 355,
+   "n_conserved": 13,
+   "reducible_rank": 12,
+   "irreducible": 3,
+   "carter_residual": 0.004280925684471603,
+   "control_ok": false,
+   "seconds": 8.961918830871582
+  },
+  {
+   "deg": 3,
+   "with_metric": true,
+   "ntraj": 250,
+   "p": 372,
+   "n_conserved": 13,
+   "reducible_rank": 12,
+   "irreducible": 3,
+   "carter_residual": 0.004357921704279159,
+   "control_ok": false,
+   "seconds": 17.138290882110596
+  },
+  {
+   "deg": 3,
+   "with_metric": true,
+   "ntraj": 500,
+   "p": 383,
+   "n_conserved": 13,
+   "reducible_rank": 12,
+   "irreducible": 3,
+   "carter_residual": 0.0011305727590414513,
+   "control_ok": false,
+   "seconds": 28.93772602081299
+  },
+  {
+   "deg": 3,
+   "with_metric": true,
+   "ntraj": 1000,
+   "skipped_gb": 3.7728
+  },
+  {
+   "deg": 3,
+   "with_metric": true,
+   "ntraj": 2000,
+   "skipped_gb": 7.5456
+  },
+  {
+   "deg": 4,
+   "with_metric": true,
+   "ntraj": 110,
+   "p": 581,
+   "n_conserved": 22,
+   "reducible_rank": 21,
+   "irreducible": 1,
+   "carter_residual": 3.2333943107798254e-05,
+   "control_ok": true,
+   "seconds": 16.057336807250977
+  },
+  {
+   "deg": 4,
+   "with_metric": true,
+   "ntraj": 250,
+   "p": 635,
+   "n_conserved": 22,
+   "reducible_rank": 21,
+   "irreducible": 1,
+   "carter_residual": 2.518380512503933e-05,
+   "control_ok": true,
+   "seconds": 34.48601293563843
+  },
+  {
+   "deg": 4,
+   "with_metric": true,
+   "ntraj": 500,
+   "skipped_gb": 3.7764
+  },
+  {
+   "deg": 4,
+   "with_metric": true,
+   "ntraj": 1000,
+   "skipped_gb": 7.5528
+  },
+  {
+   "deg": 4,
+   "with_metric": true,
+   "ntraj": 2000,
+   "skipped_gb": 15.1056
+  }
+ ],
+ "min_coverage_for_control": {
+  "deg2+m": 110,
+  "deg4+m": 110
+ },
+ "control_reached": {
+  "deg2+m": true,
+  "deg3": false,
+  "deg3+m": false,
+  "deg4+m": true
+ },
+ "verdict": "Coverage needed for the eps=0 control to recover Carter, per rung: deg2+m at ntraj>=110, deg4+m at ntraj>=110. Rungs whose control never passes at this ladder are beyond the instrument's reach at this configuration -- a fact about the instrument, reported as one. No deformed arm was run and no claim about the spacetime is made here."
+}

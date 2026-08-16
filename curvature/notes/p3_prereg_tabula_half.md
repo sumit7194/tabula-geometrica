@@ -217,3 +217,38 @@ itself twice in two scripts.
 **Scope.** Degree 2 is screened and certified on their object. Degrees 3–4 are REFUSED at this configuration; the
 binding constraint is ensemble coverage relative to library size (p grows to 250–580 while the conserved-subspace
 readout degrades). Not run at larger scale — stated as a resource limit, not as a null.
+
+## Correction (168b, 2026-08-16): "the binding constraint is ensemble coverage" was WRONG
+
+§168 refused degrees 3–4 and attributed it to ensemble coverage relative to library size. That was an inference
+stated as a finding — the same error ansatz and I had just caught each other making about the drift offset — so
+168b measured it instead. **The inference is refuted.**
+
+    rung                  p     control   Carter residual, ntraj 110 -> 1000
+    deg2 rat+metric     179       OK      1.56e-6 -> 1.10e-6   (flat)
+    deg3 rational       264       FAIL    3.63e-4 -> 3.01e-4   (flat, 9x the data changes nothing)
+    deg3 rat+metric     355       FAIL    4.28e-3 -> 1.13e-3
+    deg4 rat+metric     581       OK      3.23e-5 -> 2.52e-5
+
+**The decisive fact is non-monotonicity in degree: degree 4 passes its control and degree 3 fails.** A larger
+library (p=581) works where a smaller one (p=264) does not, and nine times more coverage moves degree 3 not at
+all. Whatever refuses degree 3 is structural, not statistical, and more orbits will not fix it.
+
+**And the probe localises it to our own readout, not to the physics.** At degree 3 the two estimators disagree:
+`n_conserved − reducible_rank` = 13 − 12 = **1**, which is exactly "Carter and nothing else", while the
+rank-difference statistic `rank[R|C] − rank[R]` reports **4**. At degree 4 they agree (22 − 21 = 1, irr = 1). So
+the degree-3 rungs are plausibly fine and the subspace readout is miscounting them. Leading hypothesis: `_rank`
+reads a gap of ≥1.5 decades and returns full rank when no such gap exists; the degree-3 conserved directions are
+noisier (residual ~3e-4 vs 1e-6 at degree 2, 2.5e-5 at degree 4), so the combined spectrum decays smoothly and
+the fallback inflates the count. Odd momentum degree is the obvious suspect for the extra noise — monomials odd
+in (p_r, p_θ) average toward zero over orbits symmetric in the momenta — but that is a hypothesis, not a result.
+
+**Status of §168's headline, unchanged:** degree 2 is still screened and certified on their metric; degrees 3–4
+still issue no verdict. What changes is *why*, and therefore what would fix it: not more compute, but a readout
+that does not depend on finding a spectral gap. Recorded as the concrete next step rather than a scaling request.
+
+**Operational bug worth keeping.** 168b's first attempt was OOM-killed ~20 minutes in (feature matrix is
+G × P × p float64; the degree-4 cell at ntraj=2000 needs ~15 GB) **with buffered output and no incremental
+write, so every completed cell was lost**. A long detached run that only writes at the end is an all-or-nothing
+bet. Now: `python -u`, a per-cell memory guard that reports skipped cells rather than silently omitting them,
+and a flush after every cell.
