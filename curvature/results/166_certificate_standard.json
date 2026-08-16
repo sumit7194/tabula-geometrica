@@ -14,13 +14,13 @@
    "p": 15,
    "rankF": 15,
    "deficiencyF": 0,
-   "nullW_raw": 1,
-   "corrected_count": 1
+   "nullW_raw": 0,
+   "corrected_count": 0
   },
-  "C3_heldout_ratio": 1.2172628211425709e-16,
-  "C4_state_R2": 0.6062392052201091,
-  "C4_control_R2": 0.5882126133015335,
-  "C4_relative": 1.030646387906229,
+  "C3_heldout_ratio": 4.560239752062741e-17,
+  "C4_state_R2": 0.6257071831617844,
+  "C4_control_R2": 0.5810657276208048,
+  "C4_relative": 1.0768268604031523,
   "n_features": 15,
   "has_aux": false
  },
@@ -33,13 +33,13 @@
    "p": 16,
    "rankF": 16,
    "deficiencyF": 0,
-   "nullW_raw": 2,
-   "corrected_count": 2
+   "nullW_raw": 1,
+   "corrected_count": 1
   },
-  "C3_heldout_ratio": 4.170373175344578e-17,
-  "C4_state_R2": -0.6878857897150612,
-  "C4_control_R2": 0.5882126133015335,
-  "C4_relative": -1.1694509334882837,
+  "C3_heldout_ratio": 1.7210623370349493e-18,
+  "C4_state_R2": -0.6404314142057532,
+  "C4_control_R2": 0.5810657276208048,
+  "C4_relative": -1.1021669042984577,
   "n_features": 16,
   "has_aux": true
  },
@@ -69,15 +69,15 @@
   "C1_scoped": true,
   "C2": {
    "p": 55,
-   "rankF": 53,
-   "deficiencyF": 2,
+   "rankF": 52,
+   "deficiencyF": 3,
    "nullW_raw": 3,
-   "corrected_count": 1
+   "corrected_count": 0
   },
-  "C3_heldout_ratio": 3.227059665556678e-17,
-  "C4_state_R2": 0.6404748710671675,
-  "C4_control_R2": 0.5882126133015335,
-  "C4_relative": 1.0888492639970693,
+  "C3_heldout_ratio": 8.207021065944895e-17,
+  "C4_state_R2": 0.6243365946911378,
+  "C4_control_R2": 0.5810657276208048,
+  "C4_relative": 1.0744681109441907,
   "n_features": 55,
   "has_aux": false
  },
@@ -94,5 +94,5 @@
   "C4's power depends on the ensemble spanning enough state space for z -> I to be learnable; a degenerate ensemble makes C4 uninformative rather than negative.",
   "C2 inherits \u00a7165's measured rank-estimate sensitivity (exact at full sampling, +-1 at coarse)."
  ],
- "verdict": "THE CERTIFICATE STANDARD, VALIDATED. Four clauses, each earned from a way our own certification silently failed. The headline is C4 and the gap it closes: a planted per-realization nuisance constant (a calibration-offset stand-in, no dynamical meaning) is found by the engine at held-out ratio 4e-17 -- as conserved as the genuine invariant's 1e-16 -- and it PASSES our existing out-of-sample defence completely. Held-out validation catches overfitting, not confounding: a nuisance constant generalizes flawlessly because it is genuinely constant. Only C4 rejects it, by asking whether the candidate is A FUNCTION OF THE DYNAMICAL STATE: the genuine invariant predicts on held-out realizations at R^2=0.61, the confound at R^2=-0.69. The other three clauses hold their own traps: a true null certifies SCOPED to (family, order) rather than as non-existence, and an over-rich library's raw null count of 3 is corrected to 1 by the conditioning clause. This is the form a certified null has to take here before it counts as one."
+ "verdict": "THE CERTIFICATE STANDARD, VALIDATED. Four clauses, each earned from a way our own certification silently failed. The headline is C4 and the gap it closes: a planted per-realization nuisance constant (a calibration-offset stand-in, no dynamical meaning) is found by the engine at held-out ratio 2e-18 -- as conserved as the genuine invariant's 5e-17 -- and it PASSES our existing out-of-sample defence completely. Held-out validation catches overfitting, not confounding: a nuisance constant generalizes flawlessly because it is genuinely constant. Only C4 rejects it, by asking whether the candidate is A FUNCTION OF THE DYNAMICAL STATE: the genuine invariant predicts on held-out realizations at R^2=0.63, the confound at R^2=-0.64. The other three clauses hold their own traps: a true null certifies SCOPED to (family, order) rather than as non-existence, and an over-rich library's raw null count of 3 is corrected to 0 by the conditioning clause. This is the form a certified null has to take here before it counts as one."
 }

@@ -2,23 +2,23 @@
  "invariant": "I = p_y/p_x - ln(p_x)  [Galajinsky, Phys. Lett. B 820 (2021) 136483, Bianchi type-IV]",
  "burned_blind_target": true,
  "U1_is_consistency_check_not_independent_evidence": true,
- "U0_named_invariant_variance_ratio": 7.511752413869041e-30,
- "U0_min_px": 0.046356517420439704,
+ "U0_named_invariant_variance_ratio": 5.989175465762896e-30,
+ "U0_min_px": 0.04640394616775285,
  "U1_named_basis_heldout": 1.834360477551351e-29,
  "U1_cosine_to_literature_invariant": 0.9999999999999999,
  "U2_ladder_heldout": {
-  "2": 0.0012916441222175041,
-  "4": 0.00019602615922115394,
+  "2": 0.0017070728683413108,
+  "4": 0.00022483746881726813,
   "6": 2.5738597722436525e-05,
-  "8": 5.64463167444348e-06
+  "8": 9.200134633693515e-06
  },
  "U3_ladder_in_sample": {
-  "2": 0.0007857413868127715,
-  "4": 7.769357146708695e-05,
+  "2": 0.0006576575210269538,
+  "4": 5.5970182436236285e-05,
   "6": 7.0062709312845496e-06,
-  "8": 9.892434035685647e-07
+  "8": 9.5000051778625e-07
  },
- "U3_max_in_over_heldout_gap": 5.706008909517332,
+ "U3_max_in_over_heldout_gap": 9.684346967654543,
  "U3_in_sample_dips_below_false_emit_line": true,
  "U3_heldout_never_crosses_false_emit_line": true,
  "U3_prereg_correction": "gate was first written as gap>=10x (my proxy, not the bridge's); corrected before scoring to the bridge's own O4 definition -- in-sample CROSSES the 1e-6 false-emit line while held-out does not. Both numbers reported; gap measured 6x.",
@@ -27,5 +27,5 @@
  "U2_analytic_ladder_never_converges": true,
  "U3_O4_trap_confirmed_and_guarded": true,
  "unblind_done": true,
- "verdict": "G2 CANDIDATE B, UN-BLINDED. The bridge's answer -- I = p_y/p_x - ln(p_x) (Galajinsky 2021, Bianchi type-IV) -- is verified on my own flow (8e-30 within/total, at the integration floor) and, independently, ANALYTICALLY: d/dt(p_y/p_x) = -(x+y)p_x - y p_y cancels d/dt(-ln p_x) = +(x+y)p_x + y p_y identically. (U1, a CONSISTENCY CHECK -- B is burned as a blind target, so this is not independent evidence) adding the two named atoms makes my engine emit at 2e-29, machine precision, recovering the LITERATURE direction at cosine 1.0000: the boundary moved the instant the basis was named, exactly as 'legible <-> representable-in-basis' predicts. (U2) The analytic-in-p ladder improves monotonically ['1.3e-03', '2.0e-04', '2.6e-05', '5.6e-06'] yet never converges -- at degree 8 it is still 6e-06, 3e+23x above the emitting arm: the empirical shadow of the bridge's grading theorem (B has no polynomial Killing-tensor integrals beyond H, H^2, so no analytic-in-p basis can emit at ANY degree). (U3) The O4 trap is real and my harness was already guarded: the same directions score up to 6x better IN-SAMPLE than held-out, and in-sample DOES cross the 1e-6 false-emit line while held-out never approaches it -- polynomials cross emit thresholds by APPROXIMATION, and only out-of-sample orbits tell the difference. \u00a7162's log arm was 'the right function on the wrong argument': logs on coordinate coefficients, when the transcendence was in the momenta -- which is precisely the axis \u00a7162 pre-registered."
+ "verdict": "G2 CANDIDATE B, UN-BLINDED. The bridge's answer -- I = p_y/p_x - ln(p_x) (Galajinsky 2021, Bianchi type-IV) -- is verified on my own flow (6e-30 within/total, at the integration floor) and, independently, ANALYTICALLY: d/dt(p_y/p_x) = -(x+y)p_x - y p_y cancels d/dt(-ln p_x) = +(x+y)p_x + y p_y identically. (U1, a CONSISTENCY CHECK -- B is burned as a blind target, so this is not independent evidence) adding the two named atoms makes my engine emit at 2e-29, machine precision, recovering the LITERATURE direction at cosine 1.0000: the boundary moved the instant the basis was named, exactly as 'legible <-> representable-in-basis' predicts. (U2) The analytic-in-p ladder improves monotonically ['1.7e-03', '2.2e-04', '2.6e-05', '9.2e-06'] yet never converges -- at degree 8 it is still 9e-06, 5e+23x above the emitting arm: the empirical shadow of the bridge's grading theorem (B has no polynomial Killing-tensor integrals beyond H, H^2, so no analytic-in-p basis can emit at ANY degree). (U3) The O4 trap is real and my harness was already guarded: the same directions score up to 10x better IN-SAMPLE than held-out, and in-sample DOES cross the 1e-6 false-emit line while held-out never approaches it -- polynomials cross emit thresholds by APPROXIMATION, and only out-of-sample orbits tell the difference. \u00a7162's log arm was 'the right function on the wrong argument': logs on coordinate coefficients, when the transcendence was in the momenta -- which is precisely the axis \u00a7162 pre-registered."
 }
