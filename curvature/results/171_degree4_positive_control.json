@@ -1,0 +1,32 @@
+{
+ "system": "4-particle open Toda chain",
+ "why": "the degree-4 positive control the ladder has never had; every degree-4 CERTIFY assumes it",
+ "invariant": "tr L^4 from the Lax matrix, evaluated numerically (no recalled polynomial)",
+ "scope": "natural Hamiltonian, not geodesic flow -- tests the READOUT at degree 4, not any spacetime. ansatz's Cariglia-Galajinsky metrics (arXiv:1503.02162) are the exotic route.",
+ "Q0_conserved": true,
+ "Q1_irreducible": true,
+ "Q2_readout_finds_it": true,
+ "Q3_spectrum_separates": true,
+ "Q4_known_fail_excluded": true,
+ "drift_H": 2.878664480670714e-12,
+ "drift_P": 2.89423919416861e-14,
+ "drift_I4": 6.7597395462803515e-12,
+ "drift_known_fail": 0.623534369843609,
+ "reducible_r2": 0.9729537650345224,
+ "n_conserved": 11,
+ "n_reducible": 10,
+ "i4_residual_in_span": 5.1068829896520967e-11,
+ "known_fail_residual": 0.2545951295644186,
+ "separation": 3702494681.697847,
+ "residual_spectrum": [
+  1.0,
+  2.700881664849365e-10,
+  1.3114863500044932e-10,
+  4.293213880108328e-11,
+  2.5483625069333075e-11,
+  1.1394726332008518e-11
+ ],
+ "p": 699,
+ "ladder_works_at_degree4": true,
+ "verdict": "THE READOUT IS NOT BLIND AT DEGREE 4. Given a genuine irreducible quartic invariant in a library that can represent it, the readout finds it: trL^4 lies in the conserved span (residual 5e-11), the residual spectrum separates by 4e+09, and a smooth non-conserved control is correctly excluded (3e-01). Degree 4 now has the positive control degree 3 got in \u00a7169, so a degree-4 null elsewhere in the ladder is a null about the basis rather than about the instrument."
+}
