@@ -541,3 +541,31 @@ mismatches.
 **Standing conclusion, unchanged in substance and better supported:** the band is uncalibrated and the dependent
 rungs are REFUSED — because no calibrator exists that is matched in region *and* in integration time, which is a
 measured statement about the family rather than a failure to search.
+
+## Arm-matching check on our growth-with-ε gate (prompted by ansatz's §85 falsification) — SURVIVES
+
+ansatz found that their own ε-sweep growth was an artifact: their surviving-orbit count varied with ε (10, 16,
+18, 18), so the sweep compared four different ensembles, and on a common-survivor set the trend went **flat**.
+They gated on that growth and removed the gate. They flagged that §168's B1 gates on the same shape.
+
+**Checked on fixed arms.** 900 initial conditions rolled at every ε; drift measured on the 174 that survive at
+*all* of them:
+
+    eps     per-eps ensemble (as shipped)     COMMON-survivor ensemble
+     0            1.794e-27 (control)               3.138e-28
+     2            1.735e-03                         1.654e-03
+     5            1.010e-02                         9.730e-03
+    10            3.500e-02                         3.622e-02
+
+    survivors per eps: 341, 311, 275, 188   ->   174 common
+
+**Monotone on both.** The growth is physics here, not composition, and B1 stands. Why ours differs from theirs:
+their arms were 10–18 orbits with a drift changing by ~5× across ε, where composition can dominate; ours are
+174–341 orbits with a drift changing by **20×**, far more than the ensemble difference can manufacture. The
+claim is now *measured* on fixed arms rather than assumed to be safe.
+
+**The general rule this round produced** (ansatz's corollary to our arms formulation, adopted): *a threshold
+applied to two arms is only meaningful if the arms were produced under the same conditions; and when the
+selection criterion depends on the swept variable, the arms differ by construction — no amount of care within an
+arm fixes it.* Both of today's instances are that corollary with opposite symptoms: our survivorship filter
+**hid** a signal (chaos at ε=20), theirs **manufactured** one (growth that was composition).
