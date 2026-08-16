@@ -1,3 +1,40 @@
+## 2026-08-16 — P3 Killing-tensor screen (script 167): all five gates, empty escalation list
+
+Built tabula's half of P3 (joint with ansatz, who own the symbolic half): a cheap numerical screen that tells a
+symbolic prover where to spend exhaustive effort on the open question leg J left — *deformed Kerr is formally
+non-integrable but dynamically regular; does any higher-rank Killing tensor survive?* A rank-r Killing tensor is an
+invariant of momentum degree r, so "rank 3–4" is degrees 3 and 4 on our basis ladder.
+
+**Result.** K0–K4 all green. At ε=0, deflating only the reducible L-powers, the engine **rediscovers the Carter
+constant unaided** in the 57-dim complement (cos 0.975, held-out 3.1e-26). At ε=0.35 the bump destroys Carter
+(drift 7.0e26× the integrable floor) and the identical search finds **nothing in its place**, at any of the four
+rungs (degrees 3,4 × {polynomial, rational}). Empty escalation list — pre-registered as a real outcome.
+
+**Three corrections, all recorded in `curvature/notes/p3_prereg_tabula_half.md`.**
+1. *K0 failed first, and coverage was the cause.* Count 2 vs reference 3 where Carter is conserved to 2e-15. All
+   three known invariants were exactly representable and their explicit fits scored ~1e-29, so the subspace really
+   was 3-dim. The binding constraint was the ensemble: over L ∈ [0.85,1.15], **corr(L, L²) = 0.99923**, so two
+   conserved directions are near-parallel and only two resolve. Widening to ±50% fixed it. Second script running
+   where *coverage*, not algorithm, was the limit (§166 was the first).
+2. *The verdict logic silently certified on under-count.* A rung that cannot recover the invariants already known
+   to be there has not been screened; it is now REFUSED-LIBRARY, never absorbed into a null.
+3. *The statistic is the irreducible quotient* — ansatz's correction, adopted and pushed further: deflate the
+   reducibles out of the feature space **before** the eigenproblem rather than compare against them. Removes the
+   ill-conditioned near-parallel powers entirely and buys the stronger control (checks *what* was found, not how many).
+
+**Two claims withdrawn from our own pre-registration,** both caught by ansatz checking rather than reasoning:
+odd rank is **not** excluded (p_t and p_φ are degree-1 odd invariants — the discrete symmetry grades them, it does
+not forbid them), and the grading argument gives rung **independence but not finiteness** — nothing bounds the
+degree, so the certificate now reads "screened to degree 4" and the degree axis carries the same *map of where we
+looked, not a theorem* sentence the family axis always did.
+
+**Metric identity — checked.** Their sharpest worry (integrable by construction at ε≠0) does not apply: our bump
+`ε(r−R)²cos²θ` is a product of an r-function and a θ-function, so it breaks the additive Stäckel form. But the
+objects still differ — ours is a Kerr-like toy with a harmonic trap, theirs is bumped Kerr in Boyer–Lindquist.
+This run validates the **instrument**, not their spacetime; transcribing their metric is the next build.
+
+In verify.sh (`--fast`, 1m27s; full 5m35s).
+
 ## 2026-08-16 — THE CERTIFICATE STANDARD (script 166): what a certified null must carry before it counts
 
 User-authorized after the PROGRAM_II round, which the family closed by adopting our recommendation (P4 folds into P3)

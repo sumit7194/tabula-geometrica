@@ -1,0 +1,185 @@
+{
+ "prereg": "notes/p3_prereg_tabula_half.md",
+ "eps_deformed": 0.35,
+ "rungs": [
+  {
+   "family": "rational(coord) x momentum-deg2",
+   "deg": 2,
+   "verdict": "ESCALATE",
+   "p": 59,
+   "rankF": 59,
+   "deficiency": 0,
+   "raw_nullW": 2,
+   "count": 1,
+   "expected": 3,
+   "n_pruned": 10,
+   "n_deflated": 2,
+   "dim_searched": 57,
+   "known_representable": [
+    "L^0 K^1",
+    "L^1 K^0",
+    "L^2 K^0"
+   ],
+   "heldout_smallest": [
+    7.408311728453174e-25,
+    0.0005853363814916677,
+    0.003572040594125907,
+    0.06100961035900967
+   ],
+   "cos_to_carter": 0.9824274425571804,
+   "reason": "conserved out-of-sample after deflating all reducible invariants"
+  },
+  {
+   "family": "rational(coord) x momentum-deg2",
+   "deg": 2,
+   "verdict": "CERTIFY-NO-INVARIANT-IN[rational(coord) x momentum-deg2]",
+   "p": 60,
+   "rankF": 60,
+   "deficiency": 0,
+   "raw_nullW": 2,
+   "count": 0,
+   "expected": 2,
+   "n_pruned": 9,
+   "n_deflated": 2,
+   "dim_searched": 58,
+   "known_representable": [
+    "L^1 K^0",
+    "L^2 K^0"
+   ],
+   "heldout_smallest": [
+    0.0001958448608971485,
+    0.0004204161216044458,
+    0.011505854562804967,
+    0.030721772230349574
+   ],
+   "cos_to_carter": null,
+   "reason": "nothing conserved out-of-sample outside the reducible span"
+  },
+  {
+   "family": "polynomial(coord) x momentum-deg3",
+   "deg": 3,
+   "verdict": "CERTIFY-NO-INVARIANT-IN[polynomial(coord) x momentum-deg3]",
+   "p": 79,
+   "rankF": 79,
+   "deficiency": 0,
+   "raw_nullW": 0,
+   "count": 0,
+   "expected": 3,
+   "n_pruned": 0,
+   "n_deflated": 3,
+   "dim_searched": 76,
+   "known_representable": [
+    "L^1 K^0",
+    "L^2 K^0",
+    "L^3 K^0"
+   ],
+   "heldout_smallest": [
+    0.0007667873557793068,
+    0.006570679566622479,
+    0.014148005967953067,
+    0.019399741647516656
+   ],
+   "cos_to_carter": null,
+   "reason": "nothing conserved out-of-sample outside the reducible span"
+  },
+  {
+   "family": "rational(coord) x momentum-deg3",
+   "deg": 3,
+   "verdict": "CERTIFY-NO-INVARIANT-IN[rational(coord) x momentum-deg3]",
+   "p": 120,
+   "rankF": 120,
+   "deficiency": 0,
+   "raw_nullW": 2,
+   "count": 0,
+   "expected": 3,
+   "n_pruned": 19,
+   "n_deflated": 3,
+   "dim_searched": 117,
+   "known_representable": [
+    "L^1 K^0",
+    "L^2 K^0",
+    "L^3 K^0"
+   ],
+   "heldout_smallest": [
+    5.905394166457585e-05,
+    0.00029276708326734835,
+    0.0015722530548597828,
+    0.008393609708602142
+   ],
+   "cos_to_carter": null,
+   "reason": "nothing conserved out-of-sample outside the reducible span"
+  },
+  {
+   "family": "polynomial(coord) x momentum-deg4",
+   "deg": 4,
+   "verdict": "CERTIFY-NO-INVARIANT-IN[polynomial(coord) x momentum-deg4]",
+   "p": 139,
+   "rankF": 139,
+   "deficiency": 0,
+   "raw_nullW": 1,
+   "count": 0,
+   "expected": 4,
+   "n_pruned": 0,
+   "n_deflated": 4,
+   "dim_searched": 135,
+   "known_representable": [
+    "L^1 K^0",
+    "L^2 K^0",
+    "L^3 K^0",
+    "L^4 K^0"
+   ],
+   "heldout_smallest": [
+    0.0006756810724461598,
+    0.0009432718425620518,
+    0.01737766224640534,
+    0.019815717405089563
+   ],
+   "cos_to_carter": null,
+   "reason": "nothing conserved out-of-sample outside the reducible span"
+  },
+  {
+   "family": "rational(coord) x momentum-deg4",
+   "deg": 4,
+   "verdict": "CERTIFY-NO-INVARIANT-IN[rational(coord) x momentum-deg4]",
+   "p": 210,
+   "rankF": 210,
+   "deficiency": 0,
+   "raw_nullW": 3,
+   "count": 0,
+   "expected": 4,
+   "n_pruned": 34,
+   "n_deflated": 4,
+   "dim_searched": 206,
+   "known_representable": [
+    "L^1 K^0",
+    "L^2 K^0",
+    "L^3 K^0",
+    "L^4 K^0"
+   ],
+   "heldout_smallest": [
+    9.1131772114693e-05,
+    9.343652952046355e-05,
+    0.000951016746969498,
+    0.014213696309016746
+   ],
+   "cos_to_carter": null,
+   "reason": "nothing conserved out-of-sample outside the reducible span"
+  }
+ ],
+ "escalate": [],
+ "carter_drift_integrable": 6.375069065540809e-29,
+ "carter_drift_deformed": 0.0491766417410148,
+ "carter_drift_ratio": 7.713899447274937e+26,
+ "n_screened": 6,
+ "n_refused": 0,
+ "K0_control_limit": true,
+ "K1_carter_dies": true,
+ "K2_rank34_screened": true,
+ "K3_conditioning_honesty": true,
+ "K4_escalation_list_emitted": true,
+ "p3_screen_complete": true,
+ "degree_axis_scope": "SCREENED TO DEGREE 4. The grading argument makes the rungs INDEPENDENT (for geodesic flow the bracket raises momentum degree by exactly one, so the rungs cannot cancel each other); it does NOT bound the ladder. Nothing here rules out an irreducible degree-5+ Killing tensor. Degrees 1-4 screened; degree 5 was not run. The degree axis is a map of where we looked, exactly as the family axis is.",
+ "reducibles_note": "Every rung is populated by REDUCIBLE products of the known invariants; those are deflated out before the eigenproblem, so the reported count is the IRREDUCIBLE quotient and its null expectation is zero.",
+ "what_this_is_not": "non-existence outside a named family and beyond the screened degree. Only symbolic certification converts a rung into a theorem -- which is why the escalation list is the deliverable, not a leftover.",
+ "verdict": "P3 SCREEN (tabula's half). K0 THE CONTROL HOLDS: at eps=0, with only the reducible L-powers deflated, the engine REDISCOVERS the Carter constant unaided in the 57-dim complement (cos 0.9824, held-out 7e-25) -- so the chain is validated on a known answer before the adversarial question is asked. K1: the quadrupole bump DESTROYS Carter (drift 5e-02 = 8e+26x the integrable floor) and the same search finds NOTHING in its place. K2: across momentum degrees 3 and 4 x {polynomial, rational}, with all reducibles deflated so any survivor is irreducible by construction, 4 rungs screened and 0 escalated. NOTHING survived at any rung: no irreducible invariant representable in {polynomial, rational} x momentum-degree <= 4, conditioning-gated and out-of-sample validated -- a certified null about where the invariant ISN'T, scoped to those families AND to degree <= 4."
+}
