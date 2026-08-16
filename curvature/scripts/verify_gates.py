@@ -206,6 +206,13 @@ BATTERIES = [
      "167_p3_killing_tensor_screen.json",
      {"K0_control_limit": (">", 0.5), "K1_carter_dies": (">", 0.5), "K2_rank34_screened": (">", 0.5),
       "K3_conditioning_honesty": (">", 0.5), "carter_drift_ratio": (">", 1e6)}),
+    # 169: the degree-3 POSITIVE control. Asserts the readout can find a known irreducible cubic invariant --
+    # without this, a degree-3 null anywhere in the ladder is not a null (it is "no positive control was run").
+    ("Degree-3 positive control, Toda cubic (script 169)",
+     ["scripts/169_degree3_positive_control.py", "--fast"], "169_degree3_positive_control.json",
+     {"T0_cubic_conserved": (">", 0.5), "T1_cubic_irreducible": (">", 0.5),
+      "T2_readout_finds_it": (">", 0.5), "T3_spectrum_separates": (">", 0.5),
+      "separation": (">", 1e3)}),
 ]
 
 
