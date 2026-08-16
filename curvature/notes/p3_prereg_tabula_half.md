@@ -252,3 +252,58 @@ G × P × p float64; the degree-4 cell at ntraj=2000 needs ~15 GB) **with buffer
 write, so every completed cell was lost**. A long detached run that only writes at the end is an all-or-nothing
 bet. Now: `python -u`, a per-cell memory guard that reports skipped cells rather than silently omitting them,
 and a flush after every cell.
+
+## Readout investigation (2026-08-16) — STOPPED and reverted, with what it found recorded
+
+168b showed degree 3 failing while degree 4 passed, so I tried to rebuild the irreducible-dimension readout. Four
+successive patches, each fixing one artifact and exposing the next, is the signal to stop rather than continue,
+so this was reverted to the committed state. What it established is worth keeping; what it did not, is not shipped.
+
+**Established.** Project the conserved per-trajectory values onto the orthogonal complement of the reducibles and
+look at whether the residual spectrum SEPARATES:
+
+    deg2 rat+metric   [1.0, 3.6e-6, 9.5e-7, ...]      separation 2.8e5   one clean direction (Carter)
+    deg3 rational     [1.0, 0.60, 0.49, 0.30]         separation 1.7     nothing stands out
+    deg3 rat+metric   [1.0, 0.86, 0.68, 2.2e-5]       separation 1.2     nothing stands out
+    deg4 rat+metric   [1.0, 0.94, 0.86, 0.73]         separation 1.1     nothing stands out
+
+**Degree 2 is the only rung on this metric with separated conserved structure.** This also exposes degree 4's
+earlier "control OK" as a FALSE PASS: the rank-difference statistic returned 1 while nothing actually stands out.
+So the earlier hypothesis — *"the readout is miscounting and the degree-3 physics is fine"* — is **not supported**
+and is withdrawn. At degree ≥ 3 there is no separated structure to count, which is a third answer, distinct from
+both "coverage" and "miscount".
+
+**Two traps caught inside the investigation, both worth more than the fix attempt.**
+- *A control that cannot fail is not a control.* Calibrating the cutoff as the geometric mean of the first two
+  singular values makes the control return exactly 1 **by construction**. It looked like four rungs passing; it
+  was arithmetic. The separation ratio above is the non-definitional replacement.
+- *A scale-free statistic cannot answer "is anything here".* Normalizing the spectrum by its own largest value
+  sets `spec[0] = 1` identically, so every deformed rung clears any cutoff and ESCALATES. The normalization that
+  makes rungs comparable is the same one that destroys the absolute question.
+
+**Recorded for whoever rebuilds this:** ansatz's advice, which is right — when no gap exists the readout should
+return **REFUSED**, not a number. The fallback's error was not the value it picked but that it answered at all.
+And their cheap test for the odd-degree hypothesis before rebuilding around it: compute per-column ensemble
+variance at degree 3 and check whether the odd-momentum columns are systematically smaller.
+
+## ε=10 is not perturbative for ansatz, and is for us (their scope error, our radial cutoff)
+
+They asked whether our orbits reach the region where their ε=10 stops being a perturbation. Measured:
+
+    eps      our r range        our max|bump-1|      theirs
+     0       [4.08, 11.91]         0.0000            —
+     2       [4.04, 11.50]         0.0299            0.0075
+     5       [4.09, 11.95]         0.0728            0.0453
+     10      [4.07, 11.26]         0.1336            1.2548   (their orbits reach r = 2.00)
+
+Our radial cutoff holds every orbit outside r ≈ 4, so at ε=10 our deformation peaks at 0.134 while theirs reaches
+1.25 — larger than the function it multiplies, sign-flipping g_tt. Same ε, different spacetime region. That
+accounts for the 7.6× disagreement at ε=10 with neither side being wrong, and it closes the question exactly as
+they predicted it would.
+
+**With the statistics matched** (they computed *our* variance-ratio statistic on *their* trajectories, restricted
+to the 10 orbits surviving at every ε): agreement **7% at ε=2 and 2.4% at ε=5**. Far stronger than the original
+side-by-side comparison, and it isolates the disagreement to the one non-perturbative point. Their ε=0 floor on
+our statistic is 2.87e-27 against our 1.48e-28 — same order, and both sweeps sit 1e23–1e26 above their floors, so
+neither side is measuring noise at weak coupling. **The value agreement is now established for ε = 2 and 5, and
+ε = 10 should be reported with its radial reach or dropped.**
