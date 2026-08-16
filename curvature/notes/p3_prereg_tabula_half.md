@@ -502,3 +502,42 @@ of why no calibrator exists, rather than on our having failed to find one.
 
 **Reusable outcome:** the λ(T)-trend Lyapunov instrument is validated (known-pass and known-fail both exercised)
 and is available for any future integrability question in this repo.
+
+## SURVIVOR BIAS — our "no chaotic sea" claim was overreach; chaos exists, outside the band
+
+ansatz sent back two rules from their own §79 correction, and both landed on our data:
+*a plateau is only evidence if something was varied* (an early-terminating computation plateaus for free), and
+*two controls compared against each other must be measured under the same conditions*.
+
+**The flaw they exposed in ours.** Our λ(T) sweep filtered orbits to a radial band and reported only survivors.
+But **chaotic orbits wander more, so they leave the band first** — the filter selects for regularity, then we
+reported finding only regular orbits. Worse, the ε=5 row rested on **n = 1 surviving orbit**.
+
+**Re-measured with each orbit's OWN survival time and its OWN finite-time bias**, comparing λ against ln(T)/T at
+the T that orbit actually reached (never at the requested T):
+
+    eps    n_full  n_short   median T   lambda    own bias   ratio
+     0        22      38        42.0    +0.0805    0.0891     0.90x     <- integrable: known-negative
+     2        12      48        40.6    +0.0899    0.0912     0.99x
+     5         1      59        38.6    +0.0974    0.0947     1.03x
+    10         0      60        31.3    +0.1241    0.1100     1.13x
+    20         0      60        24.9    +0.4985    0.1291     3.86x     <- genuine chaos
+
+**The ε=0 row is the built-in known-negative** and it passes: at integrable Kerr the *discarded* orbits sit at
+0.90× their own bias, so escaping orbits are not falsely flagged as chaotic. That validates the ε=20 reading.
+
+**What changes.** Across the entire canonical sweep {2, 5, 10} — in the band *and* among the escapers — nothing
+is chaotic; the ratio stays at 1.0 within noise. So the operative conclusion survives. But **"no accessible
+chaotic sea in this family" was overreach**: chaos is plainly there at ε=20, at 3.86× its own bias, and our
+filter had been discarding exactly those orbits. Corrected.
+
+**Why the calibration is still unavailable, now for a sharper reason.** The chaotic region fails *both* of
+ansatz's matching requirements at once: it is not co-located with the screening band (those orbits leave it), and
+it survives only T ≈ 25 against the band's T ≈ 240 — a **10× integration-time mismatch**, which is precisely the
+defect they had just found in their own §79 (Kerr at T=400 vs di-hole at T=21, an order of magnitude apart,
+compared directly and flattering the margin 190× → 12.4×). A floor calibrated on ε=20 escapers would inherit both
+mismatches.
+
+**Standing conclusion, unchanged in substance and better supported:** the band is uncalibrated and the dependent
+rungs are REFUSED — because no calibrator exists that is matched in region *and* in integration time, which is a
+measured statement about the family rather than a failure to search.
