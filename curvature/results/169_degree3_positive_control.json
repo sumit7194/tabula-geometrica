@@ -1,0 +1,28 @@
+{
+ "system": "3-particle open Toda chain, H = 1/2 sum p_i^2 + exp(q1-q2) + exp(q2-q3)",
+ "why": "the degree-3 POSITIVE CONTROL \u00a7168 never had: a system whose degree-3 answer is known nonzero",
+ "scope": "Toda is a natural Hamiltonian, not geodesic flow, so the grading result does not apply. This tests whether the READOUT resolves a genuine irreducible cubic invariant, which is grading- and signature-independent. Instrument control, not a physics claim.",
+ "T0_cubic_conserved": true,
+ "T1_cubic_irreducible": true,
+ "T2_readout_finds_it": true,
+ "T3_spectrum_separates": true,
+ "drift_H": 1.780033667230051e-12,
+ "drift_P": 1.1697386781601617e-13,
+ "drift_I3": 2.7664973946173115e-11,
+ "reducible_r2": 0.8759288389818574,
+ "n_conserved": 6,
+ "n_reducible": 5,
+ "i3_residual_in_span": 6.275236983292878e-12,
+ "separation": 48148089848.479614,
+ "residual_spectrum": [
+  1.0,
+  2.0769255917461434e-11,
+  2.8362488243258138e-12,
+  1.3572349989568678e-12,
+  8.603421160503862e-13,
+  2.2184178835690624e-13
+ ],
+ "p": 119,
+ "ladder_works_at_degree3": true,
+ "verdict": "THE READOUT IS NOT BLIND AT DEGREE 3. Given a system with a genuine irreducible cubic invariant in a library that can represent it, the readout FINDS it: I3 lies in the conserved span (residual 6e-12) and the residual spectrum separates by 5e+10, against 1.7 on deformed Kerr. WHAT THIS DOES AND DOES NOT LICENSE: it removes 'the instrument cannot resolve degree 3' as a general explanation. It does NOT retroactively validate \u00a7168's degree-3 rungs -- those failed their OWN eps=0 controls and remain REFUSED on their own terms -- and it says nothing about degree 4, which still has no positive control. The open question is now specific and answerable: why did the deformed-Kerr degree-3 control fail when the readout demonstrably works at that degree?"
+}

@@ -307,3 +307,47 @@ side-by-side comparison, and it isolates the disagreement to the one non-perturb
 our statistic is 2.87e-27 against our 1.48e-28 — same order, and both sweeps sit 1e23–1e26 above their floors, so
 neither side is measuring noise at weak coupling. **The value agreement is now established for ε = 2 and 5, and
 ε = 10 should be reported with its radial reach or dropped.**
+
+## WITHDRAWAL + the degree-3 positive control (script 169, 2026-08-16), 4/4
+
+**Withdrawn: §168's "third answer".** We reported that at momentum degree ≥3 on deformed Kerr "there is no
+separated structure to count", and called it a third answer distinct from coverage and from a miscount. ansatz
+showed it was never established, and they are right. At degree 3 the deflation removes p_t·K and p_φ·K — every
+place Carter appears at that degree — so the ε=0 control was asking the engine to find something that, as far as
+anyone knows, **isn't there**. An empty complement is then consistent with *both* readings and discriminates
+neither: "correctly nothing, instrument fine" and "instrument blind" produce the same output.
+
+**A null at a rung with no positive control is not a null.** This is our own REFUSED-LIBRARY principle one level
+up, and the **fourth** instance of the silent-null class we had just named. We shipped it in the same session in
+which we named it. Also recorded from ansatz: they searched for a theorem that Kerr admits no irreducible rank-3
+or rank-4 Killing tensor and **could not find one**, so "correctly nothing" is an expectation, not a fact.
+
+**The control.** ansatz proposed Cariglia & Galajinsky, *Ricci-flat spacetimes admitting higher rank Killing
+tensors* (arXiv:1503.02162) — Ricci-flat signature-(2,q) spacetimes with irreducible rank-3/4 Killing tensors,
+built by Eisenhart-lifting Drach's 2D integrable systems. Web-verified to exist and to say that. We used the
+simpler member of the same family, since a positive control needs a *known* answer rather than an exotic one:
+the **3-particle open Toda chain**, whose third integral is cubic in the momenta. The formula was **not** trusted
+from memory — T0 verifies conservation numerically and T1 verifies irreducibility numerically before it is used.
+
+**Result, 4/4 (250 train / 250 test trajectories).** T0 I3 conserved, drift 2.8e-11 (H 1.8e-12, P 1.2e-13).
+T1 irreducible: R² = 0.876 regressed on {P, P², P³, H, P·H}. **T2 the readout FINDS it** — 6 conserved
+directions = 5 reducibles + 1, I3 inside the conserved span at residual **6.3e-12**. T3 the residual spectrum
+separates by **4.8e10**, against 1.7 on deformed Kerr at the same degree.
+
+**What this licenses, precisely.** It removes *"the instrument cannot resolve degree 3"* as a general
+explanation. It does **not** retroactively validate §168's degree-3 rungs — those failed their own ε=0 controls
+and remain REFUSED on their own terms. And it says nothing about **degree 4**, which still has no positive
+control. The open question is now specific and answerable: *why did the deformed-Kerr degree-3 control fail when
+the readout demonstrably works at that degree?*
+
+**The same bug, twice, in two scripts.** T2 first failed at 5 conserved vs 5 reducibles. Diagnosis before any
+change: P, P², P³, P·H and I3 were all inside the found span at ~1e-13, but **H was not** (residual 0.957) —
+because the library required momentum degree ≥1 and H's potential term `a+b` carries no momentum factor. §167
+hit the identical bug on Carter's `−A²cos²θ·H0` term. **Recurring form: a known invariant with a pure-coordinate
+piece is invisible to a library that insists on a momentum factor.** The fix changed the *library*, not the
+gate; thresholds are untouched; and the diagnosis identified which invariant was missing and why before the fix
+was made.
+
+**Also fixed:** the full-length run silently emptied because open Toda *scatters* — positions grow without
+bound, and a `|position| < 60` filter rejects every trajectory at longer integration times. Filter on momenta
+and the exponentials, which are what must stay bounded.
