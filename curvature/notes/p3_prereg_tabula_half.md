@@ -394,3 +394,42 @@ fix and a fudge.* And their generalized form of the momentum-floor bug: *a grade
 is not homogeneous in the grading will always mismatch, and it presents as an under-count of the reducibles
 rather than as an error.* Three mechanisms now, one symptom — constant column, slice-specific coefficients,
 grading mismatch — the engine reporting confidently on a span that cannot hold the answer.
+
+## The degree-3 control failure, fully localised (ansatz's bisecting test + follow-up)
+
+ansatz's test: I had measured "Carter is representable" by fitting the library to Carter's **analytic values**,
+which is a different question from whether the fitted vector is **conserved along trajectories**. Pushing the
+best-fit coefficient vector through the conservation statistic:
+
+    rung              fit resid   heldout(fit vector)   engine best
+    deg2 rat+metric    5.27e-07        2.69e-11           4.68e-16
+    deg3 rational      7.15e-05        2.14e-07           1.93e-16
+    deg3 rat+metric    2.65e-07        6.02e-11           1.26e-13
+    deg4 rat+metric    1.53e-07        3.50e-10           2.82e-12
+
+**The chain, named.** Carter is only *approximately* representable at these rungs, so its best representation is
+conserved only to ~1e-11 — while the engine's own conserved directions reach ~1e-16. The reducibles are
+polynomials in E, L, H and are represented *exactly*, so the control-calibrated floor is set by quantities far
+better conserved than the control target. **A control-calibrated floor is only valid if the control target is
+represented as well as the calibrators are.** That is a third distinct way a basis can be silently inadequate,
+and it is not one either of us had listed.
+
+**`deg3 rational`: explained.** Carter's conservation (2.14e-07) sits **5 orders outside** the band its own
+reducibles define (3.40e-12). Basis-limited, exactly ansatz's §85 H2, one rung over from where they guessed.
+
+**`deg3 rat+metric`: explained, and not by coverage.** Carter *is* inside the band here, so the floor is not the
+cause. Sweeping the control against ensemble size:
+
+    ntraj    150      300      500      800
+    resid  4.58e-3  1.26e-3  1.18e-3  1.87e-3      gate 1e-3
+
+It improves to ~1.2e-3 by n=300 and then **plateaus just above the pre-registered gate**. The conserved subspace
+(13-dim, 12 reducibles + 1) captures Carter only to ~1.2e-3 even though the full kept library represents it to
+2.65e-07 — because Carter's representation is conserved to 6e-11 while the subspace is defined by directions
+conserved to 1e-13, so Carter sits partly outside the very band that defines the subspace. Same mechanism as
+`rational`, milder, and it lands just the wrong side of the threshold. **The gate is not moved.** The rung is not
+screenable at the pre-registered standard, and now for a named reason rather than an open shrug.
+
+**Correction to our own earlier reading of §168b.** We described *both* degree-3 rungs as "flat in coverage".
+Only `rational` was flat (3.63e-4 → 3.01e-4). `rat+metric` was **descending** (4.28e-3 → 4.36e-3 → 1.13e-3) and
+we read it as flat because it sat next to one that was. It plateaus, but it does not start flat.
