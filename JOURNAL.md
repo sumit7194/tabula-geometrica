@@ -1,3 +1,38 @@
+## 2026-08-16 (later) — 168b/168c: two of our own claims refuted, and the readout rebuild stopped
+
+**168c — the shared story about the drift offset is refuted.** Both sides had written that the
+fixed-(E,L) vs varied-(E,L,H) ensemble split explains why our Carter-drift sweeps differ in value; neither had
+checked it. Pinning E and L to ansatz's values in our harness moved our ε=2 *away* from theirs (2.06e-3 →
+1.34e-3 vs 3.1e-3). The noise-floor reading is ruled out on our side (9e24× above our own floor). The residue was
+better than the story: our drift is nearly ensemble-*insensitive* while theirs moves 2.4×, i.e. the two were
+never the same statistic. ansatz then computed *our* statistic on *their* trajectories: **agreement 7% at ε=2 and
+2.4% at ε=5**. The value agreement is now established for the perturbative points.
+
+**ε=10 is not perturbative — for them.** Their orbits reach r = 2.00 where max|bump−1| = 1.25, larger than the
+function it multiplies (g_tt sign-flips). Our radial cutoff holds orbits outside r ≈ 4, so ours peaks at 0.134.
+Same ε, different spacetime region; that accounts for the one remaining 7.6× disagreement with neither side
+wrong. **ε alone does not specify the deformation when the bump goes as 1/r³ — report radial reach with it.**
+
+**168b — "the binding constraint is ensemble coverage" was our inference stated as a finding, and it is refuted.**
+Degree 4 (p=581) passes its control where degree 3 (p=264) fails, and nine times the data moves degree 3 not at
+all. Non-monotonic in degree ⇒ structural, not statistical. So the scaling run both sides were circling is *not*
+the right move and was not queued.
+
+**Then the follow-up hypothesis was refuted too.** "The readout miscounts and the degree-3 physics is fine"
+looked right (two estimators disagreeing 1 vs 4 at degree 3, agreeing at degree 4) but fails on measurement: the
+residual spectrum after projecting off the reducibles separates by 2.8e5 at degree 2 and by 1.7 / 1.2 / 1.1 at
+degrees 3–4. **Degree 2 is the only rung with separated structure**, and degree 4's "control OK" was a false
+pass. At degree ≥ 3 there is nothing separated to count — a third answer, distinct from both earlier ones.
+
+**Rebuild stopped and reverted** after four patches each exposing the next artifact. Two traps caught inside it
+and nearly shipped: a cutoff calibrated between the first two singular values makes the control return 1 *by
+construction* (a control that cannot fail is not a control), and a spectrum normalized by its own largest value
+cannot answer "is anything here". Both recorded; neither shipped.
+
+Operational: 168b's first attempt was OOM-killed 20 min in with buffered output and no incremental write, losing
+every completed cell. Rebuilt with `python -u`, a per-cell memory guard that *reports* skipped cells, and a flush
+per cell. `verify.sh` ALL GREEN throughout (§167 included; §168 is not gated).
+
 ## 2026-08-16 — P3 transcribed to ansatz's metric (script 168): degree 2 certified, degrees 3–4 refused
 
 ansatz asked that both halves of P3 screen the *same* object. Transcribed their parameters verbatim: Kerr in
