@@ -679,8 +679,14 @@ momenta to zero to shrink the algebra.
     p_t=p_w=0 (1 KV)     10   6.6e-14     0.152     3.86e-01  3.38e-01     no     1.3e-09  REFUSED
 
 **Established: at two Killing vectors the readout isolates K cleanly** -- 2.79e-06 against a non-conserved
-control at 2.02e-01, five orders of separation. **So §172's failure is not universal and does not reach bumped
-Kerr; §168's degree-4 rungs deserve a RERUN rather than a refusal.**
+control at 2.02e-01, five orders of separation, **ON THE CG SUBSTRATE**.
+
+> **CORRECTED BY §174.** We went on to conclude that, bumped Kerr having two Killing vectors, §172's failure
+> "does not reach it" and §168's degree-4 rungs "deserve a RERUN rather than a refusal". **That inference is
+> refuted.** §174 ran the rerun; its on-substrate control shows the readout cannot see a standout on bumped Kerr
+> even when one is certainly there (Carter withheld: separation 1.277 vs 1.077 included). Validation by regime
+> match does not transfer between substrates. §168's refusal stands, and what THIS script establishes is only
+> that the readout works at two Killing vectors on the CG substrate.
 
 **NOT established, and the design is at fault: reducible-algebra SIZE is not isolated as the controlling
 variable.** The result is non-monotonic -- 1 KV fails -- and diagnosis shows why: K's *representability* degrades
