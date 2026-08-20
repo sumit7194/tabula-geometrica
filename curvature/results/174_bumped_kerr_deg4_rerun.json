@@ -1,0 +1,104 @@
+{
+ "question": "rerun \u00a7168's degree-4 rungs on bumped Kerr with the readout \u00a7173 validated at 2 KVs",
+ "validation": "BY REGIME MATCH, not on-substrate: bumped Kerr has no known rank-4 KT so no positive control is possible here. \u00a7173 validated this readout at degree 4 with two Killing vectors and a reducible list of 30. This is an argument, not a measurement.",
+ "rows": [
+  {
+   "label": "eps=0 (control)",
+   "eps": 0.0,
+   "n_reducible_list": 29,
+   "reducible_deficient": false,
+   "p": 993,
+   "n_conserved_1e9": 4,
+   "separation": 1.0770569066049267,
+   "residual_spectrum": [
+    1.0,
+    0.9284560489493321,
+    0.5586840863360317,
+    0.269508017763843,
+    0.2430317972107711
+   ],
+   "known_fail_residual": 0.11440277415294532,
+   "best_heldout": 1.407956172402761e-11,
+   "x_spread": 2.3228455066608618
+  },
+  {
+   "label": "eps=2.0",
+   "eps": 2.0,
+   "n_reducible_list": 21,
+   "reducible_deficient": false,
+   "p": 997,
+   "n_conserved_1e9": 0,
+   "separation": 1.678875138775888,
+   "residual_spectrum": [
+    1.0,
+    0.5956369100379474,
+    0.39980461847258675,
+    0.33601689047513444,
+    0.2811338229901212
+   ],
+   "known_fail_residual": 0.15713539742722035,
+   "best_heldout": 1.0733110821245765e-09,
+   "x_spread": 2.24809477277615,
+   "survivor": false
+  },
+  {
+   "label": "eps=5.0",
+   "eps": 5.0,
+   "n_reducible_list": 21,
+   "reducible_deficient": false,
+   "p": 1009,
+   "n_conserved_1e9": 3,
+   "separation": 1.0665095123855377,
+   "residual_spectrum": [
+    1.0,
+    0.9376381442329838,
+    0.7839675031501092,
+    0.6664862477397325,
+    0.5732244037899211
+   ],
+   "known_fail_residual": 0.22725822794665745,
+   "best_heldout": 3.4905265005568316e-13,
+   "x_spread": 1.9997305372628489,
+   "survivor": false
+  },
+  {
+   "label": "eps=10.0",
+   "eps": 10.0,
+   "n_reducible_list": 21,
+   "reducible_deficient": false,
+   "p": 1010,
+   "n_conserved_1e9": 3,
+   "separation": 1.0450451990288498,
+   "residual_spectrum": [
+    1.0,
+    0.9568964107287322,
+    0.29808174506552365,
+    0.2186638540573329,
+    0.12607972667527756
+   ],
+   "known_fail_residual": 0.44091811126758673,
+   "best_heldout": 2.9697545544546937e-12,
+   "x_spread": 1.986374295735128,
+   "survivor": false
+  }
+ ],
+ "onsubstrate_control": {
+  "separation_carter_in_list": 1.0770569066049267,
+  "separation_carter_withheld": 1.2771369610646235,
+  "ratio": 1.1857655368372173,
+  "passes": false
+ },
+ "representability_eps0": {
+  "E": 4.606475290086688e-12,
+  "L": 2.708747300342836e-12,
+  "H": 3.42716066535545e-12
+ },
+ "R0_regime_match": true,
+ "R1_known_fail_excluded": true,
+ "R2_survivors": 0,
+ "R3_stable_across_eps": true,
+ "R1_reducibles_representable": true,
+ "R1b_onsubstrate_control": false,
+ "rerun_valid": false,
+ "verdict": "RERUN REFUSED, and the ON-SUBSTRATE CONTROL is why. At eps=0 Carter is genuinely conserved; withholding it from the reducible list gives separation 1.277 against 1.077 with it included -- ratio 1.19. **The readout cannot see a standout on this substrate even when one is certainly there**, so the eps>0 'no survivor' is the instrument finding nothing, not evidence of absence. \u00a7168's refusal of these rungs STANDS. This also refutes our own regime-match argument: \u00a7173 validated the readout at two Killing vectors ON THE CG SUBSTRATE, and that does NOT transfer to bumped Kerr despite matching on Killing-vector count and reducible-list size. Regime match on coarse variables is not sufficient; readout capability is substrate-specific and must be measured where it is used."
+}

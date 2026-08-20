@@ -701,3 +701,50 @@ branch), for the second time in one day, inside a script written to enforce the 
 GF(p) there is no condition number and vectors are dependent or not. Their prover returns one irreducible against
 ten reducibles on this substrate at rank 3 in 1.4 s. So §172 is **a statement about numerical screening at degree
 4, not about degree 4** -- the question stays answerable, our instrument is what cannot answer it.
+
+## §174 — RETRACTION: §168's degree-4 refusal was right, and our reopening argument was wrong
+
+§173 led us to claim §168's degree-4 rungs "deserve a rerun rather than a refusal". **We ran it. The refusal was
+right.** This section records the retraction and, more importantly, why the argument failed.
+
+**The reasoning that failed: VALIDATION BY REGIME MATCH.** §173 showed the readout isolates a known rank-4
+Killing tensor at a two-Killing-vector restriction of the CG substrate (K residual 2.79e-06 vs control 2.02e-01).
+Bumped Kerr has two Killing vectors. We inferred the readout would work there. That step is an *argument*, not a
+measurement — and it was flagged as the weak point in §174's own docstring **before** the run, then acted on
+anyway once the numbers came back agreeable.
+
+**The rerun initially agreed, which is the dangerous part.** With the instrument repaired (below), §174 returned
+a clean CERTIFY: no surviving direction at ε = 2, 5, 10, known invariants representable to ~3e-12, known-fail
+correctly excluded, regime matched. It looked like a result.
+
+**The on-substrate control killed it.** At ε=0 Carter is genuinely conserved, so withholding it from the
+reducible list *must* make it stand out:
+
+    Carter IN the reducible list : separation 1.077
+    Carter WITHHELD              : separation 1.277      ratio 1.19
+
+**The readout cannot see a standout on bumped Kerr even when one is certainly there.** So "no survivor" at ε>0
+was the instrument finding nothing. §174 is **REFUSED** and **§168's refusal of these rungs STANDS**.
+
+**THE GENERALISABLE RESULT, and it is the point of this section.** §173's validation was real — two Killing
+vectors, reducible list 30, K isolated at five orders — and it **did not transfer** to a different substrate with
+the same Killing-vector count and a comparable reducible list. **Regime match on coarse variables is not
+sufficient: readout capability is substrate-specific and must be measured where it is used, not inferred from
+where it was validated.** New entry for the catalogue, and a close cousin of the arms-must-be-matched rule.
+
+**Three defects found before the script was trustworthy, each producing plausible output.**
+1. *The library could not express the Killing momenta.* Built from velocities with only the INVERSE metric
+   components, while p_φ = g_φA u^A needs the LOWER-index ones. L was representable only to 4.6e-04. Basis
+   inadequacy in a **fourth** disguise — after a constant column, slice-specific coefficients, and a grading
+   mismatch, now the index position of the metric components.
+2. *R1 was pre-registered as two clauses and only one was coded.* "Recovers the reducibles AND excludes the
+   known-fail" — the recovery half was never implemented, and it is exactly what would have caught (1)
+   immediately. **The pre-registration was the faulty check, for the third time in this project.**
+3. *The conditioning truncation was itself the representability limit.* Measured: tol 1e-9 → E 9.2e-09 / L
+   4.3e-09 / H 1.5e-08; tol 1e-13 → ~1e-12, clearing the pre-registered 1e-9 bar by three orders. **The gate was
+   not moved — the instrument was fixed so it could meet the gate**, which is the opposite. Catalogue mode 2
+   again, "the conditioning step removed the ability".
+
+**Now a hard gate (R1b): withhold a known invariant from the reducible list and require it to stand out.** Any
+future screen on a substrate must pass this before a null from it counts. Not in verify.sh — the headline is a
+REFUSED and there is no positive gate to assert.
