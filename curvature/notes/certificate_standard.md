@@ -155,3 +155,52 @@ on-substrate demonstration. In §174 the gap was **real** (the instrument genuin
 §161 it was **only a gap in the demonstration** (the instrument could answer, nobody had shown it). Same shape,
 opposite resolutions, and no way to tell which from the outside. That is precisely why C5 has to be *measured*
 per substrate rather than argued.
+
+### C5 refinement 1 — the positive must match the certify in DEGREE
+
+§174's C5 test withheld Carter, which is **degree 2**, while certifying at **degree 4**. It failed anyway, so
+that verdict is unaffected. But a script that *passes* C5 using a low-degree positive while certifying at high
+degree has a **weak pass**: nothing was shown about the instrument at the degree that matters.
+
+> **C5 is only as strong as the degree and complexity of the positive used to demonstrate it.** Record the
+> positive's degree alongside the certify's degree; a gap between them is a caveat, not a pass.
+
+### C5 refinement 2 — "same system, different parameter" is not automatically the same substrate
+
+ansatz's caution, and it kills the assumption that the emit-at-one-parameter / certify-at-another family passes
+by construction: **the parameter change may itself alter what is representable.** On their metric ε=0 collapses a
+degree-11 denominator to degree 4, so their ε=0 control validated a materially different basis from the one
+issuing the ε=2 null — regime match wearing a different coat, and they retracted the claim on that basis.
+
+**Checkable, not arguable.** Measured on §168, whose library *is* ε-dependent (it carries the inverse-metric
+components), with a fixed analytic target evaluated on each substrate's own ensemble:
+
+    eps      p_kept   Carter repr    L repr    L^2 repr
+    0          179      3.52e-07    1.13e-08   1.18e-08
+    2          180      1.56e-06    1.08e-08   1.26e-08
+    5          179      2.44e-06    1.05e-08   1.26e-08
+    10         181      2.92e-06    1.34e-08   1.75e-08
+
+Flat: Carter degrades 8× and stays the same order, L and L² are unchanged, retained dimension stable. **§168's
+ε-dependent basis does NOT materially alter representability, so its ε=0 control transfers.** Their failure mode
+was specific to a denominator-degree collapse and has no analogue here — but that is now measured rather than
+assumed, which was the point.
+
+*(Noted in passing: §168's absolute representability is only ~1e-7/1e-8, limited by the conditioning truncation
+at tol 1e-9 — the same limit §174 diagnosed and fixed with tol 1e-13. It does not affect the degree-2 verdict,
+whose on-substrate positive is the reducible set, but it is the ceiling on anything asked of that library.)*
+
+## THE C5 AUDIT — status of every certify-bearing result in this repo
+
+17 results carry a CERTIFY verdict; 13 are gated in verify.sh. Audited so far:
+
+| result | certify degree | on-substrate positive | degree of positive | C5 |
+|---|---|---|---|---|
+| §161 Candidate B (**filed with the bridge**) | ≤6 | H2 recovered at 1.75e-26 with the shell varying (§175) | 2 | **PASS** (weak on degree) |
+| §168 degree 2 | 2 | the 6 reducibles recovered on the deformed substrate | ≤2 | **PASS** (degree matched) |
+| §174 degree 4 | 4 | Carter withheld at ε=0 stays invisible (sep 1.277 vs 1.077) | 2 | **FAIL → REFUSED** |
+| §167 | 2 | K0 rediscovers Carter at ε=0; basis is ε-**independent** (`library(T, deg, rational)`) | 2 | **PASS** |
+
+Not yet audited: §93, §94, §95, §141, §142, §143, §145, §147, §150, §151, §160, §162, §166, §171. The prior —
+that the emit-or-certify family passes because it emits at one parameter and certifies at another within one
+system — is **no longer safe by construction** after refinement 2 and must be checked per script.
