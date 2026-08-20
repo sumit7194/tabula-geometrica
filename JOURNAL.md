@@ -1,3 +1,30 @@
+## 2026-08-21 — §174 RETRACTION: the degree-4 reopening was wrong; §168's refusal stands
+
+Claimed last night that §168's degree-4 rungs "deserve a rerun rather than a refusal", on the strength of §173.
+**Ran it; the refusal was right.** Retraction sent to ansatz before it could influence their rank-4 priority.
+
+**The rerun initially produced a clean CERTIFY** — no survivor at ε = 2, 5, 10, known invariants representable to
+~3e-12, known-fail excluded. **The on-substrate control killed it:** at ε=0 Carter is genuinely conserved, and
+withholding it from the reducible list gives separation 1.277 against 1.077 with it included (ratio 1.19). The
+readout **cannot see a standout on bumped Kerr even when one is certainly there**, so "no survivor" was the
+instrument finding nothing.
+
+**The generalisable result:** the reopening rested on **validation by regime match** — §173 validated the readout
+at two Killing vectors *on the CG substrate*, and bumped Kerr has two Killing vectors. That inference is wrong and
+now measurably so: same Killing-vector count, comparable reducible list, and it did not transfer. **Readout
+capability is substrate-specific and must be measured where it is used.** The weak point was flagged in §174's
+own docstring before the run and acted on anyway once the numbers looked agreeable — which is the argument for
+building the control rather than reasoning about it.
+
+**Three defects before the script was trustworthy, all producing plausible output:** the library could not
+express the Killing momenta (basis inadequacy, fourth disguise — index position of the metric components); R1 was
+pre-registered as two clauses with only one coded, and the missing half was exactly what would have caught the
+first (**the pre-registration was the faulty check, third time**); and the conditioning truncation was itself the
+representability limit (tol 1e-9 → ~1e-8, tol 1e-13 → ~1e-12; **the gate was not moved, the instrument was fixed
+so it could meet it**).
+
+R1b — withhold a known invariant and require it to stand out — is now a hard gate for any substrate screen.
+
 ## 2026-08-20 (later) — §173: §172's negative does not reach bumped Kerr, and my knob was confounded
 
 **Rescoped §172 first, on ansatz's correction.** Near-collinearity is a property of a *floating-point* spectrum;
