@@ -1,3 +1,26 @@
+## 2026-08-21 — C5 added to the certificate standard, and §161's filed verdict audited (it holds)
+
+**C5 — the readout must be demonstrated to detect a genuine positive ON the substrate where the null is issued.**
+Added after §174 produced a CERTIFY that passed all four existing clauses and was worthless. The failure it
+closes has a name: **validation by regime match**.
+
+**First audit target: §161 Candidate B**, chosen because it was most likely to be wrong and because we **filed it
+with TheBridge**. Its design pins the energy shell so the manifest constants whiten out — sound against false
+positives, and it means **by construction there was nothing on B the readout could be shown to find**. Candidate
+A's emit (2.2e-19) demonstrates the instrument on A, and A and B are different metrics.
+
+**§175 rebuilt B's ensemble with the shell varying** (H2 spread 0.285 vs exactly 0 before): the readout recovers
+a conserved direction at **1.75e-26**, H2 is exactly representable (1.13e-14), and the non-conserved control is
+correctly poor (3.33e-02). **C5 satisfied; §161's CERTIFY stands and the filed verdict is unchanged.**
+
+**The instructive asymmetry.** §174 and §161 had the *same* structural weakness. In §174 the gap was real — the
+instrument genuinely could not answer there. In §161 it was only a gap in the demonstration. Same shape, opposite
+resolutions, and no way to tell which from the outside — which is exactly why C5 must be measured per substrate
+rather than argued.
+
+Next: classify the remaining certify-bearing scripts (17 total, 13 gated) against C5, and build tests only for
+those that lack an on-substrate positive.
+
 ## 2026-08-21 — §174 RETRACTION: the degree-4 reopening was wrong; §168's refusal stands
 
 Claimed last night that §168's degree-4 rungs "deserve a rerun rather than a refusal", on the strength of §173.

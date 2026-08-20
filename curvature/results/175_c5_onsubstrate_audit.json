@@ -1,0 +1,19 @@
+{
+ "clause": "C5 -- the readout must be shown to detect a positive ON the substrate where the null is issued",
+ "audit_target": "\u00a7161 Candidate B (filed with TheBridge as CERTIFY illegible-relative-to-basis)",
+ "why": "\u00a7161's B ensemble pins the energy shell so the manifest constants whiten out. Sound against false positives, but it removes the only quantity that could serve as an on-substrate positive -- by construction there was nothing on B the readout could be shown to find.",
+ "n_train": 80,
+ "n_test": 80,
+ "H_drift": 4.340225295942164e-14,
+ "H2_ensemble_spread": 0.2846039416858319,
+ "ratios": {
+  "deg2_poly": 1.745522529476764e-26,
+  "deg2_rat": 8.573791879096955e-26,
+  "deg4_poly": 2.7435060583740067e-24
+ },
+ "best_key": "deg2_poly",
+ "H2_representable": 1.1288214495076596e-14,
+ "known_fail_representable": 0.03327041264203377,
+ "C5a_readout_finds_positive_on_B": true,
+ "verdict": "C5 SATISFIED FOR \u00a7161-B. With the shell varying, the readout recovers a conserved direction at 1.7e-26 and H2 is exactly representable in the same library (1.1e-14) -- so the instrument CAN detect a genuine invariant on Candidate B's substrate. \u00a7161's CERTIFY therefore stands with the fifth clause now satisfied, and the verdict filed with the bridge is unchanged."
+}
