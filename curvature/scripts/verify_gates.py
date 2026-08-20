@@ -220,6 +220,15 @@ BATTERIES = [
      {"Q0_conserved": (">", 0.5), "Q1_irreducible": (">", 0.5), "Q2_readout_finds_it": (">", 0.5),
       "Q3_spectrum_separates": (">", 0.5), "Q4_known_fail_excluded": (">", 0.5),
       "separation": (">", 1e3)}),
+    # 172: the degree-4 GEODESIC-FLOW control. G2 FAILS -- the readout does not isolate a genuine rank-4 Killing
+    # tensor when the reducible algebra is large and near-degenerate -- so only the ESTABLISHED half is asserted:
+    # the substrate (Ricci-flat, with a known-fail matching the paper's own R_tt = 2*U_xy) and the target
+    # (conserved, irreducible). These protect the CG transcription + derivation from regression. G2 is NOT
+    # asserted; the negative is the result and lives in the notes.
+    ("Degree-4 geodesic substrate + target (script 172)",
+     ["scripts/172_degree4_geodesic_control.py", "--fast"], "172_degree4_geodesic_control.json",
+     {"G0_substrate_verified": (">", 0.5), "G0a_ricci_flat": (">", 0.5), "G1_irreducible": (">", 0.5),
+      "drift_K": ("<", 1e-10), "drift_H": ("<", 1e-10), "ricci_max_additive": ("<", 1e-8)}),
 ]
 
 
