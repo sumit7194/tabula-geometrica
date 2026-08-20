@@ -1,0 +1,57 @@
+{
+ "question": "how far does \u00a7172's degree-4 negative reach? sweep the reducible-algebra size",
+ "substrate": "same CG 5D Ricci-flat metric as \u00a7172",
+ "rows": [
+  {
+   "restriction": "none (3 KVs)",
+   "n_traj": 150,
+   "reducible_rank": 70,
+   "K_drift": 1.7787951801501294e-13,
+   "K_irreducible_r2": 0.6508771221483738,
+   "n_conserved_below_1e-9": 30,
+   "K_residual": 0.008125299610205994,
+   "control_residual": 0.13584584429239513,
+   "finds_K": false,
+   "K_representability": 3.6406107728601545e-15,
+   "comparable": true,
+   "rank_fellback_to_full_count": true,
+   "target_survives": true
+  },
+  {
+   "restriction": "p_t=0 (2 KVs)",
+   "n_traj": 150,
+   "reducible_rank": 30,
+   "K_drift": 1.778793427509874e-13,
+   "K_irreducible_r2": 0.20278456600662376,
+   "n_conserved_below_1e-9": 26,
+   "K_residual": 2.7884274390027715e-06,
+   "control_residual": 0.20215484447720322,
+   "finds_K": true,
+   "K_representability": 4.52371707222909e-15,
+   "comparable": true,
+   "rank_fellback_to_full_count": true,
+   "target_survives": true
+  },
+  {
+   "restriction": "p_t=p_w=0 (1 KV)",
+   "n_traj": 150,
+   "reducible_rank": 10,
+   "K_drift": 6.570187911375753e-14,
+   "K_irreducible_r2": 0.15214851965202025,
+   "n_conserved_below_1e-9": 15,
+   "K_residual": 0.38644001418524954,
+   "control_residual": 0.3383225107392972,
+   "finds_K": false,
+   "K_representability": 1.3012292893480437e-09,
+   "comparable": false,
+   "rank_fellback_to_full_count": true,
+   "target_survives": true
+  }
+ ],
+ "W0_target_survives_all": true,
+ "W3_wall": {
+  "largest_rank_found": 30
+ },
+ "n_refused_incomparable": 1,
+ "verdict": "\u00a7172'S NEGATIVE DOES NOT TRANSFER TO A TWO-KILLING-VECTOR SPACETIME. At the p_t=0 restriction -- reducible list 30, K still represented to 5e-15 so the arms are comparable -- the readout ISOLATES the rank-4 Killing tensor: residual 2.79e-06 against a non-conserved control at 2.02e-01, five orders of separation. Bumped Kerr has two Killing vectors, so \u00a7168's degree-4 rungs deserve a RERUN rather than a refusal. SCOPE, and it is not the tidy story: the knob is CONFOUNDED -- pinning momenta shrinks the algebra but also constrains the velocities, and at p_t=p_w=0 that degrades K's representability by six orders (1.3e-09 vs ~3e-15), so that row is REFUSED as incomparable rather than read as 'smaller algebra also fails'. Reducible-algebra SIZE is therefore NOT cleanly isolated as the controlling variable; what is established is that the failure is not universal."
+}

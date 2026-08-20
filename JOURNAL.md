@@ -1,4 +1,36 @@
-## 2026-08-20 — §172: the degree-4 control in GEODESIC FLOW — an honest negative that closes P3's instrument question
+## 2026-08-20 (later) — §173: §172's negative does not reach bumped Kerr, and my knob was confounded
+
+**Rescoped §172 first, on ansatz's correction.** Near-collinearity is a property of a *floating-point* spectrum;
+over GF(p) two vectors are dependent or independent with no condition number, and their prover returns one
+irreducible against ten reducibles on this same substrate at rank 3 in 1.4 s. So §172 is **a statement about
+numerical screening at degree 4, not about degree 4.** Written the original way it would read as "degree 4 is out
+of reach", which it is not. Journal heading, script docstring and notes all reworded.
+
+**§173: the CG control is HARDER than the actual target.** CG has three Killing vectors (70-element reducible
+list); bumped Kerr has two. Same substrate, same target, pinning conserved momenta to shrink the algebra:
+
+    none (3 KVs), list 70 : K resid 8.13e-03 vs control 1.36e-01   no
+    p_t=0 (2 KVs), list 30: K resid 2.79e-06 vs control 2.02e-01   YES
+    p_t=p_w=0 (1 KV)      : REFUSED -- K representability degraded 3e-15 -> 1.3e-09
+
+**At two Killing vectors the readout isolates K cleanly, five orders of separation.** So §172's failure is not
+universal, does not reach bumped Kerr, and **§168's degree-4 rungs deserve a rerun rather than a refusal.**
+
+**But the design is confounded and says so.** The result is non-monotonic; pinning two momenta imposes two linear
+constraints on the velocities, collapsing the state space the library sees (p 629 → 414) and degrading K's
+representability by six orders. **The knob that shrinks the algebra also degrades representability**, so
+algebra size is *not* isolated as the controlling variable. That row is REFUSED as incomparable rather than read
+as "smaller also fails". ansatz had asked for reach *as a function of* algebra dimension; I can't deliver it
+cleanly and said so.
+
+**And the rank statistic silently fell back to the full column count in all three rows** — "measured rank" was
+the list length, the hand-counting I claimed to avoid. The sets are genuinely full-rank so the numbers are right
+for the wrong reason; the fallback is now reported. Failure mode 3, twice in one day, inside scripts written to
+enforce the rules.
+
+verify.sh **61 PASS, ALL GREEN** including §172's established half (substrate + target; G2 not asserted).
+
+## 2026-08-20 — §172/§173: the degree-4 control in geodesic flow — a negative, RESCOPED to the numerical readout
 
 Resumed after a 4-day gap (power loss; no data lost, all 223 result JSONs verified intact). ansatz handed over
 their symbolic prover's results: **rank 2 independently confirmed** (dimension 4 = the reducibles on deformed
