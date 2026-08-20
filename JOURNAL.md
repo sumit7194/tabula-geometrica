@@ -40,8 +40,11 @@ list); bumped Kerr has two. Same substrate, same target, pinning conserved momen
     p_t=0 (2 KVs), list 30: K resid 2.79e-06 vs control 2.02e-01   YES
     p_t=p_w=0 (1 KV)      : REFUSED -- K representability degraded 3e-15 -> 1.3e-09
 
-**At two Killing vectors the readout isolates K cleanly, five orders of separation.** So §172's failure is not
-universal, does not reach bumped Kerr, and **§168's degree-4 rungs deserve a rerun rather than a refusal.**
+**At two Killing vectors the readout isolates K cleanly, five orders of separation — on the CG substrate.**
+~~So §172's failure does not reach bumped Kerr, and §168's degree-4 rungs deserve a rerun rather than a
+refusal.~~ **REFUTED next day by §174** (see the entry above): the rerun's on-substrate control shows the readout
+cannot see a standout on bumped Kerr even when one is certainly there. Validation by regime match does not
+transfer between substrates; §168's refusal stands.
 
 **But the design is confounded and says so.** The result is non-monotonic; pinning two momenta imposes two linear
 constraints on the velocities, collapsing the state space the library sees (p 629 → 414) and degrading K's
