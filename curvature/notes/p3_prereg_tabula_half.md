@@ -663,3 +663,41 @@ Killing vectors — exactly the setting P3 lives in. So **§168's degree-4 refus
 and any degree-4 numerical null on a spacetime is REFUSED rather than null, now for a measured reason with a
 named mechanism. Had we only ever run §171 we would have believed the ladder validated at degree 4 and read those
 refusals as fixable. **The control did its job by failing.**
+
+
+## §173 — how far does §172's negative reach? Not to bumped Kerr; and my knob was confounded
+
+§172 reported that the readout fails to isolate a known rank-4 Killing tensor in geodesic flow. **The CG control
+has THREE Killing vectors (70-element reducible list); bumped Kerr has TWO.** Reporting the CG negative as
+"degree 4 fails" would be generalising from the hardest available case -- our own arms-must-be-matched rule
+pointing at itself. §173 measures the reach on the SAME substrate and SAME target, pinning conserved Killing
+momenta to zero to shrink the algebra.
+
+    restriction        list  K drift   K irred R2   K resid    control   finds K   K repr
+    none (3 KVs)         70   1.8e-13     0.651     8.13e-03  1.36e-01     no     3.6e-15
+    p_t=0 (2 KVs)        30   1.8e-13     0.203     2.79e-06  2.02e-01    YES     4.5e-15
+    p_t=p_w=0 (1 KV)     10   6.6e-14     0.152     3.86e-01  3.38e-01     no     1.3e-09  REFUSED
+
+**Established: at two Killing vectors the readout isolates K cleanly** -- 2.79e-06 against a non-conserved
+control at 2.02e-01, five orders of separation. **So §172's failure is not universal and does not reach bumped
+Kerr; §168's degree-4 rungs deserve a RERUN rather than a refusal.**
+
+**NOT established, and the design is at fault: reducible-algebra SIZE is not isolated as the controlling
+variable.** The result is non-monotonic -- 1 KV fails -- and diagnosis shows why: K's *representability* degrades
+from ~3e-15 to **1.3e-09** at p_t=p_w=0, and its fit is then no better conserved (3.5e-12) than the engine's
+generic best (2.5e-12). Pinning two momenta imposes two linear constraints on the velocities, collapsing the
+state space the library sees (p drops 629 -> 414). **The knob that shrinks the algebra also degrades
+representability**, so that row is a different experiment and is REFUSED as incomparable rather than read as
+"smaller algebra also fails". Measuring reach *as a function of* algebra dimension would need a knob that varies
+the algebra without constraining the state space; we do not have one.
+
+**Second flaw, ours, in the same script.** The rank statistic silently fell back to the full column count in all
+three rows, so "measured rank" was really the LIST LENGTH -- exactly the hand-counting we claimed to avoid. The
+sets happen to be genuinely full-rank (sigma_min/sigma_max = 5e-3, 1.5e-2, 5.6e-2), so the numbers are right for
+the wrong reason. The fallback is now reported explicitly. **Failure mode 3 (a threshold hiding in a fallback
+branch), for the second time in one day, inside a script written to enforce the rules.**
+
+**§172 RESCOPED, per ansatz's correction.** Near-collinearity is a property of a floating-point spectrum; over
+GF(p) there is no condition number and vectors are dependent or not. Their prover returns one irreducible against
+ten reducibles on this substrate at rank 3 in 1.4 s. So §172 is **a statement about numerical screening at degree
+4, not about degree 4** -- the question stays answerable, our instrument is what cannot answer it.
