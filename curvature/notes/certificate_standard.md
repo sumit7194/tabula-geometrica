@@ -105,3 +105,53 @@ samples**, never trajectory count.
 **Standing note for any future use:** C4 has an asymmetry worth carrying forward — **rejecting** a confound is cheap and
 robust, **confirming** a genuine invariant is coverage-limited. For screening work that asymmetry is the right way
 round.
+
+---
+
+## C5 — ON-SUBSTRATE DETECTABILITY (added 2026-08-21, after §174)
+
+The four clauses above are necessary and **not sufficient**. §174 produced a CERTIFY that passed C1–C4 and was
+worthless.
+
+> **C5. The readout must be demonstrated to detect a genuine positive ON THE SUBSTRATE WHERE THE NULL IS ISSUED.**
+> Not on a related system, not in a matching regime — there.
+
+**Why it is a separate clause.** §174 screened bumped Kerr at momentum degree 4 and found no surviving direction:
+known invariants representable to ~3e-12, known-fail correctly excluded, conditioning gated, out-of-sample. Clean
+by every existing standard. The on-substrate control then showed that withholding Carter at ε=0 — where it is
+genuinely conserved — left it **invisible** (separation 1.277 vs 1.077 with it included). The readout could not
+see a standout on that spacetime even when one was certainly present, so "no survivor" was the instrument
+finding nothing.
+
+**The failure it closes has a name: validation by REGIME MATCH.** §173 had validated the readout at two Killing
+vectors *on the Cariglia–Galajinsky substrate*, and bumped Kerr has two Killing vectors with a comparable
+reducible list. The inference did not transfer. **Readout capability is substrate-specific and must be measured
+where it is used, not inferred from where it was validated.**
+
+**How to satisfy it.** Withhold a known invariant from the reducible set (or let a pinned constant vary) and
+require the readout to recover it — *and to recover specifically it*, not merely "something conserved". A design
+that whitens every known invariant away has, by construction, nothing left to demonstrate with.
+
+### First audit under C5: §161 Candidate B — PASSES, and the gap was real
+
+§161 filed a CERTIFY on the bridge's Candidate B. Candidate A emitted an exact quadratic invariant (2.2e-19),
+which demonstrates the readout **on A**; A and B are different metrics. Worse, B's ensemble pins the energy shell
+(H2 = 0.10 for every trajectory) precisely so the manifest constants whiten out — sound against false positives,
+and it removes the only quantity that could have served as an on-substrate positive. **By construction there was
+nothing on B the readout could be shown to find.**
+
+Tested (§175) by rebuilding B's ensemble with the shell **varying**, making H2 a genuine conserved quantity with
+across-ensemble spread 0.285 (against exactly 0 in §161):
+
+    deg2 poly   best held-out ratio  1.75e-26        H2 representable   1.13e-14
+    deg2 rat    best held-out ratio  8.57e-26        known-fail repr.   3.33e-02
+    deg4 poly   best held-out ratio  2.74e-24
+
+**The readout does detect a genuine invariant on B's substrate.** §161's CERTIFY stands, with C5 now satisfied
+retroactively, and the verdict filed with the bridge is unchanged.
+
+**The instructive asymmetry.** §174 and §161 had the *same* structural weakness — a null issued without an
+on-substrate demonstration. In §174 the gap was **real** (the instrument genuinely could not answer there); in
+§161 it was **only a gap in the demonstration** (the instrument could answer, nobody had shown it). Same shape,
+opposite resolutions, and no way to tell which from the outside. That is precisely why C5 has to be *measured*
+per substrate rather than argued.
