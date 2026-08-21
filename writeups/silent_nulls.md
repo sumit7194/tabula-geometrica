@@ -481,6 +481,46 @@ far larger than intended. We only went looking because someone else measured the
 whose process it was. **Our own logs would never have shown it: the run had produced zero lines of output in
 five and a half minutes.**
 
+### 21. The unversioned constant, in the instrument rather than the result
+
+Entry 20's repair was *measure it*. So we measured, reported **2.6 GB usable with swap engaged**, called the
+machine paging, and stood down a run. Two sister sessions reported **10.9 GB** and **10.7 GB** at the same
+moment. The disagreement was not staleness, contention, or a discontinuous event between samples. It was this:
+
+```awk
+vm_stat | awk '/page size/{ps=$8} ... END{printf "%.0f MB", f*4096/1048576}'
+                            ^^^^^^                              ^^^^
+                     page size read into a variable      and then hardcoded anyway
+```
+
+**This machine has 16 KB pages, not 4 KB.** The line captured the correct value and then ignored it, so every
+figure was off by exactly 4×. Measured with the size it had actually read: free **7.22 GB**, usable **10.08 GB**.
+
+**Two properties made it survive.** First, the error ran *conservative* — it understates headroom, so it stands
+runs down rather than crashing them, and a deferral produces no symptom at all. Second, **being a measurement is
+what made it persuasive**: it moved three sessions' reasoning and cancelled a pre-registered run precisely
+because it was a measured number rather than an impression. A figure carries the authority of having been
+measured whether or not the conversion was right, **and the conversion is the part nobody reviews.**
+
+> **`vm_stat` reports pages. The page size is the unversioned constant** — and the whole catalogue's rule about
+> the un-scripted half of a claim being the wrong half applies to the *instrument*, not only to the result.
+
+**The second error, independent of the first.** We also called the machine "paging" on the strength of
+`vm.swapusage: used 1302 MB`. Swap-used is a **residual**, not an activity: macOS allocates swap eagerly and
+compresses aggressively, and after a large process exits, most of it is evicted pages nobody has faulted back.
+The metric that means *paging now* is the **pageout rate**, which requires two samples. Measured: **0 pageouts in
+20 seconds.** The machine was not paging and had not been.
+
+> **A residual metric reads like a current one.** Swap-used, cumulative swapouts, and pages-compressed all
+> describe history; free pages and the pageout rate describe now. (Second half due to TheBridge.) Reaching for
+> the history metric when you want the current one is the same shape as misreading which script a flag belongs
+> to: the field was correct, the question it answered was not the one being asked.
+
+**The repair is that the correct measurement is now a committed script** (`scripts/machine_state.sh`) rather
+than an awk line retyped from memory each time — with both traps documented at the top. That is the same move as
+scripting a hand-counted span: *if it gets retyped, it gets retyped wrong, and the version that is wrong is
+indistinguishable from the version that is right.*
+
 ## What the audit cost, honestly
 
 Four wrong turns inside a single afternoon's audit, each producing a plausible number: a pinned shell whitening
