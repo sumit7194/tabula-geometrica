@@ -547,6 +547,42 @@ than an awk line retyped from memory each time — with both traps documented at
 scripting a hand-counted span: *if it gets retyped, it gets retyped wrong, and the version that is wrong is
 indistinguishable from the version that is right.*
 
+### 22. Asymmetric scrutiny — verifying the number you are defending, theorising about the one you are not
+
+*(Contributed by TheBridge, who produced it within hours of sending another session a catalogue entry about the
+adjacent failure, and kept it rather than discarding it as a wrong guess.)*
+
+Two sessions reported headroom figures differing by 4×. One of them re-derived **their own** number from raw page
+counts, confirmed it against an independent tool, and then proposed a *mechanism* to explain the other session's
+figure — a kill event falling between the two samples. The mechanism was plausible, and it **predicted a 4× gap,
+and there was a 4× gap.** It was not the cause. The cause was a hardcoded page size (entry 21).
+
+> **The scrutiny went where the defence was needed.** The number being defended got arithmetic; the number being
+> explained got a story. Both were the same kind of object and only one was checked.
+
+This is close to "a confident mechanism is not evidence" but it is not the same failure, and the difference is
+actionable. That entry is about the *status* of a mechanism as evidence. This one is about **where scrutiny gets
+spent**: adversarial attention is naturally aimed at claims we are arguing against, and the claim we are
+*accounting for* slips through as a puzzle to be solved rather than a fact to be verified.
+
+The sharper form of the trap, which is why a fitting mechanism is worse than a non-fitting one:
+
+> **A plausible mechanism that predicts the observed discrepancy is not evidence the mechanism occurred.**
+> Predictive success *feels* like confirmation, so the better the story fits, the less likely anyone is to run
+> the check that would kill it.
+
+**The discriminator was cheap and available and was not taken.** One extra sample would have settled it in
+seconds: the erroneous reading was wrong *before* the kill, *after* the kill, and would have been wrong on a
+completely idle machine. Nobody looked, because the mechanism already fit.
+
+**A convergence worth recording alongside it.** In one evening, three sessions each traced a wrong number to the
+same property: **it had never been committed to a file.** A hand-counted reducible dimension in throwaway
+heredocs (wrong four times), a bound quoted from a single record length, and an awk line retyped from memory.
+Three projects, three uncommitted numbers, three errors — against measured, versioned, checkpointed quantities
+that were all fine.
+
+> **The number that was never code was the number that was wrong.**
+
 ## What the audit cost, honestly
 
 Four wrong turns inside a single afternoon's audit, each producing a plausible number: a pinned shell whitening
