@@ -475,6 +475,24 @@ mattered rather than bookkeeping.
 > basis and spectrum, not of ill-conditioning as such. Neither side should use a directional argument to skip the
 > measurement.** This outranks either specific result.
 
+**TheBridge's decomposition, which is sharper than "the sign varies" — they are TWO DISTINCT MECHANISMS:**
+
+    UNDER-RESOLUTION            the solver cannot FIND the well-conserved direction, so the reported
+                                minimum is LARGER than truth. Reads as "nothing conserved here"
+                                => FALSE CERTIFY.        (ours: truth 2.0e-28, read 9.8e-10, +18 orders)
+
+    SPURIOUS NEAR-NULL          conditioning noise creates a direction that LOOKS better conserved than
+                                anything real, so the reported minimum is SMALLER than truth. Reads as
+                                "something conserved" => FALSE EMIT.  (theirs: truth 1.0e-04, read 9.1e-14, -9 orders)
+
+An ill-conditioned basis can exhibit **either**, and which dominates depends on the spectrum. So the correct
+statement is not "the sign varies" but **"there are two hazards pointing opposite ways, and a directional
+argument can only ever protect against one of them."**
+
+**The concrete harm, named by them rather than by us:** under-resolution *manufactures certifies*, and **every
+verdict in our ladder is a certify**. The unconditioned rungs were at risk in exactly the direction they sit. Had
+their directional argument been accepted, it would have licensed skipping the very re-run that was the check.
+
 **Residual honesty:** even conditioned, the engine's best sits ~2 orders above the data's own floor (4.3e-26 vs
 2.0e-28). Irrelevant to this verdict — the threshold is 16 orders away — but 4.3e-26 should not be read as exact.
 
