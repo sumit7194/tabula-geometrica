@@ -249,7 +249,8 @@ BATTERIES = [
      ["scripts/177_located_walls.py", "--fast"], "177_located_walls.json",
      {"W1_gauge_wall.K_star": (">", 2.5), "W1_gauge_wall.pass": (">", 0.5),
       "W2_chaos_wall.pass": (">", 0.5), "W3_censoring_guard.abstained": (">", 0.5),
-      "W4_guard_not_trigger_happy": (">", 0.5), "all_pass": (">", 0.5)}),
+      "W4_guard_not_trigger_happy": (">", 0.5), "W5_guard_flags_not_decides.pass": (">", 0.5),
+      "all_pass": (">", 0.5)}),
 ]
 
 
