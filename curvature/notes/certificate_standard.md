@@ -286,3 +286,57 @@ representable in the certifying basis; (iii) a within/total variance ratio compu
 across-ensemble variance**, which returns ~1 for a perfectly conserved quantity; (iv) comparing a *relative drift*
 against a *variance ratio* — a units error. The third nearly landed: it read as "the engine cannot resolve at
 λ>0", which would have downgraded a shipped verdict, and it was wrong on two counts at once.
+
+### §95, §160, §166 audited — the C5 audit is COMPLETE (17/17)
+
+**§95 (anisotropic quartic).** Two-run recipe. Engine resolves H below the integration floor at every certifying
+point, including the κ=2 open family where §95's most interesting claim lives:
+
+    (alpha,kappa)   H repr     floor      engine best     kind
+    (0, 1)         6.4e-15   1.62e-06     1.84e-10       island
+    (2, 1)         5.0e-15   2.50e-06     4.79e-09       certify
+    (1, 2)         9.2e-15   1.58e-06     3.33e-09       certify (open family)
+    (3, 2)         3.9e-15   2.51e-06     5.71e-09       certify (open family)
+
+**PASS.**
+
+**§160 (basis ladder) — a SECOND satisfaction structure, and the cleaner one.** Its Hamiltonian is deliberately
+transcendental in the momenta, so H is genuinely unrepresentable in the poly/rational rungs where it certifies
+(9.97e-04, 3.22e-04) — and the **transcendental rung emits at 1.66e-22 on the same ensemble**. The engine's
+1.09e-06 / 1.23e-07 in the lower rungs is a polynomial best-approximation, the §97 signature, not an exact
+invariant.
+
+> **THE LADDER CONTRAST SATISFIES C5 BY CONSTRUCTION.** If a design certifies in basis A and emits in basis B on
+> *one ensemble with one engine*, the demonstration is internal: only the basis changed. No second ensemble is
+> needed. This is strictly better than the two-run recipe where it is available, because nothing about the
+> substrate varies between the demonstration and the verdict.
+
+**PASS.** (ansatz has since taken this further: their *denominator* ladder gives rank-4 solution space 8 at den¹
+against a reducible span of 9, the single difference being H² which requires den² — self-validating *and* it
+names its own scope limitation as an object rather than as "we truncated".)
+
+**§166's own S3 (chaotic Hénon–Heiles) — and it produced a FALSE PASS first, which is the entry worth keeping.**
+
+    first attempt   H spread 0.0000   floor 9.1e-01   H repr 9.96e-01   -> criterion "passed"
+    corrected       H spread 0.1501   floor 4.50e-11  H repr 4.31e-15   engine 4.44e-11 (ratio 0.98)
+
+§166 pins E = 0.15, so H had **no across-ensemble variance**, the floor degenerated to ~1, and the criterion
+`best ≤ floor × 10` became **unfailable**. It reported PASS by arithmetic. Two fixes were needed together —
+vary the energy (H findable) *and* augment the basis with the cubic terms x²y, y³ (H representable, since
+Hénon–Heiles is cubic and the degree-2 library cannot hold it). Corrected, the engine sits exactly at the
+integration floor. **PASS**, and this time the criterion could have failed.
+
+**Fifth appearance of the degenerate-denominator trap, third against us specifically.** ansatz's formulation is
+the one to keep: *a statistic inverts its meaning when its denominator degenerates, and the degenerate case is
+exactly where a null lives.* Same family as their scale-free σ_min/σ_max — the normalisation that makes a
+quantity comparable is the one that makes it meaningless in the degenerate case.
+
+## FINAL C5 AUDIT — 17/17
+
+    PASS  §93  §94  §95  §160  §161-B  §162(4 bases)  §166  §167  §168-deg2
+    FAIL  §174 deg-4  -> REFUSED (retracted 2026-08-21)
+    N/A   §141 §142 §143 §145 §147 §150 §151  -- measurement-based, not search-based
+
+Both verdicts filed externally with TheBridge (§161, §162) came back clean. The one genuine failure, §174, was
+caught and retracted before it propagated. **Two satisfaction structures exist:** the ladder contrast (internal,
+preferred) and the pinned/varied two-run recipe (for designs that whiten a constant out).
