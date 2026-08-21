@@ -12,6 +12,34 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 ---
 
 
+## 2026-08-21 (later) — §177: the frontier reports WHERE the wall is, and refuses when it cannot
+
+Generalised the §176 located-wall upgrade across the frontier's certify verdicts, and guarded it. 4/4.
+
+**W1 CERTIFY-GAUGE → K\* = 3, the reflection argument recovered.** Sweeping clamped anchors, the frame-error
+spread among restarts that reached a minimum runs 1.2504 / 1.5879 / **1.7869** (K=2, maximally ambiguous — the
+mirror) / 0.0000 / 0.0000 / 0.0000. In 2-D, two anchors fix rotation and translation but leave a reflection;
+three non-collinear ones kill it. Predicted before running, landed exactly. §111 used K=4 throughout and never
+asked where the transition was.
+
+**W2 CERTIFY-CHAOS → r\* = 3.6** against the Feigenbaum point 3.5699456. **W3** the guard's known-fail: a
+deliberately capped statistic must ABSTAIN, and does. **W4** it does not fire on the honest sweeps.
+With §142 (v\* ≈ 1/√2) and §176 (d\* = 6), all four certify verdicts now report locations.
+
+**THREE READOUTS AND TWO GUARD DESIGNS WERE REJECTED, each for a different reason, all recorded in the script:**
+min-over-restarts (blind to identifiability — mirrors have identical stress, so it reads 0.0000 at K=2 while the
+ambiguity is live; §111 had recorded this exact point and it was ignored); mean-over-restarts (contaminated —
+0.96/0.53/0.73 at K=3/4/5 because most restarts never reach a minimum, which is why §111 used best-of-8);
+spread-among-minima (correct — gauge ambiguity means several *exact* global minima, so only minima may be
+compared). Then guard v1 ("abstain if many values sit at an extreme") **suppressed the correct W1 wall** at
+censored fraction exactly 0.50 → **silent_nulls entry 19**: a flat region is not censoring when the wall lies at
+its *boundary* rather than inside it. Guard v2 looks for the crossing first.
+
+> A rule you apply by hand gets a sanity check each time. A rule you encode as a guard never gets one again.
+
+In verify.sh. Entry 19 is entry 18's lesson, correctly learned and wrongly operationalised, within the hour.
+
+
 ## 2026-08-21 — the C5 exemption re-audited (§176): wrong in kind, right in outcome
 
 Re-opened the seven certificates exempted from C5 in a single pass under a distinction invented on the spot

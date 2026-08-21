@@ -395,6 +395,32 @@ specific property of one instrument will be offered as a technique, and the prop
 sent the technique; the precondition had to be discovered by the recipient, at the cost of the run they hoped it
 would save.
 
+### 19. A guard built from a real lesson, firing on a real result
+
+Entry 18's precondition — *don't sweep a censored quantity* — went straight into an instrument as a guard:
+abstain if a large fraction of the swept values sit at an extreme. Within the hour it **suppressed a correct
+result.** The gauge sweep read 1.25, 1.59, 1.79, 0.0000, 0.0000, 0.0000; censored fraction exactly 0.50; the
+guard abstained. The wall it hid was at the value theory predicted in advance.
+
+The flaw is a missing distinction:
+
+> **A flat region is not censoring when the wall lies at its BOUNDARY rather than inside it.** A sharp wall *is*
+> a step function; pinning after the step is what a resolved transition looks like. Censoring is when the
+> statistic is pinned across the range with no crossing anywhere, so the wall's position is unresolvable rather
+> than merely sharp.
+
+The repaired guard looks for the crossing **first**, and abstains only when none exists *and* the statistic is
+pinned — which is the original case exactly, and not the new one.
+
+**What makes this an entry rather than a bug.** The failure is one level up from entry 18: not over-generalising
+a rule, but **encoding a correct rule with the wrong operationalisation**, so it fires on cases it was never
+about. A guard is a rule that runs automatically, which means its false positives arrive silently and look like
+findings. Three readouts and two guard designs were rejected on the way to this result, and every rejection was a
+different error: one readout blind to the property, one contaminated by a different failure, one guard too
+aggressive at the boundary.
+
+> **A rule you apply by hand gets a sanity check each time. A rule you encode as a guard never gets one again.**
+
 ## What the audit cost, honestly
 
 Four wrong turns inside a single afternoon's audit, each producing a plausible number: a pinned shell whitening

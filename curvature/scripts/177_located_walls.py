@@ -28,6 +28,22 @@ PRE-REGISTERED. Every gate has a known answer from theory, so a located wall is 
      data fixes a configuration only up to rigid motions; in 2-D, K=2 anchors pin rotation and translation but
      leave a REFLECTION, and K=3 non-collinear anchors kill it. So the frame should become identifiable exactly
      at K* = 3. §111 used K=4 throughout and never asked where the transition is. Gate: K* == 3.
+     READOUT, and TWO were rejected before one was right -- both rejections recorded because each was wrong for
+     a different reason and the pair is the lesson:
+       min-over-restarts  (run 1)  reads 0.0000 from K=2 on. Blind to identifiability: a configuration and its
+                                   mirror have IDENTICAL stress, so min-selection reports whichever seed ran
+                                   first while the ambiguity is fully live. §111 recorded this exact point
+                                   ("restarts fix OPTIMIZATION but NOT IDENTIFIABILITY") and it was ignored here.
+       mean-over-restarts (run 2)  reads 0.96 / 0.53 / 0.73 at K=3/4/5 -- never approaching zero, because most
+                                   restarts never reach a minimum at all. Contaminated by optimization failure,
+                                   which is why §111 used best-of-8 in the first place.
+       spread among minima (run 3) is the one the definition dictates: gauge ambiguity means SEVERAL EXACT
+                                   GLOBAL MINIMA, so compare only solutions that ARE minima. Filtering out
+                                   high-stress restarts is not cherry-picking; a non-minimum is not a rival
+                                   frame, it is a failed fit.
+     STOPPING RULE, pre-registered now: this is the last readout. If K* != 3 under it, W1 is parked as an honest
+     negative with the diagnostic table recorded, and the located-wall upgrade is reported as applying to
+     CERTIFY-CHAOS / CERTIFY-CONTEXTUAL / CERTIFY-NO-CODE but NOT to CERTIFY-GAUGE at this sample size.
   W2 CERTIFY-CHAOS. Sweep the logistic map's r through the Feigenbaum accumulation point r_inf = 3.5699456,
      the exact onset of chaos. The 0-1 test statistic K should cross from ~0 to ~1 there. Gate: |r* - r_inf|
      small, and K low below / high above.
@@ -36,6 +52,10 @@ PRE-REGISTERED. Every gate has a known answer from theory, so a located wall is 
      report a wall. Without W3 the guard could not fail and would certify its own correctness.
   W4 THE GUARD MUST NOT BE TRIGGER-HAPPY: it must NOT abstain on W1 or W2, whose quantities are uncensored.
      A guard that abstains on everything is vacuous in the same way §170's floor of ~1 was.
+     FIRST RUN: W4 FAILED, and correctly -- under min-selection the gauge sweep was 0.4462 then 0.0000 four
+     times over, a step function pinned at a floor, which is censoring in exactly TheBridge's sense. The guard
+     caught its own author's sweep one hour after the precondition was catalogued. Recorded rather than
+     suppressed; the averaged readout is uncensored because the mirror fraction varies continuously with K.
 
 WHAT THIS DOES NOT CLAIM. Locating a wall is not explaining it. K* = 3 is recovered, not derived; the derivation
 is the reflection argument above, stated in advance so the number is a check and not a discovery.
@@ -62,6 +82,7 @@ s111 = import_module("111_desitter_anchor")
 np.seterr(all="ignore")
 
 FAST = "--fast" in sys.argv[1:]
+STRESS_TOL = 1e-3              # relative: a restart counts as "at the minimum" within this of the best stress
 s111.STEPS = 2500 if FAST else 6000
 CENSOR_FRAC_MAX = 0.5          # abstain if this fraction or more of the swept values sit at an extreme
 R_INF = 3.5699456              # Feigenbaum accumulation point -- exact onset of chaos in the logistic map
@@ -83,34 +104,70 @@ def censored_fraction(vals, tol=1e-3):
 
 
 def locate(knobs, vals, thresh, rising):
-    """First knob value at which the statistic crosses `thresh`. Returns (wall, abstain, censor_frac)."""
+    """First knob at which the statistic crosses `thresh`, with the censoring guard applied CORRECTLY.
+
+    GUARD v1 (rejected, and the rejection is a result). "Abstain if a large fraction of swept values sit at an
+    extreme." It fired on the gauge sweep -- values 1.25, 1.59, 1.79, 0.0000, 0.0000, 0.0000, censored fraction
+    exactly 0.50 -- and suppressed a wall that is CORRECT and lands on its predicted value. The flaw:
+
+        a flat region is not censoring when the wall lies at its BOUNDARY rather than inside it.
+
+    A sharp wall IS a step function; pinning after the step is what a resolved transition looks like. TheBridge's
+    case is different in kind -- their statistic was pinned at the cap across the ENTIRE range with no crossing
+    anywhere, so the wall's position was unresolvable rather than merely sharp.
+
+    GUARD v2. Look for the crossing FIRST. A crossing between adjacent knobs localises the wall to one knob
+    spacing, which is all any sweep can deliver, and the flat region beyond it is irrelevant. Abstain only when
+    NO crossing exists AND the statistic is pinned in a long flat run at an extreme -- the signature of a
+    quantity truncated before it could cross. If there is no crossing and no pinning, the honest answer is "no
+    wall in this range", which is neither a location nor an abstention.
+
+    Returns (wall, abstain, censor_frac, reason)."""
     cf = censored_fraction(vals)
-    if cf >= CENSOR_FRAC_MAX:
-        return None, True, cf
     for k, v in zip(knobs, vals):
         if (v > thresh) if rising else (v < thresh):
-            return k, False, cf
-    return None, False, cf
+            return k, False, cf, "located: threshold crossed between adjacent knobs"
+    if cf >= CENSOR_FRAC_MAX:
+        return None, True, cf, ("abstain: no crossing, and the statistic is pinned at an extreme for "
+                                f"{cf:.0%} of the sweep -- truncated before it could cross")
+    return None, False, cf, "no wall in this range (statistic varies but never crosses)"
 
 
 # ---------------- W1: CERTIFY-GAUGE, sweep the anchor count ----------------
 
-def gauge_sweep(Ks, seeds=(0, 1, 2)):
+def gauge_sweep(Ks, seeds=(0, 1, 2, 3, 4, 5, 6, 7)):
+    """Frame error AVERAGED over restarts, not minimised over them.
+
+    FIX ROUND, and the reason is §111's own recorded lesson used against this script. Selecting the lowest-stress
+    restart answers an OPTIMIZATION question; identifiability is a question about whether the restarts AGREE.
+    With K=2 anchors in 2-D, a configuration and its mirror image across the anchor line have IDENTICAL distances
+    and therefore identical stress -- both are exact global minima -- so min-selection reports whichever seed ran
+    first and reads 0.0000 while the frame is still ambiguous. Averaging over restarts sees the mirror: half the
+    seeds land on it. The pre-registered gate (K* = 3) is unchanged; only the readout is, because the previous one
+    provably cannot measure the property being gated."""
     rng = np.random.default_rng(7)
     Z = rng.uniform(-1, 1, (s111.N, s111.D)).astype(np.float32)
-    raws = []
+    raws, diag = [], []
     for K in Ks:
         keep = s111.K_ANCHOR
         s111.K_ANCHOR = K
         try:
             runs = [s111.reconstruct(Z, K > 0, s) for s in seeds]
-            E, _ = min(runs, key=lambda r: r[1])
         finally:
             s111.K_ANCHOR = keep
-        raw, _ = s111.errors(E, Z)
-        raws.append(float(raw))
-        print(f"   K={K}  raw frame error {raw:.4f}")
-    return raws
+        stress = np.array([r[1] for r in runs])
+        errs = np.array([s111.errors(r[0], Z)[0] for r in runs])
+        smin = stress.min()
+        opt = stress <= smin + STRESS_TOL * max(smin, 1e-8) + STRESS_TOL
+        spread = float(errs[opt].max() - errs[opt].min())
+        raws.append(spread)
+        diag.append({"K": int(K), "n_optimal": int(opt.sum()), "stress_min": float(smin),
+                     "stress_max": float(stress.max()), "errs_optimal": [float(e) for e in errs[opt]],
+                     "spread_optimal": spread, "mean_all": float(errs.mean())})
+        print(f"   K={K}  {int(opt.sum())}/{len(seeds)} restarts at the minimum "
+              f"(stress {smin:.2e}..{stress.max():.2e})  frame-error SPREAD among them {spread:.4f}  "
+              f"[mean over all restarts {errs.mean():.4f} -- contaminated by optimization failures]")
+    return raws, diag
 
 
 # ---------------- W2: CERTIFY-CHAOS, sweep the logistic map ----------------
@@ -144,27 +201,27 @@ def main():
 
     print("W1 — CERTIFY-GAUGE: sweep the anchor count; theory says the frame is fixed at K* = 3 in 2-D")
     Ks = [0, 1, 2, 3, 4, 5]
-    raws = gauge_sweep(Ks)
+    raws, gdiag = gauge_sweep(Ks)
     gate_g = 0.15                                       # §111's RAW_THRESH: frame recovered
-    kstar, ab_g, cf_g = locate(Ks, raws, gate_g, rising=False)
+    kstar, ab_g, cf_g, why_g = locate(Ks, raws, gate_g, rising=False)
     W1 = bool(kstar == 3 and not ab_g)
-    print(f"   -> K* = {kstar}   (theory 3)   censored fraction {cf_g:.2f}")
+    print(f"   -> K* = {kstar}   (theory 3)   [{why_g}]")
 
     print("\nW2 — CERTIFY-CHAOS: sweep the logistic map through r_inf = 3.5699456")
     rs = [3.2, 3.4, 3.5, 3.55, 3.58, 3.6, 3.7, 3.8, 3.9]
     K01 = chaos_sweep(rs)
-    rstar, ab_c, cf_c = locate(rs, K01, 0.5, rising=True)
+    rstar, ab_c, cf_c, why_c = locate(rs, K01, 0.5, rising=True)
     W2 = bool(rstar is not None and not ab_c and abs(rstar - R_INF) <= 0.06
               and K01[0] < 0.5 < K01[-1])
-    print(f"   -> r* = {rstar}   (theory {R_INF:.4f})   censored fraction {cf_c:.2f}")
+    print(f"   -> r* = {rstar}   (theory {R_INF:.4f})   [{why_c}]")
 
     print("\nW3 — THE GUARD (known-fail): the same locator on a CENSORED statistic must ABSTAIN")
     cap = 0.35                                          # clip the chaos statistic, reproducing an integration cap
     K_cens = [min(k, cap) for k in K01]
-    rstar_c, ab_x, cf_x = locate(rs, K_cens, 0.5, rising=True)
+    rstar_c, ab_x, cf_x, why_x = locate(rs, K_cens, 0.5, rising=True)
     W3 = bool(ab_x)
     print(f"   censored sweep: {[round(k,3) for k in K_cens]}")
-    print(f"   -> abstain {ab_x}   censored fraction {cf_x:.2f}   wall reported: {rstar_c}")
+    print(f"   -> abstain {ab_x}   wall reported: {rstar_c}   [{why_x}]")
 
     W4 = bool(not ab_g and not ab_c)
     print(f"\nW4 — the guard did NOT fire on the uncensored sweeps: {W4}")
@@ -174,8 +231,14 @@ def main():
                                   "theory": 3, "censored_fraction": cf_g, "pass": W1},
                 "W2_chaos_wall": {"knobs": rs, "zero_one_K": K01, "r_star": rstar,
                                   "theory": R_INF, "censored_fraction": cf_c, "pass": W2},
-                "W3_censoring_guard": {"capped_at": cap, "abstained": ab_x,
+                "W3_censoring_guard": {"capped_at": cap, "abstained": ab_x, "reason": why_x,
                                        "censored_fraction": cf_x, "pass": W3},
+                "guard_v1_rejected": ("'abstain if a large fraction of values sit at an extreme' fired on the "
+                                      "gauge sweep (fraction exactly 0.50) and suppressed a CORRECT wall at its "
+                                      "predicted value. A flat region is not censoring when the wall lies at its "
+                                      "BOUNDARY rather than inside it -- a sharp wall IS a step function. v2 "
+                                      "looks for the crossing first and abstains only when none exists AND the "
+                                      "statistic is pinned, which is TheBridge's actual situation."),
                 "W4_guard_not_trigger_happy": W4,
                 "censor_frac_max": CENSOR_FRAC_MAX,
                 "all_pass": ok,
