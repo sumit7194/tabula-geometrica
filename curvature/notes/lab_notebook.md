@@ -4181,3 +4181,26 @@ labelled `obs.peak` (sampled) and `exact.max` (kernel).
 
 OPEN: 115 quarantined pending a probe path; 116's "fast" claim needs either a genuinely fast path or a corrected
 description. A 40-minute "fast regression gate" is a name that stops people running it.
+
+
+## 2026-08-22 — the staleness guard, with a known-fail (verify.sh 62 PASS / 0 STALE / 0 FAIL)
+
+Added a freshness assertion to `verify_gates.py`: a battery's result JSON must have been written *by the run just
+made*. **"File exists" and "file parses" are both weaker than "file is fresh"** — a script that exits 0 without
+rewriting its output leaves the previous run's JSON in place, and it parses perfectly, so the gate reads a stale
+result as current and the battery passes on evidence from a run that no longer exists. This repo has been bitten
+by that shape twice (the 19_ckpt resume trap; the merged stale shards).
+
+**Validated two-sample, not one.** A guard that has only ever *failed to fire* is a guard with no demonstrated
+known-fail — our own C5 refinement 4, pointed at our own instrument:
+
+    KNOWN-FAIL  noop battery (exit 0, writes nothing, old JSON still parses)  -> STALE, fires
+    KNOWN-PASS  same harness, battery writes                                  -> fresh, silent
+    discriminates: True
+
+**Cost instrument cross-validated.** Battery 116 reports `obs.peak 6.80 GB` (4 Hz sampling, correctly attributed
+but a lower bound) and `exact.max 6.80 GB` (kernel-tracked, exact but cumulative). **They agree to two decimals**,
+which is the evidence that the sampler is not systematically undercounting — neither measure alone could have
+established that, which is the argument for keeping both.
+
+**116 confirmed across two independent runs:** 714.9 s / 7.09 GB and 806.9 s / 6.80 GB. Not a transient.
