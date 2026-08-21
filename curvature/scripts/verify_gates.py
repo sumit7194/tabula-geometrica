@@ -3,6 +3,7 @@ assert the pre-registered thresholds. Fast (no training) — this is the
 "did anything rot?" check, runnable any time. Exit code 0 = all green."""
 
 import json
+import resource
 import subprocess
 import sys
 import time
@@ -298,6 +299,11 @@ def main() -> int:
             print(f"[{idx}/{n}] SKIP  {name}\n        reason: {SKIP[name]}", flush=True)
             continue
         t0 = time.time()
+        # TWO MEASURES, because they have opposite weaknesses and the night's lesson is to say which you have.
+        # ru_maxrss is EXACT (kernel-tracked true max) but CUMULATIVE over every child ever reaped; the 4 Hz
+        # sample is correctly ATTRIBUTED to this battery but is a LOWER BOUND on its true maximum. Neither is
+        # both. Report the sampled figure as obs.peak, and flag when the exact high-water moves.
+        hw0 = resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss / 1073741824
         print(f"[{idx}/{n}] {name} ...", flush=True)
         try:
             # SAMPLE THE INTERIOR, NOT THE BOUNDARIES. The previous version reported cost only at completion, so
@@ -331,7 +337,12 @@ def main() -> int:
             # "observed peak", never "peak": this is a max over 4 Hz samples of a fluctuating quantity, so it
             # is a LOWER bound on the true maximum. Calling it "peak" would silently convert a floor into a
             # ceiling -- anyone sizing a machine against it would treat a floor as a limit. (ansatz's point.)
-            cost = f"{dt:6.1f}s" + (f"  obs.peak {peak:.2f} GB" if peak >= 0.5 else "")
+            hw1 = resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss / 1073741824
+            cost = f"{dt:6.1f}s"
+            if peak >= 0.5:
+                cost += f"  obs.peak {peak:.2f} GB"          # sampled: attributed, lower bound
+            if hw1 > hw0 + 1e-9:
+                cost += f"  exact.max {hw1:.2f} GB"          # kernel-tracked: exact, this battery raised it
             if bad:
                 failures += 1
                 print(f"FAIL  {name}  [{cost}]: " + "; ".join(bad), flush=True)
