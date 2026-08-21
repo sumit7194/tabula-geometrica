@@ -617,6 +617,33 @@ our own reporting, for the second time in one night. **Progress-at-completion is
 resource signal**; instrumenting the boundaries and not the interior is the same error as measuring a peak by
 when you stopped looking.
 
+### 24. The number was computed; the predicate attached to it was invented
+
+*(Joint, and the cleanest statement is ansatz's.)* Three of the night's errors were not transcription failures
+at all. The arithmetic was correct in each case. What was wrong was **the word placed next to the number**:
+
+| reported | actual status |
+|---|---|
+| "still climbing" | one sample, no prior reading — **no direction had been computed**, and the quantity turned out to oscillate rather than trend |
+| "peak 6.75 GB" | a max over three arbitrary instants — a **lower** bound on the true maximum |
+| "~3 GB" | the RSS at the moment the process was killed — **a censored observation** |
+
+None of these is a step where an error looks like it could enter. There is no conversion, no retyping, no
+constant. The number survives intact and picks up an unearned qualifier on its way into a sentence.
+
+> **A scalar reported without its sampling regime is not a measurement of the thing. It is a measurement of when
+> you looked.** And a number with a direction attached sounds better-informed than a bare one, so the extra
+> confidence gets manufactured at the point of phrasing — exactly where nobody is auditing.
+
+**"Peak" is the dangerous one, because it inverts the bound.** A maximum over samples is a **floor** under the
+true maximum; the word "peak" reads as a **ceiling**. Anyone sizing a machine against "peak 6.75 GB" would treat
+a lower bound as an upper one. The repair is to write **"observed peak"** and carry the samples — which is why
+the quarantine note records 6.75, 6.11 *and* 2.77 GB rather than the largest of them.
+
+**This is the mirror of the retyping family** (entries 20–23, six instances between two sessions). There, the
+claim was never code. Here, **the claim was code and the description of it was not** — and that may be the more
+common of the two, precisely because describing a result feels like reporting rather than like deriving.
+
 ## What the audit cost, honestly
 
 Four wrong turns inside a single afternoon's audit, each producing a plausible number: a pinned shell whitening
