@@ -1066,6 +1066,21 @@ results in `curvature/notes/lab_notebook.md`.
   boolean, which at least records which side of the cap you landed on. Check the fraction of samples at the cap
   first. Our stress is uncensored by construction, which is *why* it worked and was never stated when the
   technique was passed on. **silent_nulls → 18 entries** (15 and 16 contributed by TheBridge).
+- **LOCATED WALLS + THE CENSORING GUARD (script 177, 2026-08-21), 4/4:** generalises §176's d\* upgrade across
+  the frontier's certify verdicts. **W1 CERTIFY-GAUGE → K\* = 3**: sweeping clamped anchors, the frame-error
+  SPREAD among restarts that reached a minimum runs 1.2504 / 1.5879 / **1.7869** (K=2 maximally ambiguous — the
+  mirror) / 0.0000 / 0.0000 / 0.0000 — two anchors fix rotation+translation but leave a reflection, three
+  non-collinear ones kill it; predicted before running, and §111 used K=4 throughout without ever asking where
+  the transition was. **W2 CERTIFY-CHAOS → r\* = 3.6** vs Feigenbaum 3.5699456. **W3** known-fail: a capped
+  statistic must ABSTAIN, and does. **W4** the guard stays quiet on honest sweeps. With §142 (v\*≈1/√2) and §176
+  (d\*=6) **all four certify verdicts now report LOCATIONS, not labels.** THREE READOUTS REJECTED, each for a
+  different reason (min-over-restarts blind to identifiability — mirrors have identical stress, the §111 lesson
+  ignored; mean-over-restarts contaminated by optimization failure; spread-among-minima correct, since gauge
+  ambiguity means several EXACT global minima and a non-minimum is a failed fit not a rival frame). Then GUARD v1
+  ("abstain if many values sit at an extreme") **suppressed the correct W1 wall** at censored fraction exactly
+  0.50 → **silent_nulls entry 19**: a flat region is not censoring when the wall lies at its BOUNDARY rather than
+  inside it; a sharp wall IS a step function. Guard v2 looks for the crossing first. *A rule you apply by hand
+  gets a sanity check each time; a rule you encode as a guard never gets one again.* In verify.sh.
 - Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
   Phase H rows (equivalence-breaking gravity); a G-sym legibility-preserving
   variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit
