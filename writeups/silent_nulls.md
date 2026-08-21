@@ -457,6 +457,15 @@ results are what the process is pointed at. A wrong *reassurance to a teammate* 
 arrives as courtesy rather than as data — **the failure wears the costume of the virtue.** Nobody asks a
 colleague to cite their evidence for "don't worry, I'm not using much."
 
+**The repair is one line per item, and it is cheaper than it sounds** — because a per-item checkpoint doubles as
+a liveness signal. (Due to TheBridge, who checked their own long run against this entry and found they had the
+property by accident: their per-orbit checkpoint file advances every ~40 s, so its mtime and size *are* a
+heartbeat even though the log itself is quiet for half an hour at a stretch.)
+
+> **A job that checkpoints per item cannot be silent in the dangerous way. You get "working vs hung" for free
+> from a feature bought for a different reason — durability — and a job with neither is indistinguishable from
+> a hung one, a fast one, and a finished one.**
+
 It also found a second defect we could not have found alone. Three gigabytes is not what a battery documented as
 a *"fast `--probe-only` gate"* is supposed to cost — so either the probe path is not being taken or the input is
 far larger than intended. We only went looking because someone else measured the machine and we had to discover
