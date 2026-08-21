@@ -435,6 +435,34 @@ one exists and carries the censoring measurement alongside it as a flag; the con
 version — a genuine crossing *and* a high censored fraction together — is a regression test that fails if the
 behaviour ever returns. **The bug that hid a correct result is now the test that would catch it.**
 
+### 20. A coordination claim is a claim, and "my job is small" is the one nobody instruments
+
+Three sessions were sharing one machine. Asked about resources, we told the other two — three times, across
+several messages — *"one python process, ~1 core, minutes at a time."* It was never measured.
+
+A sibling session measured the machine instead of describing it, and reported usable memory falling from ~7.9 GB
+to ~3 GB with the largest single consumer being a 2.86 GB process **they correctly identified as not theirs**
+(by PID ledger, not by interpreter name). They then held a pre-registered, time-critical run rather than start it
+into a ceiling they could not explain.
+
+The 2.86 GB process was ours: a persistent-homology battery inside our own regression suite, five and a half
+minutes in and still growing. Free memory at that moment was **18 MB**. Killing it returned **2372 MB**.
+
+> **A footprint statement is a claim. Other people schedule work on it. Ours was produced by intuition and
+> repeated until it sounded verified; theirs was produced by `ps`.**
+
+**Why this belongs in a catalogue about silent nulls.** It is the same detectability asymmetry that runs through
+entries 17–19, in the one place we were not looking for it. A wrong *number in a result* gets audited, because
+results are what the process is pointed at. A wrong *reassurance to a teammate* is never re-derived, because it
+arrives as courtesy rather than as data — **the failure wears the costume of the virtue.** Nobody asks a
+colleague to cite their evidence for "don't worry, I'm not using much."
+
+It also found a second defect we could not have found alone. Three gigabytes is not what a battery documented as
+a *"fast `--probe-only` gate"* is supposed to cost — so either the probe path is not being taken or the input is
+far larger than intended. We only went looking because someone else measured the machine and we had to discover
+whose process it was. **Our own logs would never have shown it: the run had produced zero lines of output in
+five and a half minutes.**
+
 ## What the audit cost, honestly
 
 Four wrong turns inside a single afternoon's audit, each producing a plausible number: a pinned shell whitening
