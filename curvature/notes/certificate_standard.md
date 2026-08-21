@@ -510,3 +510,81 @@ presented as an independent measurement agreeing with ours.
 
 > **Before treating agreement as corroboration, check that both quantities were free to disagree.** Two
 > measurements of nothing agree perfectly.
+
+---
+
+## THE EXEMPTION RE-AUDITED (2026-08-21, §176) — wrong in kind, right in outcome
+
+When the C5 audit closed at 17/17, **seven certificates were exempted in a single pass** under the heading
+"C5 scope — the clause applies to SEARCH-BASED nulls, not to measurement-based verdicts". That call was made in
+minutes and never checked, in an audit whose entire subject is unexamined classifications. Re-opened and tested.
+
+**The exempted scripts emit four verdict types, and they do not all have the same character:**
+
+| verdict | how it is produced | measurement or search? |
+|---|---|---|
+| `CERTIFY-CONTEXTUAL` | measured CHSH = 2.83 against a theorem threshold of 2 | measurement — exempt |
+| `CERTIFY-CHAOS` | measured 0-1 test statistic K | measurement — exempt |
+| `CERTIFY-GAUGE` | measured raw frame error 1.42 vs 0.00 | measurement — exempt |
+| `CERTIFY-NO-CODE` | **fit the cheapest code, find none** | **a SEARCH — C5 applies** |
+
+`CERTIFY-NO-CODE` is emitted by **§141, §143, §145, §151**. So the blanket exemption was **wrong in kind** for
+four of the seven: those are searches, and a search that finds nothing is exactly what C5 exists to interrogate.
+
+### §176 — the test, and it passes twice over
+
+§141 certifies that a 6-D point configuration's pairwise distances admit no cheap 2-D code (normalised stress
+1.22 ≫ 0.12). C5 asks whether the instrument could have found a code on that substrate had one existed. Two
+independent demonstrations, both green:
+
+    stress vs embedding dimension, on the SAME 6-D data the verdict is issued on
+        d=2   1.2201   CERTIFY        <- the verdict
+        d=3   0.7793   CERTIFY
+        d=4   0.4815   CERTIFY
+        d=5   0.2104   CERTIFY
+        d=6   0.0000   CODE FOUND     <- P1: the reconstructor is not blind on this substrate
+
+    P4  same generator at dim 2, read at d=2:  0.0000  <- the d=2 READOUT is not blind either
+
+These test different things and a certificate needs both: **P1** shows the reconstruction machinery works on the
+certifying data; **P4** shows the specific readout that issues the verdict finds a code when one exists. The
+d-sweep is the ladder contrast (the structure declared strictly better) applied to *dimension* instead of basis —
+one ensemble, one instrument, only the hypothesis class moves.
+
+### THE UPGRADE — a certificate that reports where the wall is
+
+The curve descends monotonically and crosses only at d = 6, so the verdict sharpens from the binary
+*"no cheap code"* to the measured **"no code below d\* = 6"**. Every `CERTIFY-NO-CODE` in the repo can carry a
+d\* instead of a boolean, at the cost of a dimension sweep.
+
+### C5 refinement 6 — refinement 2 needed a qualifier, and not having it cost a wrong reading
+
+**My first reading of §141 was that refinement 2 blocked its EMIT case** — different substrate (a 2-D
+configuration), so the demonstration does not transfer. That reading is wrong. §141's generator is one function:
+
+```python
+dim = 2 if regime == "geometric" else 6
+return rng.uniform(-1.2, 1.2, (N, dim))
+```
+
+The EMIT and CERTIFY cases differ in the configuration dimension and in **nothing else** — and the configuration
+dimension **is the property being certified**. That is not a substrate change; it is the minimal contrast, the
+best control a claim of this shape can have. Refinement 2 was derived from §174, where changing ε altered the
+substrate's *character* while leaving the certified property alone. Applying it here inverts its logic.
+
+> **Refinement 6.** A parameter change breaks the C5 demonstration only when it changes something **other than**
+> the certified property. When the changed parameter **is** the certified property, it is not a confound — it is
+> the control.
+
+**So §141 already satisfied C5**, by construction, before this audit ran. The exemption reached the right
+outcome by reasoning that would have failed elsewhere — which is the part worth recording, since the reasoning
+is what gets reused.
+
+### And this is entry 15 firing on its own author
+
+A rule learned hours earlier (refinement 2), applied one case too wide, by the person who derived it, **inside
+the audit that produced the rule about applying rules too widely**. Third recorded instance, first one of mine
+in this arc. Catalogued rather than quietly fixed in the diff.
+
+**Corrected audit line: 17/17 stands. Four of the seven exemptions were granted for the wrong reason and are now
+tested rather than exempted; all four pass.**

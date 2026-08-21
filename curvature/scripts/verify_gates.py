@@ -229,6 +229,16 @@ BATTERIES = [
      ["scripts/172_degree4_geodesic_control.py", "--fast"], "172_degree4_geodesic_control.json",
      {"G0_substrate_verified": (">", 0.5), "G0a_ricci_flat": (">", 0.5), "G1_irreducible": (">", 0.5),
       "drift_K": ("<", 1e-10), "drift_H": ("<", 1e-10), "ricci_max_additive": ("<", 1e-8)}),
+
+    # 176: C5 for the frontier's SEARCH-based certificate. CERTIFY-NO-CODE (141/143/145/151) was exempted from
+    # C5 as "measurement-based"; it is a search, so the clause applies. Asserts the ladder contrast (same 6-D
+    # data, code found at d=6 and not at d=2) AND the minimal-contrast control (same generator at dim 2, found
+    # at d=2) -- the two halves test the reconstructor and the verdict-issuing readout respectively.
+    ("C5 for CERTIFY-NO-CODE, dimension ladder (script 176)",
+     ["scripts/176_c5_frontier_certificates.py", "--fast"], "176_c5_frontier_certificates.json",
+     {"P0_reproduces_certify": (">", 0.5), "P1_finds_code_at_native_dim": (">", 0.5),
+      "P2_known_fail_at_d2": (">", 0.5), "P4_minimal_contrast_control": (">", 0.5),
+      "c5_satisfied": (">", 0.5), "stress_curve.6": ("<", 0.12), "stress_curve.2": (">", 0.5)}),
 ]
 
 

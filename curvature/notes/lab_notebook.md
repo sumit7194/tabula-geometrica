@@ -4093,3 +4093,19 @@ degree 4**.
 toy**, not on ansatz's bumped Kerr. Our bump is a product term so it does break Stäckel separability, but the two
 spacetimes are still different objects; transcribing theirs is the next build. C4 is **vacuous** here (library is
 pure state, no auxiliary channels) — reported, not credited.
+
+
+## 2026-08-21 — §176, C5 for the frontier's search-based certificate (4/4, in verify.sh)
+
+PRE-REGISTERED: P0 reproduce §141's CERTIFY-NO-CODE on the 6-D config; P1 on that SAME data the instrument finds
+a code at d=6 (known-pass); P2 it does not at d=2 (known-fail, without which the sweep could not fail); P3 the
+curve locates the cheapest code dimension; P4 minimal-contrast control — same generator at dim 2, read at d=2.
+
+RESULT: 1.2201 / 0.7793 / 0.4815 / 0.2104 / 1.97e-07 for d = 2..6, threshold 0.12, d* = 6. P4 = 0.0000. 4/4.
+
+TWO CORRECTIONS TO OUR OWN AUDIT, both recorded rather than fixed in the diff:
+ (i) the "measurement-based" exemption was WRONG IN KIND for §141/§143/§145/§151 — CERTIFY-NO-CODE is a search;
+ (ii) the correction was ALSO wrong — refinement 2 was applied to a case where the changed parameter IS the
+      certified property, which makes it the control, not a confound. Refinement 6 records the qualifier.
+
+The affected certificates PASS. Wrong reasoning, right outcome; the reasoning is the part that gets reused.

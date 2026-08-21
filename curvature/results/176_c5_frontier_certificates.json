@@ -1,0 +1,23 @@
+{
+ "audits": "\u00a7141/\u00a7143/\u00a7145/\u00a7151 CERTIFY-NO-CODE",
+ "correction": "the C5 audit exempted 7 certificates as 'measurement-based' in one pass. CERTIFY-NO-CODE is a SEARCH -- fit the cheapest code, find none -- so C5 applies. The audit about unexamined classifications was closed with an unexamined one.",
+ "method": "ladder contrast over DIMENSION: same data, same instrument, only the target dim changes",
+ "stress_curve": {
+  "2": 1.220115005270978,
+  "3": 0.7792518529603428,
+  "4": 0.48147822577809246,
+  "5": 0.21040804948201114,
+  "6": 1.9708082252959396e-07
+ },
+ "stress_threshold": 0.12,
+ "P0_reproduces_certify": true,
+ "P1_finds_code_at_native_dim": true,
+ "P2_known_fail_at_d2": true,
+ "cheapest_code_dimension": 6,
+ "P4_minimal_contrast_control": true,
+ "contrast_2d_substrate_at_d2": 1.290262767361433e-07,
+ "refinement2_qualifier": "a parameter change breaks the C5 demonstration only when it changes something OTHER than the certified property; when the changed parameter IS the certified property, it is the control",
+ "exemption_verdict": "the blanket 'measurement-based' exemption was WRONG IN KIND for CERTIFY-NO-CODE (\u00a7141/\u00a7143/\u00a7145/\u00a7151) -- it is a search. The affected certificates nonetheless PASS C5. Wrong reasoning, right outcome, and the reasoning is the part that would have failed elsewhere.",
+ "c5_satisfied": true,
+ "verdict": "C5 SATISFIED FOR CERTIFY-NO-CODE, INTERNALLY. On the very data \u00a7141 certifies, the instrument FINDS a low-stress code at d=6 (stress 0.0000) and does NOT at d=2 (stress 1.2201). Same data, same instrument, same ensemble -- only the target dimension changes -- so nothing about the substrate varies between the demonstration and the verdict. Independently, the d=2 READOUT itself is shown non-blind on the minimal contrast (same generator, dim 2, stress 0.0000) -- which is what \u00a7141 ALREADY HAD. TWO CORRECTIONS TO OUR OWN AUDIT: (i) CERTIFY-NO-CODE is a SEARCH, so the blanket 'measurement-based' exemption of seven certificates was wrong in kind; (ii) but the exempted certificates PASS anyway, because \u00a7141's EMIT case is a minimal-contrast control, and my reading that refinement 2 blocked it was that refinement applied one case too wide -- entry 15, by its author, inside the audit that produced it. Refinement 2 now carries the qualifier it lacked: a parameter change breaks the demonstration only when it changes something OTHER than the certified property. UPGRADE: the curve locates the cheapest code dimension at d* = 6, strictly more informative than the binary verdict -- 'no code below d*', not 'no cheap code'."
+}

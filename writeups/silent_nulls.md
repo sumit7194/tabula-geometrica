@@ -305,6 +305,60 @@ at the wrong object**.
 
 ---
 
+### 15. "More data will fix it" — false for a systematic gain
+
+*(Contributed by TheBridge, who found it by testing their own published recommendation and watching it fail.)*
+
+A frequency estimator's **gain** — how much of a signal's true amplitude it recovers — was biased. The obvious
+remedy was more data. Sixteen times the record length bought a **1.4× improvement in gain spread, and not even
+monotonically.**
+
+The reason is structural: the interpolation bias is a fixed function of the *fractional bin offset*, and refining
+the grid does not make that offset go away. **Statistical error averages down; systematic error does not.** So a
+longer record narrows the scatter around the wrong answer without moving it.
+
+> **"Collect more data" is a valid response to noise and no response at all to a systematic gain. Check which one
+> you have before spending the compute.**
+
+The measured consequence, once the wrong gate was set aside: at N ≥ 800 both estimators' *floors* sit ~6 orders
+below the real signals, so the floor discriminates nothing — while the NAFF estimator's gain spread is **0.000**
+against the FFT's **0.6**. NAFF is the correct instrument for a cross-parameter ladder **despite losing on floor
+and on SNR**, which is the claim-shape rule of entry 11 with the measurement now behind it.
+
+### 16. The mirror of over-generalisation — a fresh rule not reaching the very next decision
+
+Entry 17 below (and the "rule about rules" earlier) describes a lesson applied *one case too wide*. This is its
+mirror, and the pair is more informative than either alone.
+
+TheBridge derived, with us, that a cross-parameter claim must be gated on **gain stability, not on the floor**
+(refinement 3). **Hours later they pre-registered a floor-based pass criterion for their own next test.** Not a
+disagreement, not a subtlety — the identical decision the rule was about, made by the person who had just derived
+the rule, in the same working day. They recorded it as a failure rather than rewriting the gate.
+
+> **Over-generalisation and under-application are the same defect seen from two sides: a freshly-learned rule has
+> no stable scope yet. It fires where it does not belong and fails to fire where it does.**
+
+The "rule about rules" above says recency breeds over-confidence in a rule; this says recency does not even
+guarantee *recall* of it. Both were committed by careful people on the day they learned the rule.
+
+### 17. Our own instance, in the audit of the audit
+
+While re-opening the C5 exemptions (§176), we found that four of seven certificates had been exempted as
+"measurement-based" when the verdict they emit — `CERTIFY-NO-CODE`: *fit the cheapest code, find none* — is
+plainly a **search**. Wrong classification, in the audit about unexamined classifications.
+
+Then the correction itself was wrong. We argued the affected script could not satisfy the standard because its
+positive demonstration sits on a *different substrate*, invoking a refinement derived that same day. But that
+script's generator is one function whose only free parameter is the configuration dimension — **and the
+configuration dimension is exactly the property being certified.** A parameter change is a confound when it moves
+something *other* than the certified property; when it moves the certified property itself, **it is the control.**
+
+The script had satisfied the standard by construction all along. The exemption reached the right outcome through
+reasoning that would have failed on a different case — and the reasoning is the part that gets reused.
+
+**Two errors, opposite in direction, inside one audit, by its author.** Both are recorded here rather than fixed
+silently in the diff, for the reason this catalogue exists.
+
 ## What the audit cost, honestly
 
 Four wrong turns inside a single afternoon's audit, each producing a plausible number: a pinned shell whitening
