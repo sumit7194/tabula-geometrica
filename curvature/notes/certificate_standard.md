@@ -439,3 +439,56 @@ my error is better than mine: **a true rule applied one case too wide.** The rul
 whose across-ensemble variance the design controls; it does not govern synthetic plants that supply their own.
 Having just been burned by the degenerate-denominator trap three times, I generalised the fix past its domain —
 which is its own failure mode.
+
+### C5 refinement 5, closed — the conditioning repair is validated, and a directional argument is retired
+
+**TheBridge's structural result, which is stronger than any control we ran.** The generalised eigenproblem
+`Cw v = λ Ct v` is **invariant under invertible linear reparametrisation of the feature basis**: `F → FD` sends
+`Cw → DᵀCwD` and `Ct → DᵀCtD`, leaving the eigenvalues unchanged. SVD rescaling at unchanged dimension is such a
+map. **So in exact arithmetic the conditioning is a no-op** — it cannot change what the criterion *says*, only
+what a finite-precision solver can *resolve*. Therefore the sixteen-order recovery is necessarily numerical, and
+**a reparametrisation cannot manufacture a signal that is not in the data.**
+
+**Their discriminating test — a plateau under tightening precision.** A genuine resolution recovery converges;
+solver noise wanders. Measured:
+
+    deg 6 poly       none 9.849e-10 | 1e-9 4.300e-26 | 1e-11 4.300e-26 | 1e-13 4.300e-26 | 1e-15 4.300e-26
+    deg 6 rational   none 2.961e-09 | 1e-9 3.948e-25 | 1e-11 3.948e-25 | 1e-13 3.948e-25 | 1e-15 3.948e-25
+
+Identical across **four decades**, kept dimension fixed. The repair is validated. Their earlier recommendation —
+run a negative control — they retracted themselves as the *wrong* test: given the invariance, a reparametrisation
+could never have manufactured signal, so the null was always going to pass and discriminated nothing.
+
+**A DIRECTIONAL ARGUMENT, RETIRED.** They proposed that ill-conditioning drives the ratio spuriously *small*
+(toward false EMISSION), so an all-CERTIFY ladder would be robust by direction without any control. **Measured
+here, the sign is opposite.** Against H2's own within/total ratio computed directly on the data:
+
+    ground truth                  2.015e-28
+    unconditioned      9.849e-10   INFLATED by 18 orders
+    conditioned 1e-11  4.300e-26   inflated by 2 orders
+
+Ill-conditioning **inflates** in this setup — toward false CERTIFY, precisely the direction every verdict in the
+ladder sits in. So the unconditioned certifies were structurally at risk, and re-running them was the check that
+mattered rather than bookkeeping.
+
+> **Two constructions, two opposite signs. The direction of a conditioning bias is a property of the particular
+> basis and spectrum, not of ill-conditioning as such. Neither side should use a directional argument to skip the
+> measurement.** This outranks either specific result.
+
+**Residual honesty:** even conditioned, the engine's best sits ~2 orders above the data's own floor (4.3e-26 vs
+2.0e-28). Irrelevant to this verdict — the threshold is 16 orders away — but 4.3e-26 should not be read as exact.
+
+**Final status of the filed verdicts:** §161/§162 certify Candidate B illegible relative to {polynomial,
+rational} at momentum degrees **2, 4 and 6**. The degree-6 rung required a conditioning step §161 as-run did not
+apply; without it that rung could not reach its own emit threshold. Conditioned, the recovery plateaus and the
+verdict is unchanged. B still certifies at 1.44e-05 at degree 6 — five orders above threshold.
+
+### New catalogue entry — agreement between two noise figures reads as corroboration
+
+TheBridge withdrew their own corroboration of our 12% figure on noticing that their normalised and raw baselines
+agreed to four digits (8.596e-13 vs 8.597e-13). They had read that as "the ill-conditioned variant behaved well".
+It actually means **the reparametrisation did nothing** — it *is* the invariance. Two noise figures coinciding
+presented as an independent measurement agreeing with ours.
+
+> **Before treating agreement as corroboration, check that both quantities were free to disagree.** Two
+> measurements of nothing agree perfectly.
