@@ -4109,3 +4109,22 @@ TWO CORRECTIONS TO OUR OWN AUDIT, both recorded rather than fixed in the diff:
       certified property, which makes it the control, not a confound. Refinement 6 records the qualifier.
 
 The affected certificates PASS. Wrong reasoning, right outcome; the reasoning is the part that gets reused.
+
+
+## 2026-08-21 — DEFECT FOUND SIDEWAYS: script 115's verify battery costs ~3 GB
+
+Found only because a sister session measured machine memory and I had to identify whose process was holding
+2.86 GB. It was `scripts/115_grid_torus.py` inside `verify.sh` — 5m33s elapsed, RSS still climbing, free memory
+on the machine down to 18 MB. Killed it; 2372 MB returned.
+
+CLAUDE.md documents this as a "fast `--probe-only` gate". Three gigabytes is not that. Either the probe path is
+not being taken in the verify invocation, or ripser is being handed a far larger point cloud than the probe
+intends. NOT diagnosed tonight — flagged so it is not lost.
+
+Two things made it invisible locally:
+ - the run emitted ZERO lines in 5m33s, so "working", "stuck" and "nearly done" render identically in the log;
+ - nothing in the suite measures its own resource cost, so a battery can regress in memory without any gate
+   noticing. Every threshold we assert is about physics; none is about the instrument's footprint.
+
+Follow-up when convenient: check the --probe-only flag actually reaches 115 from verify.sh, cap the point cloud,
+and consider a peak-RSS assertion in the battery so this regresses loudly rather than silently.
