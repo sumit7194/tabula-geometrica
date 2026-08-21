@@ -1048,6 +1048,24 @@ results in `curvature/notes/lab_notebook.md`.
   Metric identity checked: our bump is a product term so it *does* break Stäckel separability (their sharpest worry does
   not apply), but ours is a Kerr-LIKE toy and theirs is bumped Kerr in BL — **transcribing their metric is the next
   build**; this run validates the instrument, not their spacetime. Both in verify.sh.
+- **C5 RE-AUDIT + THE d\* UPGRADE (script 176, 2026-08-21), 4/4:** the C5 audit closed at 17/17 by exempting seven
+  certificates in one pass on a distinction invented on the spot ("search-based nulls need C5, measurement-based
+  verdicts don't"). Four of them emit `CERTIFY-NO-CODE` — *fit the cheapest code, find none* — which is a SEARCH,
+  so the exemption was WRONG IN KIND. §176 tests it as a **ladder contrast over DIMENSION** instead of basis: on
+  the same 6-D data §141 certifies, stress runs 1.2201 (d=2, the verdict) → 0.7793 → 0.4815 → 0.2104 → 0.0000
+  (d=6, code FOUND), plus a minimal-contrast control (same generator at dim 2, read at d=2). Both halves needed —
+  P1 tests the reconstructor, P4 the verdict-issuing readout. **UPGRADE: the verdict sharpens from binary "no
+  cheap code" to measured "no code below d\* = 6".** **C5 refinement 6** (cost a wrong reading to find): a
+  parameter change breaks the demonstration only when it moves something OTHER than the certified property; when
+  the changed parameter IS the certified property it is the CONTROL — so §141 had satisfied C5 by construction and
+  invoking refinement 2 against it was that refinement applied one case too wide. Two errors, opposite in
+  direction, in one audit by its author; both catalogued not diffed away. In verify.sh.
+  **PRECONDITION, found by TheBridge within the hour (entry 18):** the d\* upgrade needs the swept quantity
+  UNCENSORED. On their escape ladder, survival time is capped (median 200 at every δ, 97–98% at the integration
+  cap) so KS p=0.97 lost to the binary's Fisher p=0.12 — a budget-truncated statistic carries LESS than the
+  boolean, which at least records which side of the cap you landed on. Check the fraction of samples at the cap
+  first. Our stress is uncensored by construction, which is *why* it worked and was never stated when the
+  technique was passed on. **silent_nulls → 18 entries** (15 and 16 contributed by TheBridge).
 - Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
   Phase H rows (equivalence-breaking gravity); a G-sym legibility-preserving
   variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit
