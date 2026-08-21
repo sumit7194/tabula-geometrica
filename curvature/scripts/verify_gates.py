@@ -262,8 +262,22 @@ def get(d, dotted):
     return d
 
 
+# Batteries excluded from the default pass, with the reason. A suite that silently omits nothing is worth more
+# than one that quietly skips; each name here is printed as SKIP so an omission can never read as a pass.
+SKIP = {
+    "Grid-cell torus (topology instrument)":
+        "OBSERVED PEAK 6.75 GB resident (battery 13/62; a sister session independently saw 6.11 GB minutes "
+        "earlier). The footprint FLUCTUATES rather than climbs -- ripser allocates and frees per homology "
+        "dimension, and it read 2.77 GB at the moment it was killed -- so any single sample is a lower bound "
+        "on the peak and the sampling instant decides which. 115 has no --probe-only path (that is 116's). "
+        "Quarantined from the fast pass until it gets one. Run explicitly with --all. NOT a silent omission: "
+        "it prints as SKIP.",
+}
+
+
 def main() -> int:
     failures = 0
+    run_all = "--all" in sys.argv[1:]
     n = len(BATTERIES)
     for idx, (name, cmd, jname, gates) in enumerate(BATTERIES, 1):
         # Per-item progress, added 2026-08-21. A suite that emits nothing cannot distinguish HUNG from WORKING,
@@ -271,6 +285,9 @@ def main() -> int:
         # anomaly is legible from our own log instead of from a sister session's `ps`. Peak RSS is reported for
         # the same reason: every threshold in this file is about physics and none was ever about the instrument's
         # own footprint, which is how a battery grew to 3 GB without any gate noticing. (ansatz's push.)
+        if name in SKIP and not run_all:
+            print(f"[{idx}/{n}] SKIP  {name}\n        reason: {SKIP[name]}", flush=True)
+            continue
         t0 = time.time()
         r0 = resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss   # bytes on macOS; high-water mark
         print(f"[{idx}/{n}] {name} ...", flush=True)
