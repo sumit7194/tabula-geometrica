@@ -1,8 +1,9 @@
-# Silent nulls: nine ways a bug reads as a result
+# Silent nulls: fourteen ways a bug reads as a result
 
-*A field guide assembled from measured instances, 2026-08-16. Every entry below was found by a controlled
-measurement, not by reading code and not by being careful. Four of the nine refuted the claim of whoever ran the
-measurement, including several of mine.*
+*A field guide assembled from measured instances, 2026-08-16 to 2026-08-21. Every entry below was found by a
+controlled measurement, not by reading code and not by being careful. Entries 1–9 came from building instruments;
+10–14 from auditing instruments that had already shipped, including two verdicts filed with another project.
+Several refuted the claim of whoever ran the measurement — including, repeatedly, mine.*
 
 ---
 
@@ -130,7 +131,7 @@ and nearly reverted a correct 87× speedup.
 
 ## What actually finds these
 
-Nine mechanisms, and the common thread in how they surfaced:
+Fourteen mechanisms, and the common thread in how they surfaced:
 
 - **None** were found by reading code.
 - **None** were found by being careful.
@@ -168,3 +169,130 @@ had checked it; it survived precisely *because* we agreed. When it was finally m
 residue — that our two statistics responded differently to the same intervention, and so had never been the same
 statistic — was more informative than the explanation had been. Sibling agreement between instances with
 correlated priors is weaker evidence than it feels like.
+
+---
+
+## Four more, from a two-day audit of every certificate in the repo
+
+The nine above were found building instruments. These four were found **auditing instruments that had already
+shipped** — including two verdicts filed with another project. Same shape throughout: a bug that reads as a result.
+
+### 10. A null at a rung with no positive control
+The instrument searched a named family and found nothing. But nothing had ever been *planted* there, so
+"correctly empty" and "blind" produce the same output. Caught when a control asked the engine to find something
+that, as far as anyone knew, was not there to find.
+
+> **C5 — the readout must be demonstrated to detect a genuine positive ON THE SUBSTRATE WHERE THE NULL IS
+> ISSUED.** Not on a related system, not in a matching regime — there.
+
+Five refinements, each earned:
+1. **Match the degree.** A demonstration at degree 2 does not license a certificate at degree 6.
+2. **"Same system, different parameter" is not automatically the same substrate** — if the parameter changes what
+   is representable. (A sibling repo's ε=0 control collapsed a degree-11 denominator to degree 4; ours was
+   measured flat and transferred.)
+3. **A cross-parameter claim must be gated on GAIN STABILITY, not on the noise floor.** Floor is statistical and
+   averages down as 1/√N; gain variation along the comparison axis is systematic and never averages down.
+   Gating on noise alone selects for *deafness*; gating on SNR selects the *distorting* instrument.
+4. **Non-degeneracy is not discrimination.** "Does this quantity vary?" is a one-sample question. "Does its
+   distribution differ between control and signal?" is a two-sample one. A gate conjunct can be perfectly alive,
+   varying and well-conditioned, and carry zero information about the thing it gates.
+5. **Threshold reachability** — its own entry, below.
+
+**Two ways to satisfy C5.** *The two-run recipe:* when a design pins a constant so it whitens out of the
+eigenproblem (correct, against false positives, and it removes the only thing left to demonstrate with), run the
+verdict on the pinned ensemble and the demonstration on a second ensemble with that constant varied. *The ladder
+contrast:* if a design certifies in basis A and emits in basis B **on one ensemble with one engine**, the
+demonstration is internal — nothing about the substrate varies between it and the verdict. The second is strictly
+better where available.
+
+### 11. A threshold set beyond the instrument's reach at that operating point
+A certificate ladder applied one EMIT criterion — `< 1e-10` — uniformly across momentum degrees {2, 4, 6}. Tested
+with a known conserved quantity, representable at every rung, the engine's best achievable was 1.2e-26 at degree
+2, 5.3e-25 at degree 4, and **9.9e-10 at degree 6**. The top rung **could not reach its own threshold**, so it
+could not have emitted regardless of the physics. Its certify was correct-but-undemonstrated.
+
+> **Check that your threshold is reachable by your instrument at each operating point before gating on it.**
+> It hides specifically in **LADDERS**: a threshold validated at one rung is silently inherited by rungs with
+> different resolution — and the unreachable rung is usually the one that looks most decisive.
+
+**Found independently in two repositories nine days apart, with no contact.** TheBridge's G3 run returned
+UNDECIDED because their frequency-drift measure's smallest readable value was 2/N = 0.0333 while the target sat
+at 0.027 — *the signal was beneath the instrument's floor*, and every parameter value returned an identical
+6.67e-02 **including the integrable control**. Both repairs recover resolution without discarding data (their
+parabolic sub-bin FFT interpolation; our SVD rescaling at unchanged dimension). Both gates returned a
+clean-looking verdict rather than an error.
+
+**Their sting, worth carrying:** their repair *worked* — the quantisation vanished — and the item still died,
+because the new floor was set by peak-estimation variance instead of the bin grid. **A better floor is still a
+floor.** After repairing, re-measure where the floor now sits rather than assuming the old threshold clears it.
+
+### 12. Two conditioning hazards that point opposite ways
+Repairing (11) recovered sixteen orders. Was the repair trustworthy, or did it manufacture signal?
+
+The decisive argument is textbook: a generalised eigenproblem is invariant under congruence transformation of the
+pencil — `(A,B) → (XᵀAX, XᵀBX)` leaves the eigenvalues unchanged for invertible X (Golub & Van Loan). SVD
+rescaling at unchanged dimension **is** a congruence, hence a **no-op in exact arithmetic**. So the recovery is
+necessarily *numerical*, and a reparametrisation **cannot manufacture a signal that is not in the data**.
+*(The identity is standard; recognising that it applied to this conditioning step, and measuring the consequence,
+was TheBridge's contribution.)* Confirmed empirically by a **plateau**: 4.300e-26, identical across tolerances
+1e-9 / 1e-11 / 1e-13 / 1e-15, at fixed dimension. Genuine resolution converges; solver noise wanders.
+
+The hazard itself decomposes into **two distinct mechanisms**, and this is the part worth keeping:
+
+    UNDER-RESOLUTION      the solver cannot FIND the well-conserved direction, so the reported minimum is
+                          LARGER than truth. Reads as "nothing conserved" => FALSE CERTIFY.
+                          (measured: truth 2.0e-28, read 9.8e-10 -- inflated 18 orders)
+
+    SPURIOUS NEAR-NULL    conditioning noise creates a direction that LOOKS better conserved than anything
+                          real, so the reported minimum is SMALLER than truth. Reads as "something
+                          conserved" => FALSE EMIT.
+                          (measured: truth 1.0e-04, read 9.1e-14 -- deflated 9 orders)
+
+Both were measured, in two different repos, on two different constructions.
+
+> **There are two hazards pointing opposite ways, and a directional argument can only ever protect against one of
+> them.** No directional argument licenses skipping the measurement.
+
+The concrete near-miss: **under-resolution manufactures certifies**, and every verdict in the audited ladder was
+a certify. A proposed directional shortcut — "ill-conditioning biases toward false emission, so an all-CERTIFY
+ladder is safe" — would have licensed skipping the re-run that was the actual check. It was withdrawn by its
+author when the opposite sign was measured.
+
+### 13. Agreement between two noise figures reads as corroboration
+One session reported that their measured movement independently corroborated another's. Withdrawn on noticing
+that their normalised and raw baselines agreed **to four digits** — which is not "the ill-conditioned variant
+behaved well", it *is* the congruence invariance. Two measurements of nothing, agreeing perfectly, presented as
+independent confirmation.
+
+> **Before treating agreement as corroboration, check that both quantities were free to disagree.**
+
+### 14. A peer's confident mechanism is not evidence — even when the peer is right about the phenomenon
+Three instances in one afternoon across the sibling projects: a proposed mechanism aimed at a module the target
+repo never imports; a directional argument aimed at a hazard whose sign does not generalise; a carve-out resting
+on a proximity premise that measurement showed to be false (the conclusion survived, for a different reason). In
+each case the recipient could have accepted a plausible mechanism from a credible source and stopped measuring.
+
+Distinct from relay flattening, which is transmission *loss*. This is a claim transmitted perfectly and **pointed
+at the wrong object**.
+
+---
+
+## What the audit cost, honestly
+
+Four wrong turns inside a single afternoon's audit, each producing a plausible number: a pinned shell whitening
+the target away so a null meant nothing; a target not representable in the certifying basis; a within/total
+variance ratio computed on an ensemble with **no across-ensemble variance**, which returns ~1 for a *perfectly*
+conserved quantity; and a relative drift compared against a variance ratio — a units error.
+
+The third nearly landed. It read as "the engine cannot resolve here", which would have downgraded a shipped
+verdict, and it was wrong on two counts simultaneously.
+
+**Final audit result: 17 certificates, 9 pass, 1 fail (retracted), 7 out of scope as measurement-based rather
+than search-based.** Both verdicts filed with another project survived. The one genuine failure was caught before
+it propagated.
+
+**And one rule about rules**, learned by breaking it: having just been burned three times by the
+degenerate-denominator trap, we warned a sibling session against a configuration where it did not apply — their
+plant was synthetic and carried its own across-ensemble variance. They were right to override us. *A true rule
+applied one case too wide* is its own failure mode, and freshly-learned rules are the most likely to be
+over-generalised.
