@@ -1,3 +1,37 @@
+## 2026-08-21 — the C5 exemption re-audited (§176): wrong in kind, right in outcome
+
+Re-opened the seven certificates exempted from C5 in a single pass under a distinction invented on the spot
+("search-based nulls need C5, measurement-based verdicts don't"). Four of them emit `CERTIFY-NO-CODE` — *fit the
+cheapest code, find none* — which is a **search**, so the clause applies. The blanket exemption was wrong in kind.
+
+**§176** tests it as a ladder contrast over *dimension* rather than basis: on the very 6-D data §141 certifies,
+sweep the embedding dimension. Stress 1.2201 (d=2, the verdict) → 0.7793 → 0.4815 → 0.2104 → **0.0000 (d=6, code
+found)**. One ensemble, one instrument, only the hypothesis class moves. Plus the minimal-contrast control (same
+generator at dim 2, read at d=2: 0.0000), which tests the verdict-issuing readout rather than the reconstructor —
+both are needed and §141 already had the second. 4/4, in verify.sh.
+
+**Upgrade:** the curve crosses only at d=6, so the verdict sharpens from binary *"no cheap code"* to measured
+**"no code below d\* = 6"**. Every `CERTIFY-NO-CODE` in the repo can report where the wall is instead of a boolean.
+
+**C5 refinement 6, and it cost a wrong reading to find:** my first conclusion was that refinement 2 blocked
+§141's EMIT case as a different substrate. Wrong — §141's generator differs only in the configuration dimension,
+which *is* the certified property. So: *a parameter change breaks the demonstration only when it changes
+something OTHER than the certified property; when the changed parameter IS the certified property, it is the
+control.* §141 had satisfied C5 by construction all along.
+
+**Two errors, opposite in direction, in one audit by its author** — a mis-classification and a same-day rule
+applied one case too wide, inside the audit that produced the rule about applying rules too widely. Both
+catalogued in `writeups/silent_nulls.md` rather than fixed silently.
+
+**silent_nulls → 17 entries.** 15 (*more data does not fix a systematic gain* — statistical error averages down,
+systematic does not; contributed by TheBridge from their own failed recommendation), 16 (*under-application is
+over-generalisation's mirror* — a freshly-learned rule has no stable scope, so it fires where it doesn't belong
+and fails to fire where it does; TheBridge), 17 (ours, above).
+
+Peer coordination: ansatz closed ZV δ=2 at ranks 2/3/4 on an **exact vacuum solution** with a δ=1≡Schwarzschild
+control in the same coordinates — strictly stronger than our bumped-Kerr null, which is not a vacuum solution.
+Status-file refresh fixed (heartbeat now rewrites `updated` every tick, so staleness is self-announcing).
+
 ## 2026-08-21 — the C5 audit is COMPLETE (17/17), and it found one real failure
 
 Every certify-bearing result in the repo audited against C5 (*the readout must be demonstrated to detect a
