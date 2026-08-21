@@ -239,6 +239,17 @@ BATTERIES = [
      {"P0_reproduces_certify": (">", 0.5), "P1_finds_code_at_native_dim": (">", 0.5),
       "P2_known_fail_at_d2": (">", 0.5), "P4_minimal_contrast_control": (">", 0.5),
       "c5_satisfied": (">", 0.5), "stress_curve.6": ("<", 0.12), "stress_curve.2": (">", 0.5)}),
+
+    # 177: the located-wall upgrade generalised across the frontier's certify verdicts, with the censoring guard.
+    # W1 K*=3 is the reflection argument (2 anchors fix rotation+translation but leave a mirror; 3 non-collinear
+    # do not); W2 r* against the Feigenbaum point; W3 the guard's known-FAIL -- a capped statistic must ABSTAIN;
+    # W4 the guard must not fire on the honest sweeps. Three readouts and two guard designs were rejected getting
+    # here and both rejections are recorded in the script.
+    ("Located walls + censoring guard (script 177)",
+     ["scripts/177_located_walls.py", "--fast"], "177_located_walls.json",
+     {"W1_gauge_wall.K_star": (">", 2.5), "W1_gauge_wall.pass": (">", 0.5),
+      "W2_chaos_wall.pass": (">", 0.5), "W3_censoring_guard.abstained": (">", 0.5),
+      "W4_guard_not_trigger_happy": (">", 0.5), "all_pass": (">", 0.5)}),
 ]
 
 

@@ -1,0 +1,70 @@
+{
+ "contribution": "unify the located-wall upgrade across the frontier's certify verdicts AND guard it against the censoring failure TheBridge measured",
+ "prior_art_in_repo": {
+  "142": "contextuality wall located at v* ~ 1/sqrt2",
+  "176": "no-code wall located at d* = 6"
+ },
+ "credit": "the censoring precondition is TheBridge's, found by testing 176's technique and failing",
+ "W1_gauge_wall": {
+  "knobs": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "raw_frame_error": [
+   1.2504158020019531,
+   1.587855115532875,
+   1.7868529143742222,
+   5.4642278257688304e-08,
+   8.947889540422693e-08,
+   5.831949856371921e-08
+  ],
+  "K_star": 3,
+  "theory": 3,
+  "censored_fraction": 0.5,
+  "pass": true
+ },
+ "W2_chaos_wall": {
+  "knobs": [
+   3.2,
+   3.4,
+   3.5,
+   3.55,
+   3.58,
+   3.6,
+   3.7,
+   3.8,
+   3.9
+  ],
+  "zero_one_K": [
+   -0.009070379244570614,
+   -0.008570657230585317,
+   -0.01437488846550462,
+   -0.015055409941791678,
+   0.4960852810080739,
+   0.9176946744392962,
+   0.9964600728751526,
+   0.998078586140006,
+   0.9981420673355397
+  ],
+  "r_star": 3.6,
+  "theory": 3.5699456,
+  "censored_fraction": 0.3333333333333333,
+  "pass": true
+ },
+ "W3_censoring_guard": {
+  "capped_at": 0.35,
+  "abstained": true,
+  "reason": "abstain: no crossing, and the statistic is pinned at an extreme for 56% of the sweep -- truncated before it could cross",
+  "censored_fraction": 0.5555555555555556,
+  "pass": true
+ },
+ "guard_v1_rejected": "'abstain if a large fraction of values sit at an extreme' fired on the gauge sweep (fraction exactly 0.50) and suppressed a CORRECT wall at its predicted value. A flat region is not censoring when the wall lies at its BOUNDARY rather than inside it -- a sharp wall IS a step function. v2 looks for the crossing first and abstains only when none exists AND the statistic is pinned, which is TheBridge's actual situation.",
+ "W4_guard_not_trigger_happy": true,
+ "censor_frac_max": 0.5,
+ "all_pass": true,
+ "verdict": "THE FRONTIER NOW REPORTS LOCATIONS, GUARDED. Two certify verdicts that carried only labels now carry walls, each checked against a number known in advance: CERTIFY-GAUGE becomes 'the frame is underdetermined below K* = 3 anchors' -- exactly the reflection argument, since 2 anchors fix rotation and translation but leave a mirror image and 3 non-collinear ones do not -- and CERTIFY-CHAOS becomes 'chaotic above r* = 3.6 ' against the Feigenbaum point 3.5699. With \u00a7142 (v* ~ 1/sqrt2) and \u00a7176 (d* = 6) all four now locate. THE GUARD IS THE LOAD-BEARING PART: on a deliberately censored statistic the locator ABSTAINS rather than reporting a wall (censored fraction 0.56 >= 0.5), and it does not fire on either uncensored sweep. That failure mode was invisible from inside this repo because our quantities are uncensored by construction; it took a sister project running the technique on truncated data to expose it."
+}
