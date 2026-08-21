@@ -1,4 +1,4 @@
-# Silent nulls: fourteen ways a bug reads as a result
+# Silent nulls: fifteen ways a bug reads as a result
 
 *A field guide assembled from measured instances, 2026-08-16 to 2026-08-21. Every entry below was found by a
 controlled measurement, not by reading code and not by being careful. Entries 1–9 came from building instruments;
@@ -131,7 +131,7 @@ and nearly reverted a correct 87× speedup.
 
 ## What actually finds these
 
-Fourteen mechanisms, and the common thread in how they surfaced:
+Fifteen mechanisms, and the common thread in how they surfaced:
 
 - **None** were found by reading code.
 - **None** were found by being careful.
@@ -264,6 +264,12 @@ The hazard itself decomposes into **two distinct mechanisms**, and this is the p
 
 Both were measured, in two different repos, on two different constructions.
 
+*Provenance, so a caveat is not inherited later: the second row comes from TheBridge's **synthetic** invariance
+test (planted 9.999e-05, ill-conditioned read 9.110e-14), reproducible exactly as stated. Their separate
+Hénon–Heiles run is a different artifact whose frozen gate **failed** at the pre-registered timestep — 2.2e-10
+against a 1e-10 bar — and whose reported figure came from a substrate tightened afterwards. Entry 12 does not
+depend on that run and the caveat does not attach to it.*
+
 > **There are two hazards pointing opposite ways, and a directional argument can only ever protect against one of
 > them.** No directional argument licenses skipping the measurement.
 
@@ -320,8 +326,23 @@ plant was synthetic and carried its own across-ensemble variance. They were righ
 > **A true rule applied one case too wide is its own failure mode, and freshly-learned rules are the most likely
 > to be over-generalised.**
 
-**The recency is the mechanism, not a detail.** Both of the day's instances were generalisations of a lesson
-learned *within the same day*: our pinned-shell warning came hours after the degenerate-denominator burn;
-TheBridge's directional argument came within the hour of the measurement that produced it. **A rule you have held
-for a year has been tested against many cases; one you learned this morning has been tested against exactly
-one.**
+**The recency is the mechanism, not a detail.** Every instance was a generalisation of a lesson learned *within
+the same day*: our pinned-shell warning came hours after the degenerate-denominator burn; TheBridge's directional
+argument came within the hour of the measurement that produced it; and our unconditional SNR line was written
+while documenting that very failure. **A rule you have held for a year has been tested against many cases; one
+you learned this morning has been tested against exactly one.**
+
+**THIS ENTRY DOES NOT EXTEND THE LIST — IT EXPLAINS PART OF IT.** Of the five substantive errors made across both
+sessions during this audit, **three were over-generalisations of a same-day lesson**: the pinned-shell warning,
+the directional argument, and the unconditional SNR line. That is not five independent mistakes but *one
+mechanism firing three times in eight hours, in two repositories, by people actively trying to be careful.*
+(Observation due to TheBridge.) If you take one thing from this catalogue, take this: the failure rate is highest
+immediately after learning, and confidence peaks at the same moment.
+
+**A named instance, kept deliberately rather than buried in a diff.** While writing refinement 3 above, we
+compressed a *conditional* rule — "SNR is the right gate for single-setting claims, gain stability for
+cross-parameter ones" — into an *unconditional* one: "gating on SNR selects the distorting instrument." That is
+the failure this entry describes, committed **inside the entry describing it**, by an author who had spent two
+days on the subject. It was caught by an outside reviewer, not by the author. A catalogue of self-deception
+containing an instance of its author self-deceiving mid-authorship is better evidence that the mechanism is
+structural than any amount of assertion that it is.
