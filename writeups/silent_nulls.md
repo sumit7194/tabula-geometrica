@@ -774,7 +774,18 @@ two-sample on real data from both projects: it fires on the series above and sta
 
 **Note it stays silent on a battery that is large.** *Large* and *growing* are different failures needing
 different guards, and a detector that conflates them is useless for both: quarantine handles the first, the
-trend handles the second.
+trend handles the second. **That distinction was only visible with two projects' cases side by side** — from
+inside either one, "expensive" looks like a single problem. It is the argument for a shared catalogue over
+per-project ones.
+
+**And the methodological rule underneath the validation, which generalises past cost:**
+
+> **A real failure is a better positive control than a synthetic one.** A manufactured growth series proves only
+> that the detector's arithmetic works. Their actual 1.81/3.61/7.23 GB tests whether it fires on the shape the
+> world produces — including the parts nobody would think to simulate.
+
+The corollary is that another project's failure is a resource, not just a cautionary tale: it is the one
+positive control you cannot fabricate for yourself.
 
 ### 30. A fix adopted for resource reasons can silently change the experimental design
 
