@@ -583,6 +583,40 @@ that were all fine.
 
 > **The number that was never code was the number that was wrong.**
 
+### 23. Stating a rule and encoding it are separate acts
+
+*(Contributed by ansatz, who found it in their own monitor within an hour of writing the correct rule to someone
+else.)*
+
+Having established that headroom needs **free + inactive, plus a two-sample pageout rate** — and having sent
+that rule to another session in writing — they then found their own memory monitor thresholding on **`free`
+alone**, the exact metric they had just ruled insufficient. It alarmed with *"MEMORY LOW: free 63 MB"* while
+5.58 GB was reclaimable and the pageout rate was flat. A false alarm that would have halted a pre-registered run.
+
+> **Stating a rule in prose and encoding it in your own tooling are separate acts, and doing the first creates
+> the feeling of having done the second.** Teaching a rule well is when you are least likely to check whether
+> your own code obeys it.
+
+The failure ran conservative — it cancels work rather than crashing it — so, like the hardcoded page size of
+entry 21, **it produces no symptom to investigate.** Both directions of the same night: one instrument
+manufactured a false alarm, another suppressed a true wall (entry 19), and neither announced itself.
+
+**The censoring corollary, ours, found the same evening.** We reported a battery's cost as "~3 GB" — the RSS at
+the moment we *killed* it, quoted as though it were the peak. Measured properly later, the same battery hit
+**6.75 GB**. Worse, it read **2.77 GB** at the instant of the second kill, because the footprint *fluctuates*
+rather than climbs: ripser allocates and frees per homology dimension, so 6.75, 6.11 and 2.77 GB are all honest
+samples and **the sampling instant decides which one you get.**
+
+> **A sample taken at the moment you stop observing is a lower bound on the peak, not the peak. Killing a
+> process does not measure it.**
+
+**And the instrument built to fix entry 20's silence inherited the silence's shape.** Our per-battery cost line
+prints at battery *completion* — so the single most expensive battery in the suite is invisible for exactly as
+long as it is expensive, and we learned our own run was at 6.1 GB from a sister session's `ps` rather than from
+our own reporting, for the second time in one night. **Progress-at-completion is a liveness signal, not a
+resource signal**; instrumenting the boundaries and not the interior is the same error as measuring a peak by
+when you stopped looking.
+
 ## What the audit cost, honestly
 
 Four wrong turns inside a single afternoon's audit, each producing a plausible number: a pinned shell whitening
