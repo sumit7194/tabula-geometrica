@@ -840,6 +840,26 @@ to validate the cost-trend guard above. **Most postmortems keep the moral and di
 exactly backwards**, because the moral is the part a reader can reconstruct and the numbers are the part they
 cannot. (Due to ansatz.)
 
+**Audited against the first rule, and the audit corrected the rule.** Of 31 entries, **12 carry no
+measurements at all**: 1, 3, 4, 5, 9, 13, 14, 16, 17, 22, 26, 28. Applying "carry the numbers" uniformly would
+have been the catalogue's own entry 15 — a fresh rule applied one case too wide — because the 12 are not one
+group:
+
+- **Structure entries** (1, 3, 4, 5, 9, 28) name a *shape*, and the number is not the point. *A filter that
+  returned zero rows* and *blindness reported as negativity* are re-runnable as patterns to check code against,
+  not as data to replay. Demanding a measurement here would add decoration.
+- **Instance entries with the numbers missing** (13, 14, 16, 17, 22, 26) describe *specific incidents with
+  measurable content* — two noise figures that agreed, a mechanism that predicted a 4× gap, a rule derived and
+  then not applied at the next gate — and we recorded the moral while dropping the values. **Those are the real
+  gap**, and most of them are ours or arrived second-hand from a peer.
+
+They are logged as a gap rather than filled, because the one thing worse than an entry without numbers is an
+entry with numbers reconstructed from memory — which is entry 24 (the predicate invented next to a correct
+value) committed inside the catalogue that names it.
+
+> **The rule survives with a scope it did not have: carry the numbers for entries that record an instance.**
+> An entry that names a shape is a different object and is complete without them.
+
 **If a rule cannot be wrong, it cannot be load-bearing.** *"Diversify your methods"* and *"agreement is
 evidence"* are both things everyone already assents to, and neither changes a decision. Joined — *the marginal
 value of a second **kind** of instrument dominates more reach in the first* — the claim is specific, actionable
