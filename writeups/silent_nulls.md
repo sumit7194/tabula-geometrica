@@ -749,6 +749,48 @@ distinguishes a wall from a horizon. Three sessions confirmed one metric tonight
 exact nullspaces over GF(p), and an independent screen — and the agreement is evidence precisely because a
 numerical certify and a symbolic certify can be wrong in completely different ways.
 
+### 29. A cost that scales with the swept variable is invisible at every point where the sweep worked
+
+*(Contributed by TheBridge via ansatz.)* A basis build's memory across a parameter sweep:
+
+    n= 20   1.81 GB   PASS
+    n= 40   3.61 GB   PASS
+    n= 80   7.23 GB   PASS
+    n=320  28.91 GB   FATAL
+
+**The n=40 run was not fine.** It was the same defect at 3.6 GB, and it passed. Every successful point reported
+a number that was correct, sufficient, and completely silent about the fact that it lay on a trajectory.
+
+> **A per-run measurement answers "is it big now". Only a series answers "is it growing".** Resource behaviour
+> recorded as an *outcome* rather than as a *measured quantity* can only be discovered by exhausting the
+> machine.
+
+This is entry 24's describing-vs-computing failure in the time dimension, and it is exactly our own 115/116
+finding: a battery documented as "fast" was never timed, and nothing in twelve minutes of silence distinguished
+*working* from *pathological*. **The repair is that cost has to be a series, not a reading.** Our suite now
+appends every battery's time and peak to a persistent history and flags growth across runs — validated
+two-sample on real data from both projects: it fires on the series above and stays silent on our measured
+`6.80 → 7.09 → 6.80 GB`.
+
+**Note it stays silent on a battery that is large.** *Large* and *growing* are different failures needing
+different guards, and a detector that conflates them is useless for both: quarantine handles the first, the
+trend handles the second.
+
+### 30. A fix adopted for resource reasons can silently change the experimental design
+
+*(Contributed by TheBridge via ansatz, caught before it landed.)* The repair for entry 29's memory blowup
+subsampled **68× fewer rows per orbit**. That would have made the new n=320 point incomparable with the three
+points that defined the very trend it was meant to test — and **saturation and information-loss would have been
+indistinguishable in the result**, which would have looked perfectly interpretable either way.
+
+> **The change entered as a memory fix, not as an experimental choice, so it bypassed every habit that guards
+> experimental choices.** Nobody asks a `--subsample` flag whether it is matched across arms.
+
+This is the matched-arms discipline arriving through a door nobody watches. It is also the mirror of entry 23:
+there, stating a rule failed to install it; here, an installation happens with no statement at all. The
+proposed repair — re-run one *existing* point under the new design first — is the minimal matched control, and
+it costs one point to keep four comparable.
+
 ## What the audit cost, honestly
 
 Four wrong turns inside a single afternoon's audit, each producing a plausible number: a pinned shell whitening

@@ -256,6 +256,34 @@ BATTERIES = [
 ]
 
 
+COST_HISTORY = R / "_verify_cost_history.json"
+
+
+def record_cost(name, dt, peak):
+    """Append this battery's cost to a persistent history.
+
+    WHY A HISTORY AND NOT JUST A NUMBER. A cost that scales with a swept variable is invisible at every point
+    where the sweep succeeded: 1.8 GB, 3.6 GB, 7.2 GB are three passes, and the fourth is fatal. Nothing in a
+    successful small run reports that it is on a trajectory. Our own 115/116 finding is the same shape --
+    resource behaviour was an OUTCOME, never a measured quantity, so it could only be discovered by exhausting
+    the machine. A per-run peak answers "is it big now"; only a series answers "is it growing".
+    (ansatz/TheBridge's rule 33, adopted.)
+    """
+    try:
+        hist = json.loads(COST_HISTORY.read_text()) if COST_HISTORY.exists() else {}
+    except Exception:
+        hist = {}
+    row = hist.setdefault(name, [])
+    row.append({"t": int(time.time()), "secs": round(dt, 1), "peak_gb": round(peak, 3)})
+    del row[:-10]                                    # keep the last 10 runs; a trend needs a series, not a log
+    COST_HISTORY.write_text(json.dumps(hist, indent=1))
+    if len(row) >= 3:
+        p0, p1 = row[-3]["peak_gb"], row[-1]["peak_gb"]
+        if p0 > 0.1 and p1 > 1.6 * p0:               # growing across runs, not merely large in this one
+            return f"  COST TREND: {p0:.2f} -> {row[-2]['peak_gb']:.2f} -> {p1:.2f} GB over last 3 runs"
+    return ""
+
+
 def child_rss_gb(pid):
     """Resident set of one pid, in GB. Returns 0.0 if it has already exited -- a missing process is not an error
     here, it is the normal race at the end of a fast battery."""
@@ -355,6 +383,7 @@ def main() -> int:
                 cost += f"  obs.peak {peak:.2f} GB"          # sampled: attributed, lower bound
             if hw1 > hw0 + 1e-9:
                 cost += f"  exact.max {hw1:.2f} GB"          # kernel-tracked: exact, this battery raised it
+            cost += record_cost(name, dt, max(peak, hw1 if hw1 > hw0 else 0.0))
             if bad:
                 failures += 1
                 print(f"FAIL  {name}  [{cost}]: " + "; ".join(bad), flush=True)
