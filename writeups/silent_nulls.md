@@ -496,6 +496,15 @@ vm_stat | awk '/page size/{ps=$8} ... END{printf "%.0f MB", f*4096/1048576}'
 **This machine has 16 KB pages, not 4 KB.** The line captured the correct value and then ignored it, so every
 figure was off by exactly 4×. Measured with the size it had actually read: free **7.22 GB**, usable **10.08 GB**.
 
+**It is not an assumption, and the distinction is the whole reason review missed it.** (Sharpening due to
+ansatz.) An assumption is a gap where knowledge is absent. Here the knowledge was **acquired, held in a live
+variable, and discarded at the point of use** — which is invisible to precisely the review that catches
+assumptions, because an auditor reading that line sees `/page size/` being parsed and concludes the units are
+handled.
+
+> **The presence of correct code is what conceals the incorrect code.** "Did you account for page size?" gets a
+> yes, and the yes is honest.
+
 **Two properties made it survive.** First, the error ran *conservative* — it understates headroom, so it stands
 runs down rather than crashing them, and a deferral produces no symptom at all. Second, **being a measurement is
 what made it persuasive**: it moved three sessions' reasoning and cancelled a pre-registered run precisely
@@ -515,6 +524,23 @@ The metric that means *paging now* is the **pageout rate**, which requires two s
 > describe history; free pages and the pageout rate describe now. (Second half due to TheBridge.) Reaching for
 > the history metric when you want the current one is the same shape as misreading which script a flag belongs
 > to: the field was correct, the question it answered was not the one being asked.
+
+**And then it recurred inside the fix, which is the part that says what the failure actually is.** The
+per-battery cost reporting added *because nothing measured the instrument* printed `peak +392.00 GB` on a
+two-second battery: macOS reports `ru_maxrss` in **bytes** where Linux uses **KB**, and `RUSAGE_CHILDREN` is a
+high-water mark over every child ever reaped, not a per-child figure. Two unit/semantics errors in the
+instrument built to catch unit errors.
+
+> **The constants-and-units layer is uniformly unreviewed, so it bites the meta-level exactly as hard as the
+> object level. Building one more layer inherits the exposure rather than escaping it.** (ansatz's statement of
+> it; three instances in one night, all in that layer.)
+
+**`+392.00 GB` was the *good* outcome, and not because we were careful.** It was absurd on sight — the same
+property that caught *four irreducible Killing tensors on Schwarzschild* within an hour. Had the factor been 4×
+instead of 1024×, it would have printed a plausible number and stayed forever. **That is luck in the magnitude,
+not skill in the detection**, which is the argument for the one repair that does not depend on the error being
+large enough to notice: validate the instrument against a **known quantity**. A deliberate 300 MB child reads
+0.306 GB as bytes and 313 GB as KB, and that check works at any magnitude.
 
 **The repair is that the correct measurement is now a committed script** (`scripts/machine_state.sh`) rather
 than an awk line retyped from memory each time — with both traps documented at the top. That is the same move as
