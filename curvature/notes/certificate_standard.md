@@ -607,3 +607,43 @@ Fisher p = 0.12 — the sweep was strictly worse than the verdict it replaced.
 Our stress-vs-dimension quantity is uncensored by construction — reconstruction stress is bounded below by zero
 and reached it — which is *why* the upgrade worked here, and that property was never stated when the technique
 was passed on. Recorded in `writeups/silent_nulls.md` as entry 18.
+
+
+---
+
+## S3 UPGRADED — the order ladder, run blind by TheBridge (2026-08-22)
+
+§166's S3 was the weakest gate in the C5 suite and was recorded as such: a single chaotic Hénon-Heiles case
+whose evidence was "the engine sits at the integration floor", one sample, **no in-family contrast** — failing
+C5 refinement 4 (aliveness is one-sample; discrimination is two-sample).
+
+**The obvious repair would have failed refinement 1.** TheBridge offered a positive control recovering **H**.
+But H = ½(p²) + ½(x²+y²) + x²y − y³/3 contains cubic terms, so it is **order 3**, while S3 certifies at
+**order 2** — a positive control emitting H demonstrates the instrument on a *different family* than the one
+certifying, which is refinement 1 failing on the exact axis it was written for. And planting an order-2 invariant
+would change the substrate (refinement 2).
+
+**The structure that works is the §176 ladder with `order` as the knob:** one ensemble, one instrument, only the
+hypothesis class moves. Reimplemented blind from a written spec (our `certify` never read), 70 chaotic
+trajectories, shell **varied**, velocity-Verlet dt=0.005, split over trajectories:
+
+| order | dim | C3 held-out | verdict | corr(direction, H) |
+|---|---|---|---|---|
+| 2 | 14 | 5.3857e-01 | CERTIFY | 0.0264 |
+| 3 | 34 | 7.3340e-12 | **EMIT** | **1.0000** |
+| 4 | 69 | −1.0210e-13 | EMIT | 1.0000 |
+
+**The instrument is not blind on this substrate**: it resolves a genuine invariant to the integration floor at
+order 3 on the same ensemble where it certifies at order 2, and the recovered direction *is* the Hamiltonian
+(corr 1.0000), not an artifact. **S3's verdict upgrades from binary to located: `CERTIFY-NO-INVARIANT-BELOW-
+ORDER-3`.** The pre-registered known-fail (order 3 failing to drop) did not occur and would have been reported.
+
+Independent-agreement note: their blind N=2 ratio is **0.539** against our **0.582** — different implementation,
+different ensemble draw. Their four disclosures, all of which matter: degree-0 excluded deliberately (a constant
+is perfectly conserved and defeats the readout — §166's own S2 confound); shell varied, pinned untested;
+columns std-normalised (a congruence, so eigenvalues are unchanged — it conditions the solve only); and N=4's
+−1.02e-13 reported rather than clipped, since it is conditioning at machine precision and clipping it would
+manufacture a clean number.
+
+**C5 refinement 4 is now satisfied for S3 by a two-sample discrimination on one substrate.** Credit: TheBridge,
+run blind from spec.

@@ -322,7 +322,19 @@ def main() -> int:
                     raise subprocess.TimeoutExpired(cmd, 900)
             if proc.returncode != 0:
                 raise subprocess.CalledProcessError(proc.returncode, cmd)
-            res = json.loads((R / jname).read_text())
+            # FRESHNESS, not just validity. A script that exits 0 without rewriting its output leaves the
+            # PREVIOUS run's JSON in place, and it parses perfectly -- so the gate reads a stale result as a
+            # current one and the battery passes on evidence from a run that no longer exists. This repo has
+            # been bitten by that shape twice before (the 19_ckpt resume trap and the merged stale shards).
+            # "File exists" and "file parses" are both weaker than "file was written by the run just made".
+            jpath = R / jname
+            if jpath.stat().st_mtime < t0:
+                failures += 1
+                age = (t0 - jpath.stat().st_mtime) / 60
+                print(f"STALE {name}  [{time.time() - t0:6.1f}s]: {jname} predates this run by "
+                      f"{age:.1f} min -- the script exited 0 without rewriting it", flush=True)
+                continue
+            res = json.loads(jpath.read_text())
             bad = []
             for key, (op, thr) in gates.items():
                 v = float(get(res, key))
