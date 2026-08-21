@@ -3,8 +3,10 @@ assert the pre-registered thresholds. Fast (no training) — this is the
 "did anything rot?" check, runnable any time. Exit code 0 = all green."""
 
 import json
+import resource
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -262,7 +264,16 @@ def get(d, dotted):
 
 def main() -> int:
     failures = 0
-    for name, cmd, jname, gates in BATTERIES:
+    n = len(BATTERIES)
+    for idx, (name, cmd, jname, gates) in enumerate(BATTERIES, 1):
+        # Per-item progress, added 2026-08-21. A suite that emits nothing cannot distinguish HUNG from WORKING,
+        # so a green pass from it carries less information than it appears to. This one line is why the next
+        # anomaly is legible from our own log instead of from a sister session's `ps`. Peak RSS is reported for
+        # the same reason: every threshold in this file is about physics and none was ever about the instrument's
+        # own footprint, which is how a battery grew to 3 GB without any gate noticing. (ansatz's push.)
+        t0 = time.time()
+        r0 = resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss
+        print(f"[{idx}/{n}] {name} ...", flush=True)
         try:
             subprocess.run([PY] + cmd, cwd=ROOT, check=True,
                            capture_output=True, timeout=900)
@@ -273,11 +284,14 @@ def main() -> int:
                 ok = v > thr if op == ">" else v < thr
                 if not ok:
                     bad.append(f"{key}={v:.4g} !{op} {thr}")
+            dt = time.time() - t0
+            rss = (resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss - r0) / (1024 * 1024)
+            cost = f"{dt:6.1f}s" + (f"  peak +{rss:.2f} GB" if rss > 0.5 else "")
             if bad:
                 failures += 1
-                print(f"FAIL  {name}: " + "; ".join(bad))
+                print(f"FAIL  {name}  [{cost}]: " + "; ".join(bad), flush=True)
             else:
-                print(f"PASS  {name}")
+                print(f"PASS  {name}  [{cost}]", flush=True)
         except Exception as e:
             failures += 1
             print(f"FAIL  {name}: {type(e).__name__}: {e}")

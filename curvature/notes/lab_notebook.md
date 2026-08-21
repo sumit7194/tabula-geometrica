@@ -4117,14 +4117,39 @@ Found only because a sister session measured machine memory and I had to identif
 2.86 GB. It was `scripts/115_grid_torus.py` inside `verify.sh` — 5m33s elapsed, RSS still climbing, free memory
 on the machine down to 18 MB. Killed it; 2372 MB returned.
 
-CLAUDE.md documents this as a "fast `--probe-only` gate". Three gigabytes is not that. Either the probe path is
-not being taken in the verify invocation, or ripser is being handed a far larger point cloud than the probe
-intends. NOT diagnosed tonight — flagged so it is not lost.
+DIAGNOSED. Not a broken flag — a misattributed claim. `--probe-only` belongs to **116**
+(`116_grid_torus_emergence.py --probe-only`, which is genuinely fast). **115 has no such flag and never did**,
+and the battery invokes it bare: `["scripts/115_grid_torus.py"]`. So it runs the full topology instrument —
+synthetic torus/sphere/plane/circle validation plus the ideal grid module and place code, all through ripser —
+which is honestly expensive. CLAUDE.md's "fast `--probe-only` gate in verify.sh" describes 116, on the 116 line;
+the 115 line says only "115 in verify.sh" and claims nothing about cost.
+
+**SECOND CORRECTION, and it goes the other way from the first.** I reported to two sister sessions that "my own
+notes call it a fast --probe-only gate" — i.e. that the DOCUMENTATION was wrong. It was not. The doc is accurate
+on both lines; I read two adjacent status blocks as one and attributed 116's property to 115. So the failure was
+never a stale note. It was a misreading of a correct note, then published as a note defect. Recorded because the
+direction matters: blaming the record for one's own reading is a way of closing an issue that leaves the actual
+cause — nothing measured the cost — completely untouched.
+
+So the resource surprise was not a regression, and not a documentation error either. 115's full battery is
+simply expensive, has always been, and nobody ever knew because **nothing in the suite measured its own cost.**
 
 Two things made it invisible locally:
  - the run emitted ZERO lines in 5m33s, so "working", "stuck" and "nearly done" render identically in the log;
  - nothing in the suite measures its own resource cost, so a battery can regress in memory without any gate
    noticing. Every threshold we assert is about physics; none is about the instrument's footprint.
 
-Follow-up when convenient: check the --probe-only flag actually reaches 115 from verify.sh, cap the point cloud,
-and consider a peak-RSS assertion in the battery so this regresses loudly rather than silently.
+FIXED (same session): `verify_gates.py` now prints `[i/n] <name> ...` before each battery and
+`PASS/FAIL <name> [<elapsed>  peak +<GB>]` after it, flushed. The suite now measures its own footprint, which
+closes the gap that let a 3 GB battery pass unnoticed — every threshold in that file was about physics and none
+was ever about the instrument.
+
+The deeper lesson is ansatz's and it inverts my first framing: **the silence was the defect, the memory was only
+the consequence.** One line per battery would have shown 115 running its full path from the first line, with no
+memory measurement needed at all. And "re-runnable at zero scientific cost" is true of the RESULTS but false of
+the GATE: a suite that cannot distinguish hung from working yields a green pass carrying less information than
+it appears to. Their rule 7 verbatim — a stage that has not started and a stage that is running produced
+identical output.
+
+STILL OPEN: whether 115's full battery belongs in the fast regression suite at all, or wants a probe path of its
+own like 116's.
