@@ -50,6 +50,9 @@ PRE-REGISTERED. Every gate has a known answer from theory, so a located wall is 
   W3 THE GUARD, known-fail. Feed the same locator a deliberately CENSORED quantity -- the identical sweep with
      the statistic clipped at a cap, reproducing TheBridge's situation -- and it must ABSTAIN rather than
      report a wall. Without W3 the guard could not fail and would certify its own correctness.
+  W5 THE GUARD FLAGS, IT DOES NOT DECIDE. A sweep with BOTH a crossing and high censoring must still report
+     the wall, with the flag alongside. This is a regression test for the bug guard v1 shipped with, kept
+     permanently because the failure it encodes is invisible by nature.
   W4 THE GUARD MUST NOT BE TRIGGER-HAPPY: it must NOT abstain on W1 or W2, whose quantities are uncensored.
      A guard that abstains on everything is vacuous in the same way §170's floor of ~1 was.
      FIRST RUN: W4 FAILED, and correctly -- under min-selection the gauge sweep was 0.4462 then 0.0000 four
@@ -122,15 +125,32 @@ def locate(knobs, vals, thresh, rising):
     quantity truncated before it could cross. If there is no crossing and no pinning, the honest answer is "no
     wall in this range", which is neither a location nor an abstention.
 
-    Returns (wall, abstain, censor_frac, reason)."""
+    GUARD v3 -- FLAG, DO NOT DECIDE (ansatz's correction, adopted). v2 got the ORDER right but still let the
+    guard erase information: on the abstain branch it returned no wall and dropped the censoring diagnostic on
+    the floor. The asymmetry that makes this worse than it sounds is theirs and it is exact:
+
+        a wrong NUMBER stays wrong loudly -- "four irreducible Killing tensors on Schwarzschild" is absurd on
+        sight and was caught within the hour. A wrong ABSTENTION is indistinguishable from a legitimate
+        "insufficient evidence", so it can never look absurd. A guard that suppresses has no equivalent of that
+        sanity check.
+
+    So: the crossing, when one exists, is ALWAYS reported and can never be erased by the guard; the censoring
+    measurement always rides alongside as a flag; and the caller sees both. Abstention is reserved for the case
+    where there is genuinely nothing to report.
+
+    Returns (wall, abstain, censor_frac, reason, flag)."""
     cf = censored_fraction(vals)
+    flag = (f"CENSORING FLAG: {cf:.0%} of swept values sit at an extreme" if cf >= CENSOR_FRAC_MAX else None)
     for k, v in zip(knobs, vals):
         if (v > thresh) if rising else (v < thresh):
-            return k, False, cf, "located: threshold crossed between adjacent knobs"
+            why = "located: threshold crossed between adjacent knobs"
+            if flag:                                       # both true at once -- report the wall AND the flag
+                why += f" [{flag} -- reported, NOT suppressed: the wall lies at the flat region's BOUNDARY]"
+            return k, False, cf, why, flag
     if cf >= CENSOR_FRAC_MAX:
         return None, True, cf, ("abstain: no crossing, and the statistic is pinned at an extreme for "
-                                f"{cf:.0%} of the sweep -- truncated before it could cross")
-    return None, False, cf, "no wall in this range (statistic varies but never crosses)"
+                                f"{cf:.0%} of the sweep -- truncated before it could cross"), flag
+    return None, False, cf, "no wall in this range (statistic varies but never crosses)", flag
 
 
 # ---------------- W1: CERTIFY-GAUGE, sweep the anchor count ----------------
@@ -203,14 +223,14 @@ def main():
     Ks = [0, 1, 2, 3, 4, 5]
     raws, gdiag = gauge_sweep(Ks)
     gate_g = 0.15                                       # §111's RAW_THRESH: frame recovered
-    kstar, ab_g, cf_g, why_g = locate(Ks, raws, gate_g, rising=False)
+    kstar, ab_g, cf_g, why_g, flag_g = locate(Ks, raws, gate_g, rising=False)
     W1 = bool(kstar == 3 and not ab_g)
     print(f"   -> K* = {kstar}   (theory 3)   [{why_g}]")
 
     print("\nW2 — CERTIFY-CHAOS: sweep the logistic map through r_inf = 3.5699456")
     rs = [3.2, 3.4, 3.5, 3.55, 3.58, 3.6, 3.7, 3.8, 3.9]
     K01 = chaos_sweep(rs)
-    rstar, ab_c, cf_c, why_c = locate(rs, K01, 0.5, rising=True)
+    rstar, ab_c, cf_c, why_c, flag_c = locate(rs, K01, 0.5, rising=True)
     W2 = bool(rstar is not None and not ab_c and abs(rstar - R_INF) <= 0.06
               and K01[0] < 0.5 < K01[-1])
     print(f"   -> r* = {rstar}   (theory {R_INF:.4f})   [{why_c}]")
@@ -218,7 +238,7 @@ def main():
     print("\nW3 — THE GUARD (known-fail): the same locator on a CENSORED statistic must ABSTAIN")
     cap = 0.35                                          # clip the chaos statistic, reproducing an integration cap
     K_cens = [min(k, cap) for k in K01]
-    rstar_c, ab_x, cf_x, why_x = locate(rs, K_cens, 0.5, rising=True)
+    rstar_c, ab_x, cf_x, why_x, flag_x = locate(rs, K_cens, 0.5, rising=True)
     W3 = bool(ab_x)
     print(f"   censored sweep: {[round(k,3) for k in K_cens]}")
     print(f"   -> abstain {ab_x}   wall reported: {rstar_c}   [{why_x}]")
@@ -226,7 +246,15 @@ def main():
     W4 = bool(not ab_g and not ab_c)
     print(f"\nW4 — the guard did NOT fire on the uncensored sweeps: {W4}")
 
-    ok = bool(W1 and W2 and W3 and W4)
+    # W5 -- REGRESSION TEST FOR THE BUG GUARD v1 SHIPPED WITH. The gauge sweep has BOTH a genuine crossing and a
+    # high censored fraction (0.50, four values at an extreme). v1 saw the fraction and suppressed a correct wall
+    # at its predicted value. A guard must FLAG that situation, never DECIDE it away.
+    print("\nW5 — regression: a sweep with BOTH a crossing and high censoring must report the wall, flagged")
+    W5 = bool(kstar == 3 and flag_g is not None and not ab_g)
+    print(f"   gauge sweep: wall reported {kstar}, censoring flag raised: {flag_g is not None}")
+    print(f"   -> wall survived the guard: {W5}")
+
+    ok = bool(W1 and W2 and W3 and W4 and W5)
     out.update({"W1_gauge_wall": {"knobs": Ks, "raw_frame_error": raws, "K_star": kstar,
                                   "theory": 3, "censored_fraction": cf_g, "pass": W1},
                 "W2_chaos_wall": {"knobs": rs, "zero_one_K": K01, "r_star": rstar,
@@ -240,6 +268,14 @@ def main():
                                       "looks for the crossing first and abstains only when none exists AND the "
                                       "statistic is pinned, which is TheBridge's actual situation."),
                 "W4_guard_not_trigger_happy": W4,
+                "W5_guard_flags_not_decides": {"pass": W5, "wall": kstar, "flag": flag_g,
+                                               "why": ("regression test for the bug guard v1 shipped with: the "
+                                                       "gauge sweep has BOTH a crossing and censored fraction "
+                                                       "0.50, and v1 suppressed the correct wall. A guard must "
+                                                       "flag, never decide -- a wrong abstention is "
+                                                       "indistinguishable from honest insufficiency and so can "
+                                                       "never look absurd the way a wrong number can. "
+                                                       "(ansatz's asymmetry, adopted.)")},
                 "censor_frac_max": CENSOR_FRAC_MAX,
                 "all_pass": ok,
                 "verdict": (
@@ -257,7 +293,7 @@ def main():
                     .format(kstar, rstar, R_INF, cf_x, CENSOR_FRAC_MAX) if ok else
                     "NOT ESTABLISHED -- see the individual gates; a located wall that misses its known value is "
                     "worse than the label it replaced.")})
-    print(f"\nW1 {W1} | W2 {W2} | W3 {W3} | W4 {W4}")
+    print(f"\nW1 {W1} | W2 {W2} | W3 {W3} | W4 {W4} | W5 {W5}")
     print(out["verdict"])
     (RESULTS / "177_located_walls.json").write_text(json.dumps(out, indent=1))
 

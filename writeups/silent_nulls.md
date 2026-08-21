@@ -421,6 +421,20 @@ aggressive at the boundary.
 
 > **A rule you apply by hand gets a sanity check each time. A rule you encode as a guard never gets one again.**
 
+**And suppression is the worse direction, for a reason worth stating precisely.** (Due to ansatz, comparing this
+against a bug of their own that ran the same day.) Their failure manufactured a finding: a miscounted reducible
+span reported *four irreducible Killing tensors on Schwarzschild*, which is absurd on sight and was caught within
+the hour. Ours destroyed one. The asymmetry is not about severity, it is about **detectability**:
+
+> A wrong **number** stays wrong loudly. A wrong **abstention** is indistinguishable from a legitimate
+> "insufficient evidence" — so it can never look absurd, and there is no sanity check it can fail.
+
+Hence the repair, which is now a permanent gate rather than a lesson: **encode guards that FLAG, not guards that
+DECIDE**, unless the guard's own precondition is itself measured. Our locator now always reports a crossing when
+one exists and carries the censoring measurement alongside it as a flag; the configuration that fooled the first
+version — a genuine crossing *and* a high censored fraction together — is a regression test that fails if the
+behaviour ever returns. **The bug that hid a correct result is now the test that would catch it.**
+
 ## What the audit cost, honestly
 
 Four wrong turns inside a single afternoon's audit, each producing a plausible number: a pinned shell whitening

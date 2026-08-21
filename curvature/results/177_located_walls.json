@@ -64,6 +64,12 @@
  },
  "guard_v1_rejected": "'abstain if a large fraction of values sit at an extreme' fired on the gauge sweep (fraction exactly 0.50) and suppressed a CORRECT wall at its predicted value. A flat region is not censoring when the wall lies at its BOUNDARY rather than inside it -- a sharp wall IS a step function. v2 looks for the crossing first and abstains only when none exists AND the statistic is pinned, which is TheBridge's actual situation.",
  "W4_guard_not_trigger_happy": true,
+ "W5_guard_flags_not_decides": {
+  "pass": true,
+  "wall": 3,
+  "flag": "CENSORING FLAG: 50% of swept values sit at an extreme",
+  "why": "regression test for the bug guard v1 shipped with: the gauge sweep has BOTH a crossing and censored fraction 0.50, and v1 suppressed the correct wall. A guard must flag, never decide -- a wrong abstention is indistinguishable from honest insufficiency and so can never look absurd the way a wrong number can. (ansatz's asymmetry, adopted.)"
+ },
  "censor_frac_max": 0.5,
  "all_pass": true,
  "verdict": "THE FRONTIER NOW REPORTS LOCATIONS, GUARDED. Two certify verdicts that carried only labels now carry walls, each checked against a number known in advance: CERTIFY-GAUGE becomes 'the frame is underdetermined below K* = 3 anchors' -- exactly the reflection argument, since 2 anchors fix rotation and translation but leave a mirror image and 3 non-collinear ones do not -- and CERTIFY-CHAOS becomes 'chaotic above r* = 3.6 ' against the Feigenbaum point 3.5699. With \u00a7142 (v* ~ 1/sqrt2) and \u00a7176 (d* = 6) all four now locate. THE GUARD IS THE LOAD-BEARING PART: on a deliberately censored statistic the locator ABSTAINS rather than reporting a wall (censored fraction 0.56 >= 0.5), and it does not fire on either uncensored sweep. That failure mode was invisible from inside this repo because our quantities are uncensored by construction; it took a sister project running the technique on truncated data to expose it."
