@@ -451,6 +451,15 @@ minutes in and still growing. Free memory at that moment was **18 MB**. Killing 
 > **A footprint statement is a claim. Other people schedule work on it. Ours was produced by intuition and
 > repeated until it sounded verified; theirs was produced by `ps`.**
 
+**And "measured" is not sufficient either — a shared-resource reading needs a timestamp and the right metric.**
+Within four minutes, three sessions measured the same machine and reported **10.9 GB**, **10.7 GB**, and
+**2.6 GB** usable. All three were honest readings of a genuinely moving quantity. Worse, free memory was the
+wrong metric to begin with: the number that actually decided the question was **swap already 1.34 GB in use**,
+which none of the three reports mentioned. A machine can show gigabytes "free" while paging.
+
+> **On a shared machine, an untimestamped measurement is an anecdote, and a headroom figure that omits swap can
+> be comfortably wrong in the direction that hurts.**
+
 **Why this belongs in a catalogue about silent nulls.** It is the same detectability asymmetry that runs through
 entries 17–19, in the one place we were not looking for it. A wrong *number in a result* gets audited, because
 results are what the process is pointed at. A wrong *reassurance to a teammate* is never re-derived, because it
