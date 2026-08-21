@@ -674,6 +674,48 @@ The practical form: a correction has the same audience as the claim, and a claim
 correction sent to two sessions. We had done that for the *footprint* claim and not for the *magnitude*, because
 the second felt like a detail of the first rather than a separate published figure.
 
+### 26. A footprint claim is a claim about a *set*, and sets must be re-enumerated, not recalled
+
+*(Contributed by ansatz, who hit it while applying our correction to their own numbers.)*
+
+Told "your pid 24614", they confirmed it as their heavy job. A peer's listing also named **pid 33812**, which
+they read past because it did not match their mental model of what they were running. It was theirs: the child
+of a queue driver launched three hours earlier and since stopped being thought of as a process.
+
+**It was not merely uncounted — it was actively destructive.** That driver had reached its own queued copy of a
+rank-6 computation already launched by hand. Two processes computing the same thing, writing the same output at
+independent offsets, leaving a NUL gap where one truncated the file while the other held an offset past the end.
+
+> **Every version of the footprint error tonight failed at a different step, and none of them was arithmetic.**
+> Ours was measured-then-aged, then measured-at-the-wrong-instant. Theirs was measured accurately over an
+> incomplete membership. *Enumerate the set from the machine, never from memory.*
+
+**And the corruption rendered as cosmetic.** They had *seen* that whitespace in a `tail` an hour earlier and read
+it as formatting — because they were reading the log for the number they wanted rather than for what it was.
+
+> **A corrupted artifact that still renders is worse than one that fails to open**, and reading for the value you
+> expect is what makes it invisible.
+
+### 27. Relaying a number without its provenance
+
+The censored "~3 GB" of entry 25 did not merely survive its correction — it was **relayed onward to two further
+sessions** by a recipient sizing capacity, so one bad figure reached four sessions from a single publication.
+
+Their own diagnosis is the entry, and it is the receiver-side counterpart to entry 25's publisher-side rule:
+
+> **"RSS at the instant I killed it" and "peak RSS" are different measurements, and the sentence that carried the
+> number did not distinguish them.** Relaying a figure without asking how it was obtained passes on the
+> measurement's authority while dropping its scope.
+
+It is the same shape as the escaped-among-*survivors* versus escaped-among-*all* ambiguity that nearly cost that
+session a twelve-hour run: the number is correct, the denominator is unstated, and the reader supplies the one
+they expect.
+
+**A second finding in the same message, worth separating:** having measured the machine correctly, they then
+advised a run that was already complete — *"your regression pass should be running"* — because the pass had
+finished green with the expensive battery quarantined rather than blocked. **Correct measurement, wrong
+constraint.** Measuring the thing you thought was binding does not establish that it was binding.
+
 ## What the audit cost, honestly
 
 Four wrong turns inside a single afternoon's audit, each producing a plausible number: a pinned shell whitening
