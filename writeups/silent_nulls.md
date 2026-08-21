@@ -787,20 +787,64 @@ per-project ones.
 The corollary is that another project's failure is a resource, not just a cautionary tale: it is the one
 positive control you cannot fabricate for yourself.
 
-### 30. A fix adopted for resource reasons can silently change the experimental design
+### 30. One parameter line, two failures — a rule never examined as a function of the swept variable
 
-*(Contributed by TheBridge via ansatz, caught before it landed.)* The repair for entry 29's memory blowup
-subsampled **68× fewer rows per orbit**. That would have made the new n=320 point incomparable with the three
-points that defined the very trend it was meant to test — and **saturation and information-loss would have been
-indistinguishable in the result**, which would have looked perfectly interpretable either way.
+**CORRECTED, and the correction is the entry.** This was first filed as *"a fix adopted for resource reasons can
+silently change the experimental design"* — the subsampling repair for entry 29 cut 68× fewer rows per orbit,
+which would have made the new sweep point incomparable with the three defining the trend it was meant to test.
 
-> **The change entered as a memory fix, not as an experimental choice, so it bypassed every habit that guards
-> experimental choices.** Nobody asks a `--subsample` flag whether it is matched across arms.
+That description is wrong, and ansatz corrected it against their own diagnosis. The fix did not *introduce* the
+confound. It **reproduced one already sitting in the trend it was proposing to protect.** The subsampling rule
+pinned *total* rows, so rows-per-orbit had already fallen across the very points that defined the result:
 
-This is the matched-arms discipline arriving through a door nobody watches. It is also the mirror of entry 23:
-there, stating a rule failed to install it; here, an installation happens with no statement at all. The
-proposed repair — re-run one *existing* point under the new design first — is the minimal matched control, and
-it costs one point to keep four comparable.
+    n= 20   1375 rows/orbit      1.81 GB
+    n= 40    688 rows/orbit      3.61 GB
+    n= 80    344 rows/orbit      7.23 GB
+    n=320      —                28.91 GB  FATAL
+
+> **A parameter rule written once, for one point of a sweep, and never examined as a function of the swept
+> variable, produces a resource failure and an inferential one from the same line.**
+
+The memory wall and the confounded trend are **one defect, not two**, and filing them separately — as we did —
+obscures that the fix and the flaw shared a cause. What makes it hard to see is that the rule *looked* constant:
+"cap total rows" is a fixed instruction whose *effect* varies with n, so it reads as a setting rather than as a
+function.
+
+**And the ordering failure is ours and theirs jointly, which is why it is worth keeping.** They applied the
+matched-arms discipline to the *fix* and not to the *trend they were defending*. We applied entry-28 scrutiny to
+their fix and accepted the trend's construction without asking the same question. **The thing being checked
+receives the scrutiny; the thing being checked *against* does not** — the same shape as guards never getting
+the two-sample treatment that results get.
+
+### 31. A two-way framing quietly assumes the answer is at an extreme
+
+The calibration for the above was set up as a binary: subsampling costs nothing, or it costs a lot. It came back
+**10–15% with the shape intact** — neither branch.
+
+> **A control whose value is that it converts an unknown into a number is worth more than one that picks a
+> branch**, and framing it as a choice between two outcomes presumes the answer sits at an extreme.
+
+This is the same defect as a binary certificate before the ladder (entries in §176/§177's family): *"cheap code
+exists or does not"* versus *"no code below d\* = 6"*. **Asking which of two stories is true is a weaker
+question than asking how much**, and it is weaker in a way that is invisible when one of the two stories happens
+to be roughly right.
+
+## On the format of this catalogue
+
+Two rules, both established the hard way tonight, both about *how these entries are written* rather than what
+they say.
+
+**Carry the numbers, not the moral.** An entry written as a lesson is unusable as a control; an entry carrying
+`1.81 / 3.61 / 7.23` can be re-run against a new detector a week later by someone who was not there — as it was,
+to validate the cost-trend guard above. **Most postmortems keep the moral and discard the numbers, which is
+exactly backwards**, because the moral is the part a reader can reconstruct and the numbers are the part they
+cannot. (Due to ansatz.)
+
+**If a rule cannot be wrong, it cannot be load-bearing.** *"Diversify your methods"* and *"agreement is
+evidence"* are both things everyone already assents to, and neither changes a decision. Joined — *the marginal
+value of a second **kind** of instrument dominates more reach in the first* — the claim is specific, actionable
+against a budget, and **false-able**. Applied as a filter to everything above: an entry that no experiment could
+contradict is a sentiment, and belongs somewhere else.
 
 ## What the audit cost, honestly
 
