@@ -894,6 +894,38 @@ value of a second **kind** of instrument dominates more reach in the first* — 
 against a budget, and **false-able**. Applied as a filter to everything above: an entry that no experiment could
 contradict is a sentiment, and belongs somewhere else.
 
+## The closing rule: distrust the fix, not only the result
+
+Every entry above is about distrusting a **result** — a number, a verdict, a null, a green pass. This last one
+is about distrusting a **fix**, and it is the one none of the three sessions had written down before the night
+that produced it.
+
+Look at what actually went wrong, in four projects, over twelve hours:
+
+- a flag was withdrawn on a peer's say-so, which helped close the file on a line hiding a 7 GB battery;
+- that line was exonerated on the point being checked, silently certifying an adjacent claim nobody had timed;
+- a censored observation was quoted as a peak and reached **four sessions** from one publication;
+- a hand-count nearly announced *four irreducible Killing tensors on Schwarzschild*;
+- a rule was derived, written to a colleague, and then not applied to the author's own next gate;
+- a guard built from a correct lesson suppressed a correct result within the hour.
+
+> **Every one was a correction somebody accepted too easily — including from themselves.**
+
+And the half that will slip, because it is counterintuitive: **the *liked* corrections are the hard ones.** A
+fix that flatters your instincts, resolves a confusion you were already sitting with, or hands you a rule you
+were half-holding already is the one adopted **without a known-fail**. Suspicion is cheap to apply to a claim
+you dislike. The whole difficulty is applying it to a repair that feels like relief.
+
+**Which yields the practical form of everything above:**
+
+> **A fix is a claim. It needs a known-pass and a known-fail, on real data, before it ships** — the same two
+> samples any result would need. A guard is a claim about a claim, and it has never once earned an exemption.
+
+Tonight both new guards were validated that way, and both had already failed silently before they were: one
+suppressed a true wall, the other shipped with two unit errors in the instrument built to catch unit errors.
+Neither failure announced itself. **That is the entire argument for the rule, and it is the argument this
+catalogue exists to make.**
+
 ## What the audit cost, honestly
 
 Four wrong turns inside a single afternoon's audit, each producing a plausible number: a pinned shell whitening
