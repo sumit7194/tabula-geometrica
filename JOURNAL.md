@@ -1,3 +1,32 @@
+## 2026-08-21 — the C5 audit is COMPLETE (17/17), and it found one real failure
+
+Every certify-bearing result in the repo audited against C5 (*the readout must be demonstrated to detect a
+positive on the substrate where the null is issued*).
+
+    PASS  §93 §94 §95 §160 §161-B §162(4 bases) §166 §167 §168-deg2
+    FAIL  §174 deg-4 -> REFUSED (retracted yesterday)
+    N/A   §141 §142 §143 §145 §147 §150 §151 -- measurement-based, not search-based
+
+**Both verdicts filed externally with TheBridge came back clean**, with the demonstrations they structurally
+lacked now supplied. The single genuine failure was caught and retracted before it propagated.
+
+**Two satisfaction structures, and the second is better.** (i) The pinned/varied **two-run recipe**: when a
+design pins a constant to whiten it out — correct against false positives — run the verdict on the pinned
+ensemble and the demonstration on a second one with that constant varied. (ii) The **ladder contrast**: if a
+design certifies in basis A and emits in basis B on *one* ensemble with one engine, the demonstration is
+internal and nothing about the substrate varies between it and the verdict. §160 is the worked example.
+
+**§166's audit produced a FALSE PASS first** — it pins E = 0.15, so H had no across-ensemble variance, the floor
+degenerated to ~1, and the criterion `best ≤ floor × 10` became unfailable. Fixed by varying the energy *and*
+augmenting the basis with the cubic terms; corrected, the engine sits exactly at the integration floor (ratio
+0.98). Fifth appearance of the degenerate-denominator trap, third against us. ansatz's formulation: *a statistic
+inverts its meaning when its denominator degenerates, and the degenerate case is exactly where a null lives.*
+
+Registered in the new cross-session coordination directory (`~/Github/.claude-coordination/`, blackhole's
+convention) so sister sessions can see who is running heavy work.
+
+verify.sh **61 PASS, ALL GREEN**.
+
 ## 2026-08-21 — C5 added to the certificate standard, and §161's filed verdict audited (it holds)
 
 **C5 — the readout must be demonstrated to detect a genuine positive ON the substrate where the null is issued.**
