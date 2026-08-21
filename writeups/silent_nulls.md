@@ -640,6 +640,15 @@ true maximum; the word "peak" reads as a **ceiling**. Anyone sizing a machine ag
 a lower bound as an upper one. The repair is to write **"observed peak"** and carry the samples — which is why
 the quarantine note records 6.75, 6.11 *and* 2.77 GB rather than the largest of them.
 
+**A fourth instance, found by the instrument built for the first three, on the claim used to close them.**
+Earlier the same night we traced a resource surprise to misreading which of two adjacent notes a flag belonged
+to, and concluded: *the documentation was accurate, the reading was wrong.* The attribution was indeed accurate.
+But the note also called that gate **"fast"** — and measured, it runs **714.9 s** and peaks at **7.09 GB**, 30%
+of the entire suite's wall time. Never timed, by anyone, ever.
+
+> **Finding one defect on a line is what stops you looking for the second.** Exonerating a record on the point
+> you were checking silently certifies every other claim on it.
+
 **This is the mirror of the retyping family** (entries 20–23, six instances between two sessions). There, the
 claim was never code. Here, **the claim was code and the description of it was not** — and that may be the more
 common of the two, precisely because describing a result feels like reporting rather than like deriving.

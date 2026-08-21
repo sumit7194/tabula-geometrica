@@ -639,7 +639,7 @@ results in `curvature/notes/lab_notebook.md`.
   even at modest per-cell frac>0.3 (0.03). Honest scope: training transiently
   forms then degrades grids (cosine lr + best-checkpoint used); full STABLE
   per-cell convergence needs the reference's full scale (90k-batch × 8000 epochs).
-  Model saved (116_grid_model.pt); fast --probe-only gate in verify.sh. The
+  Model saved (116_grid_model.pt); --probe-only gate in verify.sh — **NOT fast: measured 714.9 s and a 7.09 GB child peak (2026-08-22), 30% of the whole suite's wall time.** The word "fast" here was never measured; see silent_nulls entry 24. The
   curvature-atlas grid-cell-torus row is now a FULL emergent result.
 - **ARROW OF TIME — entropy production / fluctuation theorem (2026-06-24, script
   119), 3/3.** Poke 3 of 3 (the arc COMPLETE). Extends the friction boundary (70).

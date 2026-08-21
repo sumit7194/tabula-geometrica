@@ -4153,3 +4153,31 @@ identical output.
 
 STILL OPEN: whether 115's full battery belongs in the fast regression suite at all, or wants a probe path of its
 own like 116's.
+
+
+## 2026-08-22 — the regression suite, measured for the first time (62 PASS / 0 FAIL / 1 SKIP, 39.8 min)
+
+First green pass with cost instrumentation. What it found, and it corrects a claim I made twice tonight while
+defending the documentation:
+
+**116 IS NOT FAST.** `116_grid_torus_emergence.py --probe-only` — described in CLAUDE.md as a *"fast
+`--probe-only` gate in verify.sh"* — takes **714.9 s (12 min)** and its child peaks at **7.09 GB**. That is 30%
+of the entire suite's wall time in one battery.
+
+Earlier tonight I established that `--probe-only` belongs to 116 and not 115, and concluded "the doc is accurate,
+my reading was wrong." The *attribution* was accurate. The word **"fast"** attached to it was never measured —
+which is silent_nulls entry 24 exactly (*the number was computed; the predicate attached to it was invented*),
+landing on the claim I had just used to exonerate the record. **Two separate defects on one line, and finding the
+first is what stopped me looking for the second.**
+
+Suite peaks, cumulative high-water: 7.09 GB (116) → 7.70 GB (161) → 8.48 GB (162). Slowest: 116 at 715 s, then
+Manko-Novikov 197 s, axion 136 s, 161 at 113 s, 167 at 112 s.
+
+**INSTRUMENT NOTE — two measures, opposite weaknesses.** `ru_maxrss` is exact (kernel-tracked true max) but
+cumulative over every reaped child; the 4 Hz RSS sample is correctly attributed to one battery but is a lower
+bound on its maximum. **Neither is both.** Replacing the first with the second would have traded a
+well-measured-badly-attributed number for a badly-measured-well-attributed one, so the suite now reports both,
+labelled `obs.peak` (sampled) and `exact.max` (kernel).
+
+OPEN: 115 quarantined pending a probe path; 116's "fast" claim needs either a genuinely fast path or a corrected
+description. A 40-minute "fast regression gate" is a name that stops people running it.
