@@ -716,6 +716,39 @@ advised a run that was already complete — *"your regression pass should be run
 finished green with the expensive battery quarantined rather than blocked. **Correct measurement, wrong
 constraint.** Measuring the thing you thought was binding does not establish that it was binding.
 
+### 28. Blindness reported as negativity — the statement the other 27 are instances of
+
+*(Joint with ansatz, arrived at from opposite directions: they had a symbolic prover, we had a numerical one,
+and neither could see its own scope from the inside.)*
+
+Their exact prover searches for Killing tensors in a space carrying **one power of a denominator**. Ask it about
+an object that needs two, and it returns a clean integer — **the same clean integer it returns when no such
+object exists.** Nothing in the number distinguishes *"I looked and found nothing"* from *"I cannot look there."*
+It took a third session's screen, built with no denominator scope at all, to tell those two states apart.
+
+> **Blindness and negativity are different, and instruments almost never volunteer which one they are
+> reporting. An instrument that cannot report its own blindness will report it as a negative result.**
+
+**This is the catalogue's own thesis, stated at the level of the instrument rather than the code path.** The
+framing at the top of this document — *wherever "didn't happen" and "happened and found nothing" produce the
+same output, a bug reads as a result* — is the software version. This is the epistemic one, and it covers cases
+where nothing is broken at all: a correctly implemented instrument, run correctly, on good data, returning a
+number that is honest about what it measured and silent about what it could not.
+
+Every entry here is an instance. A guard suppressing a wall it was not built to distinguish from noise (19). A
+family certified at order 2 whose only invariant lives at order 3 (S3, before the ladder). A polynomial basis
+descending toward a transcendental invariant it can approach but never reach (§160). A censored survival time
+whose median sits at the integration cap (18). A conserved-direction search deflating a span whose generating
+set was never enumerated (26). **In each, the instrument reported a number, the number was arithmetically
+correct, and the scope was the part that did not survive into the sentence.**
+
+**The repair is the only one that has worked all night, and it is structural rather than careful:** put two
+instruments with **non-intersecting failure modes** on the same question. Extending one instrument's bound
+extends its blind spot along with it; a second instrument that fails differently is the only thing that
+distinguishes a wall from a horizon. Three sessions confirmed one metric tonight — numerical trajectories,
+exact nullspaces over GF(p), and an independent screen — and the agreement is evidence precisely because a
+numerical certify and a symbolic certify can be wrong in completely different ways.
+
 ## What the audit cost, honestly
 
 Four wrong turns inside a single afternoon's audit, each producing a plausible number: a pinned shell whitening

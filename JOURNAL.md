@@ -12,6 +12,45 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 ---
 
 
+## 2026-08-22 — a four-session night: two results, twelve catalogue entries, and every claim narrowed
+
+**The work.** §176 (4/4): the C5 audit had exempted seven certificates in one pass on a distinction invented on
+the spot; four of them emit `CERTIFY-NO-CODE`, which is a **search**, so the exemption was wrong in kind. The
+dimension ladder on §141's own data sharpens the verdict to **"no code below d\* = 6"**. Then the *correction*
+was also wrong — refinement 2 applied to a generator whose only free parameter **is** the certified property,
+which makes it the control. **Refinement 6** records the qualifier. §177 (5/5): all four certify verdicts now
+report locations — **K\* = 3** (the reflection argument, predicted in advance), r\* = 3.6 vs Feigenbaum
+3.5699 — with W5 as a permanent gate encoding a bug that had suppressed a correct result. §166's **S3 upgraded**
+to `CERTIFY-NO-INVARIANT-BELOW-ORDER-3` via an order ladder TheBridge ran blind from a written spec (order 2
+certifies at 0.539, order 3 emits at 7.3e-12 with corr to H = 1.0000).
+
+**The instrument.** `verify.sh` green at **62 PASS / 0 STALE / 0 FAIL**, now with per-battery progress, dual
+cost measures (`obs.peak` sampled + `exact.max` kernel, kept both because neither is both attributed and exact),
+and a **staleness guard validated two-sample** — a noop battery that exits 0 writing nothing fires STALE, the
+same harness writing stays silent. Battery 115 quarantined (observed peak 6.75 GB) printing as SKIP, never
+silently. Battery 116, documented as "fast", measured at 714.9 s / 7.09 GB and 806.9 s / 6.80 GB.
+
+**The failures, which were the night's real output.** Twelve `silent_nulls` entries (16–28) across three
+sessions. Ours: a footprint claimed and never measured; a page size read into a variable and then hardcoded
+anyway (4× wrong, in the conservative direction, which stood down a run that fit); "paging" declared from a
+residual metric when the pageout rate was zero; an instrument built to catch unit errors shipping with two unit
+errors; a censored observation quoted as a peak, which then reached **four sessions** from one publication.
+
+**The convergence, stated by all three of us independently:** *the half nobody scripted was the half that was
+wrong* — a hand-counted reducible span (wrong four times), a bound quoted from one record length, an awk line
+retyped from memory. **Not once was the arithmetic the problem.**
+
+**And the statement the other 27 entries turn out to be instances of** (joint with ansatz): *blindness and
+negativity are different, and instruments almost never volunteer which one they are reporting.* The repair is
+structural — two instruments with **non-intersecting failure modes** on one question, since extending a bound
+extends the blind spot with it.
+
+**Cross-session:** ansatz closed Zipoy-Voorhees δ=2 exactly at ranks 1–6 on both arms (irreducible 0
+everywhere), volunteering unprompted that nine of twelve agreements were retrodictions and three were
+pre-registered. Recorded against our §132 in `notes/A10_for_bridge.md` as a three-instrument table organised by
+**where each is blind**. Our §132 caveat is **narrowed, not retired** — nothing bounds the rank, den² unexamined.
+
+
 ## 2026-08-21 (later) — §177: the frontier reports WHERE the wall is, and refuses when it cannot
 
 Generalised the §176 located-wall upgrade across the frontier's certify verdicts, and guarded it. 4/4.
