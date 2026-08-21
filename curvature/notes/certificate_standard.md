@@ -204,8 +204,13 @@ whose on-substrate positive is the reducible set, but it is the ceiling on anyth
 
 Out of scope (measurement-based, not search-based): §141, §142, §143, §145, §147, §150, §151.
 §171 carries a CERTIFY string but *is* a positive control (it finds tr L⁴ at Q2) — no separate audit needed.
-Still to audit: **§93, §94, §95, §160, §166** — all search-based, all emit at one parameter value and certify at
-another, so each needs the refinement-2 check that the parameter change does not alter representability.
+| §93 | 2 | engine at the integration floor at certifying λ (0.4, 0.5) | 2 | **PASS** |
+| §94 | ≤4 | engine below the floor at certifying α (9.0e-10 vs 4.8e-07) | 2 | **PASS** |
+
+Still to audit: **§95, §160, §166**. All five of §93/94/95/160/166 were checked structurally for refinement 2 —
+each builds features from state alone (`library(X,Y,PX,PY)`, `lib(...)`, `poly_features(T)`), with no system
+parameter passed in and no module-level parameter read inside — so the basis **cannot** vary with the parameter
+and ansatz's ε=0 failure mode is excluded by construction rather than by argument.
 
 ### C5 scope — the clause applies to SEARCH-BASED nulls, not to measurement-based verdicts
 
@@ -241,3 +246,43 @@ monomials H2 needs — and it does not: the polynomial block survives alongside 
 **Degree caveat, per refinement 1.** These demonstrate the instrument at **degree 2** while §161/§162 certify out
 to **degree 6**. That is a real pass and a *weak* one. Closing it properly would need a degree-6 positive on
 Candidate B, which does not exist to plant — so the caveat is recorded rather than quietly upgraded.
+
+### §93 and §94 audited — both PASS, and the two-run pattern is the general recipe
+
+Both scripts pin the energy shell, so H is whitened out of the eigenproblem and there is nothing on-substrate to
+demonstrate with — §161's situation, and the reason a naive C5 test on them returns a meaningless null.
+
+**§93 (Pullen–Edmonds).** Its library has no `x²y²` term, so at the certifying λ the one conserved quantity that
+certainly exists is **not even representable**: H residual 4.6e-11 at λ=0 but **0.79 / 0.85** at λ = 0.25 / 0.50.
+With the shell varied *and* the basis augmented so H is representable (8.5e-15), the engine reaches the
+integration floor:
+
+    lambda   H rel drift   floor (var-ratio)   engine best   engine/floor
+     0.25      7.98e-05        3.62e-07         1.36e-07         0.4
+     0.50      1.29e-04        9.19e-07         4.52e-07         0.5
+
+At/below the floor ⇒ **resolving, integration-limited, not blind**. §93's certify value is 0.62 — six orders
+above that floor — so the verdict is safe by a wide margin. **PASS.**
+
+**§94 (coupled quartic).** The cleanest structure in the repo: its integrable islands at α ∈ {0, 1, 3} sit
+*inside the same parameter sweep* as the certifying α ∈ {2, 4}, identical basis, only α differing. Two runs:
+
+    pinned shell (§94's real config)   engine: 1.1e-10 / 4.9e-19 / 2.3e-10 at islands,
+                                               1.9e-04 / 1.8e-03 at CERTIFY  -> correct null
+    varying shell (the C5 test)        floor 4.8e-07 / 1.0e-06 at CERTIFY,
+                                               engine 9.0e-10 / 3.1e-09     -> BELOW the floor
+
+**The pair is the demonstration.** With H varying the engine resolves it below the integration floor *at the
+certifying α*; with H pinned it correctly finds nothing, because no second invariant exists there. So the null is
+about the physics, not the readout. **PASS.**
+
+> **The recipe, generalised:** when a design pins a constant to whiten it out (correct, against false positives),
+> run the C5 test on a *second* ensemble with that constant varied. The pinned run gives the verdict; the varied
+> run gives the demonstration. Neither alone is sufficient and the two together cost one extra ensemble.
+
+**Four wrong turns inside this audit, every one producing a plausible number**, recorded because the ratio matters
+more than the result: (i) the pinned shell whitening the target away, so a null meant nothing; (ii) the target not
+representable in the certifying basis; (iii) a within/total variance ratio computed on an ensemble with **no
+across-ensemble variance**, which returns ~1 for a perfectly conserved quantity; (iv) comparing a *relative drift*
+against a *variance ratio* — a units error. The third nearly landed: it read as "the engine cannot resolve at
+λ>0", which would have downgraded a shipped verdict, and it was wrong on two counts at once.
