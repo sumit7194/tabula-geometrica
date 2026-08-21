@@ -200,7 +200,44 @@ whose on-substrate positive is the reducible set, but it is the ceiling on anyth
 | §168 degree 2 | 2 | the 6 reducibles recovered on the deformed substrate | ≤2 | **PASS** (degree matched) |
 | §174 degree 4 | 4 | Carter withheld at ε=0 stays invisible (sep 1.277 vs 1.077) | 2 | **FAIL → REFUSED** |
 | §167 | 2 | K0 rediscovers Carter at ε=0; basis is ε-**independent** (`library(T, deg, rational)`) | 2 | **PASS** |
+| §162 (4 bases, **filed with the bridge**) | ≤6 | H2 recovered in *each* basis: 1.4e-26 / 5.3e-26 / 8.5e-25 / 3.0e-23 | 2 | **PASS** (weak on degree) |
 
-Not yet audited: §93, §94, §95, §141, §142, §143, §145, §147, §150, §151, §160, §162, §166, §171. The prior —
-that the emit-or-certify family passes because it emits at one parameter and certifies at another within one
-system — is **no longer safe by construction** after refinement 2 and must be checked per script.
+Out of scope (measurement-based, not search-based): §141, §142, §143, §145, §147, §150, §151.
+§171 carries a CERTIFY string but *is* a positive control (it finds tr L⁴ at Q2) — no separate audit needed.
+Still to audit: **§93, §94, §95, §160, §166** — all search-based, all emit at one parameter value and certify at
+another, so each needs the refinement-2 check that the parameter change does not alter representability.
+
+### C5 scope — the clause applies to SEARCH-BASED nulls, not to measurement-based verdicts
+
+Sorting the 17 certify-bearing results showed they are two different kinds of object and C5 only bites one:
+
+- **Search-based nulls** — "we looked in a named family and found nothing". The verdict is the *absence of a
+  find*, so it is worthless unless the instrument was shown able to find. **C5 applies.**
+  (§93, §94, §95, §160, §161, §162, §167, §168, §174)
+- **Measurement-based verdicts** — the certificate is a *positive measurement* that crosses a theorem's
+  threshold: §142's CERTIFY-CONTEXTUAL is a measured CHSH of 2.83 > 2, not a failed search. Nothing was looked
+  for and not found. **C5 does not apply**; what those need is instrument calibration, which they already carry.
+  (§141, §142, §143, §145, §147, §150, §151)
+
+The distinction matters because applying C5 to the second group would demand a control that makes no sense there,
+and skipping it for the first group is how §174 happened.
+
+### §162 audited — four bases, all PASS
+
+§162 certifies Candidate B across **four** bases, and §175's demonstration was in the polynomial basis only. Per
+refinement 2 a different basis is closer to a different substrate than it looks, so each arm needs its own C5.
+Run on §175's varying-shell ensemble (H2 spread 0.298, H drift 4.3e-14):
+
+    arm                p    H2 representable   best held-out   finds a positive
+    1 polynomial      23        3.32e-14          1.37e-26           YES
+    2 rational        32        3.16e-14          5.32e-26           YES
+    3 log-coordinate  44        3.41e-14          8.48e-25           YES
+    4 transcendental  38        3.24e-14          2.95e-23           YES
+
+Arm 4 was the one at risk — its `exp(a·px² + b·py² + g·px·py)` features could have displaced the polynomial
+monomials H2 needs — and it does not: the polynomial block survives alongside them, H2 stays representable at
+3.24e-14, and the readout recovers it at 2.95e-23. **All four §162 certifies carry an on-substrate demonstration.**
+
+**Degree caveat, per refinement 1.** These demonstrate the instrument at **degree 2** while §161/§162 certify out
+to **degree 6**. That is a real pass and a *weak* one. Closing it properly would need a degree-6 positive on
+Candidate B, which does not exist to plant — so the caveat is recorded rather than quietly upgraded.
