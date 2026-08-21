@@ -92,3 +92,41 @@ against ansatz's manko_novikov; the integrability verdict will not change.
 **For the bridge:** append these two rows; MN is an **8th metric and the THIRD independent non-integrable class** (rotating
 quadrupole), so legible <-> KY-integrable now holds across 8 metrics and 3 independent deformation classes (axisymmetric
 bump · static gamma-metric · rotating quadrupole) — much harder to be a coincidence. Consume the JSON read-only; repos independent.
+
+
+---
+
+## ZIPOY–VOORHEES δ=2 — three instruments, disjoint blind spots (2026-08-22)
+
+Our §132 certified ZV δ=2 from **trajectories**. ansatz has now closed the same metric **exactly**, and
+TheBridge covered a scope neither of us reaches. The three agree where they overlap, and the value is that they
+fail in different places.
+
+| | instrument | scope | δ=1 (control) | δ=2 |
+|---|---|---|---|---|
+| **§132 (ours)** | numerical, bound geodesics at fixed (E,L), §99 relative-exactness | momentum degree 2, one Stäckel target C | EMIT, held-out **6.9e-24**, cos to C 1.0000 | CERTIFY, **3.3e-06**, drift ratio **7.5e17×** the integrable floor |
+| **ansatz** | exact nullspace over GF(p), two primes | momentum ranks **1–6**, den¹ | 2, 5, 8, 11, 14, 17 | 2, 4, 6, 8, 10, 12 — **irreducible 0 at every rank** |
+| **TheBridge** | independent screen | degree 2, **no denominator scope** | — | confirms |
+
+**What each cannot see.** Ours is one target at one degree on one (E,L) shell, and numerical — it can only say
+that *this* Killing tensor is destroyed, to integration precision. ansatz's prover is **blind at den²**, not
+negative there. TheBridge's degree-4 arm is coverage-limited, so open rather than negative. **The overlap is
+confirmed by three methods whose failure modes do not intersect**, which is worth more than any one of them
+tightening its own bound.
+
+**What this changes about our claim, and it is a tightening in both directions.** §132's certify should be read
+as *"no rank-2 Killing tensor of the Stäckel form, to integration precision"* — ansatz's exact result now
+supplies the far stronger *"no irreducible Killing tensor at ranks 1–6, den¹ scope"*, which covers four ranks we
+never touched and does so exactly rather than numerically.
+
+**But our recorded caveat survives, narrower rather than retired.** *Certify = no low-degree invariant, not
+provably chaotic.* Nothing bounds the rank, and den² is unexamined — so this **extends the map of where we have
+looked** rather than closing the question. That is the same clause the family axis has always carried, and it
+applies to the rank axis for exactly the reason §167 already records: the grading gives rung independence, not
+finiteness.
+
+**Provenance note worth keeping.** ansatz reports that nine of their twelve agreements are **retrodictions** —
+the arithmetic was independent of the prover, but nothing structurally prevented a wrong generator set from
+being tuned until it matched, and that nearly happened at δ=1 rank 5 (hand-count 10 against a prover's 14).
+Three were pre-registered with a known-fail in both directions, committed before any run produced a result. The
+distinction is theirs and they volunteered it; it is the difference between consistency and evidence.

@@ -4204,3 +4204,14 @@ which is the evidence that the sampler is not systematically undercounting — n
 established that, which is the argument for keeping both.
 
 **116 confirmed across two independent runs:** 714.9 s / 7.09 GB and 806.9 s / 6.80 GB. Not a transient.
+
+
+## 2026-08-22 — ZV δ=2 closed exactly at ranks 1–6 (ansatz); what it does to §132
+
+Cross-session convergence recorded in `notes/A10_for_bridge.md`. Short form: our §132 certify (numerical,
+degree 2, one Stäckel target, drift ratio 7.5e17× the integrable floor) is now accompanied by an exact
+symbolic closure at ranks 1–6 on both arms, and by an independent degree-2 screen at a denominator scope
+ansatz's prover cannot see. Three instruments, disjoint blind spots, agreeing on the overlap.
+
+Our caveat is **narrowed, not retired**: nothing bounds the rank and den² is unexamined, so this extends the
+map rather than closing the question — the same clause §167 already carries for the degree axis.
