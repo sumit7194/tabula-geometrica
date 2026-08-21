@@ -359,6 +359,42 @@ reasoning that would have failed on a different case — and the reasoning is th
 **Two errors, opposite in direction, inside one audit, by its author.** Both are recorded here rather than fixed
 silently in the diff, for the reason this catalogue exists.
 
+### 18. A continuous statistic can carry *less* information than the boolean it replaces
+
+Entry 17's repair was to replace a binary verdict with a curve along a knob and read off where it crosses — the
+`CERTIFY-NO-CODE` sweep that turned *"no cheap code"* into *"no code below d\* = 6"*. It is a good move and it
+generalises badly, which TheBridge established by trying it within the hour and reporting the failure.
+
+Their binary was *"did this orbit escape within 200 crossings"*; the discarded continuous quantity was the
+survival time, recorded for every orbit. Replacing one with the other made the comparison **worse**:
+
+    delta=1.3 vs 1.5    Fisher on the binary    p = 0.12
+                        KS on survival time     p = 0.97
+                        Mann-Whitney            p = 0.36
+
+The cause is **censoring**. Median survival was 200 at *every* setting — 97–98% of orbits hit the integration cap
+and never escaped, so the "continuous" quantity is a constant with a few outliers. There is no gradient to locate
+a threshold on. Our sweep worked because its quantity varied smoothly across the knob (1.22 → 0.78 → 0.48 →
+0.21 → 0.00); theirs was a step function pinned at the ceiling.
+
+> **Converting a boolean verdict into a located threshold requires the underlying quantity to be UNCENSORED
+> across the knob's range. If the measurement is truncated by a budget — an integration cap, a timeout, a max
+> iteration count — the continuous version inherits the truncation and carries *less* information than the
+> boolean, because the boolean at least records which side of the cap you landed on.**
+
+Cheap to check before reaching for the sweep: **look at what fraction of your samples sit at the cap.** If it is
+most of them, the boolean is the better statistic and the honest path is more integration, not a different
+readout.
+
+They also found, while checking, that the escape count (4) and the sub-cap count (2) disagreed because an earlier
+stage had re-run flagged candidates to a *different* cap — so the survival times were not mutually comparable at
+all. A heterogeneous cap across a dataset is the same defect one level down, and it is invisible in the boolean.
+
+**The general lesson is about the shape of the advice, not the ladder.** A repair that works because of a
+specific property of one instrument will be offered as a technique, and the property will not travel with it. We
+sent the technique; the precondition had to be discovered by the recipient, at the cost of the run they hoped it
+would save.
+
 ## What the audit cost, honestly
 
 Four wrong turns inside a single afternoon's audit, each producing a plausible number: a pinned shell whitening

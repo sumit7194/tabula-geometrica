@@ -588,3 +588,22 @@ in this arc. Catalogued rather than quietly fixed in the diff.
 
 **Corrected audit line: 17/17 stands. Four of the seven exemptions were granted for the wrong reason and are now
 tested rather than exempted; all four pass.**
+
+
+### The d\* upgrade has a precondition, found by TheBridge inside the hour (2026-08-21)
+
+The dimension sweep above turns a boolean certificate into a located wall. Offered to TheBridge for their escape
+ladder, it **failed**, and the reason is a constraint on the technique rather than on their data.
+
+Their continuous quantity (orbit survival time) was **censored**: median 200 at every parameter value, because
+97–98% of orbits hit the integration cap. KS on the continuous statistic gave p = 0.97 against the binary's
+Fisher p = 0.12 — the sweep was strictly worse than the verdict it replaced.
+
+> **Precondition for the d\* upgrade: the swept quantity must be UNCENSORED across the knob's range.** If it is
+> truncated by a budget (integration cap, timeout, iteration limit), the continuous version inherits the
+> truncation and carries less information than the boolean, which at least records which side of the cap you
+> landed on. Check the fraction of samples sitting at the cap before reaching for the sweep.
+
+Our stress-vs-dimension quantity is uncensored by construction — reconstruction stress is bounded below by zero
+and reached it — which is *why* the upgrade worked here, and that property was never stated when the technique
+was passed on. Recorded in `writeups/silent_nulls.md` as entry 18.

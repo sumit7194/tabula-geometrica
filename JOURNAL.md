@@ -1,3 +1,17 @@
+# Journal — activity log (SpaceTime: curvature / NN)
+
+*One entry per working session, newest first. What happened, what was decided,
+where the details live. (Lab-notebook-level detail stays in each sub-project's
+`notes/lab_notebook.md`; polished narratives live in `writeups/`.)*
+
+> **Repo split 2026-06-13:** the black-hole LIGO-data projects (echoes, ringdown,
+> pbh) moved to `../BlackHole/`. Entries below predating the split are the shared
+> historical narrative and mention all projects; new black-hole work logs to
+> `../BlackHole/JOURNAL.md`. This journal is now curvature/NN going forward.
+
+---
+
+
 ## 2026-08-21 — the C5 exemption re-audited (§176): wrong in kind, right in outcome
 
 Re-opened the seven certificates exempted from C5 in a single pass under a distinction invented on the spot
@@ -1960,19 +1974,6 @@ two-condition criterion sitting on top of the unification (geometry = amortized 
 Open threads for next: orthogonal-F Wong v3 (does a structure-preserving update recover the legible
 rotation?), equivalence-breaking gravity (the third "where it breaks" row), and folding the geometrization
 criterion into writeups/curvature_field_guide.md (weekend, user polishes).
-
-# Journal — activity log (SpaceTime: curvature / NN)
-
-*One entry per working session, newest first. What happened, what was decided,
-where the details live. (Lab-notebook-level detail stays in each sub-project's
-`notes/lab_notebook.md`; polished narratives live in `writeups/`.)*
-
-> **Repo split 2026-06-13:** the black-hole LIGO-data projects (echoes, ringdown,
-> pbh) moved to `../BlackHole/`. Entries below predating the split are the shared
-> historical narrative and mention all projects; new black-hole work logs to
-> `../BlackHole/JOURNAL.md`. This journal is now curvature/NN going forward.
-
----
 
 ## 2026-06-17 — PHASE BH-2 + BH-3: the singularity, and what charge does (interior trilogy complete)
 - Continuing the Phase BH plan (focus on the BH mind-benders). Both read out of LEARNED metrics, on CPU.
