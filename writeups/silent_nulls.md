@@ -827,7 +827,22 @@ The calibration for the above was set up as a binary: subsampling costs nothing,
 This is the same defect as a binary certificate before the ladder (entries in §176/§177's family): *"cheap code
 exists or does not"* versus *"no code below d\* = 6"*. **Asking which of two stories is true is a weaker
 question than asking how much**, and it is weaker in a way that is invisible when one of the two stories happens
-to be roughly right.
+to be roughly right — which is most of the time.
+
+**And the located form is systematically under-written, for a structural reason rather than a careless one.**
+Compare a real headline in both forms:
+
+    binary:   no irreducible Killing tensor
+    located:  irreducible = 0 at ranks 1-6, den¹, 13 of 30 products named as excluded
+
+The second is the result; the first is the second with its scope removed. But the scope clause **looks like an
+apology for the finding**, so it gets written at the bottom in smaller words — and (ansatz's addition, which is
+the compounding half) **it is written by the person most motivated to treat it as a caveat**, the author of the
+result it appears to qualify. *Nobody else is in a position to write it.* So the one item that locates a verdict
+is drafted, every time, by the party with an interest in its being small.
+
+> **An exclusion list is not a caveat on the result. It is the part of the result that makes the number mean
+> anything** — and the only defence against its being minimised is to write it before the headline, not after.
 
 ## On the format of this catalogue
 
