@@ -376,3 +376,66 @@ between emit and certify parameters. **§166's S3 is the weak one** — a single
 evidence is "the engine sits at the integration floor", one sample with no in-family contrast. Its contrast
 exists only across §166's *other* gates (S1 Kepler, where a genuine second invariant is found), which is weaker
 than an in-family contrast. Recorded, not smoothed.
+
+### C5 refinement 5 — A THRESHOLD MUST BE REACHABLE BY THE INSTRUMENT AT EACH OPERATING POINT
+
+The sharpest entry the audit produced, and it has an independent precedent in a sibling repo.
+
+**What happened.** §161/§162 certify across a ladder of momentum degrees {2, 4, 6}, with an EMIT criterion of
+**< 1e-10** applied uniformly. Testing with H2 — known conserved, and representable at *every* rung (3.8e-14 to
+1.3e-13) — the engine's best achievable was:
+
+    deg 2  poly/rational   1.18e-26 / 4.29e-26    CAN emit
+    deg 4  poly/rational   5.27e-25 / 3.07e-12    CAN emit
+    deg 6  poly/rational   9.85e-10 / 2.96e-09    CANNOT emit
+
+**At degree 6 the instrument could not reach its own emit threshold**, so that rung could not have emitted
+regardless of the physics. Its certify was correct-but-undemonstrated: the instrument could not have said
+anything else. Not a bad basis, not a degenerate denominator — **a threshold set beyond the instrument's reach at
+that operating point.**
+
+> **Check that your threshold is reachable by your instrument at each operating point before gating on it.**
+> It hides specifically in **LADDERS**: a threshold validated at one rung is silently inherited by rungs with
+> different resolution, and the unreachable rung is usually the one that looks most decisive.
+
+**Repairable, and repaired.** The cause was a missing conditioning step — §161 feeds raw features of wildly
+different dynamic range straight into the eigenproblem. Applying §174's SVD-conditioning basis at tol = 1e-11:
+degree-6 poly **9.85e-10 → 4.30e-26**, rational **2.96e-09 → 3.95e-25**, with the retained dimension *unchanged*
+(96, 141). It is the rescaling, not truncation.
+
+**The negative control, which TheBridge insisted on before the verdict and was right to.** A rescaling worth
+sixteen orders could plausibly manufacture emissions. It does not: on §161's **own pinned ensemble** — a genuine
+null substrate, since the manifest constants are whitened out by design — the conditioned degree-6 rung returns
+**2.29e-05**, a 12% change from unconditioned. Sixteen orders where a real signal exists, 12% where none does.
+**The rescaling amplifies signal, not noise.**
+
+**The resulting threshold geometry** (their question: is 1e-10 comfortably above the new floor, or merely on the
+right side of it?):
+
+    null-substrate floor, conditioned, deg 6    ~1e-5      what "nothing there" reads
+    emit threshold                               1e-10     5 orders BELOW the floor
+    genuine signal (H2), conditioned, deg 6      4.3e-26   16 orders below the threshold
+
+Conservative, not marginal. Unmeasurable before the repair, because the unconditioned instrument's floor and its
+resolution were the same number.
+
+**Verdict status:** B still CERTIFIES at every rung (7.5e-04 down to 1.4e-05, all far above 1e-10). §161/§162's
+results were always right; what was missing was the demonstration at the top rung, which now exists.
+
+**Independent precedent — same species, nine days apart, no contact.** TheBridge's G3 run 1 (2026-07-26) returned
+UNDECIDED(search) because their frequency-drift measure's smallest readable value was 2/N = 0.0333 while the
+target sat at 0.027 — **the signal was beneath the instrument's floor**, and every δ returned an identical
+6.67e-02 *including integrable Schwarzschild*. Both repairs recover resolution without discarding data (their
+parabolic sub-bin FFT interpolation, our SVD rescaling). Both gates returned a clean-looking verdict rather than
+an error. Their sting is worth carrying: **a better floor is still a floor** — after repairing, re-measure where
+the new floor sits rather than assuming the old threshold still clears it.
+
+### A note on over-generalising a rule one has just been burned by
+
+I warned TheBridge that a pinned shell makes the within/total ratio unfailable and told them to vary E0. They
+kept it pinned and pre-registered why: their plant was *synthetic* and carried its own across-ensemble variance,
+and the pinned shell is the configuration §94's certificate actually runs in. They were right. Their diagnosis of
+my error is better than mine: **a true rule applied one case too wide.** The rule governs natural quantities,
+whose across-ensemble variance the design controls; it does not govern synthetic plants that supply their own.
+Having just been burned by the degenerate-denominator trap three times, I generalised the fix past its domain —
+which is its own failure mode.
