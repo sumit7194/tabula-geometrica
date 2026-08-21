@@ -190,9 +190,18 @@ Five refinements, each earned:
 2. **"Same system, different parameter" is not automatically the same substrate** — if the parameter changes what
    is representable. (A sibling repo's ε=0 control collapsed a degree-11 denominator to degree 4; ours was
    measured flat and transferred.)
-3. **A cross-parameter claim must be gated on GAIN STABILITY, not on the noise floor.** Floor is statistical and
-   averages down as 1/√N; gain variation along the comparison axis is systematic and never averages down.
-   Gating on noise alone selects for *deafness*; gating on SNR selects the *distorting* instrument.
+3. **The property you gate on is determined by the CLAIM'S SHAPE.** *Single-setting* claims need SNR;
+   *cross-parameter* claims need **gain stability along the comparison axis**. The reason is an asymmetry in how
+   the two error terms scale: the floor contributes **statistical** error, which averages down as 1/√N, while
+   gain variation contributes **systematic** error along the comparison axis, which never averages down at any N.
+   *(This half — including the phrase "noise-only gates select for deafness", and the crossover arithmetic showing
+   systematics beating statistics by ~110× at N=1 — is **quantum's**.)* And SNR is not a universal substitute:
+   in one measured case the incumbent estimator won on SNR (175,840 vs 82,032) while carrying 2.1× gain
+   variation, so SNR would have selected the *distorting* instrument for a cross-parameter claim. *(That
+   counterexample, and the claim-shape rule it forces, are **TheBridge's**.)*
+   **Note the qualifier is load-bearing: SNR is the CORRECT gate for a single-setting detection problem.** Read
+   without it, this entry would send someone to gain-stability where SNR is right — which is entry 15's failure
+   occurring inside the entry that names it.
 4. **Non-degeneracy is not discrimination.** "Does this quantity vary?" is a one-sample question. "Does its
    distribution differ between control and signal?" is a two-sample one. A gate conjunct can be perfectly alive,
    varying and well-conditioned, and carry zero information about the thing it gates.
@@ -215,7 +224,12 @@ could not have emitted regardless of the physics. Its certify was correct-but-un
 > It hides specifically in **LADDERS**: a threshold validated at one rung is silently inherited by rungs with
 > different resolution — and the unreachable rung is usually the one that looks most decisive.
 
-**Found independently in two repositories nine days apart, with no contact.** TheBridge's G3 run returned
+**Two instances, in different repositories and different instruments, found nine days apart and recognised as
+the same species only when compared** — the connection was made by TheBridge and sent to us, so this is two
+independent findings joined retrospectively by a third party, *not* convergent discovery. And a threshold set
+beyond an instrument's resolution is a **common** failure in numerical work: two instances across a family of
+repos doing heavy numerics over a fortnight is unremarkable base-rate-wise. **The base rate, not the coincidence,
+is the reason to check for it.** TheBridge's G3 run returned
 UNDECIDED because their frequency-drift measure's smallest readable value was 2/N = 0.0333 while the target sat
 at 0.027 — *the signal was beneath the instrument's floor*, and every parameter value returned an identical
 6.67e-02 **including the integrable control**. Both repairs recover resolution without discarding data (their
@@ -267,10 +281,18 @@ independent confirmation.
 > **Before treating agreement as corroboration, check that both quantities were free to disagree.**
 
 ### 14. A peer's confident mechanism is not evidence — even when the peer is right about the phenomenon
-Three instances in one afternoon across the sibling projects: a proposed mechanism aimed at a module the target
-repo never imports; a directional argument aimed at a hazard whose sign does not generalise; a carve-out resting
-on a proximity premise that measurement showed to be false (the conclusion survived, for a different reason). In
-each case the recipient could have accepted a plausible mechanism from a credible source and stopped measuring.
+Three instances in one afternoon across the sibling projects, all from sessions with good track records — which
+is why *credible source* is in the lesson at all:
+
+- **quantum's** Christoffel mechanism, aimed at a module the target repo never imports. The sharp part: the
+  mechanism **would have been true of that module** — they later found a roundoff false positive in it — so the
+  mechanism was right and the *target* was wrong, which is exactly this entry's point.
+- **ansatz's** same-δ carve-out, resting on a frequency-proximity premise that measurement showed to be false.
+  Their conclusion survived, for a different reason.
+- **TheBridge's** directional argument, aimed at a hazard whose sign does not generalise.
+
+In each case the recipient could have accepted a plausible mechanism from a credible source and stopped
+measuring. What saved each one was measuring anyway.
 
 Distinct from relay flattening, which is transmission *loss*. This is a claim transmitted perfectly and **pointed
 at the wrong object**.
@@ -293,6 +315,13 @@ it propagated.
 
 **And one rule about rules**, learned by breaking it: having just been burned three times by the
 degenerate-denominator trap, we warned a sibling session against a configuration where it did not apply — their
-plant was synthetic and carried its own across-ensemble variance. They were right to override us. *A true rule
-applied one case too wide* is its own failure mode, and freshly-learned rules are the most likely to be
-over-generalised.
+plant was synthetic and carried its own across-ensemble variance. They were right to override us.
+
+> **A true rule applied one case too wide is its own failure mode, and freshly-learned rules are the most likely
+> to be over-generalised.**
+
+**The recency is the mechanism, not a detail.** Both of the day's instances were generalisations of a lesson
+learned *within the same day*: our pinned-shell warning came hours after the degenerate-denominator burn;
+TheBridge's directional argument came within the hour of the measurement that produced it. **A rule you have held
+for a year has been tested against many cases; one you learned this morning has been tested against exactly
+one.**
