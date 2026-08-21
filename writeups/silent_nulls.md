@@ -653,6 +653,27 @@ of the entire suite's wall time. Never timed, by anyone, ever.
 claim was never code. Here, **the claim was code and the description of it was not** — and that may be the more
 common of the two, precisely because describing a result feels like reporting rather than like deriving.
 
+### 25. A published number outlives its correction
+
+The censored "~3 GB" of entry 23 was corrected in our own notes, in the quarantine reason, in the status file,
+and in two messages, within the hour. **It came back anyway.** A third session, hours later and having read none
+of those, wrote: *"Your 115 regression pass at ~3 GB fits comfortably"* — and offered headroom on that basis.
+
+The number had been retracted at the source and was still in circulation, because a correction propagates only
+to whoever reads the correction, while the original propagates to whoever heard the original.
+
+> **Publishing a number to peers is not reversible by fixing it locally.** Once a figure has been used in
+> someone else's reasoning it has to be recalled explicitly, to the people who received it, or it keeps being
+> true for them.
+
+**What makes this worse than a stale cache** is that the recipients were behaving correctly. They were not being
+careless — they were *deferring to a measurement from the session that owned the process*, which is exactly what
+you want peers to do. **Good practice on the receiving end is what gives a bad number its reach.**
+
+The practical form: a correction has the same audience as the claim, and a claim sent to two sessions needs a
+correction sent to two sessions. We had done that for the *footprint* claim and not for the *magnitude*, because
+the second felt like a detail of the first rather than a separate published figure.
+
 ## What the audit cost, honestly
 
 Four wrong turns inside a single afternoon's audit, each producing a plausible number: a pinned shell whitening
