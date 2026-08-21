@@ -272,7 +272,7 @@ def main() -> int:
         # the same reason: every threshold in this file is about physics and none was ever about the instrument's
         # own footprint, which is how a battery grew to 3 GB without any gate noticing. (ansatz's push.)
         t0 = time.time()
-        r0 = resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss
+        r0 = resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss   # bytes on macOS; high-water mark
         print(f"[{idx}/{n}] {name} ...", flush=True)
         try:
             subprocess.run([PY] + cmd, cwd=ROOT, check=True,
@@ -285,8 +285,12 @@ def main() -> int:
                 if not ok:
                     bad.append(f"{key}={v:.4g} !{op} {thr}")
             dt = time.time() - t0
-            rss = (resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss - r0) / (1024 * 1024)
-            cost = f"{dt:6.1f}s" + (f"  peak +{rss:.2f} GB" if rss > 0.5 else "")
+            # UNITS, and this line was wrong on its first run in a way worth keeping a comment about:
+            # macOS reports ru_maxrss in BYTES (Linux uses KB), and RUSAGE_CHILDREN is a HIGH-WATER MARK over
+            # every child ever reaped, not this child's usage. So the honest readout is "did this battery raise
+            # the high-water mark, and to what" -- not a per-battery total. Reported only when it moves.
+            hw = resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss / 1073741824
+            cost = f"{dt:6.1f}s" + (f"  new peak {hw:.2f} GB" if hw > r0 / 1073741824 + 1e-9 else "")
             if bad:
                 failures += 1
                 print(f"FAIL  {name}  [{cost}]: " + "; ".join(bad), flush=True)
