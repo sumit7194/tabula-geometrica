@@ -340,3 +340,39 @@ quantity comparable is the one that makes it meaningless in the degenerate case.
 Both verdicts filed externally with TheBridge (§161, §162) came back clean. The one genuine failure, §174, was
 caught and retracted before it propagated. **Two satisfaction structures exist:** the ladder contrast (internal,
 preferred) and the pinned/varied two-run recipe (for designs that whiten a constant out).
+
+### C5 refinement 3 — a cross-parameter claim must be gated on GAIN STABILITY, not on the floor
+
+TheBridge's correction, accepted. Three of the C5 passes above are **cross-parameter claims**: §93 (emit at λ=0,
+certify at λ = 0.25/0.5), §94 (emit at the islands α ∈ {0,1,3}, certify at α ∈ {2,4}), §95 (emit at (0,1),
+certify at (2,1) and the κ=2 family). All three were validated against the **integration floor**.
+
+> **Floor is the wrong property for a claim that spans a comparison axis.** Floor is statistical error and
+> averages down as 1/√N; **gain variation along the axis is systematic and never averages down at any N**. If the
+> readout's sensitivity drifts with the parameter, an "emits here, silent there" contrast can be a sensitivity
+> gradient wearing the costume of physics, and a floor check cannot distinguish the two.
+
+Their sharper form of the same family: gating on noise alone selects for **deafness** (an instrument returning
+zero has a perfect floor), and gating on SNR selects the **distorting** instrument. The right property is
+determined by the claim's shape — single-setting claims need SNR, cross-parameter claims need gain stability.
+
+**Status:** handed to TheBridge as an **independent** measurement — plant a synthetic conserved quantity of known
+amplitude at each α on §94's system and measure recovered/planted gain across the axis. Flat gain ⇒ the contrast
+is physics; gain degrading at α = 2, 4 ⇒ §94's pass measures sensitivity and needs re-scoping. They did not build
+any of this instrument, which is the property we cannot manufacture for ourselves.
+
+### C5 refinement 4 — non-degeneracy is not discrimination
+
+Also TheBridge's, from a live instance in their own work: a gate conjunct passed a **non-degeneracy** check (50
+distinct values across 50 orbits — genuinely varying, well-conditioned) while simultaneously clearing its own
+firing threshold by 993× on a *provably integrable* metric. Alive and uninformative at the same time.
+
+> **Aliveness is a one-sample question ("does this vary?"). Discrimination is a two-sample question ("does its
+> distribution on the control differ from its distribution on the signal?").** A check of the first form does not
+> do what it appears to.
+
+**Audited against it.** §93/§94/§95 carry a genuine two-sample contrast: the engine's best differs by 6–15 orders
+between emit and certify parameters. **§166's S3 is the weak one** — a single chaotic Hénon–Heiles case whose
+evidence is "the engine sits at the integration floor", one sample with no in-family contrast. Its contrast
+exists only across §166's *other* gates (S1 Kepler, where a genuine second invariant is found), which is weaker
+than an in-family contrast. Recorded, not smoothed.
