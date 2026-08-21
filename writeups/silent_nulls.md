@@ -860,6 +860,19 @@ value) committed inside the catalogue that names it.
 > **The rule survives with a scope it did not have: carry the numbers for entries that record an instance.**
 > An entry that names a shape is a different object and is complete without them.
 
+**And there is a worse version of the same failure, which we do not have and only know about because a sister
+catalogue did.** (Due to ansatz, who ran this audit against their own 36 entries rather than assuming theirs was
+cleaner: 19 carried no values.) Most of theirs were not *dropped* — they were **in another file**, reachable by
+following a link. Their catalogue reads as well-cited and fails the test anyway:
+
+> **A rule and its evidence in separate files is re-runnable only by someone who already knows where to look.
+> A missing number announces itself; a linked number does not.**
+
+That is strictly worse than a bare entry. Ours *look* incomplete on sight and are; theirs look complete and are
+not. Checked on this document: **0 of 31 entries defer their evidence to another file** — the numbers are inline
+or absent, and absence is visible. That is the property to preserve, and it is a reason to resist the instinct
+to tidy an entry by moving its data next to the code it came from.
+
 **If a rule cannot be wrong, it cannot be load-bearing.** *"Diversify your methods"* and *"agreement is
 evidence"* are both things everyone already assents to, and neither changes a decision. Joined — *the marginal
 value of a second **kind** of instrument dominates more reach in the first* — the claim is specific, actionable
