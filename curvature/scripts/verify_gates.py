@@ -3,7 +3,6 @@ assert the pre-registered thresholds. Fast (no training) — this is the
 "did anything rot?" check, runnable any time. Exit code 0 = all green."""
 
 import json
-import resource
 import subprocess
 import sys
 import time
@@ -256,6 +255,16 @@ BATTERIES = [
 ]
 
 
+def child_rss_gb(pid):
+    """Resident set of one pid, in GB. Returns 0.0 if it has already exited -- a missing process is not an error
+    here, it is the normal race at the end of a fast battery."""
+    try:
+        out = subprocess.run(["ps", "-o", "rss=", "-p", str(pid)], capture_output=True, text=True, timeout=5)
+        return int(out.stdout.strip()) / 1048576 if out.stdout.strip() else 0.0
+    except Exception:
+        return 0.0
+
+
 def get(d, dotted):
     for k in dotted.split("."):
         d = d[k]
@@ -289,11 +298,24 @@ def main() -> int:
             print(f"[{idx}/{n}] SKIP  {name}\n        reason: {SKIP[name]}", flush=True)
             continue
         t0 = time.time()
-        r0 = resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss   # bytes on macOS; high-water mark
         print(f"[{idx}/{n}] {name} ...", flush=True)
         try:
-            subprocess.run([PY] + cmd, cwd=ROOT, check=True,
-                           capture_output=True, timeout=900)
+            # SAMPLE THE INTERIOR, NOT THE BOUNDARIES. The previous version reported cost only at completion, so
+            # the most expensive battery in the suite was invisible for exactly as long as it was expensive --
+            # we learned our own run's footprint from a sister session's `ps`, twice. A resource signal must be
+            # sampled DURING: the quantity is not monotone (ripser allocates and frees per homology dimension)
+            # and it does not survive to the end. Completion logging is a liveness signal, not a resource one.
+            proc = subprocess.Popen([PY] + cmd, cwd=ROOT,
+                                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            peak = 0.0
+            while proc.poll() is None:
+                peak = max(peak, child_rss_gb(proc.pid))
+                time.sleep(0.25)
+                if time.time() - t0 > 900:
+                    proc.kill()
+                    raise subprocess.TimeoutExpired(cmd, 900)
+            if proc.returncode != 0:
+                raise subprocess.CalledProcessError(proc.returncode, cmd)
             res = json.loads((R / jname).read_text())
             bad = []
             for key, (op, thr) in gates.items():
@@ -302,12 +324,14 @@ def main() -> int:
                 if not ok:
                     bad.append(f"{key}={v:.4g} !{op} {thr}")
             dt = time.time() - t0
-            # UNITS, and this line was wrong on its first run in a way worth keeping a comment about:
-            # macOS reports ru_maxrss in BYTES (Linux uses KB), and RUSAGE_CHILDREN is a HIGH-WATER MARK over
-            # every child ever reaped, not this child's usage. So the honest readout is "did this battery raise
-            # the high-water mark, and to what" -- not a per-battery total. Reported only when it moves.
-            hw = resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss / 1073741824
-            cost = f"{dt:6.1f}s" + (f"  new peak {hw:.2f} GB" if hw > r0 / 1073741824 + 1e-9 else "")
+            # HISTORY OF THIS LINE, kept because it is the point: the first version used ru_maxrss, which is
+            # in BYTES on macOS and KB on Linux, and which for RUSAGE_CHILDREN is a high-water mark over every
+            # child ever reaped rather than this child's usage. It printed "peak +392.00 GB" on a 2 s battery.
+            # Two unit/semantics errors in the line added because nothing measured the instrument.
+            # "observed peak", never "peak": this is a max over 4 Hz samples of a fluctuating quantity, so it
+            # is a LOWER bound on the true maximum. Calling it "peak" would silently convert a floor into a
+            # ceiling -- anyone sizing a machine against it would treat a floor as a limit. (ansatz's point.)
+            cost = f"{dt:6.1f}s" + (f"  obs.peak {peak:.2f} GB" if peak >= 0.5 else "")
             if bad:
                 failures += 1
                 print(f"FAIL  {name}  [{cost}]: " + "; ".join(bad), flush=True)
