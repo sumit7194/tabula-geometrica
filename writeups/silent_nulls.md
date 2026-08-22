@@ -1113,6 +1113,45 @@ written while the job was still alive. **The harness was wrong twice while the i
 right** — which is entry 21's constants-and-units lesson wearing a third costume, and an argument for making a
 probe transition *more* than once before believing either the pass or the fail.
 
+### 37. The freeze stops post-hoc relaxation; it does not stop implementation-time tightening
+
+A pre-registration was frozen and hashed before any physics. Its first gate read, verbatim:
+
+> `ω²/(m²+k²) − 1 → 0` as k→0, **at the expected order.**
+
+The code that implemented it gated on:
+
+```python
+ok = abs(fitted_order - expected) < 0.35 and rel_err[-1] < 1e-3
+```
+
+**That second clause appears nowhere in the frozen file.** It was invented while typing the implementation. It
+fired on one of four regulators — the deliberately-deformed one, whose larger magnitude is a design property,
+not a defect — and produced a `G0 FAILED, the run STOPS` verdict that looked exactly like the pre-registered
+known-fail doing its job.
+
+> **Freezing protects against relaxing a criterion after seeing the data. It does nothing about *tightening*
+> one before seeing the data** — and a criterion that was never registered is, by construction, one nobody
+> agreed to and nobody will re-derive.
+
+**The asymmetry that makes this dangerous.** A post-hoc relaxation is visible: the frozen text says X, the
+report says Y, anyone comparing them sees it. An implementation-time tightening is invisible *unless it fires*.
+Had the quartic regulator come in at 8e-4 instead of 1.5e-3, the two criteria would never have diverged, the
+run would have passed, and the extra clause would have sat in the code indefinitely — silently making a future
+run stricter than the thing anyone agreed to.
+
+> **The only reason this was found is that it failed.** Every un-fired invented criterion is still there.
+
+**The repair is not judgement, it is a diff.** Gate text and gate code have to be compared *mechanically*, and
+the comparison has to happen before the first run rather than after the first surprising result. Ours was
+caught by re-reading the frozen file when the gate fired — which works exactly once per gate, and only for
+gates that fire.
+
+**And note what it is NOT.** Removing the clause is restoring fidelity to the pre-registration, not relaxing a
+gate — the opposite direction from entries where a threshold was moved to accommodate a result. The
+distinction is checkable rather than a matter of self-report: the frozen text is committed at a hash, so
+whether a criterion was registered is a fact about the repository, not about the author's intentions.
+
 ## The closing rule: distrust the fix, not only the result
 
 Every entry above is about distrusting a **result** — a number, a verdict, a null, a green pass. This last one

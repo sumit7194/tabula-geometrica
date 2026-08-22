@@ -1,0 +1,111 @@
+{
+ "prereg": "notes/quantum_corner_PREREG_FROZEN.md @ e283d21 (+A1, +A2)",
+ "N": 160,
+ "mass": 0.01,
+ "c_quartic": 0.25,
+ "b_smear": 0.15,
+ "c4_derived": 0.0625,
+ "quartic_error_isotropic": {
+  "value": 1.125,
+  "spread": 8.881784197001252e-16
+ },
+ "G0_rows": {
+  "nn": {
+   "k": [
+    1.2574549183799224,
+    0.6299526518930884,
+    0.3174148887409881,
+    0.1634936652787614,
+    0.09068996821171088
+   ],
+   "rel_err": [
+    0.09418896612526272,
+    0.024506327170146173,
+    0.0062782720980226895,
+    0.0016694104950423542,
+    0.000513936211899494
+   ],
+   "fitted_order": 1.9835795310062485,
+   "expected_order_minus_2": 2,
+   "pass": true,
+   "rel_err_smallest_k": 0.000513936211899494,
+   "unfrozen_1e-3_clause_would_pass": true
+  },
+  "improved": {
+   "k": [
+    1.2574549183799224,
+    0.6299526518930884,
+    0.3174148887409881,
+    0.1634936652787614,
+    0.09068996821171088
+   ],
+   "rel_err": [
+    0.013104048772849626,
+    0.0009045477012870732,
+    6.007939074326594e-05,
+    4.347632534516379e-06,
+    4.2254972487987717e-07
+   ],
+   "fitted_order": 3.9378155228926146,
+   "expected_order_minus_2": 4,
+   "pass": true,
+   "rel_err_smallest_k": 4.2254972487987717e-07,
+   "unfrozen_1e-3_clause_would_pass": true
+  },
+  "quartic": {
+   "k": [
+    1.2574549183799224,
+    0.6299526518930884,
+    0.3174148887409881,
+    0.1634936652787614,
+    0.09068996821171088
+   ],
+   "rel_err": [
+    0.23015070328438994,
+    0.06990079070529036,
+    0.01859449873109528,
+    0.004990840954988867,
+    0.0015401184367993845
+   ],
+   "fitted_order": 1.9136973445539243,
+   "expected_order_minus_2": 2,
+   "pass": true,
+   "rel_err_smallest_k": 0.0015401184367993845,
+   "unfrozen_1e-3_clause_would_pass": false
+  },
+  "smeared": {
+   "k": [
+    1.2574549183799224,
+    0.6299526518930884,
+    0.3174148887409881,
+    0.1634936652787614,
+    0.09068996821171088
+   ],
+   "rel_err": [
+    0.12290011376831525,
+    0.03381483291466287,
+    0.008758014892612055,
+    0.002334749019938748,
+    0.0007192567255224665
+   ],
+   "fitted_order": 1.9599865156044451,
+   "expected_order_minus_2": 2,
+   "pass": true,
+   "rel_err_smallest_k": 0.0007192567255224665,
+   "unfrozen_1e-3_clause_would_pass": true
+  }
+ },
+ "G0_all_converge": true,
+ "criterion_note": "gated on the FROZEN criterion (convergence at the expected order) only. Run 1 additionally required rel_err < 1e-3 at the smallest k -- a clause never present in the pre-registration, added during implementation, which fired on the quartic and looked like a real failure. Removed as an un-frozen criterion, not as a relaxed one; the frozen text is quoted in the lab notebook.",
+ "G0b_differ_at_lattice_scale": true,
+ "edge_omega2": {
+  "nn": 5.333433333333333,
+  "improved": 7.1112111111111105,
+  "quartic": 12.444544444444443,
+  "smeared": 11.869651618626492
+ },
+ "edge_spread": 0.7738123415135728,
+ "collision_contingency_fired": false,
+ "all_pass": true,
+ "verdict": "G0 PASSED. All four regulators reduce to m^2 + k^2 at small k at their expected orders (improved converges two powers faster, as its derived c4 = 1/16 requires), and they differ by 77% at the lattice scale so an across-regulator spread is a real measurement rather than a vacuous one. The quartic lattice error is ISOTROPIC here (1.125000|k|^4, spread 9e-16), which is what makes the frozen m^2+K+cK^2 form able to cancel it at all -- on a square lattice it could not. Proceeding to G1b."
+}
