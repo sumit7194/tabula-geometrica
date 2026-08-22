@@ -4274,3 +4274,40 @@ and is not comparable across them. Standalone measurements: **n=600 → 4.41 GB 
 with the scope stated in the docstring: it validates the reader and the recorded topology, and cannot catch a
 regression in cloud construction or in the Ripser call. Same scope limit as 116's saved-model probe, and it is
 stated rather than implied.
+
+
+## 2026-08-22 — §178: the degree axis reports a SHAPE, not a boolean (4/4, one fix round)
+
+The last certify verdict still emitting a scope rather than a location. §167 read *"screened to degree 4"*; it
+now reads **"no invariant below degree 5, with a flat margin of 8.0e+19x and no sign of basis-limited
+approach."**
+
+**THE QUESTION THE MARGIN ALONE CANNOT ANSWER.** A null at every rung has two causes that are identical
+rung-by-rung: a **real absence** (adding degrees does not help — flat), or a **basis too small** (there IS an
+invariant, transcendental in the momenta, so a polynomial basis approximates it ever better without arriving —
+descending, the §97 / §160 / §161 signature). They differ only in the shape of the sequence across degree.
+
+    control (§160, provably transcendental invariant):  1.04e-02 -> 1.49e-04 -> 1.16e-07   DESCENDING, monotone, 89,109x
+    deformed Kerr (§167's recorded rungs):              1.96e-04 -> 5.91e-05 -> 9.11e-05   FLAT, non-monotone, 2.15x
+
+The control improves **41,465x more** than Kerr on the same statistic and the same readout.
+
+**LOCATED MARGIN:** the best certifying candidate (5.91e-05) sits **8.0e+19x** above the level this engine
+reaches when an invariant IS present — 7.41e-25 on this very substrate (§167's ESCALATE rung) and 6.4e-29 on the
+eps=0 control. The certificate is not marginal; it fails to emit by ~20 decades.
+
+**L1 IS THE LOAD-BEARING GATE and it is a known-fail for the whole experiment:** if the readout cannot see
+descent on a system where descent is guaranteed, then Kerr's flatness is blindness, not a finding, and no
+verdict is issued. It passed decisively.
+
+**FIX ROUND 1, recorded rather than folded in.** Run 1 classified Kerr as IRREGULAR: span 3.32x against an
+absolute `FLAT_FACTOR = 3.0`, so **L2 failed as pre-registered**. The gate was NOT relaxed to 3.4. The
+*statistic* was replaced, for a reason already in this repo — §132 hit exactly this and its recorded fix is the
+same one: *an absolute threshold mislabels; switch to a relative test.* Two changes:
+ - **relative**: judge the improvement against what the descending control achieves on the same readout;
+ - **monotonicity, which needs no threshold at all**: a basis approximating a transcendental invariant can only
+   improve with degree (the larger space contains the smaller), so the best achievable error cannot get *worse*.
+   Kerr goes down then UP. Non-monotonicity alone rules out basis-limited approach.
+
+The original threshold and the run-1 verdict are both retained in the source, since replacing a statistic after
+seeing the data is exactly the move that needs to stay visible.

@@ -261,6 +261,16 @@ BATTERIES = [
       "P2_known_fail_at_d2": (">", 0.5), "P4_minimal_contrast_control": (">", 0.5),
       "c5_satisfied": (">", 0.5), "stress_curve.6": ("<", 0.12), "stress_curve.2": (">", 0.5)}),
 
+    # 178: the degree axis, located. Reads 167's recorded rungs, so it must run AFTER 167. The load-bearing
+    # gate is L1: a control with a provably transcendental invariant MUST produce a descending sequence, or the
+    # readout cannot see descent and the Kerr sequence's flatness is blindness rather than a finding.
+    ("Degree ladder located: real absence vs basis-limited (script 178)",
+     ["scripts/178_degree_ladder_located.py", "--fast"], "178_degree_ladder_located.json",
+     {"L1_control_descends": (">", 0.5), "L2_kerr_flat": (">", 0.5),
+      "L3_discriminates": (">", 0.5), "L4_uncensored": (">", 0.5),
+      "located_margin.margin_factor": (">", 1e15),
+      "control_sequence.end_to_end": (">", 100.0)}),
+
     # 177: the located-wall upgrade generalised across the frontier's certify verdicts, with the censoring guard.
     # W1 K*=3 is the reflection argument (2 anchors fix rotation+translation but leave a mirror; 3 non-collinear
     # do not); W2 r* against the Feigenbaum point; W3 the guard's known-FAIL -- a capped statistic must ABSTAIN;
