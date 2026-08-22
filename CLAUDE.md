@@ -1081,6 +1081,21 @@ results in `curvature/notes/lab_notebook.md`.
   0.50 → **silent_nulls entry 19**: a flat region is not censoring when the wall lies at its BOUNDARY rather than
   inside it; a sharp wall IS a step function. Guard v2 looks for the crossing first. *A rule you apply by hand
   gets a sanity check each time; a rule you encode as a guard never gets one again.* In verify.sh.
+- **DEGREE AXIS LOCATED (script 178, 2026-08-22), 4/4:** the last certify verdict still reporting a scope
+  rather than a location. §167's *"screened to degree 4"* becomes **"no invariant below degree 5, flat margin
+  8.0e+19×, no sign of basis-limited approach."** THE DISTINCTION: a null at every rung has two
+  identical-looking causes — **real absence** (adding degrees does not help, FLAT) vs **basis too small** (an
+  invariant exists but is transcendental in the momenta, so a polynomial basis approximates it ever better
+  without arriving — DESCENDING, the §97/§160/§161 signature). Control with a provably transcendental invariant
+  descends 1.04e-2 → 1.49e-4 → 1.16e-7 (monotone, 89,109×); deformed Kerr is 1.96e-4 → 5.91e-5 → 9.11e-5
+  (non-monotone, 2.15×) — the control improves **41,465× more on the same statistic**. **L1 is the load-bearing
+  known-fail:** if the readout cannot see descent where descent is guaranteed, Kerr's flatness is blindness and
+  no verdict issues. Located margin: the best certifying candidate sits 8.0e+19× above what this engine reaches
+  when an invariant IS present (7.41e-25 same substrate, 6.4e-29 at ε=0) — the certificate fails to emit by ~20
+  decades. **FIX ROUND 1 recorded not folded in:** run 1 used an absolute span threshold (3.0), Kerr spanned
+  3.32×, L2 FAILED as pre-registered; the gate was not relaxed — the *statistic* was replaced (§132's own
+  lesson: absolute thresholds mislabel) plus a **threshold-free monotonicity test** (a basis approximating a
+  transcendental invariant cannot get worse with degree; Kerr goes down then up). In verify.sh.
 - Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
   Phase H rows (equivalence-breaking gravity); a G-sym legibility-preserving
   variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit
