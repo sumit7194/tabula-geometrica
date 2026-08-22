@@ -113,3 +113,77 @@ result contradicting it can be recognised as the informative outcome.
 The model; these priors; the control designs **and why they were chosen**; the clip band; every rejected fit;
 and the across-regulator spreads with their uncertainties. Control *design* is untouched by the leak and quantum
 has said it is as informative to them as the numbers.
+
+---
+
+# AMENDMENT 1 — 2026-08-22, after freeze `e283d21`, before any physics
+### Appended, not edited. Prompted by quantum; the geometry claim verified here before adoption.
+
+## A1.1 A STRICTLY BETTER G1: two shapes with IDENTICAL corner content
+
+The limitation I flagged in §5 — that G1 compares α across shapes with *different* corner counts (3 vs 6), so a
+systematic in the corner extraction shifts both α's together and slips through — has a clean fix, due to
+quantum. Use two shapes whose corner content is **identical**, so the corner term cancels *exactly* in the
+difference rather than being subtracted approximately.
+
+    H(p, q, r) = { (n1, n2) : |n1| <= p , |n2| <= q , |n1 + n2| <= r }
+
+**VERIFIED HERE, not assumed** (numerically, via convex hull with collinear vertices merged):
+
+    H(6,6,6)   -> 6 corners, all exactly 120.0 deg
+    H(6,6,7)   -> 6 corners, all exactly 120.0 deg
+    H(5,7,9)   -> 6 corners, all exactly 120.0 deg
+    H(6,6,11)  -> 6 corners, all exactly 120.0 deg
+    H(6,6,12)  -> DEGENERATES: 4 corners, angles 120/60/120/60 (a rhombus)
+
+**Correction to the stated admissibility condition.** Quantum gave `max(p,q) < r < p+q`. The regular hexagon
+`p = q = r` violates the strict lower inequality and nonetheless yields six exact 120° corners. The upper bound
+is exactly right — the construction degenerates at `r = p+q`. Corrected condition:
+
+> **max(p, q) ≤ r < p + q**
+
+**NEW GATE G1b — the corner-extraction isolation test.** Fit the *same* frozen 3-parameter model to the
+**difference** between an elongated and a regular hexagon at matched scale:
+
+    S_H(R,R,R+2)(L) - S_H(R,R,R)(L)      has ZERO corner content by construction
+
+**Known-fail: β must come out ≈ 0. A non-zero β means my extraction is MANUFACTURING a logarithm, and the study
+is dead on my side — no corner numbers sent.** This is what I wanted G1 to be able to say and could not. G1 is
+retained as well: it tests something different (α independent of shape at all) and costs nothing.
+
+## A1.2 REPORT THE FULL PAIRWISE MATRIX, not only max−min spread
+
+Quantum ran a mechanism test on a square lattice sweeping `c` in the `m² + K + c·K²` family and found the
+pairwise disagreement with the nearest-neighbour regulator **changes sign** at a particular c, while the
+dispersion mismatch driving it is strictly positive and monotone. So there is a c at which the quartic regulator
+*accidentally agrees* with nn for reasons unrelated to universality.
+
+**Hazard for this run:** if my *derived* c₄ lands near such a cancellation, regulator 2 agrees with regulator 1
+spuriously and the across-regulator spread comes out **artificially small** — I would report strong universality
+and it would be an artifact of one accidental pairing.
+
+**Mitigation, adopted:** report the **full 6-entry pairwise matrix** of corner coefficients, not only the
+max−min spread. A max−min statistic does not even move when one accidentally-tight pair sits between the
+extrema, so collapsing to a single number *hides exactly this failure*. The matrix makes it legible at no cost.
+
+**On why this disclosure was accepted despite the isolation agreement** — quantum's test, and it is a good one:
+
+> **The question is whether a disclosure biases toward AGREEMENT or toward SKEPTICISM.** This one tells me a
+> small spread may be artifactual, which makes me *harder* to satisfy, not easier. Withholding a hazard that
+> could make my result spuriously support theirs would be the worse error.
+
+Logged in `DISCLOSURES.md` as sent.
+
+## A1.3 CONDITIONING — L RANGE KEPT, condition number reported
+
+Quantum computed the design-matrix condition number for `[L, ln L, 1]`:
+
+    L = 6..16 (frozen)  cond = 407      L = 6..20  cond = 370      6..24  cond = 361      6..28  cond = 364
+
+**Decision: the frozen range 6..16 STANDS**, for a physics reason rather than inertia — extending to L = 20
+puts L/ξ at 0.20, and the clean corner logarithm assumes region ≪ correlation length. A 12% conditioning gain
+does not buy a weakened `L ≪ ξ`.
+
+**But the flag is real**, so: `cond = 407` is reported alongside every fit, and the fits are **additionally**
+repeated on L = 6..20 as a **robustness check explicitly labelled as outside the frozen range**. Frozen result
+and robustness check are reported separately and never merged.
