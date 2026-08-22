@@ -50,6 +50,16 @@ BATTERIES = [
     ("Spinor double cover (discovery)", ["scripts/114_spinor_double_cover.py"], "114_spinor_double_cover.json",
      {"S1_learnable": (">", 0.5), "S2_representability_certificate": (">", 0.5),
       "S3_two_sheets_720_return": (">", 0.5)}),
+    # 115 now has a probe path. The FULL battery stays out of the fast pass (irreducible ~6.8 GB / ~13 min --
+    # its cost and its correctness are driven by the same variable, see the sampling wall in the docstring), and
+    # the probe re-runs the Betti READER against saved diagrams in 2.3 s / 0.3 GB. Validated two-sample: intact
+    # diagrams -> [1,2,1], diagrams with the two dominant H1 bars truncated -> [1,0,1]. Scope is narrower than
+    # the full battery and is stated in probe_only()'s docstring: it cannot catch a regression in cloud
+    # construction or in the Ripser call.
+    ("Grid-cell torus (reader probe on saved diagrams)",
+     ["scripts/115_grid_torus.py", "--probe-only"], "115_grid_probe.json",
+     {"probe_reader_ok": (">", 0.5)}),
+
     ("Grid-cell torus (topology instrument)", ["scripts/115_grid_torus.py"], "115_grid_torus.json",
      {"T0_instrument_validated": (">", 0.5), "T1_grid_torus_place_not": (">", 0.5)}),
     ("Emergent grid torus (saved model probe)", ["scripts/116_grid_torus_emergence.py", "--probe-only"],
@@ -304,6 +314,8 @@ def get(d, dotted):
 # than one that quietly skips; each name here is printed as SKIP so an omission can never read as a pass.
 SKIP = {
     "Grid-cell torus (topology instrument)":
+        "SUPERSEDED BY A PROBE -- see the 'reader probe on saved diagrams' battery above, which runs in 2.3 s / "
+        "0.3 GB and is validated two-sample. This full battery stays out of the fast pass. "
         "OBSERVED PEAK 6.75 GB resident (battery 13/62; a sister session independently saw 6.11 GB minutes "
         "earlier). The footprint FLUCTUATES rather than climbs -- ripser allocates and frees per homology "
         "dimension, and it read 2.77 GB at the moment it was killed -- so any single sample is a lower bound "

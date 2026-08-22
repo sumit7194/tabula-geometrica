@@ -1,0 +1,100 @@
+{
+ "mode": "probe-only (reader on saved diagrams)",
+ "cases": {
+  "torus": {
+   "betti": [
+    1,
+    2,
+    1
+   ],
+   "recorded": [
+    1,
+    2,
+    1
+   ],
+   "match": true
+  },
+  "sphere": {
+   "betti": [
+    1,
+    0,
+    1
+   ],
+   "recorded": [
+    1,
+    0,
+    1
+   ],
+   "match": true
+  },
+  "plane": {
+   "betti": [
+    1,
+    0,
+    0
+   ],
+   "recorded": [
+    1,
+    0,
+    0
+   ],
+   "match": true
+  },
+  "circle": {
+   "betti": [
+    1,
+    1,
+    0
+   ],
+   "recorded": [
+    1,
+    1,
+    0
+   ],
+   "match": true
+  },
+  "grid": {
+   "betti": [
+    1,
+    2,
+    1
+   ],
+   "recorded": [
+    1,
+    2,
+    1
+   ],
+   "match": true
+  },
+  "place": {
+   "betti": [
+    1,
+    0,
+    1
+   ],
+   "recorded": [
+    1,
+    0,
+    1
+   ],
+   "match": true
+  }
+ },
+ "probe_reader_ok": true,
+ "scope": "validates the Betti reader + recorded topology against saved diagrams; does NOT rebuild clouds or re-run Ripser",
+ "sampling_wall": {
+  "resolves_at": [
+   600,
+   800
+  ],
+  "misses_at": [
+   150,
+   200,
+   250,
+   300,
+   400
+  ],
+  "n_star_bracket": "(400, 600]",
+  "note": "below n* the reader returns a FALSE NEGATIVE on a genuine torus, so a reduced-n probe is not a cheaper test but a wrong one"
+ }
+}
