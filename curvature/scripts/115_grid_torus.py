@@ -52,7 +52,7 @@ def betti(dgms, ratio=1.6, floor=0.07):
     return out
 
 
-def cloud_betti(X, thresh=2.5, dim=6, n=700):
+def cloud_betti(X, thresh=2.5, dim=6, n=700, return_dgms=False):
     """PCA->dim, RMS-normalize, subsample, persistent homology to maxdim 2 -> Betti numbers."""
     Xc = X - X.mean(0)
     U, S, _ = np.linalg.svd(Xc, full_matrices=False)
@@ -60,8 +60,9 @@ def cloud_betti(X, thresh=2.5, dim=6, n=700):
     Y = Y - Y.mean(0); Y = Y / np.sqrt((Y ** 2).sum(1).mean())
     if len(Y) > n:
         Y = Y[np.random.default_rng(0).choice(len(Y), n, replace=False)]
-    b = betti(ripser(Y, maxdim=2, coeff=47, thresh=thresh)["dgms"]); b[0] = 1
-    return b
+    dgms = ripser(Y, maxdim=2, coeff=47, thresh=thresh)["dgms"]
+    b = betti(dgms); b[0] = 1
+    return (b, dgms) if return_dgms else b
 
 
 def synth(kind, n, rng, noise=0.01):
@@ -79,15 +80,71 @@ def synth(kind, n, rng, noise=0.01):
     return X
 
 
+def probe_only():
+    """Cheap regression check for the fast suite: re-run the Betti READER on saved persistence diagrams.
+
+    WHY A SAVED-ARTIFACT PROBE RATHER THAN A SMALLER ONE. The obvious cheap probe -- run the same pipeline at
+    fewer points -- is not a cheaper version of this test, it is a DIFFERENT test that returns the wrong answer.
+    Measured (2026-08-22), torus Betti vs sample count:
+
+        n=150 [1,0,0]   n=200 [1,0,0]   n=250 [1,0,1]   n=300 [1,0,0]   n=400 [1,0,1]   <- all MISS
+        n=600 [1,2,1]   n=800 [1,2,1]                                                    <- resolve
+
+    Below n* the reader reports "not a torus" FOR A TORUS -- a false negative, i.e. the instrument's own blindness
+    presented as a negative result. A reduced-n probe would have passed while asserting something false.
+
+    SCOPE, stated because it is narrower than the full battery: this validates the READER and the recorded
+    topology against saved diagrams. It does NOT rebuild the point clouds and does NOT re-run Ripser, so it
+    cannot catch a regression in cloud construction or in the homology call. Same scope limit as 116's
+    saved-model probe. Run the full battery with no flag.
+    """
+    import numpy as _np
+    f = RESULTS / "115_dgms.npz"
+    if not f.exists():
+        print("PROBE: no saved diagrams -- run the full battery once to create results/115_dgms.npz")
+        return 1
+    z = _np.load(f, allow_pickle=True)
+    saved = json.loads(RESULTS / "115_grid_torus.json" if False else (RESULTS / "115_grid_torus.json").read_text())
+    names = [str(x) for x in z["names"]]
+    ok = True
+    out = {}
+    for nm in names:
+        dgms = [z[f"{nm}_{k}"] for k in range(3)]
+        b = betti(dgms); b[0] = 1
+        exp = (saved["T0_synthetic"][nm]["betti"] if nm in saved["T0_synthetic"]
+               else saved["T1_grid_betti"] if nm == "grid" else saved["T1_place_betti"])
+        match = b == exp
+        ok &= match
+        out[nm] = {"betti": b, "recorded": exp, "match": match}
+        print(f"  probe {nm:8s} reader->{b}  recorded {exp}  {'OK' if match else 'MISMATCH'}")
+    (RESULTS / "115_grid_probe.json").write_text(json.dumps(
+        {"mode": "probe-only (reader on saved diagrams)", "cases": out, "probe_reader_ok": bool(ok),
+         "scope": ("validates the Betti reader + recorded topology against saved diagrams; does NOT rebuild "
+                   "clouds or re-run Ripser"),
+         "sampling_wall": {"resolves_at": [600, 800], "misses_at": [150, 200, 250, 300, 400],
+                           "n_star_bracket": "(400, 600]",
+                           "note": ("below n* the reader returns a FALSE NEGATIVE on a genuine torus, so a "
+                                    "reduced-n probe is not a cheaper test but a wrong one")}}, indent=1))
+    print(f"PROBE reader OK: {ok}")
+    return 0 if ok else 1
+
+
 def main():
+    if "--probe-only" in sys.argv[1:]:
+        sys.exit(probe_only())
     rng = np.random.default_rng(0)
+    saved_dgms, saved_names = {}, []
 
     # ---- T0: validate the instrument on synthetic shapes ----
     EXP = {"torus": [1, 2, 1], "sphere": [1, 0, 1], "plane": [1, 0, 0], "circle": [1, 1, 0]}
     t0 = {}
     for kind, exp in EXP.items():
         X = synth(kind, 800, rng)
-        b = betti(ripser(X, maxdim=2, coeff=47, thresh=2.5)["dgms"]); b[0] = 1
+        _d = ripser(X, maxdim=2, coeff=47, thresh=2.5)["dgms"]
+        saved_names.append(kind)
+        for _k, _dg in enumerate(_d):
+            saved_dgms[f"{kind}_{_k}"] = _dg
+        b = betti(_d); b[0] = 1
         t0[kind] = {"betti": b, "expected": exp, "ok": b == exp}
         print(f"T0 {kind:7s} betti={b} expected={exp} {'OK' if b == exp else 'MISS'}")
     T0 = all(v["ok"] for v in t0.values())
@@ -100,7 +157,12 @@ def main():
                         for i in range(Gn)], 1)                       # hexagonal grid module, random phases
     centers = rng.uniform(0, 1, (Gn, 2))
     placepop = np.exp(-((pos[:, None, :] - centers) ** 2).sum(-1) / (2 * 0.08 ** 2))
-    grid_b = cloud_betti(gridpop); place_b = cloud_betti(placepop)
+    grid_b, _gd = cloud_betti(gridpop, return_dgms=True)
+    place_b, _pd = cloud_betti(placepop, return_dgms=True)
+    for _nm, _dl in (("grid", _gd), ("place", _pd)):
+        saved_names.append(_nm)
+        for _k, _dg in enumerate(_dl):
+            saved_dgms[f"{_nm}_{_k}"] = _dg
     print(f"T1 ideal GRID module betti={grid_b} (torus=[1,2,1]); ideal PLACE betti={place_b} (b1=0 => not a torus)")
     T1 = bool(grid_b == [1, 2, 1] and place_b[1] == 0)
 
@@ -119,6 +181,8 @@ def main():
     print(f"T1 grid=torus, place!=torus: {T1}")
     print(f"GRID-CELL TORUS TOPOLOGY READ: {out['grid_torus_topology_read']}")
     (RESULTS / "115_grid_torus.json").write_text(json.dumps(out, indent=1))
+    np.savez_compressed(RESULTS / "115_dgms.npz", names=np.array(saved_names, dtype=object), **saved_dgms)
+    print("saved results/115_dgms.npz (enables --probe-only: the reader, on these diagrams)")
 
     fig, ax = plt.subplots(1, 2, figsize=(13, 5))
     labels = list(EXP); xs = np.arange(len(labels))

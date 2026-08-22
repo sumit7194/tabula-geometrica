@@ -1070,7 +1070,7 @@ results in `curvature/notes/lab_notebook.md`.
   the frontier's certify verdicts. **W1 CERTIFY-GAUGE → K\* = 3**: sweeping clamped anchors, the frame-error
   SPREAD among restarts that reached a minimum runs 1.2504 / 1.5879 / **1.7869** (K=2 maximally ambiguous — the
   mirror) / 0.0000 / 0.0000 / 0.0000 — two anchors fix rotation+translation but leave a reflection, three
-  non-collinear ones kill it; predicted before running, and §111 used K=4 throughout without ever asking where
+  non-collinear ones kill it. **This is an INSTRUMENT CHECK, not a discovery** — the reflection argument is standard distance geometry, so registering K*=3 in advance tests whether the readout can locate a known wall, and could not have surprised us. §111 used K=4 throughout without ever asking where
   the transition was. **W2 CERTIFY-CHAOS → r\* = 3.6** vs Feigenbaum 3.5699456. **W3** known-fail: a capped
   statistic must ABSTAIN, and does. **W4** the guard stays quiet on honest sweeps. With §142 (v\*≈1/√2) and §176
   (d\*=6) **all four certify verdicts now report LOCATIONS, not labels.** THREE READOUTS REJECTED, each for a

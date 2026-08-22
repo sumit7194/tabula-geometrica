@@ -58,7 +58,7 @@ Generalised the §176 located-wall upgrade across the frontier's certify verdict
 **W1 CERTIFY-GAUGE → K\* = 3, the reflection argument recovered.** Sweeping clamped anchors, the frame-error
 spread among restarts that reached a minimum runs 1.2504 / 1.5879 / **1.7869** (K=2, maximally ambiguous — the
 mirror) / 0.0000 / 0.0000 / 0.0000. In 2-D, two anchors fix rotation and translation but leave a reflection;
-three non-collinear ones kill it. Predicted before running, landed exactly. §111 used K=4 throughout and never
+three non-collinear ones kill it. Registered in advance — but as an INSTRUMENT CHECK, not a prediction: the reflection argument is standard, so this tests whether the readout locates a known wall. It could not have surprised us. §111 used K=4 throughout and never
 asked where the transition was.
 
 **W2 CERTIFY-CHAOS → r\* = 3.6** against the Feigenbaum point 3.5699456. **W3** the guard's known-fail: a
