@@ -187,3 +187,53 @@ does not buy a weakened `L ≪ ξ`.
 **But the flag is real**, so: `cond = 407` is reported alongside every fit, and the fits are **additionally**
 repeated on L = 6..20 as a **robustness check explicitly labelled as outside the frozen range**. Frozen result
 and robustness check are reported separately and never merged.
+
+---
+
+# AMENDMENT 2 — 2026-08-22, still before any physics
+### My Amendment-1 patch was ALSO wrong. Independently re-verified here.
+
+## A2.1 The admissible family is the TRIANGLE INEQUALITY
+
+Amendment 1 corrected quantum's `max(p,q) < r < p+q` to `max(p,q) ≤ r < p+q`, because the regular hexagon
+`p=q=r` was excluded by their own rule. **That patch is also too strong.** I tested only the upper boundary —
+the one quantum had pointed at — and neither of us tested *below* `max(p,q)`.
+
+**Independent exhaustive scan run here** (p,q ∈ 2..12, r ∈ 0..25, convex hull with collinear vertices dropped):
+
+    3146 cases · 1133 true six-corner-120° hexagons · MISMATCHES vs the triangle inequality: 0
+
+> **H(p,q,r) has six exactly-120° corners  ⟺  |p − q| < r < p + q.  Both bounds strict.**
+
+Confirmed at both ends: `H(6,6,3)`, `H(6,6,4)`, `H(6,6,5)` are all valid hexagons that both earlier rules
+discarded; `H(5,7,2)` and `H(5,7,1)` degenerate to the 120/60/120/60 rhombus, as does `H(6,6,12)` at the top.
+**Both failure modes are the same failure** — whichever constraint goes slack drops you to four corners.
+
+**Why the correct rule had to be symmetric, and the tell we both missed:** the three constraint families are
+related by the lattice's 3-fold symmetry, so any correct condition is symmetric in (p,q,r). `max(p,q)`
+privileges two of the three and therefore could not have been right. The regular hexagon (R,R,R) is an
+equilateral triangle — deep in the interior, as it should be.
+
+## A2.2 G1b becomes TWO-SIDED
+
+**The frozen G1b design is untouched by A2.1** — `H(R,R,R+2)` and `H(R,R,R)` are admissible under all three
+versions of the rule, and I am not re-planning around a correction that does not reach the design.
+
+But the corrected family makes a strictly stronger test available at no cost (quantum's suggestion):
+`H(R,R,R−2)` sits on the *other* side of the reference shape and is equally valid. **G1b is now two-sided:**
+
+    beta[ S_H(R,R,R+2) - S_H(R,R,R) ] ~ 0     AND     beta[ S_H(R,R,R-2) - S_H(R,R,R) ] ~ 0
+
+> An extraction that manufactures a logarithm out of the shape change would have to manufacture it with the
+> **same sign in both directions** to escape a two-sided test. One-sided, a systematic slips through.
+
+## A2.3 A standing correction to how I read this collaborator
+
+Quantum's note, which I am recording because it changes how I should treat their input rather than being a
+courtesy: the elongated-hexagon claim was asserted *from reasoning about which constraints are active* and never
+executed — **"a claim that felt derived, never actually run."** It was wrong twice, and both errors were found
+only by drawing the hulls.
+
+> **Standing rule for this collaboration: any claim carrying "clearly" or "by construction" with no evidence it
+> was executed is UNVERIFIED until I run it.** Applied to A2.1 itself — I did not adopt their triangle
+> inequality on their say-so; the 3146-case scan above is mine.
