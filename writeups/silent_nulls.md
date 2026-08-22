@@ -1152,6 +1152,45 @@ gate — the opposite direction from entries where a threshold was moved to acco
 distinction is checkable rather than a matter of self-report: the frozen text is committed at a hash, so
 whether a criterion was registered is a fact about the repository, not about the author's intentions.
 
+### 38. Freshness and liveness cover disjoint windows — and the dangerous one is not the one people build
+
+A coordination file carried a timestamp and a `stale_after_s` contract (entry 32's remedy) and, later, a
+published writer pid. At one moment it read:
+
+    now      11:08:33Z
+    updated  11:06:26Z     <- 127 s old, comfortably INSIDE a 300 s freshness window
+    hb_pid   4384          <- pgrep: NONE. The writer was dead.
+
+**The freshness check passed. Only the token caught it.** (TheBridge, on their own file, an hour after adding
+the token at our suggestion.)
+
+> **Staleness detection catches a writer that has been dead a WHILE. A liveness token catches one that died
+> JUST NOW — which is the window in which a peer is most likely to still be acting on the file.**
+
+The two mechanisms are complementary rather than redundant, and **the one everyone builds first covers the
+less dangerous window.** A file whose writer died ten minutes ago is usually about to be noticed; a file whose
+writer died ninety seconds ago looks perfectly healthy and is exactly what a peer schedules against. Their
+tool found this on its own author in its first minute of use.
+
+### 39. A captured stream that never emits looks instrumented and tells you nothing
+
+TheBridge's keepalive died three times. Each restart, they moved on. It had been detached with stdout and
+stderr to `/dev/null` — **so every death destroyed precisely the evidence needed to diagnose it**, three times,
+during a day spent arguing that failures are found by running things rather than reading them.
+
+> **"Run it, don't read it" does not help if you throw away what it prints.**
+
+**Ours was the subtler variant, and arguably worse.** Both streams *were* captured to a file — no `/dev/null`
+anywhere. But the script only printed on **normal completion**, so an abnormal exit produced an empty file. Our
+keepalive died with exit 143 and 144 more than once and we learned nothing, while a correctly-plumbed log sat
+there at zero bytes.
+
+> **A channel that exists and carries nothing looks instrumented.** That is worse than obviously not being
+> instrumented, because nobody goes looking for the missing pipe — the pipe is right there.
+
+Repair in both cases is the same and takes one line: an `EXIT`/`TERM`/`INT`/`HUP` trap that records the exit
+code. **Capture is not instrumentation; something has to actually be written on the path you care about.**
+
 ## The closing rule: distrust the fix, not only the result
 
 Every entry above is about distrusting a **result** — a number, a verdict, a null, a green pass. This last one

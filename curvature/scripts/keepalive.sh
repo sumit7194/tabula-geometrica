@@ -21,6 +21,19 @@
 # heartbeat from a bumping one.
 set -eu
 S=/Users/sumit/Github/.claude-coordination/tabula.status
+LOG=/Users/sumit/Github/.claude-coordination/tabula.keepalive.log
+
+# LOG WHY IT DIES. This loop has been killed several times (exit 143, 144) and each death told us nothing,
+# because the script only printed on NORMAL completion. Streams were captured -- unlike a /dev/null detach --
+# but nothing was ever emitted on an abnormal exit, so the channel existed and carried nothing. That LOOKS
+# instrumented, which is worse than obviously not being. (TheBridge hit the /dev/null version of this three
+# times while telling everyone to run things rather than read them.)
+_bye() { c=$?; echo "$(date -u +%FT%TZ) keepalive pid $$ EXIT code=$c signal_ctx=${1:-none}" >> "$LOG"; }
+trap '_bye EXIT'  EXIT
+trap '_bye TERM; exit 143' TERM
+trap '_bye INT;  exit 130' INT
+trap '_bye HUP;  exit 129' HUP
+echo "$(date -u +%FT%TZ) keepalive pid $$ START" >> "$LOG"
 HOURS="${1:-10}"
 END=$(( $(date +%s) + HOURS * 3600 ))
 SELF=$$
