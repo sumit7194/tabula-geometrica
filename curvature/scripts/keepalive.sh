@@ -1,32 +1,86 @@
 #!/usr/bin/env bash
-# Session keepalive + self-refreshing coordination heartbeat.
+# Session keepalive + coordination heartbeat that MEASURES rather than repeats.
 #
-# LIVES IN THE REPO, not in a scratch dir, because it has now failed twice for reasons a scratch file cannot
-# avoid: once by holding a startup SNAPSHOT and silently reverting every status update for ten hours
-# (silent_nulls entry 32), and once by simply vanishing when the session's scratchpad was wiped. Session
-# plumbing that other sessions depend on is infrastructure, and infrastructure that is not versioned is the
-# half that goes wrong -- the night's most-repeated finding.
+# ── THREE FAILURE MODES, ALL HIT FOR REAL, ALL FIXED HERE ──────────────────────────────────────────────
+# 1. SNAPSHOT (silent_nulls 32): a first version read the file once at startup and rewrote that copy every
+#    tick, silently reverting ten hours of updates. Fix: re-read every tick, never cache.
+# 2. TIMESTAMP-ONLY (TheBridge, 2026-08-22): bumping `updated` while leaving every other field alone produces
+#    a file whose clock is always fresh and whose CONTENT is arbitrarily old. This is worse than a frozen
+#    file, because a frozen file is DETECTABLE -- `updated` stops and stale_after_s fires -- whereas a
+#    clock driven independently of content is undetectable by construction: it emits the exact signature the
+#    staleness check was built to certify as healthy.
+#       >> NEVER UPDATE `updated` ON ITS OWN. That field is a claim about all the others. <<
+# 3. SELF-COUNTING: `pgrep -f SpaceTime/curvature` matched THIS SCRIPT, so the liveness probe counted the
+#    monitor as evidence of activity. A monitor must exclude itself or it always reports life.
 #
-# TWO PROPERTIES THAT MUST NOT REGRESS:
-#   1. RE-READ THE FILE EVERY TICK. Never cache it. Caching makes the timestamp truthful while the content
-#      freezes, which converts a visible failure into an invisible one -- every observable says it worked.
-#   2. REWRITE `updated` EVERY TICK, not only on state change, so a status nobody maintains announces itself.
-# Verify after any edit by writing a distinctive `detail`, waiting past one tick, and reading it back.
+# ── THE STRUCTURAL FIX: separate DECLARED from DERIVED ─────────────────────────────────────────────────
+# `state`/`detail` are DECLARED -- a human/agent types them and they are stale the moment work moves on. No
+# heartbeat can refresh a declaration. So they are marked as declarations, carry their own age, and are never
+# what a reader should schedule against. `measured` is DERIVED from the machine every tick; it cannot be
+# faked by a loop that does not actually look, and its numbers JITTER, which is what distinguishes a real
+# heartbeat from a bumping one.
 set -eu
 S=/Users/sumit/Github/.claude-coordination/tabula.status
 HOURS="${1:-10}"
 END=$(( $(date +%s) + HOURS * 3600 ))
+SELF=$$
 while [ "$(date +%s)" -lt "$END" ]; do
   if [ -f "$S" ]; then
-    python3 - "$S" << 'PY' 2>/dev/null || true
-import json, sys, datetime
-p = sys.argv[1]
+    python3 - "$S" "$SELF" << 'PY' 2>/dev/null || true
+import json, os, subprocess, sys, datetime
+p, self_pid = sys.argv[1], int(sys.argv[2])
 try:
-    d = json.load(open(p))            # re-read every tick: no snapshot, ever
+    d = json.load(open(p))                       # re-read every tick: no snapshot, ever
 except Exception:
     sys.exit(0)
-d["updated"] = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-d.setdefault("stale_after_s", 120)    # machine-checkable contract, not a prose warning
+now = datetime.datetime.now(datetime.timezone.utc)
+
+def sh(c):
+    try: return subprocess.run(c, shell=True, capture_output=True, text=True, timeout=8).stdout
+    except Exception: return ""
+
+# --- DERIVED: measured fresh every tick, excluding this script and its children ---
+procs = []
+for ln in sh("pgrep -fl 'SpaceTime/curvature' || true").strip().splitlines():
+    pid = ln.split()[0] if ln.split() else ""
+    if not pid.isdigit() or int(pid) in (self_pid, os.getpid()):
+        continue
+    if "keepalive.sh" in ln:                     # never count the monitor as activity
+        continue
+    rss = sh(f"ps -o rss= -p {pid}").strip()
+    procs.append({"pid": int(pid), "rss_mb": round(int(rss)/1024, 1) if rss.isdigit() else None,
+                  "cmd": " ".join(ln.split()[1:])[:70]})
+vm = sh("vm_stat"); ps_size = 16384
+free_gb = None
+try:
+    import re
+    ps_size = int(re.search(r"page size of (\d+)", vm).group(1))
+    fr = int(re.search(r"Pages free:\s+(\d+)", vm).group(1))
+    ina = int(re.search(r"Pages inactive:\s+(\d+)", vm).group(1))
+    free_gb = round((fr + ina) * ps_size / 1073741824, 2)
+except Exception:
+    pass
+
+d["measured"] = {"at": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "n_procs": len(procs),
+                 "procs": procs[:5], "machine_free_plus_inactive_gb": free_gb,
+                 "note": "DERIVED every tick from ps/vm_stat, excluding this keepalive. Jitters if real."}
+d["state"] = "running" if procs else "idle"      # DERIVED, not preserved from a declaration
+d["heavy"] = bool(any((q.get("rss_mb") or 0) > 1500 for q in procs))
+
+# --- DECLARED: cannot be refreshed by any heartbeat, so label it and age it ---
+if "detail" in d and "declared_at" not in d:
+    d["declared_at"] = d.get("updated", now.strftime("%Y-%m-%dT%H:%M:%SZ"))
+try:
+    da = datetime.datetime.strptime(d["declared_at"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=datetime.timezone.utc)
+    d["declared_age_s"] = int((now - da).total_seconds())
+except Exception:
+    d["declared_age_s"] = None
+d["field_semantics"] = ("`state`/`heavy`/`measured` are DERIVED from the machine each tick -- schedule against "
+                        "these. `detail` is DECLARED by the agent and is stale the moment work moves on; "
+                        "`declared_age_s` says how stale. `updated` is a claim about ALL fields, never bumped "
+                        "alone.")
+d["updated"] = now.strftime("%Y-%m-%dT%H:%M:%SZ")
+d.setdefault("stale_after_s", 120)
 json.dump(d, open(p, "w"), indent=2)
 PY
   fi

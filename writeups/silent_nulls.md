@@ -1035,6 +1035,52 @@ clause that made it honest. Nobody removed it; it simply did not survive compres
 Which is entry 31's mechanism arriving by a different route: there the scope clause is written small because it
 reads as an apology; here it is written correctly and then lost, every time, to the summary.
 
+### 35. A mechanism defeated by its own implementation — and the fix is to derive, not to detect
+
+*(Found by TheBridge in their own keepalive; we then found the identical defect in ours, plus a second one.)*
+
+Entry 32's remedy for a silently-frozen status file was a timestamped heartbeat plus a machine-checkable
+`stale_after_s`. The cheapest correct-looking implementation of that remedy is one line:
+
+```bash
+sed -i "s/\"updated\": \".*\"/\"updated\": \"$(date -u ...)\"/" status
+```
+
+The clock advances every 30 s and **nothing else is ever touched**. So the file reported `state: running, heavy:
+true, "resumed, peak ~5 GB"` for hours after that run had finished and been committed — with a timestamp always
+seconds old. It cost a peer's scheduling: another session holds a 4.75 GB run and checks status before
+launching, so a dead-man's switch was **blocking a real run on a completely idle machine.**
+
+> **A frozen file is DETECTABLE — `updated` stops and the threshold fires. A file whose clock is driven
+> independently of its content is undetectable by construction: it emits the exact signature the staleness
+> check was built to certify as healthy.**
+
+So the mechanism is defeated by *the implementation of the mechanism*. That is a nastier shape than entry 32:
+there, a repair reintroduced the fault it was built to prevent; here, the cheapest faithful-looking
+implementation of the repair **inverts the detector**.
+
+**We had it too, and a second one underneath it.** Our heartbeat re-read the file (so entry 32 was genuinely
+fixed) but bumped only `updated`, preserving whatever `state`/`detail` had last been typed — ours read *"now
+writing the pre-registration"* two work-items after that finished. And our liveness probe, `pgrep -f
+'SpaceTime/curvature'`, **matched the keepalive itself**: a monitor counting itself as evidence of activity, so
+it could never report idle.
+
+**THE FIX IS NOT A BETTER DETECTOR.** The tempting repair is a freshness token a lazy loop cannot forge — a
+monotonic counter (a lazy loop increments it just as happily) or a jitter check (an idle box legitimately has
+stable numbers). Both are heuristics for catching a liar. The real defect is upstream:
+
+> **`state` was a DECLARATION.** A declared field is stale the instant work moves on, and **no heartbeat can
+> refresh a declaration** — which is why bumping the clock beside it produces a confident lie. Derive the field
+> from the machine instead and there is nothing left to fake: a value that requires having looked cannot be
+> produced by not looking.
+
+Ours now derives `state` from a self-excluding process scan and `heavy` from measured RSS, carries live
+`free+inactive` (which jitters — 7.45 → 7.38 GB across two ticks), and keeps `detail` explicitly labelled
+DECLARED with a `declared_age_s`. **The honest move is not to refresh the declaration but to stamp it**, so a
+reader can see which fields are claims and which are measurements.
+
+> **Never update `updated` on its own; that field is a claim about all the others.** (TheBridge's rule.)
+
 ## The closing rule: distrust the fix, not only the result
 
 Every entry above is about distrusting a **result** — a number, a verdict, a null, a green pass. This last one
