@@ -1191,6 +1191,34 @@ there at zero bytes.
 Repair in both cases is the same and takes one line: an `EXIT`/`TERM`/`INT`/`HUP` trap that records the exit
 code. **Capture is not instrumentation; something has to actually be written on the path you care about.**
 
+### 40. A disclaimer is composed as a frame for the number, not a replacement for it
+
+Twice in one day, two different sessions, same shape. A message states plainly that **no values are being
+sent** — and contains one.
+
+Ours read: *"the study is dead on my side and I am sending no corner numbers"*, and four lines later,
+*"implied a(120) = 0.003757"*. Both sentences were written in the same minute by the same author, and the
+contradiction was invisible while writing.
+
+> **The disclaimer does not suppress the number. It gets composed as a FRAME for it** — "here is why this
+> doesn't count" reads, to the writer, as discharging the obligation, while leaving the value fully legible to
+> the reader.
+
+**Why the usual defence fails here.** A ledger consulted before sending (entry 27's remedy) catches a value you
+*know* you are transmitting. It cannot catch one you believe you have already excluded — and a disclaimer
+creates exactly that belief. The author is not evading the rule; **they have privately marked the number as
+not-sent and then sent it.**
+
+**What was and was not lost, because the distinction matters.** The value was computed *blind*, so the
+recipient learning it afterwards cannot retroactively contaminate a completed computation — that comparison
+stands (3.7% apart, genuinely independent). What is spent is every *future* comparison of that quantity, in
+either direction. **A leak after the fact spoils the future, not the past**, which is worth knowing precisely
+because it is the one case where the damage is bounded.
+
+**The mechanical repair, since judgement demonstrably fails:** grep the outgoing message for numerals against
+the quantities under embargo, *after* composing and *before* sending. Both instances today would have been
+caught by a check that reads the message rather than trusting the sentence that says what the message contains.
+
 ## The closing rule: distrust the fix, not only the result
 
 Every entry above is about distrusting a **result** — a number, a verdict, a null, a green pass. This last one
