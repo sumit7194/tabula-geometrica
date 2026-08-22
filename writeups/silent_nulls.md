@@ -894,6 +894,41 @@ value of a second **kind** of instrument dominates more reach in the first* — 
 against a budget, and **false-able**. Applied as a filter to everything above: an entry that no experiment could
 contradict is a sentiment, and belongs somewhere else.
 
+### 32. A write that succeeds and is silently reverted
+
+Found in our own coordination file, minutes after declaring the night closed, while checking why a peer's status
+would not parse.
+
+A keepalive process refreshed our shared status file's timestamp every 30 s so that a stale status would
+announce itself — the repair for an earlier failure in this same file. **It read the file once at startup and
+rewrote that snapshot on every tick.** So every status update published during the session was reverted within
+30 seconds, to a snapshot reading *"C5 audit complete, silent_nulls at 15 entries"* — while 28 commits and 16
+further entries went by.
+
+Three sessions were told to read that file.
+
+    every write:  succeeded, returned no error, was correct at the moment it landed
+    every read 30s later:  the startup snapshot
+    never done:   re-read after writing
+
+> **A successful write is not a persisted write.** Nothing in the writing process can detect this: the API
+> returns success, the file is valid, the content is *plausible*, and the only evidence is a read that nobody
+> performs because the write already succeeded.
+
+**It is the catalogue's own thesis in the coordination layer** (entry 28): the file was honest about what it
+contained and silent about the fact that it was not what anyone had put there. And it is entry 23 once more —
+the keepalive was itself the *fix* for a stale-status failure, and the fix reintroduced the failure it was built
+to prevent, in a form that looks like health: **a timestamp advancing every 30 seconds is exactly what a
+correctly-maintained file looks like.**
+
+**Validated the repair two-sample, per the closing rule below**, rather than assuming a re-read per tick fixed
+it: wrote a new `detail`, waited past one tick, confirmed it survived. That check takes 35 seconds and would
+have caught this at any point in the preceding ten hours.
+
+**Adopted from a sister session in the same minute:** a machine-checkable `stale_after_s` field instead of a
+prose warning that readers must notice and honour. *A staleness contract a reader can evaluate beats a sentence
+asking them to be careful.*
+
 ## The closing rule: distrust the fix, not only the result
 
 Every entry above is about distrusting a **result** — a number, a verdict, a null, a green pass. This last one
