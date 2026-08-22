@@ -4344,3 +4344,44 @@ magnitude is *by design* (c = 0.25 is ~4x the derived c4, and the regulators are
 Removed as an **un-frozen** criterion, not a relaxed one — a distinction checkable against the committed hash
 rather than resting on my say-so. Recorded as silent_nulls entry 37: *freezing stops post-hoc relaxation and
 does nothing about implementation-time tightening, which is invisible unless it fires.*
+
+
+## 2026-08-22 — G1b FAILED. Per the frozen pre-registration the corner study is DEAD on my side.
+
+Recorded before any diagnosis, because the point of a pre-registered known-fail is that it fires and is
+reported, not that it fires and is investigated until it stops firing.
+
+    single shape H(R,R,R):   beta = -0.022544   R2 = 1.00000000   implied a(120) = 0.003757
+      -> absolute floor PASSED (|beta| = 0.0225 > 0.01): a real logarithm is present,
+         so the zero-test is meaningful rather than vacuous (Amendment 3's clause did its job)
+
+    zero-corner-content differences, SAME frozen model:
+      H(R,R,R+2) - H(R,R,R):   beta = +0.005242   = 23.2% of the genuine logarithm   R2 = 0.949
+      H(R,R,R-2) - H(R,R,R):   beta = +0.003450   = 15.3% of the genuine logarithm   R2 = 0.891
+
+    tolerance was 10%. BOTH EXCEED IT, AND BOTH HAVE THE SAME SIGN.
+
+**The same sign is the damning part**, and it is what the two-sided form (Amendment 2) was built to detect:
+quantum's argument was that an extraction manufacturing a logarithm out of elongation would have to manufacture
+it with the *same sign in both directions* to survive a two-sided test. It does. A one-sided test would have
+been far easier to explain away.
+
+**A CANDIDATE CAUSE, recorded as a hypothesis and NOT acted on unilaterally.** The frozen model puts `L = side
+length` inside the logarithm. For H(R,R,R) that is unambiguous. **For H(R,R,R±2) it is not** — the elongated
+hexagon's six edges are not all the same length, so "the side length" is not a well-defined scale for it, and
+my Amendment-1 phrase *"at matched scale"* papered over a real ambiguity. If the two shapes' corner logarithms
+are evaluated at genuinely different scales, they do not cancel in the difference, and a residual beta appears
+that is an artifact of my choice of L rather than evidence that the extraction fabricates logarithms.
+
+**That hypothesis is not mine to act on.** Changing L is changing the frozen model — the one degree of freedom
+this entire run exists to exercise independently — so it is an amendment requiring quantum's ruling, not a fix
+round. Filed to them with the failure, both R2 values, and the sign agreement.
+
+**The R2 values are themselves informative and I would not have looked at them if the gate had passed:** 0.949
+and 0.891 on the differences, against 1.00000000 on the single shape. The frozen model does not describe the
+difference well *at all*, which is consistent with the difference containing structure the three-parameter form
+cannot represent — the ambiguous-scale hypothesis predicts exactly that.
+
+Also noted: `cond = 4850` on the single-shape design matrix, against the 407 quantum computed for `[L, ln L, 1]`.
+Mine uses PERIMETER as the first column (~6R for hexagons), which inflates the condition number by the column
+scale. Reported rather than adjusted.
