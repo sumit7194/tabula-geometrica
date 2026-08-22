@@ -4241,3 +4241,36 @@ They were told to read that file.
 
 **Practice change:** write corrections into the repo **first**, message second. All night we did the reverse,
 and the one correction that mattered most became undeliverable.
+
+
+## 2026-08-22 — §115's sampling wall: the instrument has a minimum density, below which it false-negatives
+
+Closing the loop opened last night (115 quarantined at an observed peak of 6.75 GB). The question was whether a
+cheap probe path exists. **It does not, and the reason is a measured property of the instrument rather than an
+implementation detail.**
+
+Torus Betti numbers vs point count, everything else held fixed (`maxdim=2`, `coeff=47`, `thresh=2.5`):
+
+    n=150  [1,0,0]     n=200  [1,0,0]     n=250  [1,0,1]     n=300  [1,0,0]     n=400  [1,0,1]   <- MISS
+    n=600  [1,2,1]     n=800  [1,2,1]                                                            <- resolve
+
+**n\* ∈ (400, 600].** Below it the reader returns `b1 = 0` on a genuine torus — **a false negative, the
+instrument's own blindness presented as a negative result** (silent_nulls entry 28, inside our own tooling). So a
+reduced-n probe is not a cheaper version of this test; it is a different test that returns the wrong answer, and
+it would have **passed the fast suite while asserting something false.**
+
+POSITIVE CONTROL RUN FIRST, and it was necessary: "MISS at every n" has two readings — small-n insufficient, or
+the sweep harness not reproducing the script (the sweep seeds a fresh RNG per shape; the script threads one
+through). At n=800 the sweep harness returns `[1,2,1]`, so the harness reproduces and the n-dependence is real.
+Without that control the whole table would have been a measurement of my own harness.
+
+**CORRECTION TO MY OWN TABLE, same day, same trap as entry 24.** The sweep's `peakGB` column was
+`ru_maxrss` — a **cumulative high-water over the process**, not a per-n cost — so it overstates the small-n rows
+and is not comparable across them. Standalone measurements: **n=600 → 4.41 GB / 14 s; n=800 → 8.66 GB / 31 s**
+(torus alone). The numbers were computed correctly; the predicate *"peak for this n"* was invented.
+
+**DECISION.** 115 stays out of the fast pass — its cost is irreducible at resolving density. It gains
+`--probe-only`, which re-runs the Betti **reader** against saved persistence diagrams (`results/115_dgms.npz`),
+with the scope stated in the docstring: it validates the reader and the recorded topology, and cannot catch a
+regression in cloud construction or in the Ripser call. Same scope limit as 116's saved-model probe, and it is
+stated rather than implied.
