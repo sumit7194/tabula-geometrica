@@ -4311,3 +4311,36 @@ same one: *an absolute threshold mislabels; switch to a relative test.* Two chan
 
 The original threshold and the run-1 verdict are both retained in the source, since replacing a statistic after
 seeing the data is exactly the move that needs to stay visible.
+
+
+## 2026-08-22 — G0 PASSED (quantum corner study), after an implementation-vs-freeze discrepancy
+
+**c4 DERIVED, not fitted.** With theta_i = k.a_i over the three bonds, K_NN = (2/3)sum(theta^2) −
+(1/18)sum(theta^4) + O(theta^6), and (2/3)sum(theta^2) = |k|^2 exactly. The quartic error is **isotropic on
+this lattice** — measured sum(theta^4)/|k|^4 = 1.125000 with spread 9e-16 across the full 60-degree sector —
+so c4 = 1.125/18 = **1/16 = 0.0625 exactly**.
+
+**That isotropy is load-bearing and is a second reason the triangular lattice earns its place.** On a SQUARE
+lattice the quartic error is theta_x^4 + theta_y^4, which is *not* proportional to |k|^4, and no coefficient in
+the frozen `m^2 + K + cK^2` family could cancel it. Here one can.
+
+c4 = 0.0625 != 0.25, so the frozen collision contingency (regulator 3 moving to c = 0.5) does NOT fire.
+
+**G0 results:**
+
+    nn        rel err 9.42e-02 -> 5.14e-04   fitted k-power 1.98  (expect 2)
+    improved  rel err 1.31e-02 -> 4.23e-07   fitted k-power 3.94  (expect 4)
+    quartic   rel err 2.30e-01 -> 1.54e-03   fitted k-power 1.91  (expect 2)
+    smeared   rel err 1.23e-01 -> 7.19e-04   fitted k-power 1.96  (expect 2)
+
+    lattice-scale spread: 77%  -> the four genuinely differ, so an across-regulator spread is a real
+                                  measurement rather than a vacuous one
+
+**RUN 1 REPORTED G0 FAILED, AND THE FAILURE WAS IN MY CODE, NOT THE PHYSICS.** The implementation gated on
+`fitted_order OK **and** rel_err[-1] < 1e-3`. The frozen file says only *"→ 0 as k→0, at the expected order"* —
+the absolute clause was added while typing and never registered. It fired on the quartic, whose larger
+magnitude is *by design* (c = 0.25 is ~4x the derived c4, and the regulators are REQUIRED to differ).
+
+Removed as an **un-frozen** criterion, not a relaxed one — a distinction checkable against the committed hash
+rather than resting on my say-so. Recorded as silent_nulls entry 37: *freezing stops post-hoc relaxation and
+does nothing about implementation-time tightening, which is invisible unless it fires.*
