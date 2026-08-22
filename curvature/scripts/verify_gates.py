@@ -62,8 +62,17 @@ BATTERIES = [
 
     ("Grid-cell torus (topology instrument)", ["scripts/115_grid_torus.py"], "115_grid_torus.json",
      {"T0_instrument_validated": (">", 0.5), "T1_grid_torus_place_not": (">", 0.5)}),
-    ("Emergent grid torus (saved model probe)", ["scripts/116_grid_torus_emergence.py", "--probe-only"],
-     "116_grid_probe.json", {"H2_emergent_torus_controlled": (">", 0.5)}),
+    # 116's probe was 806.9 s / 6.80 GB -- ~30% of the whole suite -- because it re-ran 32 Ripser calls on the
+    # saved model, and one call at resolving density is ~5 GB (see 115's sampling wall: the density cannot be
+    # reduced without breaking the answer). It now reads saved diagrams: 1.70 s / 0.32 GB, and H2 is still
+    # asserted IN FULL (>=8/16 trained, <=2/16 control) because the reader re-derives all 32 Betti vectors.
+    # Validated three ways: known-pass 11/16 vs 0/16; damaged diagrams -> H2 False; a one-byte change to the
+    # weights -> STALE via fingerprint. `stale_artifacts` is gated so the fingerprint check cannot silently rot.
+    ("Emergent grid torus (reader probe on saved diagrams)",
+     ["scripts/116_grid_torus_emergence.py", "--probe-only"],
+     "116_grid_probe.json", {"H2_emergent_torus_controlled": (">", 0.5),
+                             "stale_artifacts": ("<", 0.5), "n_modules_torus": (">", 7.5),
+                             "n_modules_torus_untrained_control": ("<", 2.5)}),
     ("Topological band theory (SSH winding)", ["scripts/117_topological_band.py"], "117_topological_band.json",
      {"B1_learns_invariant": (">", 0.5), "B2_quantized_robust": (">", 0.5), "B3_bulk_boundary": (">", 0.5)}),
     ("Emergent dimension from RG (depth=log xi)", ["scripts/118_emergent_dimension_rg.py"],
