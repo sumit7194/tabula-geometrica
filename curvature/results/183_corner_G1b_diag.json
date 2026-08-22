@@ -1,0 +1,50 @@
+{
+ "kill_stands": true,
+ "b_single": -0.022543651158689615,
+ "prereg": "quantum's diagnostic, falsifier filed before this ran",
+ "L_hypothesis": {
+  "ratio_minus_one_times_R": [
+   0.49893994990267165,
+   0.5350996635822085,
+   0.55842613923895,
+   0.5747233519230432,
+   0.5867534288577985,
+   0.5959986919323228
+  ],
+  "cov": 0.05923382272118959,
+  "refuted": true
+ },
+ "diagnostic": {
+  "elong+2": {
+   "frozen": {
+    "beta": 0.0052415739310308395,
+    "R2": 0.9486781944228948,
+    "frac_of_single": 0.23250776434279752
+   },
+   "with_1_over_R": {
+    "beta": -0.0032579893340358183,
+    "R2": 0.9999427672154695,
+    "frac_of_single": 0.1445191513611584,
+    "c_over_R": -0.08068715127556447
+   }
+  },
+  "elong-2": {
+   "frozen": {
+    "beta": 0.0034503473984575936,
+    "R2": 0.8908236249433055,
+    "frac_of_single": 0.15305184480410272
+   },
+   "with_1_over_R": {
+    "beta": -0.004908402037950195,
+    "R2": 0.99826642691354,
+    "frac_of_single": 0.21772879660880556,
+    "c_over_R": -0.0793503923927421
+   }
+  }
+ },
+ "D1_beta_under_10pct": false,
+ "D2_R2_above_0.99": true,
+ "mechanism_confirmed": false,
+ "even_in_perturbation": true,
+ "verdict": "DIAGNOSIS NOT CONFIRMED on quantum's own falsifier: the 1/R column does not absorb the residual. Their mechanism is wrong and THE KILL IS ABSOLUTE -- the extraction is implicated and no corner numbers are sent."
+}
