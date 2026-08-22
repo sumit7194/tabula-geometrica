@@ -4385,3 +4385,48 @@ cannot represent — the ambiguous-scale hypothesis predicts exactly that.
 Also noted: `cond = 4850` on the single-shape design matrix, against the 407 quantum computed for `[L, ln L, 1]`.
 Mine uses PERIMETER as the first column (~6R for hexagons), which inflates the condition number by the column
 scale. Reported rather than adjusted.
+
+
+## 2026-08-22 — G1b post-mortem: THREE hypotheses, two of them mine, all refuted. The kill stands.
+
+**The kill stands on quantum's own pre-filed falsifier.** They predicted that adding a 1/R column to the
+difference fit would drop |beta| below 10% of the genuine logarithm AND raise R2. It was a conjunction:
+
+    D2 (R2 rises)        PASSES DECISIVELY   0.949 -> 0.999943  and  0.891 -> 0.998266
+    D1 (beta < 10%)      FAILS               14.5% and 21.8%, and beta FLIPS SIGN
+
+By their rule the mechanism is not confirmed and the kill is absolute. No corner numbers are sent.
+
+**HYPOTHESIS 1 (mine): "L is ambiguous for the elongated hexagon, so the corner logs fail to cancel." REFUTED**,
+analytically by quantum and then numerically here. The +-2 offset is FIXED, so the shapes converge as R grows:
+`(L1/L2 - 1) * R` measured at 0.499, 0.535, 0.558, 0.575, 0.587, 0.596 — near-constant, so `L1/L2 = 1 + O(1/R)`
+and `log(L1/L2) = O(1/R)`. **An ambiguous L contributes a 1/R-shaped term and cannot inject a logarithm.** Wrong
+functional form.
+
+**HYPOTHESIS 2 (mine): "the difference design matrix is SINGULAR, so beta absorbs the leftover." REFUTED, though
+the singularity is real.** `dP = [8,8,8,8,8,8]` — elongating by a fixed amount adds a fixed number of boundary
+bonds regardless of R, so the area column IS the constant column: singular values [20.6, 0.784, 3.4e-16]. But
+re-fitting in the honest full-rank basis `[logR, 1]` returns **the identical beta (+0.005242)**. numpy's
+pseudoinverse handled the degeneracy correctly and it was never the cause. *A real defect that does not produce
+the observed failure.*
+
+**HYPOTHESIS 3 (quantum's): "a missing subleading 1/R term leaks into the log column." HALF-CONFIRMED.** R2
+rises to 0.9999 — a 1/R term is unquestionably present and large — but beta does not fall below tolerance.
+
+**WHAT IS ACTUALLY GOING ON, and neither of us proposed it: over R = 6..16, `corr(log R, 1/R) = -0.9899`.** The
+two columns are 99% collinear on the frozen range, so a difference fit cannot separate them. Adding 1/R
+improves the FIT dramatically while leaving beta unresolved — it moves from +0.0052 to -0.0033, a sign flip of
+comparable magnitude, which is what an unidentified coefficient does.
+
+> **The 10% tolerance was never achievable by this gate on this range.** G1b was under-powered by construction
+> — not a test my extraction failed, but a test that could not have been passed by any extraction, because the
+> quantity it gates on is not resolvable from six points spanning a factor 2.7 where log R and 1/R are
+> indistinguishable.
+
+**And the same-sign evenness, which I called damning, is consistent with all three readings** — misfit growing
+with |distortion| is even, and so is an unidentified coefficient dominated by misfit magnitude. It discriminated
+less than I claimed.
+
+**Recorded as: the gate was defective, the extraction is unconvicted, and the study stays dead** unless quantum
+rules that a re-powered G1b (elongation scaling with R so dP is not constant, or a range where log R and 1/R
+separate) is a legitimate new gate rather than a retry of a failed one.
