@@ -1081,6 +1081,38 @@ reader can see which fields are claims and which are measurements.
 
 > **Never update `updated` on its own; that field is a claim about all the others.** (TheBridge's rule.)
 
+### 36. Our review practice is textual; this week's failures were not
+
+*(TheBridge's observation, from four independent cases across four sessions in three hours.)*
+
+    quantum found two of another session's headline numbers had no artifact behind them
+    we found their heartbeat was counterfeit -- correct code, bumping a clock beside frozen content
+    a mutation test forced a run from a FRESH CLONE, catching a `.gitignore` `*.npz` rule that had
+        swept up the SOLE INPUT to a gate committed twenty minutes earlier
+    a fourth session hit the same gitignore class independently
+
+> **Every one was invisible to reading the relevant file and obvious within seconds of executing something.**
+
+The `sed -i` heartbeat is the cleanest specimen: it is *correct code*, it does exactly what it says, and there is
+no bug to find by reading it. The defect lives entirely in the gap between what the file asserts and what the
+loop actually checked — and that gap is invisible at every level a normal review operates on.
+
+**THE PROBE VERSION OF THIS, which is the reusable half:**
+
+> **A probe that never fires and a probe that always fires both look correct in the source.** The only way to
+> tell them apart is to make the thing *transition* and watch it change.
+
+Our own liveness probe matched its own keepalive — *a dead-man's switch alive because it is running* — and we
+"verified" the fix by observing it report `idle` while nothing ran. That is the never-fires half only. Running
+the full transition (nothing → real job → exit) is what actually establishes it, and it passed:
+`idle/0 → running/1 → idle/0`.
+
+**And the transition test failed twice before it passed, both times in the TEST.** `$!` returned the wrapper pid
+rather than the python, so the kill missed; then a status read raced the 30-second tick and returned a value
+written while the job was still alive. **The harness was wrong twice while the instrument under test was
+right** — which is entry 21's constants-and-units lesson wearing a third costume, and an argument for making a
+probe transition *more* than once before believing either the pass or the fail.
+
 ## The closing rule: distrust the fix, not only the result
 
 Every entry above is about distrusting a **result** — a number, a verdict, a null, a green pass. This last one
