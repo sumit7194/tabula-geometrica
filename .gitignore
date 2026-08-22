@@ -15,6 +15,14 @@
 #   - data banks (e.g. curvature/results/25_bank.npz — regenerate via scripts/25_worldgen.py)
 #   - resumable training checkpoints (*ckpt*.pt — mid-run state, not gate inputs)
 *.npz
+# EXCEPTIONS -- npz files that are GATE INPUTS, not regenerable data banks.
+# The blanket *.npz rule above assumes npz means "bank, regenerate via scripts". These two are the SOLE
+# INPUTS to probe batteries asserted in verify.sh, and they are NOT cheaply regenerable: 115's costs ~13 min
+# and ~7 GB, 116's ~12 min. Ignored, they made the suite green ONLY on the machine that built them -- a fresh
+# clone fails both batteries with "no saved diagrams". Found 2026-08-23 after a sister session hit the
+# identical *.npz-swallows-a-gate-input bug. Small (31 KB, 311 KB), so committing them is cheap and correct.
+!curvature/results/115_dgms.npz
+!curvature/results/116_dgms.npz
 *ckpt*.pt
 # regenerable bank metadata (large; useless without its ignored .npz)
 **/25_bank*.meta.json
