@@ -19,7 +19,7 @@ the spot; four of them emit `CERTIFY-NO-CODE`, which is a **search**, so the exe
 dimension ladder on §141's own data sharpens the verdict to **"no code below d\* = 6"**. Then the *correction*
 was also wrong — refinement 2 applied to a generator whose only free parameter **is** the certified property,
 which makes it the control. **Refinement 6** records the qualifier. §177 (5/5): all four certify verdicts now
-report locations — **K\* = 3** (the reflection argument, predicted in advance), r\* = 3.6 vs Feigenbaum
+report locations — **K\* = 3** (the reflection argument — an INSTRUMENT CHECK, not a prediction: standard distance geometry, so it tests whether the readout locates a known wall), r\* = 3.6 vs Feigenbaum
 3.5699 — with W5 as a permanent gate encoding a bug that had suppressed a correct result. §166's **S3 upgraded**
 to `CERTIFY-NO-INVARIANT-BELOW-ORDER-3` via an order ladder TheBridge ran blind from a written spec (order 2
 certifies at 0.539, order 3 emits at 7.3e-12 with corr to H = 1.0000).
