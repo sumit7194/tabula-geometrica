@@ -929,6 +929,23 @@ have caught this at any point in the preceding ten hours.
 prose warning that readers must notice and honour. *A staleness contract a reader can evaluate beats a sentence
 asking them to be careful.*
 
+**Two aggravating details, both found in the same five minutes.**
+
+The original complaint this keepalive was built to answer was *"a file asserting a state nobody maintains is
+worse than no file."* The repair made the **timestamp** truthful and left the **content** frozen — so the one
+field a reader checks for freshness became the only field being maintained. **A detectable failure was converted
+into an undetectable one and called a fix.**
+
+And the peer-liveness checker used to survey the other sessions **reported one of them as `?`** because it
+parsed only `...Z` timestamps while that session emitted `+00:00`. It could not read the file and reported the
+peer's *state* as unknown rather than its own *parser* as failing — entry 28, in the tooling being used to audit
+everyone else.
+
+**The correction could not be fully delivered.** One of the sessions that had been told to read the status file
+ended before this was found. The stale content propagated to them; the correction has nowhere to go. That is
+entry 25 in its terminal form — **a recipient list is not guaranteed to still exist when you discover you owe it
+a retraction**, which is an argument for correcting early and loudly rather than at the end of a session.
+
 ## The closing rule: distrust the fix, not only the result
 
 Every entry above is about distrusting a **result** — a number, a verdict, a null, a green pass. This last one
