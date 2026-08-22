@@ -237,3 +237,48 @@ only by drawing the hulls.
 > **Standing rule for this collaboration: any claim carrying "clearly" or "by construction" with no evidence it
 > was executed is UNVERIFIED until I run it.** Applied to A2.1 itself — I did not adopt their triangle
 > inequality on their say-so; the 3146-case scan above is mine.
+
+---
+
+# AMENDMENT 3 — 2026-08-22, before G1b/G2 have been run
+### Anti-guards found in my own frozen gates. Two of them, one being the headline claim.
+
+**The failure class** (found by TheBridge, named by ansatz, relayed by quantum as a skepticism-increasing
+disclosure): **any assertion phrased as a ratio, relative error, or fraction-of-baseline has a MEASURED
+denominator** — so corrupting the data can inflate the denominator until the check passes. Sensitivity runs
+backwards: *the more damaged the data, the easier the gate is to satisfy.* An **anti-guard**. Quantum found two
+in their own harness and all 26 assertions stayed green on areas wrong by three orders of magnitude.
+
+**Audit of my frozen gates:**
+
+| gate | statistic | denominator | verdict |
+|---|---|---|---|
+| G0 | \|fitted_p − expected\| < 0.35 | k² is **chosen** (mode index) | safe |
+| G1 | \|α_tri − α_hex\| / mean(α) | mean(α) **measured** | **ANTI-GUARD** |
+| G1b | \|β\| < tol | tol relative to a measured scale | at risk |
+| G2 | (max−min)/mean of a(θ) | mean **measured** | **ANTI-GUARD — the headline** |
+| G3 | (max−min)/mean must be LARGE | inflating the mean makes it *harder* | guard-correct (inverted) |
+| G4 | band / spread | both measured | at risk |
+
+**G2 is the one that matters.** "Corner spread is small" is the universality claim, and as written a broken
+extraction that inflates every a(θ) equally would *strengthen* it.
+
+**MITIGATION, adopted verbatim from quantum: pair every relative assertion with an ABSOLUTE bound on its
+denominator.** Concretely, and these are now part of the frozen design:
+
+- **G1** additionally requires `α_tri` and `α_hex` each finite, positive, and within a stated absolute band;
+  the relative agreement is only read if both absolute bounds hold.
+- **G1b** additionally requires the *single-shape* β to exceed an absolute floor. Without that, β_difference ≈ 0
+  is satisfied trivially by an extraction that returns β ≈ 0 for **everything** — including shapes that do have
+  corners. **The zero-test needs a demonstrated non-zero.**
+- **G2** additionally requires each a(θ) to lie within a stated absolute band before its spread is quoted.
+- **G4** additionally requires absolute bounds on both the clip band and the spread.
+
+**AND THE MUTATION TEST THAT CATCHES THIS MUST BE ADDITIVE.** Quantum's detail, which is the part I would have
+got wrong: **a common multiplicative rescaling leaves every ratio exactly invariant**, so the obvious corruption
+test — scale the data and confirm the gates fire — shows nothing, and the conclusion is "clean". Corrupt
+**additively** instead. I will run an additive mutation against the full gate set before filing any number, and
+report which gates caught it.
+
+> **A gate that gets easier as the data gets worse is not a weak gate. It is a gate pointing the wrong way**,
+> and it will be greenest exactly when it matters most.
