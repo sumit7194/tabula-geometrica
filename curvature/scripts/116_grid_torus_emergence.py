@@ -160,29 +160,101 @@ def gridness(R):
     return float(min(cc(60), cc(120)) - max(cc(30), cc(90), cc(150)))
 
 
-def torus_counts(vmap):
-    bett = [S115.cloud_betti(vmap[:, :, b, :].reshape(G * G, BS)) for b in range(NB)]
+def torus_counts(vmap, collect=None, tag=""):
+    """Betti per module. If `collect` is a dict, also stash the raw diagrams for the fast probe."""
+    bett = []
+    for b in range(NB):
+        r = S115.cloud_betti(vmap[:, :, b, :].reshape(G * G, BS), return_dgms=collect is not None)
+        if collect is None:
+            bett.append(r)
+        else:
+            bb, dg = r
+            bett.append(bb)
+            for k, d in enumerate(dg):
+                collect[f"{tag}{b}_{k}"] = d
     return int(sum(bb == [1, 2, 1] for bb in bett)), bett
 
 
+def model_fingerprint():
+    """SHA of the saved weights. Ties the diagrams to the model that produced them, so a retrained model with
+    stale diagrams is caught rather than silently probed -- 'the artifacts exist' is weaker than 'the artifacts
+    belong together'."""
+    import hashlib
+    f = RESULTS / "116_grid_model.pt"
+    return hashlib.sha256(f.read_bytes()).hexdigest()[:16] if f.exists() else None
+
+
 def probe_only():
-    """Fast regression check: load the saved model, re-verify the controlled torus count (no training)."""
-    m = GridModel().to(DEV)
-    m.load_state_dict(torch.load(str(RESULTS / "116_grid_model.pt"), map_location=DEV))
-    n_torus, block_betti = torus_counts(m.v.detach().cpu().numpy().reshape(G, G, NB, BS))
-    torch.manual_seed(123); ctrl = GridModel().to(DEV); normalize_v(ctrl)
-    n_ctrl, _ = torus_counts(ctrl.v.detach().cpu().numpy().reshape(G, G, NB, BS))
+    """Fast regression check on SAVED DIAGRAMS -- re-runs the Betti reader, asserts H2, no Ripser, no training.
+
+    WHY NOT A CHEAPER VERSION OF THE REAL THING. Measured 2026-08-22: one module's topology read costs ~23 s and
+    **5.23 GB**, and the memory does not accumulate much across modules (5.23 -> 5.43 over three) -- so a single
+    Ripser call at resolving density is already ~5 GB. Any probe that touches the topology pipeline is expensive
+    regardless of how few modules it checks. A module subset would also assert nothing clean: modules 1 and 2
+    read [1,1,1], not tori (11/16 is the recorded figure), so a fixed small sample is not a gate.
+
+    WHAT THIS PRESERVES AND WHAT IT GIVES UP. The reader re-derives all 32 Betti vectors (16 trained + 16
+    control) from saved diagrams, so **H2 is asserted in full** -- >=8/16 trained, <=2/16 untrained. What it
+    cannot catch is a regression in model -> ratemap -> point-cloud construction, or in the Ripser call itself.
+    That gap is partly closed by the fingerprint check below: the diagrams carry the SHA of the weights that
+    produced them, so a retrained model with stale diagrams fails rather than passing on old evidence.
+    Run the full battery (no flag) to rebuild both.
+    """
+    import numpy as _np
+    f = RESULTS / "116_dgms.npz"
+    if not f.exists():
+        print("PROBE: no saved diagrams -- run the full battery once to create results/116_dgms.npz")
+        return False
+    z = _np.load(f, allow_pickle=True)
+    recorded_fp = str(z["fingerprint"]) if "fingerprint" in z.files else None
+    live_fp = model_fingerprint()
+    if recorded_fp and live_fp and recorded_fp != live_fp:
+        print(f"PROBE STALE: diagrams were made from weights {recorded_fp}, model on disk is {live_fp}")
+        (RESULTS / "116_grid_probe.json").write_text(json.dumps(
+            {"H2_emergent_torus_controlled": False, "stale_artifacts": True,
+             "recorded_fingerprint": recorded_fp, "live_fingerprint": live_fp}, indent=1))
+        return False
+    def read(tag):
+        bett = []
+        for b in range(NB):
+            bett.append(S115.betti([z[f"{tag}{b}_{k}"] for k in range(3)]))
+            bett[-1][0] = 1
+        return int(sum(bb == [1, 2, 1] for bb in bett)), bett
+    n_torus, block_betti = read("t")
+    n_ctrl, _ = read("c")
     h2 = bool(n_torus >= 8 and n_ctrl <= 2)
     out = {"n_modules_torus": n_torus, "n_modules_torus_untrained_control": n_ctrl,
-           "block_betti": block_betti, "H2_emergent_torus_controlled": h2}
+           "block_betti": block_betti, "H2_emergent_torus_controlled": h2,
+           "mode": "probe-only (Betti reader on saved diagrams)", "stale_artifacts": False,
+           "fingerprint": live_fp,
+           "scope": ("asserts H2 in full from saved diagrams; does NOT rebuild ratemaps or point clouds and "
+                     "does NOT re-run Ripser. Fingerprint ties the diagrams to the weights that made them.")}
     (RESULTS / "116_grid_probe.json").write_text(json.dumps(out, indent=1))
-    print(f"PROBE (saved model): trained {n_torus}/{NB} vs untrained {n_ctrl}/{NB} read [1,2,1] -> H2={h2}")
+    print(f"PROBE (saved diagrams, fp {live_fp}): trained {n_torus}/{NB} vs untrained {n_ctrl}/{NB} "
+          f"read [1,2,1] -> H2={h2}")
     return h2
+
+
+def save_dgms():
+    """One-time: rebuild the 32 persistence diagrams FROM THE SAVED MODEL (no training) so --probe-only works.
+
+    Costs what the old probe cost (~12 min, ~5-6 GB) and is paid once instead of on every regression pass.
+    """
+    m = GridModel().to(DEV)
+    m.load_state_dict(torch.load(str(RESULTS / "116_grid_model.pt"), map_location=DEV))
+    coll = {}
+    n_t, bt = torus_counts(m.v.detach().cpu().numpy().reshape(G, G, NB, BS), collect=coll, tag="t")
+    torch.manual_seed(123); ctrl = GridModel().to(DEV); normalize_v(ctrl)
+    n_c, _ = torus_counts(ctrl.v.detach().cpu().numpy().reshape(G, G, NB, BS), collect=coll, tag="c")
+    np.savez_compressed(RESULTS / "116_dgms.npz", fingerprint=model_fingerprint(), **coll)
+    print(f"saved results/116_dgms.npz  (trained {n_t}/{NB}, control {n_c}/{NB}, fp {model_fingerprint()})")
 
 
 def main():
     if "--probe-only" in sys.argv:
         probe_only(); return
+    if "--save-dgms" in sys.argv:
+        save_dgms(); return
     steps = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
     m, peak_max = train(steps)
     with torch.no_grad():

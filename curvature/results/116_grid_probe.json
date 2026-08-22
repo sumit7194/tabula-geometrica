@@ -83,5 +83,9 @@
    1
   ]
  ],
- "H2_emergent_torus_controlled": true
+ "H2_emergent_torus_controlled": true,
+ "mode": "probe-only (Betti reader on saved diagrams)",
+ "stale_artifacts": false,
+ "fingerprint": "a28e786652ebf0f7",
+ "scope": "asserts H2 in full from saved diagrams; does NOT rebuild ratemaps or point clouds and does NOT re-run Ripser. Fingerprint ties the diagrams to the weights that made them."
 }
