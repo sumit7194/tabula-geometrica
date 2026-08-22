@@ -64,6 +64,21 @@ except Exception:
 d["measured"] = {"at": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "n_procs": len(procs),
                  "procs": procs[:5], "machine_free_plus_inactive_gb": free_gb,
                  "note": "DERIVED every tick from ps/vm_stat, excluding this keepalive. Jitters if real."}
+
+# FLAT MIRRORS of the derived fields, at top level, under the names the shared reader expects.
+# Nesting them under `measured` made them invisible from outside: a peer sizing a memory decision against
+# this file got None. Correct-but-unreadable is a real cost to someone else's scheduling, so the canonical
+# names are published flat as well. `measured` stays as the authoritative, self-describing block.
+d["job_pids"] = [q["pid"] for q in procs]
+d["rss_total_mb"] = round(sum((q.get("rss_mb") or 0) for q in procs), 1)
+d["mem_free_gb"] = free_gb
+
+# LIVENESS TOKEN. Our fields are derived and therefore cannot be produced without looking -- but a reader
+# cannot verify that from outside, and with no token the only evidence of life is a timestamp, which is
+# exactly what a bumping loop can forge. A published, ps-resolvable pid makes the correctness externally
+# checkable rather than something a peer has to take on trust.
+d["writer_pid"] = self_pid
+d["heartbeat_pid"] = self_pid          # both spellings: peers use different field names
 d["state"] = "running" if procs else "idle"      # DERIVED, not preserved from a declaration
 d["heavy"] = bool(any((q.get("rss_mb") or 0) > 1500 for q in procs))
 
