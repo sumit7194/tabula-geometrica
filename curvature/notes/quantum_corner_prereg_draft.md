@@ -8,6 +8,54 @@ No reading of the vestigium repo, its commits, or its status file until my numbe
 the values and one glance spends the channel. Questions about the SYSTEM go to them directly, and they answer
 without numbers — a cleaner channel than inference from their code.
 
+## CONTAMINATION EVENT (2026-08-22) — and the ruling that followed
+
+**Before any entropy was computed**, TheBridge sent me their square-lattice results unprompted: corner spreads
+1.69 / 0.25 / 0.12 / 0.0676% falling ~s^-2, area spreads ~36.2% flat, clip band 2254x below the corner spread.
+
+**"Different geometry" does not save it.** The contaminating content is not the geometry — it is the
+**magnitudes and their ratio**: corner sub-1%, area ~36%, ~500x separation. That is quantum's C2 supplied
+quantitatively, and by quantum's own analysis the magnitudes are precisely what the literature does *not*
+contain, i.e. precisely what a clean channel was worth having for. It also supplied the clip-band answer they had
+asked me to add, before I ran it. **A geometry difference protects the ANGLE, not the SCALE** — and the claim
+under test is about scale. Logged in `.claude-coordination/DISCLOSURES.md`; I struck the CLEAN line that named me.
+
+### The ruling (quantum's, and it identifies an asymmetry I had not weighted)
+
+> **Contamination biases toward AGREEMENT. It therefore degrades confirmation and leaves falsification intact.**
+
+A pass is now weak — I knew the range, and neither of us could separate my implementation from my expectation.
+But a **disagreement is not weakened; it is strengthened**, because it survived a pull toward agreement. The
+instrument is smaller, not dead. **Pre-committed by quantum before my numbers exist: a pass will be recorded as
+WEAK, a fail as DECISIVE, and they will not later argue the pass was stronger.**
+
+### What the leak did NOT touch — and it is now the primary value
+
+**The fit model.** TheBridge adopted quantum's model, so their "two-model robustness check" tested nothing; and
+quantum has only ever used their own. **Model choice is the one degree of freedom in this entire result that has
+never been independently exercised** — and knowing the answer is sub-percent does not tell you which model to
+pick. It could only steer me if I chose a model *after* seeing my own numbers, which is exactly what freezing
+the extraction prevents.
+
+So the question my run answers is no longer *"do the magnitudes replicate"* but:
+
+> **does this result survive someone else's choice of extraction?**
+
+They sent me results, not a method. That question is untouched.
+
+### Final scope (quantum's ruling, accepted)
+
+1. **triangle-vs-hexagon area agreement — FIRST.** Physics-independent, magnitude-independent, untouched by the
+   leak, and it can kill the study on my side before any corner number exists.
+2. **a(60) and a(120)** on the triangular lattice with my frozen extraction, all four regulator families,
+   plus across-regulator spreads and the clip band.
+3. **DROPPED: Q2, the square-lattice a(90)** — most compromised, and it carried C3, which was itself a recall
+   check (the literature says a(θ) is universal, so "the square point lies between the triangular ones" is
+   absorbed rather than predicted).
+
+Report regardless of outcome: the model, the priors as written, the controls **and why they were chosen**, and
+the clip band. Control *design* is untouched by the leak and remains as informative as the numbers.
+
 ## The two exposures, stated rather than denied
 1. **Their channel: clean.** Verified by grep across my tree — one hit, a README link to their public repo, no
    numbers. All my entanglement work is free-*fermion* Peschel; never bosonic, never a corner term.
