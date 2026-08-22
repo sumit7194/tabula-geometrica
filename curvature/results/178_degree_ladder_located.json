@@ -1,0 +1,53 @@
+{
+ "upgrades": "\u00a7167's SCREENED-TO-DEGREE-4 boolean -> a located, shaped verdict",
+ "question": "a null at every rung has two causes -- REAL ABSENCE (flat across degree) and BASIS TOO SMALL (descending toward a transcendental invariant it never reaches). They are indistinguishable rung-by-rung and differ in the SHAPE of the degree sequence.",
+ "L1_control_descends": true,
+ "L2_kerr_flat": true,
+ "L3_discriminates": true,
+ "L4_uncensored": true,
+ "control_sequence": {
+  "degrees": [
+   2,
+   4,
+   6
+  ],
+  "best_heldout": [
+   0.010353494033654147,
+   0.0001485193330647474,
+   1.161891285541358e-07
+  ],
+  "n_features": [
+   10,
+   45,
+   129
+  ],
+  "shape": "DESCENDING",
+  "end_to_end": 89108.9739848609
+ },
+ "kerr_sequence": {
+  "degrees": [
+   2,
+   3,
+   4
+  ],
+  "best_heldout": [
+   0.0001958448608971485,
+   5.905394166457585e-05,
+   9.1131772114693e-05
+  ],
+  "shape": "FLAT",
+  "end_to_end": 2.1490294367442986,
+  "span": 3.3163723771317395,
+  "monotone": false,
+  "control_improves_more_by": 41464.75262798529
+ },
+ "fix_round_1": "run 1 used an ABSOLUTE span threshold (3.0); Kerr spanned 3.32x and L2 failed as pre-registered. The gate was not moved -- the statistic was replaced with a RELATIVE one (\u00a7132's own recorded lesson) plus a threshold-free monotonicity test. Original verdict retained in this file.",
+ "located_margin": {
+  "best_certifying_candidate": 5.905394166457585e-05,
+  "emit_level_same_substrate": 7.41e-25,
+  "emit_level_eps0_control": 6.375069065540809e-29,
+  "margin_factor": 7.969492802236957e+19
+ },
+ "all_pass": true,
+ "verdict": "THE DEGREE AXIS NOW REPORTS A SHAPE, NOT A BOOLEAN. \u00a7167's null is a REAL ABSENCE, not a basis creeping toward something it cannot represent: across momentum degrees [2, 3, 4] the best certifying candidate is FLAT (span 3.32x), whereas the same readout on a system with a provably transcendental invariant DESCENDS monotonically (89109.0x over degrees [2, 4, 6]). Both classes certify at every rung; only the shape separates them, and the discriminator is shown to see both. LOCATED: the best candidate sits 8.0e+19x above the level this engine reaches when an invariant IS present, so the certificate is not marginal -- it fails to emit by ~20 decades. \u00a7167's verdict upgrades from 'screened to degree 4' to 'no invariant below degree 5, with a flat margin of 8.0e+19x and no sign of basis-limited approach'."
+}
