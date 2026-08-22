@@ -323,14 +323,14 @@ def get(d, dotted):
 # than one that quietly skips; each name here is printed as SKIP so an omission can never read as a pass.
 SKIP = {
     "Grid-cell torus (topology instrument)":
-        "SUPERSEDED BY A PROBE -- see the 'reader probe on saved diagrams' battery above, which runs in 2.3 s / "
-        "0.3 GB and is validated two-sample. This full battery stays out of the fast pass. "
-        "OBSERVED PEAK 6.75 GB resident (battery 13/62; a sister session independently saw 6.11 GB minutes "
-        "earlier). The footprint FLUCTUATES rather than climbs -- ripser allocates and frees per homology "
-        "dimension, and it read 2.77 GB at the moment it was killed -- so any single sample is a lower bound "
-        "on the peak and the sampling instant decides which. 115 has no --probe-only path (that is 116's). "
-        "Quarantined from the fast pass until it gets one. Run explicitly with --all. NOT a silent omission: "
-        "it prints as SKIP.",
+        "SUPERSEDED BY THE PROBE ABOVE ('reader probe on saved diagrams', 1.5 s), which asserts the same "
+        "topology from saved diagrams and is validated two-sample. THIS full battery rebuilds the point clouds "
+        "and re-runs Ripser, and stays out of the fast pass because that cost is IRREDUCIBLE, not merely large: "
+        "the torus Betti resolves only at n >= 600 (measured; n* in (400,600]) and below that the reader "
+        "returns b1=0 on a genuine torus, so a smaller run is a different test with a wrong answer. Observed "
+        "peak 6.75 GB, and a single sample is a LOWER bound -- the footprint fluctuates per homology dimension "
+        "(it read 2.77 GB at the instant it was killed) so the sampling moment decides which number you get. "
+        "Run explicitly with --all. NOT a silent omission: it prints as SKIP.",
 }
 
 
