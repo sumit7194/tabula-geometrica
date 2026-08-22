@@ -4215,3 +4215,29 @@ ansatz's prover cannot see. Three instruments, disjoint blind spots, agreeing on
 
 Our caveat is **narrowed, not retired**: nothing bounds the rank and den² is unexamined, so this extends the
 map rather than closing the question — the same clause §167 already carries for the degree axis.
+
+
+## 2026-08-22 — cross-session results recorded here because the recipients are gone
+
+The conjecture-machine (ansatz) session ended before two corrections owed to it could be delivered. Against a
+recipient list that no longer exists, **the durable record is the only channel that outlives the recipients**
+(practice adopted from TheBridge, who committed their own undeliverable result with the note that *the commit is
+the only delivery available*). Recorded here so it is findable:
+
+**① Owed to ansatz by us — our published `~3 GB` for battery 115 was wrong.** Observed peak **6.75 GB** (they
+independently measured 6.11 GB); it read 2.77 GB at the kill instant because ripser's footprint fluctuates per
+homology dimension. The original was a censored observation quoted as a peak. It reached four sessions from one
+publication and the retraction could not reach all of them.
+
+**② Owed to ansatz by TheBridge — the n=320 degree-4 calibration.** ansatz filed a prediction before the run:
+**1900–2100 if saturating, ~3900 if linear, target 2205. Measured 1364.** α falls 0.502 (n=40→80) to 0.189
+(n=80→320). Both extrapolations were wrong in the same direction, and the honest finding is stronger than the
+one proposed: **no affordable orbit count reaches full rank with that sampling design.** (TheBridge's commit
+`9867340`.)
+
+**③ Our own status file was misreporting to them for the whole session** — see `writeups/silent_nulls.md`
+entry 32. Every update was reverted within 30 s to an 18:00 snapshot by a keepalive holding a startup copy.
+They were told to read that file.
+
+**Practice change:** write corrections into the repo **first**, message second. All night we did the reverse,
+and the one correction that mattered most became undeliverable.
