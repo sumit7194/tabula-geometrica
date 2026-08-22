@@ -1,0 +1,58 @@
+{
+ "Phase A (interval)": [
+  {
+   "t": 1787383472,
+   "secs": 1.6,
+   "peak_gb": 0.381
+  }
+ ],
+ "v0.1 (light cone)": [
+  {
+   "t": 1787383473,
+   "secs": 1.6,
+   "peak_gb": 0.439
+  }
+ ],
+ "Phase B (well)": [
+  {
+   "t": 1787383475,
+   "secs": 1.5,
+   "peak_gb": 0.329
+  }
+ ],
+ "Phase C (economy)": [
+  {
+   "t": 1787383478,
+   "secs": 3.1,
+   "peak_gb": 0.243
+  }
+ ],
+ "3+1 replication": [
+  {
+   "t": 1787383480,
+   "secs": 1.6,
+   "peak_gb": 0.38
+  }
+ ],
+ "Phase E + curvature": [
+  {
+   "t": 1787383481,
+   "secs": 1.0,
+   "peak_gb": 0.23
+  }
+ ],
+ "Phase J5 (curvature from entanglement)": [
+  {
+   "t": 1787383482,
+   "secs": 1.8,
+   "peak_gb": 0.308
+  }
+ ],
+ "Certificate V (no observer-independent time)": [
+  {
+   "t": 1787383483,
+   "secs": 1.0,
+   "peak_gb": 0.225
+  }
+ ]
+}
