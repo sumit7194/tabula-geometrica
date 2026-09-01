@@ -12,6 +12,46 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 ---
 
 
+## 2026-09-01 — the corner study closes: an honest null on the headline, two solid results beside it
+
+Resumed after a gap, user-authorised, with autonomy. **Framed throughout as tabula's own instrument check, not
+an independent replication** — that claim died with the contamination and finishing the work cannot revive it.
+
+**Re-powered the failed G1b (Amendment 4) and found, before freezing, that the obvious repair would not work.**
+Widening the R range does not break the `corr(log R, 1/R) = -0.99` collinearity — ratio 10 still leaves -0.955.
+So the *statistic* changed instead: a nested F-test asking whether the log column is NEEDED, never estimating β.
+The power analysis put a number on the original failure that the post-mortem could not: **the first G1b had 12%
+power and a 9% false-positive rate. It was measuring noise.**
+
+**The replacement then failed too, for the mirror reason, and its verdict is VACUOUS rather than a conviction.**
+The 1/R column required to stop log R proxying turns out to *absorb the genuine corner logarithm* (p goes
+2.9e-07 → 0.40). Omit the nuisance: false positives. Include it: no sensitivity. **No third option on any range
+compatible with L ≪ ξ, so the difference-based zero-test is not constructible here.** Two designs, two failures,
+opposite causes — a third was not attempted.
+
+**Remaining gates:** G1 PASS (area agreement 0.05–0.07%), G2 measured (a(60) ≈ 0.0204, a(120) ≈ 0.00287,
+spreads 0.73%/1.12%, full pairwise matrix per Amendment 3), **G3 PASS decisively** (area spread 33.05% vs corner
+1.12%, a 30× separation), **G4 FAIL** (clip band 1.235% > corner spread 1.116%).
+
+**The headline is not claimable and two independent things say so.** G4 fired exactly as pre-registered — the
+spread IS the floor. And the additive mutation test *demonstrated* the anti-guard Amendment 3 predicted:
+**adding a common spurious log to every regulator shrank the corner spread from 1.116% to 0.516%** — the claim
+got easier on corrupted data. A statistic that improves under damage cannot support its claim whatever value it
+takes. (The multiplicative control was exactly invariant, confirming why the obvious corruption test shows
+nothing.)
+
+**What stands:** G3, the strongest gate here and the only one the mutation caught at every amplitude — the area
+coefficient is decisively non-universal while the corners cluster. G1. And **c₄ = 1/16 derived** from the
+quartic lattice error being isotropic on a triangular lattice, independent of everything the corner gates
+touched.
+
+**silent_nulls → 42.** New: *a power analysis is only as good as its assumed nuisance amplitude* (simulated
+−0.08, data wanted +0.12..+0.40, which is why it promised 95.8% power and delivered none — the amplitude was
+measurable from a pilot fit and was assumed instead); and *an implementation can be COARSER than its
+pre-registration, not only stricter* (the code printed "extraction implicated, STUDY DEAD" on a run the frozen
+text says was uninterpretable).
+
+
 ## 2026-08-22 — a four-session night: two results, twelve catalogue entries, and every claim narrowed
 
 **The work.** §176 (4/4): the C5 audit had exempted seven certificates in one pass on a distinction invented on

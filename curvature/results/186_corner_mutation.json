@@ -1,0 +1,62 @@
+{
+ "why_additive": "a common multiplicative rescale leaves every ratio exactly invariant, so the obvious corruption test shows nothing and the conclusion is 'clean'",
+ "rows": {
+  "baseline": {
+   "G1_worst_rel": 0.0007335168679449079,
+   "G1_pass": true,
+   "spread_a60": 0.007299678729847461,
+   "spread_a120": 0.011160397583214524,
+   "area_spread": 0.330464417969931,
+   "G3_pass": true
+  },
+  "multiplicative_x1.5": {
+   "G1_worst_rel": 0.0007335168679452651,
+   "G1_pass": true,
+   "spread_a60": 0.007299678729696318,
+   "spread_a120": 0.011160397583133854,
+   "area_spread": 0.3304644179699309,
+   "G3_pass": true
+  },
+  "additive_0.0001": {
+   "G1_worst_rel": 0.0007335168679449079,
+   "G1_pass": true,
+   "spread_a60": 0.007299678729847461,
+   "spread_a120": 0.011172384160606135,
+   "area_spread": 0.33046561346157954,
+   "G3_pass": true
+  },
+  "additive_0.001": {
+   "G1_worst_rel": 0.0007335168679449079,
+   "G1_pass": true,
+   "spread_a60": 0.007299678729847461,
+   "spread_a120": 0.04460759633100521,
+   "area_spread": 0.33047637327566265,
+   "G3_pass": false
+  },
+  "additive_0.01": {
+   "G1_worst_rel": 0.0008101026749548971,
+   "G1_pass": true,
+   "spread_a60": 0.007299678729847461,
+   "spread_a120": 0.4820860264260475,
+   "area_spread": 0.3305840099658728,
+   "G3_pass": false
+  },
+  "additive_0.1": {
+   "G1_worst_rel": 0.012374487115101569,
+   "G1_pass": true,
+   "spread_a60": 0.007299678729847461,
+   "spread_a120": 58.90477958110582,
+   "area_spread": 0.33166424578799214,
+   "G3_pass": false
+  },
+  "antiguard_inflate_all": {
+   "G1_worst_rel": 0.0007335168679447295,
+   "G1_pass": true,
+   "spread_a60": 0.007299678729847461,
+   "spread_a120": 0.005157654320569002,
+   "area_spread": 0.3304644179699321,
+   "G3_pass": true
+  }
+ },
+ "antiguard_confirmed": true
+}
