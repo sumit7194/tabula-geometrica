@@ -282,3 +282,72 @@ report which gates caught it.
 
 > **A gate that gets easier as the data gets worse is not a weak gate. It is a gate pointing the wrong way**,
 > and it will be greenest exactly when it matters most.
+
+---
+
+# AMENDMENT 4 — 2026-08-23. A NEW gate (G1b-v2), not a retry of the failed one.
+### Designed and power-analysed BEFORE running. User-authorised after quantum's session ended.
+
+**STANDING CHANGE OF CLAIM, stated first.** quantum's session is gone and never ruled. This continues as
+**tabula's own instrument check**, NOT an independent replication — that claim died with the contamination and
+cannot be revived by finishing the work. Any result below is "does *my* extraction survive *my* gates".
+
+## A4.1 Why the obvious repair does not work, found before freezing it
+
+The post-mortem blamed `corr(log R, 1/R) = -0.9899` over R = 6..16 and I was about to widen the range. Measured
+first:
+
+    range ratio   2.7    5.0    6.0    8.0   10.0
+    corr        -0.990 -0.973 -0.967 -0.958 -0.955
+
+**Widening does not fix it.** log R and 1/R are intrinsically similar over any bounded positive range; ratio 10
+still leaves 95% collinearity. **A gate that needs β estimated cannot be rescued by more range.**
+
+## A4.2 The fix is a different STATISTIC: never estimate β, ask whether the log column is NEEDED
+
+    model A:  [dP, 1, 1/R]              subleading structure, NO log
+    model B:  [dP, 1, 1/R, log R]       adds the log
+    statistic: nested F-test, p-value
+
+This never requires β to be identified. **1/R must be in BOTH models** — omit it and log R proxies for it and
+the test fires with no corner content present (that is the trap quantum's diagnostic exposed).
+
+## A4.3 MEASURED POWER, pre-registered — the thing G1b never had
+
+Monte Carlo, realistic 1/R structure, noise 3e-5, α = 0.01, effect = β at 10% of the single-shape logarithm:
+
+    range              n    false-positive    power
+    6..16 step2 (G1b)  6         9%            12%      <- THE ORIGINAL GATE
+    5..24 geom        12         1.5%          72.8%
+    6..30 geom        12         2.0%          74.0%
+    3..24 geom        11         2.8%          99.8%    (rejected: R=3 is 37 sites, artifact regime)
+    5..30 geom        12         0.0%          95.8%    <- ADOPTED
+
+> **The original G1b had 12% power and a 9% false-positive rate.** It could not have detected a real violation,
+> and its FP rate is the same order as the 15-23% residual it reported. **It was measuring noise.** That is a
+> stronger and more useful statement than "under-powered", and it is the number the first design never produced.
+
+## A4.4 FROZEN DESIGN
+
+- **R = [5, 6, 7, 8, 10, 11, 13, 16, 18, 22, 25, 30]** (12 points, geometric)
+- **Elongation SCALES with R: δ = round(R/2)**, giving H(R,R,R+δ) and H(R,R,R−δ), both admissible under the
+  triangle inequality at every R (checked). **dP now varies 8..60 instead of being constant at 8**, so the
+  design matrix is no longer rank-deficient: **cond 6.0e16 → 449.7**.
+- **Two-sided**, as before.
+- **Known-fail: p < 0.01 on either side ⇒ log structure exists beyond the subleading term ⇒ the extraction is
+  implicated ⇒ THE STUDY IS DEAD AND NO CORNER NUMBERS ARE SENT.**
+- **Absolute floor (Amendment 3):** the same F-test on the SINGLE shape must fire decisively, or the test cannot
+  distinguish a working extraction from one that never needs a log column.
+
+## A4.5 A DECLARED DEVIATION, not a quiet one
+
+R = 30 gives **L/ξ = 0.30**, which is not "≪ correlation length" as the frozen file words it. Power required
+either small R (lattice-artifact regime, 37 sites) or large R; I took large. **Declared, with a control:** the
+whole gate is re-run at **m = 0.005** (ξ = 200, so L/ξ = 0.15) and the verdict must not change. If it does, the
+deviation is doing the work and the result is withdrawn.
+
+## A4.6 Numerical note (not a model change)
+
+ν² are the eigenvalues of `X_A P_A`; since X_A is SPD this is similar to the symmetric PSD matrix
+`X_A^{1/2} P_A X_A^{1/2}`, so `eigvalsh` replaces `eigvals` — faster and real-by-construction rather than
+real-by-discarding-an-imaginary-part. Same spectrum, better conditioning. Verified equal on the old sizes.
