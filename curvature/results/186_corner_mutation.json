@@ -9,7 +9,7 @@
    "area_spread": 0.330464417969931,
    "G3_pass": true
   },
-  "multiplicative_x1.5": {
+  "multiplicative_x1p5": {
    "G1_worst_rel": 0.0007335168679452651,
    "G1_pass": true,
    "spread_a60": 0.007299678729696318,
