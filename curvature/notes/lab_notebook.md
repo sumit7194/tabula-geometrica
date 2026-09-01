@@ -4430,3 +4430,40 @@ less than I claimed.
 **Recorded as: the gate was defective, the extraction is unconvicted, and the study stays dead** unless quantum
 rules that a re-powered G1b (elongation scaling with R so dP is not constant, or a range where log R and 1/R
 separate) is a legitimate new gate rather than a retry of a failed one.
+
+
+## 2026-09-01 — G1b-v2 is VACUOUS, not a conviction. The zero-test family looks unconstructible.
+
+    m=0.01 (primary)   FLOOR p = 0.397  -> FAILED: no log needed on a shape that HAS six 120-deg corners
+                       zero  p = 0.0000, 0.0032
+    m=0.005 (control)  FLOOR p = 2.6e-05 -> fired
+                       zero  p = 0.0000, 0.0103
+
+**The floor failing means the test is VACUOUS at m=0.01** — per the frozen text, it "cannot distinguish a
+working extraction from one that never needs a log column". **No claim is made about the extraction.**
+
+**DIAGNOSIS: the 1/R column absorbs the corner logarithm.**
+
+    without 1/R:  p = 2.9e-07   beta = -0.0172   (decisive, and close to the original G1b's -0.0225)
+    with 1/R:     p = 0.40      beta = +0.0035   (undetectable, sign flipped)
+    corr(log R, 1/R) = -0.9711 over R=5..30;  data wants c_1/R = +0.12..+0.40
+
+Amendment 4 required 1/R in **both** models so that log R could not proxy for it — quantum's trap. That
+requirement destroys the ability to see a real log. **The two failure modes are mirrors:** omit the nuisance and
+you get false positives; include it and you get no sensitivity. There is no third option on this range, so **the
+difference-based zero-test is not constructible here.** That is a statement about the design space, not about
+the extraction.
+
+**The 95.8% power figure was wrong and I can say exactly why:** the simulation assumed a nuisance coefficient of
+−0.08; the data wants +0.12..+0.40. Three to five times larger, opposite sign. **The amplitude was measurable
+from a pilot fit before the simulation was written and I assumed it instead.** (silent_nulls 41.)
+
+**AND THE VERDICT LOGIC WAS COARSER THAN THE PRE-REGISTRATION.** Run 1 computed `pass = floor_ok and zero_ok`
+and printed *"extraction implicated, STUDY DEAD"* on a run whose floor had failed — a conviction from an
+uninterpretable test. The frozen text names three outcomes; the code implemented two. Fixed to a three-way
+verdict; recorded as silent_nulls 42, the mirror of 37.
+
+**STATUS: two gate designs, two failures, and they fail for opposite reasons.** I am not designing a third. The
+honest position is that the corner study does not close on my side, and the reason is now precisely located:
+over any R range compatible with `L << xi`, the corner logarithm and the leading subleading correction are
+~97% collinear, and no member of this test family separates them.
