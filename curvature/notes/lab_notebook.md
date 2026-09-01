@@ -4467,3 +4467,62 @@ verdict; recorded as silent_nulls 42, the mirror of 37.
 honest position is that the corner study does not close on my side, and the reason is now precisely located:
 over any R range compatible with `L << xi`, the corner logarithm and the leading subleading correction are
 ~97% collinear, and no member of this test family separates them.
+
+
+## 2026-09-01 — THE CORNER STUDY CLOSES. Honest null on the headline; two solid results beside it.
+
+**CLAIM SCOPE: tabula's own instrument check. NOT an independent replication** — that died with the
+contamination and finishing the work cannot revive it.
+
+    G0   PASS       four regulators converge at their expected orders; c4 = 1/16 DERIVED
+    G1b  VACUOUS    unconstructible on any range compatible with L << xi (see below)
+    G1   PASS       tri-vs-hex area agreement 0.05-0.07% across all four regulators
+    G2   measured   a(60) = 0.02039..0.02051   a(120) = 0.00284..0.00287
+                    max-min spreads 0.73% and 1.12%; full pairwise matrix reported
+    G3   PASS       area spread 33.05% vs corner 1.12% -- a 30x separation
+    G4   FAIL       clip band on a(120) = 1.235% EXCEEDS the corner spread of 1.116%
+
+### The headline is NOT claimable, and two independent reasons say so
+
+**G4, exactly as pre-registered.** *"If the clip band is comparable to the corner spread, then the spread IS the
+floor, the universality question is unanswered, and I report that instead of a number."* It is 1.235% against
+1.116%. **So corner universality at the 1% level is not supportable from this run.**
+
+Decomposition, reported because the shape matters: the band is **entirely** the loosest clip. 1e-14, 1e-12 and
+1e-10 agree to six significant figures (band 0.0155%, 72x below the corner spread); 1e-8 alone produces the
+failure. **Restricting the sweep to the tight clips would pass the gate — and would be moving it after seeing
+the result, so the failure stands as frozen.**
+
+**The mutation test, which is worse for the claim than G4.** Amendment 3 predicted the corner spread was an
+ANTI-GUARD; it is now demonstrated rather than argued:
+
+    multiplicative x1.5:   every gate EXACTLY invariant   (quantum's warning: the obvious test shows nothing)
+    additive 1e-4:         caught by NOTHING
+    additive 1e-3..1e-1:   caught by G3 only
+    common spurious log added to all four regulators:  corner spread 1.116% -> 0.516%
+
+> **Corrupting the data made the universality headline EASIER to claim.** A statistic that improves under damage
+> cannot support the claim it was built for, independently of what value it happens to take.
+
+### What IS defensible
+
+- **G3, and it is the strongest thing here** — the area coefficient is decisively NOT universal (33.05%) while
+  the corner coefficients cluster (1.12%), a 30x separation. This is quantum's free positive control, whose
+  only pass is a *failure* of the thing one would naively want, so a flattering extraction cannot fake it. It is
+  also the only gate the additive mutation caught at every amplitude above 1e-4.
+- **G1** — area agreement between two different shapes at 0.05-0.07%, four regulators.
+- **G0 / c4 = 1/16**, derived rather than fitted, from the quartic lattice error being ISOTROPIC on the
+  triangular lattice (1.125|k|^4, spread 9e-16). Independent of everything the corner gates touched.
+
+### Why G1b was unconstructible, recorded as a property of the design space
+
+Over any R range compatible with `L << xi`, `corr(log R, 1/R)` never falls below about -0.95. Omit the
+subleading column and log R proxies for it (false positives); include it and it absorbs the genuine corner log
+(no sensitivity — measured: p goes from 2.9e-07 to 0.40). **The two failure modes are mirrors and there is no
+third option.** Two designs, two failures, opposite causes; a third was not attempted.
+
+### Standing limitation on every number above
+
+**The extraction carries ONE validation gate (G1), not two.** G1b was meant to be the sharper check and returned
+no information. G1's own weakness is known and was stated before running: it compares alphas across shapes with
+different corner counts, so a systematic could shift both together.
