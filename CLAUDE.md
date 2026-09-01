@@ -1096,6 +1096,24 @@ results in `curvature/notes/lab_notebook.md`.
   3.32×, L2 FAILED as pre-registered; the gate was not relaxed — the *statistic* was replaced (§132's own
   lesson: absolute thresholds mislabel) plus a **threshold-free monotonicity test** (a basis approximating a
   transcendental invariant cannot get worse with degree; Kerr goes down then up). In verify.sh.
+- **CORNER STUDY (quantum/vestigium, scripts 180-186, 2026-09-01) — CLOSED with an honest null on the headline.**
+  Framed throughout as **tabula's OWN instrument check, NOT an independent replication** (that claim died when
+  TheBridge leaked square-lattice magnitudes before I computed; logged in DISCLOSURES.md). Frozen pre-reg
+  `e283d21` + 4 amendments. **G0 ✓** four regulators converge; **c₄ = 1/16 DERIVED** because the quartic lattice
+  error is ISOTROPIC on a triangular lattice (1.125|k|⁴, spread 9e-16) — on a square lattice it is θx⁴+θy⁴ and
+  no coefficient in the frozen m²+K+cK² family could cancel it. **G1 ✓** tri-vs-hex area agreement 0.05–0.07%.
+  **G2** a(60)≈0.0204, a(120)≈0.00287, spreads 0.73%/1.12% + full pairwise matrix. **G3 ✓ decisively** — area
+  spread 33.05% vs corner 1.12%, a 30× separation (quantum's control, whose only pass is a *failure*, and the
+  only gate the additive mutation caught at every amplitude). **G4 ✗** clip band 1.235% > corner spread 1.116%,
+  so **per the frozen text the spread IS the floor and corner universality is NOT claimable.** **G1b VACUOUS
+  (twice)** — the difference-based zero-test is UNCONSTRUCTIBLE: over any range with L≪ξ, corr(log R, 1/R) never
+  beats −0.95, so omitting the subleading column gives false positives and including it absorbs the genuine log
+  (p: 2.9e-07 → 0.40). Two designs, opposite failures, no third attempted. **ADDITIVE mutation DEMONSTRATED the
+  anti-guard**: a common spurious log shrinks the corner spread 1.116%→0.516% — the headline gets *easier* on
+  corrupted data; the multiplicative control is exactly invariant, which is why the obvious corruption test
+  shows nothing. 180 + 186 in verify.sh. **silent_nulls → 42** (41: a power analysis is only as good as its
+  assumed nuisance amplitude — simulated −0.08, data wanted +0.12..+0.40, promised 95.8% power and delivered
+  none; 42: an implementation can be COARSER than its pre-registration, not only stricter).
 - Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
   Phase H rows (equivalence-breaking gravity); a G-sym legibility-preserving
   variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit

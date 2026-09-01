@@ -62,9 +62,9 @@ def main():
 
     # --- CONTROL: multiplicative rescale. Every ratio MUST be invariant -- if a gate moves, it is not a ratio. ---
     mult = {k: (S * 1.5, P) for k, (S, P) in base.items()}
-    rows["multiplicative_x1.5"] = gates_from(mult)
+    rows["multiplicative_x1p5"] = gates_from(mult)
     print(f"\nMULTIPLICATIVE x1.5 (the test that shows nothing, by construction):")
-    m = rows["multiplicative_x1.5"]
+    m = rows["multiplicative_x1p5"]
     print(f"  G1 {m['G1_worst_rel']:.4%} | a120 spread {m['spread_a120']:.3%} | area {m['area_spread']:.2%}"
           f"   -> {'INVARIANT, as predicted' if abs(m['spread_a120']-g0['spread_a120'])<1e-9 else 'moved'}")
 

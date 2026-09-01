@@ -261,6 +261,27 @@ BATTERIES = [
       "P2_known_fail_at_d2": (">", 0.5), "P4_minimal_contrast_control": (">", 0.5),
       "c5_satisfied": (">", 0.5), "stress_curve.6": ("<", 0.12), "stress_curve.2": (">", 0.5)}),
 
+    # 180 / G0: the four regulators of the corner study converge at their expected orders and differ at the
+    # lattice scale. Gates c4 = 1/16, which is DERIVED from the quartic lattice error being isotropic on the
+    # triangular lattice (1.125|k|^4, spread 9e-16) -- a structural fact independent of every corner gate, and
+    # the reason the frozen m^2+K+cK^2 form can cancel that error here and provably could not on a square
+    # lattice. 1 s.
+    ("Corner study G0: regulators converge, c4 derived (script 180)",
+     ["scripts/180_corner_G0_regulators.py"], "180_corner_G0.json",
+     {"all_pass": (">", 0.5), "G0_all_converge": (">", 0.5), "edge_spread": (">", 0.5),
+      "quartic_error_isotropic.spread": ("<", 1e-12), "c4_derived": ("<", 0.0626)}),
+
+    # 186: the ADDITIVE mutation test. Asserts the two facts that survive regardless of the corner numbers:
+    # (a) a multiplicative rescale leaves every ratio EXACTLY invariant -- so the obvious corruption test shows
+    # nothing, which is why the mutation must be additive; and (b) the ANTI-GUARD is real -- adding a common
+    # spurious log to all four regulators SHRINKS the corner spread, i.e. the universality headline gets easier
+    # on corrupted data. Both are properties of the statistics, not of any measured value. 16 s.
+    ("Corner study: additive mutation + anti-guard demonstrated (script 186)",
+     ["scripts/186_corner_mutation.py"], "186_corner_mutation.json",
+     {"antiguard_confirmed": (">", 0.5),
+      "rows.multiplicative_x1p5.spread_a120": ("<", 0.0112),
+      "rows.antiguard_inflate_all.spread_a120": ("<", 0.0112)}),
+
     # 178: the degree axis, located. Reads 167's recorded rungs, so it must run AFTER 167. The load-bearing
     # gate is L1: a control with a provably transcendental invariant MUST produce a descending sequence, or the
     # readout cannot see descent and the Kerr sequence's flatness is blindness rather than a finding.
