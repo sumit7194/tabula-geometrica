@@ -82,8 +82,14 @@ def entropy(sites, X, P, clip=1e-12):
     d2 = sites[:, 1][:, None] - sites[:, 1][None, :]
     XA = X[d1 % N, d2 % N]
     PA = P[d1 % N, d2 % N]
-    ev = np.linalg.eigvals(XA @ PA)
-    nu = np.sqrt(np.maximum(np.real(ev), 0.25))
+    # nu^2 are the eigenvalues of X_A P_A. X_A is SPD, so that is SIMILAR to the symmetric PSD matrix
+    # X^{1/2} P X^{1/2} -- same spectrum, but eigvalsh is faster and returns reals by construction instead of
+    # by discarding an imaginary part. Amendment 4.6: a numerical change, not a model change.
+    w, V = np.linalg.eigh((XA + XA.T) / 2)
+    Xh = V @ np.diag(np.sqrt(np.maximum(w, 0))) @ V.T
+    M = Xh @ ((PA + PA.T) / 2) @ Xh
+    ev = np.linalg.eigvalsh((M + M.T) / 2)
+    nu = np.sqrt(np.maximum(ev, 0.25))
     a = nu + 0.5
     b = np.maximum(nu - 0.5, clip)
     return float(np.sum(a * np.log(a) - b * np.log(b))), nu

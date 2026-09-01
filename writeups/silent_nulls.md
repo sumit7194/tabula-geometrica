@@ -1219,6 +1219,56 @@ because it is the one case where the damage is bounded.
 the quantities under embargo, *after* composing and *before* sending. Both instances today would have been
 caught by a check that reads the message rather than trusting the sentence that says what the message contains.
 
+### 41. A power analysis is only as good as its assumed nuisance amplitude
+
+A gate had failed with 12% measured power. The replacement was designed carefully: a statistic immune to the
+collinearity that broke the first one, and — for the first time — a **Monte Carlo power analysis run before
+freezing**, reporting **95.8% power at a 0% false-positive rate**.
+
+It delivered **none**. On the very shape where the effect certainly exists, the test returned **p = 0.40**.
+
+The simulation injected the effect into synthetic data carrying a nuisance term with coefficient **−0.08**. The
+real data wants **+0.12 to +0.40** — three to five times larger, and of the opposite sign. With the nuisance
+that big and 97% collinear with the signal, the effect is unrecoverable.
+
+> **A power analysis validates the test against the world you simulated.** Its headline number is a claim about
+> that world, and it is silently conditional on every nuisance amplitude you guessed. Guessing one 4× too small
+> converts "95.8% power" into a number with no bearing on the experiment.
+
+**The repair is cheap and was skipped:** the nuisance amplitude was *measurable from a pilot fit on real data*
+before the simulation was written. Nothing required it to be assumed. **Fit the nuisance first, simulate at the
+fitted amplitude.**
+
+**AND THE TWO FAILURE MODES WERE MIRRORS, which is the deeper finding.** The nuisance column had to be included
+— omit it and the signal column proxies for it, firing when nothing is there. Include it and it absorbs the
+genuine signal, firing never. There was no third option on this range:
+
+    without the nuisance column:  false positives   (signal proxies for nuisance)
+    with the nuisance column:     no sensitivity    (nuisance absorbs signal)
+
+> **When a nuisance is nearly collinear with the effect, "control for it" and "don't control for it" are both
+> wrong, and no amount of care chooses correctly between them.** The honest conclusion is that the test is not
+> constructible on that range — which is a statement about the design space, not about the hypothesis.
+
+### 42. An implementation can be COARSER than its pre-registration, not only stricter
+
+Entry 37 recorded code that added a criterion the frozen file did not have. This is the mirror: **code that
+dropped one it did.**
+
+The pre-registration named a three-way outcome — pass, *implicated*, and **vacuous** (the floor fails, so the
+test cannot distinguish a working instrument from a blind one). The implementation computed
+`pass = floor_ok and zero_ok` and reported everything else as failure. So a run whose floor had failed printed
+**"the extraction is implicated, STUDY DEAD"** — a conviction, from a test the frozen text says was
+uninterpretable.
+
+> **A freeze is only as good as the distinctions the code preserves.** Stricter-than-spec fires visibly and gets
+> caught; **coarser-than-spec produces a confident verdict in the wrong category and looks exactly like a
+> result.**
+
+Both directions have the same repair and it is the one entry 37 already named: diff the gate text against the
+gate code mechanically, before the first run — not because the author is careless, but because the two artifacts
+are written hours apart in different languages and nothing checks that they still agree.
+
 ## The closing rule: distrust the fix, not only the result
 
 Every entry above is about distrusting a **result** — a number, a verdict, a null, a green pass. This last one
