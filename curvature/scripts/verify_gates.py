@@ -434,7 +434,12 @@ def main() -> int:
             if peak >= 0.5:
                 cost += f"  obs.peak {peak:.2f} GB"          # sampled: attributed, lower bound
             if hw1 > hw0 + 1e-9:
-                cost += f"  exact.max {hw1:.2f} GB"          # kernel-tracked: exact, this battery raised it
+                # NOT "exact": ru_maxrss reports what stayed RESIDENT, not what was DEMANDED, so under memory
+                # pressure it UNDER-reports -- and it under-reports precisely when the box is stressed and the
+                # figure is being used to decide whether to launch. Both measures are therefore lower bounds,
+                # differing in what they are lower bounds on. (TheBridge, 2026-09-02.) Relabelled rather than
+                # left with a word doing work it cannot support -- silent_nulls 24, in our own tooling again.
+                cost += f"  kern.max>={hw1:.2f} GB"
             cost += record_cost(name, dt, max(peak, hw1 if hw1 > hw0 else 0.0))
             if bad:
                 failures += 1
