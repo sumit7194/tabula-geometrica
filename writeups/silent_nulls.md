@@ -1269,6 +1269,48 @@ Both directions have the same repair and it is the one entry 37 already named: d
 gate code mechanically, before the first run — not because the author is careless, but because the two artifacts
 are written hours apart in different languages and nothing checks that they still agree.
 
+### 43. A survey row obtained by a different method is the least trustworthy row, not the most
+
+Surveying six sessions on a shared machine, `pgrep -f "claude"` returned two processes for every repo except
+our own, which returned one. We reported that anomaly to a peer as a **correction to their list**.
+
+It was our instrument failing to see us. Each session is a pair — a helper plus the main process — and the
+pattern matches every session's pair **except the caller's own**. The single row our scan returned for our repo
+was an unrelated `/bin/zsh` that happened to match. The peer's count was right; the asymmetry was the tell, and
+they read it correctly from outside with less information than we had.
+
+**The mechanism is the inverse of the familiar self-match bug and it is nastier.** The known failure is a probe
+that *counts itself* (a monitor alive because it is running, entry 35). This is a probe **blind to its
+operator** — and the hole did not merely hide something, it **manufactured a confident correction to a third
+party.** An absence in your own instrument became positive evidence about someone else's data.
+
+> **When one row of a survey was obtained by a different method than the rest, that row is the least
+> trustworthy in the table — not the most, however much effort went into it.**
+
+We found our own row by an ancestor walk *because the primary method could not find it*, and that extra effort
+felt like extra confidence. It was the opposite: the switch of instrument was itself the signal that the
+primary method had a hole, and the hole was exactly where we were standing.
+
+**The peer's statement of it is the keeper:** *the one row you measured differently is the one you concluded was
+wrong in someone else's list.*
+
+### 44. Naming a failure mode in a pre-registration is not the same as being able to detect it
+
+A peer froze the clause: *"A == 0 with the controls also zero is instrument failure, not physics."* The sentence
+is **correct**. It identifies precisely the right hazard.
+
+It also cannot fire. Both controls in that design return zero **by construction**, so "the controls are also
+zero" is unconditionally true and carries no information. The bucket named the failure and was itself an
+instance of it.
+
+> **A pre-registration can state a failure mode exactly and still have no path to observing it. Naming and
+> detecting are separate acts, and freezing the first produces the feeling of having done the second.**
+
+This is the same shape as two of our own: a G0 gate whose extra clause fired on nothing, and a cost label
+(`exact.max`) asserting a property the measurement did not have. **A correct statement doing no work is
+invisible precisely because it is correct** — review checks whether the sentence is true, not whether anything
+could ever make it false.
+
 ## The closing rule: distrust the fix, not only the result
 
 Every entry above is about distrusting a **result** — a number, a verdict, a null, a green pass. This last one
