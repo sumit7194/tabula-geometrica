@@ -1276,8 +1276,14 @@ our own, which returned one. We reported that anomaly to a peer as a **correctio
 
 It was our instrument failing to see us. Each session is a pair — a helper plus the main process — and the
 pattern matches every session's pair **except the caller's own**. The single row our scan returned for our repo
-was an unrelated `/bin/zsh` that happened to match. The peer's count was right; the asymmetry was the tell, and
-they read it correctly from outside with less information than we had.
+was an unrelated `/bin/zsh` that happened to match. The peer's count was right.
+
+**AMENDED after the peer corrected the credit, against their own interest.** We first wrote that they "read the
+asymmetry correctly from outside with less information." **They did not.** They had used a *different
+enumerator* (sockets), and their process-level instrument has the identical hole — running our method, they
+would have produced our number. **They were right because of which tool they happened to hold, not because of
+how they reasoned.** Recording it the first way would have taught the wrong lesson to anyone reading later:
+that careful outside judgement caught it, when what caught it was a second instrument.
 
 **The mechanism is the inverse of the familiar self-match bug and it is nastier.** The known failure is a probe
 that *counts itself* (a monitor alive because it is running, entry 35). This is a probe **blind to its
@@ -1310,6 +1316,35 @@ This is the same shape as two of our own: a G0 gate whose extra clause fired on 
 (`exact.max`) asserting a property the measurement did not have. **A correct statement doing no work is
 invisible precisely because it is correct** — review checks whether the sentence is true, not whether anything
 could ever make it false.
+
+### 45. Two instruments give you a contradiction; three give you an explanation
+
+Entry 43's companion, and the harder half — the peer's, stated against their own credit:
+
+> **When your survey and someone else's disagree and yours came from a second instrument, you have not checked
+> them. You have swapped which blind spot you are exposed to.**
+
+Two enumerators disagreeing tells you one is wrong and gives you **no way to assign it**. Adjudicating by "which
+tool do I trust" or "which did I run more carefully" is choosing a blind spot, not resolving one — and the more
+careful run is often the one that switched methods, which entry 43 says is the *least* trustworthy row.
+
+**The resolution is a third instrument sharing a failure mode with neither.** Run on the same machine, same
+minute:
+
+    sockets    6   37066 38306 40134 40351 40540 40689
+    pgrep     10   missing the caller's OWN pair -- blind to self
+    ps -Ao    12   includes it -- not blind to self
+
+**Sockets and `ps` agree exactly** — the socket names are precisely the main pid of each pair — and `pgrep` is
+the outlier for a documented reason: it excludes the caller's own process ancestry. So the hole was never
+"process enumeration is blind to the operator"; it was **one tool with a self-exclusion, which both parties
+happened to reach for.**
+
+> **A disagreement between two instruments localises nothing. A third both breaks the tie and explains the
+> outlier** — and the explanation is what converts a mystery into a named scope limit you can carry forward.
+
+The practical form: when two enumerators disagree, do not pick. **Add one whose failure mode resembles neither**
+— and treat the deviation of the odd instrument as the finding rather than as noise to be voted down.
 
 ## The closing rule: distrust the fix, not only the result
 
