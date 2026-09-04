@@ -34,14 +34,23 @@ def _read(rel):
 
 
 def check_silent_nulls_count(claude_md, silent_nulls):
-    """CLAUDE.md advertises a catalogue size. It is hand-edited every time an entry lands."""
-    m = re.search(r"\*\*silent_nulls → (\d+)\*\*", claude_md)
-    if not m:
+    """CLAUDE.md advertises a catalogue size. It is hand-edited every time an entry lands.
+
+    THERE IS MORE THAN ONE SUCH CLAIM. Dated status blocks record the count as it was at the time ("silent_nulls
+    → 18 entries"), which is a correct historical statement, while the newest block carries the live one. A
+    first version of this check used re.search and took the FIRST match -- which would have compared against 18
+    -- and passed only because the historical line words it differently enough to miss the pattern. **It was
+    right by an accident of formatting**, which is not a property to build a gate on.
+
+    Correct semantics: historical claims are <= actual, and the LIVE claim (the maximum) must EQUAL actual. A
+    claim above the real count is always wrong; a claim below it may be a dated record.
+    """
+    claims = [int(x) for x in re.findall(r"silent_nulls → (\d+)", claude_md)]
+    if not claims:
         return ["CLAUDE.md: no 'silent_nulls → N' claim found (was it renamed?)"]
-    claimed = int(m.group(1))
     actual = silent_nulls.count("\n### ")
-    if claimed != actual:
-        return [f"silent_nulls count: CLAUDE.md claims {claimed}, file has {actual} '### ' entries"]
+    if max(claims) != actual:
+        return [f"silent_nulls count: CLAUDE.md's live claim is {max(claims)}, file has {actual} entries"]
     return []
 
 
@@ -130,9 +139,15 @@ def selftest():
     results = []
 
     n = silent_nulls.count("\n### ")
-    hit = check_silent_nulls_count(re.sub(r"\*\*silent_nulls → \d+\*\*",
-                                          f"**silent_nulls → {n + 7}**", claude_md, count=1), silent_nulls)
-    results.append(("count drift", bool(hit)))
+    hit = check_silent_nulls_count(f"**silent_nulls → {n + 7}** blah", silent_nulls)
+    results.append(("count drift (over)", bool(hit)))
+    hit = check_silent_nulls_count(f"**silent_nulls → {n - 3}** blah", silent_nulls)
+    results.append(("count drift (under)", bool(hit)))
+    # a dated historical claim BELOW the live one must not trip it -- the multi-claim case the first
+    # version of this check would have got wrong, and passed anyway by an accident of wording.
+    hit = check_silent_nulls_count(f"old block: silent_nulls → 18 entries ... new block: **silent_nulls → {n}**",
+                                   silent_nulls)
+    results.append(("historical claim beside live claim", not hit))
 
     hit = check_referenced_results_exist("see curvature/results/999_does_not_exist.json for the gate")
     results.append(("missing results file", bool(hit)))
