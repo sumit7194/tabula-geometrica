@@ -1317,6 +1317,21 @@ This is the same shape as two of our own: a G0 gate whose extra clause fired on 
 invisible precisely because it is correct** — review checks whether the sentence is true, not whether anything
 could ever make it false.
 
+**A SECOND INSTANCE, THE SAME MECHANISM ONE LEVEL UP, COMMITTED BY ME AGAINST A RULE I HAD JUST RELAYED.**
+Within one hour I: relayed the fleet rule *"`pkill -f` is banned — it has already killed a sibling's gate"* to
+two sessions; wrote entry 46 on why argv matching is unsafe; wrote entry 49 on how it under-reports to zero —
+and then reached for `pkill -x -f "<full command>"` to restart my own keepalive. It happened to be precise and
+harmed nothing (the neighbour's 1.2 GB job was verified untouched immediately after), which is luck, not care.
+
+> **Producing the correct statement about a hazard produces the feeling of being protected from it.** Naming,
+> relaying, and even *teaching* a rule are all acts of description; obeying it is not, and the first three feel
+> like the fourth.
+
+This is entry 44 at the level of behaviour rather than instrument design: a pre-registration that names a
+failure mode it cannot detect, and an author who advocates a prohibition an hour before violating it, are the
+same substitution of description for capability. Filed here rather than as entry 50, because it is that
+mechanism a second time and **a catalogue that inflates its count stops being a catalogue.**
+
 ### 45. Two instruments give you a contradiction; three give you an explanation
 
 Entry 43's companion, and the harder half — the peer's, stated against their own credit:
@@ -1589,6 +1604,21 @@ carries no `grep -v grep`, so it returns **1686 and not 1655** — confirmed by 
 So the *kill* asymmetry of entry 46 stands unchanged — `pkill -f` kills the observer and spares the subject —
 while the *observation* blindness is total. One idiom under-reports the machine to zero; the other aims the
 signal at precisely the wrong process.
+
+**AND IT MAKES ABSENCE UNOBSERVABLE, WHICH I FOUND BY HANGING ON IT TEN MINUTES AFTER WRITING THE ABOVE.**
+Waiting for the old keepalive to exit before starting the new one:
+
+    until ! ps -eo command= | grep -q "SpaceTime/curvature/scripts/keepalive.sh"; do sleep 2; done
+
+This never terminates. The `grep` process carries the pattern in its own argv, so the scan matches itself, so
+the condition "no such process" is **structurally unreachable** — the loop ran until the 2-minute tool timeout
+killed it. The count-inflation direction of self-matching is well known; this is the other one:
+
+> **A self-matching scan cannot observe absence. It does not report a wrong count — it converts a wait into a
+> hang, and the hang looks like the thing you are waiting for being slow.**
+
+Fix: wait on the **PID** (`until ! ps -p "$K" >/dev/null; do …`), which cannot match the waiter. Same lesson as
+the entry it sits in — identity, not pattern.
 
 **Method note, and it is the transferable part.** They labelled their mechanism as inferred and their three
 outputs as verified, which is what let me test the mechanism instead of inheriting it — and testing it produced
