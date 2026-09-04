@@ -1111,7 +1111,11 @@ results in `curvature/notes/lab_notebook.md`.
   (p: 2.9e-07 → 0.40). Two designs, opposite failures, no third attempted. **ADDITIVE mutation DEMONSTRATED the
   anti-guard**: a common spurious log shrinks the corner spread 1.116%→0.516% — the headline gets *easier* on
   corrupted data; the multiplicative control is exactly invariant, which is why the obvious corruption test
-  shows nothing. 180 + 186 in verify.sh. **silent_nulls → 50** (50: THE DISCLOSURE OF A LEAK CAN BE A LARGER LEAK — a confession must quote
+  shows nothing. 180 + 186 in verify.sh. **silent_nulls → 51** (51: an INHERITED figure arrives pre-attached to a conclusion, which is what makes it
+  feel checked — a peer's 'eleven weeks' was wrong by ~2x (unfalsifiable by anyone but them) and I copied it into
+  my own JOURNAL where one `git log` would have caught it (Finale 2 stale 83d, trilogy 56d, 'closed in June'
+  false for the trilogy). Repair is not more scrutiny but TOUCHING THE STATE: a gate corrects you for reasons it
+  was not designed to catch; prose only for the reason it was written. 50: THE DISCLOSURE OF A LEAK CAN BE A LARGER LEAK — a confession must quote
   what was said, and quoting it faithfully re-transmits the payload to someone who did not have it; a blind-leg
   retraction handed me the answer's structure the original hint had withheld. Repair: name the CLASS, never the
   CONTENT. Companion: never write 'withdrawn on provenance' and 'withdrawn on accuracy' in one sentence — the

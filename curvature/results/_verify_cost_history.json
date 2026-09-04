@@ -890,6 +890,11 @@
    "t": 1787388664,
    "secs": 22.7,
    "peak_gb": 6.298
+  },
+  {
+   "t": 1788555794,
+   "secs": 21.9,
+   "peak_gb": 5.217
   }
  ],
  "Noise-calibrated cutoff + conditioning caveat (bridge round-9, script 165)": [
@@ -897,6 +902,11 @@
    "t": 1787388677,
    "secs": 13.0,
    "peak_gb": 3.298
+  },
+  {
+   "t": 1788555806,
+   "secs": 11.9,
+   "peak_gb": 3.297
   }
  ],
  "The certificate standard (script 166)": [
@@ -904,6 +914,11 @@
    "t": 1787388686,
    "secs": 8.8,
    "peak_gb": 0.319
+  },
+  {
+   "t": 1788555814,
+   "secs": 8.3,
+   "peak_gb": 0.32
   }
  ],
  "P3 Killing-tensor screen (script 167)": [
