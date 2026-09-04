@@ -49,9 +49,18 @@ def check_silent_nulls_count(claude_md, silent_nulls):
     if not claims:
         return ["CLAUDE.md: no 'silent_nulls → N' claim found (was it renamed?)"]
     actual = silent_nulls.count("\n### ")
-    if max(claims) != actual:
-        return [f"silent_nulls count: CLAUDE.md's live claim is {max(claims)}, file has {actual} entries"]
-    return []
+    bad = []
+    # THE LIVE CLAIM IS THE LAST ONE. Status blocks are appended, so the newest block is furthest down.
+    # Using max() instead -- the second version of this check -- passes a STALE live claim whenever some
+    # historical line happens to equal the true count. Found by probing, not by reading: three faults now in
+    # this one check, and each fix was a narrower positional heuristic until this one, which is the semantics.
+    if claims[-1] != actual:
+        bad.append(f"silent_nulls count: live claim (last in file) is {claims[-1]}, file has {actual} entries")
+    # No claim may EXCEED the real count: a historical record is necessarily <= actual, so anything above it is
+    # either stale-high or aspirational, and neither belongs in a status block.
+    if max(claims) > actual:
+        bad.append(f"silent_nulls count: a claim of {max(claims)} exceeds the actual {actual} entries")
+    return bad
 
 
 ART = re.compile(r"([0-9A-Za-z_.\-]+\.(?:json|pt|npz|npy|csv))")
@@ -148,6 +157,13 @@ def selftest():
     hit = check_silent_nulls_count(f"old block: silent_nulls → 18 entries ... new block: **silent_nulls → {n}**",
                                    silent_nulls)
     results.append(("historical claim beside live claim", not hit))
+    # fault 3, the mirror of a sibling's: a STALE live claim shadowed by a historical line that happens to
+    # match the true count. The max() version of this check passed it.
+    hit = check_silent_nulls_count(f"silent_nulls → {n} entries (old) ... **silent_nulls → {n - 1}**", silent_nulls)
+    results.append(("stale live claim shadowed by correct historical", bool(hit)))
+    # an aspirational target above the real count
+    hit = check_silent_nulls_count(f"**silent_nulls → {n}** ... aiming for silent_nulls → {n + 40}", silent_nulls)
+    results.append(("aspirational claim above actual", bool(hit)))
 
     hit = check_referenced_results_exist("see curvature/results/999_does_not_exist.json for the gate")
     results.append(("missing results file", bool(hit)))

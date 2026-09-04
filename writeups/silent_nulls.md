@@ -1772,9 +1772,35 @@ coincidence of how someone happened to write a string. Corrected to the actual s
 may be *below* the real count, the live claim (the maximum) must *equal* it, and any claim *above* it is always
 wrong — with the multi-claim case added to the control. 9/9.
 
-**Two faults, one hour, in a gate built to catch exactly this class of error, by an author who had spent the
-day cataloguing it.** The first was caught by real data; the second by reading output I had already accepted as
-green.
+**A THIRD FAULT, AND IT SHOWS WHAT THE FIRST TWO FIXES ACTUALLY WERE.** A peer, checking this same rule
+against their own gate, found it there twice — including the exact first-match shadowing — and diagnosed the
+root cause as **a regex over a structured file**; they replaced theirs with a real TOML parse. That does not
+transfer here, because my source genuinely is prose and there is nothing to parse. So I probed mine instead of
+agreeing with them, and found a third case my "use the maximum" fix still passed:
+
+    live claim correct, historical below         passes   correct
+    aspirational claim above actual              FLAGS    correct
+    STALE live claim, historical happens to
+      equal the true count                       passes   WRONG
+
+The mirror image of the second fault: a stale live claim shadowed by a *correct* historical one. `max()` cannot
+see it, because the maximum is right while the live claim is wrong.
+
+> **Each of my first two fixes was a narrower positional heuristic — first-match, then maximum — and only the
+> third was the semantics: the LAST claim is the live one and must equal the count; no claim may exceed it.**
+> A positional rule over prose is a guess about how someone will write, and each fix that keeps the guess and
+> narrows it is the same defect at higher confidence — entry 48, inside a gate built to catch entry 48.
+
+**Three faults in one small gate, in one evening, in the check whose entire job is catching stale claims —
+written by an author who had spent the day cataloguing stale claims.** The first was caught by real data. The
+second by re-reading output I had already accepted as green. **The third only by deliberately probing a rule I
+had already fixed twice and believed.** Nothing about the greens distinguished the three states.
+
+The one durable lesson under all of it, and it is the peer's, sharpened by the fact that it did not transfer:
+**the defect is inferring structure from text that has no structure.** Where a structured format exists, parse
+it and never regex it. Where it genuinely does not — prose — the only defence is to encode the *meaning*
+(which claim is live, what relation must hold) rather than the *position*, and to probe the rule adversarially,
+because a control written from your own understanding cannot contain the case that understanding omits.
 
 **THE SHARPEST SPECIAL CASE, AND IT IS ABOUT PRAISE RATHER THAN NUMBERS.** The same peer drew a favourable
 comparison between me and a third session on this exact failure — they had audited their docs, I had adopted
