@@ -1111,7 +1111,11 @@ results in `curvature/notes/lab_notebook.md`.
   (p: 2.9e-07 → 0.40). Two designs, opposite failures, no third attempted. **ADDITIVE mutation DEMONSTRATED the
   anti-guard**: a common spurious log shrinks the corner spread 1.116%→0.516% — the headline gets *easier* on
   corrupted data; the multiplicative control is exactly invariant, which is why the obvious corruption test
-  shows nothing. 180 + 186 in verify.sh. **silent_nulls → 49** (49: `grep -v grep`, the reflex that removes a scan's own footprint, also deletes any
+  shows nothing. 180 + 186 in verify.sh. **silent_nulls → 50** (50: THE DISCLOSURE OF A LEAK CAN BE A LARGER LEAK — a confession must quote
+  what was said, and quoting it faithfully re-transmits the payload to someone who did not have it; a blind-leg
+  retraction handed me the answer's structure the original hint had withheld. Repair: name the CLASS, never the
+  CONTENT. Companion: never write 'withdrawn on provenance' and 'withdrawn on accuracy' in one sentence — the
+  reader keeps the stronger. Both are failures of the REPAIR, not the original error. 49: `grep -v grep`, the reflex that removes a scan's own footprint, also deletes any
   neighbour that IS a grep — e.g. a `tail -f | grep` MONITOR; composed with 46 it makes `ps | grep <repo> |
   grep -v grep` return NOTHING on a machine running a 1.2 GB job. TheBridge's proposed cause (ps truncation)
   was measured and REFUTED — all five ps forms return the full 708-char argv — which was possible only
