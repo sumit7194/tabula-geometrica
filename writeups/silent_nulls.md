@@ -1466,6 +1466,27 @@ writes `writer_pid` into its own status file — and it was the field I did not 
 rule that would do the killing rather than by a friendlier grep. The cheap discipline is *always launch by
 absolute path* — it costs nothing and makes argv-matching accidentally correct.
 
+**THE WORST CASE WAS MY OWN, AND I FOUND IT ONLY BY RUNNING THE FIXED SCAN IN PRODUCTION.** This repo's
+central instrument is `./verify.sh` — 66 gates, ~30 minutes, the thing that decides whether a result is real.
+Its entry point is:
+
+    exec .venv/bin/python scripts/verify_gates.py
+
+**Relative interpreter, relative script.** So while the suite was running, at 68.5% CPU:
+
+    OLD scan  pgrep -f 'SpaceTime/curvature'   ->  0 hits
+    NEW scan  by cwd                           ->  1 hit
+
+**Every regression run this project has ever done was invisible to its own heartbeat.** The status file that
+sister sessions read to decide whether the machine is free would have advertised `n_procs: 0` — *tabula idle* —
+for the entire duration of the heaviest workload in the repo. Not a hypothetical near-miss on one relaunch: the
+single most important process here was the one the monitor could never see, for the monitor's whole life.
+
+And the failure is silent in both directions at once. The field was **derived**, it **jittered**, it was
+**fresh** — it passed every check built to distinguish a real heartbeat from a bumping one (failure mode 2
+above), because those checks confirm the *loop* is measuring, not that the *scan* can see. A liveness probe can
+be provably alive and structurally blind.
+
 **A THIRD PARTY'S JOB, CHECKED THE SAME HOUR, MAKES THIS WORSE THAN OVER-MATCHING.** A sibling session
 announced a 10-hour run and asked that it not be touched. Verified on this machine:
 

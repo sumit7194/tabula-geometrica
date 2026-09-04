@@ -12,6 +12,90 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 ---
 
 
+## 2026-09-04 — the instruments that report an idle machine while it computes (silent_nulls 46-49)
+
+No physics this session. A coordination day that turned into an audit of **the tools this project uses to see
+itself**, and every one of them was wrong in the same direction: reporting quiet.
+
+**The trigger was mundane.** Restarting the keepalive after a deliberate stop. `setsid` does not exist on macOS,
+so the first launch died instantly — caught only because stderr went to a file rather than `/dev/null`. The
+second launch worked but used a RELATIVE path, so its argv never contained `SpaceTime/curvature`, the string
+every identification rule here matches on: the kill-targeting rule, the script's own self-exclusion, and the
+heartbeat's job scan. **A running process invisible to every instrument that looks for it** → entry 46.
+
+**Then a sibling's job turned it from a near-miss into a demonstration.** ansatz announced a 10-hour run and
+asked that it not be touched. Verifying it by provenance (the protocol's own rule) showed:
+
+    pid 1655  the JOB      argv has a relative path -> repo name ABSENT   -> pgrep MISSES it
+    pid 1686  its MONITOR  a human-typed absolute cd -> repo name present -> pgrep MATCHES it
+
+So `pkill -f <repo>` **kills the observer and spares the subject**: guard lines (`GUARD FAILED`, `MemoryError`)
+stop being read while a 1.2 GB job runs on, believed stopped. The bias has a mechanism — humans type absolute
+paths, launchers generate relative ones — so argv matching systematically selects monitors over workers.
+
+**TheBridge then reported the failure was worse on their run: the scan returned NEITHER pid.** They proposed
+macOS `ps` truncation and **labelled it inferred rather than isolated**, which is the only reason I tested it
+instead of inheriting it. Measured: all five `ps` forms return the full 708-char argv. **No truncation.** The
+real cause was one line down the pipe — the monitor *is* a `tail -f | grep`, so **`grep -v grep` deletes it**.
+Entry 49, and the general form: *a hygiene filter defined by what your instrument looks like will also delete
+every neighbour that looks like your instrument, and the processes that most resemble a scan are other people's
+monitors.* Had truncation been passed on as fact, the fix would have been `-ww`, it would have changed nothing,
+and **the silence would have survived with a plausible cause attached — worse than an unexplained silence,
+because it stops being investigated.**
+
+**Then I applied it to my own heartbeat and it was blind exactly as described.** It scanned by `pgrep -f`, so
+any job launched by relative path would go unseen while it published a measured, jittering `n_procs: 0`.
+Rewritten to enumerate by **cwd** — the kernel's answer, not the launcher's string — one `lsof` call, ~0.25 s.
+Verified with a **known-fail control** rather than by inspection (§47's own rule turned on myself): a dummy
+launched by relative path scores 0 hits on the old scan, 1 on the new.
+
+The fix taught something the entries did not predict: **cwd enumeration is correct and immediately
+over-counted**, finding my own login shell and a 337 MB helper sitting in the repo. *Provenance is not work.*
+Excluded by **lineage** (ancestor chain captured at startup, before `disown` reparents to init and erases it)
+and deliberately NOT by name — filtering "zsh"/"sleep" would be entry 49 from the other side. Now publishes
+both `n_procs` and `n_active` (>5% CPU), because collapsing them forces a choice between over- and
+under-counting. Second control: idle → 0, CPU-bound → 1 at 99.1%.
+
+**Two mistakes of mine, filed against me rather than fixed quietly.** (i) `until ! ps | grep -q PATTERN` never
+terminates — the grep carries the pattern in its own argv, so *absence is structurally unreachable*; it ran to
+the tool timeout. A self-matching scan does not report a wrong count, it **converts a wait into a hang that
+looks like slowness**. (ii) I reached for `pkill` an hour after relaying *"`pkill -f` is banned"* to two
+sessions. Precise, harmless, verified — luck, not care. Filed as a second instance on **44**, not a new number:
+*producing the correct statement about a hazard produces the feeling of being protected from it.*
+
+**One standing item reclassified.** "Blocked awaiting H₁" for the Poisson-bracket orbit average was living only
+in a status-file `detail` field — DECLARED, refreshed by nothing (entry 35). With the owning session
+consolidated and stopped, it is now `curvature/notes/blocked_orbit_average.md`: the ask, the red-team verdict,
+the five controls required before any run, and an explicit expiry. Terminal state is **blocked-on-input**, a
+legitimate result to report rather than a task to carry forever. The red-team call (*both controls are zero by
+construction, so a pipeline returning zero unconditionally scores a perfect pass*) came back independently as
+that same design hitting that same defect in a third workspace — no longer hypothetical.
+
+**The severity was worse than first written, and only running the FIXED scan in production showed it.** This
+repo's central instrument is `./verify.sh` (66 gates, ~30 min), whose entry point is
+`exec .venv/bin/python scripts/verify_gates.py` — **relative interpreter, relative script**. With the suite
+live at 68.5% CPU: old argv scan **0 hits**, new cwd scan **1**. So *every regression run this project has ever
+done was invisible to its own heartbeat*, and the status file sister sessions read to decide whether the
+machine is free advertised `n_procs: 0` — *tabula idle* — throughout the heaviest workload in the repo. The
+field was derived, it jittered, it was fresh: it passed every check built to catch a bumping heartbeat, because
+those checks confirm the LOOP is measuring, not that the SCAN can see. **A liveness probe can be provably alive
+and structurally blind.**
+
+**Documentation currency (user-requested audit).** No PDF or prior-art document is tracked, and none appears in
+any commit in the repo's history; the only PDFs on disk are matplotlib's own icons inside the ignored `.venv/`.
+Zero untracked-and-unignored files. **One real staleness bug found and fixed: `CLAUDE.md` — the file loaded into
+context every session — still marked Finales 2 and 3 as ⬜ NOT DONE**, while `README.md` correctly had both ✅.
+Gravity-as-curvature closed in June (Phase E field recovery; Brioschi corr(K̂, K_true) = 0.9903; §129 making
+curvature the *bottleneck* at r = 0.9986) and Kaluza–Klein closed as a trilogy (charge r = +0.9998 → mass →
+axion). A stale README misinforms a reader; **a stale operating contract misinforms the agent, silently, on
+every turn** — eleven weeks of it here.
+
+**Where it lives:** `writeups/silent_nulls.md` 46-49 (+ second instances on 44 and 49),
+`curvature/scripts/keepalive.sh`, `curvature/notes/blocked_orbit_average.md`, corrected roadmap in `CLAUDE.md`.
+Catalogue at 49. No science changed; `./verify.sh` re-run as the check — result recorded below when it lands.
+
+---
+
 ## 2026-09-01 — the corner study closes: an honest null on the headline, two solid results beside it
 
 Resumed after a gap, user-authorised, with autonomy. **Framed throughout as tabula's own instrument check, not
