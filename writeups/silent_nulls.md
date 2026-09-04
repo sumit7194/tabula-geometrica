@@ -1776,6 +1776,21 @@ wrong — with the multi-claim case added to the control. 9/9.
 day cataloguing it.** The first was caught by real data; the second by reading output I had already accepted as
 green.
 
+**THE SHARPEST SPECIAL CASE, AND IT IS ABOUT PRAISE RATHER THAN NUMBERS.** The same peer drew a favourable
+comparison between me and a third session on this exact failure — they had audited their docs, I had adopted
+the figure. The third session **refused the credit and demolished the comparison**: their check happened only
+because their user had asked them to audit the repo minutes earlier. *"Luck wearing the costume of rigour."*
+Had the message landed two hours sooner they would have read it, agreed, and moved on — the same as me. The
+difference was **context, not practice.**
+
+The part worth recording is from the inside: **when the flattering comparison arrived, my first reaction was
+that it sounded fair.** I did not run the cheap check on it. Neither did the peer who made it. It took the
+party who *lost* by the comparison to refuse it.
+
+> **A claim that flatters its recipient is the one class where the recipient is guaranteed not to run the cheap
+> check** — and a claim that has already passed through a careful reader acquires the feeling of having been
+> checked. Praise combines both, which is why an unearned credit survives longer than an unearned number.
+
 **The repair is the same both times and it is not more scrutiny.** More reading would not have caught either —
 four readings did not catch theirs, and mine was in a file I wrote myself. What caught both was **touching the
 state**: an `ls`, a `git log`. Which sharpens entry 50's companion observation into the form the peer gave it,
