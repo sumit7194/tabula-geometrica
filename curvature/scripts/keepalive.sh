@@ -12,6 +12,9 @@
 #       >> NEVER UPDATE `updated` ON ITS OWN. That field is a claim about all the others. <<
 # 3. SELF-COUNTING: `pgrep -f SpaceTime/curvature` matched THIS SCRIPT, so the liveness probe counted the
 #    monitor as evidence of activity. A monitor must exclude itself or it always reports life.
+# 4. ARGV-AS-IDENTITY (silent_nulls 46/49): that same pgrep could not see a job launched by RELATIVE path, and
+#    the usual `| grep -v grep` hygiene deletes any neighbour that is itself a grep. Both directions produce
+#    the identical output -- an empty scan -- whether the machine is idle or busy. Now enumerated by CWD.
 #
 # ── THE STRUCTURAL FIX: separate DECLARED from DERIVED ─────────────────────────────────────────────────
 # `state`/`detail` are DECLARED -- a human/agent types them and they are stale the moment work moves on. No
@@ -34,14 +37,27 @@ trap '_bye TERM; exit 143' TERM
 trap '_bye INT;  exit 130' INT
 trap '_bye HUP;  exit 129' HUP
 echo "$(date -u +%FT%TZ) keepalive pid $$ START" >> "$LOG"
+# LINEAGE, captured now and not later: once this process is disowned its ppid becomes 1 and the chain to the
+# launching shell is gone. Needed because cwd-based enumeration correctly finds OUR OWN shell and harness
+# sitting in the repo, and counting those as activity is failure mode 3 wearing a new costume. Excluding by
+# lineage is computed and exact; excluding by name ("zsh", "sleep") would repeat silent_nulls 49 from the
+# other side -- deleting a neighbour for resembling us.
+ANCESTORS="$$"; _a=$$
+for _ in 1 2 3 4 5 6 7 8; do
+  _a=$(ps -o ppid= -p "$_a" 2>/dev/null | tr -d ' ')
+  [ -z "$_a" ] || [ "$_a" = "0" ] || [ "$_a" = "1" ] && break
+  ANCESTORS="$ANCESTORS,$_a"
+done
+export ANCESTORS
 HOURS="${1:-10}"
 END=$(( $(date +%s) + HOURS * 3600 ))
 SELF=$$
 while [ "$(date +%s)" -lt "$END" ]; do
   if [ -f "$S" ]; then
-    python3 - "$S" "$SELF" << 'PY' 2>/dev/null || true
+    python3 - "$S" "$SELF" "$ANCESTORS" << 'PY' 2>/dev/null || true
 import json, os, subprocess, sys, datetime
 p, self_pid = sys.argv[1], int(sys.argv[2])
+ancestors = {int(x) for x in (sys.argv[3] if len(sys.argv) > 3 else "").split(",") if x.strip().isdigit()}
 try:
     d = json.load(open(p))                       # re-read every tick: no snapshot, ever
 except Exception:
@@ -53,16 +69,40 @@ def sh(c):
     except Exception: return ""
 
 # --- DERIVED: measured fresh every tick, excluding this script and its children ---
+# 4. ARGV IS NOT AN IDENTIFIER (silent_nulls 46/49). The previous scan matched `pgrep -f SpaceTime/curvature`,
+#    i.e. against argv -- a string the LAUNCHER chose. A job started as `./curvature/scripts/foo.py` carries no
+#    absolute path, so it was INVISIBLE here and this file would publish a measured, jittering `n_procs: 0`
+#    while the machine computed. Verified live on a sibling's 1.2 GB run: an argv scan missed the job and found
+#    only its monitor. Enumerate by CWD instead -- the kernel's answer, independent of how the process was
+#    invoked -- in one lsof call (~0.25s). argv is still reported, as a LABEL, never as the identity.
+REPO = "/Users/sumit/Github/SpaceTime"
 procs = []
-for ln in sh("pgrep -fl 'SpaceTime/curvature' || true").strip().splitlines():
-    pid = ln.split()[0] if ln.split() else ""
-    if not pid.isdigit() or int(pid) in (self_pid, os.getpid()):
-        continue
-    if "keepalive.sh" in ln:                     # never count the monitor as activity
-        continue
-    rss = sh(f"ps -o rss= -p {pid}").strip()
-    procs.append({"pid": int(pid), "rss_mb": round(int(rss)/1024, 1) if rss.isdigit() else None,
-                  "cmd": " ".join(ln.split()[1:])[:70]})
+seen = set()
+cwd_out = sh(f"lsof -a -d cwd -u $(id -un) -Fpn 2>/dev/null || true")
+cur = None
+for ln in cwd_out.splitlines():
+    if ln.startswith("p"):
+        cur = ln[1:]
+    elif ln.startswith("n") and cur and cur.isdigit():
+        if not ln[1:].startswith(REPO):
+            continue
+        pid = int(cur)
+        if pid in seen or pid in ancestors or pid in (self_pid, os.getpid()):
+            continue
+        stat = sh(f"ps -o ppid=,rss=,%cpu=,command= -p {pid}").strip()
+        if not stat:
+            continue
+        parts = stat.split(None, 3)
+        if len(parts) < 4:
+            continue
+        ppid, rss, cpu, cmd = int(parts[0]), parts[1], parts[2], parts[3]
+        if ppid in (self_pid, os.getpid()) or "keepalive.sh" in cmd:   # our own subprocesses
+            continue
+        seen.add(pid)
+        try: cpu_f = float(cpu)
+        except ValueError: cpu_f = 0.0
+        procs.append({"pid": pid, "rss_mb": round(int(rss)/1024, 1) if rss.isdigit() else None,
+                      "cpu_pct": cpu_f, "cmd": cmd[:70]})
 vm = sh("vm_stat"); ps_size = 16384
 free_gb = None
 try:
@@ -74,9 +114,14 @@ try:
 except Exception:
     pass
 
-d["measured"] = {"at": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "n_procs": len(procs),
-                 "procs": procs[:5], "machine_free_plus_inactive_gb": free_gb,
-                 "note": "DERIVED every tick from ps/vm_stat, excluding this keepalive. Jitters if real."}
+n_active = sum(1 for x in procs if (x.get("cpu_pct") or 0) > 5.0)
+d["measured"] = {"at": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "n_procs": len(procs), "n_active": n_active,
+                 "procs": sorted(procs, key=lambda x: -(x.get("cpu_pct") or 0))[:5],
+                 "machine_free_plus_inactive_gb": free_gb,
+                 "note": ("DERIVED every tick by CWD (not argv -- silent_nulls 46/49), excluding this script's "
+                          "own lineage. n_procs = everything of ours rooted in the repo, INCLUDING idle shells; "
+                          "n_active = those over 5% CPU. Both reported because collapsing them forces a choice "
+                          "between over- and under-counting. Jitters if real.")}
 
 # FLAT MIRRORS of the derived fields, at top level, under the names the shared reader expects.
 # Nesting them under `measured` made them invisible from outside: a peer sizing a memory decision against
