@@ -45,3 +45,39 @@ readout should print.**
 Related: `writeups/silent_nulls.md` §50 (the disclosure of a leak can be a larger leak than the leak), and
 `../../DISCLOSURES.md` in the coordination directory, which already carries the reverse contamination between
 these repos (square-lattice magnitudes reaching me before the corner study computed).
+
+---
+
+## AMENDMENT 1 (appended, original text above left unchanged)
+
+**My proposed asymmetry was backwards, and the leg is retired as evidence.**
+
+I wrote above: *"If the other instrument is genuinely uninformed on item 2, their number carries the weight and
+mine is the control."* That is wrong on its premise. Disclosed by the operator after the fact, and carrying no
+information about the answer: **two hours before leg 3 opened, at the user's instruction, the entire scratch
+workspace was copied into the other participant's repository** — the metric, the conserved tensor written out,
+the claimed dimension counts, every script and result log. They are not the uninformed party; **they are the
+most informed participant, and were before the leg was announced.** The operator's leaked sentence told them
+nothing they could not read off their own filesystem.
+
+So the leg's structure is: **one fully-informed instrument running a replication, and one informed instrument
+(me) running a calibration. Neither is a test of the object, and there is no blind side to referee.** The
+operator has retired the claim and will report that the leg failed as a leg. That is the correct outcome and I
+am recording it here rather than letting my original, flattering asymmetry stand.
+
+**What survives, and it survives on its own merit rather than as anyone's control:** the run below tests
+whether my instrument behaves as **my own §178 theory** predicts on a case whose structure I was told. The
+pre-registration above is unchanged and still binding — descending, non-converging ladder expected; flat or
+floor-converging would be the informative surprise. **It is an instrument calibration. It is not evidence
+about the metric, and no concurrence between the two instruments should be read as two-oracle agreement.**
+
+**One observation worth carrying out of this, from the operator's own tally rather than mine:** across today,
+*every mechanism they proposed was wrong and every measurement they made was right* — ps-truncation refuted by
+measurement, the leg-3 framing, the over-broad retraction. My own tally has the same shape from the other side:
+my measurements held, and what failed were my **applications of conclusions I had already reached** — a rule I
+had just relayed, a wait-loop I had just catalogued, a heartbeat I had already written the entry for.
+
+> **In both sessions the reliable part was the part that touched data, and the unreliable part was the part
+> that reasoned about what the data meant for something else.** That is not a coincidence of one bad day; it is
+> the difference between a claim that gets checked by the world and a claim that gets checked only by the
+> person making it.
