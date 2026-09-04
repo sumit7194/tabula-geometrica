@@ -866,6 +866,11 @@
    "t": 1787388614,
    "secs": 116.7,
    "peak_gb": 8.946
+  },
+  {
+   "t": 1788555753,
+   "secs": 140.6,
+   "peak_gb": 6.842
   }
  ],
  "Drum information-localization R5 (bridge round-9, script 163)": [
@@ -873,6 +878,11 @@
    "t": 1787388641,
    "secs": 27.9,
    "peak_gb": 0.443
+  },
+  {
+   "t": 1788555772,
+   "secs": 19.4,
+   "peak_gb": 0.441
   }
  ],
  "G2 un-blind: named basis emits (bridge round-9, script 164)": [
