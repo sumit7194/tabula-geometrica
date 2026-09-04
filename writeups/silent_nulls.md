@@ -1451,6 +1451,27 @@ writes `writer_pid` into its own status file — and it was the field I did not 
 rule that would do the killing rather than by a friendlier grep. The cheap discipline is *always launch by
 absolute path* — it costs nothing and makes argv-matching accidentally correct.
 
+**A THIRD PARTY'S JOB, CHECKED THE SAME HOUR, MAKES THIS WORSE THAN OVER-MATCHING.** A sibling session
+announced a 10-hour run and asked that it not be touched. Verified on this machine:
+
+    pid 1655  scripts/_kt_double.py --rank 4 ...     cwd /Users/sumit/Github/conjecture_machine   THE JOB
+    pid 1686  zsh -c '... cd /Users/sumit/Github/conjecture_machine; tail -f ... | grep -E "GUARD FAILED|..."'
+                                                     cwd /Users/sumit/Github/conjecture_machine   ITS MONITOR
+
+`ps | grep conjecture_machine` returns **1686 and not 1655.** The detached worker was launched with a relative
+path, so the repo name is nowhere in its argv; the monitor was typed by a human with an absolute `cd`, so the
+repo name is right there in its command line.
+
+> **`pkill -f <repo>` would have killed the monitor and spared the job.** The output watch dies, the guard
+> lines — `GUARD FAILED`, `MemoryError`, `Killed` — go unread, and the 1.2 GB job runs on believed stopped.
+
+The bias has a mechanism and is not a coincidence of these two pids: **the strings a human types by hand carry
+absolute, human-readable paths, and the strings a launcher generates for a long detached job often do not.**
+Argv matching therefore selects, systematically, for *observers over workers* — it kills the instrument and
+leaves the subject running. (Two pairs seen so far, this one and my own keepalive; recorded as an observed bias
+with a mechanism, not a law.) The fleet rule that follows — *identify by PID plus provenance (cwd, venv), never
+by argv match; `pkill -f` banned* — is now carrying a reason, not just a prohibition.
+
 **Coda, same restart, same theme.** The first launch used `setsid`, which does not exist on macOS. It failed
 instantly with `command not found` and the announcement "keepalive running" would have been false. It was caught
 only because stderr went to a file rather than `/dev/null` — the same instrumentation that entry-era work added
