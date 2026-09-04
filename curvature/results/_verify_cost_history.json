@@ -842,6 +842,11 @@
    "t": 1787388375,
    "secs": 68.6,
    "peak_gb": 1.482
+  },
+  {
+   "t": 1788555470,
+   "secs": 59.9,
+   "peak_gb": 1.44
   }
  ],
  "G2 blind legibility (bridge round 8, script 161)": [
@@ -849,6 +854,11 @@
    "t": 1787388497,
    "secs": 122.1,
    "peak_gb": 7.642
+  },
+  {
+   "t": 1788555612,
+   "secs": 142.4,
+   "peak_gb": 6.296
   }
  ],
  "G2 augmented basis R1 (bridge round-9, script 162)": [

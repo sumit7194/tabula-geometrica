@@ -647,3 +647,57 @@ manufacture a clean number.
 
 **C5 refinement 4 is now satisfied for S3 by a two-sample discrimination on one substrate.** Credit: TheBridge,
 run blind from spec.
+
+---
+
+## C5 refinement 7 — the known-fail companion binds ASYMMETRICALLY (2026-09-04)
+
+Established while auditing a cross-repo blind leg that turned out to have no discriminating power even before
+it was contaminated. The generalisation belongs here because it says *when* a C5-style companion is mandatory
+rather than merely good practice.
+
+**The asymmetry is in what a BROKEN instrument prints.**
+
+- This engine's failure output is *"no conserved direction found"* — a **certify**. A stalled prover also
+  returns "nothing found". So **a null is the default output of a dead instrument**, and any verdict, or any
+  agreement between two instruments, that consists of a null is consistent with both of them having stopped
+  looking. Nothing internal to the run distinguishes *absence* from *non-response*.
+- An **emit** is not a default. A broken engine does not produce a specific closed form with matching
+  coefficients; the space of specific wrong answers is enormous, and two code-disjoint implementations do not
+  land on the same one by accident. §167's K0 rediscovering Carter at cosine 0.975, held-out 3.1e-26, could not
+  have come from a stalled solve.
+
+> **A known-fail companion is MANDATORY for any result whose verdict is a null, and much weaker for one whose
+> verdict is a specific positive.** A null is what an instrument says when it has stopped looking; a positive
+> is not.
+
+This is why §178 needed L1 and why §176/§177 needed their contrasts: all three report certifies. It also says
+where the requirement can be relaxed without loss — an emit verified out-of-sample carries its own evidence
+that the instrument was responding, because responding is what producing it required.
+
+**Corollary for cross-instrument agreement.** Two independent instruments agreeing on an **emit** is evidence.
+Two agreeing on a **certify** is not, absent a companion each is obliged to score differently — they may agree
+because the object has the property, or because neither is responding, and concurrence alone cannot separate
+those. *A leg whose expected answer is a null needs the companion or it has no discriminating power regardless
+of how well it is blinded.*
+
+**And the reason this was not obvious: blinding and discrimination are independent properties of a design.**
+The leg above was scrutinised hard for contamination — which it had — and the contamination drew all the
+attention, including ours. The design fault was present before any leak and would have survived perfect
+blinding. **A protocol can be flawlessly blind and still unable to fail.**
+
+### Why the errors cluster where they do
+
+A related observation, held at lower confidence because it is a pattern over one day rather than a measurement:
+across five sessions the claims that failed were **inferences** and the claims that held **touched data**. The
+tempting reading — measurements are reliable, inferences are not — is refuted by this repo's own record:
+entry 21 (page size hardcoded to 4096, every headroom figure 4× wrong), the `ru_maxrss` unit error (printed
+"peak +392 GB"), and entry 41 (a power analysis promising 95.8% power and delivering none) are all measurement
+failures.
+
+> **The distinction is not error-freedom, it is the availability of a cheap external re-run.** Measurement
+> errors get caught within the hour, against a second form or a known case. Inference errors persist until
+> someone else looks.
+
+Which predicts exactly where to watch hardest: **inferences with no cheap re-run — which is precisely what a
+certified null is**, and precisely why this standard has six clauses and now a seventh refinement.
