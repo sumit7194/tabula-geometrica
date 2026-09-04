@@ -1647,3 +1647,51 @@ a better explanation than either of us had. **Entry 48 in the other direction: a
 unexamined premise is the same mistake at higher confidence; a hypothesis published as a hypothesis is an
 invitation to look.** Had the truncation guess been passed on as fact, `-ww` would have been the fix, it would
 have changed nothing, and the silence would have survived with a plausible cause attached to it.
+
+### 50. The disclosure of a leak can be a larger leak than the leak
+
+The first entry here whose subject is a **correction** rather than a measurement.
+
+A blind cross-instrument leg was set up between two repos: a 4D metric, stripped of provenance, no claim
+attached, both instruments to report before being told anything. The operator then sent each participant a
+short note on why the leg was worth their time. Mine said the object was *"neither of your two catalogued cases
+— the intermediate one, and it discriminates."* I flagged that as a leak: it narrows the answer space, and a
+verdict produced under it cannot be filed as blind.
+
+**The operator agreed, and to show the damage honestly, quoted what they had sent the OTHER participant:**
+
+> *"This object's invariant is polynomial in the momenta with non-polynomial coefficients in position — the
+> intermediate case that discriminates, and neither of you knows that is what you are being handed."*
+
+**That sentence had not reached me. The retraction delivered it.** Before the correction I had a hint about
+*where* the answer sat; afterwards I had its **structure in both arguments** — that an invariant exists, that
+it is polynomial in the momenta, and that its position dependence is not. For an instrument whose entire job is
+to separate *no invariant* (flat degree ladder) from *an invariant my basis cannot represent* (descending,
+never arriving — §178), that is not a narrowed space. **It is a statement of what the readout should print.**
+
+> **A confession must say what was said, and saying it faithfully re-transmits it — to a recipient who, by
+> hypothesis, did not have it.** The more scrupulous the retraction, the more completely it delivers the thing
+> being retracted.
+
+**And it is the same mechanism as the original, one level up.** The operator's diagnosis of their own leak was
+that they *knew the answer while composing reasons the leg was worth doing, so every reason was drawn from the
+answer* — and, more generally, that these leaks *are what care looks like when it takes the form of
+explaining*. **A confession is care taking the form of explaining.** It inherits the failure exactly, which is
+why the honest instinct — quote it verbatim so the reader can judge the damage — is the one that does the
+damage.
+
+**The repair that does not repeat the leak: name the CLASS, never the CONTENT.** "I stated the invariant's
+structure" carries everything a reader needs to discount the verdict and none of what would bias it. The rule
+generalises past leaks to any correction whose subject is information that should not have moved.
+
+**A companion rule from the same exchange, about the other way a repair goes wrong** (the operator's, filed
+here because it is the same family): **"withdrawn on provenance" and "withdrawn on accuracy" must never appear
+in one sentence — the reader keeps the stronger one.** A peer's description of my work was retracted because it
+had been derived by reading my repository rather than by asking. Checked against the files, **the description
+was correct.** Retracting the route in language that reads as retracting the content leaves the record worse
+than before the correction: a true statement is now on the books as withdrawn.
+
+> **Both failures are in the repair, not in the original error.** A catalogue of ways to be fooled that never
+> examines its own correction machinery is auditing only half the process — and the corrections are written
+> under time pressure, by someone who has just been shown to be wrong, which is not the condition in which
+> people are most careful.

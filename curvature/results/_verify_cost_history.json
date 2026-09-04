@@ -650,6 +650,11 @@
    "t": 1787388016,
    "secs": 171.2,
    "peak_gb": 0.276
+  },
+  {
+   "t": 1788555182,
+   "secs": 159.0,
+   "peak_gb": 0.299
   }
  ],
  "Regime detector (frontier EXP-4)": [
@@ -657,6 +662,11 @@
    "t": 1787388077,
    "secs": 60.8,
    "peak_gb": 0.402
+  },
+  {
+   "t": 1788555225,
+   "secs": 42.3,
+   "peak_gb": 0.403
   }
  ],
  "Sixth-wall exhaustiveness hunt (frontier EXP-5)": [
@@ -664,6 +674,11 @@
    "t": 1787388082,
    "secs": 5.3,
    "peak_gb": 0.32
+  },
+  {
+   "t": 1788555229,
+   "secs": 4.4,
+   "peak_gb": 0.317
   }
  ],
  "Abstain-aware detector (frontier EXP-6)": [
@@ -671,12 +686,22 @@
    "t": 1787388098,
    "secs": 15.5,
    "peak_gb": 0.317
+  },
+  {
+   "t": 1788555240,
+   "secs": 11.4,
+   "peak_gb": 0.316
   }
  ],
  "Law vs predictability dissociation (frontier EXP-7)": [
   {
    "t": 1787388102,
    "secs": 3.7,
+   "peak_gb": 0.301
+  },
+  {
+   "t": 1788555244,
+   "secs": 3.3,
    "peak_gb": 0.301
   }
  ],
@@ -685,6 +710,11 @@
    "t": 1787388107,
    "secs": 5.0,
    "peak_gb": 0.304
+  },
+  {
+   "t": 1788555248,
+   "secs": 4.6,
+   "peak_gb": 0.303
   }
  ],
  "Unified robust detector (frontier EXP-9)": [
@@ -692,6 +722,11 @@
    "t": 1787388119,
    "secs": 12.4,
    "peak_gb": 0.327
+  },
+  {
+   "t": 1788555258,
+   "secs": 9.3,
+   "peak_gb": 0.324
   }
  ],
  "Noise robustness profile (frontier EXP-10)": [
@@ -699,6 +734,11 @@
    "t": 1787388123,
    "secs": 4.5,
    "peak_gb": 0.299
+  },
+  {
+   "t": 1788555261,
+   "secs": 3.9,
+   "peak_gb": 0.298
   }
  ],
  "Predictability diagnostic (frontier EXP-11)": [
@@ -706,6 +746,11 @@
    "t": 1787388127,
    "secs": 3.7,
    "peak_gb": 0.3
+  },
+  {
+   "t": 1788555265,
+   "secs": 3.4,
+   "peak_gb": 0.307
   }
  ],
  "Sample complexity diverges at wall (frontier EXP-12)": [
@@ -713,6 +758,11 @@
    "t": 1787388130,
    "secs": 2.9,
    "peak_gb": 0.346
+  },
+  {
+   "t": 1788555268,
+   "secs": 2.8,
+   "peak_gb": 0.341
   }
  ],
  "Real-data test vs literature (frontier EXP-13)": [
@@ -720,6 +770,11 @@
    "t": 1787388133,
    "secs": 2.6,
    "peak_gb": 0.311
+  },
+  {
+   "t": 1788555270,
+   "secs": 2.3,
+   "peak_gb": 0.31
   }
  ],
  "Temporal regime-switching (frontier EXP-14)": [
@@ -727,11 +782,21 @@
    "t": 1787388135,
    "secs": 2.1,
    "peak_gb": 0.307
+  },
+  {
+   "t": 1788555272,
+   "secs": 1.8,
+   "peak_gb": 0.303
   }
  ],
  "Newton from ephemerides (real data, EXP-15)": [
   {
    "t": 1787388136,
+   "secs": 1.0,
+   "peak_gb": 0.226
+  },
+  {
+   "t": 1788555273,
    "secs": 1.0,
    "peak_gb": 0.226
   }
@@ -741,6 +806,11 @@
    "t": 1787388152,
    "secs": 16.0,
    "peak_gb": 0.364
+  },
+  {
+   "t": 1788555286,
+   "secs": 13.7,
+   "peak_gb": 0.365
   }
  ],
  "Axion discovery (bridge capstone, script 158)": [
@@ -748,6 +818,11 @@
    "t": 1787388258,
    "secs": 106.7,
    "peak_gb": 0.405
+  },
+  {
+   "t": 1788555373,
+   "secs": 86.7,
+   "peak_gb": 0.415
   }
  ],
  "Isospectral drums / K5 (bridge round 8, script 159)": [
@@ -755,6 +830,11 @@
    "t": 1787388306,
    "secs": 47.6,
    "peak_gb": 0.727
+  },
+  {
+   "t": 1788555410,
+   "secs": 37.0,
+   "peak_gb": 0.832
   }
  ],
  "Basis ladder / G2 prep (bridge round 8, script 160)": [
