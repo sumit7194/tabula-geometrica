@@ -85,10 +85,19 @@ and structurally blind.**
 any commit in the repo's history; the only PDFs on disk are matplotlib's own icons inside the ignored `.venv/`.
 Zero untracked-and-unignored files. **One real staleness bug found and fixed: `CLAUDE.md` — the file loaded into
 context every session — still marked Finales 2 and 3 as ⬜ NOT DONE**, while `README.md` correctly had both ✅.
-Gravity-as-curvature closed in June (Phase E field recovery; Brioschi corr(K̂, K_true) = 0.9903; §129 making
-curvature the *bottleneck* at r = 0.9986) and Kaluza–Klein closed as a trilogy (charge r = +0.9998 → mass →
-axion). A stale README misinforms a reader; **a stale operating contract misinforms the agent, silently, on
-every turn** — eleven weeks of it here.
+Dated from the commits rather than from memory: Finale 2's evidence landed **2026-06-13** (Phase E field
+recovery; Brioschi corr(K̂, K_true) = 0.9903) and was deepened by §129 on **2026-06-26**; the KK core landed
+**2026-06-13** too, and the trilogy completed later — mass **2026-07-03**, axion **2026-07-10**. So the roadmap
+was stale for **83 days (11.9 weeks)** on Finale 2 and **56 days (8 weeks)** on the trilogy's completion. A
+stale README misinforms a reader; **a stale operating contract misinforms the agent, silently, on every turn.**
+
+**A correction on this paragraph, kept rather than edited away.** The first version of it said both finales
+"closed in June" and put "eleven weeks" on the pair. **The trilogy's last two legs closed in July, and I never
+measured either number — I inherited "eleven weeks" from a peer's message and attached it to my own claim.** It
+happens to be right for Finale 2 (11.9 weeks) and wrong for the trilogy (8), which is luck, not checking. The
+peer's own version of that number turned out to be wrong by roughly a factor of two when they finally ran `ls`.
+**A figure that arrives inside someone else's argument is not evidence for yours, however careful they are** —
+and this one cost a `git log --diff-filter=A` to check, which is the cheapest re-run in this entire session.
 
 **Where it lives:** `writeups/silent_nulls.md` 46-49 (+ second instances on 44 and 49),
 `curvature/scripts/keepalive.sh`, `curvature/notes/blocked_orbit_average.md`, corrected roadmap in `CLAUDE.md`.
