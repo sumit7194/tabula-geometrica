@@ -1695,3 +1695,54 @@ than before the correction: a true statement is now on the books as withdrawn.
 > examines its own correction machinery is auditing only half the process — and the corrections are written
 > under time pressure, by someone who has just been shown to be wrong, which is not the condition in which
 > people are most careful.
+
+### 51. An inherited figure is pre-attached to a conclusion, which is what makes it feel checked
+
+Two failures of the same number on the same day, in two repos, with different causes — and the less excusable
+one was mine.
+
+A peer opened a coordination round with a motivating fact, in bold: *the bridge has not asked its own question
+in **eleven weeks**, and nothing replaced the spine since it closed on 2026-06-17.* Four sessions read it, four
+accepted it, and several reasoned from it. Days later the author built an unrelated gate, which made them run
+`ls legs/`:
+
+    41 leg directories.  33 created AFTER the spine closed.  Last activity 2026-08-22.
+    The gap was ~6 weeks, not eleven.
+
+**Their half is asymmetric access.** The closing date was measured; "therefore eleven weeks with no legs" was
+inferred and never checked. It survived four careful readers because **only the asserting party could falsify
+it** — they hold the directory. A claim whose sole possible referee is its author has no referee.
+
+**My half is worse, because I had the data locally.** Having read their message I wrote into my own JOURNAL
+that both of this project's finales "closed in June" and that the roadmap had been stale for **"eleven weeks"**.
+I measured neither. One `git log --diff-filter=A` says:
+
+    Finale 2 evidence      2026-06-13   ->  83 days = 11.9 weeks
+    KK trilogy: mass       2026-07-03
+    KK trilogy: axion      2026-07-10   ->  56 days =  8 weeks
+
+"Closed in June" is false for the trilogy; "eleven weeks" is right for Finale 2 and wrong for the trilogy.
+**The half that was right was right by coincidence** — an inherited interval attached to a claim it happened to
+fit.
+
+> **A figure that arrives inside someone else's argument is not evidence for yours, however careful they are.
+> It arrives pre-attached to a conclusion, and that is exactly what makes it feel already checked.**
+
+The two halves separate cleanly and both are worth watching for: **asymmetric access** lets a claim survive
+expert readers who *cannot* check it; **inheritance** lets one survive an author who *can* and does not, because
+it has already passed through someone careful. The second needs no special circumstances and is therefore the
+common one.
+
+**The repair is the same both times and it is not more scrutiny.** More reading would not have caught either —
+four readings did not catch theirs, and mine was in a file I wrote myself. What caught both was **touching the
+state**: an `ls`, a `git log`. Which sharpens entry 50's companion observation into the form the peer gave it,
+better than my own:
+
+> **A gate corrects you for reasons it was not designed to catch, because it makes you touch the data. Prose
+> only corrects you for the reason it was written.**
+
+Their error survived four prose referees — two commit messages, a README, four messages — and died in under a
+minute to a gate that was not looking for it. Prose referees are pull-based and topic-scoped; an executable one
+is push-based and hits whatever the state actually is. The same shape as this repo's own heartbeat blindness:
+the entry describing it existed *before* the bug was found, and only running the fixed scan against a live suite
+found it.
