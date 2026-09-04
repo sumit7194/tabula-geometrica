@@ -1111,7 +1111,11 @@ results in `curvature/notes/lab_notebook.md`.
   (p: 2.9e-07 → 0.40). Two designs, opposite failures, no third attempted. **ADDITIVE mutation DEMONSTRATED the
   anti-guard**: a common spurious log shrinks the corner spread 1.116%→0.516% — the headline gets *easier* on
   corrupted data; the multiplicative control is exactly invariant, which is why the obvious corruption test
-  shows nothing. 180 + 186 in verify.sh. **silent_nulls → 48** (48: a correction that INHERITS the unexamined premise of what it corrects is the same
+  shows nothing. 180 + 186 in verify.sh. **silent_nulls → 49** (49: `grep -v grep`, the reflex that removes a scan's own footprint, also deletes any
+  neighbour that IS a grep — e.g. a `tail -f | grep` MONITOR; composed with 46 it makes `ps | grep <repo> |
+  grep -v grep` return NOTHING on a machine running a 1.2 GB job. TheBridge's proposed cause (ps truncation)
+  was measured and REFUTED — all five ps forms return the full 708-char argv — which was possible only
+  because they labelled it inferred rather than verified. 48: a correction that INHERITS the unexamined premise of what it corrects is the same
   mistake at higher confidence — instanced by 45→46 in this repo, an hour apart. 47: a plateau in a nuisance
   parameter is evidence ONLY when the same sweep is shown to MOVE on a known-fail control — checked against
   §178's flat degree ladder, which survives because L1 descends 89,109× (47/48 relayed by TheBridge from a
