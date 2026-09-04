@@ -1166,8 +1166,24 @@ root CLAUDE.md status blocks updated when milestones land.
 3. ✅ Side-explorations: NN↔spacetime (`nn_and_spacetime.md`) and the emergent-dimension /
    holography deep-dive (`emergent_dimension.md`). The latter produced the **three-way
    "extra dimension" contrast** that now frames both finales.
-4. ⬜ **Next (Finale 2):** gravity *as* curvature — mass → Ricci curvature → geodesics that
-   look like "falling." Intrinsic vs extrinsic curvature (Theorema Egregium). Column (c)
-   of the emergent_dimension §4 table: curvature is NOT a dimension.
-5. ⬜ **Finale 3 (the payoff):** **Kaluza–Klein** — literally adding a 5th dimension
-   produces electromagnetism. Column (b) of the §4 table. Do *after* Finale 2.
+4. ✅ **Finale 2 — gravity *as* curvature. CLOSED.** Phase E learned the metric FIELD from
+   trajectories (cos = 1.0000 after one global scale, shear D̂ r = 0.9989), script 17 read its
+   Gaussian curvature coordinate-free via Brioschi (corr(K̂, K_true) = **0.9903**, calculator
+   validated on a 2-sphere to 5e-07), and script 129 made curvature the BOTTLENECK rather than a
+   post-hoc readout (1-D latent decodes K at r = **0.9986**, held-out R² 0.9998).
+5. ✅ **Finale 3 — Kaluza–Klein. CLOSED, and it became a trilogy.** Phase D v1: charge migrates
+   from model parameters into an internal coordinate of a shared geometry (behavioural decode of
+   w₀ vs q/m, r = **+0.9998**); D-3 magnetic (r = **+0.9974**); script 157 the same move for
+   **mass** (K=1 bottleneck R² 0.9999, integer ladder decode 100%); script 158 for the **axion**
+   (held-out R² 0.9999, latent-vs-χ isotonic 1.000, plus an SL(2,Z) modular-gauge certificate).
+   Honest caveat kept: D-v2 showed **economy does not select the KK gauge** — the structural form
+   is unverified-not-refuted, and Phase D stands on v1's *behavioural* gates, not structural ones.
+
+**WHERE THE PROJECT ACTUALLY IS (noted 2026-09-04).** The founding thesis — *does gravity curve
+spacetime, and is that curvature an extra dimension* — is **answered**, through Phases B/C/E, the
+curvature invariant, and the KK trilogy. What has grown since is not the dimensional ladder but the
+**representability frontier** (what is discoverable in principle: the 5-cell taxonomy, the located
+walls d\*=6 / K\*=3 / r\*=3.6 / degree≥5) and `writeups/silent_nulls.md`, now 49 entries and the
+repo's most-cited artifact. That is a real change in what this project is about, recorded rather
+than corrected: a methods catalogue and a theory of the discoverable, built on top of a closed
+physics thesis. Observation prompted by TheBridge; verified here against the results above.
