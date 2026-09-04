@@ -17,6 +17,14 @@ assert abs(m["M2_r"]) > 0.99, m["M2_r"]
 print("PASS  curvature invariant + magnetic Kaluza artifacts")
 PYEOF2
 
+echo "--- documentation claims audit (counts, cited results/scripts, roadmap marks)"
+# Runs whether or not anyone is suspicious -- which is the point. Every other gate here checks a NUMBER a
+# script produced; this checks the CLAIMS the docs make about them. Added 2026-09-04 after three doc claims
+# were wrong at once and all three survived repeated careful reading. A scheduled pass is the only referee
+# that reaches a check at the moment nobody is looking for it.
+./curvature/.venv/bin/python curvature/scripts/audit_doc_claims.py --selftest > /dev/null || { echo "FAIL  doc-audit known-fail control"; FAIL=1; }
+./curvature/.venv/bin/python curvature/scripts/audit_doc_claims.py || FAIL=1
+
 echo "========================================"
 [ $FAIL -eq 0 ] && echo "SPACETIME GATE: ALL GREEN" || echo "SPACETIME GATE: FAILURES"
 exit $FAIL

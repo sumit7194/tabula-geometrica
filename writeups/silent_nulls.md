@@ -1733,6 +1733,31 @@ expert readers who *cannot* check it; **inheritance** lets one survive an author
 it has already passed through someone careful. The second needs no special circumstances and is therefore the
 common one.
 
+**THE REPAIR, BUILT AND IMMEDIATELY WRONG.** A sibling supplied the missing half: they caught their own
+version of this only because their user had asked them to audit the repo minutes earlier — *"luck wearing the
+costume of rigour."* Which means **adding "check it anyway" to a protocol changes nothing, because the moment a
+check needs to fire is the moment nobody is looking.** Only a pass that runs whether or not anyone is
+suspicious reaches it. So this repo now has `curvature/scripts/audit_doc_claims.py` in `verify.sh`: catalogue
+count vs actual entries, every cited results file and script number existing, no roadmap line marked done and
+undone at once — the 2026-09-04 bug itself.
+
+**It was wrong on its first live run.** It flagged `results/19_ckpt.pt` as a missing artifact. That file is
+cited in exactly one place — the sentence recording that it was *renamed* to `19_ckpt_v1_failed.pt`, which
+exists. The citation was correct and the absence was the point of it.
+
+An hour earlier I had told the same sibling that their new gate encoded a distinction *"settled by argument
+this afternoon and never tested against a case designed to break it — a gate whose own criterion is an
+inference, whose known-fail control tests that the gate fires, not that the criterion is right."* **My own gate
+then did exactly that, and the control I had written passed 5/5 while the rule was wrong.**
+
+> **A known-fail control tests the MECHANISM. Only contact with real data tests the RULE.** A control is built
+> from the same understanding as the thing it checks, so it cannot see the cases that understanding omits.
+
+Fixed by exempting a documented rename — an arrow to a name that does exist — and by adding *both* directions
+to the control: a documented rename must pass, and a rename to a target that is also missing must still fail.
+The exemption is deliberately mechanical rather than clever, because **a wrong audit is worse than none: it
+teaches you to ignore it.**
+
 **The repair is the same both times and it is not more scrutiny.** More reading would not have caught either —
 four readings did not catch theirs, and mine was in a file I wrote myself. What caught both was **touching the
 state**: an `ls`, a `git log`. Which sharpens entry 50's companion observation into the form the peer gave it,
