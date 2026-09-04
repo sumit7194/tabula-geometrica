@@ -137,8 +137,17 @@ d["mem_free_gb"] = free_gb
 # checkable rather than something a peer has to take on trust.
 d["writer_pid"] = self_pid
 d["heartbeat_pid"] = self_pid          # both spellings: peers use different field names
-d["state"] = "running" if procs else "idle"      # DERIVED, not preserved from a declaration
-d["heavy"] = bool(any((q.get("rss_mb") or 0) > 1500 for q in procs))
+# 5. A WIDENED SCAN SILENTLY CHANGED A DOWNSTREAM LABEL. `state` read "running if procs else idle", which was
+#    correct while `procs` came from an argv match on this repo's scripts. Switching to CWD enumeration (fix 4)
+#    correctly widened DETECTION and thereby broke the LABEL: an idle login shell whose cwd is the repo made
+#    this publish `state: running` with nothing computing -- to sister sessions deciding whether the machine is
+#    free, that reads as "tabula is busy". n_active existed for exactly this and `state` was never pointed at
+#    it. **Fixing an input can corrupt a consumer that was correct under the old semantics**, and nothing here
+#    failed: the field was derived, fresh, and jittering throughout.
+n_active_now = sum(1 for q in procs if (q.get("cpu_pct") or 0) > 5.0)
+d["state"] = "running" if n_active_now else "idle"       # DERIVED from CPU, not from mere presence in the repo
+# heavy = memory actually held by ACTIVE work; an idle shell rooted here must never make us look heavy.
+d["heavy"] = bool(any((q.get("rss_mb") or 0) > 1500 and (q.get("cpu_pct") or 0) > 5.0 for q in procs))
 
 # --- DECLARED: cannot be refreshed by any heartbeat, so label it and age it ---
 if "detail" in d and "declared_at" not in d:

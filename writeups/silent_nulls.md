@@ -1514,6 +1514,31 @@ only because stderr went to a file rather than `/dev/null` — the same instrume
 for *deaths*, paying out on a **birth** instead. A launch that never starts and a loop that dies silently produce
 identical evidence: no process, no message. **Instrument the launcher, not only the exit.**
 
+**AND THE FIX ITSELF BROKE A CONSUMER, WHICH NOTHING DETECTED FOR NINE HOURS.** The cwd rewrite above is
+correct and I shipped it with two known-fail controls. What neither control covered was a *downstream* field.
+`state` was derived as `"running" if procs else "idle"` — correct while `procs` came from an argv match on this
+repo's own scripts. Widening detection to cwd widened `procs` to include **an idle login shell whose working
+directory happens to be the repo**, so the heartbeat published:
+
+    state: running        n_procs: 3        n_active: 0
+
+to every sister session using that file to decide whether the machine is free. **The label said busy; nothing
+was computing.** I had added `n_active` that same morning for exactly this distinction and never pointed
+`state` at it — the honest dual counts went in beside a collapsed label still reading the wrong one.
+
+> **Fixing an input can corrupt a consumer that was correct under the old semantics.** The bug is not in either
+> piece; it is in the fact that widening a definition is a silent interface change to everything downstream.
+
+Nothing failed. The field was derived, fresh, and jittering the entire time — it passed every check built to
+distinguish a real heartbeat from a bumping one, because those checks ask whether the loop is *measuring*, not
+whether the measurement still *means* what its name says. Corrected to key on CPU rather than presence
+(`heavy` likewise), and verified in both directions: idle → `idle`, a live 100%-CPU job → `running`, job
+killed → `idle`.
+
+**Three of this file's entries now describe the same morning's fix breaking something else** (46 the scan, 49
+the wait-loop, this one the label). The repair rate is not the problem; **the invisibility is** — every one of
+these published a plausible, well-formed, freshly-timestamped value.
+
 ### 47. A blow-up announces itself; a plateau recruits you
 
 Relayed by TheBridge from a third workspace (3d CFT entanglement), from that workspace's own record — the
