@@ -1111,7 +1111,9 @@ results in `curvature/notes/lab_notebook.md`.
   (p: 2.9e-07 → 0.40). Two designs, opposite failures, no third attempted. **ADDITIVE mutation DEMONSTRATED the
   anti-guard**: a common spurious log shrinks the corner spread 1.116%→0.516% — the headline gets *easier* on
   corrupted data; the multiplicative control is exactly invariant, which is why the obvious corruption test
-  shows nothing. 180 + 186 in verify.sh. **silent_nulls → 42** (41: a power analysis is only as good as its
+  shows nothing. 180 + 186 in verify.sh. **silent_nulls → 46** (46: a path-based identity check reads the LAUNCHER's argv, not the process — a
+  job launched by relative path is invisible to every `SpaceTime/curvature` match, so the heartbeat publishes a
+  measured, jittering `n_procs: 0` while it runs; always launch by absolute path. 41: a power analysis is only as good as its
   assumed nuisance amplitude — simulated −0.08, data wanted +0.12..+0.40, promised 95.8% power and delivered
   none; 42: an implementation can be COARSER than its pre-registration, not only stricter).
 - Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other

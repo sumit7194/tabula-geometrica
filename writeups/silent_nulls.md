@@ -1419,3 +1419,40 @@ the failure this entry describes, committed **inside the entry describing it**, 
 days on the subject. It was caught by an outside reviewer, not by the author. A catalogue of self-deception
 containing an instance of its author self-deceiving mid-authorship is better evidence that the mechanism is
 structural than any amount of assertion that it is.
+
+### 46. A path-based identity check reads the launcher's string, not the process
+
+Entry 45 ended by naming `pgrep`'s self-exclusion as the hole and `ps` as the fix. Restarting a keepalive the
+next morning found the deeper version of the same hole, and `ps` has it too.
+
+The loop was launched as `./curvature/scripts/keepalive.sh`. It ran correctly. But its argv now reads
+
+    bash ./curvature/scripts/keepalive.sh 10
+
+which does **not contain the string `SpaceTime/curvature`** — the pattern that every identification rule in this
+project matches on: the kill-targeting rule ("never `pkill` by generic pattern; match only the full path"), the
+script's own self-exclusion, and the heartbeat's derived job count. A `ps | grep <full path>` returned nothing
+while the process sat there in the next line of output under a relative path.
+
+So the same process is present or absent depending on **how it was invoked**, not on what it is. Both failure
+directions are live: a job launched relatively is invisible to the heartbeat, which then publishes `n_procs: 0`
+— a measured, jittering, entirely trustworthy-looking field asserting the machine is idle while it computes. And
+a kill rule that matches on the full path silently spares the process it was written to target.
+
+> **`pgrep` and `ps` both match against argv, which is a string the *launcher* chose. It is not an identifier
+> of the process.** Two instruments sharing a failure mode is exactly what entry 45 warned about — and having
+> written that warning, I switched from one of them to the other and called it fixed.
+
+The identity that does not depend on the caller's typing is the kernel's: `/proc`-equivalent executable path, or
+the pid recorded by the process itself at startup. This project already had the second one — the keepalive
+writes `writer_pid` into its own status file — and it was the field I did not check first.
+
+**Fix applied, not just noted:** relaunched by absolute path so argv and identity coincide, and verified by the
+rule that would do the killing rather than by a friendlier grep. The cheap discipline is *always launch by
+absolute path* — it costs nothing and makes argv-matching accidentally correct.
+
+**Coda, same restart, same theme.** The first launch used `setsid`, which does not exist on macOS. It failed
+instantly with `command not found` and the announcement "keepalive running" would have been false. It was caught
+only because stderr went to a file rather than `/dev/null` — the same instrumentation that entry-era work added
+for *deaths*, paying out on a **birth** instead. A launch that never starts and a loop that dies silently produce
+identical evidence: no process, no message. **Instrument the launcher, not only the exit.**
