@@ -81,3 +81,35 @@ had just relayed, a wait-loop I had just catalogued, a heartbeat I had already w
 > that reasoned about what the data meant for something else.** That is not a coincidence of one bad day; it is
 > the difference between a claim that gets checked by the world and a claim that gets checked only by the
 > person making it.
+
+## AMENDMENT 2 — hint (iv), logged before the calibration runs
+
+A fourth piece of information arrived from the operator: a published result (Kubizňák & Krtouš, PRD 78, 064022,
+arXiv:0804.4705) stating that a **principal conformal Killing–Yano tensor alone** — Einstein equations not
+imposed — yields Petrov type D, separability, and complete integrability of geodesic motion. The operator
+flagged it themselves: it says something structural about 4D metrics with hidden symmetry, and METRIC_A is a 4D
+metric handed to me for a legibility verdict. Their words: *"I do not think it identifies METRIC_A — the
+principal-tensor class is large — but 'I do not think' is not 'it does not'."*
+
+**Choice recorded: (b), treat it as a further leak and downgrade.** The cost is asymmetric. Were I to run the
+screen and land on a verdict consistent with the class this result describes, I could no longer separate *my
+instrument found this* from *I was told roughly this and my instrument agreed*. Leg 3 is already retired as
+evidence, so strictness costs nothing here — **which is exactly why this is the right place to practise it. A
+rule adopted only where breaking it would be costless is not a rule.**
+
+**Received hints now number four**, which is enough that the honest label is *informed*, not *informed about one
+thing*:
+
+    (i)   intermediate case, discriminates
+    (ii)  an invariant exists
+    (iii) polynomial in the momenta, non-polynomial coefficients in position
+    (iv)  the principal-CKY structural result above
+
+The pre-registration in the original section is unchanged and still binding. The calibration proceeds at its
+declared weight — an instrument check against §178's predicted signature, not evidence about the metric.
+
+**Not taken as a lead:** the operator's further suggestion that legibility and integrability might both be
+downstream of a principal tensor. They labelled it their own inference and noted they had just been corrected
+for that species of inference in this exact material; the bridging step sits in what they graded unverified. If
+it bears on §161 it will still bear on it after reading the paper's body directly. **What survives without
+inference, and is worth having on its own: the field equations are not what generates the symmetry.**
