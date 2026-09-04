@@ -1758,6 +1758,24 @@ to the control: a documented rename must pass, and a rename to a target that is 
 The exemption is deliberately mechanical rather than clever, because **a wrong audit is worse than none: it
 teaches you to ignore it.**
 
+**Then a second fault, found in the same hour, and this one had been PASSING.** The count check used
+`re.search` and took the *first* match. CLAUDE.md contains two such claims: a dated status block recording
+*"silent_nulls → 18 entries"* (a correct historical statement about the count at that time) and the newest
+block carrying the live one. The check should have compared against 18 and failed. **It passed only because
+the historical line words it differently enough — `→ 18 entries**` — to miss the pattern.**
+
+> **A gate that is right by an accident of formatting is indistinguishable, from the outside, from a gate that
+> is right.** Both print PASS. The green tells you nothing about which one you have.
+
+This is the same species as entry 46's argv match: the check appeared to work and its correctness rested on a
+coincidence of how someone happened to write a string. Corrected to the actual semantics — historical claims
+may be *below* the real count, the live claim (the maximum) must *equal* it, and any claim *above* it is always
+wrong — with the multi-claim case added to the control. 9/9.
+
+**Two faults, one hour, in a gate built to catch exactly this class of error, by an author who had spent the
+day cataloguing it.** The first was caught by real data; the second by reading output I had already accepted as
+green.
+
 **The repair is the same both times and it is not more scrutiny.** More reading would not have caught either —
 four readings did not catch theirs, and mine was in a file I wrote myself. What caught both was **touching the
 state**: an `ls`, a `git log`. Which sharpens entry 50's companion observation into the form the peer gave it,
