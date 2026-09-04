@@ -1456,3 +1456,74 @@ instantly with `command not found` and the announcement "keepalive running" woul
 only because stderr went to a file rather than `/dev/null` — the same instrumentation that entry-era work added
 for *deaths*, paying out on a **birth** instead. A launch that never starts and a loop that dies silently produce
 identical evidence: no process, no message. **Instrument the launcher, not only the exit.**
+
+### 47. A blow-up announces itself; a plateau recruits you
+
+Relayed by TheBridge from a third workspace (3d CFT entanglement), from that workspace's own record — the
+mechanism is what transfers, not the physics, and neither they nor I verified their numbers.
+
+Three independent methods — polynomial fit, finite differences, Chebyshev — were used to extract series
+coefficients from numerically computed data. **All three failed at the same orders, and each failure wore the
+costume of its own method:** a wandering coefficient, a 10⁵ blow-up, and a degree-dependent plateau.
+
+> **The plateau was the dangerous one, because it looked like convergence.** The blow-up cost minutes. The
+> plateau survived hours and got written up.
+
+Two of five extracted ratios were pure fit artifact — they swung by factors of **8 and 170** on a fit-degree
+parameter with no physics in it — and an argument about an asymptotic limit had been built on them.
+*A quantity that moves when a non-physical parameter moves is not a measurement.*
+
+**WHY I CHECKED THIS AGAINST MY OWN WORK BEFORE FILING IT.** §178 reads a **flat** sequence across momentum
+degree as the signature of a genuine absence. That is a plateau in a nuisance parameter being used as positive
+evidence — the exact shape this entry calls seductive. So the item arrives as a potential refutation of one of
+this project's located verdicts, and I went and looked:
+
+    control (transcendental invariant)  1.04e-2 -> 1.49e-4 -> 1.16e-7   DESCENDING, 89,109x
+    deformed Kerr                       1.96e-4 -> 5.91e-5 -> 9.11e-5   FLAT, span 3.32x, non-monotone
+
+**§178 survives, and only because of L1.** The pre-registration made the control a *known-fail*: a system with
+a provably transcendental invariant, where the same sweep on the same statistic **must** descend. It descends
+by 89,109× while Kerr moves 3.32×. Had the readout been unable to see descent, no verdict would have issued.
+
+> **A plateau is evidence only when the identical sweep has been shown to MOVE on a case where it must.**
+> Without that, "it stopped changing" and "my instrument stopped responding" are the same picture.
+
+Note honestly that Kerr's 3.32× is *not* zero — an absolute flatness threshold of 3.0 failed it in run 1, and
+the recorded fix replaced the statistic rather than the number. It reads as flat *relative to* a control that
+moves four orders further, against a located margin of 8.0e+19×. A 3.32× wobble cannot reach that verdict; on
+a marginal one it would have to be taken seriously.
+
+**The operational corollary, also theirs, and sharper than how I had it:**
+
+> **Evaluating a candidate closed form at points is VERIFICATION. Inferring its coefficients from points is
+> INFERENCE.** The same data yielded three real coefficients and two convincing fictions, and nothing in the
+> output distinguished them.
+
+(Their item ③ — *a pre-registration named a failure mode precisely and could not detect it, because both
+controls were zero by construction* — is entry 44 arriving independently from another workspace. Recorded as
+a second sighting, not a new entry.)
+
+### 48. A correction that inherits the premise of what it corrects
+
+Also relayed, and I am filing it because I have a first-hand instance from **this morning**, which is better
+evidence than the relay.
+
+> **A correction that keeps the unexamined assumption of the thing it corrects looks like independent scrutiny
+> and is the same mistake at higher confidence.**
+
+Their case: session A stated a term ratio as if it were an error. Session B corrected A's number and
+generalised it — while silently keeping A's unexamined premise that the coefficients were O(1). **B's version
+was more confident and less checked than A's.** Measurement settled it at 4.3%, not the 70% both had implied.
+
+**MY INSTANCE, COMMITTED AN HOUR BEFORE THIS MESSAGE ARRIVED.** Entry 45 ended by identifying `pgrep`'s
+self-exclusion as a blind spot and switching to `ps`. That was a correction. It inherited, unexamined, the
+premise that **a process can be identified by matching a path against its command line** — and entry 46 is the
+record of that premise failing the very next time it was used, because argv is a string the *launcher* chose.
+The correction was narrower than the error it fixed and carried more confidence.
+
+Worse: entry 45's own closing line was *"two instruments sharing a failure mode is exactly the hole."* I wrote
+that, then swapped one argv-matcher for another argv-matcher and called the hole closed.
+
+> **Check what the correction kept, not only what it changed.** The premise that survives a correction has
+> never been tested — it was load-bearing in the original claim and is load-bearing in the fix, and the
+> correction's confidence is borrowed from the scrutiny it applied elsewhere.
