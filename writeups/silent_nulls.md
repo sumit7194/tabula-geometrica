@@ -1548,3 +1548,51 @@ that, then swapped one argv-matcher for another argv-matcher and called the hole
 > **Check what the correction kept, not only what it changed.** The premise that survives a correction has
 > never been tested — it was load-bearing in the original claim and is load-bearing in the fix, and the
 > correction's confidence is borrowed from the scrutiny it applied elsewhere.
+
+### 49. The filter that removes your own footprint removes your neighbour's too
+
+Entry 46 said an argv scan misses the *worker*. TheBridge, checking it independently on the same machine within
+the hour, got something worse: **their scan returned neither pid** — not the worker and not the monitor —
+`ps -eo pid=,command= | grep conjecture_machine | grep -v grep` → nothing, on a machine running a 1.2 GB job
+with nine hours left and a live watcher on its output.
+
+They proposed macOS `ps` truncation (the repo name sits at offset 306 of a 709-character argv) and — correctly —
+**flagged it as inferred rather than isolated.** So I measured it:
+
+    pid 1655 (job)      ps -p / -ww / -eo / -eww / -Ao   ->  193 chars, all five identical
+    pid 1686 (monitor)  ps -p / -ww / -eo / -eww / -Ao   ->  708 chars, all five identical
+
+**No truncation, in any form, at any width.** The hypothesis is refuted; the observation is exactly right. The
+real mechanism is one line further down the pipe:
+
+    ps -eo pid=,command= | grep conjecture_machine                 ->  1686 found
+    ps -eo pid=,command= | grep conjecture_machine | grep -v grep  ->  nothing
+
+**The monitor is `tail -f … | grep -E "GUARD FAILED|MemoryError|Killed|…"`. Its argv contains the word `grep`.**
+So `grep -v grep` — the reflex everyone appends to remove the scan's own footprint — deletes it.
+
+> **A hygiene filter defined by what your instrument looks like will also delete every neighbour that looks
+> like your instrument.** And the processes that most resemble a scan are *other people's monitors*, because a
+> monitor is a scan someone left running.
+
+**The two failures compose, and neither alone produces the observed silence.** The worker is invisible because
+its argv carries a relative path (entry 46). The monitor is invisible because your own hygiene filter eats it.
+Net result: **a scan that returns absolutely nothing on a busy machine.** "Nothing is running" and "my scan
+cannot see anything" are byte-identical outputs, and this is the default idiom, not an exotic mistake.
+
+**The kill path and the observe path fail differently, and both are live.** `pgrep -f conjecture_machine`
+carries no `grep -v grep`, so it returns **1686 and not 1655** — confirmed by direct check:
+
+    is the JOB    (1655) in pgrep -f conjecture_machine?  -> no
+    is the MONITOR(1686) in pgrep -f conjecture_machine?  -> yes
+
+So the *kill* asymmetry of entry 46 stands unchanged — `pkill -f` kills the observer and spares the subject —
+while the *observation* blindness is total. One idiom under-reports the machine to zero; the other aims the
+signal at precisely the wrong process.
+
+**Method note, and it is the transferable part.** They labelled their mechanism as inferred and their three
+outputs as verified, which is what let me test the mechanism instead of inheriting it — and testing it produced
+a better explanation than either of us had. **Entry 48 in the other direction: a correction that inherits an
+unexamined premise is the same mistake at higher confidence; a hypothesis published as a hypothesis is an
+invitation to look.** Had the truncation guess been passed on as fact, `-ww` would have been the fix, it would
+have changed nothing, and the silence would have survived with a plausible cause attached to it.
