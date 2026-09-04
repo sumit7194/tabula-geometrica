@@ -926,6 +926,11 @@
    "t": 1787388807,
    "secs": 121.4,
    "peak_gb": 6.224
+  },
+  {
+   "t": 1788555919,
+   "secs": 104.8,
+   "peak_gb": 4.869
   }
  ],
  "Degree-3 positive control, Toda cubic (script 169)": [
@@ -933,6 +938,11 @@
    "t": 1787388810,
    "secs": 2.3,
    "peak_gb": 0.48
+  },
+  {
+   "t": 1788555922,
+   "secs": 2.6,
+   "peak_gb": 0.488
   }
  ],
  "Degree-4 positive control, Toda tr L^4 (script 171)": [
@@ -940,6 +950,11 @@
    "t": 1787388827,
    "secs": 17.7,
    "peak_gb": 1.954
+  },
+  {
+   "t": 1788555937,
+   "secs": 15.6,
+   "peak_gb": 1.771
   }
  ],
  "Degree-4 geodesic substrate + target (script 172)": [
@@ -947,6 +962,11 @@
    "t": 1787388855,
    "secs": 27.2,
    "peak_gb": 2.147
+  },
+  {
+   "t": 1788555963,
+   "secs": 25.7,
+   "peak_gb": 1.219
   }
  ],
  "C5 for CERTIFY-NO-CODE, dimension ladder (script 176)": [
@@ -954,6 +974,11 @@
    "t": 1787388861,
    "secs": 6.7,
    "peak_gb": 0.31
+  },
+  {
+   "t": 1788555969,
+   "secs": 5.9,
+   "peak_gb": 0.305
   }
  ],
  "Located walls + censoring guard (script 177)": [
@@ -961,6 +986,32 @@
    "t": 1787388883,
    "secs": 21.5,
    "peak_gb": 0.376
+  },
+  {
+   "t": 1788556057,
+   "secs": 20.4,
+   "peak_gb": 0.376
+  }
+ ],
+ "Corner study G0: regulators converge, c4 derived (script 180)": [
+  {
+   "t": 1788555970,
+   "secs": 1.0,
+   "peak_gb": 0.223
+  }
+ ],
+ "Corner study: additive mutation + anti-guard demonstrated (script 186)": [
+  {
+   "t": 1788555988,
+   "secs": 17.6,
+   "peak_gb": 1.502
+  }
+ ],
+ "Degree ladder located: real absence vs basis-limited (script 178)": [
+  {
+   "t": 1788556037,
+   "secs": 49.4,
+   "peak_gb": 4.163
   }
  ]
 }
