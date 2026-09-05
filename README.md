@@ -71,6 +71,9 @@ different methods, then comparing notes:
 - **[vestigium](https://github.com/sumit7194/vestigium)** — a verified lab for the quantum
   measurement problem; proposed and cross-checked the Kaluza–Klein mass-discovery experiment
   with this repo.
+- **[cuspis](https://github.com/sumit7194/cuspis)** — the entanglement-entropy corner function
+  `a(θ)` in 3d conformal field theories: why theories with different content agree on the
+  normalised curve, and by how much they do not. Joined 2026-09-05.
 
 Each project stays independent (own code, own gates); only questions and results cross.
 
