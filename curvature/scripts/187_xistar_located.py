@@ -83,7 +83,13 @@ def main():
         cv = rcov_at(m)
         xi, r2 = measure_xi(m)
         rows.append({"m": float(m), "R_CoV": float(cv), "xi_measured": float(xi),
-                     "xi_textbook": float(1.0 / (2 * m)) if m > 0 else float("inf"),
+                     # v_F = 2 for eps(k) = -2 cos k at half filling, gap = 2m, so the continuum relation is
+                     # xi = v_F/gap = 1/m, NOT 1/(2m). The first version of this column used 1/(2m) and was
+                     # wrong by exactly a factor of 2. It is a COMPARATOR ONLY: xi is measured, so the error
+                     # never reached m*, xi*, or the verdict. Confirmed from the data itself -- xi_meas*m
+                     # clusters near 1 across the clean regime, xi_meas*2m near 2.
+                     "xi_continuum_vF2": float(1.0 / m) if m > 0 else float("inf"),
+                     "xi_textbook_WRONG_vF1": float(1.0 / (2 * m)) if m > 0 else float("inf"),
                      "xi_fit_r2": float(r2) if np.isfinite(r2) else None})
         print(f"  m={m:<10.5g} R_CoV={cv:<12.5g} xi_meas={xi:<12.5g} xi_1/2m={1/(2*m) if m>0 else np.inf:<12.5g} r2={r2:.4f}")
 

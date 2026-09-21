@@ -125,3 +125,60 @@ clause, added with the result already visible, and is flagged as such rather tha
 
 `../quantum`'s sealed prediction, which TheBridge confirms was filed 2026-09-05 before this instrument ran.
 I have read access to that repository and have not looked, before or after producing these numbers.
+
+---
+
+# SETUP CORRESPONDENCE (appended 2026-09-21, read off committed code — not reconstructed)
+
+Requested by TheBridge for cross-repo comparability, after the run. **Every item below is quoted from the
+committed source, not recalled** — `187_xistar_located.py` and `42_curvature_from_entanglement.py` are in git
+and each line is cited. The warning that reconstructions in this family have a bad record is correct; this is
+not one, and that distinction is the reason it can still be trusted post-hoc.
+
+| item | this run |
+|---|---|
+| **interval scaling** | **ABSOLUTE lattice sites at a single L.** `LS = arange(16, 177, 2)`, `N = 512` fixed. Mass is swept; the band is never rescaled. NOT a fixed fraction of the ring. |
+| **block fraction** | consequently **varies across the band**: `l/N` runs 0.03125 → 0.34375 |
+| **boundary** | **PERIODIC ring** — `chain_hop(N, periodic=True)`, `chain_hop_gapped(N, m, periodic=True)` |
+| **cut count** | **TWO.** The region is one contiguous block `range(N//2 − l//2, N//2 + l//2)` on a ring → two boundary points |
+| **CFT form** | **`c/3`**, consistent with two cuts: `S_analytic = (c/3)·ln[(N/π)·sin(πl/N)]` |
+| **ξ definition** | **`\|C(r)\| ~ exp(−r/ξ)`**, r in **lattice sites**, even separations only, fitted over `r ∈ [2, N/4)` on the envelope of the single-particle correlation matrix `C_ij = ⟨c_i† c_j⟩`. **Not** from the entropy, **not** from the gap. |
+| **statistic** | `R_CoV` aggregated **across the whole band**, so each mass point mixes a range of `l/ξ` |
+
+## The factor of 2, caught by this check, and where it did and did not reach
+
+TheBridge flagged that a factor of 2 in the ξ convention moves everything. It did — in my comparator column.
+
+For `h_{i,i+1} = 1` at half filling, `ε(k) = −2cos k`, so **`v_F = 2`**; with gap `= 2m` the continuum relation
+is `ξ = v_F/gap = **1/m**`, not `1/(2m)`. The first version of this script reported `xi_textbook = 1/(2m)` —
+**wrong by exactly a factor of 2.** Confirmed from the data rather than from the algebra:
+
+    xi_meas · m    = 0.854, 0.951, 1.071, 1.209, ...   (-> 1 in the clean regime)
+    xi_meas · 2m   = 1.708, 1.902, 2.142, 2.418, ...   (-> 2)
+
+> **It never reached `m*`, `ξ*`, or the verdict, because ξ was MEASURED rather than derived.** The frozen
+> choice to fit ξ from the correlation envelope instead of assuming `1/(2m)` confined a real convention error
+> to a cosmetic column. Had I taken the textbook route the pre-registration offered, the entire x-axis would
+> have been off by 2 and nothing in the run would have said so.
+
+Column corrected to `xi_continuum_vF2 = 1/m`, with the wrong one retained as `xi_textbook_WRONG_vF1` rather
+than deleted.
+
+## The composite actually being scanned, stated so a mismatch is visible
+
+At the located wall `m* = 1.467e-4`:
+
+    l/ξ  across the band   0.0023 .. 0.026     l ≪ ξ    SATISFIED, deeply
+    ξ/N                    13.3                ξ ≪ N    VIOLATED, inverted ~13×
+
+So this run scans **deep in `l ≪ ξ` while `ξ ≪ N` is inverted.** That is the correspondence fact that matters
+for any comparison: a prediction framed as a threshold in `ξ/L` for a setup where `ξ ≪ box` holds is **not
+describing this regime**, and the honest outcome would be **NOT COMPARABLE** — neither confirmation nor
+falsification. It is also, independently, *why* the ξ-axis abstains: the gate fires in a regime where ξ exceeds
+the system, and a correlation length larger than the box is not a length this system can report.
+
+## Still not consulted
+
+`../quantum`'s sealed prediction. Not read before the run, not read after, and **I will not ask whether the
+number matches** — a peer's interim "close" or "not close" is exactly the channel that would end the blinding.
+The comparison belongs in one place, with the correspondence check above done first.
