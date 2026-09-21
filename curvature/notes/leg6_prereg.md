@@ -613,7 +613,27 @@ binding (all 39 retained at `COND_TOL = 1e-15`); the binding constraint is that 
 factor ~20 of the double-precision limit, so the whitening `W = U/√s` amplifies the worst direction by 4e+06
 and `eps·κ ≈ 0.05`.
 
-**But the magnitude is NOT explained:** 4.5 orders of conditioning improvement bought **0.27 orders** of
-margin, and a 4,862× gap to the basis floor remains. **Conditioning is confirmed as a contributor and refuted
-as the whole story.** Recorded open, with a floor, a condition number, and a measured sensitivity, so the next
-attempt starts from numbers rather than from suspicion.
+**And the two points give the SENSITIVITY, which is stronger than "insufficient".** `heldout` is a variance,
+so amplitude `d = √heldout`:
+
+    full 39     kappa 2.333e+14   d 2.360e-04
+    reduced 27  kappa 7.295e+09   d 1.722e-04
+    kappa moved 4.50 decades, d moved 0.137 decades   ->   d ~ kappa^0.0304
+
+**The exponent is 0.03, not 1.** Closing the remaining 3.34 decades to the basis floor at that sensitivity
+would require **110 decades of κ.**
+
+> **Conditioning is not insufficient — it CANNOT close the gap at any achievable κ.** The 1.88× is not a small
+> effect awaiting a larger one; it is the entirety of what four and a half decades of conditioning buys.
+
+**So BOTH standing candidates are excluded by measurement rather than by elimination**, and by the same two
+points: shrinking the library improved the margin (span excluded by mechanism), and the sensitivity exponent
+is 0.03 (conditioning excluded by extrapolation). One test, two verdicts, opposite directions.
+
+**The residual belongs to something neither party has named.** Recorded open, with a floor (7.8e-08), a
+condition number (2.3e+14), and a measured sensitivity (κ^0.03), so the next attempt starts from numbers
+rather than from suspicion. (Sensitivity analysis due to TheBridge; verified here.)
+
+**One hypothesis tried and failed, recorded so it is not re-derived:** that the χ²-truncation makes the
+screened object non-conserved, so no basis could find it. That fails for A, which admits an exact rank-2
+Killing tensor — an exactly conserved object does exist there, and A's margin is the one in the table.
