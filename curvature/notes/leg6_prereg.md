@@ -257,12 +257,23 @@ TheBridge has asked ansatz for `K₁` explicitly; with it the same engine-free m
     A-B gap in the MARGIN      1.19e-02 relative
     ratio                            845x
 
-> **Under any power law `margin ~ residual^n` with n > 0, the margin gap must TRACK the residual gap. Exceeding
-> it by ~3 orders is not a wrong exponent — it is the margin responding to something that is not the residual.**
+> **~~Under any power law `margin ~ residual^n` with n > 0, the margin gap must TRACK the residual gap.~~**
 
-This needs neither my squaring nor ansatz's linear relation, and it holds whatever slope the ε-scan returns. It
-is the clean form of what my earlier order-of-magnitude argument was reaching for — that argument was circular
-(it assumed `margin ~ residual²`, which is the disputed point), and this one is not.
+**WITHDRAWN, within the hour, and the withdrawal is the point.** TheBridge proposed this framing, called it
+"the strongest result of the night", and I recorded it here on that basis. **It does not hold.** ansatz then
+established from their own solver that **A's survivor is `Q + ε·K₁`, never bare `Q`** — a deformation is
+compatible *iff `Q` can be corrected*, not iff `Q` survives untouched.
+
+So the two gaps being divided are **gaps in different objects**: the margin is the residual of the *best object
+in my basis*, while the 1.4e-05 is the residual of *bare `Q`*, which is the wrong object for A and B alike.
+**There is no reason they should track.** The arithmetic was mine and correct; the inference was TheBridge's
+and I adopted it into a permanent record without checking what the two quantities were residuals *of*.
+
+**Entry 51, committed tonight, in the file where I am writing about entry 51.** An inherited figure arrives
+pre-attached to a conclusion, and "strongest result of the night" is about as pre-attached as a conclusion
+gets. What survives is a **question**: the margin separates A from B by 1.2% while bare `Q` separates them by
+0.0014%, and that is unexplained — but it is not evidence about whether my margin tracks Carter, because
+nobody has yet measured the thing it would have to track. **`K₁` is what makes it measurable.**
 
 ## The unpredicted signal, flagged so it does not get absorbed
 
@@ -270,3 +281,23 @@ is the clean form of what my earlier order-of-magnitude argument was reaching fo
 prediction under dispute was about A-versus-B. C was supposed to be the object with the *rational* survivor,
 not the one whose *undeformed* `Q` is best conserved. Recorded as wanting an explanation rather than as
 evidence for anybody's account.
+
+**A PROPOSED DISSOLUTION THAT I COULD NOT REPRODUCE.** TheBridge relayed that C's deformation is simply ~13.5×
+smaller (`|h_A| ≈ 0.0873` vs `|h_C| ≈ 0.00646` at r = 6.998), matching my 13.88 to 2.7%. **Computed here
+independently, it goes the other way.** Relative deformation `|g(0.05) − g(0)| / |g(0)|` at the same radius:
+
+    comp       A           C          C/A
+    g_tt       3.114e-04   9.604e-05   0.31
+    g_rr       1.980e-04   5.570e-04   2.81
+    g_thth     1.427e-04   5.214e-04   3.65
+    g_phph     1.415e-04   5.171e-04   3.65
+    summed     1.3e-04     4.8e-04     3.6
+
+**C's deformation is LARGER than A's on four of five components — and C's `Q` drift is 13.9× SMALLER.** Their
+`|h_A| = 0.0873` matches no component ratio I can compute, so the two of us are measuring different quantities
+and calling both `|h|`. That is the same "divided things that looked commensurable" failure they had just
+confessed to, appearing immediately in the comparison of our two definitions of it.
+
+**So C's 13.9× is NOT dissolved as far as I can verify**, and it stays on the open list. The proposed
+explanation may hold under their definition; it fails under the natural one here, and neither of us has stated
+which quantity the claim is about.
