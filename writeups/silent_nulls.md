@@ -2061,3 +2061,42 @@ macOS compresses proactively — measured here, `compressor_delta` ran +0.56 GB 
 pageouts throughout. Collapsing them into one pressure flag would have repeated the `n_procs`/`n_active`
 mistake (entry 47's coda) **from the opposite direction**: there, presence was mistaken for work; here, an
 early soft warning would have been reported as the box in trouble.
+
+### 55. An artifact that does not record the mode it was produced in cannot be checked for reproduction
+
+Found by taking my own rule seriously. Entry 53 ends: *"recoverable in principle is worth nothing unless
+something actually re-runs it."* I had then asserted that 6 ungated results files were **regenerable** — on the
+evidence that their producing scripts still existed. **I had not run them.** That is the same unexercised claim
+one level up, made in the message that named the failure.
+
+So I ran the three cheap ones, having first copied the stored outputs aside so a mismatch would be visible
+rather than overwritten:
+
+    96_richer_invariants        19/19 fields identical      reproduces
+    183_corner_G1b_diag         22/22 fields identical      reproduces
+    175_c5_onsubstrate_audit     2/10 identical             DOES NOT REPRODUCE
+
+`n_train` 80 → 160, `H2_ensemble_spread` 0.2846 → 0.2975, every ratio shifted by 1.5–5×. The script has exactly
+one commit in its history, so the code had not changed.
+
+**It was a mode flag.** Line 61: `NTRAJ = m161.NTRAJ if not FAST else max(24, m161.NTRAJ // 2)`. The stored
+file came from a `--fast` run and **recorded nothing about that anywhere in its output.** Re-run with `--fast`:
+**13/13 fields identical.** The artifact is perfectly deterministic and was never in doubt.
+
+> **A result that does not record the mode it was produced in cannot be checked for reproduction.** A faithful
+> re-run disagrees, the disagreement looks exactly like drift, and there is nothing in either artifact to tell
+> you which it is.
+
+**The danger runs both ways and the false-alarm direction is the more expensive one.** I very nearly filed
+"175 does not reproduce" — which would have been wrong, would have cast doubt on a C5 audit filed with another
+project, and would have cost real time to unwind. **An instrument that raises false alarms gets switched off**,
+and a reproduction check that flags correct artifacts is exactly such an instrument.
+
+Fixed by making the artifact self-describing: `fast_mode` and `NTRAJ` are now written into the output. Note
+what the fix is **not** — it is not "always run in full mode", because the `--fast` run is legitimate and its
+numbers are correct. **The defect was never the mode; it was the silence about the mode.**
+
+**And the verdict was never at risk**, which is the only reason this was cheap: C5 was satisfied in both runs,
+by ~12 orders of margin on a threshold the 1.5× shift cannot reach. A result whose conclusion sits that far
+from its gate can absorb a provenance gap; one that sits near its gate cannot, and would have needed this fix
+before it could be trusted at all.
