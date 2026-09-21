@@ -1,0 +1,79 @@
+{
+  "prereg": "notes/sqrt3_prereg.md (committed before this script existed)",
+  "armD_crossing": [
+    {
+      "W": 64,
+      "xi_at_crossing": 31.903609849748527,
+      "xi_cross_over_W": 0.49849390390232073
+    },
+    {
+      "W": 128,
+      "xi_at_crossing": 69.3630325123893,
+      "xi_cross_over_W": 0.5418986915030414
+    }
+  ],
+  "armD_xi_cross_over_W_spread": 1.087071852355542,
+  "armD_note": "The AGREEMENT point sits at xi ~ W/2 and moves with the window. It is a property of the fit, not of the chain. This REFUTES a claim already sent to a peer -- that the two methods calibrate each other somewhere inside the band -- and the refutation came from the same run, within the hour.",
+  "L1_reproduces_187": true,
+  "L1_ref_ratio": 1.7270272114116276,
+  "L1_here": 1.7188875260441694,
+  "armA_window_ratios": {
+    "64": 3.3831749056401326,
+    "128": 1.7188875260441694,
+    "256": 0.7792330505974537,
+    "384": 0.7792330505974537
+  },
+  "armA_relative_spread": 3.3416727550842253,
+  "armA_window_dependent": true,
+  "armB": [
+    {
+      "m": 0.0001,
+      "xi_exp_only": 5770.150683486402,
+      "xi_with_power": NaN,
+      "alpha": 0.008059378681571035,
+      "ratio_exp": 1.7330569942686256,
+      "ratio_power": null
+    },
+    {
+      "m": 0.00014542154334489538,
+      "xi_exp_only": 3981.2541902222415,
+      "xi_with_power": NaN,
+      "alpha": 0.011622744120957299,
+      "ratio_exp": 1.7272346579188045,
+      "ratio_power": null
+    },
+    {
+      "m": 0.00021147425268811283,
+      "xi_exp_only": 2751.028193158444,
+      "xi_with_power": NaN,
+      "alpha": 0.016700172035982026,
+      "ratio_exp": 1.7188875260441694,
+      "ratio_power": null
+    },
+    {
+      "m": 0.00030752912203613756,
+      "xi_exp_only": 1904.9421237337049,
+      "xi_with_power": NaN,
+      "alpha": 0.02387078114004647,
+      "ratio_exp": 1.7069938884798086,
+      "ratio_power": null
+    },
+    {
+      "m": 0.00044721359549995795,
+      "xi_exp_only": 1322.9672504470639,
+      "xi_with_power": 1028247.8942875178,
+      "alpha": 0.03387049039128794,
+      "ratio_exp": 1.6901914818708976,
+      "ratio_power": 0.002174639004779272
+    }
+  ],
+  "armC_N_ratios": {
+    "256": 1.659784438691295,
+    "512": 1.6901914818708976,
+    "1024": 1.6708576025260495
+  },
+  "armC_confounded": true,
+  "armC_note": "Varying N at fixed window FRACTION moves the window and the finite-size scale together; at these masses xi = 1/m >> N for every N, so the chain length also sets the decay. Its near-flatness is UNEXPLAINED and supports nothing. The verdict rests on arm A, which holds the chain fixed and varies only which points are fitted.",
+  "sqrt3": 1.7320508075688772,
+  "verdict": "WINDOW ARTIFACT CONFIRMED: the saturated ratio moves by 334.2% across fit windows on IDENTICAL data ({64: 3.3831749056401326, 128: 1.7188875260441694, 256: 0.7792330505974537, 384: 0.7792330505974537}). The 1.73 is a property of where the line was fitted, not of the chain. sqrt(3) is a coincidence of the N/4 window."
+}
