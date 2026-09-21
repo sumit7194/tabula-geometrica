@@ -1957,7 +1957,43 @@ Same file, same run, one line each, and **neither division was done until someon
 else.**
 
 > **A quantity that exists as two columns in your own output is the cheapest instrument you will ever have, and
-> it stays unmade because making it is nobody's job.** Every pipeline produces these; a gate computes what it
+> it stays unmade because making it is nobody's job.** Every pipeline produces these; a gate computes what it was told to
+compute, and the ratios *between* its outputs are the part no one is assigned.
+
+**THE PEER THEN FOUND A WORSE VARIANT IN THEIR OWN TOOLING AND IT SHARPENS THE RULE.** Their pre-commit hook
+had published six raw hit-counts on every commit for weeks, and they had been reading **deltas on the levels** —
+`483 → 500`, +3.5%, taken as signal. Dividing by the corpus size printed in the same breath: `31.9 → 33.0
+hits/100KB`, **flat**. The delta was corpus growth. And the sweep greps for the word *"independent"* while they
+had that day appended 1,579 lines of prose about independence — *the instrument was measuring its own output
+about the thing it measures.*
+
+Their point is that theirs is worse than mine in a specific way: **my two columns were both in the results
+file, so the instrument was merely unbuilt and cost one line whenever I chose. Theirs discarded the denominator
+at write time.**
+
+> **An unmade instrument whose inputs were not retained is not unmade — it is unmakeable**, and every
+> historical delta in that record is uninterpretable, permanently.
+
+**AUDITED THAT AGAINST THIS REPO, AND THE RULE NEEDS ONE MORE TERM.** 100 results files here carry a derived
+statistic; **55 store it with no raw inputs alongside** — which looks like exactly the failure above. It is
+not, and the reason is the term the rule was missing:
+
+    derived-only results files                                          55
+      producing script still present (regenerable)                      55
+        of those, asserted in verify.sh -- reproduction PROVEN each run  49
+        present but NOT gated -- reproduction ASSUMED, never checked      6
+      ORPHANED, no producing script -> genuinely unmakeable               0
+
+> **The denominator does not have to be stored. It has to be RECOVERABLE — and "recoverable in principle" is
+> worth nothing unless something actually re-runs it.** Their corpus is moving external state and cannot be
+> re-created at a past commit; a seeded script regenerates its inputs on demand. The difference is not
+> diligence at write time, it is whether the producer is deterministic *and gated*.
+
+So the real exposure here is **6 files, nameable**, whose reproduction is assumed rather than checked — and
+most are deliberate exclusions (recorded negatives, a diagnostic, a superseded arm). The 49 are safe not
+because I retained anything but because `verify.sh` re-derives them every run and would fail if it could not.
+
+ Every pipeline produces these; a gate computes what it
 > was told to compute, and the ratios *between* its outputs are the part no one is assigned.
 
 **The repair is the one this catalogue keeps arriving at.** I had written, declining to narrate a mechanism for
