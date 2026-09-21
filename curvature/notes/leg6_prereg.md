@@ -431,6 +431,28 @@ any coefficients.**
 > *"this does not test whether an invariant outside your basis is detectable."*** Not a miss — the boundary,
 > with the missing function class identified by name.
 
+**AND IT IS A PROOF, NOT A PROPERTY OF MY PARTICULAR LIST** (argument due to TheBridge, verified here). `K₁`'s
+pole at the horizon is genuine, not cancelled: at `x = 2` every `(x−2)` factor in the numerator drops, leaving
+
+    numerator(x=2) = 1024*chi^2*P_t^2*y^2*(y-1)*(y+1)     residue = 64*chi^2*P_t^2*y^2*(y^2-1)
+
+nonzero at generic `P_t, y`, against a simple zero in the denominator. *(TheBridge quoted the residue as
+`64χ²P_t²y²`; the `(y²−1)` factor belongs with it. The conclusion is unaffected.)*
+
+My basis, as functions of `r`, spans only `{r², r, 1, 1/r, 1/r²}` — **every one analytic at r = 2.** A finite
+linear combination of functions analytic at a point is analytic at that point. `K₁` has a pole there.
+**Therefore it is not in the span, at any coefficients.**
+
+> **The argument uses only the POLE LOCATION, not the degree.** Any basis whose r-dependence is built from
+> powers of r — Laurent polynomials of *any* order, with poles only at r = 0 — misses it identically.
+> **Extending the library to degree 4, 6 or 20 changes nothing.**
+
+**The missing class has a name and a place: a pole at the HORIZON, r = 2M.** This basis has poles at `r = 0`
+and `sinθ = 0` — the origin and the axis, both coordinate artefacts. **It has nothing at the horizon, the one
+surface in the problem that is physically distinguished.** For §161 that is a sharper witness than `(r−2)`:
+not a function that was forgotten, but **a class of singularity the construction cannot produce, located
+exactly where the physics is.**
+
 **This sharpens §161's biconditional exactly as that leg pre-registered.** `legible ⟺ integrable` survives in
 the form `legible ⟺ integrable with a REPRESENTABLE invariant`, and `(r−2)` is a **concrete witness** to the
 gap rather than a hypothetical one. The partial kill §161 anticipated has arrived, located, and in the
@@ -438,9 +460,16 @@ direction it predicted.
 
 ## What the numerical exponent does and does not decide
 
-ansatz proved `{H_def, chain4 + εK₁} = 0` at O(ε) **exactly, through χ²**. So a numerical exponent-2 result is
-an **independent-route confirmation of a symbolic result** — real value given how many relayed claims failed
-tonight, but not the leg's open question. **The open question was basis representability, and it is answered
+**The exponent-2 result confirms nothing, and I over-claimed it.** `K₁` is first-order perturbation theory: it
+solves the O(ε¹) equation at χ⁰, χ¹, χ² and makes **no claim about the O(ε²) term**, which exists, is
+generically nonzero, and whose coefficient nothing computed predicts. **So `A = 4.07e-07` measures an
+unpredicted quantity — it had no value it was supposed to take, hence none it could have failed to take.**
+ansatz's phrasing: *measuring that the residual goes as ε² is measuring that a smooth function has a quadratic
+term.* The measurement is sound; calling it a confirmation was not.
+
+**Worse, the ε route cannot test the proof even in principle.** If `K₁` were wrong at χ⁰–χ², the failure would
+appear as an extra O(ε) term — and `c` is *defined* as the entire linear coefficient over `F₀`, so it would be
+**silently absorbed.** The quantity that would reveal the error is definitionally incapable of revealing it. **The open question was basis representability, and it is answered
 above without a single further run.**
 
 ## A circularity in `c`, and its escape
@@ -452,7 +481,23 @@ through χ², leaving χ³+ as the only possible source. Truncation by construct
 
 ## Measured, against an assumption that was flagged and failed
 
-`c` is **not χ-independent**: 0.2279 at χ = 0.075, 0.566 at χ = 0.01 — `c ∝ χ^−0.45`. Every headroom figure
-resting on χ-independence moves. **Flagged in advance by the party who could not check it, and it is the second
-such flag tonight to land on the assumption that broke** (the first was `q`). The flag works by naming the
-boundary of one's own instruments rather than by being cautious in general.
+`c` is not χ-independent at large χ — 0.2283 at χ = 0.075, 0.566 at χ = 0.01 — and I reported that as
+**`c ∝ χ^−0.45`**, a power law fitted to **two points.**
+
+**WITHDRAWN. The third point refutes it and I already had the data.**
+
+    chi = 0.075   c = 0.2283
+    chi = 0.010   c = 0.5660      local exponent -0.451
+    chi = 0.003   c = 0.6041      local exponent -0.054
+
+**`c` is SATURATING toward ~0.6, not following a power law.** The −0.45 was driven entirely by the χ = 0.075
+endpoint. **I fitted a slope to two points and quoted it as a scaling**, having spent the same night watching a
+peer's two-point slopes dissolve and having told them that fitting a constant to a marching sequence returns
+its average rather than its limit. Two points always give a slope.
+
+**AND THE CORRECTED READING IS THE TEST THAT COULD HAVE FAILED, PASSING.** ansatz's proof predicts the linear
+term originates at χ³ and above; the ε = 0 floor also originates at χ³ (measured 3.032). So `c`, a ratio of two
+χ³-origin quantities, **should be roughly flat** — and at small χ it is. Had `c` kept falling as a clean power
+law, that would have implied a component of the linear term **not** from χ³+, contradicting an exact symbolic
+proof. **That was the only reading in the thread where a measurement could contradict the algebra, and it does
+not.**
