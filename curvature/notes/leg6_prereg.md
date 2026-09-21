@@ -637,3 +637,40 @@ rather than from suspicion. (Sensitivity analysis due to TheBridge; verified her
 **One hypothesis tried and failed, recorded so it is not re-derived:** that the χ²-truncation makes the
 screened object non-conserved, so no basis could find it. That fails for A, which admits an exact rank-2
 Killing tensor — an exactly conserved object does exist there, and A's margin is the one in the table.
+
+## CORRECTION, found after the close: the span exclusions test the WRONG OBJECT
+
+Every representability test either party ran was on **`chain4 + εK₁`** — the pole, the `(0,0)` sector, the
+cross term, all of it. **But the screen does not search for `chain4 + εK₁`. It searches for ANY conserved
+quantity, and on A one exists exactly.** `chain4 + εK₁` is an O(ε), χ²-truncated *approximation* to it.
+
+> **So "the span is not the limitation" is a claim about the approximation, not about the object the screen is
+> actually looking for.** The exact rank-2 Killing tensor of A has never been tested for representability, and
+> neither party holds it — it is ansatz's machinery.
+
+**Fifth instance tonight of "I checked the thing, and the thing I checked was not the thing" — and this one is
+inside the exclusions that close the leg, committed by both parties.**
+
+**AND MY DISCOUNT OF THE GAP WAS INVALID, in the night's own signature species.** I wrote that *"the measured
+margin is smaller than the approximation's own truncation error, which cuts against it."* The two numbers are
+not comparable:
+
+    truncation drift  2.2e-03   max|Q - Q0|/|Q0| ALONG a trajectory, normalised per-trajectory
+    measured margin   2.36e-04  sqrt(mean_traj(var_within)/var_total), normalised by the
+                                ACROSS-ENSEMBLE variance
+
+**A max relative deviation against a ratio of within- to across-ensemble variances.** Different statistics,
+different denominators; the 10× between them is not a number about the physics. *Two quantities that look
+commensurable because both are small and both concern the same object* — which is the species this entire
+night began on, arriving in the sentence that discounted the last open gap. **The gap stands undiscounted.**
+
+## What survives and what does not
+
+**SURVIVES:** the shrink-test exclusions, because they are about the *screen's behaviour* rather than its
+target. A span deficit cannot improve when the span shrinks, whatever the target is; and `d ~ κ^0.03` is a
+property of the fit, measured on whatever the fit was doing.
+
+**DOES NOT SURVIVE:** the inference from *"the approximation is in span"* to *"span is not the limitation."*
+
+**The better-specified open question: is A's EXACT rank-2 Killing tensor in `d2_rat`'s span on the sampled
+domain?** One object, one fit, and it is ansatz's to produce. (Correction due to TheBridge, after the close.)
