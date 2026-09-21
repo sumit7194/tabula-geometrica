@@ -1,0 +1,275 @@
+{
+  "prereg": "notes/free_instruments_prereg.md (committed before this script existed)",
+  "files_scanned": 241,
+  "files_containing_a_qualified_pair": 22,
+  "pairs_examined": 61,
+  "threshold": {
+    "ratio_hi": 3.0,
+    "ratio_lo": 0.3333333333333333
+  },
+  "n_hits": 20,
+  "hits": [
+    {
+      "file": "97_kerr_desitter.json",
+      "key_a": "deformed_aware_lib_heldout",
+      "key_b": "deformed_aware_lib_R2",
+      "qualifiers": [
+        "heldout",
+        "r2"
+      ],
+      "val_a": 3.060834504201276e-29,
+      "val_b": 1.0,
+      "ratio": 3.060834504201276e-29,
+      "class": "false-pair: qualifier matched across incompatible metrics"
+    },
+    {
+      "file": "160_basis_ladder.json",
+      "key_a": "transcendental_heldout",
+      "key_b": "polynomial_heldout",
+      "qualifiers": [
+        "transcendental",
+        "polynomial"
+      ],
+      "val_a": 1.6598572417093045e-22,
+      "val_b": 1.299437135391268e-06,
+      "ratio": 1.2773663276981168e-16,
+      "class": "unmade-or-asserted-as-a-gate"
+    },
+    {
+      "file": "160_basis_ladder.json",
+      "key_a": "transcendental_heldout",
+      "key_b": "rational_heldout",
+      "qualifiers": [
+        "transcendental",
+        "rational"
+      ],
+      "val_a": 1.6598572417093045e-22,
+      "val_b": 1.4160761472231212e-07,
+      "ratio": 1.172152532167306e-15,
+      "class": "unmade-or-asserted-as-a-gate"
+    },
+    {
+      "file": "161_g2_blind.json",
+      "key_a": "A.grid.polynomial_deg6.heldout_median",
+      "key_b": "A.grid.rational_deg6.heldout_median",
+      "qualifiers": [
+        "polynomial",
+        "rational"
+      ],
+      "val_a": 3.2178314373916686e-19,
+      "val_b": 4.1782206701197406e-10,
+      "ratio": 7.701439659240045e-10,
+      "class": "unmade-or-asserted-as-a-gate"
+    },
+    {
+      "file": "51_bloch_sphere.json",
+      "key_a": "oracle_mse",
+      "key_b": "blind_mse",
+      "qualifiers": [
+        "oracle",
+        "blind"
+      ],
+      "val_a": 1.9914602944481885e-06,
+      "val_b": 0.08365686237812042,
+      "ratio": 2.380510382336589e-05,
+      "class": "unmade-or-asserted-as-a-gate"
+    },
+    {
+      "file": "178_degree_ladder_located.json",
+      "key_a": "control_sequence.end_to_end",
+      "key_b": "kerr_sequence.end_to_end",
+      "qualifiers": [
+        "control",
+        "kerr"
+      ],
+      "val_a": 89108.9739848609,
+      "val_b": 2.1490294367442986,
+      "ratio": 41464.75262798529,
+      "class": "already-made: stored as `kerr_sequence.control_improves_more_by`"
+    },
+    {
+      "file": "41_hyperbolic.json",
+      "key_a": "critical.large_l_slope",
+      "key_b": "gapped.large_l_slope",
+      "qualifiers": [
+        "critical",
+        "gapped"
+      ],
+      "val_a": 0.3333679089727693,
+      "val_b": 1.633948332536271e-05,
+      "ratio": 20402.597948449453,
+      "class": "already-made: stored as `gapped.slope_ratio_gap_over_crit`"
+    },
+    {
+      "file": "62_generalist_eval.json",
+      "key_a": "per_family.schwarzschild.heldout_mse",
+      "key_b": "per_family.schwarzschild.extrap_mse",
+      "qualifiers": [
+        "heldout",
+        "extrap"
+      ],
+      "val_a": 8.755898306844756e-06,
+      "val_b": 0.16035403311252594,
+      "ratio": 5.4603542778998524e-05,
+      "class": "unmade-or-asserted-as-a-gate"
+    },
+    {
+      "file": "161_g2_blind.json",
+      "key_a": "A.grid.polynomial_deg4.heldout_median",
+      "key_b": "A.grid.rational_deg4.heldout_median",
+      "qualifiers": [
+        "polynomial",
+        "rational"
+      ],
+      "val_a": 2.1788701515381293e-19,
+      "val_b": 2.226204212271852e-15,
+      "ratio": 9.787377723603271e-05,
+      "class": "unmade-or-asserted-as-a-gate"
+    },
+    {
+      "file": "97_kerr_desitter.json",
+      "key_a": "deformed_kerr_lib_heldout",
+      "key_b": "deformed_kerr_lib_R2",
+      "qualifiers": [
+        "heldout",
+        "r2"
+      ],
+      "val_a": 0.00023905801668679808,
+      "val_b": 0.9997947656710273,
+      "ratio": 0.0002391070896698991,
+      "class": "false-pair: qualifier matched across incompatible metrics"
+    },
+    {
+      "file": "62_generalist_eval.json",
+      "key_a": "per_family.reissner_nordstrom.heldout_mse",
+      "key_b": "per_family.reissner_nordstrom.extrap_mse",
+      "qualifiers": [
+        "heldout",
+        "extrap"
+      ],
+      "val_a": 4.488831473281607e-05,
+      "val_b": 0.05037866532802582,
+      "ratio": 0.0008910183396193418,
+      "class": "unmade-or-asserted-as-a-gate"
+    },
+    {
+      "file": "62_generalist_eval.json",
+      "key_a": "per_family.scalar.heldout_mse",
+      "key_b": "per_family.scalar.extrap_mse",
+      "qualifiers": [
+        "heldout",
+        "extrap"
+      ],
+      "val_a": 8.047112487474806e-07,
+      "val_b": 0.0006219045026227832,
+      "ratio": 0.0012939466515417383,
+      "class": "unmade-or-asserted-as-a-gate"
+    },
+    {
+      "file": "62_generalist_eval.json",
+      "key_a": "per_family.charged.heldout_mse",
+      "key_b": "per_family.charged.extrap_mse",
+      "qualifiers": [
+        "heldout",
+        "extrap"
+      ],
+      "val_a": 2.069521769954008e-06,
+      "val_b": 0.0015342237893491983,
+      "ratio": 0.0013489047584328473,
+      "class": "unmade-or-asserted-as-a-gate"
+    },
+    {
+      "file": "65_mechinterp.json",
+      "key_a": "steer_frac_flipped",
+      "key_b": "control_frac_flipped",
+      "qualifiers": [
+        "steer",
+        "control"
+      ],
+      "val_a": 1.0,
+      "val_b": 0.01282051282051282,
+      "ratio": 78.0,
+      "class": "unmade-or-asserted-as-a-gate"
+    },
+    {
+      "file": "18_magnetic.json",
+      "key_a": "M1_kaluza.charged",
+      "key_b": "M1_control.charged",
+      "qualifiers": [
+        "kaluza",
+        "control"
+      ],
+      "val_a": 0.00013319536810740829,
+      "val_b": 0.0030904996674507856,
+      "ratio": 0.043098327920958864,
+      "class": "unmade-or-asserted-as-a-gate"
+    },
+    {
+      "file": "18_magnetic.json",
+      "key_a": "M1_kaluza.all",
+      "key_b": "M1_control.all",
+      "qualifiers": [
+        "kaluza",
+        "control"
+      ],
+      "val_a": 0.00010669945913832635,
+      "val_b": 0.0017953753704205155,
+      "ratio": 0.059430167582913335,
+      "class": "unmade-or-asserted-as-a-gate"
+    },
+    {
+      "file": "160_basis_ladder.json",
+      "key_a": "polynomial_heldout",
+      "key_b": "rational_heldout",
+      "qualifiers": [
+        "polynomial",
+        "rational"
+      ],
+      "val_a": 1.299437135391268e-06,
+      "val_b": 1.4160761472231212e-07,
+      "ratio": 9.17632245934953,
+      "class": "unmade-or-asserted-as-a-gate"
+    },
+    {
+      "file": "175_c5_onsubstrate_audit.json",
+      "key_a": "ratios.deg2_poly",
+      "key_b": "ratios.deg2_rat",
+      "qualifiers": [
+        "poly",
+        "rat"
+      ],
+      "val_a": 1.745522529476764e-26,
+      "val_b": 8.573791879096955e-26,
+      "ratio": 0.20358816193478835,
+      "class": "unmade-or-asserted-as-a-gate"
+    },
+    {
+      "file": "47_legibility_cause.json",
+      "key_a": "arms.control.train_mse",
+      "key_b": "arms.nonlinear.train_mse",
+      "qualifiers": [
+        "control",
+        "nonlinear"
+      ],
+      "val_a": 0.0006856738473288715,
+      "val_b": 0.00015935477858874947,
+      "ratio": 4.302813215902397,
+      "class": "unmade-or-asserted-as-a-gate"
+    },
+    {
+      "file": "18_magnetic.json",
+      "key_a": "M1_kaluza.neutral",
+      "key_b": "M1_control.neutral",
+      "qualifiers": [
+        "kaluza",
+        "control"
+      ],
+      "val_a": 7.512214506277815e-05,
+      "val_b": 0.00025187135906890035,
+      "ratio": 0.29825600393980567,
+      "class": "unmade-or-asserted-as-a-gate"
+    }
+  ],
+  "scope_limit": "THE SCAN CANNOT DISTINGUISH 'nobody noticed' FROM 'asserted as a gate rather than stored as a ratio'. \u00a765's steer-vs-control 78x and \u00a718's kaluza-vs-control are the POINT of those gates and are asserted as thresholds (a beats b by X) without the quotient ever being written down. That is not a missed instrument. Naming this limit is the honest result of tonight's run; separating the two classes needs the gate ASSERTIONS parsed, not the results files, and that is a further build.",
+  "note": "A hit is a FLAG FOR A LOOK, not a result. Per the pre-registration none is explained here; explaining a surprising ratio the moment it appears is how a fishing expedition becomes a finding. Near-unity pairs are reported only as a count."
+}

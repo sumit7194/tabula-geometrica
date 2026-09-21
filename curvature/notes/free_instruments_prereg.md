@@ -56,3 +56,51 @@ I expect **few or no** real hits: most gate files store a statistic and its thre
 quantity. §187 was unusual in carrying two independent estimates of ξ. If the scan returns many hits, the more
 likely explanation is that my qualifier list is matching unrelated fields, and I should check that before
 believing any of them.
+
+---
+
+# RESULT (appended 2026-09-22; nothing above this line edited)
+
+    files scanned                         240
+    files containing a qualified pair      22
+    qualified pairs examined               61
+    hits (|ratio| > 3 or < 1/3)            20
+
+    of those:   2  false-pair (qualifier matched across incompatible metrics)
+                2  already-made (the ratio is stored as its OWN FIELD elsewhere in the file)
+               16  unmade-or-asserted-as-a-gate
+
+**The pre-registration's stated expectation was "few or no real hits". That was too optimistic, but not in the
+direction it looks.** The honest number is not 16 missed instruments — it is 16 **flags**, and the scan cannot
+tell two very different things apart.
+
+## The scope limit, which is tonight's actual result
+
+**The scan cannot distinguish *"nobody noticed"* from *"asserted as a gate rather than stored as a ratio"*.**
+§65's steer-vs-control (78×) and §18's kaluza-vs-control are the **entire point** of those gates; they are
+asserted as thresholds — *a beats b by X* — with the quotient never written to the results file. **That is not
+a missed instrument.** Separating the two classes requires parsing the gate *assertions*, not the results
+files, and that is a further build, not a conclusion available tonight.
+
+So the scan, as built, measures *"pairs whose ratio is not stored"*, which is a weaker thing than the one I
+set out to find. Recording that rather than presenting 16 flags as 16 findings.
+
+## Two defects the scan found in ITSELF, on first contact with the repo
+
+Both recorded, neither quietly patched:
+
+1. **The qualifier match pairs incompatible metrics.** `X_heldout` against `X_R2` is an *error* against a
+   *goodness-of-fit* — not two estimates of one quantity. Two of the twenty hits are this, from §97.
+2. **The suppression check read only the file's PROSE**, so it missed ratios already stored as their own
+   field. §178 keeps `control_improves_more_by = 41464.8`; §41 keeps `slope_ratio_gap_over_crit`. **An
+   instrument already made under another name is still made** — and my first classification pass reported
+   *zero* already-quoted, which was the tell that the check was looking in the wrong place.
+
+Defect 2 is the more interesting one: the scan hunting for unmade instruments **failed to see instruments that
+had been made**, because it looked for them in the narrative rather than in the data. That is the same error
+it was built to find, committed by the finder, on its first run.
+
+## Per the pre-registration: no hit is explained here
+
+A hit is a flag for a look, not a result. Explaining a surprising ratio the moment it appears is how a fishing
+expedition becomes a finding, and the 16 will keep until there is a reason to open one.
