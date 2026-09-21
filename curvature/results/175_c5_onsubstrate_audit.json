@@ -2,9 +2,8 @@
  "clause": "C5 -- the readout must be shown to detect a positive ON the substrate where the null is issued",
  "audit_target": "\u00a7161 Candidate B (filed with TheBridge as CERTIFY illegible-relative-to-basis)",
  "why": "\u00a7161's B ensemble pins the energy shell so the manifest constants whiten out. Sound against false positives, but it removes the only quantity that could serve as an on-substrate positive -- by construction there was nothing on B the readout could be shown to find.",
- "n_train": 80,
- "n_test": 80,
- "H_drift": 4.340225295942164e-14,
+ "fast_mode": true,
+ "NTRAJ": 80,
  "H2_ensemble_spread": 0.2846039416858319,
  "ratios": {
   "deg2_poly": 1.745522529476764e-26,
