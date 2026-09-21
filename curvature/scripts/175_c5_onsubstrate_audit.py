@@ -160,6 +160,7 @@ def main():
     # not drift -- with --fast the rerun is 13/13 identical. An artifact that does not record the mode it was
     # produced in cannot be checked for reproduction: a correct re-run disagrees and a false alarm looks real.
     out.update({"fast_mode": bool(FAST), "NTRAJ": int(NTRAJ),
+                "n_train": int(n_tr), "n_test": int(n_te), "H_drift": float(drift_tr),
                 "H2_ensemble_spread": spread, "ratios": ratios, "best_key": best_key,
                 "H2_representable": h2_repr, "known_fail_representable": kf_repr,
                 "C5a_readout_finds_positive_on_B": C5a, "verdict": verdict})
