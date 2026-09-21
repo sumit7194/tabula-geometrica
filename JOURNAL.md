@@ -12,6 +12,54 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 ---
 
 
+## 2026-09-21 (later) — the √3 was a fit window, and the sharper sentence was the wrong one
+
+User granted standing autonomy ("run whatever you need, coordinate with the sisters"). Took the one thing I had
+explicitly deferred: §187 left a ratio saturating near **√3 = 1.732** and I had declined to guess a mechanism,
+writing *"if it wants explaining it wants a run, not a paragraph."*
+
+**Pre-registered first** (`notes/sqrt3_prereg.md`, committed before the script existed), with both outcomes
+named and one of them refuting my own suspect. **Arm A is the whole design:** hold the chain, the correlation
+matrix and the mass grid completely fixed, vary ONLY which points the line is fitted to.
+
+    W = N/8   3.3832        W = N/4   1.7189        W = N/2   0.7792        W = 3N/4  0.7792
+
+**334% on data that never changed.** √3 sits at `W = N/4` and nowhere else. **Arm B refuted my own suspect** —
+a power-law prefactor would explain it, but α comes out 0.008–0.034 (essentially zero) and the 3-parameter fit
+is degenerate. The cause is duller: a straight line through a window much shorter than ξ has its slope set by
+the window.
+
+**Arm C is confounded and is reported as supporting nothing** — varying N at fixed window *fraction* moves the
+window and the finite-size scale together, and its near-flatness (1.66/1.69/1.67) is unexplained. The verdict
+rests on Arm A alone.
+
+**THE PART WORTH KEEPING IS A CLAIM OF MINE IT KILLED.** TheBridge had said the 1.73 was *"what an unmeasurable
+axis looks like from outside"* — vague, and right. I sharpened it to *"the two methods calibrate each other
+somewhere, and that somewhere is inside the band"*, told them it was stronger and different, and they adopted
+it over their own. Arm D: `ξ_cross/W = 0.498, 0.542` — **the crossing sits at ξ ≈ W/2 and moves with the
+window.** Not a calibration; two window-dependent curves intersecting. **Their vaguer sentence was closer to
+right than my improvement on it**, and it was adopted on the strength of sharpness rather than evidence.
+Catalogue **53**.
+
+**And the control caught a bug in the run built to check someone else's number.** First execution FAILED L1
+(1.6345 vs §187's 1.7270) — I had read the "saturated" ratio off the *largest* masses, i.e. the *smallest* ξ,
+the opposite end of the sweep. Fixed; L1 now 1.7189 vs 1.7270.
+
+**§187 is untouched:** its ABSTAIN rests on the envelope decay (3.2%) and the box violation, both measured, and
+√3 was deliberately kept out of the verdict — which is the only reason this correction was cheap. The
+two-estimate ratio survives as a measurability *diagnostic*; its value, saturation and crossing are all
+properties of the window and none is a constant of the system. Correction propagated back into
+`xistar_prereg.md` in place.
+
+**Fleet:** resource protocol agreed with ansatz (cores free, RAM the constraint, parallel by default). Sent
+them two corrections — page size is 16384 on Apple silicon, not 4096, and swap-USED is a residual while the
+pageout RATE is the activity measure (flat zero here) — both of which widen their margin rather than narrow it.
+Standing exception adopted in TheBridge's framing: **whether a number is contention-sensitive is a property of
+what it measures, not of how long it takes**, so DeepStrain's cache-residency window is the one class that
+needs a quiet box.
+
+---
+
 ## 2026-09-21 — E2 located in mass, ABSTAIN in ξ; and a cross-repo test that correctly returned NOT COMPARABLE
 
 Back after a 16-day gap (keepalive TERMed cleanly at 2026-09-05T06:47Z — a shutdown; the exit trap recorded it,
