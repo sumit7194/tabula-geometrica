@@ -501,3 +501,56 @@ term originates at χ³ and above; the ε = 0 floor also originates at χ³ (mea
 law, that would have implied a component of the linear term **not** from χ³+, contradicting an exact symbolic
 proof. **That was the only reading in the thread where a measurement could contradict the algebra, and it does
 not.**
+
+---
+
+# THE HORIZON-POLE EXTENSION: tested, and it does NOT cross (2026-09-22)
+
+The obstruction proof says degree is the wrong axis — every Laurent polynomial in `r` is analytic at `r = 2` —
+but the missing class is **one function**. So the proposed fix was cheap and specific: add
+`{1/(r−2), r/(r−2), r²/(r−2), cos²θ/(r−2)}` to `d2_rat` and re-run at the conditions where the CERTIFY
+verdicts were issued (χ = 0.6, ε = 0.05).
+
+    obj   d2_rat BASELINE    d2_rat + 1/(r-2)    change
+    A     5.5651e-08         1.0578e-07          0.53x   WORSE
+    B     5.5807e-08         1.0566e-07          0.53x   WORSE
+    C     1.1398e-08         1.6340e-08          0.70x   WORSE
+
+**Adding the missing function class did not find the survivor. It degraded the margin by ~2×**, on all three
+objects — consistent with the conditioning cost of extra near-degenerate features rather than any
+representability gain. **The predicted crossing did not happen.**
+
+## Why this was expected to work, and what its failure means
+
+With `E` fixed globally across the ensemble, `P_t² = E²` is a constant, so `K₁`'s pole piece reduces to
+`64χ²E²·cos²θ/(r−2)` — **a pure coordinate function, and exactly one of the four added.** The piece the proof
+identifies as unrepresentable was therefore *present* in the extended library, and the rung still certified.
+
+> **So the obstruction is not exhausted by the pole.** Either `K₁`'s regular part is also outside the
+> degree-2 rational span, or the engine cannot exploit the added directions at this conditioning — and these
+> are distinguishable, but not by this run.
+
+## The tolerance fork, resolved, with a number that does not fit
+
+TheBridge asked what relative tolerance the rung accepts, since a 1.6% unrepresentable component should be
+findable by a screen with looser tolerance than that. Converted: `heldout` is a **variance** ratio, so an
+unrepresented amplitude fraction `d` gives ratio `~d²`.
+
+    EMIT threshold    1e-10  ->  d < 1.0e-05   (0.001%)
+    CERTIFY threshold 1e-08  ->  d < 1.0e-04   (0.01%)
+    pole fraction     1.6%   ->  would give variance ratio 2.6e-04
+
+**My EMIT tolerance is ~1600× tighter than the pole fraction**, so a 1.6% unrepresentable component is far
+more than enough to prevent EMIT. That half of the fork resolves cleanly.
+
+**But one number does not fit and is recorded rather than smoothed:** the measured A margin of 4.474e-07
+corresponds to `d = 0.067%` — **24× BETTER than dropping a 1.6% component would give.** So the engine is not
+returning "`K₁` minus its pole"; it is finding some other near-conserved combination entirely. **That is
+unexplained, and it is the reason the extension failing is not simply a conditioning story.**
+
+## What survives unchanged
+
+**The exactness argument is untouched by all of this.** `K₁` has a pole at `r = 2`; every function in the
+original basis is analytic there; a finite linear combination of functions analytic at a point is analytic at
+that point. **`K₁` is not in the original span, at any coefficients, at any degree.** That is a proof and it
+does not depend on the pole being large, on the extension working, or on why the engine found what it found.
