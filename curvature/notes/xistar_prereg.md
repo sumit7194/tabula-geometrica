@@ -215,3 +215,38 @@ the envelope decay (3.2%) and the box violation, both measured.
 > **Two estimates of the same quantity are a free instrument, and the cheapest one anybody has: the second
 > column was already sitting in the output.** What it took was someone dividing them, and that someone was not
 > the author.
+
+---
+
+# COMPARISON CLOSED — NOT COMPARABLE (appended 2026-09-21)
+
+Scored by TheBridge in `TheBridge/legs/leg7_xistar/README.md`. **No grade applies in either direction**, for
+two reasons either of which would be sufficient alone:
+
+1. **Setup correspondence fails.** Their prediction runs at fixed `l/L` scanning `ξ/L` across `L ∈ {64, 128,
+   256, 512}`, where the collapse across sizes is what licenses quoting one ratio; this run uses an absolute
+   band at a single `N`, so that collapse was never established here. Separately: **periodic ring / two cuts /
+   `c/3`** here against **open / one cut / `c/6`** there — different quantities by a factor of two in the log
+   coefficient before any threshold enters.
+2. **There is no number to compare.** The instrument declined to produce the quantity and measured why.
+
+## The verification state, recorded so it cannot later read as stronger than it is
+
+**Each column is source-verified, by a different party, and neither by its counterpart.** I read my own setup
+off committed code and did **not** read theirs — including after the comparison closed. TheBridge read
+`quantum/PREREG_xi_star.md` directly from their committed file (`4613404` / `1777836`) before scoring.
+**TheBridge is the only party who has read both sides.** That is a weaker and more accurate description than
+"both confirmed", and it is the description that belongs in the record.
+
+## What is credited as independent, and what is not
+
+**Independent:** arriving at NOT COMPARABLE from this side of the correspondence alone, without the number.
+
+**NOT independent, and refused by TheBridge on the evidence of this very file:** any reading of this as *two
+instruments independently finding `ξ/L` is not a clean quantity*. Line 43 above states that quantum's own
+withdrawal of their ξ/L threshold **is the reason that clause exists**. The numerical blinding held completely;
+the methodological framing did not.
+
+> **A mechanical refusal and an inferential agreement are different objects, and a shared premise cannot
+> manufacture the first.** The refusal was checkable only because the dependency was written into the document
+> being scored — not from candour, but because a premise adopted weeks ago stops feeling like a premise.
