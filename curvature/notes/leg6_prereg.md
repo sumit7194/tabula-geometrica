@@ -550,7 +550,41 @@ unexplained, and it is the reason the extension failing is not simply a conditio
 
 ## What survives unchanged
 
-**The exactness argument is untouched by all of this.** `K₁` has a pole at `r = 2`; every function in the
-original basis is analytic there; a finite linear combination of functions analytic at a point is analytic at
-that point. **`K₁` is not in the original span, at any coefficients, at any degree.** That is a proof and it
-does not depend on the pole being large, on the extension working, or on why the engine found what it found.
+**The exactness argument is GLOBALLY true and OPERATIONALLY EMPTY on the domain this screen fits on.**
+
+The proof stands as stated: `K₁` has a pole at `r = 2`, every function in the original basis is analytic there,
+and a finite linear combination of functions analytic at a point is analytic at that point — so **`K₁` is not
+in the span, exactly, on the whole manifold.**
+
+**But the screen does not fit on the whole manifold.** It fits on `r ∈ [5.107, 9.147]`, which **excludes the
+pole**. On that interval `1/(r−2)` is analytic, so by Weierstrass it is uniformly approximable by polynomials —
+and measured directly against my ORIGINAL five r-functions `{1, r, r², 1/r, 1/r²}` over exactly that interval:
+
+    max |residual| 3.863e-05    rms 8.789e-06    RELATIVE rms 4.14e-05   (0.0041%)
+
+**My original basis already reaches `1/(r−2)` to four thousandths of a percent on the domain I sample.**
+
+> **Exact non-representability on the manifold does not imply numerical non-representability on a compact
+> subset that excludes the singularity.** I recorded the first and claimed the second, and built the §161
+> witness on it.
+
+**WITHDRAWN: the §161 framing.** *"Not a function you forgot, but a class of singularity your construction
+cannot produce, located exactly where the physics is"* is wrong in its operative content. **The singularity is
+real and the construction never needs to produce it, because the orbits never visit it.** (Correction due to
+TheBridge, against their own proof, which I had adopted into this file and propagated.)
+
+**AND IT EXPLAINS THE DEGRADATION EXACTLY, so that result stops being a puzzle.** Adding `1/(r−2)`, `r/(r−2)`,
+`r²/(r−2)` to a basis that already reproduces them to 4e-05 adds **columns nearly collinear with existing
+ones — no new reach, worse conditioning.** The 0.53× / 0.53× / 0.70× degradation is the predicted cost of
+redundant features, and it **confirms the redundancy** rather than contradicting anything.
+
+## So what is actually open
+
+**If the basis can reach `K₁` to ~4e-05 relative on this domain, why did the rung certify empty at a tolerance
+of 1e-10?** The pole is not the answer. Two candidates, not separable by anything run tonight:
+
+- the **regular** part of `K₁` is outside the degree-2 rational span **in the momentum variables** — the fit
+  above tested r-dependence only, not the momentum structure;
+- the engine's **conditioning** is the binding constraint rather than the span.
+
+**Recorded as open. No third story is being invented to close it.**
