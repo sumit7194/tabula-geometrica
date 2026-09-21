@@ -216,6 +216,20 @@ the envelope decay (3.2%) and the box violation, both measured.
 > column was already sitting in the output.** What it took was someone dividing them, and that someone was not
 > the author.
 
+## CORRECTION (§188, same day): the ratio is a window property, not a system constant
+
+The √3 was run rather than narrated, and it **is a fit-window artifact**. On *identical* data, varying only
+which points the line is fitted to, the saturated ratio moves **3.38 → 1.72 → 0.78** — a 334% swing. `√3` sits
+at `W = N/4` and nowhere else. The power-law-prefactor suspect is **refuted** (α ≈ 0.01, fit degenerate).
+
+And the crossing point moves too: `ξ_cross/W = 0.498, 0.542` — **the two estimates agree at ξ ≈ W/2**, set by
+the window, not by the chain. So the sentence above about the methods "calibrating each other somewhere inside
+the band" is **wrong as stated**: they intersect where two window-dependent curves happen to cross.
+
+**The diagnostic survives; its interpretation does not.** A large disagreement between the two estimates still
+tells you the fit is window-dominated — which is all §187 used it for. Its numerical value, its saturation and
+its crossing location are none of them constants of the system.
+
 ---
 
 # COMPARISON CLOSED — NOT COMPARABLE (appended 2026-09-21)
