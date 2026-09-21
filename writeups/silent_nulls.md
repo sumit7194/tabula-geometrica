@@ -1352,7 +1352,30 @@ a third party to sample **during** a measurement window (correct), then broadcas
 Same rule, opposite halves, two repos, one week.
 
 > **Writing the rule down for others is not implementing it for yourself, and doing the first makes the second
-> feel done.** Entry 44's mechanism has now fired on a pre-registration (naming a mode it cannot detect), on a
+> feel done.** Entry 44's mechanism has now fired on a pre-registration (naming a mode it cannot
+detect), on a prohibition (relaying `pkill -f` is banned, then using it), and on an exported protocol —
+description substituting for capability in three different formats.
+
+**AND THE COROLLARY, WHICH IS THE PEER'S AND IS THE PART THAT CHANGES WHAT TO CHECK.** The two halves of that
+failure are invisible through *different* channels:
+
+    their half   the EXPORT was wrong        invisible because NOTHING RUNS AN EXPORT. A rule broadcast to
+                                             four sessions is never executed, cannot fail, and therefore
+                                             accumulates no evidence against itself. A reader caught it.
+
+    my half      the IMPLEMENTATION was wrong invisible because THE CODE RAN AND MOSTLY BEHAVED. A single-tick
+                                             trigger is correct most of the time; it took a live spike with a
+                                             NEGATIVE swap delta -- the flag contradicting one of its own
+                                             inputs -- to expose it. Telemetry caught it.
+
+> **The same mechanism produced one error only a reader could find and one only a run could find.** So
+> "instrument it and let it run" does not cover the exported half, and "have someone read it" does not cover
+> the implemented half. Checking one is not evidence about the other, and the two feel like the same act of
+> diligence.
+
+This sharpens the catalogue's own favourite repair. *A gate corrects you for reasons it was not designed to
+catch* (entry 51) is true of code and **false of a protocol you published**, because a protocol has no
+runtime. The only referee an exported rule has is a reader who bothers to compare it against practice. Entry 44's mechanism has now fired on a pre-registration (naming a mode it cannot detect), on a
 > prohibition (relaying `pkill -f` is banned, then using it), and on an exported protocol — description
 > substituting for capability in three different formats.
 
