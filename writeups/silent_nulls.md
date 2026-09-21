@@ -1332,6 +1332,34 @@ failure mode it cannot detect, and an author who advocates a prohibition an hour
 same substitution of description for capability. Filed here rather than as entry 50, because it is that
 mechanism a second time and **a catalogue that inflates its count stops being a catalogue.**
 
+**A THIRD INSTANCE, AND IT PAIRS WITH A PEER'S IN MIRROR IMAGE.** Having told the fleet, in writing, *"sample
+twice, ~30 s apart; throttle only if the rate is RISING; levels are not a scheduling input"*, I then shipped a
+`paging` flag in my own heartbeat that fired on **a single tick**. Its first live firing:
+
+    tick 1   pageouts/s 6.38   swap_delta -8.0 MB   paging TRUE
+    tick 2   pageouts/s 1.16   swap_delta  0.0 MB   paging false
+    tick 3   pageouts/s 0.00   swap_delta -8.0 MB   paging false
+    direct vm_stat over 20 s: 0.25 pageouts/s
+
+A one-tick spike, published as `paging: true` at the instant a peer might read it and throttle — **while
+`swap_delta` was NEGATIVE, i.e. swap being reclaimed, which is the opposite of pressure.** The flag and one of
+its own inputs disagreed and nothing noticed, because the OR had no veto term.
+
+The pairing is the useful part. A sibling had confessed the same rule broken the other way round: *"I read a
+LEVEL as a RATE — the same error in the general rule that I had avoided in the specific case."* They had told
+a third party to sample **during** a measurement window (correct), then broadcast a levels gate to everyone
+(wrong). **They got the instance right and the export wrong; I got the export right and the instance wrong.**
+Same rule, opposite halves, two repos, one week.
+
+> **Writing the rule down for others is not implementing it for yourself, and doing the first makes the second
+> feel done.** Entry 44's mechanism has now fired on a pre-registration (naming a mode it cannot detect), on a
+> prohibition (relaying `pkill -f` is banned, then using it), and on an exported protocol — description
+> substituting for capability in three different formats.
+
+Fixed by requiring the raw condition on **two consecutive ticks**, with swap being reclaimed as an explicit
+veto. **Not by lowering the threshold** — the threshold was never the problem; the sampling discipline was, and
+it was the exact discipline being advertised.
+
 ### 45. Two instruments give you a contradiction; three give you an explanation
 
 Entry 43's companion, and the harder half — the peer's, stated against their own credit:
