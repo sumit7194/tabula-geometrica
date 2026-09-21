@@ -1886,6 +1886,21 @@ monotonicity all live on the mass axis and are blind to what the ξ column claim
 > convention.** A derived axis inherits every assumption silently; a measured one can only be wrong in ways
 > the data can show.
 
+**A THIRD SPLIT IN THE SAME FAMILY, from the same run, and it is narrower than the first two.** §187's
+pre-registration **did** name the trigger — *"measured ξ disagreeing with `1/(2m)` by more than 3× in the
+regime where they should agree → the ξ fit is broken"* — and **did** build a guard. The guard was written for
+the crossing landing at the **grid edge**. The actual failure was the **x-axis going unmeasurable at an
+INTERIOR crossing**: comfortably inside the swept range, monotone, uncensored by the guard as written, and the
+ξ value still meaningless because the envelope decays 3.2% across the fit window.
+
+> **Naming a failure, and building a detector for the right failure in the wrong geometry, are separate acts.**
+> The second feels much closer to done than the first, and produces a document that survives review — the
+> trigger is there in writing, and a reader checking whether the mode was anticipated will find that it was.
+
+So this family now has three rungs, each a step past the last: **naming ≠ detecting** (entry 44); **registering
+the interpretation without the correspondence** (above); and **detecting the named failure in only one of its
+geometries** (here). All three produce a pre-registration that reads as rigorous and cannot fire.
+
 **And the part worth keeping about how it was caught.** Their pre-commit hook **refused the prediction file**
 with `PREREG WITHOUT A SETUP-CORRESPONDENCE LINE`, and they nearly read it as formatting noise. That is the
 third instance this month of a gate's own output being close to dismissed as decoration — alongside our

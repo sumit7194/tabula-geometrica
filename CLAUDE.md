@@ -1111,7 +1111,9 @@ results in `curvature/notes/lab_notebook.md`.
   (p: 2.9e-07 → 0.40). Two designs, opposite failures, no third attempted. **ADDITIVE mutation DEMONSTRATED the
   anti-guard**: a common spurious log shrinks the corner spread 1.116%→0.516% — the headline gets *easier* on
   corrupted data; the multiplicative control is exactly invariant, which is why the obvious corruption test
-  shows nothing. 180 + 186 in verify.sh. **silent_nulls → 52** (52: a pre-registration can register the INTERPRETATION and forget the
+  shows nothing. 180 + 186 in verify.sh. **silent_nulls → 52** (52 has THREE rungs: naming != detecting (44); registering the INTERPRETATION
+  without the CORRESPONDENCE; and detecting the named failure in only ONE OF ITS GEOMETRIES — §187 named the
+  xi-fit trigger and guarded the GRID EDGE while the axis went unmeasurable at an INTERIOR crossing. a pre-registration can register the INTERPRETATION and forget the
   CORRESPONDENCE — three outcomes frozen for an exponent measured at fixed l while the study ran at fixed l/L;
   every clause looks rigorous and none can fire. Our near-miss: xi's comparator column used 1/(2m) when v_F=2
   gives 1/m, and it reached nothing ONLY because xi was measured not derived. A derived axis inherits every
