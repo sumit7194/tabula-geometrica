@@ -588,3 +588,32 @@ of 1e-10?** The pole is not the answer. Two candidates, not separable by anythin
 - the engine's **conditioning** is the binding constraint rather than the span.
 
 **Recorded as open. No third story is being invented to close it.**
+
+## The open question, narrowed to a measurement (2026-09-22)
+
+Every span-based explanation is excluded **by measurement**, not argument:
+
+    K1's dominant (0,0) term vs my 9 coordinate features, on 120,040 sampled points   1.4e-06
+    1/(r-2) vs my original {1, r, r^2, 1/r, 1/r^2} on r in [5.107, 9.147]             4.2e-05
+    p_r*p_theta cross term                                    PRESENT (10 features carry it)
+    pole's share of the margin                                1 part in 26,947
+
+Composed, the basis permits an amplitude floor of **7.8e-08** (variance 6.1e-15). The measured margin is
+**6.7e-04** amplitude — **~8,600× worse than its own library allows.** A fit falling thousands of times short
+of what its basis permits is a statement about the **solver**, not the library.
+
+**Conditioning measured, and the sign confirms it:**
+
+    full 39 features     kappa 2.333e+14    margin 5.569e-08
+    reduced 27 features  kappa 7.295e+09    margin 2.966e-08
+
+**Removing 12 features — shrinking the span — IMPROVED the margin 1.88×.** That is conditioning and not
+representability; a span deficit cannot improve when the span shrinks. The singular-value cutoff is *not*
+binding (all 39 retained at `COND_TOL = 1e-15`); the binding constraint is that `κ = 2.3e14` sits within a
+factor ~20 of the double-precision limit, so the whitening `W = U/√s` amplifies the worst direction by 4e+06
+and `eps·κ ≈ 0.05`.
+
+**But the magnitude is NOT explained:** 4.5 orders of conditioning improvement bought **0.27 orders** of
+margin, and a 4,862× gap to the basis floor remains. **Conditioning is confirmed as a contributor and refuted
+as the whole story.** Recorded open, with a floor, a condition number, and a measured sensitivity, so the next
+attempt starts from numbers rather than from suspicion.
