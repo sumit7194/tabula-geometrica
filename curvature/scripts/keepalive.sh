@@ -103,18 +103,60 @@ for ln in cwd_out.splitlines():
         except ValueError: cpu_f = 0.0
         procs.append({"pid": pid, "rss_mb": round(int(rss)/1024, 1) if rss.isdigit() else None,
                       "cpu_pct": cpu_f, "cmd": cmd[:70]})
+# 6. A LEVEL IS NOT A SCHEDULING INPUT (2026-09-21, ansatz + TheBridge + measured here). This file published
+#    `mem_free_gb` for sister sessions to size against. Measured on this box, three samples 20s apart under
+#    ordinary load: free ran 1.60 -> 0.58 -> 0.05 GB, a 32x swing, while pageouts ran +27 then +8 -- i.e. NOT
+#    PAGING AT ALL. A number that moves 32x between honest readings, with no change in actual pressure, is
+#    noise dressed as a measurement, and a peer reading 0.05 would correctly conclude the box was full.
+#    free+inactive is better (6.11 -> 4.82) but is still a LEVEL. The activity measure is the RATE.
+#    This loop is uniquely placed to publish it: it already ticks every 30s, which IS the sampling interval the
+#    corrected rule needs. Counters are carried across ticks in the status file, since each tick is a fresh
+#    interpreter and nothing persists in memory.
 vm = sh("vm_stat"); ps_size = 16384
 free_gb = None
+pressure = None
 try:
     import re
     ps_size = int(re.search(r"page size of (\d+)", vm).group(1))
-    fr = int(re.search(r"Pages free:\s+(\d+)", vm).group(1))
-    ina = int(re.search(r"Pages inactive:\s+(\d+)", vm).group(1))
+    g = lambda k: int(re.search(rf"{k}:\s+(\d+)", vm).group(1))
+    fr, ina = g("Pages free"), g("Pages inactive")
     free_gb = round((fr + ina) * ps_size / 1073741824, 2)
+    cur = {"t": now.timestamp(), "pageins": g("Pageins"), "pageouts": g("Pageouts"),
+           "compressor_gb": round(g("Pages occupied by compressor") * ps_size / 1073741824, 3)}
+    sw = sh("sysctl -n vm.swapusage")
+    m = re.search(r"used\s*=\s*([\d.]+)M", sw)
+    cur["swap_used_mb"] = float(m.group(1)) if m else None
+    prev = d.get("_vm_prev")
+    if prev and prev.get("t") and cur["t"] > prev["t"]:
+        dt = cur["t"] - prev["t"]
+        d_sw = (cur["swap_used_mb"] - prev["swap_used_mb"]
+                if cur["swap_used_mb"] is not None and prev.get("swap_used_mb") is not None else None)
+        pressure = {
+            "window_s": round(dt, 1),
+            "pageouts_per_s": round((cur["pageouts"] - prev["pageouts"]) / dt, 2),
+            "pageins_per_s": round((cur["pageins"] - prev["pageins"]) / dt, 2),
+            "compressor_delta_gb": round(cur["compressor_gb"] - prev["compressor_gb"], 3),
+            "swap_delta_mb": round(d_sw, 2) if d_sw is not None else None,
+            # TWO FLAGS, NOT ONE. Compressing and paging are different states and collapsing them would repeat
+            # the n_procs/n_active mistake from the other direction: macOS compresses proactively, so a rising
+            # compressor with zero pageouts is NOT the box in trouble -- but a reader told only `paging: false`
+            # while the compressor climbs has been misled. Reported separately; the reader decides.
+            "paging": bool((cur["pageouts"] - prev["pageouts"]) / dt > 5.0
+                           or (d_sw is not None and d_sw > 1.0)),
+            "compressing": bool(cur["compressor_gb"] - prev["compressor_gb"] > 0.25),
+            "note": ("RATES over the last tick -- this is the schedulable signal, and the only one. `paging` is "
+                     "literal (pageouts/swap RISING); `compressing` is the earlier, softer warning and fires on "
+                     "its own routinely. IGNORE every level field in this file, including mem_free_gb: measured "
+                     "here, free ran 1.60 -> 0.58 -> 0.05 GB in 40s -- a 32x swing -- while pageouts ran +27 "
+                     "then +8, i.e. not paging at all. A number that moves 32x between honest readings with no "
+                     "change in real pressure is not a scheduling input."),
+        }
+    d["_vm_prev"] = cur
 except Exception:
     pass
 
 n_active = sum(1 for x in procs if (x.get("cpu_pct") or 0) > 5.0)
+d["pressure"] = pressure
 d["measured"] = {"at": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "n_procs": len(procs), "n_active": n_active,
                  "procs": sorted(procs, key=lambda x: -(x.get("cpu_pct") or 0))[:5],
                  "machine_free_plus_inactive_gb": free_gb,
@@ -129,7 +171,7 @@ d["measured"] = {"at": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "n_procs": len(procs)
 # names are published flat as well. `measured` stays as the authoritative, self-describing block.
 d["job_pids"] = [q["pid"] for q in procs]
 d["rss_total_mb"] = round(sum((q.get("rss_mb") or 0) for q in procs), 1)
-d["mem_free_gb"] = free_gb
+d["mem_free_gb"] = free_gb        # LEVEL: liveness jitter only, NOT a scheduling input (see `pressure`)
 
 # LIVENESS TOKEN. Our fields are derived and therefore cannot be produced without looking -- but a reader
 # cannot verify that from outside, and with no token the only evidence of life is a timestamp, which is
