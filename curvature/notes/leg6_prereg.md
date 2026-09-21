@@ -324,3 +324,62 @@ TheBridge reached the same conclusion from the other side — *"the one that gov
 thing"* — and this measurement says the obvious third thing is not it either. **C's 13.9× is open, and open for
 a better reason than a naming collision: the explanatory variable has not been identified by anyone, and three
 natural candidates are now excluded.**
+
+---
+
+# K₁ MEASURED — it does not make `Q + εK₁` conserved on A (2026-09-22)
+
+ansatz supplied `K₁` for A, the O(ε) correction such that `Q + ε·K₁` should be conserved to O(ε²). Measured
+along the flow, **normalised against `|Q|`** — the same denominator as the bare-`Q` number, because `K₁` is
+fixed only up to a background Killing tensor and dividing by `|Q + εK₁|` would be a convention-dependent ratio
+wearing the same name (TheBridge's warning; at `χ=0.9, y=0.2` the correction is 11× `Q`).
+
+    eps        bare Q drift      Q + eps*K1 drift    ratio
+    0.0        4.0062e-14        4.0062e-14          1.00x
+    0.05       7.1304e-03        6.3180e-02          0.11x
+    0.005      7.1058e-04        6.3055e-03          0.11x
+
+    exponent:  bare Q 1.002      Q + eps*K1 1.001    (predicted 2)
+
+**`Q + εK₁` drifts 8.9× WORSE than bare `Q`, and still at exponent 1.**
+
+## The convention branch is closed, from two directions
+
+I pre-stated that exponent-1-with-no-drop would be ambiguous between *"`K₁` is not A's survivor"* and *"my
+`P_y` convention is wrong"*. Both routes now close it:
+
+**(a) Structurally.** `K₁` is given in `y = cos θ`, so `P_y` conjugate to `y` requires `p_θ² = P_y²(1−y²)` —
+a `P_y²` term must carry `(1−y²)` and a `P_φ²` term must carry `1/(1−y²)`. The `P_y²` bracket factors exactly
+(verified symbolically, `lhs − rhs → 0`, not at sample points):
+
+    -x²y⁴+2x²y²-x²-4xy⁴+6xy²-2x+18y⁴-27y²+9  ==  -(y-1)(y+1)(x²y²-x²+4xy²-2x-18y²+9)
+
+which is Carter's own pairing. **`P_y = −p_θ/sin θ` is correct.** (Argument due to TheBridge; verified here.)
+
+**(b) Empirically.** All eight momentum/energy conventions give **exponent 1.001 and 0.11×**:
+
+    -p_th/sin ±E   6.3180e-02   1.001      p_th  ±E   6.6415e-02   1.001
+    +p_th/sin ±E   6.5578e-02   1.001     -p_th  ±E   6.4362e-02   1.001
+
+**No convention rescues it**, so the result never depended on the choice.
+
+## What this does and does not establish
+
+**Does:** `K₁` as transcribed into this harness does not correct `Q` on A; it degrades it.
+
+**Does NOT:** distinguish (i) the solver's `K₁` is wrong, (ii) a transcription slip in transit, (iii) a
+convention difference *other* than momentum — `M=1` vs `a=0.6`, their `x` vs my `r`, signature. **The momentum
+convention was checked to destruction; the others were not**, and six of the night's seven dissolutions were
+exactly this species, so the remaining ones are not assumed fine because the checked one was.
+
+**The falsifiable split, one command on their side:** if ansatz evaluates `dQ/dλ` and `d(Q+εK₁)/dλ` on their
+own geodesics with their own conventions and gets a **drop**, the fault is in transit; if they get the same
+**rise**, `K₁` is wrong at the source.
+
+## The one instance caught BEFORE a number existed
+
+The `y = cos θ` Jacobian — `P_y = p_θ·(dθ/dy) = −p_θ/sin θ`, a factor running 1.0 to 1.28 and flipping sign
+across the band. Feeding `p_θ` straight in would have produced a **plausible** wrong answer in the decisive
+measurement, silently. Every other instance tonight was found *after* a number existed and had travelled. The
+habit that caught it was deriving the Jacobian rather than assuming it; the lesson that made me flag it for
+confirmation rather than proceed on my own derivation was the 845×, three hours old.
