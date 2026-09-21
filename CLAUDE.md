@@ -1111,7 +1111,11 @@ results in `curvature/notes/lab_notebook.md`.
   (p: 2.9e-07 → 0.40). Two designs, opposite failures, no third attempted. **ADDITIVE mutation DEMONSTRATED the
   anti-guard**: a common spurious log shrinks the corner spread 1.116%→0.516% — the headline gets *easier* on
   corrupted data; the multiplicative control is exactly invariant, which is why the obvious corruption test
-  shows nothing. 180 + 186 in verify.sh. **silent_nulls → 53** (53: SHARPENING a vague-but-correct statement into a precise-but-false one feels
+  shows nothing. 180 + 186 in verify.sh. **silent_nulls → 54** (54: a number with ONE LEGITIMATE JOB acquires unearned authority for the job next
+  to it — mem_free_gb was sound evidence of heartbeat LIVENESS (it jitters, so the loop really looks) and was
+  simultaneously the HEADROOM field four sessions scheduled against, while free swings 32x in 40s with zero
+  paging. The legitimate job is what makes the illegitimate one invisible. Fix: publish RATES, label the level
+  liveness-only, and keep paging/compressing as separate flags. 53: SHARPENING a vague-but-correct statement into a precise-but-false one feels
   like the rigorous move — a peer's 'that is what an unmeasurable axis looks like' was right; my sharper
   'the two methods calibrate each other inside the band' was WRONG (§188: the crossing sits at xi ~ W/2 and
   moves with the fit window; the ratio swings 334% on identical data, so sqrt(3) was a coincidence of W=N/4).
