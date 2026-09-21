@@ -298,6 +298,29 @@ independently, it goes the other way.** Relative deformation `|g(0.05) − g(0)|
 and calling both `|h|`. That is the same "divided things that looked commensurable" failure they had just
 confessed to, appearing immediately in the comparison of our two definitions of it.
 
-**So C's 13.9× is NOT dissolved as far as I can verify**, and it stays on the open list. The proposed
-explanation may hold under their definition; it fails under the natural one here, and neither of us has stated
-which quantity the claim is about.
+**So C's 13.9× is NOT dissolved as far as I can verify**, and it stays on the open list.
+
+**THREE PROXIES NOW, ALL FAILING.** TheBridge then made the correct objection to *my* proxy as well: `dQ/dλ`
+runs through the **connection**, so it depends on **derivatives** of the perturbation, not on `|Δg|/|g|`.
+Computed:
+
+    ansatz   coefficient-space |h|            C is 13.5x SMALLER
+    mine     metric-space |dg|/|g|            C is  3.6x LARGER
+    derived  |d(dg)|/|d(g0)|   d/dr           A/C = 1.82
+                               d/dtheta       A/C = 0.28
+    MEASURED Q-drift                          A/C = 13.88
+
+**Not one of the three reproduces 13.88**, including the derivative proxy that was supposed to be the right
+kind of quantity.
+
+**And there is a reason norms were always going to fail here.** `Q = K_ab p^a p^b` with `K` the Kerr Killing
+tensor; since `∇⁽⁰⁾₍c K_ab₎ = 0`, the drift comes entirely from the perturbation to the connection,
+`δΓ ~ ∂(Δg)`, **contracted with `K` and three momenta in one specific combination.** A norm over components
+discards exactly that contraction structure — it cannot see cancellations between components, and the
+components here differ in *opposite directions* (C larger in θθ, smaller in tt). **So the governing quantity is
+not any norm of the perturbation; it is one contraction of its derivative, and nobody has computed it.**
+
+TheBridge reached the same conclusion from the other side — *"the one that governs the drift is a third
+thing"* — and this measurement says the obvious third thing is not it either. **C's 13.9× is open, and open for
+a better reason than a naming collision: the explanatory variable has not been identified by anyone, and three
+natural candidates are now excluded.**
