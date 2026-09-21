@@ -1,0 +1,28 @@
+#!/bin/bash
+# Pre-commit gate: runs the documentation-claims audit and REFUSES the commit on failure.
+#
+# WHY THIS EXISTS. Every gate in this repo could already exit non-zero -- and nothing invoked them. I ran the
+# audit before each commit by habit, which makes a blocking-capable gate advisory in practice. A sibling found
+# the mirror image in their repo: hooks that always run and always `exit 0`, so nothing can refuse. Gates that
+# CAN refuse but do not RUN, and gates that RUN but cannot REFUSE, are the same thing from opposite sides.
+#
+# WHY IT IS DELIBERATELY SMALL. That same sibling once had a blocking check silently kill every commit in
+# their repo for hours, and "fixed" it by making every gate advisory -- trading a gate that could fail
+# catastrophically for one that cannot fail at all. So this hook:
+#   * runs ONE fast check (~0.1 s), never verify.sh (~30 min);
+#   * fails loudly with the reason and the escape hatch, never silently;
+#   * honours `git commit --no-verify`, which is the documented bypass.
+set -u
+ROOT="$(git rev-parse --show-toplevel)"
+PY="$ROOT/curvature/.venv/bin/python"
+[ -x "$PY" ] || exit 0                    # no venv (fresh clone / CI): do not block on a missing interpreter
+
+OUT=$("$PY" "$ROOT/curvature/scripts/audit_doc_claims.py" 2>&1)
+if [ $? -ne 0 ]; then
+  echo "$OUT"
+  echo ""
+  echo "COMMIT REFUSED: the documentation-claims audit failed."
+  echo "Fix the claim, or bypass deliberately with:  git commit --no-verify"
+  exit 1
+fi
+exit 0
