@@ -1111,7 +1111,12 @@ results in `curvature/notes/lab_notebook.md`.
   (p: 2.9e-07 → 0.40). Two designs, opposite failures, no third attempted. **ADDITIVE mutation DEMONSTRATED the
   anti-guard**: a common spurious log shrinks the corner spread 1.116%→0.516% — the headline gets *easier* on
   corrupted data; the multiplicative control is exactly invariant, which is why the obvious corruption test
-  shows nothing. 180 + 186 in verify.sh. **silent_nulls → 52** (52 has THREE rungs: naming != detecting (44); registering the INTERPRETATION
+  shows nothing. 180 + 186 in verify.sh. **silent_nulls → 53** (53: SHARPENING a vague-but-correct statement into a precise-but-false one feels
+  like the rigorous move — a peer's 'that is what an unmeasurable axis looks like' was right; my sharper
+  'the two methods calibrate each other inside the band' was WRONG (§188: the crossing sits at xi ~ W/2 and
+  moves with the fit window; the ratio swings 334% on identical data, so sqrt(3) was a coincidence of W=N/4).
+  The sharpened claim inherits the credibility of the vague one and nobody re-checks a statement that just
+  got more precise. 52 has THREE rungs: naming != detecting (44); registering the INTERPRETATION
   without the CORRESPONDENCE; and detecting the named failure in only ONE OF ITS GEOMETRIES — §187 named the
   xi-fit trigger and guarded the GRID EDGE while the axis went unmeasurable at an INTERIOR crossing. a pre-registration can register the INTERPRETATION and forget the
   CORRESPONDENCE — three outcomes frozen for an exponent measured at fixed l while the study ran at fixed l/L;

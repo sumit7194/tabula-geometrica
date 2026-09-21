@@ -1909,3 +1909,42 @@ indistinguishable from a green that meant something.
 
 > **The failure mode of an executable referee is not that it stays silent. It is that its output arrives
 > looking like paperwork.**
+
+### 53. Sharpening a vague-but-correct statement into a precise-but-false one feels like an improvement
+
+A peer looked at two ξ estimates disagreeing by 1.73× at a wall and said: *"that is what an unmeasurable axis
+looks like from outside."* Vague, unfalsifiable as stated, and **right**.
+
+I sharpened it. Having checked the ratio across the whole sweep and found it crossing 1.0 at `ξ/N ≈ 0.15`
+rather than merely diverging, I wrote back that *"the two methods calibrate each other somewhere, and that
+somewhere is inside the measurable band"* — and added that this was **a stronger statement than theirs and a
+different one**. They agreed, adopted it over their own, and filed it.
+
+It is false. Running it (§188) rather than narrating it:
+
+    W = 64    ξ_cross = 31.9    ξ_cross/W = 0.498
+    W = 128   ξ_cross = 69.4    ξ_cross/W = 0.542
+
+**The crossing sits at ξ ≈ W/2 and moves with the fit window.** The two estimates do not calibrate each other;
+they are two window-dependent curves that happen to intersect, and the intersection is a property of where the
+line was drawn. The saturated ratio itself moves **3.38 → 1.72 → 0.78** across windows on *identical data* — a
+334% swing — so `√3` was a coincidence of `W = N/4`.
+
+> **A vague statement can be unfalsifiable and still true. Sharpening it adds content, and the added content is
+> exactly the part that has not been checked** — because what was checked was the vague version.
+
+The asymmetry that makes this dangerous: **sharpening feels like the rigorous move.** It converts a hand-wave
+into something testable, which is the thing this whole catalogue argues for. And it is the right move — but the
+sharpened claim arrives with the *credibility of the vague one it replaced*, and nobody re-checks a statement
+that just got more precise. The peer adopted mine over theirs on the strength of its sharpness, not its
+evidence, and neither of us noticed the evidence had not moved.
+
+**The repair is the one this catalogue keeps arriving at.** I had written, declining to narrate a mechanism for
+the same number: *"if it wants explaining it wants a run, not a paragraph."* The sharpened claim **was a
+paragraph**, written in the same message, about the same data. Running it took twenty minutes and refuted it.
+
+**And the pre-registered control caught a bug inside the run built to check someone else's number.** The first
+execution failed L1 (1.6345 against §187's 1.7270): I had taken the "saturated" value from the *largest* masses
+— the *smallest* ξ, the opposite end of the sweep from saturation. Fixed, L1 1.7189 vs 1.7270. **A run whose
+entire subject was an unexplained regularity was itself wrong on first execution, in a direction that would
+have produced a confident and incorrect refutation.**
