@@ -119,3 +119,52 @@ invariant. So the conditioning cut is not adopted on the strength of the ε = 0 
 Held-out validation is the structural reason to expect this can work: conditioning decides what is
 *searchable*, held-out decides what is *real*, and a spurious direction admitted by a loose cut should not
 generalise to disjoint trajectories. That is an argument, not a measurement — hence the control.
+
+---
+
+# RESULT — the ladder per object (2026-09-22). Nothing above this line edited.
+
+**Two-sided control PASSES**, so verdicts may issue:
+
+    positive (eps=0 Kerr, Carter EXISTS)        3.73e-17   EMIT      OK
+    negative (bumped Kerr, Carter DESTROYED)    4.97e-06   CERTIFY   OK
+
+**Per-object L1 control PASSES on all three** — the instrument is demonstrably not blind on any of these
+substrates, which is what earns the right to report an absence:
+
+    A   eps=0  min 7.8543e-18  EMIT     |  B  1.0238e-17  EMIT  |  C  9.1393e-18  EMIT
+
+Integrator drift 9.3e-15 … 1.3e-14 throughout, four orders inside the 1e-7 gate.
+
+## The ladders at eps = 0.05
+
+Reported as **four distinct rungs, not six**: the feature builder includes only EVEN total momentum degree, so
+`deg3` is identical to `deg2` by construction. Presenting six would make the ladder look wider than it is.
+
+    object   d2_poly     d2_rat      d4_poly     d4_rat      min        verdict
+    A        2.237e-06   5.373e-07   6.455e-07   4.474e-07   4.474e-07  CERTIFY
+    B        2.237e-06   5.370e-07   6.452e-07   4.527e-07   4.527e-07  CERTIFY
+    C        1.535e-06   7.698e-08   1.636e-07   8.195e-08   7.698e-08  CERTIFY
+
+**All three CERTIFY-RELATIVE-TO-BASIS** by the frozen threshold (min held-out > 1e-8 across the whole grid,
+clean integrator, control passing). None falls in the 1e-10 … 1e-8 no-label band.
+
+**Located margin:** the same engine on the same code path reaches **1e-17 … 1e-18** when an invariant IS
+present. The screened objects bottom out at **1e-7 … 1e-8** — roughly **ten orders** above the emit level. The
+certificate is not marginal.
+
+## What this does NOT say
+
+Per the pre-registration, and per the operator's own scope line: **this does not test whether an invariant
+outside the basis is detectable.** A certify here is CERTIFY-RELATIVE-TO-{polynomial, rational} up to momentum
+degree 4 — the §160/§161 verdict class, a measured boundary of the basis and not a claim of non-existence.
+
+**No ordering or grouping is asserted.** Three objects were supplied with no stated relation; the ladders are
+reported per object as requested and any relation between them is for the unblinding, not for me to infer from
+three numbers.
+
+## Unplanned check that came free
+
+At eps = 0 the polynomial rungs are numerically **identical across all three objects** (1.3236e-06 and
+5.5114e-08 to five significant figures). That is what must happen if the three transcriptions share the correct
+Kerr limit, and it is an independent check on the transcription that the design did not ask for.

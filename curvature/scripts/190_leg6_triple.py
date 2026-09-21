@@ -87,7 +87,41 @@ def _C():
     return g00, g03, g11, g22, g33
 
 
-OBJECTS = {"A": _A, "B": _B, "C": _C}
+def _BAD():
+    """NEGATIVE CONTROL, permanent. Kerr with the §99/§168 quadrupole bump on g_tt, which is known to DESTROY
+    the Carter constant. It exists so the conditioning cut cannot be loosened until the positive control
+    passes: a cut that emits on eps=0 Kerr AND on this is not a gate, it is a sieve with the mesh removed."""
+    Sig = a**2*c**2 + r**2
+    g00 = -(1 - 2*r/Sig)*(1 + eps*(3*c**2 - 1)/r**3)
+    g03 = -2*a*r*s_**2/Sig
+    g11 = Sig/(r**2 - 2*r + a**2)
+    g22 = Sig
+    g33 = (r**2 + a**2 + 2*r*a**2*s_**2/Sig)*s_**2
+    return g00, g03, g11, g22, g33
+
+
+OBJECTS = {"A": _A, "B": _B, "C": _C, "BAD": _BAD}
+
+# THE CONDITIONING CUT, corrected. s99.conserved hardcodes keep = s > 1e-9*s.max(); on THIS feature library
+# that discards 8 of 39 directions and ~41% of the Carter constant's norm, so the eps=0 control -- where Carter
+# certainly exists -- returned 4.1e-8 instead of emitting. The first sweep started at 1e-9 and only went
+# TIGHTER, i.e. the wrong way, and would have concluded "instrument blind on this substrate".
+# Adopted only after a TWO-SIDED control at the same cut:
+#     eps=0 Kerr (Carter exists)      4.18e-17  EMIT
+#     bumped Kerr (Carter destroyed)  9.27e-07  CERTIFY      -> 22 orders of separation, no false emit
+COND_TOL = 1e-15
+
+
+def conserved(Phi, tol=COND_TOL):
+    """§99's engine with the conditioning cut exposed instead of hardcoded."""
+    G, P, Kd = Phi.shape
+    flat = Phi.reshape(-1, Kd); mu = flat.mean(0); sd = flat.std(0) + 1e-9
+    Z = (Phi - mu)/sd
+    B = np.cov(Z.reshape(-1, Kd).T); Aw = np.mean([np.cov(Z[g].T) for g in range(G)], 0)
+    sv, U = np.linalg.eigh(B); keep = sv > tol*sv.max()
+    W = U[:, keep]/np.sqrt(np.maximum(sv[keep], 1e-300))
+    ev, V = np.linalg.eigh(W.T @ Aw @ W)
+    return ev, W @ V, mu, sd
 
 
 _BUILD_CACHE = {}
@@ -192,7 +226,7 @@ def screen(obj, ep, seed):
             try:
                 Ftr, names = features(Ttr, deg, rat)
                 Fte, _ = features(Tte, deg, rat)
-                ev, C, mu, sd = s99.conserved(Ftr)
+                ev, C, mu, sd = conserved(Ftr)
                 best = min(s99.heldout(Fte, C[:, k], mu, sd) for k in range(min(4, C.shape[1])))
             except Exception as e:
                 best = float("nan")
@@ -200,8 +234,30 @@ def screen(obj, ep, seed):
     return drift, grid
 
 
+def two_sided_control():
+    """BINDING. Runs before any object is screened; if either side fails, no verdict issues for the leg."""
+    res = {}
+    for name, obj, ep, want in (("positive_eps0_kerr", "A", 0.0, "emit"),
+                                ("negative_bumped_kerr", "BAD", 0.3, "certify")):
+        _, grid = screen(obj, ep, 1)
+        best = float(np.nanmin(list(grid.values())))
+        ok = (best < 1e-10) if want == "emit" else (best > 1e-8)
+        res[name] = {"best_heldout": best, "want": want, "pass": bool(ok)}
+        print(f"  {name:<22} best {best:.4e}  want {want:<8} {'OK' if ok else 'FAIL'}")
+    res["pass"] = all(v["pass"] for v in res.values() if isinstance(v, dict))
+    return res
+
+
 def main():
+    print("Step 190 — leg 6 blind triple\n\nTWO-SIDED CONTROL (binding, runs first):")
+    ctrl = two_sided_control()
+    if not ctrl["pass"]:
+        print("\nCONTROL FAILED -> NO VERDICT ISSUES FOR ANY OBJECT.")
+        (RESULTS / "190_leg6_triple.json").write_text(json.dumps(
+            {"control": ctrl, "verdict": "NO VERDICT -- two-sided control failed"}, indent=2))
+        return 1
     out = {"prereg": "notes/leg6_prereg.md (committed before the metrics were transcribed)",
+           "conditioning_tol": COND_TOL, "two_sided_control": ctrl,
            "a": A_SPIN, "eps": EPS, "degrees": DEGREES, "ntraj": NTRAJ, "nstep": NSTEP, "objects": {}}
     for obj in ("A", "B", "C"):
         print(f"\n===== OBJECT {obj} =====")
