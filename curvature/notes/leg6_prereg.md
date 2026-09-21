@@ -168,3 +168,59 @@ three numbers.
 At eps = 0 the polynomial rungs are numerically **identical across all three objects** (1.3236e-06 and
 5.5114e-08 to five significant figures). That is what must happen if the three transcriptions share the correct
 Kerr limit, and it is an independent check on the transcription that the design did not ask for.
+
+---
+
+# AMENDMENT — the ε-scan, pre-registered before running (2026-09-22)
+
+Unsealed: **A keeps Carter (rank-2), B destroys it (A with one coefficient × 1/3), C keeps it rationally.**
+ansatz corrected their own scope before any conclusion was drawn: **their claim that A keeps Carter is FIRST
+ORDER in ε, and the test ran at ε = 0.05.** A first-order invariant leaves an O(ε²) residual at finite ε, so
+A's Carter is not an exact invariant of the object actually sent and **the test as constructed could not
+separate A from B.** The naive reading — a false CERTIFY on A, a partial kill of `legible ⟺ integrable` — is
+therefore not available, in either direction.
+
+## The discriminator is the SCALING EXPONENT, not the magnitude
+
+TheBridge's sharpening, and it is the right instrument: if A's Carter survives at first order and B's does not,
+their residuals carry **different powers of ε** and must separate as ε shrinks, whereas anything common to both
+metrics scales identically and leaves `B/A ≈ 1` at every ε.
+
+**Their arithmetic needs one correction, and it makes the test easier rather than harder.** They tabulated A as
+ε² and B as ε¹. But the reported margin is `heldout = mean_traj(var_within) / var_total` — a **variance**, i.e.
+the residual amplitude **squared**. So:
+
+    residual amplitude   ->   held-out ratio      predicted exponent
+    A   O(eps^2)              O(eps^4)            4
+    B   O(eps^1)              O(eps^2)            2
+
+    eps       A (eps^4)    B (eps^2)    B/A        [their B/A]
+    0.05      4.474e-07    4.527e-07        1.0    [1.0]
+    0.005     4.474e-11    4.527e-09      101      [10.1]
+    0.0005    4.474e-15    4.527e-11    10119      [101]
+
+**Frozen predictions, and each can fail:**
+
+- **(i) FINITE-ε explanation holds** → fitted exponents **A ≈ 4, B ≈ 2**, separating by ~10² per decade of ε.
+- **(ii) BASIS explanation** → A's first-order correction is unrepresentable in my features, A does not follow
+  ε⁴, and the exponents do not split as predicted.
+- **(iii) Neither** → **both objects fit the SAME exponent**, `B/A` stays ~1 at every ε, and the margin is
+  measuring something common to both metrics that **neither ansatz nor I have named.** This is a real possible
+  outcome and the one I would most want to know about.
+
+**If I measure A ≈ 2 and B ≈ 1, my own derivation above is wrong** — the statistic would not be behaving as a
+variance — and that is a finding about my instrument, not about the objects.
+
+## Design
+
+Five log-spaced ε per object (A, B **and C**, since C costs the same code path and its exponent is informative),
+`{0.05, 0.0158, 0.005, 0.00158, 0.0005}`, exponent fitted by least squares on log(min held-out) vs log(ε)
+across all five — **a fitted slope, not a two-point ratio.**
+
+**CENSORING GUARD (§177 W3, entry 19).** The ε = 0 control emits at ~1e-17, which is the instrument floor. A's
+predicted 4.5e-15 at ε = 0.0005 clears it by ~2.5 orders, but **if any point sits at the floor the exponent fit
+is censored and that point is excluded with the exclusion reported** — a truncated statistic carries less than
+the boolean, and fitting through a floor manufactures a shallow exponent.
+
+**Blinding note:** the key is now known, so **this scan is NOT blind** and will not be reported as if it were.
+It is a mechanism test with a frozen prediction, run after unsealing, and labelled as such.
