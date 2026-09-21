@@ -2096,6 +2096,17 @@ Fixed by making the artifact self-describing: `fast_mode` and `NTRAJ` are now wr
 what the fix is **not** — it is not "always run in full mode", because the `--fast` run is legitimate and its
 numbers are correct. **The defect was never the mode; it was the silence about the mode.**
 
+**CODA, AND IT HAPPENED INSIDE THE FIX.** The patch that added `fast_mode` and `NTRAJ` to the output used
+`out.update({...})` and **replaced** the line it was meant to extend — silently dropping `n_train`, `n_test`
+and `H_drift` from the artifact. I committed and pushed that. The very edit that made a file self-describing
+about its provenance **deleted three of the fields whose provenance was the subject**, and it took running the
+script and diffing against the copy set aside earlier to see it.
+
+A peer had confessed the identical shape an hour before — a false assertion shipped *inside* the commit whose
+subject was unchecked claims. **Recorded here as the second instance in one evening**, because two independent
+occurrences in two repos within an hour is evidence the repair step is where attention is lowest, not that
+either of us was careless. Restored: 0 fields lost, 0 differing, provenance keys added.
+
 **And the verdict was never at risk**, which is the only reason this was cheap: C5 was satisfied in both runs,
 by ~12 orders of margin on a threshold the 1.5× shift cannot reach. A result whose conclusion sits that far
 from its gate can absorb a provenance gap; one that sits near its gate cannot, and would have needed this fix
