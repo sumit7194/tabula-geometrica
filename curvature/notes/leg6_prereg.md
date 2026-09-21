@@ -383,3 +383,76 @@ across the band. Feeding `p_θ` straight in would have produced a **plausible** 
 measurement, silently. Every other instance tonight was found *after* a number existed and had travelled. The
 habit that caught it was deriving the Jacobian rather than assuming it; the lesson that made me flag it for
 confirmation rather than proceed on my own derivation was the 845×, three hours old.
+
+---
+
+# LEG 6 RESOLVED — the CERTIFY on A is correct, and the missing function class is named (2026-09-22)
+
+## The measurement that worked, and the one that did not
+
+**ε swept UPWARD succeeded.** The objects are **exact in ε and truncated in χ**, so raising ε costs no
+truncation error and helps quadratically; every sweep for three rounds went the other way, shrinking the
+parameter that was already exact while holding the truncated one large.
+
+    excess/eps = F0*c + A*eps        five points, eps = 0.05 .. 0.30, at chi = 0.075
+
+    A    = 4.0708e-07      K1's QUADRATIC residual coefficient, MEASURED
+    F0*c = 7.3811e-07      the floor's own O(eps) drift, SEPARATED
+    max relative residual  5.94e-06
+    quadratic share at eps=0.30: 14.2%
+
+**The crossover `ε* ≈ 1.8` was never reachable and never needed.** A two-parameter fit separates two terms;
+it does not require one to dominate. "Push ε past ε\*" was the framing that sent me chasing an unreachable
+target, and it was retracted by its author.
+
+**χ swept DOWNWARD stayed censored at every point** — corrected/floor exponent 0.011 at χ=0.01, 0.012 at
+χ=0.003. The floor carries its own O(ε) drift, so it rises with ε in lockstep and no amount of χ-lowering
+separates them.
+
+## Why the χ floor exists at all, and why it is χ³ exactly
+
+`g_tφ = −2ar sin²θ/Σ` is **odd in a** — verified from my own metric (`g_tt` even, `g_tφ` odd, `g^tφ` odd). So
+`H` carries odd powers of χ while chain4 is even and stops at χ². The bracket therefore vanishes at χ⁰, χ¹, χ²
+— which is all ansatz claimed and all they could check — and **the first unchecked order is χ³**. Measured
+floor exponent: **3.032** on an independent sweep (first sweep gave 3.13; the marching sequence 3.17/3.13/3.08
+was χ³ approached from above). Mechanism due to TheBridge; the number that refused to be 4 is what located it.
+
+## THE FINDING FOR THIS PROJECT — and it is settled from the expression, not from a run
+
+    K1's denominator:   x^4 (x-2) (y^2-1)    i.e.  r^4 (r-2) sin^2(theta)
+    my d2_rat library:  1, cos2, r, r2, cos2*r, 1/sin2, 1/r, 1/r2, cos2/r, cos2/r2
+
+**There is no `(r−2)` denominator in my basis at all.** Not present with wrong coefficients — the function
+class is absent by construction. So `chain4 + εK₁` is **not representable in my degree-2 rational library at
+any coefficients.**
+
+> **The CERTIFY on A is therefore correct AS A CERTIFY-RELATIVE-TO-BASIS. The invariant exists, the screen did
+> not find it, and the reason is precisely the one the operator's scope line named in the opening message:
+> *"this does not test whether an invariant outside your basis is detectable."*** Not a miss — the boundary,
+> with the missing function class identified by name.
+
+**This sharpens §161's biconditional exactly as that leg pre-registered.** `legible ⟺ integrable` survives in
+the form `legible ⟺ integrable with a REPRESENTABLE invariant`, and `(r−2)` is a **concrete witness** to the
+gap rather than a hypothetical one. The partial kill §161 anticipated has arrived, located, and in the
+direction it predicted.
+
+## What the numerical exponent does and does not decide
+
+ansatz proved `{H_def, chain4 + εK₁} = 0` at O(ε) **exactly, through χ²**. So a numerical exponent-2 result is
+an **independent-route confirmation of a symbolic result** — real value given how many relayed claims failed
+tonight, but not the leg's open question. **The open question was basis representability, and it is answered
+above without a single further run.**
+
+## A circularity in `c`, and its escape
+
+`c ≡ (excess/ε)/F₀` absorbs any O(ε) residual of `K₁` into itself, so measuring `c` cannot by itself
+distinguish floor-drift from a `K₁` failure. It escapes only because the O(ε) cancellation is **proven**
+through χ², leaving χ³+ as the only possible source. Truncation by construction rather than by assumption.
+(TheBridge raised the circularity against their own proposed measurement.)
+
+## Measured, against an assumption that was flagged and failed
+
+`c` is **not χ-independent**: 0.2279 at χ = 0.075, 0.566 at χ = 0.01 — `c ∝ χ^−0.45`. Every headroom figure
+resting on χ-independence moves. **Flagged in advance by the party who could not check it, and it is the second
+such flag tonight to land on the assumption that broke** (the first was `q`). The flag works by naming the
+boundary of one's own instruments rather than by being cautious in general.
