@@ -224,3 +224,49 @@ the boolean, and fitting through a floor manufactures a shallow exponent.
 
 **Blinding note:** the key is now known, so **this scan is NOT blind** and will not be reported as if it were.
 It is a mechanism test with a frozen prediction, run after unsealing, and labelled as such.
+
+---
+
+# ANALYTIC CARTER DRIFT — engine-free, and it does not support the hypothesis (2026-09-22)
+
+Measured directly along the flow: `Q = p_θ² + cos²θ[a²(1−E²) + L²/sin²θ]`. **No engine, no basis, no
+conditioning, no eigenproblem, no fit statistic** — the residual itself rather than a statistic derived from it.
+
+    obj   drift(eps=0.05)   drift(eps=0.005)   ratio    fitted exponent
+    A     7.13040e-03       7.10580e-04        10.03    1.002
+    B     7.13050e-03       7.10580e-04        10.03    1.002
+    C     5.13630e-04       5.09950e-05        10.07    1.003
+    all   4.01e-14 at eps=0 (integrator floor)
+
+**A and B are identical to five significant figures** (1.4e-05 relative at ε=0.05, indistinguishable at 0.005),
+and **every exponent is 1, not 2**. So A does not conserve `Q` better than B, and the finite-ε rescue fails its
+own prediction.
+
+## The scope limit, stated against my own result
+
+I measured the drift of the **undeformed Kerr** `Q`. If A's survivor is a **deformed** invariant `Q + ε·K₁` —
+and ansatz's description of C's survivor has exactly that form — then bare `Q` drifts at O(ε) while the real
+invariant is conserved, producing precisely this table. **So this does NOT establish that A has no rank-2
+invariant.** It establishes something narrower: *whatever distinguishes A from B is not visible in the drift of
+`Q`.* Whether a deformed rank-2 invariant survives is what the screen searches, and the screen certified.
+TheBridge has asked ansatz for `K₁` explicitly; with it the same engine-free measurement settles the branch.
+
+## THE PRE-SCAN CONSTRAINT — measured, hypothesis-free, and it survives the scan either way
+
+    A-B gap in the RESIDUAL    1.40e-05 relative
+    A-B gap in the MARGIN      1.19e-02 relative
+    ratio                            845x
+
+> **Under any power law `margin ~ residual^n` with n > 0, the margin gap must TRACK the residual gap. Exceeding
+> it by ~3 orders is not a wrong exponent — it is the margin responding to something that is not the residual.**
+
+This needs neither my squaring nor ansatz's linear relation, and it holds whatever slope the ε-scan returns. It
+is the clean form of what my earlier order-of-magnitude argument was reaching for — that argument was circular
+(it assumed `margin ~ residual²`, which is the disputed point), and this one is not.
+
+## The unpredicted signal, flagged so it does not get absorbed
+
+**C's drift is 13.9× below A's and B's, at both ε.** Engine-free, and **no one's hypothesis mentions it** — the
+prediction under dispute was about A-versus-B. C was supposed to be the object with the *rational* survivor,
+not the one whose *undeformed* `Q` is best conserved. Recorded as wanting an explanation rather than as
+evidence for anybody's account.
