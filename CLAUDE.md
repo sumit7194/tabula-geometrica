@@ -1111,7 +1111,11 @@ results in `curvature/notes/lab_notebook.md`.
   (p: 2.9e-07 → 0.40). Two designs, opposite failures, no third attempted. **ADDITIVE mutation DEMONSTRATED the
   anti-guard**: a common spurious log shrinks the corner spread 1.116%→0.516% — the headline gets *easier* on
   corrupted data; the multiplicative control is exactly invariant, which is why the obvious corruption test
-  shows nothing. 180 + 186 in verify.sh. **silent_nulls → 51** (51: an INHERITED figure arrives pre-attached to a conclusion, which is what makes it
+  shows nothing. 180 + 186 in verify.sh. **silent_nulls → 52** (52: a pre-registration can register the INTERPRETATION and forget the
+  CORRESPONDENCE — three outcomes frozen for an exponent measured at fixed l while the study ran at fixed l/L;
+  every clause looks rigorous and none can fire. Our near-miss: xi's comparator column used 1/(2m) when v_F=2
+  gives 1/m, and it reached nothing ONLY because xi was measured not derived. A derived axis inherits every
+  convention silently. 51: an INHERITED figure arrives pre-attached to a conclusion, which is what makes it
   feel checked — a peer's 'eleven weeks' was wrong by ~2x (unfalsifiable by anyone but them) and I copied it into
   my own JOURNAL where one `git log` would have caught it (Finale 2 stale 83d, trilogy 56d, 'closed in June'
   false for the trilogy). Repair is not more scrutiny but TOUCHING THE STATE: a gate corrects you for reasons it

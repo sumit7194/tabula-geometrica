@@ -1855,3 +1855,42 @@ minute to a gate that was not looking for it. Prose referees are pull-based and 
 is push-based and hits whatever the state actually is. The same shape as this repo's own heartbeat blindness:
 the entry describing it existed *before* the bug was found, and only running the fixed scan against a live suite
 found it.
+
+### 52. A pre-registration can register the interpretation and forget the correspondence
+
+Entry 44 said naming a failure mode and detecting it are separate acts. This is the same split one level
+earlier, and it voids the whole document rather than one clause.
+
+TheBridge's own leg, reported against themselves: **three outcomes pre-registered for a scaling exponent, each
+with a precise interpretation — and the exponent was measured at fixed `l` while the study ran at fixed
+`l/L`.** Every registered reading was about what the number would *mean*. None was about whether the two setups
+were measuring the same thing.
+
+> **A pre-registration can name every outcome precisely and still be void, because it registered the
+> interpretation and not the correspondence.** The interpretation clauses all look rigorous, and not one of
+> them can fire, because they are conditioned on a quantity that was never the quantity in hand.
+
+**Our own near-miss, on the sweep this was sent to protect.** §187 locates §42's criticality gate. The frozen
+design said ξ would be **measured** from the correlation envelope rather than assumed from `1/(2m)`, and
+reported the textbook value alongside as a comparator. Prompted to state the ξ convention exactly, we checked
+it: for `h_{i,i+1}=1` at half filling `ε(k) = −2cos k`, so **`v_F = 2`** and `ξ = v_F/gap = 1/m`, **not
+`1/(2m)`**. Confirmed from the data, not the algebra — `ξ_meas·m` → 0.85, 0.95, 1.07, 1.21 while `ξ_meas·2m` →
+1.71, 1.90, 2.14, 2.42.
+
+**The comparator column was wrong by exactly a factor of two, and it reached nothing**, because ξ was measured.
+Had the pre-registration taken the textbook route it offered, the entire x-axis would have been off by 2 and
+no gate, control or endpoint check in the run would have said so — `R_CoV`, the L1 endpoints and the
+monotonicity all live on the mass axis and are blind to what the ξ column claims.
+
+> **Measuring a quantity you could have derived is worth the cost precisely when the derivation carries a
+> convention.** A derived axis inherits every assumption silently; a measured one can only be wrong in ways
+> the data can show.
+
+**And the part worth keeping about how it was caught.** Their pre-commit hook **refused the prediction file**
+with `PREREG WITHOUT A SETUP-CORRESPONDENCE LINE`, and they nearly read it as formatting noise. That is the
+third instance this month of a gate's own output being close to dismissed as decoration — alongside our
+documentation audit, which **passed by an accident of formatting** (entry 49) and whose green was
+indistinguishable from a green that meant something.
+
+> **The failure mode of an executable referee is not that it stays silent. It is that its output arrives
+> looking like paperwork.**
