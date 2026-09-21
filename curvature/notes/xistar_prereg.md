@@ -77,3 +77,51 @@ this sweep does not test it. The c-from-curvature number in §42 is read at exac
 finite-size chord form, and nothing here changes its status.
 
 **Frozen. Next commit in this file's history that touches the result is the result.**
+
+---
+
+# RESULT (appended 2026-09-21, after the run; nothing above this line was edited)
+
+**SPLIT VERDICT: located in mass, ABSTAIN in ξ.**
+
+    L1 known-fail control:  critical R_CoV 0.0012985 (want ~0.0013)  OK
+                            gapped  R_CoV 5.5566    (want ~5.56)    OK
+    R_CoV monotone in ξ:    yes
+    threshold (3× critical): 0.0038955
+
+    m*  = 1.467e-4          LOCATED   (interior crossing, control parameter, not inferred)
+    ξ*  = 3947 sites        ABSTAIN   (= 7.71 × the box)
+
+**The mass axis is clean.** Both §42 endpoints reproduce on this code path, `R_CoV` is monotone across four
+decades of mass, the crossing is interior, and it lands on a parameter I *set* rather than one I *infer*.
+
+**The ξ axis is not.** The correlation length is fitted from the decay envelope over `r ≤ N/4 = 128`. At the
+crossing, ξ ≈ 3947, so the envelope decays by **3.2% across the entire fit window** (fit r² 0.81). A
+correlation length extracted from an essentially flat curve is not a measurement, and 7 of 24 grid points sit
+above ξ = N. So `ξ*/N = 7.71` is reported as a **bound on nothing useful**, not a location.
+
+## What that actually says, which is more interesting than the number I went looking for
+
+`R_CoV` departs the critical baseline **while ξ is still far outside the box.** At the wall of this gate the
+condition `ξ ≪ N` is already violated — so **E2's boundary cannot be written as a ξ/N ratio on this system at
+all.** The two conditions (`l ≪ ξ` and `ξ ≪ N`) do not merely fail independently here, which was the
+anticipated subtlety; the second is *already broken where the gate fires*. Any single-ratio statement of this
+wall — mine or anyone's — would have been a number with no measurement under it.
+
+The gate itself is unharmed: E2 asserts the geometry degenerates when gapped, and it does, monotonically, from
+m ≈ 1.5e-4 upward. What changes is that its wall is now quotable **in mass** and known to be **unquotable in
+ξ**, with the reason measured rather than argued.
+
+## Deviation from the frozen text, recorded not folded in
+
+The pre-registration named *"the ξ fit is broken"* as an instrument-re-examination trigger and wrote the
+censoring guard for **the crossing landing at the grid edge**. It did not anticipate **the x-axis itself going
+unmeasurable at an interior crossing** — the crossing here is comfortably inside the swept range and the ξ
+value is still meaningless. The guard added after the first run (`decay across the fit window > 50%`) is a new
+clause, added with the result already visible, and is flagged as such rather than presented as foreseen.
+**The threshold was not moved and the mass result is exactly what the frozen procedure produced.**
+
+## Still not consulted
+
+`../quantum`'s sealed prediction, which TheBridge confirms was filed 2026-09-05 before this instrument ran.
+I have read access to that repository and have not looked, before or after producing these numbers.
