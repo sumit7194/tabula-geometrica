@@ -18,6 +18,106 @@
   "m_star": 0.0001466844847210085,
   "xi_envelope_decay_across_fit_window_at_star": 0.03190591033830881,
   "xi_axis_trustworthy": false,
+  "xi_estimate_ratio_at_star": 1.7270272114116276,
+  "xi_estimate_ratio_curve": [
+    {
+      "xi_over_N": 11.26982555368438,
+      "derived_over_measured": 1.7330569942686256
+    },
+    {
+      "xi_over_N": 7.807906358212671,
+      "derived_over_measured": 1.7273114827565044
+    },
+    {
+      "xi_over_N": 5.417234176771369,
+      "derived_over_measured": 1.7191068218318055
+    },
+    {
+      "xi_over_N": 3.7662152207932027,
+      "derived_over_measured": 1.7074600708094294
+    },
+    {
+      "xi_over_N": 2.62585604426887,
+      "derived_over_measured": 1.6910638063974166
+    },
+    {
+      "xi_over_N": 1.8380062300027602,
+      "derived_over_measured": 1.6682423650838036
+    },
+    {
+      "xi_over_N": 1.2934312358930877,
+      "derived_over_measured": 1.6369597366349107
+    },
+    {
+      "xi_over_N": 0.9166753900108889,
+      "derived_over_measured": 1.5949276511475328
+    },
+    {
+      "xi_over_N": 0.6556158079395602,
+      "derived_over_measured": 1.5398639795319538
+    },
+    {
+      "xi_over_N": 0.47425571949511697,
+      "derived_over_measured": 1.4699224290078856
+    },
+    {
+      "xi_over_N": 0.34775001691943175,
+      "derived_over_measured": 1.3842516544725263
+    },
+    {
+      "xi_over_N": 0.2589599604741749,
+      "derived_over_measured": 1.2835855168359385
+    },
+    {
+      "xi_over_N": 0.1960443524200707,
+      "derived_over_measured": 1.1707881271645815
+    },
+    {
+      "xi_over_N": 0.15075182422803288,
+      "derived_over_measured": 1.0513450795356492
+    },
+    {
+      "xi_over_N": 0.11723356210382894,
+      "derived_over_measured": 0.9335361041441619
+    },
+    {
+      "xi_over_N": 0.0913673639971666,
+      "derived_over_measured": 0.8271174847300976
+    },
+    {
+      "xi_over_N": 0.07056073943788353,
+      "derived_over_measured": 0.7395548524490183
+    },
+    {
+      "xi_over_N": 0.05357328404922975,
+      "derived_over_measured": 0.6726055738558654
+    },
+    {
+      "xi_over_N": 0.0399185393430983,
+      "derived_over_measured": 0.6233174811687173
+    },
+    {
+      "xi_over_N": 0.0292456766214766,
+      "derived_over_measured": 0.587485960291022
+    },
+    {
+      "xi_over_N": 0.021129318328985024,
+      "derived_over_measured": 0.5614988833864862
+    },
+    {
+      "xi_over_N": 0.014850809063420078,
+      "derived_over_measured": 0.5516447455777336
+    },
+    {
+      "xi_over_N": 0.010321230707678385,
+      "derived_over_measured": 0.5480918340956229
+    },
+    {
+      "xi_over_N": 0.007186308623750803,
+      "derived_over_measured": 0.543568360964879
+    }
+  ],
+  "xi_estimate_ratio_note": "Two independent xi estimates (envelope fit vs corrected continuum 1/m). Ratio runs 0.54 -> 1.00 -> 1.73 across the sweep, crossing 1 at xi/N ~ 0.14 and saturating near 1.73 at large xi. The AGREEMENT POINT sits inside the measurable regime and the wall sits where they disagree by 1.7x, which corroborates the abstention by a third route. THE SATURATION VALUE IS NOT EXPLAINED: it is numerically close to sqrt(3) and NO mechanism has been tested for that, so it is recorded as an unexplained regularity, not a finding. Credit: TheBridge, who checked one reported number against another instead of taking it on report.",
   "n_grid_points_with_xi_above_N": 7,
   "xi_star_over_N": 7.709863320233362,
   "xi_star_over_l_min": 246.71562624746758,
