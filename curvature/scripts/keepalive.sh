@@ -131,6 +131,9 @@ try:
         dt = cur["t"] - prev["t"]
         d_sw = (cur["swap_used_mb"] - prev["swap_used_mb"]
                 if cur["swap_used_mb"] is not None and prev.get("swap_used_mb") is not None else None)
+        paging_raw = bool((cur["pageouts"] - prev["pageouts"]) / dt > 5.0
+                          or (d_sw is not None and d_sw > 1.0))
+        cur["paging_raw"] = paging_raw
         pressure = {
             "window_s": round(dt, 1),
             "pageouts_per_s": round((cur["pageouts"] - prev["pageouts"]) / dt, 2),
@@ -141,8 +144,15 @@ try:
             # the n_procs/n_active mistake from the other direction: macOS compresses proactively, so a rising
             # compressor with zero pageouts is NOT the box in trouble -- but a reader told only `paging: false`
             # while the compressor climbs has been misled. Reported separately; the reader decides.
-            "paging": bool((cur["pageouts"] - prev["pageouts"]) / dt > 5.0
-                           or (d_sw is not None and d_sw > 1.0)),
+            # PERSISTENCE, NOT A SINGLE TICK. First live firing was a one-tick spike: pageouts/s went
+            # 6.38 -> 1.16 -> 0.00 across three ticks while swap_delta was NEGATIVE (-8 MB, i.e. swap being
+            # RECLAIMED) and a direct vm_stat read gave 0.25/s. The flag said `paging: true` at the instant a
+            # peer might have read it and throttled for nothing. I had told the fleet "sample twice, throttle
+            # only if RISING" and then written a single-tick trigger -- the exported rule and the local
+            # implementation were opposites, which is the same shape ansatz confessed to for levels-vs-rates.
+            # Now: the raw condition must hold on TWO CONSECUTIVE ticks, and swap being reclaimed vetoes it.
+            "paging": bool(paging_raw and prev.get("paging_raw") and not (d_sw is not None and d_sw < -0.5)),
+            "paging_raw_this_tick": bool(paging_raw),
             "compressing": bool(cur["compressor_gb"] - prev["compressor_gb"] > 0.25),
             "note": ("RATES over the last tick -- this is the schedulable signal, and the only one. `paging` is "
                      "literal (pageouts/swap RISING); `compressing` is the earlier, softer warning and fires on "
