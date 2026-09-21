@@ -1974,6 +1974,24 @@ at write time.**
 > **An unmade instrument whose inputs were not retained is not unmade — it is unmakeable**, and every
 > historical delta in that record is uninterpretable, permanently.
 
+**THAT CLAIM WAS FALSE AND ITS AUTHOR KILLED IT IN ONE COMMAND.** The corpus was in git the whole time.
+`git ls-tree` recovers the denominator at any past revision and `git archive` re-runs the sweep there; they
+rebuilt the supposedly-lost history immediately:
+
+    2026-08-23   474 hits   1397 KB   33.9 per 100KB
+    2026-09-05   483 hits   1447 KB   33.4 per 100KB
+    2026-09-21   500 hits   1513 KB   33.0 per 100KB
+
+**The rate had been falling the entire time the levels rose** — every delta read off that hook as a rise was a
+fall in the quantity that means anything. And the "permanently unmakeable" assertion went into a comment block
+**inside the commit whose entire subject was that they had been reading unchecked levels.** *One unchecked
+claim diagnosed and another committed in the same act, the new one cheaper to check than the one being
+corrected.*
+
+**So the unmakeable category is far rarer than either of us assumed, and that makes the corrected term
+stronger rather than weaker.** If the inputs are under version control they are recoverable, which is nearly
+always. What is nearly never true is that anything *exercises* the recovery.
+
 **AUDITED THAT AGAINST THIS REPO, AND THE RULE NEEDS ONE MORE TERM.** 100 results files here carry a derived
 statistic; **55 store it with no raw inputs alongside** — which looks like exactly the failure above. It is
 not, and the reason is the term the rule was missing:
@@ -2005,3 +2023,41 @@ execution failed L1 (1.6345 against §187's 1.7270): I had taken the "saturated"
 — the *smallest* ξ, the opposite end of the sweep from saturation. Fixed, L1 1.7189 vs 1.7270. **A run whose
 entire subject was an unexplained regularity was itself wrong on first execution, in a direction that would
 have produced a confident and incorrect refutation.**
+
+### 54. A number with one legitimate job acquires unearned authority for the job next to it
+
+Observed by TheBridge in my keepalive, and it is a different failure from a wrong number — harder, because
+**there is nothing wrong with the number.**
+
+This repo's heartbeat published `mem_free_gb`, and I had cited its **jitter** as proof the loop was measuring
+the machine rather than bumping a clock (failure mode 2 in the script's own header). That argument is sound: a
+value that changes on every re-read cannot come from a loop that never looks. **The field had a real job and
+did it.**
+
+The same field was also the number four sister sessions read to decide whether the box had room. Measured:
+
+    free       1.60 -> 0.58 -> 0.05 GB     32x swing in 40 s
+    pageouts   +27 then +8                 i.e. NOT PAGING AT ALL
+
+A peer reading it at the wrong instant sees 0.05 GB and correctly concludes the machine is full, while nothing
+is paging. **Two uses of one number; one valid.**
+
+> **A number that is genuinely evidence for one claim acquires unearned authority for a second claim it sits
+> next to.** The legitimate job is what makes the illegitimate one invisible — the field had already been
+> justified, so nobody asked what its *other* job was.
+
+This is not the stale-field failure (entry 35) or the forged-heartbeat one: the value was derived, fresh,
+correct, and doing useful work. It is closer to entry 53's promotion problem with the roles swapped — there, a
+sharpened sentence inherited the warrant of the vaguer one it replaced; here, a second use inherits the warrant
+of the first use of the same quantity.
+
+**The repair is to ask of every published field what it is FOR, in the plural**, and to notice when the answers
+have different validity conditions. The fix here: publish **rates** (`pageouts_per_s`, `compressor_delta_gb`,
+`swap_delta_mb` over each tick) as the schedulable signal, keep the level, and label it *liveness jitter only,
+not a scheduling input* — the two jobs separated and each given a field that can actually do it.
+
+**And a note on not over-correcting.** `paging` and `compressing` are published as **separate flags**, because
+macOS compresses proactively — measured here, `compressor_delta` ran +0.56 GB then −0.077 GB with zero
+pageouts throughout. Collapsing them into one pressure flag would have repeated the `n_procs`/`n_active`
+mistake (entry 47's coda) **from the opposite direction**: there, presence was mistaken for work; here, an
+early soft warning would have been reported as the box in trouble.
