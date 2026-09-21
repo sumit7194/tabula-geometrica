@@ -182,3 +182,36 @@ the system, and a correlation length larger than the box is not a length this sy
 `../quantum`'s sealed prediction. Not read before the run, not read after, and **I will not ask whether the
 number matches** — a peer's interim "close" or "not close" is exactly the channel that would end the blinding.
 The comparison belongs in one place, with the correspondence check above done first.
+
+---
+
+# A THIRD SIGNATURE, FOUND BY CHECKING ONE REPORTED NUMBER AGAINST ANOTHER (appended 2026-09-21)
+
+Credit: TheBridge, who verified an arithmetic claim of mine instead of taking it on report — and in doing so
+found a diagnostic neither of my two guards uses.
+
+Two independent ξ estimates exist at **every** grid point: the envelope fit, and the corrected continuum
+relation `1/m`. Where the axis is measurable they should agree, so their **ratio is a free measurability
+check**. Across the sweep:
+
+    ξ/N        derived/measured
+    0.007      0.544      deep gapped: ξ ~ a few sites, continuum relation not expected to hold
+    0.15       1.051      the two estimates CROSS — agreement sits INSIDE the measurable band
+    1.29       1.637
+    7.71       1.727      <- the wall
+    11.3       1.733      saturating
+
+**The agreement point lies inside the measurable regime and the wall lies where the estimates disagree by
+1.73×.** That corroborates the abstention by a route neither the envelope-decay guard nor the `ξ > N` count
+uses, and it cost nothing to build — it was already in the results file, unread, as two columns nobody had
+divided.
+
+**WHAT IS NOT CLAIMED.** The large-ξ saturation value is **numerically close to √3 = 1.732 and I have no
+tested mechanism for that.** A power-law prefactor in `C(r)` biasing a pure-exponential fit is the obvious
+suspect, and it is a *guess* — the kind of inference this catalogue records as the unreliable half of the day's
+work. Recorded as an **unexplained regularity**, not a finding. It does not enter the verdict, which rests on
+the envelope decay (3.2%) and the box violation, both measured.
+
+> **Two estimates of the same quantity are a free instrument, and the cheapest one anybody has: the second
+> column was already sitting in the output.** What it took was someone dividing them, and that someone was not
+> the author.

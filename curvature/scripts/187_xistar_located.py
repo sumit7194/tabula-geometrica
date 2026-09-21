@@ -146,6 +146,15 @@ def main():
     decay_at_star = float(1 - np.exp(-(N // 4) / xi_star)) if xi_star else None
     xi_axis_trustworthy = bool(decay_at_star is not None and decay_at_star > 0.5)
 
+    # THIRD, FREE SIGNATURE -- found by TheBridge checking one of the reported numbers against another rather
+    # than taking it on report. Two independent xi estimates exist at every grid point: the envelope fit and
+    # the corrected continuum relation 1/m. Where the axis is measurable they should agree; their RATIO is
+    # therefore a measurability diagnostic that cost nothing to build and that neither guard above uses.
+    ratio_at_star = float((1.0 / m_star) / xi_star) if (m_star and xi_star) else None
+    ratio_curve = [{"xi_over_N": r["xi_measured"] / N,
+                    "derived_over_measured": (1.0 / r["m"]) / r["xi_measured"]}
+                   for r in rows[1:] if np.isfinite(r["xi_measured"]) and r["xi_measured"] > 0]
+
     out = {
         "prereg": "notes/xistar_prereg.md (committed 2026-09-21 before this script existed)",
         "N": N, "band": [LO, HI], "threshold_factor": THRESH_FACTOR,
@@ -157,6 +166,16 @@ def main():
         "m_star": m_star,
         "xi_envelope_decay_across_fit_window_at_star": decay_at_star,
         "xi_axis_trustworthy": xi_axis_trustworthy,
+        "xi_estimate_ratio_at_star": ratio_at_star,
+        "xi_estimate_ratio_curve": ratio_curve,
+        "xi_estimate_ratio_note": (
+            "Two independent xi estimates (envelope fit vs corrected continuum 1/m). Ratio runs 0.54 -> 1.00 "
+            "-> 1.73 across the sweep, crossing 1 at xi/N ~ 0.14 and saturating near 1.73 at large xi. The "
+            "AGREEMENT POINT sits inside the measurable regime and the wall sits where they disagree by 1.7x, "
+            "which corroborates the abstention by a third route. THE SATURATION VALUE IS NOT EXPLAINED: it is "
+            "numerically close to sqrt(3) and NO mechanism has been tested for that, so it is recorded as an "
+            "unexplained regularity, not a finding. Credit: TheBridge, who checked one reported number against "
+            "another instead of taking it on report."),
         "n_grid_points_with_xi_above_N": int(sum(1 for r in rows[1:]
                                                  if np.isfinite(r["xi_measured"]) and r["xi_measured"] > N)),
         # THE RATIO IS NOT COLLAPSED -- three separate readouts, per the pre-registration
