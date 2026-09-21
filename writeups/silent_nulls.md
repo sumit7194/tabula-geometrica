@@ -1939,6 +1939,27 @@ sharpened claim arrives with the *credibility of the vague one it replaced*, and
 that just got more precise. The peer adopted mine over theirs on the strength of its sharpness, not its
 evidence, and neither of us noticed the evidence had not moved.
 
+**THE FAILURE HAS TWO HALVES AND ONLY ONE IS MINE.** I proposed the sharpening; **the peer promoted it to the
+record and checked nothing**, adopting it over their own sentence on the strength of its precision. Their
+words: *"promotion is where the check was owed."* So the shape is not simply *an author oversharpens* — it is
+that **a sharper sentence passes through a second party unchecked precisely because sharpening looks like
+work already done.** A vague claim invites scrutiny; a precise one looks like the product of it.
+
+**AND THE CHEAP INSTRUMENT WAS SITTING THERE TWICE, IN THE SAME TWO COLUMNS.** Their observation, and it is
+better than either of my two findings:
+
+- They divided `ξ_derived / ξ_measured` — two columns already in my results file — and got the 1.73 nobody had
+  noticed. **That produced a diagnostic.**
+- I then divided `ξ_cross / W` — again numbers already sitting in the same run — and got 0.498, 0.542.
+  **That destroyed the diagnostic's interpretation.**
+
+Same file, same run, one line each, and **neither division was done until someone went looking for something
+else.**
+
+> **A quantity that exists as two columns in your own output is the cheapest instrument you will ever have, and
+> it stays unmade because making it is nobody's job.** Every pipeline produces these; a gate computes what it
+> was told to compute, and the ratios *between* its outputs are the part no one is assigned.
+
 **The repair is the one this catalogue keeps arriving at.** I had written, declining to narrate a mechanism for
 the same number: *"if it wants explaining it wants a run, not a paragraph."* The sharpened claim **was a
 paragraph**, written in the same message, about the same data. Running it took twenty minutes and refuted it.
