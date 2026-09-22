@@ -1761,3 +1761,52 @@ suppressions can claim.
 That is **below the 1.33x reproducibility bound**, independently of the 3.08x seed scatter. So the
 A/B difference is unreadable twice over -- by the pair's 0.03% separation, and by the instrument's
 own reproducibility.
+
+## A-vs-C POSITIVE CONTROL -- pre-registered before the numbers (TheBridge)
+
+**The prior question, now that A/B is known to be untestable:** *can this instrument discriminate at
+all?* **A null from an instrument never shown able to return a positive cannot be interpreted**, and
+so far it has not been.
+
+**Caveat stated first:** C keeps Carter **rationally**, so A-vs-C is *polynomial survivor vs rational
+survivor*, not *survivor vs none*. **It does not answer the leg's original question.** It answers
+whether the screen can separate two deformations at all.
+
+    requirement, from dK's own residual after correcting A = 1/230,837 = 4.33e-06
+      marginal (1x)   needs ||delta||/||D|| > 0.21%
+      clean (10x)                           > 0.66%
+      decisive (100x)                       > 2.08%
+
+    A/B   0.0300%   signal/limit     1/48    <- fails against a PERFECT instrument, before noise
+    A/C  11.5700%   signal/limit   3090x     <- clears it by three orders
+
+**Prediction.** In a span test the scale is free, so C's `best-scale 3.5732` drops out and only the
+SHAPE residual matters: `0.1157^2 = 1.339e-02`.
+
+    PREDICTED  C + dK suppression   ~75x
+    MEASURED   A + dK suppression    230,837x
+    PREDICTED  ratio                ~3090x     -- 2300x above the 1.33x reproducibility bound
+
+**A's number is a measurement, not a ceiling** -- checked, because a floor-capped suppression would
+make this a bound against a measurement rather than two measurements:
+
+    A unaug at eps=0.2  7.852e-09    A+dK  3.401e-14    A's floor 1.9853e-15
+    margin/floor 17.1x  UNCENSORED   dynamic-range ceiling 3.95e+06x, i.e. 17x of headroom
+
+**The honest weakening, and it is theirs:** the 11.57% is measured in DEFORMATION space, while what
+matters is the angle in VIOLATION space -- the image under the map producing the O(eps)
+Poisson-bracket residual -- **and that map need not preserve angles.** So `75x` is an ORDER OF
+MAGNITUDE, not a number.
+
+    C + dK lands in the tens-to-hundreds   dK is SPECIFIC; the instrument CAN discriminate,
+                                           and the A/B null is a property of the PAIR
+    C + dK lands near 230,000x             dK is GENERIC after all, and the sham result needs
+                                           re-examining -- it excluded the function class, not a
+                                           mechanism acting for any deformation
+
+**75 versus 200 does not discriminate. The order of magnitude does.** Committed before the run.
+
+**Design note:** `A + dK` is re-run inside the same job as `C + dK`, so the comparison shares every
+configuration axis by construction. **The fingerprint gate catches a mismatch; building the job so no
+mismatch is possible is strictly better**, and this is the first time today that happened by design
+rather than by correction.
