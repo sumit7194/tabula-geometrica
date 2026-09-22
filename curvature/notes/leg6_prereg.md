@@ -1094,3 +1094,50 @@ statement (bare Q is A2-dominated, 59.5-vs-64 confirms the model) and SHARPENED 
 precise-but-false one (the shortfall has a specific sign and it is positive). The sharpened version
 inherited the credibility of the correct one, and I shipped it to a peer as a strengthening. **The
 sharpening felt like the rigorous move -- which is exactly what 53 says it feels like.**
+
+## CONTROL RESULT: PASSED, both sides. The bridge is right and the residual is PURE TRUNCATION.
+
+      chi     object       d(.05)     exp   improvement
+      0.6     bare Q   2.8715e-03   1.001          1.0x
+      0.6         K1   2.6709e-02   1.001          0.1x
+      0.6    dK s=+1   9.2331e-05   0.984         31.1x
+      0.6    dK s=-1   3.6644e-05   1.039         78.4x     <- anchor
+    0.075     bare Q   4.8231e-05   1.000          1.0x
+    0.075         K1   4.3793e-04   1.000          0.1x
+    0.075    dK s=+1   9.6243e-07   1.000         50.1x
+    0.075    dK s=-1   7.7333e-08   1.004        623.7x     <- PRE-REGISTERED 627x
+
+    PRE-REGISTERED  ~627x pure truncation  /  ~78x bridge wrong
+    MEASURED        623.7x                                      (0.5% from the prediction)
+    SPLIT           a = 0.02125   b = 0.000009   ->  b = 0.1% of the chi=0.6 residual
+
+**Verdict: PURE TRUNCATION.** `b` is 0.1%, i.e. there is no chi-independent component -- the bridge
+carries no fixed error. `dK` is correct and its only defect is the O(chi^3) truncation the recipe
+was known to have.
+
+**NOT two confirmations, one.** `a = 0.02125` is fixed almost entirely by the anchor once `b ~ 0`
+(`a = (1/78.4)/0.6 = 0.02126`), so "a matches the improvement-route A3/A2" is circular. The single
+non-trivial fact is that **the second measurement fell on the pure-1/chi line**, which is `b ~ 0` and
+`623.7 ~ 627` stated twice. Recording this because double-counting one result as two is the failure
+this whole apparatus exists to catch.
+
+**Two-sided, and the negative side is the stronger half:** K1 reproduced **0.11x at BOTH chi**. A
+wrong object stays wrong by the same factor at both scales -- which is precisely the `b`-only corner
+of the split, appearing as a worked example carried by an object independently known to be wrong.
+
+**The exponent never left 1**, exactly as TheBridge derived before the rows existed: a chi^2-truncated
+`dK` never fully cancels the O(eps) term at any chi > 0, so the linear piece survives until the
+quadratic overtakes it, and that crossover is outside this eps grid. **Had I kept my own
+"exponent must climb to 2" clause, this decisive pass would have read as a failure.**
+
+### The span test therefore RUNS, with a sharpened prediction
+
+At chi=0.075 the residual fraction is `a*chi + b = 0.00160`, so **`dK` is 99.84% correct there**.
+The margin is a variance ratio, so amplitude enters squared: adding `dK` should shrink A's margin by
+~`(0.0016)^2 = 2.6e-6`, taking `4.9e-10 -> ~1.3e-15`, which is **below the emit floor of 8.2e-15**.
+
+    PREDICTION  A + dK  ->  margin pinned at the floor for all eps  ->  exponent ~0 (COLLAPSE)
+                B + dK  ->  exponent stays ~2 (nothing exact to complete)
+                A alone ->  reproduces 1.947 (else the harness changed)
+
+Committed before the span test is run.
