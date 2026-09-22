@@ -12,6 +12,58 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 ---
 
 
+## 2026-09-22 — leg 6: the screen measures deformation amplitude, not integrability
+
+**The result.** Three blind metrics from ansatz, relayed by TheBridge, screened with the §99/§161 emit-or-certify
+engine. All three CERTIFY. Unsealed: **A keeps Carter exactly, B destroys it, C keeps it rationally** — and the
+five-point ε-scan gives **exponent 1.999 / 1.999 / 2.001, R² 1.0000, with B/A = 1.00 flat across two decades.**
+
+> **The margin does not measure integrability.** A best-fit direction with an O(ε) residual yields a variance
+> ~ ε² for *any* O(ε) deformation. That is the response to being deformed at all, identical whether the
+> invariant survives, dies, or turns rational.
+
+This was **pre-registered outcome (iii)** — *"both fit the same exponent, and the margin is measuring something
+common to both metrics that neither party has named."* It is now named: the deformation itself.
+
+**What falls:** reading the margin's MAGNITUDE as "how nearly an invariant was found". **What stands:** the
+CERTIFY verdicts (nothing emitted, nothing should have), and §161's ladder-shape diagnostic, which compares one
+object against *itself* across basis size and never across objects. That distinction is exactly why one
+survives and the other does not.
+
+**And the open question got answered by the same scan.** A's exponent-2 is *not* generic, because A has an
+exact invariant at every ε and the screen's basis is ε-independent: if `K_A(ε) = K₀ + ε·δK` were in the span,
+the fit would find it at every ε and the margin would sit at the ε=0 floor — **exponent 0, not 2**. `K₀` is in
+the span (A emits 7.85e-18 at ε=0). **Therefore `δK` is not.** B is the control that makes it an argument: B
+has nothing exact to miss, so its identical exponent carries no information. *Same number, opposite content,
+and the difference comes from ansatz's algebra rather than any measurement.*
+
+**Instrument work that came out of it.** The L1 control failed on first run and found a real defect: §99's
+hardcoded whitening cut `s > 1e-9·s.max()` discarded 8 of 39 directions and **41% of Carter's norm**, so the
+ε=0 control returned 4.1e-8 instead of emitting. My conditioning sweep started at 1e-9 and only went *tighter*
+— the wrong way. Fixed to 1e-15, adopted only after a **two-sided control** (emit on Kerr, certify on bumped
+Kerr) that now ships permanently and runs before any object is screened.
+
+**Seven withdrawals between two sessions, three of them mine.** The 845× constraint (recorded on a peer's
+framing, divides residuals of *different objects*); a two-point `c` power law (the third point, already in my
+own output, shows saturation); and the §161 pole witness — **globally true, operationally empty**, because my
+orbits never visit `r = 2` and there `1/(r−2)` is analytic and reachable by my original basis to 4e-05.
+
+**The night's single species, five instances: "I checked the thing, and the thing I checked was not the thing."**
+A proof checked for correctness and not for relevance. A span checked in the sectors one code path emits, with
+the relevant sector emitted three lines later. A drift statistic compared against a variance ratio. And, in the
+sentence closing the leg, my own discount of the last open gap — committed in exactly the form the night began
+on.
+
+**What actually caught things.** Not the gates. `verify.sh`, the doc audit and the pre-commit hook ran green
+throughout and caught none of it. **Every real catch came from the other party going and getting the answer
+that cost them** — TheBridge measuring the conditioning that dissolved their headroom tables, me running the
+extension that got worse, each of us withdrawing credit the other had offered. *That mechanism has no
+implementation: a gate is a rule applied by something that does not care about the outcome; this is a party
+who does care, choosing against their own interest at the moment of choosing.* **It is not a property either
+session has. It is a property of there being two, neither of them grading its own work.**
+
+---
+
 ## 2026-09-21 (later) — the √3 was a fit window, and the sharper sentence was the wrong one
 
 User granted standing autonomy ("run whatever you need, coordinate with the sisters"). Took the one thing I had
