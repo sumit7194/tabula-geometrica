@@ -1580,3 +1580,59 @@ times today the answer has been *"you are sweeping the wrong parameter in the wr
 **The sham inherits the defect** -- on the old grid A+SHAM and B+SHAM would both read ~0 and that
 would look like "sham collapses both, so the collapse is generic" when it is "everything collapses
 on this grid." Sham killed and relaunched on the uncensored grid, with its own eps=0 floors.
+
+## THE UNCENSORED GRID: the discriminator RAN, and dK fails it -- but is NOT generic
+
+`eps in {0.05, 0.10, 0.20}`, chi=0.075, all six arms, sham floors measured.
+
+         arm  exponent  monotone      suppression vs its own unaugmented arm
+     A unaug     2.008      True      --
+     B unaug     1.985      True      --
+      A + dK     0.634      True      34,350x   120,200x   230,837x
+      B + dK     0.224     False      16,297x   515,152x   187,115x
+    A + SHAM     1.999      True            1x        1x         1x
+    B + SHAM     2.002      True            2x        1x         1x
+
+         arm        floor    margin/floor at each eps
+      A + dK   1.9853e-15       7.2x      8.4x     17.3x
+      B + dK   5.1712e-15       6.0x      0.7x      8.2x
+    A + SHAM   1.3460e-14   24,873x  101,181x  397,370x
+
+### 1. The SHAM is a clean negative control and it PASSES
+
+**A structurally identical object that does not solve the Killing equation does NOTHING** --
+exponent 1.999 / 2.002, suppression 1-2x. And it is **fully uncensored**, sitting 25,000x to
+1,000,000x above its own floor, so this is a measurement and not a floor artifact.
+
+> **The collapse is NOT generic to the function class. `dK` is special.** Same momentum degree, same
+> chi^2 scaling, same coordinate degrees, same magnitude class, coefficients permuted -- and the
+> effect vanishes entirely. That is the control TheBridge asked for, and it separates "the test
+> cannot see it" from "there was nothing to see."
+
+### 2. But dK does NOT discriminate A from B
+
+Suppression at eps=0.2: **230,837x for A, 187,115x for B -- a ratio of 1.23**, against a measured
+seed scatter of 3.08x. **Indistinguishable.** `dK` helps the Carter-DESTROYING deformation as much as
+the Carter-preserving one.
+
+### 3. So the pre-registered discriminator ran, and the claim it was built to test FAILS
+
+    NOT "void because the column absorbs amplitude generically"  -- the SHAM refutes that
+    NOT "void because everything was censored"                   -- the sham arms are 1e5x above floor
+    BUT: dK is a real, specific object that suppresses the margin by ~2e5x for BOTH A and B
+
+**`dK` was derived as the O(eps) correction to Carter for A. If its effect were about completing
+Carter for A, it could not do the same for B, whose deformation destroys Carter.** It does. So the
+span test cannot support "dK was the missing span for A" -- and the failure is informative rather
+than vacuous, because the sham shows the effect is not something any column of that shape would
+produce.
+
+**Honest caveat on the dK exponents:** 0.634 and 0.224 are NOT clean. Those arms sit only 7-17x
+above their floors (B's middle point is 0.7x -- still censored), so an additive background dominates
+the eps-dependence. **The suppression factor is the readable statistic here, not the exponent**, and
+it is 5 orders clear of the sham. Pushing eps higher still would clean the exponents; the suppression
+result does not need it.
+
+**Leading hypothesis for why dK helps B, recorded not tested:** A's and B's deformations may share
+most of their structure, with `dK` completing the common part. That is checkable by applying dK to a
+deformation sharing nothing with A's, and is the obvious next build.
