@@ -1886,3 +1886,46 @@ because the leg-6 C conclusion is one of the few things from that leg still stan
 **Pre-registered before the print:** `var_within(C)/var_within(A) < 0.3` reads as (1),
 `> 3` reads as (2), and anything between is neither cleanly and stays an open loose end rather than
 being assigned to whichever story I prefer.
+
+## THE SPLIT RESOLVES (1) REPRESENTABILITY -- and it CONFIRMS the previously-open C anomaly
+
+     obj      heldout     var_within      var_total
+       A   4.9073e-10     5.5744e-10     1.1359e+00
+       C   2.0235e-11     2.2987e-11     1.1360e+00
+
+     ratios C/A:   heldout 0.0412   var_within 0.0412   var_total 1.0001
+
+**Pre-registered reading: `< 0.3` = representability. Measured 0.0412, exactly the predicted ~0.04.**
+
+**And hypothesis (2) was structurally impossible, which reading `conserved()` would have shown.** The
+features are whitened before the eigenproblem and the candidate is a unit direction in whitened
+space, so `var_total` is pinned near 1 **by construction** -- measured 1.1359 vs 1.1360, identical to
+four decimals. The denominator cannot carry an effect. **A hypothesis about a quantity the code
+normalises away was never live**, and neither of us checked the code before proposing it.
+
+### This is not a new anomaly -- it is INDEPENDENT CONFIRMATION of one already open in these notes
+
+Earlier in this leg, engine-free (analytic Carter drift, no basis, no eigenproblem, no conditioning):
+
+    C's Q-drift is 13.9x BELOW A's and B's, at both eps.
+    "no one's hypothesis mentions it ... C's 13.9x is open"
+
+And a proposed dissolution (C's deformation being ~13.5x smaller in coefficient space) was tested
+here and **could not be reproduced** -- in metric space C's deformation is 3.6x LARGER, on four of
+five components.
+
+> **Two independent statistics now agree that C is anomalously well-conserved: the engine-free
+> analytic drift at `A/C = 13.9x`, and the engine's `var_within` at `A/C = 24.3x`.** Same direction,
+> same order, sharing no machinery -- one is a Poisson-bracket drift along trajectories, the other a
+> within-trajectory variance of a fitted direction. **The C anomaly is real and it is not an artefact
+> of the screen.**
+
+### The tension with the leg-6 record, stated rather than resolved
+
+Leg 6's degree/basis ladder recorded **C as CERTIFY** (line 147: `1.535e-06 ... CERTIFY`), read as
+CERTIFY-RELATIVE-TO-{polynomial, rational}. **Representability says part of C's invariant is INSIDE
+the rational span.** Different statistics at different settings, so not formally contradictory --
+but they point opposite ways about the same object, and **whichever stands, the other needs its
+scope restated.** Recorded as an open tension, not resolved tonight, and flagged as the more
+interesting of the two outcomes because the leg-6 C conclusion is one of the few things from that leg
+still standing.
