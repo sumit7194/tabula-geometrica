@@ -1167,3 +1167,28 @@ fits somewhat better**, so B's margin may improve even though `dK` completes not
 margin improves while its exponent holds at ~2, **that is still the clean negative.** Only B's
 EXPONENT collapsing means the column is absorbing deformation amplitude generically and the test is
 void. Easy to mis-call on the margin alone, which is exactly the job B exists for.
+
+### Wrinkle in (2): the repo's emit threshold is ABSOLUTE and the margins scale with eps^2
+
+Adopting the emit/no-emit readout, the obvious threshold is §190's own
+(`emit` iff `best < 1e-10`, `certify` iff `best > 1e-8`). **But that is an absolute cut, and the
+margin scales as eps^2**, so A-alone at chi=0.075 already crosses it without any `dK`:
+
+    eps      A-alone margin     vs 1e-10
+    0.05       4.9073e-10       above  -> no emit
+    0.0158     5.1566e-11       BELOW  -> "emits"
+    0.005      5.5446e-12       BELOW  -> "emits"
+
+So "the screen now emits at every eps" cannot be read off an absolute threshold -- the unaugmented
+arm would already pass it at two of three eps, purely because a smaller deformation has a smaller
+margin. **The binary is corrupted by the same eps-dependence the exponent was measuring.**
+
+**The uncorrupted version is FLOOR-RELATIVE:** the emit floor at chi=0.075 is `8.2238e-15` (measured,
+the eps=0 row), and the question is whether the margin sits AT the floor rather than below a fixed
+number. So the reported readout is `margin / floor` per eps, for all three arms:
+
+    margin/floor ~ 1        the screen finds the invariant -- collapse
+    margin/floor >> 1       it does not
+
+This keeps TheBridge's point -- the headline is a per-eps verdict, not a censored exponent -- while
+not inheriting an absolute cut that eps itself can satisfy. Recorded before the numbers.
