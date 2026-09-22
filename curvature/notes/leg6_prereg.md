@@ -1851,3 +1851,38 @@ representable. Consistent with the picture; not tested here.
 map need not preserve angles. The measured 1,204x against a predicted ~3090x is a factor of 2.6 --
 well inside an order, so the angle is approximately preserved here. **That is a bonus finding about
 the map, not something the prediction was entitled to.**
+
+## The C-margin loose end, split into two prints (TheBridge)
+
+**The asymmetry is larger than I stated it.** `||D_C||/||D_A|| = 3.60`, so amplitude^2 predicts C's
+margin should be **12.9x LARGER**. Measured **24.3x smaller**. Total discrepancy **315x** -- not a
+detail I can leave as "plausibly because".
+
+**And it splits, because `heldout = mean_traj(var_within) / var_total` is a RATIO and the two
+explanations live in different halves of it:**
+
+    (1) REPRESENTABILITY (my hypothesis). Part of C's invariant is already in the rational
+        span, so the best fit is genuinely better and the NUMERATOR is small.
+        PREDICTS  var_within(C) ~24x SMALLER than A's   -> ratio ~0.04
+
+    (2) NORMALISATION. A 3.6x larger deformation gives a larger across-ensemble spread of
+        the candidate quantity, so the DENOMINATOR is larger and the ratio falls with no
+        representability at all.
+        PREDICTS  var_within(C) ~13x LARGER than A's    -> ratio ~13
+
+**They differ by ~315x in the numerator and point in OPPOSITE directions.** Printing `var_within`
+and `var_total` separately for A and C either closes the loose end or makes it real. Two prints, no
+new run -- and I had written "plausibly because C keeps Carter rationally" as an explanation when the
+data to test it was already inside the statistic.
+
+### A tension to flag now, before the numbers
+
+**Leg 6 recorded C's rational rung as CERTIFY-RELATIVE-TO-BASIS -- C's survivor is OUTSIDE
+`d2_rat`.** Hypothesis (1) says part of it is INSIDE. Different statistics on different objects, so
+not formally contradictory, **but they point opposite ways about the same question, and whichever
+survives the other needs its scope restated.** If (1) holds it is the more interesting outcome,
+because the leg-6 C conclusion is one of the few things from that leg still standing.
+
+**Pre-registered before the print:** `var_within(C)/var_within(A) < 0.3` reads as (1),
+`> 3` reads as (2), and anything between is neither cleanly and stays an open loose end rather than
+being assigned to whichever story I prefer.
