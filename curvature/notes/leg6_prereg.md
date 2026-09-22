@@ -2023,3 +2023,50 @@ better** than A's. The 13.9x that sat open in these notes was an amplitude; **sq
 ~193**, and the engine independently gives 432. **The anomaly is confirmed and quantified, and the
 dissolution offered for it (a 13.5x coefficient-space amplitude) was comparing an amplitude to an
 amplitude but the WRONG amplitude -- in metric space C's deformation is 3.6x LARGER.**
+
+## The corrector's gain differs between A and C -- the polynomial/rational contrast, unaugmented
+
+TheBridge, from the new table, and verified here:
+
+              Q scored   best-basis fit   corrector gain
+         A  2.0054e-07       4.9073e-10          408.7x
+         C  4.6401e-10       2.0235e-11           22.9x
+                        ratio of gains            17.82x    (vs 432/24.3 = 17.79x, consistent)
+
+Bare `Q` drifts on A because A's survivor is `K_A(eps) = Q + eps*dK + ...`, not `Q`. So the basis is
+finding Q-plus-a-corrector, and **how much of that corrector the basis can capture differs by 17.8x
+between A and C**:
+
+> **A's correction is POLYNOMIAL and the polynomial basis captures it (409x). C's correction is
+> RATIONAL and the basis captures only part of it (23x). That 17.8x is the polynomial-vs-rational
+> contrast, measured IN THE UNAUGMENTED BASIS** -- no `dK`, no sham, no added column, and **13x clear
+> of the 1.33x identity bound.**
+
+Not the original A-vs-B question, but it is the distinction the triple was built around, showing up
+in a statistic nobody built for it.
+
+**And it speaks to the tension logged earlier, landing BETWEEN the two positions:**
+
+    leg 6's ladder      C CERTIFY at 1.535e-06   -> survivor OUTSIDE d2_rat
+    representability    var_within 0.0412        -> part INSIDE the rational span
+    this                basis captures 23x of C's corrector vs 409x on A -> PARTLY inside
+
+That is what "partly representable" should look like, and it lets both prior results survive with
+restated scope rather than one dying. **Recorded as a third statistic, not as a resolution** -- I
+said I would not pick the preferred side and this does not entitle either of us to.
+
+### CORRECTION to their closing ladder: the last step mixes eps
+
+They wrote the chain as `Q 2.005e-07 -> best basis 4.907e-10 (409x) -> +dK 2.126e-15 (230,837x)`,
+landing **1.1x** above A's floor and called that the consistency check.
+
+    4.907e-10 is the eps=0.05 baseline;  230,837x is the eps=0.20 suppression.
+
+    eps=0.05   A unaug 4.9073e-10   A+dK 1.4286e-14    34,350x
+    eps=0.20   A unaug 7.9387e-09   A+dK 3.4391e-14   230,837x
+
+**The eps=0.05 chain lands at 1.4286e-14, which is 7.2x above the floor, not 1.1x -- off by 6.7x.**
+The ladder is still consistent end to end once a single eps is used throughout; what fails is the
+claimed near-coincidence with the floor, which was an artefact of combining a baseline from one eps
+with a ratio from another. **Same family as the five borrowed denominators: a ratio carried across
+an axis the two quantities do not share.**
