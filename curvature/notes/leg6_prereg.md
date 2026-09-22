@@ -1010,3 +1010,49 @@ chi=0.6 gives `A3/A2 = 0.02126`, so at chi=0.075 the truncation-limited improvem
     ~78x                        (wrong bridge -- unchanged)
 
 Same 8x, same no-free-constants structure, applied to the branch the control selected.
+
+### The binary becomes a MEASUREMENT: every value in [78.4, 627] splits the residual
+
+TheBridge again, committed before the rows landed. Write the residual fraction as truncation plus a
+chi-independent remainder:
+
+    residual_fraction(chi) = a*chi + b
+    anchor    0.6a  + b = 1/78.4 = 0.01276
+    measure   0.075a + b = 1/I(0.075)          two equations, two unknowns
+
+So `I(0.075)` does not pick a branch -- it **splits** the residual:
+
+    I(0.075)   a (truncation)   b (chi-indep)   b as % of the chi=0.6 residual
+        78.4          0.00000        0.012755            100.0%
+       150.0          0.01160        0.005797             45.4%
+       250.0          0.01668        0.002749             21.6%
+       400.0          0.01953        0.001035              8.1%
+       627.0          0.02126        0.000001              0.0%
+
+Bounded in BOTH directions, with named diagnostics outside the range:
+
+    I = 627     b = 0   PURE TRUNCATION -- dK right, only error is O(chi^3)
+    I = 78.4    a = 0   PURE chi-INDEPENDENT -- bridge wrong by a fixed amount no chi removes
+    I > 627             faster than 1/chi -- the MODEL is wrong, not the object
+    I < 78.4            improvement WORSE at smaller chi -- neither hypothesis predicts it;
+                        that would be the interesting outcome
+
+**This is the structural repair of the fourth cell, not a patch on it.** The missing branch existed
+because a partial result had nowhere to go; this gives every partial result a number. The lesson
+generalises past this test: *when a pre-registration enumerates outcomes, ask whether the statistic
+can express the outcomes BETWEEN them.*
+
+**Their check on the sigma result:** if the cross term contributes `+/-C` against base `B`, then
+`|B+C|/|B-C| = 2.5` gives **`C = 0.43*B`** -- the cross term is 43% of the base. That is *why* the
+control could reject: not a small correction, and 2.5x is what a 43% term must produce.
+
+**And they credit an observation of mine as stronger than their own derivation:** `s=-1` has exponent
+**1.039**, HIGHER than `s=+1`'s **0.984**, while being 2.5x better on improvement. The exponent
+ANTI-CORRELATES with quality across the one pair where the better object is known independently. My
+discarded clause would have read the better object as marginally worse -- a measured demonstration
+that the exponent is not the discriminator, rather than an argument for it.
+
+**The general form of the entry-46 amendment, now with two instances:** `updated` exists for
+staleness; their `r in [5.1, 9.1]` exists for bound orbits. **Neither was put there to prevent the
+fault it prevented.** A near-miss that depends on an unchosen property is not a control, and writing
+it up as one converts luck into false confidence exactly where the next instance will land.
