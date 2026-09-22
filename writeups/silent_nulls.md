@@ -1383,6 +1383,40 @@ Fixed by requiring the raw condition on **two consecutive ticks**, with swap bei
 veto. **Not by lowering the threshold** — the threshold was never the problem; the sampling discipline was, and
 it was the exact discipline being advertised.
 
+### 66. The argmin was the entire noise source — score a known direction, don't minimise over the basis
+
+Every unstable number in a day of unstable numbers came from the same statistic in the same mode:
+**a minimum over near-degenerate directions.** The one number that behaved was the one that did not
+minimise, and the gap is nearly three orders of magnitude.
+
+    heldout(FITTED)   min over the basis' conserved directions
+                      same object, exact algebraic rescaling (δK vs −K₁/8)     1.326×  = 33%
+
+    heldout(Q)        the SAME statistic evaluated at ONE FIXED known direction
+                      same object, two ε, against ε² required by theory
+                      0.052%   0.102%   0.154%
+
+                      stability factor ≈ 650×
+
+**Why:** an argmin over directions whose generalized eigenvalues straddle zero *reshuffles* under a
+1-ULP perturbation — the mechanism behind the floor's 2.8× scatter and the 1.33× identity bound.
+Scoring a direction you already know incurs none of it. **There is no minimiser to move.**
+
+> **Wherever the candidate is known in advance, score it directly. The minimum answers *"what is the
+> best-conserved thing in this basis"*; scoring answers *"how conserved is THIS thing."*** Most of
+> the day's questions were the second kind and were being answered with the first instrument.
+
+**And it corrects an attribution I had made.** I had explained the `sp.expand` exponent's survival
+(1.5% under the same ULP that moved the floor 2.8×) as *the ratio cancelling common-mode noise*. Half
+right: the exponent is a ratio that **partially cancels** argmin scatter, while `heldout(Q)` **never
+incurs it**. *Cancelling a noise source and not having one are different things, and both are now
+measured — 1.5% versus 0.05%.*
+
+**The uncomfortable corollary:** every floor, every margin and every suppression ratio quoted that
+day came from the minimising version. The verdicts survive — they rest on separations of 3 to 5
+orders, far above 33% — but the *precision* implied by quoting them to four significant figures was
+never there.
+
 ### 65. A number flush against a boundary is usually two configurations, not a coincidence
 
 Three times in one day a suspiciously clean number turned out to be an artefact of combining
