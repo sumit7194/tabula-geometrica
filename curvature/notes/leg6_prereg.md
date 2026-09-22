@@ -849,3 +849,29 @@ measurable, because the truncation error scales as chi^2 and the span question d
 B is the control that makes any of it an argument, and it runs at both chi as well.
 
 Committed before `dK` is constructed.
+
+### Amendment, before the run: a sign the calibrator cannot see
+
+Source convention confirmed by reading their code, not assumed: `_kt_double.py:332` states
+`(t, x=r, y=cos th, phi)`. So the map is `x->r`, `y->cos th`, `P_x->p_r`, `P_y->sigma*p_th/sin th`,
+`P_t->-E`, `P_phi->L`, `chi->a`.
+
+**Two conventions do NOT need fixing**, which shrinks the risk: a span test is invariant to (a) the
+overall scale of `dK` and (b) adding any multiple of an already-spanned invariant (`P_phi^2`, `P_t^2`,
+`H` are all in the library). So normalisation and additive-offset differences between the repos
+cannot affect the verdict. What remains is the functional form -- the `(x,y)` map and the `P_y`
+Jacobian.
+
+**The gap:** I intended to calibrate the map against Carter, but **Carter is even in every momentum**,
+so it is blind to `sigma`. `dK` carries a `P_x*P_y` cross term, which is not. A calibrator that cannot
+see the thing it is calibrating is 45a again, so the sign is stated as an open discrete choice and
+resolved by the control, which has a known-fail:
+
+| control outcome over sigma = +1, -1 | reading |
+|---|---|
+| exactly one sigma gives drift exponent ~2 | that is the map; a wrong bridge hitting exactly 2 by accident is not credible |
+| neither (both ~1, like K1's 1.001) | dK as transcribed does not complete Carter -- **no span test runs** |
+| both give ~2 | the object is absorbing generically; test VOID |
+
+Selecting sigma by the control is legitimate *only* because the control can fail for both values,
+which is what makes it a measurement rather than a fit. Stated before running it.
