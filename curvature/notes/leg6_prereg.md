@@ -1929,3 +1929,38 @@ but they point opposite ways about the same object, and **whichever stands, the 
 scope restated.** Recorded as an open tension, not resolved tonight, and flagged as the more
 interesting of the two outcomes because the leg-6 C conclusion is one of the few things from that leg
 still standing.
+
+## The cosine AND its baseline are broken by the same correlated basis (TheBridge)
+
+I flagged that `|cos(fitted, Q)|` is unreliable in a badly-conditioned basis, **and then used
+`1/sqrt(40) = 0.158` as the random baseline in the same paragraph.** That assumes an ISOTROPIC
+40-dim space. The basis has `kappa ~ 2.3e14`, so the effective dimension `d_eff = (sum L)^2/sum L^2`
+is far below 40 and the true random-cosine baseline is `1/sqrt(d_eff)`, which is LARGER:
+
+     d_eff   40 -> 0.158     20 -> 0.224     10 -> 0.316     5 -> 0.447
+
+    A's 0.0336 is below EVERY one of these        -> robust
+    C's 0.1691 is above the d_eff=40 value and BELOW the baseline for any d_eff < 35
+                                                  -> "C is at random" depends on a number I never computed
+
+**Fix: measure the null rather than assume it** -- draw random unit vectors in the same whitened
+space, take cosines with `Q`, and read the empirical distribution. No theory, no assumed dimension.
+
+## Pre-registered: score `Q` by the engine's OWN statistic (TheBridge)
+
+This removes the power conversion, the basis question and the cosine at once -- Carter and the fitted
+direction on one statistic, no conversion anywhere.
+
+    heldout(Q)_A / heldout(Q)_C   ~ 13.9^2 = 193      (heldout is a VARIANCE, the drift an AMPLITUDE)
+    measured for the FITTED direction:        24.3
+
+    near 193    the analytic drift and the engine agree exactly once on the same statistic, and the
+                whole gap is the fitted direction NOT being Q -- the cosine reading confirmed by a
+                route that uses no cosines
+    near 24.3   the fitted direction IS essentially Q, the cosine is a correlated-basis artefact,
+                and the 2.8x gap needs another explanation
+    elsewhere   neither, and the most informative outcome
+
+**Their caveat, stated by them because they supplied the number:** `heldout` is a normalised VARIANCE
+and the drift is `max|Q-Q0|/|Q0|`, a MAX. Those coincide only for a fixed waveform shape. **So 193 is
+an order of magnitude, not a target** -- it commits to "two orders, not one" and nothing finer.
