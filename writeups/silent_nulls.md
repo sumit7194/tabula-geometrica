@@ -1383,6 +1383,32 @@ Fixed by requiring the raw condition on **two consecutive ticks**, with swap bei
 veto. **Not by lowering the threshold** — the threshold was never the problem; the sampling discipline was, and
 it was the exact discipline being advertised.
 
+### 57. `subs` cannot fail, so a substitution dict is a silent instrument
+
+Building a convention bridge between two repos, I wrote a substitution keyed on `"P_x"`, `"P_y"`,
+`"P_t"`, `"P_phi"`. The source momenta are named `p_r`, `p_u`, `p_t`, `p_phi`. **The dict matched no
+momentum at all**, and `expr.subs(...)` reported nothing, because a substitution that finds none of
+its keys is not an error — it is the identity.
+
+The near-miss is the part worth keeping. One name, `p_r`, **exists in both namespaces** with
+different assumptions (`real=True` theirs, `positive=True` mine) — so they are different symbols that
+print identically. `lambdify` emits a function whose parameter is spelled `p_r`, and the body's
+foreign `p_r` binds to it **by name**, correctly and by accident. So the bridge would have been right
+about exactly one coordinate and silently absent on three, and the object it produced would have been
+a number rather than a crash.
+
+> **A translation layer whose failure mode is "does nothing" needs a completeness check, because
+> nothing is exactly what a correct no-op looks like.**
+
+That is the same species as 45a one level down: the wrong answer and the right answer have the same
+shape, so the instrument cannot distinguish them and neither can you. Fixed with an assertion in both
+directions — every source symbol must be consumed, and nothing unexpected may survive.
+
+**And the reason it was worth reading the names rather than scanning past them:** their `y` is
+`u = cos θ`, which fixes the conjugate momentum by calculus (`p_u = −p_θ/sin θ`) and turned an open
+sign I had planned to *resolve by control* into a sign I could *predict*. The bug and the prediction
+came from the same act of looking at what the symbols actually were.
+
 ### 56. The only exit that happens unattended is the one that misreports itself
 
 My coordination heartbeat was dead for 2.5 hours overnight under a standing instruction to keep it
