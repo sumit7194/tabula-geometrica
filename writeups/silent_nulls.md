@@ -1391,12 +1391,18 @@ demonstrated the gap by mutating their scanner and watching arms pass that had n
 
 So I mutated mine rather than reading it:
 
-    mutation                 arm1  arm2  arm3 | live gate
-    healthy                   OK    OK    OK  | PASS
-    scan() dead               BAD   BAD   BAD | FAIL
-    namespace scanner dead    OK    BAD   OK  | PASS
-    path pattern dead         BAD   OK    OK  | PASS
-    prefix RESOLUTION removed OK    OK    BAD | PASS   <-- only arm 3 sees it
+    mutation                   a1   a2   a3   a4  | LIVE GATE
+    healthy                    OK   OK   OK   OK  | PASS
+    scan() dead               BAD  BAD  BAD  BAD  | FAIL
+    namespace scanner dead     OK  BAD   OK   OK  | PASS
+    path pattern dead         BAD   OK   OK  BAD  | PASS
+    prefix RESOLUTION removed  OK   OK  BAD   OK  | PASS
+    VENV exclusion broken      OK   OK   OK  BAD  | PASS
+
+Five mutations, **five distinct signatures**. Arm 4 exists because mutation-testing found an
+uncovered fault class: **breaking the VENV exclusion left all three original arms green and the gate
+PASS.** That exclusion is the one classification deciding whether something *counts* as an edge, so
+breaking it silently inflates coupling — a wrong number in the direction that looks like rigour.
 
 **Re-run at a single code state, after a peer found their own matrix was a composite of two.** Mine
 was too, and it changed a row: `scan() dead` reads `BAD BAD BAD`, not `BAD BAD OK` as first
@@ -1404,10 +1410,21 @@ published. I measured that row BEFORE fixing arm 3, fixed arm 3 *because of* tha
 re-ran it. **The stale row was the one that motivated the fix** — a table certifying the controls,
 assembled from two code states, presenting them as one measurement.
 
-**All four mutations produce distinct signatures**, so the matrix discriminates. And the `live gate`
-column is the reason the control exists at all: **three of the four faults leave the gate green.**
-Only the selftest sees them, which is what a gate that cannot detect its own blindness looks like
-from outside — green, and wrong.
+**All four mutations produce distinct signatures**, so the matrix discriminates. And the `LIVE GATE`
+column is the reason the control exists at all: **four of the five faults leave the gate green.**
+Only the selftest sees them.
+
+> **A gate cannot detect its own blindness.** Every one of those green rows is a state in which the
+> census reports a clean bill of health while unable to see the thing it was built for. On the day a
+> peer's prefix-resolution bug was live in their repo, their gate was green.
+
+**A companion mechanism, found because a peer checked their matrix and I then checked mine:** my
+`scan() dead` row was measured BEFORE fixing arm 3, and I fixed arm 3 *because of that row*, and
+never re-ran it. **A fix invalidates the measurement that motivated it** — and nothing prompts a
+re-run, because the fix feels like the *conclusion* of that measurement rather than a change to the
+system it measured. That is entry 68's mechanism with a measurement as the stale object instead of a
+sentence, and the falsifying action is the fix itself. Their instance was a row they had no reason to
+revisit; mine was the load-bearing one.
 
 Arms 1 and 2 discriminate: each fails for its own cause and neither fires on the other's mutation.
 **Arm 3 passed under every mutation including a completely dead scanner** — because it is a
