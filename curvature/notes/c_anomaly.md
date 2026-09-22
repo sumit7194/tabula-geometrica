@@ -14,7 +14,15 @@ Leg 6's closing arc reported that object C conserves bare Carter `Q` far better 
 `a = m.A_SPIN` and never assigns it, so it ran at 190's default `A_SPIN = 0.6`. The engine
 statistic was run with `s.A_SPIN = 0.075`.** Seed (1/51), NTRAJ (40), NSTEP (3000) and eps (0.05)
 match; **chi does not.** The celebrated agreement compared quantities at two different spins — a
-SIXTH borrowed denominator, on an axis (chi) that `comparable.py`'s known-fail suite never listed.
+SIXTH borrowed denominator, on the chi axis.
+
+> **Correction to the sentence as first written** ("an axis `comparable.py` never listed"): wrong in
+> kind. The gate is AXIS-AGNOSTIC -- any configuration key that differs raises. The chi mismatch was not
+> an axis the gate missed; **the comparison never passed through the gate at all.** It was made in prose,
+> in a message to a peer, from two numbers that had never been wrapped with their configuration. A gate
+> only protects comparisons routed through it, and the most consequential comparisons of the week were
+> made in conversation. The chi arm added to the known-fail suite below documents the instance; it does
+> not close the gap, which is structural.
 It may still hold (if A's and C's deformations scale identically in chi the ratio is chi-free),
 but that is an assumption, not a measurement, and it is being measured below.
 

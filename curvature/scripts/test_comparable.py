@@ -27,6 +27,8 @@ known_fail("3 runparam",Value(4.9e-10, "margin", **{**BASE, "ntraj": 90, "nstep"
                         Value(8.2e-15, "floor",  **BASE), ("eps",), "ntraj")
 known_fail("4 seed",    Value(6.0e-17, "floor0", **{**BASE, "seed": 0}),
                         Value(8.2e-15, "floor1", **BASE), ("eps",), "seed")
+known_fail("6 chi",      Value(13.9**2, "drift^2 A/C", **{**BASE, "chi": 0.6}),
+                        Value(432.0,   "heldout A/C", **BASE), ("eps",), "chi")
 known_fail("5 readout", Value(6.0e-17, "min4",   **{**BASE, "readout": "min4"}),
                         Value(8.2e-15, "minall", **BASE), ("eps",), "readout")
 
