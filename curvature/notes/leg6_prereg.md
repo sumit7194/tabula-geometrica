@@ -1219,3 +1219,42 @@ one place is not catching it.
 censored statistic, and **the binary they proposed carried the identical eps-corruption it was
 repairing.** So my catalogue entry did not fire for me, their own correction did not fire for them,
 and in both cases the thing that caught it was the other party reading it.
+
+### The four floor rows contain two IDENTITY checks (TheBridge) -- premise verified symbolically
+
+At `eps = 0` the deformation vanishes, so A, B and C are the same metric. **Verified rather than
+assumed**, by simplifying each metric component at `eps=0`:
+
+    A(eps=0) == B(eps=0) : True
+    A(eps=0) == C(eps=0) : True
+
+So two of the four queued rows are the same computation run twice:
+
+    PAIR 1   A-alone(eps=0)  ==  B-alone(eps=0)     same metric, same basis
+    PAIR 2   A+dK(eps=0)     ==  B+dK(eps=0)        same metric, same basis
+
+**If they agree:** the floor is a property of `(metric, basis)` -- the premise the whole
+floor-relative readout rests on -- confirmed for free, no extra run.
+
+**If they disagree:** the floor also carries something about the A-ensemble vs the B-ensemble
+(trajectory initial conditions or sampling). Dividing each arm by its own floor would still be right,
+**but the A-vs-B COMPARISON would be contaminated** -- `A+dK/floor_A` and `B+dK/floor_B` would be
+ratios against different baselines, and **the discriminator the entire span test turns on, "A
+collapses and B does not", would be comparing two differently-normalised numbers.** Nothing else in
+the design catches that.
+
+**It is the borrowed-denominator problem one level out:** there the denominator came from a different
+BASIS, here it would come from a different ENSEMBLE. Both are "the two numbers came from different
+experiments", and both are invisible in a table that shows only ratios.
+
+**The generalisation this forces, replacing mine:** I wrote that more basis contaminates every
+quantity computed from the enlarged basis. The version this instance demands is broader --
+
+> **every quantity in a comparison must be checked for what it SHARES with the thing it is compared
+> against, not only for what changed.** The enlarged basis was merely the first way two numbers came
+> from different experiments.
+
+**And the row that supplies the check is the one added for symmetry.** `B-alone` is not used by the
+span test; it went in because asymmetric treatment of the control arm is how controls stop
+controlling. That reason turned out to be the wrong reason for the right action -- it is PAIR 1's
+existence that matters.
