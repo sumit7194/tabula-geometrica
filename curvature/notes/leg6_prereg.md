@@ -1360,3 +1360,35 @@ so exponents in this harness are stable and comparable even though floors are no
 
 **The pair check was proposed as a cheap confirmation of a premise. It fired, and it invalidated the
 readout it was checking.** That is the most expensive possible outcome and the reason to run it.
+
+## A + dK: the margin COLLAPSES and LOSES ITS eps-SCALING
+
+       eps      A-alone         A+dK        ratio    A+dK / its own floor
+      0.05   4.9073e-10   1.4286e-14   2.911e-05          7.20x
+    0.0158   5.1566e-11   1.8291e-15   3.547e-05          0.92x
+     0.005   5.5446e-12   4.5618e-14   8.227e-03         22.98x
+
+    A-alone  monotone in eps: TRUE    exponent  1.947
+    A + dK   monotone in eps: FALSE   exponent -0.504
+
+**The headline is not the exponent value and not a floor comparison. It is that the eps-dependence is
+GONE.** A-alone falls monotonically by 88.5x across the eps range, exactly as eps^2 requires. A+dK
+scatters 24.9x with no ordering -- down, then up -- around the 2e-15 level. `-0.504` is a straight-line
+fit to noise and should not be quoted as a number.
+
+**This is the readout that has no denominator.** Monotone-vs-scattered is a within-arm shape
+statement: no cross-arm normalisation, no absolute threshold, and it does not care that the floor
+carries 2.8x of scatter. The three `A+dK / floor` values (7.20x, 0.92x, 22.98x) span 25x precisely
+BECAUSE the quantity is pinned -- which is why the floor comparison was never going to settle this
+and the shape does.
+
+**Magnitude, honestly:** suppression at eps=0.05 is 2.9e-5 against a predicted `f^2 = 2.57e-6`, so
+**11.3x more residual survives than predicted** -- 34,350x improvement where 389,286x was forecast.
+`dK` removes ~99.5% of the O(eps) obstruction, not the predicted 99.84%. The pre-registration
+predicted collapse and collapse is what happened; **the predicted MAGNITUDE was optimistic by an
+order of magnitude**, which is consistent with a two-point fit for `f` and with the O(chi^3)
+truncation being larger than the anchor implied.
+
+**Still required, and it is the whole claim:** `B + dK`. If B's exponent also collapses, the column
+absorbs deformation amplitude generically and the test is VOID. Only `A` collapsing while `B` holds
+at ~2 carries the result.
