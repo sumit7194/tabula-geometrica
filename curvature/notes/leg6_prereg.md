@@ -1507,3 +1507,24 @@ deformation amplitude generically and the test is void."* So:
 **Leg 6's original argument is untouched and unconfirmed.** It stands where it stood: on `K_0` being
 in the span at eps=0 and the margin rising as eps^2, with `dK` inferred to be outside. The span test
 was built to TEST that inference and returned void.
+
+### The complete four-arm table, both chi
+
+      chi   A-alone   B-alone   A + dK   B + dK
+    0.075     1.947     1.955   -0.504   -0.081
+    0.0375    2.180     2.268    0.287    1.202
+
+**Both unaugmented arms sit at ~2 at both chi** (1.947 / 1.955 / 2.180 / 2.268), which is itself a
+useful check: the exponent-2 behaviour is a property of the deformation, not of which object it is,
+and it reproduces across metric AND chi.
+
+**Both augmented arms fall at both chi.** The VOID condition is met at chi=0.075, where floors exist
+and neither arm is pinned.
+
+**Honest nuance at chi=0.0375, stated and not leaned on:** A+dK falls to 0.287 while B+dK falls only
+to 1.202 -- a gap of 0.915, well outside the +/-0.15 resolution, **in the direction the claim
+predicted** (A completes, B does not). But B moved from 2.268 to 1.202, which is a substantial fall,
+so the void condition is still met; and **no floors were measured at chi=0.0375**, so I cannot show
+either arm is unpinned there. The gap is recorded as an observation that the data does not license a
+verdict on, not as a partial rescue. Measuring floors at chi=0.0375 would settle whether it is real,
+and is the obvious next step if this is ever resumed.
