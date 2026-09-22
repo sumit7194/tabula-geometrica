@@ -1462,3 +1462,48 @@ Seed-dominated uncertainty is **+/- ~0.15**. Therefore:
 
 **1.202 is distinguishable from 2 at this resolution; 1.8 would not have been.** Stating the
 resolution matters because the whole claim rests on "B holds at ~2", and B does not.
+
+## VOID, CONFIRMED ON THE NOISE-IMMUNE STATISTIC (not on the margins)
+
+TheBridge: neither augmented arm is PINNED, so the exponent is readable and I had not quoted it.
+
+         arm   margin(0.05)   its OWN floor   ratio
+        A+dK     1.4286e-14     1.9853e-15     7.20
+        B+dK     3.1139e-14     5.1712e-15     6.02
+
+Both sit 6-7x above their own floors -- signal, not censoring. So at chi=0.075, on the statistic
+that survives ULP noise and needs no denominator:
+
+    arm              exponent        reading
+    A unaugmented       1.947        ~2
+    B unaugmented       1.955        ~2
+    A + dK             -0.504        ~0   COLLAPSED
+    B + dK             -0.081        ~0   COLLAPSED
+
+**Both control and treatment fall from ~1.95 to ~0. The VOID is confirmed on the exponent**, which
+is the quantity I established hours ago as the only one with no denominator -- and I had been making
+the call on margins that scatter 3.08x. Correct verdict, wrong statistic, corrected.
+
+**Independent support that does not compare A to B at all:** `A+dK/floor_A = 7.20` vs
+`B+dK/floor_B = 6.02` -- indistinguishable against 2.8x floor scatter. **Both arms sit the same
+distance above their own baselines**, which is the generic signature in a form needing no cross-arm
+comparison.
+
+**Caveat on the second chi:** at chi=0.0375 the exponents are A+dK 0.287 and B+dK 1.202, which
+differ by more than the +/-0.15 resolution. **But no floors were measured at chi=0.0375**, so
+whether either arm is pinned there is unknown and those two numbers cannot be read. Not quoting them
+as a discrimination. The verdict rests on chi=0.075, where the floors exist.
+
+### VERDICT: VOID -- and what that does and does not mean
+
+The pre-registered condition fired exactly as written: *"if both collapse, the column is absorbing
+deformation amplitude generically and the test is void."* So:
+
+    NOT SHOWN  that dK was the missing span (the test cannot distinguish it)
+    NOT SHOWN  that dK is in the span either
+    SHOWN      that adding a chi^2, degree-2, higher-coordinate-degree column collapses the
+               eps-scaling of BOTH an object that keeps Carter and one that destroys it
+
+**Leg 6's original argument is untouched and unconfirmed.** It stands where it stood: on `K_0` being
+in the span at eps=0 and the margin rising as eps^2, with `dK` inferred to be outside. The span test
+was built to TEST that inference and returned void.
