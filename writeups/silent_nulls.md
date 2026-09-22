@@ -1383,6 +1383,37 @@ Fixed by requiring the raw condition on **two consecutive ticks**, with swap bei
 veto. **Not by lowering the threshold** — the threshold was never the problem; the sampling discipline was, and
 it was the exact discipline being advertised.
 
+### 68b. My known-fail control never called the function it was controlling
+
+The gate from entry 68 shipped with a `--selftest` that I verified by hand, watched pass, and wired
+into the suite. It built a **fake dictionary** and tested the set logic around the scanner. **It
+never called the scanner.** Had `scan()` been completely broken — wrong regex, wrong root, returning
+`{}` — the control would still have printed OK twice and the live gate would have been decoration
+reporting zero edges as a clean bill of health.
+
+A peer had hit exactly this the same week (their known-fail turned out to be dead code and certified
+a live gate as ornamental), and I had *already written* the lesson about controls needing to fire.
+Mine was written, passing, and hollow.
+
+> **A control that does not execute the code path it certifies is not weak, it is inverted: it
+> converts "the gate is silent" into "the gate is healthy", which is the one reading silence must
+> never get.**
+
+**Rebuilt to exercise `scan()` against planted files** in a temp directory — an absolute-path edge, a
+path-less sibling import, and a **local module deliberately sharing the sibling prefix** that must
+*not* be flagged. And on its first honest run it failed:
+
+    BAD  selftest: absolute-path edge detected
+
+Not a scanner bug — **my own wrong expectation.** A bare path constant classifies as `REF`, not
+`IMPORT`, which is correct. The fake-dict control could never have surfaced that, because a fake
+dict contains whatever I believed. *A real control disagrees with its author; a fake one cannot.*
+
+**Also fixed in the same pass, from the same peer's empirical finding:** the namespace signal now
+**resolves** rather than assumes. A hand-built prefix list flags any *local* module sharing the
+prefix — their by-eye list would have declared four of their own modules sibling edges. A prefix is
+now necessary and not sufficient: it counts only if nothing in this repo provides the module.
+
 ### 68a. The gate built from entry 68 found a third edge in its first run — and its own first version was wrong
 
 Entry 68 said a scope claim needs a re-check trigger. So the claim *"their solver is not being

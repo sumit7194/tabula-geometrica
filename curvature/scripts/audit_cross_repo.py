@@ -66,6 +66,18 @@ DECLARED: dict[str, str] = {
 SKIP_DIRS = {".git", ".venv", "__pycache__", "node_modules"}
 
 
+_LOCAL_MODULES: set[str] | None = None
+
+
+def _resolves_locally(mod: str) -> bool:
+    """True if this repo itself provides the module -- then it is not a sibling edge."""
+    global _LOCAL_MODULES
+    if _LOCAL_MODULES is None:
+        _LOCAL_MODULES = {q.stem for q in ROOT.rglob("*.py")
+                          if not any(d in q.parts for d in SKIP_DIRS)}
+    return mod in _LOCAL_MODULES
+
+
 def scan() -> dict[str, list[str]]:
     found: dict[str, list[str]] = {}
     for p in ROOT.rglob("*.py"):
@@ -89,9 +101,15 @@ def scan() -> dict[str, list[str]]:
         for line in text.splitlines():
             m = re.match(r"\s*(?:from|import)\s+(_[a-z0-9_]+)", line)
             if m:
+                mod = m.group(1)
                 for pref, sib in SIBLING_MODULE_PREFIXES.items():
-                    if m.group(1).startswith(pref):
-                        hits.append(f"IMPORT:{sib}")
+                    # RESOLVE, do not assume. A hand-built namespace list mislabels any LOCAL module
+                    # that happens to share the prefix. TheBridge's empirical build caught four of
+                    # their own modules that a by-eye list would have declared sibling edges, so the
+                    # prefix is necessary and not sufficient: it is an edge only if nothing here
+                    # provides the module.
+                    if mod.startswith(pref) and not _resolves_locally(mod):
+                        hits.append(f"NAMESPACE:{sib}")
         for sib in SIBLINGS:
             pat = rf"/Users/sumit/Github/{re.escape(sib)}\b"
             for line in text.splitlines():
@@ -118,22 +136,40 @@ def scan() -> dict[str, list[str]]:
 
 def main() -> int:
     if "--selftest" in sys.argv:
-        # KNOWN-FAIL: a gate that cannot fail is not a gate.
-        fake = {"curvature/scripts/leg6_dK/make_dK.py": ["conjecture_machine"],
-                "curvature/scripts/999_undeclared.py": ["BlackHole"]}
-        undeclared = sorted(set(fake) - set(DECLARED))
-        ok = undeclared == ["curvature/scripts/999_undeclared.py"]
-        print(f"  {'OK  ' if ok else 'BAD '} selftest: an undeclared edge is detected ({undeclared})")
-        missing = sorted(set(DECLARED) - set(fake))
-        ok2 = "curvature/scripts/leg6_dK/dK_control.py" in missing
-        print(f"  {'OK  ' if ok2 else 'BAD '} selftest: a vanished declared edge is detected ({missing})")
-        # a BARE sibling import with no path at all must still register
-        bare = "import _kt_double as KD\n"
-        ok3 = any(re.match(r"\s*(?:from|import)\s+(_[a-z0-9_]+)", l) and
-                  re.match(r"\s*(?:from|import)\s+(_[a-z0-9_]+)", l).group(1).startswith("_kt_")
-                  for l in bare.splitlines())
-        print(f"  {'OK  ' if ok3 else 'BAD '} selftest: a bare path-less sibling import is detected")
-        return 0 if (ok and ok2 and ok3) else 1
+        # KNOWN-FAIL ARMS THAT EXERCISE scan() ITSELF. The first version of this control built a
+        # FAKE dict and tested only the set logic -- it would have passed with the scanner entirely
+        # broken, which is a control on its way to being decoration (quantum hit exactly this: their
+        # known-fail turned out to be dead code and reported a live gate as ornamental).
+        import tempfile, shutil
+        tmp = Path(tempfile.mkdtemp(prefix="xrepo_selftest_", dir=ROOT / "curvature" / "scripts"))
+        ok = []
+        try:
+            (tmp / "planted_path.py").write_text(
+                "x = '/Users/sumit/Github/BlackHole/thing.py'\n")
+            (tmp / "planted_nopath.py").write_text("import _kt_double as KD\n")
+            (tmp / "planted_local.py").write_text("import _kt_localonly\n")
+            (tmp / "_kt_localonly.py").write_text("# a LOCAL module sharing the sibling prefix\n")
+            global _LOCAL_MODULES
+            _LOCAL_MODULES = None
+            found = scan()
+            rel = lambda n: f"{tmp.relative_to(ROOT)}/{n}"
+            # a bare path CONSTANT is a REF, not an IMPORT -- the requirement is that it registers
+            # as a non-VENV edge at all, not that it lands in a particular class. Asserting the
+            # class was my own wrong expectation, and the first run of this arm caught it: the
+            # previous fake-dict control could not have, because it never called scan().
+            hits_p = found.get(rel("planted_path.py"), [])
+            a = any(h.endswith(":BlackHole") and not h.startswith("VENV:") for h in hits_p)
+            b = any(h.startswith("NAMESPACE:") for h in found.get(rel("planted_nopath.py"), []))
+            c = rel("planted_local.py") not in found
+            for lbl, v in (("absolute-path edge detected", a),
+                           ("path-less sibling import detected", b),
+                           ("LOCAL module sharing the prefix NOT flagged", c)):
+                print(f"  {'OK  ' if v else 'BAD '} selftest: {lbl}")
+                ok.append(v)
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+            _LOCAL_MODULES = None
+        return 0 if all(ok) else 1
 
     found = scan()
     code_edges = {k: v for k, v in found.items() if any(not h.startswith("VENV:") for h in v)}
