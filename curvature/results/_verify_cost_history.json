@@ -397,6 +397,11 @@
    "t": 1788554714,
    "secs": 5.4,
    "peak_gb": 0.319
+  },
+  {
+   "t": 1790074196,
+   "secs": 6.5,
+   "peak_gb": 0.321
   }
  ],
  "Emergent dimension from RG (depth=log xi)": [
@@ -419,6 +424,11 @@
    "t": 1788554716,
    "secs": 1.5,
    "peak_gb": 0.213
+  },
+  {
+   "t": 1790074198,
+   "secs": 1.8,
+   "peak_gb": 0.233
   }
  ],
  "Arrow of time (fluctuation theorem)": [
@@ -436,6 +446,11 @@
    "t": 1788554733,
    "secs": 17.1,
    "peak_gb": 0.7
+  },
+  {
+   "t": 1790074220,
+   "secs": 22.3,
+   "peak_gb": 0.771
   }
  ],
  "2D Chern number (topological invariant)": [
@@ -453,6 +468,11 @@
    "t": 1788554758,
    "secs": 25.1,
    "peak_gb": 0.669
+  },
+  {
+   "t": 1790074254,
+   "secs": 33.8,
+   "peak_gb": 0.769
   }
  ],
  "Fisher = GR metric (natural gradient)": [
@@ -468,6 +488,11 @@
   },
   {
    "t": 1788554759,
+   "secs": 1.3,
+   "peak_gb": 0.254
+  },
+  {
+   "t": 1790074255,
    "secs": 1.3,
    "peak_gb": 0.254
   }
@@ -487,6 +512,11 @@
    "t": 1788554766,
    "secs": 6.7,
    "peak_gb": 0.291
+  },
+  {
+   "t": 1790074262,
+   "secs": 6.5,
+   "peak_gb": 0.307
   }
  ],
  "Gravitational waves (quadrupole radiation)": [
@@ -503,6 +533,11 @@
   {
    "t": 1788554770,
    "secs": 4.1,
+   "peak_gb": 0.343
+  },
+  {
+   "t": 1790074266,
+   "secs": 4.7,
    "peak_gb": 0.343
   }
  ],
@@ -521,6 +556,11 @@
    "t": 1788554773,
    "secs": 3.1,
    "peak_gb": 0.3
+  },
+  {
+   "t": 1790074270,
+   "secs": 3.4,
+   "peak_gb": 0.307
   }
  ],
  "Geometry from entanglement: dimension + grid (J2)": [
@@ -537,6 +577,11 @@
   {
    "t": 1788554775,
    "secs": 1.5,
+   "peak_gb": 0.284
+  },
+  {
+   "t": 1790074272,
+   "secs": 1.8,
    "peak_gb": 0.284
   }
  ],
@@ -555,6 +600,11 @@
    "t": 1788554828,
    "secs": 53.5,
    "peak_gb": 0.214
+  },
+  {
+   "t": 1790074325,
+   "secs": 53.3,
+   "peak_gb": 0.241
   }
  ],
  "Huygens tail by dimension": [
@@ -572,6 +622,11 @@
    "t": 1788554830,
    "secs": 1.3,
    "peak_gb": 0.224
+  },
+  {
+   "t": 1790074326,
+   "secs": 1.3,
+   "peak_gb": 0.221
   }
  ],
  "Curvature as the bottleneck": [
@@ -589,6 +644,11 @@
    "t": 1788554841,
    "secs": 11.7,
    "peak_gb": 0.292
+  },
+  {
+   "t": 1790074336,
+   "secs": 9.3,
+   "peak_gb": 0.306
   }
  ],
  "Operational observers (interval from radar timings)": [
@@ -606,6 +666,11 @@
    "t": 1788554848,
    "secs": 6.2,
    "peak_gb": 0.363
+  },
+  {
+   "t": 1790074342,
+   "secs": 6.5,
+   "peak_gb": 0.367
   }
  ],
  "Relativistic rapidity (additive coordinate of boosts)": [
@@ -623,6 +688,11 @@
    "t": 1788554854,
    "secs": 6.0,
    "peak_gb": 0.29
+  },
+  {
+   "t": 1790074348,
+   "secs": 5.7,
+   "peak_gb": 0.301
   }
  ],
  "ZV gamma-metric legibility (for TheBridge, A10 ext)": [
@@ -640,6 +710,11 @@
    "t": 1788554908,
    "secs": 54.7,
    "peak_gb": 0.257
+  },
+  {
+   "t": 1790074402,
+   "secs": 53.8,
+   "peak_gb": 0.343
   }
  ],
  "Legibility predicts SAE monosemanticity": [
@@ -657,6 +732,11 @@
    "t": 1788554957,
    "secs": 48.3,
    "peak_gb": 0.389
+  },
+  {
+   "t": 1790074459,
+   "secs": 57.0,
+   "peak_gb": 0.393
   }
  ],
  "SAE-legibility in a real activation (sharpen)": [
@@ -674,6 +754,11 @@
    "t": 1788555009,
    "secs": 52.1,
    "peak_gb": 0.429
+  },
+  {
+   "t": 1790074519,
+   "secs": 60.1,
+   "peak_gb": 0.427
   }
  ],
  "Discoverability trichotomy (frontier EXP-1)": [
@@ -690,6 +775,11 @@
   {
    "t": 1788555017,
    "secs": 8.0,
+   "peak_gb": 0.306
+  },
+  {
+   "t": 1790074527,
+   "secs": 8.4,
    "peak_gb": 0.306
   }
  ],
@@ -708,6 +798,11 @@
    "t": 1788555023,
    "secs": 6.5,
    "peak_gb": 0.296
+  },
+  {
+   "t": 1790074534,
+   "secs": 7.3,
+   "peak_gb": 0.3
   }
  ],
  "Manko-Novikov legibility (for TheBridge, A10 ext)": [
@@ -725,6 +820,11 @@
    "t": 1788555182,
    "secs": 159.0,
    "peak_gb": 0.299
+  },
+  {
+   "t": 1790074696,
+   "secs": 162.0,
+   "peak_gb": 0.278
   }
  ],
  "Regime detector (frontier EXP-4)": [
@@ -737,6 +837,11 @@
    "t": 1788555225,
    "secs": 42.3,
    "peak_gb": 0.403
+  },
+  {
+   "t": 1790074747,
+   "secs": 50.7,
+   "peak_gb": 0.405
   }
  ],
  "Sixth-wall exhaustiveness hunt (frontier EXP-5)": [
@@ -749,6 +854,11 @@
    "t": 1788555229,
    "secs": 4.4,
    "peak_gb": 0.317
+  },
+  {
+   "t": 1790074752,
+   "secs": 5.0,
+   "peak_gb": 0.318
   }
  ],
  "Abstain-aware detector (frontier EXP-6)": [
@@ -761,6 +871,11 @@
    "t": 1788555240,
    "secs": 11.4,
    "peak_gb": 0.316
+  },
+  {
+   "t": 1790074768,
+   "secs": 16.1,
+   "peak_gb": 0.318
   }
  ],
  "Law vs predictability dissociation (frontier EXP-7)": [
@@ -772,6 +887,11 @@
   {
    "t": 1788555244,
    "secs": 3.3,
+   "peak_gb": 0.301
+  },
+  {
+   "t": 1790074772,
+   "secs": 3.7,
    "peak_gb": 0.301
   }
  ],
@@ -785,6 +905,11 @@
    "t": 1788555248,
    "secs": 4.6,
    "peak_gb": 0.303
+  },
+  {
+   "t": 1790074777,
+   "secs": 5.2,
+   "peak_gb": 0.304
   }
  ],
  "Unified robust detector (frontier EXP-9)": [
@@ -797,6 +922,11 @@
    "t": 1788555258,
    "secs": 9.3,
    "peak_gb": 0.324
+  },
+  {
+   "t": 1790074789,
+   "secs": 11.8,
+   "peak_gb": 0.328
   }
  ],
  "Noise robustness profile (frontier EXP-10)": [
@@ -809,6 +939,11 @@
    "t": 1788555261,
    "secs": 3.9,
    "peak_gb": 0.298
+  },
+  {
+   "t": 1790074793,
+   "secs": 4.2,
+   "peak_gb": 0.299
   }
  ],
  "Predictability diagnostic (frontier EXP-11)": [
@@ -821,6 +956,11 @@
    "t": 1788555265,
    "secs": 3.4,
    "peak_gb": 0.307
+  },
+  {
+   "t": 1790074797,
+   "secs": 3.7,
+   "peak_gb": 0.3
   }
  ],
  "Sample complexity diverges at wall (frontier EXP-12)": [
@@ -833,6 +973,11 @@
    "t": 1788555268,
    "secs": 2.8,
    "peak_gb": 0.341
+  },
+  {
+   "t": 1790074800,
+   "secs": 3.4,
+   "peak_gb": 0.345
   }
  ],
  "Real-data test vs literature (frontier EXP-13)": [
@@ -845,6 +990,11 @@
    "t": 1788555270,
    "secs": 2.3,
    "peak_gb": 0.31
+  },
+  {
+   "t": 1790074803,
+   "secs": 2.9,
+   "peak_gb": 0.311
   }
  ],
  "Temporal regime-switching (frontier EXP-14)": [
@@ -856,6 +1006,11 @@
   {
    "t": 1788555272,
    "secs": 1.8,
+   "peak_gb": 0.303
+  },
+  {
+   "t": 1790074805,
+   "secs": 2.4,
    "peak_gb": 0.303
   }
  ],
@@ -869,6 +1024,11 @@
    "t": 1788555273,
    "secs": 1.0,
    "peak_gb": 0.226
+  },
+  {
+   "t": 1790074807,
+   "secs": 1.3,
+   "peak_gb": 0.226
   }
  ],
  "KK mass discovery (quantum sister, script 157)": [
@@ -880,6 +1040,11 @@
   {
    "t": 1788555286,
    "secs": 13.7,
+   "peak_gb": 0.365
+  },
+  {
+   "t": 1790074821,
+   "secs": 14.4,
    "peak_gb": 0.365
   }
  ],
@@ -893,6 +1058,11 @@
    "t": 1788555373,
    "secs": 86.7,
    "peak_gb": 0.415
+  },
+  {
+   "t": 1790074917,
+   "secs": 96.2,
+   "peak_gb": 0.415
   }
  ],
  "Isospectral drums / K5 (bridge round 8, script 159)": [
@@ -905,6 +1075,11 @@
    "t": 1788555410,
    "secs": 37.0,
    "peak_gb": 0.832
+  },
+  {
+   "t": 1790074958,
+   "secs": 41.0,
+   "peak_gb": 0.819
   }
  ],
  "Basis ladder / G2 prep (bridge round 8, script 160)": [
@@ -917,6 +1092,11 @@
    "t": 1788555470,
    "secs": 59.9,
    "peak_gb": 1.44
+  },
+  {
+   "t": 1790075029,
+   "secs": 70.8,
+   "peak_gb": 1.506
   }
  ],
  "G2 blind legibility (bridge round 8, script 161)": [
@@ -929,6 +1109,11 @@
    "t": 1788555612,
    "secs": 142.4,
    "peak_gb": 6.296
+  },
+  {
+   "t": 1790075155,
+   "secs": 125.6,
+   "peak_gb": 7.659
   }
  ],
  "G2 augmented basis R1 (bridge round-9, script 162)": [
@@ -941,6 +1126,11 @@
    "t": 1788555753,
    "secs": 140.6,
    "peak_gb": 6.842
+  },
+  {
+   "t": 1790075277,
+   "secs": 122.0,
+   "peak_gb": 8.359
   }
  ],
  "Drum information-localization R5 (bridge round-9, script 163)": [
@@ -953,6 +1143,11 @@
    "t": 1788555772,
    "secs": 19.4,
    "peak_gb": 0.441
+  },
+  {
+   "t": 1790075297,
+   "secs": 20.5,
+   "peak_gb": 0.44
   }
  ],
  "G2 un-blind: named basis emits (bridge round-9, script 164)": [
@@ -965,6 +1160,11 @@
    "t": 1788555794,
    "secs": 21.9,
    "peak_gb": 5.217
+  },
+  {
+   "t": 1790075315,
+   "secs": 17.9,
+   "peak_gb": 7.847
   }
  ],
  "Noise-calibrated cutoff + conditioning caveat (bridge round-9, script 165)": [
@@ -977,6 +1177,11 @@
    "t": 1788555806,
    "secs": 11.9,
    "peak_gb": 3.297
+  },
+  {
+   "t": 1790075328,
+   "secs": 12.6,
+   "peak_gb": 3.298
   }
  ],
  "The certificate standard (script 166)": [
@@ -989,6 +1194,11 @@
    "t": 1788555814,
    "secs": 8.3,
    "peak_gb": 0.32
+  },
+  {
+   "t": 1790075336,
+   "secs": 7.9,
+   "peak_gb": 0.318
   }
  ],
  "P3 Killing-tensor screen (script 167)": [
@@ -1001,6 +1211,11 @@
    "t": 1788555919,
    "secs": 104.8,
    "peak_gb": 4.869
+  },
+  {
+   "t": 1790075459,
+   "secs": 123.0,
+   "peak_gb": 7.908
   }
  ],
  "Degree-3 positive control, Toda cubic (script 169)": [
@@ -1013,6 +1228,11 @@
    "t": 1788555922,
    "secs": 2.6,
    "peak_gb": 0.488
+  },
+  {
+   "t": 1790075461,
+   "secs": 2.1,
+   "peak_gb": 0.48
   }
  ],
  "Degree-4 positive control, Toda tr L^4 (script 171)": [
@@ -1025,6 +1245,11 @@
    "t": 1788555937,
    "secs": 15.6,
    "peak_gb": 1.771
+  },
+  {
+   "t": 1790075479,
+   "secs": 18.2,
+   "peak_gb": 1.671
   }
  ],
  "Degree-4 geodesic substrate + target (script 172)": [
@@ -1036,6 +1261,11 @@
   {
    "t": 1788555963,
    "secs": 25.7,
+   "peak_gb": 1.219
+  },
+  {
+   "t": 1790075505,
+   "secs": 26.1,
    "peak_gb": 1.219
   }
  ],
@@ -1049,6 +1279,11 @@
    "t": 1788555969,
    "secs": 5.9,
    "peak_gb": 0.305
+  },
+  {
+   "t": 1790075511,
+   "secs": 6.3,
+   "peak_gb": 0.306
   }
  ],
  "Located walls + censoring guard (script 177)": [
@@ -1061,6 +1296,11 @@
    "t": 1788556057,
    "secs": 20.4,
    "peak_gb": 0.376
+  },
+  {
+   "t": 1790075617,
+   "secs": 20.0,
+   "peak_gb": 0.376
   }
  ],
  "Corner study G0: regulators converge, c4 derived (script 180)": [
@@ -1068,6 +1308,11 @@
    "t": 1788555970,
    "secs": 1.0,
    "peak_gb": 0.223
+  },
+  {
+   "t": 1790075513,
+   "secs": 1.3,
+   "peak_gb": 0.225
   }
  ],
  "Corner study: additive mutation + anti-guard demonstrated (script 186)": [
@@ -1075,6 +1320,11 @@
    "t": 1788555988,
    "secs": 17.6,
    "peak_gb": 1.502
+  },
+  {
+   "t": 1790075538,
+   "secs": 25.0,
+   "peak_gb": 1.488
   }
  ],
  "Degree ladder located: real absence vs basis-limited (script 178)": [
@@ -1082,6 +1332,11 @@
    "t": 1788556037,
    "secs": 49.4,
    "peak_gb": 4.163
+  },
+  {
+   "t": 1790075597,
+   "secs": 59.0,
+   "peak_gb": 4.64
   }
  ]
 }
