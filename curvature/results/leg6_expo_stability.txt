@@ -1,0 +1,18 @@
+  A vs A' (expanded tree) at eps=0.05, max abs component diff:
+    H      3.331e-16
+    irr    3.331e-16
+    ith    6.939e-18
+    dHdr   4.649e-16
+    dHdth  2.359e-16
+
+               arm  seed         0.05       0.0158        0.005  exponent
+                 A     1   4.9073e-10   5.1566e-11   5.5446e-12     1.947
+                 A     2   4.3452e-10   6.8613e-11   6.9283e-12     1.797
+                 A     3   1.6093e-10   1.6697e-11   1.8509e-12     1.939
+              Aexp     1   4.9494e-10   5.0043e-11   5.9752e-12     1.918
+
+  EXPONENT  spread 0.1496  (max/min ratio 1.0833)
+  MARGIN@.05 ratio max/min 3.0755   <- the absolute number, for contrast
+
+  floor scatter measured earlier: 2.79x
+  exponent stable if its spread is small where the absolute number scatters

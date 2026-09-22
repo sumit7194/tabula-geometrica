@@ -1,0 +1,4 @@
+      chi              arm         0.05       0.0158        0.005  exponent
+    0.075    B unaugmented   5.0747e-10   5.2101e-11   5.6276e-12     1.955
+   0.0375    B unaugmented   3.3339e-11   2.3869e-12   1.7997e-13     2.268
+  wrote /private/tmp/claude-501/-Users-sumit-Github-SpaceTime/9ce9020a-0ce8-4c70-a24e-2c0c77428cd5/scratchpad/dK_Balone.json

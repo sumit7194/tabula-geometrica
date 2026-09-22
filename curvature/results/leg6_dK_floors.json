@@ -1,0 +1,26 @@
+{
+  "chi0.075_A unaugmented": {
+    "margins": [
+      8.22379303417795e-15
+    ],
+    "exponent": NaN
+  },
+  "chi0.075_A + dK": {
+    "margins": [
+      1.985324844170486e-15
+    ],
+    "exponent": NaN
+  },
+  "chi0.075_B unaugmented": {
+    "margins": [
+      2.950223044719477e-15
+    ],
+    "exponent": NaN
+  },
+  "chi0.075_B + dK": {
+    "margins": [
+      5.171198367538563e-15
+    ],
+    "exponent": NaN
+  }
+}

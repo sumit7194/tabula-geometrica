@@ -1,0 +1,6 @@
+      chi              arm          0.0  exponent
+    0.075    A unaugmented   8.2238e-15       nan
+    0.075           A + dK   1.9853e-15       nan
+    0.075    B unaugmented   2.9502e-15       nan
+    0.075           B + dK   5.1712e-15       nan
+  wrote /private/tmp/claude-501/-Users-sumit-Github-SpaceTime/9ce9020a-0ce8-4c70-a24e-2c0c77428cd5/scratchpad/dK_floors.json
