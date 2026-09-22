@@ -1,0 +1,12 @@
+   obj    eps    heldout(Q) MEASURED
+     A   0.05             2.0054e-07
+     A    0.1             8.0174e-07
+     A    0.2             3.2037e-06
+
+  Q(0.20)/Q(0.05) measured = 15.98   (eps^2 would give 16.00)
+  inferred Q(0.20) was 3.2086e-06; measured 3.2037e-06   ratio 0.998
+
+  corrector gain with Q MEASURED at each eps:
+    eps 0.05: 408.6x
+    eps 0.1: 399.9x
+    eps 0.2: 403.5x

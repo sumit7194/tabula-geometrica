@@ -2070,3 +2070,41 @@ The ladder is still consistent end to end once a single eps is used throughout; 
 claimed near-coincidence with the floor, which was an artefact of combining a baseline from one eps
 with a ratio from another. **Same family as the five borrowed denominators: a ratio carried across
 an axis the two quantities do not share.**
+
+## The ladder TELESCOPES -- and the falsification test does not falsify
+
+**The deeper diagnosis (TheBridge), verified here, is upstream of both slips:**
+
+    rung 1   Q / best-basis        =       408.7x
+    rung 2   best-basis / (+dK)    =    34,350.4x
+    rung 3   (+dK) / floor         =         7.2x
+             product               = 1.0101e+08
+             Q / floor directly    = 1.0101e+08     identical to 0.0000%
+
+**Every rung is a ratio of two adjacent measured quantities, so the product telescopes to the
+endpoints by construction. The ladder is a DECOMPOSITION, not a check.** There was no internal
+cross-check in it to find, which is why one attempt to extract one produced an artefact (mixed eps)
+and the next a tautology (inferred numerator). Two different failures, one cause, and the cause is a
+property of the object.
+
+**The only real cross-check in the structure is the one quantity produced by machinery sharing no
+line of code with the engine:** the analytic Poisson-bracket drift, `193` against the engine's `432`
+at matched power and object, factor 2.24. *The rungs are arithmetic; the external comparison is
+evidence.* I had been reading a structure with one piece of evidence in it as though it had four.
+
+**The falsification test, correctly labelled.** `{H_def, Q} = eps*{dH, Q}` makes `heldout(Q)` O(eps^2)
+BY THEORY, so the exponent must be 2 and both halves of the corrector gain scale together. **The run
+CAN falsify and CANNOT confirm** -- a pass tells us only what theory already required. It does not
+falsify:
+
+     eps     heldout(Q) MEASURED
+    0.05            2.0054e-07
+    0.10            8.0174e-07
+    0.20            3.2037e-06     Q(0.20)/Q(0.05) = 15.98   (eps^2 gives 16.00)
+
+    corrector gain with Q MEASURED at each eps:  408.6x / 399.9x / 403.5x
+
+**And the inferred value was numerically fine** -- 3.2086e-06 inferred vs 3.2037e-06 measured, 0.2%.
+**Which is the precise point: nothing was wrong with the NUMBER. What was wrong was presenting a
+quantity derived from another as an independent check on it.** A tautology with a correct value is
+still a tautology, and its correctness is what makes it persuasive.
