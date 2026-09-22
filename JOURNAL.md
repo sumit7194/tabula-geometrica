@@ -12,6 +12,55 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 ---
 
 
+## 2026-09-22 (later) — the dK test set up, and a heartbeat that lied about its own death
+
+**The dK span test is live.** Leg 6 closed with A, B and C all returning exponent ~2 and B/A flat,
+so the screen's margin measures deformation amplitude rather than integrability. What survived that
+close was a narrower claim — A's exponent is informative where B's is not, because A's `eps=0` row
+EMITS, so `K_0` is in an eps-independent span and `dK` therefore is not. The falsifiable consequence:
+add `dK` to the library and **A's exponent must collapse toward 0 while B's must not move.**
+
+**Both premise rows passed**, and the second one existed only because TheBridge caught that my first
+premise script was one column short — the floor and one margin, enough to see headroom and not enough
+to measure an exponent. I would have run a collapse test without checking there was a 2 to collapse.
+Filed as **silent_nulls 45a**: a gate whose only passing outcome is a failure, and a collapse test
+with nothing to collapse, are the same object, and both are invisible from inside the design because
+from inside you ask "will this work" and never "could this have come out the other way." Built twice
+in this repo now (G1b in the corner study, and here).
+
+    row 1   chi=0.075, eps=0    margin 8.2238e-15  EMITS   (vs 4.9073e-10 at eps=0.05, 60,000x)
+            honest: that floor is ~300x worse than chi=0.6's 2.8517e-17
+    row 2   eps 0.05/0.0158/0.005 -> fitted exponent 1.947, against the 1.999 reference
+
+**Ansatz's session has ended**, so there was nobody to ask for `dK`. The recipe was not carried in my
+head — it is recorded in their commit `004f564`, read before use — which is entry 51's lesson
+(an inherited figure arrives pre-attached to a conclusion) actually applied for once.
+`dK = -(K1 - 56 chi^2 dH)/8` to O(chi^2). Built: pure chi^2, degree 2, with a `P_x P_y` cross term.
+
+Three places this could have been vacuous, all closed before numbers:
+- Ansatz pre-registered that a **partial** collapse would be ambiguous, since the recipe is only
+  O(chi^2). That is measurable: truncation scales as chi^2 and the span question does not, so the
+  test runs at two chi and a chi-shrinking residual reads as truncation-limited, not as a verdict.
+- The **convention bridge** produces the same output when wrong as the interesting negative result,
+  so it gets a control with a banked known-fail (`Q + eps*K1` gave 1.001, improvement 0.11x).
+- Carter is **even in every momentum**, so it cannot calibrate the cross-term sign — 45a inside my own
+  control. Sigma is an open discrete choice resolved by the control, legitimate only because the
+  control can fail for both values. And the exponent alone is vacuous if `dK` maps to something
+  negligible, so the reading rule is a three-way against bare Q, fixed before the numbers.
+
+**silent_nulls 56 — the keepalive.** Mine had been dead 2.5 hours under a standing instruction to
+keep it running. Not a crash: a 10h TTL, exited clean, code 0. But **the TTL path wrote nothing to
+the status file**, leaving `stopped_deliberately: false` and a note saying the writer was LIVE — the
+exact signature of a crash, and the flag that exists solely to tell those apart is set on the
+explicit-stop path and not on the one that always fires unattended. Worse than no instrumentation,
+for the reason the script's own banner comment already gives about timestamp-only updates: the
+failure emits the signature the monitoring was built to certify as healthy. Fixed and **verified by
+firing it** at TTL=0 against a throwaway status file, since a repair to an unattended path that is
+never triggered is a claim and not a fix. Companion own-goal, ten minutes earlier: asked whether my
+heartbeat was up, I grepped `ps` for "keepalive", found a 17-hour process and reported it as mine —
+it was another session's, for a different repo. Entry 46 again: a monitor-liveness check that matches
+any monitor on the machine succeeds whenever anyone at all is monitoring.
+
 ## 2026-09-22 — leg 6: the screen measures deformation amplitude, not integrability
 
 **The result.** Three blind metrics from ansatz, relayed by TheBridge, screened with the §99/§161 emit-or-certify
