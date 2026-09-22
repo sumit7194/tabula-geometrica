@@ -817,6 +817,26 @@ carried in my head -- it is recorded in their commit `004f564` (`docs/PARKED.md`
 symbolic object is the "concepts cross as a lens" mode this project runs in; their solver is not
 being imported into any SpaceTime script. The object is transcribed with an explicit convention map.
 
+> **CORRECTED 2026-09-22 (found by TheBridge's A4 independence audit). The second clause became FALSE
+> through a later action of mine.** It was true when written -- the scripts using their solver lived
+> in the scratchpad. Then I **promoted those scripts into the repo**, and
+> `curvature/scripts/leg6_dK/make_dK.py` and `dK_control.py` now do
+> `sys.path.insert('/Users/sumit/Github/conjecture_machine/scripts')`, `os.chdir` there, import
+> `_kt_double` / `_kt_search` / `_kt_carter_space` / `_kt_q2_candidate`, and read
+> `data/triple/K1_A.txt`. **That is file-level vendoring of a sibling repo's implementation.**
+>
+> So `dK` was BUILT with ansatz's solver from ansatz's object: **any claim of the form "dK does X" is
+> one measurement, not two.** Scoping that stands: nothing ansatz produced was then compared against
+> a number made with their code and counted as agreement -- the control's `623.7x` was against a
+> prediction derived from my own chi=0.6 anchor, and the premise rows compared against my own banked
+> values. **Code edge yes; echo no.**
+>
+> **The mechanism is worth more than the instance: a scope statement can be true when written and
+> falsified by a later action that nobody thinks of as touching it.** Promoting files out of a
+> scratchpad is filing, not claiming -- and it silently invalidated a claim three sections up. Prose
+> has no dependency graph, so nothing re-checked it. *It took an outside audit asking a question I
+> had already answered in writing.*
+
 ### The bridge is the risk, and it has a known-fail
 
 Their momenta and mine are not the same symbols (`y = cos θ`, `P_y = -p_θ/sin θ` here). A wrong
