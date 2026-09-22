@@ -1416,6 +1416,28 @@ failure, raised at the moment of comparison, with the offending axis named — n
 the class. Its known-fail suite is the five real mismatches above; if it stops catching them it fails
 loudly.
 
+**Instance 5 is why a document could not have worked, and this is stronger than "prose does not
+fire."** A convention can have **two authorities that disagree, each locally correct**: §190's
+`screen()` minimises over `min(4, ·)` conserved directions, while the script that produced the banked
+reference used all of them. Following the library made me inconsistent with the reference; following
+the reference made me inconsistent with the library. **There was no source I could have obeyed to be
+right.** A convention note saying "use `min(4,·)`" would be obeyed by one party and contradicted by a
+file that predates it, and *both parties would believe they were compliant.*
+
+> **The gate does not need to RESOLVE the ambiguity — only to make it VISIBLE. And visible is
+> sufficient: you cannot be right by following one source, but you can be right by being told the
+> sources differ.** (TheBridge)
+
+So the night's recurring complaint — that documents fail to fire for their own authors — was not the
+real problem. **Here no document could have been correct.**
+
+**And the supply side of it, which is mine.** The peer computed headroom from `8.2238e-15` across
+three messages without asking where it came from, and called that their failure. It was not: *I
+supplied the number, repeatedly, without its configuration.* A reader cannot ask for a fingerprint
+they have no reason to believe is missing, and treating a supplied number as a constant of the
+apparatus is the correct default. **Which is precisely why the configuration has to be attached at
+construction rather than requested at use.**
+
 **The positive half, and it is why one result survived:** a ratio taken *within* a single
 configuration is self-normalising — the parameters appear in numerator and denominator and cancel —
 so it is transportable. `f = a·χ + b` was built from within-run drift ratios, which is why it
