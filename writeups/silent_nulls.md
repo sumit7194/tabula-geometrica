@@ -1391,11 +1391,12 @@ demonstrated the gap by mutating their scanner and watching arms pass that had n
 
 So I mutated mine rather than reading it:
 
-    mutation            arm 1 (path)   arm 2 (namespace)   arm 3 (local NOT flagged)
-    healthy                   OK              OK                    OK
-    scan() -> {}              BAD             BAD                   OK   <-- hollow
-    namespace signal off      OK              BAD                   OK
-    path pattern off          BAD             OK                    OK
+    mutation                 arm 1 (path)  arm 2 (namespace)  arm 3 (local NOT flagged)
+    healthy                       OK              OK                    OK
+    scan() -> {}                  BAD             BAD                   OK   <-- hollow
+    namespace signal off          OK              BAD                   OK
+    path pattern off              BAD             OK                    OK
+    prefix RESOLUTION removed     OK              OK                    BAD  <-- only arm 3 sees it
 
 Arms 1 and 2 discriminate: each fails for its own cause and neither fires on the other's mutation.
 **Arm 3 passed under every mutation including a completely dead scanner** — because it is a
@@ -1408,6 +1409,21 @@ Arms 1 and 2 discriminate: each fails for its own cause and neither fires on the
 **Fixed rather than labelled**, by pairing the negative with a positive from the *same* sweep: the
 local module must be absent AND a real sibling edge must be present. Now all three fail under
 `scan() -> {}`.
+
+**The bottom row is why the arm was worth having, and it was added before anyone knew what it would
+catch.** Removing the *resolution* step — so the prefix matches without checking whether this repo
+supplies the module — is invisible to every other arm, and the gate returns 0. A peer adopted this
+arm and it failed on their first run: their namespace list was built empirically for the twelve
+exact module names and **never resolved the prefix family at all**, so any local `_kt_*` module
+would have counted as a sibling edge. Their count did not move — no such module exists there today —
+which makes it *a right number from an unsound method, with nothing for a check to grip*, inside the
+tooling built to catch exactly that.
+
+**A refinement on "each arm must fail for its own cause":** arm 3 fails under two mutations, so it is
+not cause-specific on its own. That is acceptable because **the matrix discriminates even where a
+single arm does not** — under a dead scanner arms 1 and 2 fail too; under removed resolution *only*
+arm 3 fails. The property worth requiring is that **every mutation produce a distinct signature**,
+not that every arm map to exactly one fault.
 
 **The general rule, which is not "write controls" but a strictly stronger thing:** *a control that
 passed tells you nothing until you have seen it fail on purpose.* "It passed" is a fact about today's
