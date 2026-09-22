@@ -48,32 +48,38 @@ def _control(kind):
     g00, g03, g11, g22, g33 = _kerr
     if kind == "RAD":      # Sigma * d(irr) = r^2 / 20  -- a function of r ONLY, times p_r^2
         return (g00, g03, 1 / (_IK["irr"] + eps * (r ** 2 / 20) / SIG), g22, g33)
+    if kind == "RAD2":     # Sigma * d(ipp) = 49/r^2 -- r ONLY, on the L^2 coefficient (L^2 ~ 6.8 here), so the
+        #                  deformation is the same SIZE as ANG's. RAD's p_r^2 version was ~240x smaller than
+        #                  ANG's on near-circular orbits, which left its zero open to "too small to matter".
+        #                  Built by editing ONLY the inverse (t,phi) block's L^2 entry and inverting exactly.
+        itt, itp, ipp = _IK["itt"], _IK["itp"], _IK["ipp"] + eps * (49 / r ** 2) / SIG
+        Dinv = itt * ipp - itp ** 2
+        return (ipp / Dinv, -itp / Dinv, g11, g22, itt / Dinv)
     if kind == "ANG":      # Sigma * d(ith) = cos^2 th * 49/20 -- a function of th ONLY, times p_th^2
         return (g00, g03, g11, 1 / (_IK["ith"] + eps * (sp.cos(th) ** 2 * sp.Rational(49, 20)) / SIG), g33)
 
 
 m.OBJECTS["RAD"] = lambda: _control("RAD")
 m.OBJECTS["ANG"] = lambda: _control("ANG")
+m.OBJECTS["RAD2"] = lambda: _control("RAD2")
 
 MOM = {"itt": "E2", "itp": "m2EL", "ipp": "L2", "irr": "pr2", "ith": "pth2"}
 
 
 def split(obj):
-    """Return lambdified radial / angular / mixed parts of 2*Sigma*dH, per coefficient."""
+    """Lambdified 2*Sigma*dH coefficients. The radial/angular/mixed split is done NUMERICALLY at the
+    evaluation points (mixed = s(r,th) - s(r,th0) - s(r0,th) + s(r0,th0)), so no symbolic simplify is needed.
+    The first version simplified symbolically and died silently on object A with no traceback."""
     inv = _inv(m.OBJECTS[obj]())
-    parts = {}
-    for k, v in inv.items():
-        s = sp.simplify(sp.expand(SIG * sp.diff(v, eps).subs(eps, 0)))
-        c = s.subs({r: R0, th: TH0})
-        f = s.subs(th, TH0) - c                         # r-only
-        g = s.subs(r, R0) - c                           # th-only
-        n = sp.simplify(s - f - g - c)                  # mixed (zero iff additively separable)
-        if k == "irr":   rad, ang, mix = f + c, 0, g + n            # p_r^2 times a th-function mixes
-        elif k == "ith": rad, ang, mix = 0, g + c, f + n            # p_th^2 times an r-function mixes
-        else:            rad, ang, mix = f, g, n                    # constant * E,L terms never vary
-        L = lambda e: sp.lambdify((r, th, a), e, "numpy")
-        parts[k] = (L(rad), L(ang), L(mix), float(sp.N(sp.Abs(n.subs({r: 6, th: 1.2, a: CHI})))))
-    return parts
+    return {k: sp.lambdify((r, th, a), SIG * sp.diff(v, eps).subs(eps, 0), "numpy") for k, v in inv.items()}
+
+
+def parts_at(fn, R, TH):
+    r0, th0 = float(R0), float(TH0)
+    ev = lambda x, y: np.broadcast_to(np.asarray(fn(x, y, CHI), float), np.broadcast(R, TH).shape)
+    s_ = ev(R, TH); f_ = ev(R, np.full_like(TH, th0)); g_ = ev(np.full_like(R, r0), TH)
+    c_ = ev(np.full_like(R, r0), np.full_like(TH, th0))
+    return s_, f_ - c_, g_ - c_, c_, s_ - f_ - g_ + c_        # s, f, g, c, mixed
 
 
 def evaluate(obj):
@@ -85,10 +91,13 @@ def evaluate(obj):
     Q = PT ** 2 + np.cos(TH) ** 2 * (CHI ** 2 * (1 - E ** 2) + L ** 2 / np.sin(TH) ** 2)
     mom = {"E2": E ** 2, "m2EL": -2 * E * L, "L2": L ** 2, "pr2": PR ** 2, "pth2": PT ** 2}
     P = split(obj)
-    ev = lambda fn: np.broadcast_to(np.asarray(fn(R, TH, CHI), float), R.shape)
-    ang = sum(ev(P[k][1]) * mom[MOM[k]] for k in P)
-    mix = sum(ev(P[k][2]) * mom[MOM[k]] for k in P)
-    rad = sum(ev(P[k][0]) * mom[MOM[k]] for k in P)
+    rad = ang = mix = 0.0
+    for k, fn in P.items():
+        _, f_, g_, c_, n_ = parts_at(fn, R, TH)
+        mm = mom[MOM[k]]
+        if k == "irr":   rad, mix = rad + (f_ + c_) * mm, mix + (g_ + n_) * mm      # p_r^2 x th-fn mixes
+        elif k == "ith": ang, mix = ang + (g_ + c_) * mm, mix + (f_ + n_) * mm      # p_th^2 x r-fn mixes
+        else:            rad, ang, mix = rad + f_ * mm, ang + g_ * mm, mix + n_ * mm
     Q0 = np.abs(Q[0]) + 1e-30
     measured = float(np.nanmax(np.abs(Q - Q[0]) / Q0))
     predicted = float(np.nanmax(np.abs(EPS * (ang - ang[0])) / Q0))    # Q + eps*dTheta conserved
@@ -102,7 +111,7 @@ def main():
     out = {}
     print(f"  chi={CHI}, eps={EPS}, seed {SEED}, {NTRAJ}/{NSTEP}  (same config as the leg-6 analytic drift)\n")
     print(f"  {'obj':>4} {'measured':>11} {'pred(ang)':>11} {'meas/pred':>10} | {'rms radial':>11} {'rms angular':>12} {'rms mixed':>11}")
-    for obj in ("RAD", "ANG", "A", "B", "C"):
+    for obj in ("RAD", "RAD2", "ANG", "A", "B", "C"):
         d = evaluate(obj); out[obj] = d
         ratio = d["measured"] / d["predicted_from_angular"] if d["predicted_from_angular"] > 0 else float("inf")
         print(f"  {obj:>4} {d['measured']:>11.3e} {d['predicted_from_angular']:>11.3e} {ratio:>10.3f} | "
