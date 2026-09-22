@@ -1187,11 +1187,13 @@ results in `curvature/notes/lab_notebook.md`.
   measured, jittering `n_procs: 0` while it runs; always launch by absolute path. 41: a power analysis is only as good as its
   assumed nuisance amplitude — simulated −0.08, data wanted +0.12..+0.40, promised 95.8% power and delivered
   none; 42: an implementation can be COARSER than its pre-registration, not only stricter).
-- Remaining curvature queue: the orthogonal-F Wong v3 (open thread above); other
-  Phase H rows (equivalence-breaking gravity); a G-sym legibility-preserving
-  variant; the deferred Phase J "geometry from entanglement" (It-from-Qubit
-  bridge, in writeups/curvature_field_guide never-tried list); 3+1 Kaluza with
-  vector potential; writeup polish (user, weekends).
+- Remaining curvature queue (RE-CHECKED 2026-09-22 against the blocks above; the previous version of this
+  line listed Wong v3, equivalence-breaking gravity and Phase J as open when all three were already done --
+  silent_nulls 68 in this file). Genuinely open: a WELL-SEPARATED Carter contrast pair for leg 6 (the
+  instrument now works, the material is missing); the C-anomaly (C's Carter conserved ~200-400x better than
+  A's, two independent instruments, unexplained); retrofit "score the known direction" (650x more stable than
+  min-over-basis) into the screen; the synthesis writeup (build_queue); a G-sym legibility-preserving variant;
+  3+1 Kaluza with vector potential; BLOCKED-ON-INPUT the Kerr orbit average; writeup polish (user, weekends).
 - Wakeup policy (user 2026-06-11): SHORT delays (60-90s) between iterations;
   long delays only as fallback while harness-tracked jobs run.
 - **FOCUS DIRECTIVE (user, 2026-06-13): curvature ONLY until mined out.**
