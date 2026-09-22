@@ -954,3 +954,40 @@ chi^2 falls 64x, so
 - **bad bridge** -> 31x and exponent ~1 persist, because a wrong map does not care about chi.
 
 Written before those rows existed.
+
+### TheBridge sharpens the fourth cell into a NUMBER, and corrects my exponent expectation
+
+Received before the chi=0.075 rows existed; recorded before they land. Credit theirs.
+
+**The prediction.** The deformation carries `a^2`, so `drift(bare Q) = eps*[A2 chi^2 + A3 chi^3 + ...]`.
+A chi^2-accurate `dK` cancels `A2 chi^2` and leaves `eps*[A3 chi^3 + ...]`, so
+
+    residual fraction = A3 chi^3 / A2 chi^2 = (A3/A2)*chi      =>   IMPROVEMENT ~ 1/chi
+
+Calibrated on my own chi=0.6 row (`1/31.1 = 0.0322` => `A3/A2 = 0.0536`):
+
+    truncation-limited   improvement ~249x at chi=0.075    (exactly 8x better, = 0.6/0.075)
+    wrong bridge         improvement ~31x                  (unchanged; a bad map has no chi-dependence)
+
+**The 8x is not fitted** -- it is the ratio of the two chi values, and the linearity rests on the
+chi^3 parity result measured last night for the chain4 floor (exponent 3.032), for an unrelated
+reason. A number banked for one purpose is the free parameter of a prediction made for another.
+
+**THE CORRECTION, which cuts against the clean story I told.** I said the exponent must climb toward
+2. **It need not**, and my saying so was the tidier claim rather than the true one:
+
+    drift(Q + eps*dK) = eps*[A3 chi^3]  +  eps^2*[B chi^2] + ...
+                        truncation         genuine O(eps^2)
+
+A chi^2-truncated `dK` never fully cancels the O(eps) term at ANY chi > 0, so the linear piece
+survives and the exponent stays 1 until the quadratic overtakes it, at `eps > (A3/B)*chi`. At fixed
+eps it does climb (linear falls as chi^3, quadratic only as chi^2) but the crossover may sit outside
+my eps grid entirely -- **in which case the exponent stays at 1 at chi=0.075 and nothing is wrong.**
+
+> **So the discriminator is the IMPROVEMENT, not the exponent.** The 1/chi scaling is a
+> one-parameter prediction with no free constants; the exponent's behaviour needs a crossover
+> neither of us can locate without `B`.
+
+This supersedes the "exponent climbs toward 2" clause of the previous section as the *discriminator*,
+and it is a correction to my reasoning, not a relaxation after seeing data -- the chi=0.075 rows had
+not been produced when this was written.
