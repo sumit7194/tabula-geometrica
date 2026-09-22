@@ -12,6 +12,69 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 ---
 
 
+## 2026-09-22 (night) — the dK span test: a void that turned into a finding, via four peer catches
+
+**Result.** `dK` suppresses the emit margin by **~2e5x for BOTH** the Carter-preserving deformation
+(A) and the Carter-destroying one (B) — ratio **1.23** against a measured seed scatter of 3.08x, so
+indistinguishable. A **sham** column (same momentum degree, same chi^2 scaling, same coordinate
+degrees, same magnitude, coefficients permuted so it no longer solves the Killing equation) does
+**nothing**: 1.5x, exponent 1.999/2.002, while sitting 25,000x–1,000,000x above its own floor.
+
+> **So the effect is real and specific to `dK` — not generic to the function class — and it is not
+> about completing Carter for A, because it does the same for a deformation with no Carter to
+> complete.** The pre-registered discriminator ran and the claim it was built to test failed.
+
+Hypothesis, recorded untested: A's and B's deformations may share most of their structure, with `dK`
+completing the common part. Checkable by applying `dK` to a deformation sharing nothing with A's.
+
+**The control passed first**, which is why any of this is readable: `Q + eps*dK` drifts at O(eps^2)
+giving **623.7x** against a pre-registered **627x**, split `b = 0.1%` = pure truncation, with `K1`
+reproducing its banked **0.11x** known-fail at both chi. `sigma = -1` was predicted from their
+source (`y = u = cos th` so `p_u = -p_th/sin th`) and confirmed at 2.5x over `sigma = +1`.
+
+**Four catches by TheBridge, in sequence, each of which changed the answer:**
+
+1. **My first premise script was one column short** — it had the floor and one margin, enough to see
+   headroom and not enough to measure an exponent. I was one step from testing whether A's exponent
+   *collapsed from 2* without checking there was a 2 to collapse. (**45a**)
+2. **The pair check.** At eps=0 the deformation vanishes, so A and B are the same metric and their
+   floors are one computation twice. Both pairs **disagreed by ~2.7x**. Cause measured: `_A()` and
+   `_B()` are different expression trees, so one component rounds by **one ULP** (2.2e-16), which
+   amplifies through 3000 RK4 steps into a 2.8x floor difference. **The floor was never a property of
+   (metric, basis) — it is a property of rounding**, and the headline had 1.57x of headroom against
+   it. (**61**)
+3. **The censoring catch.** I called the void on a grid where the *predicted signal was below the
+   floor at two of three points.* The fitted exponent was **−0.504** — a margin growing as the
+   deformation shrinks, which is not physics but floor scatter fitted as a slope, and the sign alone
+   should have stopped me. Fixed by pushing the **exact** parameter (eps) up rather than the
+   truncated one (chi) down — the day's third instance of sweeping the wrong parameter. (**62**)
+4. **The sham control**, which turned "both collapsed, so we cannot tell" into a finding. On the
+   censored grid it would have read ~0 like everything else and "the collapse is generic" would have
+   been exactly wrong.
+
+**Five borrowed denominators in one evening** — across BASIS, ENSEMBLE, RUN PARAMETERS, SEED and
+READOUT. Instances 4+5 moved a quoted floor by **136x**, enough to flip the headline; matching all
+five axes reproduced the reference to all four digits. Four were caught by a peer reading the work;
+one by luck, because the wrong mode happened to be the slow one. **So this one got a gate, not an
+entry**: `curvature/scripts/comparable.py`, in `verify.sh`, where values carry their configuration
+and a comparison asserts the fingerprints match off the declared axis. Its known-fail suite is the
+five real mismatches. It later refused the borrowed comparison at the point of use — the first time
+all night an instrument rather than a person caught one. (**60**)
+
+**Instance 5 is why prose could not have worked:** §190's `screen()` minimises over `min(4, .)`
+conserved directions while the reference script used all of them. **Following the library made me
+inconsistent with the reference; following the reference made me inconsistent with the library.**
+No document could have been written that made both parties right — the gate does not resolve the
+ambiguity, it makes it visible, and visible is sufficient.
+
+**Also fixed:** the keepalive's TTL exit wrote nothing to its status file, leaving
+`stopped_deliberately: false` and a note claiming the writer was LIVE — so the one exit that always
+fires unattended emitted the exact signature of a crash. Verified by firing it at TTL=0. (**56**)
+And `env FAST=1` does nothing to a script reading `--fast` from argv. (**59**)
+
+Scripts and results promoted to `curvature/scripts/leg6_dK/` + `curvature/results/leg6_*`. **Not in
+`verify.sh`** — the pre-registered discriminator failed, so there is no green gate to assert.
+
 ## 2026-09-22 (later) — the dK test set up, and a heartbeat that lied about its own death
 
 **The dK span test is live.** Leg 6 closed with A, B and C all returning exponent ~2 and B/A flat,
