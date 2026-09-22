@@ -1311,3 +1311,52 @@ than a person caught one:
 
 **Standing correction to every headroom figure I reported tonight:** 6.5x and 2.55x were computed
 against a floor belonging to a different basis. The correct figures are **1.57x and 1.25x**.
+
+## BOTH PAIR CHECKS FAIL. The floor is a NOISE-LIMITED quantity, and the collapse verdict is UNRESOLVABLE.
+
+    A unaugmented   8.2238e-15        B unaugmented   2.9502e-15     PAIR 1  ratio 2.79  DISAGREE
+    A + dK          1.9853e-15        B + dK          5.1712e-15     PAIR 2  ratio 2.60  DISAGREE
+
+A and B at `eps=0` are the SAME METRIC -- verified symbolically earlier. So each pair is one
+computation run twice, and each disagrees by ~2.7x. **Cause measured, not guessed:**
+
+    launch inputs bitwise-identical            True
+    H, ith, dHdr, dHdth  bitwise-identical     True
+    irr                  max|A-B| 2.220e-16    rel 2.86e-16   <- ONE ULP
+    trajectories         max|diff| 1.041e-17
+
+**A single ULP of floating-point rounding in one metric component -- because `_A()` and `_B()` are
+different expression trees that are mathematically equal at `eps=0` -- propagates to a 2.8x
+difference in the floor.**
+
+### What this costs
+
+**1. The floor is not a property of `(metric, basis)`.** It is not a property of anything stable. It
+is set by rounding, amplified through 3000 RK4 steps and a generalized eigenproblem.
+
+**2. Any floor-based verdict needs > ~2.8x of headroom to mean anything. The collapse prediction has
+1.57x.** So:
+
+> **THE COLLAPSE VERDICT CANNOT BE READ FROM THE FLOOR COMPARISON. It is below the noise.**
+
+**3. The 4.14x "basis effect" is not cleanly a basis effect either.** `A+dK / A-alone = 4.14x` sits
+only 1.5x above the 2.7x pair-noise. **So the inference that `dK` is capturing real structure the
+base basis missed at 1e-15 is NOT supported by this measurement** -- 4.14x against a 2.8x noise level
+is not a signal. (That inference was drawn by TheBridge from the 4.14x before the pair rows existed;
+it is withdrawn on the noise level, not on its reasoning.)
+
+**4. Every headroom figure tonight was computed against a quantity with 2.8x of intrinsic scatter** --
+6.52x, then the corrected 1.57x, and the `f`-room figures 2.55x and 1.25x. None of them were ever
+resolvable.
+
+### What survives, and it is the thing that never had a denominator
+
+**B's EXPONENT.** An exponent holding at ~2 versus collapsing is a *shape* comparison within a single
+arm: no cross-arm normalisation, no absolute threshold, no floor. As TheBridge put it before these
+rows landed -- **everything that has gone wrong in the last three hours has gone wrong in a
+denominator, and B's verdict has no denominator.** The span test's own A-unaugmented arm already
+reproduced the banked reference exactly (`4.9073e-10 / 5.1566e-11 / 5.5446e-12`, exponent **1.947**),
+so exponents in this harness are stable and comparable even though floors are not.
+
+**The pair check was proposed as a cheap confirmation of a premise. It fired, and it invalidated the
+readout it was checking.** That is the most expensive possible outcome and the reason to run it.
