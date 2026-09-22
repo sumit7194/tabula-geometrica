@@ -1392,3 +1392,33 @@ truncation being larger than the anchor implied.
 **Still required, and it is the whole claim:** `B + dK`. If B's exponent also collapses, the column
 absorbs deformation amplitude generically and the test is VOID. Only `A` collapsing while `B` holds
 at ~2 carries the result.
+
+## SPAN TEST: BOTH arms collapse -- and the arm needed to read it was not run
+
+      chi              arm  monotone   max/min   exponent
+    0.075    A unaugmented      True      88.5      1.947
+    0.075           A + dK     False      24.9     -0.504
+    0.075           B + dK     False       3.5     -0.081
+   0.0375    A unaugmented      True     151.4      2.180
+   0.0375           A + dK     False       2.6      0.287
+   0.0375           B + dK      True      15.9      1.202
+
+`B + dK` sits at ~1e-14 alongside `A + dK`, non-monotone at chi=0.075. Read naively that is the
+**pre-registered VOID** condition: *"if both collapse, the column absorbs deformation amplitude
+generically and the test is void."*
+
+**It cannot be read yet, because `B unaugmented` at eps > 0 WAS NEVER RUN.** The span script's arms
+are `A unaugmented / A + dK / B + dK`. So the observed `B + dK ~ 1e-14` is consistent with two
+opposite readings and the data cannot separate them:
+
+    B-alone ~ 1e-10  ->  B COLLAPSED too   ->  the column absorbs generically  ->  VOID
+    B-alone ~ 1e-14  ->  B DID NOT MOVE    ->  dK does nothing for B           ->  CLAIM HOLDS
+
+**This is the SAME omission I identified and fixed hours ago -- in the FLOORS run.** I added
+`B-alone` there explicitly, writing that *asymmetric treatment of the control arm is how controls
+stop controlling*, and then left the span test with exactly that asymmetry. **The control arm has a
+baseline; the treated arm has a baseline; the control's baseline was the one I dropped.**
+
+Assuming B-alone's margins resemble A-alone's -- which leg 6 measured at chi=0.6, `B/A = 1.00` --
+would be the borrowed-denominator move for the sixth time tonight, on an arm's own baseline, at a
+different chi. **Running it instead.** No verdict issues until it lands.
