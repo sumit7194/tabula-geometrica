@@ -1636,3 +1636,47 @@ result does not need it.
 **Leading hypothesis for why dK helps B, recorded not tested:** A's and B's deformations may share
 most of their structure, with `dK` completing the common part. That is checkable by applying dK to a
 deformation sharing nothing with A's, and is the obvious next build.
+
+## THE SUMMAND SPLIT: one summand is IDENTICALLY ZERO, so dK = -K1/8
+
+TheBridge's mechanism for the non-discrimination: `dK = -K1/8 + 7*chi^2*dH`, and `dH` is the
+DEFORMATION's own Hamiltonian contribution -- so a column containing `dH` could absorb the
+deformation's leading term regardless of Carter. That would explain "large specific effect, no
+discrimination" and would mean the sham excluded the function class but not the mechanism.
+
+**Tested by computing the summands. The dH piece is identically zero:**
+
+    A's deformation, inverse metric by chi order:  chi^0 none, chi^1 none, chi^2 nonzero
+    its Hamiltonian contribution:  dH[0] ZERO   dH[1] ZERO   dH[2] nonzero (115 ops)
+
+`56*chi^2*dH` truncated to O(chi^2) keeps only `chi^2*dH[0]`, and **`dH[0] = 0`**, so the entire term
+vanishes. Confirmed symbolically: `chi^2*dH` exports as 0 ops with no free symbols, and the identity
+`dK == -K1/8 + 7*chi^2*dH` to O(chi^2) evaluates **True** with the second term absent.
+
+> **So to O(chi^2), `dK = -K1/8`. The two summands are not two objects -- one of them is zero, and
+> `K1` carries the entire effect.**
+
+**The dH-absorption hypothesis is REFUTED**, and by TheBridge's own pre-registered reading:
+*"K1 carries it -> the non-discrimination is a real puzzle rather than an artefact of how dK was
+built."*
+
+### A claim from earlier in this leg is now WITHDRAWN
+
+The notes above record, from ansatz's recipe commit and repeated by me:
+
+    K1  corrects  chain4 = -8L^2 + P_phi^2 + 56 chi^2 (H + P_t^2)   chi^2-TRUNCATED
+    dK  corrects  CARTER                                            exact in chi
+    "Different objects. K1's representability says nothing about dK's."
+
+**At O(chi^2) that is false for THIS deformation.** They differ by the scalar `-1/8`, so **as span
+columns they are identical** -- any statement about one is a statement about the other. The
+distinction is real only at orders beyond chi^2, which is exactly where the recipe cannot reach.
+
+**This does NOT contradict the drift control**, which found `Q + eps*K1` at 0.11x (worse) and
+`Q + eps*dK` at 623.7x. A drift test is sensitive to NORMALISATION -- it adds the object with
+coefficient exactly `eps`, so it was measuring that `-1/8` is the right coefficient and `+1` is not.
+A span test is scale-invariant. **The same two objects are distinguishable by the drift test and
+identical to the span test, and both results are correct.**
+
+**Consistency check running:** adding `K1` as the span column must reproduce the `dK` numbers
+exactly. If it does not, the pipeline has a bug.
