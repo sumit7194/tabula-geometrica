@@ -1,0 +1,6 @@
+   obj   corr(fit, Q)   heldout(fit)  heldout(Q itself)
+     A         1.0000     4.9073e-10         2.0054e-07
+     C         1.0000     2.0235e-11         4.6401e-10
+
+  heldout(Q itself) is Q scored by the SAME statistic as the fit -- the like-for-like
+  comparison against the analytic drift, with no power mixing and no basis question.

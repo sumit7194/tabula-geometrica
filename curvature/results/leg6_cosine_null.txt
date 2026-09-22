@@ -1,0 +1,14 @@
+  basis: 39 columns   d_eff = (sum L)^2/sum L^2 = 4.34
+  assumed baseline 1/sqrt(40) = 0.1581   isotropic-at-d_eff = 0.4802
+
+  EMPIRICAL NULL over 20000 random unit directions in the whitened space:
+    50th pct  0.0000
+    68th pct  0.0000
+    90th pct  0.0001
+    95th pct  0.0001
+    99th pct  0.0002
+    mean 0.0000   max 0.0009
+
+  A fitted |cos| = 0.0336  ->  100.0th percentile of the null   above typical
+
+  C fitted |cos| = 0.1691  ->  100.0th percentile of the null   above typical
