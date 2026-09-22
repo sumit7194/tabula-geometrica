@@ -1281,3 +1281,33 @@ party did anything wrong.
 `8.2238e-15` while computing them at seed 0 with the `min(4,.)` readout, the collapse verdict would
 have flipped on a 136x factor measuring nothing but configuration drift. **One careless division from
 a headline determined by inconsistency.**
+
+### A+dK's OWN floor is 4.14x lower, and it takes most of the headroom
+
+    A-alone floor  (borrowed)   8.2238e-15
+    A+dK   floor   (its own)    1.9853e-15     4.14x LOWER -- "more basis fits better", measured
+
+Recomputing the collapse prediction against the correct denominator:
+
+    residual fraction f         0.001603      (f^2 = 2.5688e-06)
+    predicted A+dK margin       1.2606e-15
+      vs borrowed floor         ratio 0.153x   headroom 6.52x     <- what I claimed all night
+      vs ITS OWN floor          ratio 0.635x   headroom 1.57x     <- correct
+
+    f needed to stay ABOVE its own floor   0.2011%
+    predicted f                            0.1603%
+    ROOM IN f: factor 1.25                 (I stated 2.55x)
+
+**The prediction still says COLLAPSE -- the margin is below the floor -- but it is MARGINAL, not
+comfortable.** `f` would need to be only **25% larger** for there to be no collapse, against the
+2.55x of room I reported. TheBridge's warning was exact: *"the verdict still holds, but it holds for
+a reason nobody checked."* It holds, and the reason has now been checked, and it nearly did not hold.
+
+**The gate fires on this exact comparison**, which is the first time tonight an instrument rather
+than a person caught one:
+
+    Mismatch: cannot compare 'A-alone margin(eps=.05)' with 'A+dK floor':
+    declared axis ['eps'], but configurations differ on ['basis'] -> basis: 'base' vs 'base+dK'
+
+**Standing correction to every headroom figure I reported tonight:** 6.5x and 2.55x were computed
+against a floor belonging to a different basis. The correct figures are **1.57x and 1.25x**.
