@@ -961,6 +961,16 @@ results in `curvature/notes/lab_notebook.md`.
   honest partials). Op-note (robust VM pattern, last night's idle-cost lesson fixed):
   4h watchdog self-stop works (gcloud active on the VM's service account); setsid-
   detached jobs survive Mac power-loss.
+- **SCOPE QUALIFICATION on 157 and 158 (added 2026-09-22, from TheBridge's A4 independence audit).**
+  Both are **NON-BLIND INDEPENDENT REPLICATIONS**, a category neither repo had a box for until this audit:
+  my own implementation and my own code, but **the sister's target is stated in the docstring before the
+  measurement**, and the match was then counted as corroboration. 157's G0 "replicates their toy" (≤0.66%)
+  and 158's S0 "replicates bridge leg-U by FDTD" (0.245% vs their 0.25%) are therefore **measurements whose
+  stopping rule knew the answer** — not code echoes (the implementations are independent), and not clean.
+  The physics gates of both scripts are unaffected; what is qualified is the *corroboration* value of the
+  two replication rows specifically. Quantum generalised the category from the other side: framings and
+  conventions contaminate exactly as numbers do and trip no numeric test, so methodological edges are now
+  scored separately with **no requirement that a number crossed**.
 - **KK MASS DISCOVERY for the quantum sister project (script 157, 2026-07-03), all gates:** the discovery version of
   their cylinder KK toy. Independent FDTD (exact 1D θ-reduction); net never sees θ; encoder at k_obs → decoder queried at
   different k_q (only MASS transfers). G0 replicates their toy (rest freqs 1.007/2.003/2.999, ≤0.66%); K1 K=1 bottleneck
