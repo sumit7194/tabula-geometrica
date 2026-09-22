@@ -1141,3 +1141,29 @@ The margin is a variance ratio, so amplitude enters squared: adding `dK` should 
                 A alone ->  reproduces 1.947 (else the harness changed)
 
 Committed before the span test is run.
+
+### Three refinements to the span-test reading, recorded BEFORE the result (TheBridge)
+
+**(1) The headroom is 2.5x, not orders, and must be stated that way.** The arithmetic checks --
+`f = a*chi + b = 0.001603`, `f^2 = 2.57e-6`, `4.9073e-10 * 2.57e-6 = 1.26e-15` against the `8.2238e-15`
+floor, so it collapses by 6.5x. **But staying ABOVE the floor needs only `f > 0.41%` against the
+predicted `0.16%` -- a factor of 2.55 in the residual fraction.** If `dK` were 99.6% correct instead
+of 99.84%, there is no collapse. The chi-sweep constrains `f` well, but "below the floor" is being
+asserted with 2.5x of room and is not a comfortable margin.
+
+**(2) REPORT EMIT / NO-EMIT PER eps, NOT ONLY THE EXPONENT -- this is my own censoring guard, missed
+on my own test.** If `A + dK` pins at the floor, **its exponent is CENSORED, and a censored exponent
+is not a measurement.** That is §177's W3 and silent_nulls 19, written in this repo, by me, and not
+applied here until a peer pointed at it. The clean statement is stronger anyway:
+
+> **"the screen now EMITS at every eps" -- it finds a conserved quantity where before it found none.**
+
+**Emit/no-emit is a binary the floor cannot corrupt**, and it does not require anyone to distinguish
+"exponent 0 because pinned" from "exponent 0 because the response vanished". The span test's headline
+therefore becomes the emit verdict per eps; the exponent is reported but is not load-bearing.
+
+**(3) READ B's EXPONENT, NOT B's MARGIN.** Adding `dK` adds a basis function, and **more basis always
+fits somewhat better**, so B's margin may improve even though `dK` completes nothing for B. If B's
+margin improves while its exponent holds at ~2, **that is still the clean negative.** Only B's
+EXPONENT collapsing means the column is absorbing deformation amplitude generically and the test is
+void. Easy to mis-call on the margin alone, which is exactly the job B exists for.
