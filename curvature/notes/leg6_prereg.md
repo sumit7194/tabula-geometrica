@@ -674,3 +674,53 @@ property of the fit, measured on whatever the fit was doing.
 
 **The better-specified open question: is A's EXACT rank-2 Killing tensor in `d2_rat`'s span on the sampled
 domain?** One object, one fit, and it is ansatz's to produce. (Correction due to TheBridge, after the close.)
+
+---
+
+# THE PRE-REGISTERED OUTCOME (iii) LANDED — and it is the leg's real conclusion (2026-09-22)
+
+The slow five-point ε-scan finished after the cheap targeted runs had already reshaped the question. It is the
+one measurement made before any of tonight's corrections, and it returns the outcome the amendment named as
+*"a real possible outcome and the one I would most want to know about."*
+
+    A  exponent 1.999   R2 1.0000   0 censored     A KEEPS Carter exactly
+    B  exponent 1.999   R2 1.0000   0 censored     B DESTROYS it
+    C  exponent 2.001   R2 1.0000   0 censored     C keeps it RATIONALLY
+
+    B/A across eps: 1.00  1.00  1.00  1.00  1.00
+
+**Three objects with three different integrability structures give the SAME exponent to three decimals, and
+A and B agree in magnitude to four significant figures across two decades of ε.**
+
+> **THE MARGIN IS NOT MEASURING INTEGRABILITY.**
+
+The mechanism is generic and requires nothing about Killing tensors: a best-fit conserved direction with an
+O(ε) residual yields a **variance** ~ ε² for *any* O(ε) deformation. **That is the response to being deformed
+at all** — identical whether the invariant survives, dies, or turns rational.
+
+## Why this explains the whole leg
+
+Everything that looked puzzling follows:
+
+- **A and B were indistinguishable at ε = 0.05** (4.474e-07 vs 4.527e-07, 1.2% apart) — not because the
+  deformations are tiny, but because **the statistic does not respond to the property that separates them.**
+- **The 8,600× gap to the basis-permitted floor** is not a span deficit and not conditioning: the margin is
+  floored by the generic ε-response, which no basis and no solver can remove.
+- **The `d ~ κ^0.03` insensitivity** is what a statistic dominated by a term independent of the fit's quality
+  should show.
+- **The `(iii)` reading was pre-registered as "the margin is measuring something COMMON to both metrics that
+  neither party has named."** It is now named: **the deformation itself.**
+
+## What this costs and what it does not
+
+**The CERTIFY verdicts stand.** No object emitted, and none should have — the screen correctly reported that
+it found no conserved quantity at its tolerance.
+
+**What falls is the diagnostic reading of the margin's MAGNITUDE.** A margin of 4.5e-07 versus 7.7e-08 was
+being read as a statement about how nearly an invariant was found. On this evidence it is closer to a
+statement about deformation amplitude. **§161's ladder-shape diagnostic (flat vs descending across degree) is
+untouched** — that compares a single object against itself across basis size, and never across objects.
+
+**The open question is unchanged and now has a mechanism rather than a mystery:** the residual is the generic
+ε-response, and the question of whether A's *exact* Killing tensor is representable remains open and
+unaffected, because it was never what the margin was reporting on.

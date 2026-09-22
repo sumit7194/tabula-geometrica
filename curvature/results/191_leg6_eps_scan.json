@@ -1,0 +1,84 @@
+{
+  "prereg": "notes/leg6_prereg.md AMENDMENT (frozen before this ran)",
+  "blind": false,
+  "eps_grid": [
+    0.05,
+    0.0158,
+    0.005,
+    0.00158,
+    0.0005
+  ],
+  "floor": 1e-16,
+  "predicted": {
+    "A": 4,
+    "B": 2,
+    "note": "margin is a variance -> amplitude squared"
+  },
+  "objects": {
+    "A": {
+      "eps": [
+        0.05,
+        0.0158,
+        0.005,
+        0.00158,
+        0.0005
+      ],
+      "min_heldout": [
+        6.024356227563627e-07,
+        6.042556179075553e-08,
+        6.055949624270406e-09,
+        6.056132328993481e-10,
+        6.064715096453296e-11
+      ],
+      "n_censored_at_floor": 0,
+      "fitted_exponent": 1.9986450593905087,
+      "fit_R2": 0.9999998871651372
+    },
+    "B": {
+      "eps": [
+        0.05,
+        0.0158,
+        0.005,
+        0.00158,
+        0.0005
+      ],
+      "min_heldout": [
+        6.021179001107795e-07,
+        6.040129871065814e-08,
+        6.053399781869342e-09,
+        6.051855117292485e-10,
+        6.063662153896353e-11
+      ],
+      "n_censored_at_floor": 0,
+      "fitted_exponent": 1.998610074578602,
+      "fit_R2": 0.9999998931369022
+    },
+    "C": {
+      "eps": [
+        0.05,
+        0.0158,
+        0.005,
+        0.00158,
+        0.0005
+      ],
+      "min_heldout": [
+        8.764308166829175e-08,
+        8.736272356161367e-09,
+        8.738160174022575e-10,
+        8.720156999337225e-11,
+        8.725712434878806e-12
+      ],
+      "n_censored_at_floor": 0,
+      "fitted_exponent": 2.000927083739311,
+      "fit_R2": 0.999999990276837
+    }
+  },
+  "B_over_A": [
+    0.9994726031569489,
+    0.9995984633095938,
+    0.9995789525079858,
+    0.9992937387314805,
+    0.9998263821894027
+  ],
+  "verdict": "(iii) SAME EXPONENT (A 2.00, B 2.00): B/A stays flat across eps, so the margin is dominated by something COMMON to both metrics that neither party has named. This was pre-registered as a real outcome and is the informative one."
+}
