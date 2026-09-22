@@ -767,3 +767,39 @@ single measurement of the night.
 *statement* for an object with something to find. **§161's ladder survives because it compares one object
 against itself across basis size. The exponent survives too, but only where an exact invariant is known to
 exist independently** — which is precisely where the symbolic side has to supply the premise.
+
+## Premise rows for the dK test (2026-09-22, both PASS)
+
+Before asking a peer for `dK`, TheBridge's three-way go/no-go, adopted as stated. Two rows, because
+their catch was that my first script was **one column short** -- it had the floor and one margin,
+enough to see headroom and not enough to measure an exponent at all. Filed as silent_nulls 45a.
+
+**Row 1 -- does A still emit at eps=0 at the lower chi?** (chi=0.075 chosen because the `dK` recipe
+is stated only to O(chi^2), so at chi=0.6 the truncation is large.)
+
+| chi | eps | A margin (d2_rat) | emits? |
+|---|---|---|---|
+| 0.6 | 0 | 2.8517e-17 | YES |
+| 0.6 | 0.05 | 5.5651e-08 | no |
+| 0.075 | 0 | 8.2238e-15 | YES |
+| 0.075 | 0.05 | 4.9073e-10 | no |
+
+PASS, with the honest number stated: the floor at chi=0.075 is **8.22e-15, ~300x worse than at
+chi=0.6**. Separation from the eps=0.05 margin is 60,000x -- ample, and smaller than the 2e9 at
+chi=0.6. `K_0` is in the span at both.
+
+**Row 2 -- is there a 2 to collapse?**
+
+| eps | A margin |
+|---|---|
+| 0.05 | 4.9073e-10 |
+| 0.0158 | 5.1566e-11 |
+| 0.005 | 5.5446e-12 |
+
+fitted exponent **1.947** (pairwise 1.956, 1.938) against the 1.999 reference at chi=0.6. PASS.
+
+**Both pass -> ask ansatz for `dK`.** Pre-registered prediction, on the record before the object
+exists: adding `dK` to the basis must collapse **A's** exponent toward 0 while leaving **B's** at ~2.
+If A's exponent does *not* move, `dK` is not what is missing and the span exclusion stands as measured.
+If **both** collapse, the added column is absorbing deformation amplitude generically and the test is
+void -- that is the outcome the B control exists to catch.

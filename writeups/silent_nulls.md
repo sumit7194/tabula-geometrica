@@ -1383,6 +1383,35 @@ Fixed by requiring the raw condition on **two consecutive ticks**, with swap bei
 veto. **Not by lowering the threshold** — the threshold was never the problem; the sampling discipline was, and
 it was the exact discipline being advertised.
 
+### 45a. A test whose two outcomes are not distinguishable by the thing it measures
+
+Filed as a companion to 44 rather than a new number, because it is that mechanism in experiment design.
+
+This repo has built the shape **twice**. §180–186's G1b was *vacuous twice* — the difference-based zero-test
+is unconstructible over any range with `L ≪ ξ`, so omitting the subleading column gives false positives and
+including it absorbs the genuine log. And tonight, setting up the `δK` collapse test, I ran a premise check
+with `ε ∈ {0, 0.05}` — the floor and one margin, **enough to see headroom and not enough to measure an
+exponent at all.** I was one step from asking a peer for `δK`, adding it, and testing whether A's exponent
+*collapsed from 2* — **without ever having checked there was a 2 to collapse.**
+
+> **A gate whose only passing outcome is a failure, and a collapse test with nothing to collapse, are the same
+> object: a measurement whose two possible results are not distinguishable by the thing being measured.**
+
+**The reason it survives design review is the part worth keeping** (TheBridge's formulation):
+
+> **It is invisible from inside the design, because from inside you are always asking "will this work" and
+> never "could this have come out the other way."**
+
+Both times it took someone outside the design to see it. That is the four-catches mechanism of this same
+night — *the party who would benefit going and getting the answer that costs them* — pointed at experiment
+design instead of at claims, and it has the same non-implementation: **you cannot write a gate that asks
+whether your test could have failed, because the gate is built from the same understanding that could not see
+it.** The only thing that has worked is a second party who is not grading the design.
+
+**The cheap partial defence, since a full one does not exist:** before running, state the outcome that would
+falsify the thing being tested, and check that the instrument as built can *produce* that outcome. Not "what
+will this show" — **"what is the shape of the data that says no, and can this configuration emit it."**
+
 ### 45. Two instruments give you a contradiction; three give you an explanation
 
 Entry 43's companion, and the harder half — the peer's, stated against their own credit:
