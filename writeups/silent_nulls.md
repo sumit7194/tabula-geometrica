@@ -1383,6 +1383,43 @@ Fixed by requiring the raw condition on **two consecutive ticks**, with swap bei
 veto. **Not by lowering the threshold** — the threshold was never the problem; the sampling discipline was, and
 it was the exact discipline being advertised.
 
+### 64. Measure the null; do not reason about it
+
+Asked whether a fitted direction was meaningfully aligned with a known invariant, I computed
+`|cos| = 0.0336` and compared it to `1/√40 = 0.158` — the random-cosine baseline for an isotropic
+40-dimensional space — and concluded the alignment was *below random*.
+
+A peer caught that the basis is not isotropic (κ ~ 2.3e14), so the effective dimension
+`d_eff = (Σλ)²/Σλ²` is far below 40 and the baseline should be **larger**. Measured: `d_eff = 4.34`,
+giving 0.48. **That correction was right in principle, pointed the same way as my error, and pushed
+harder** — at 0.48 both values sit even further below random.
+
+Then I drew from the null instead: 20,000 random unit vectors in the same whitened space.
+
+    median 0.0000    90th 0.0001    99th 0.0002    MAXIMUM 0.0009
+
+**`0.0336` is at the 100th percentile. Both values are far ABOVE random, not below.** Two people
+reasoned about a distribution, both got the *sign* of the answer wrong, and the correction made it
+worse.
+
+> **The mechanism is one no dimensional argument produces:** the fitted direction lives in whitened
+> space and is converted to raw coefficients by dividing by `sd`, so a *random* direction is
+> dominated by the tiny-`sd` features and lands nearly orthogonal to the target by construction. The
+> null is not "isotropic in some effective dimension" — it is shaped by the transform between the two
+> spaces, and nothing about dimension counting sees that.
+
+**Drawing from it took thirty seconds.** Every ingredient was already in memory: the covariance, the
+scaling vector, the target. There was no reason to reason.
+
+**And the sequel mattered:** once the cosine was known to be a strong signal rather than a weak one,
+the direct check (`corr(fit, Q) = 1.0000`) showed the fitted direction *is* the invariant, and the
+like-for-like statistic then reproduced an independent analytic measurement to a factor of 2.2. **The
+whole chain was unlocked by replacing one assumed baseline with a sampled one.**
+
+> **A null distribution is a thing you can sample whenever you can generate the objects it is over.
+> Analytic baselines are for when you cannot — and the moment you are correcting someone else's
+> analytic baseline is the moment to notice you are both still guessing.**
+
 ### 63. I compared an amplitude to a variance twice in one night — the second time while celebrating an agreement
 
 Two instruments sharing no machinery pointed the same way at the same effect, and I reported the
