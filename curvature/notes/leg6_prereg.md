@@ -1056,3 +1056,41 @@ that the exponent is not the discriminator, rather than an argument for it.
 staleness; their `r in [5.1, 9.1]` exists for bound orbits. **Neither was put there to prevent the
 fault it prevented.** A near-miss that depends on an unchosen property is not a control, and writing
 it up as one converts luck into false confidence exactly where the next instance will land.
+
+### WITHDRAWN: "the 7% shortfall is in the direction a positive A3 would put it"
+
+I wrote that the bare-Q ratio (59.5 vs the pure-chi^2 prediction of 64) was "in the direction a
+positive A3 admixture would put it", and told a peer the assumption was now "measured rather than
+assumed". **It is wrong, and in the opposite direction.** Verified here rather than taken:
+
+    ratio(A3/A2 = r) = 64*(1 + 0.6r)/(1 + 0.075r)
+
+      r = -0.1326   ratio 59.50   <- what the measurement actually implies
+      r =  0.0      ratio 64.00
+      r = +0.02126  ratio 64.71   <- what the improvement anchor implies
+
+A positive A3 contributes relatively more at the LARGER chi and so **raises** the ratio above 64.
+I measured **below**. The improvement route gives `A3/A2 = +0.02126`, predicting 64.71; the bare-Q
+ratio needs `-0.133`. **The two routes disagree in SIGN and by ~6x in magnitude.**
+
+**What survives:** bare Q IS A2-dominated -- a 7% deviation from pure chi^2 is what a subleading term
+of *either* sign looks like, and that is the assumption the 1/chi argument rests on. The row checks
+the thing I wanted checked.
+
+**What does not:** the attribution of the 7% to a positive A3, and the phrase "measured rather than
+assumed", which claimed more than the row supports.
+
+**Likely cause (TheBridge), and it is why neither route measures A3 cleanly:** at chi=0.6,
+`chi^4 = 0.1296` is not small, so a two-term model is inadequate and the 7% is not attributable to A3
+at all. Same shape as the chain4 floor reading 3.13 that became 3.032 once a subleading term was
+included -- **a two-point fit across a wide chi range returns a blend, not a coefficient.**
+
+**The `a*chi + b` split is unaffected**: it does not require knowing A3, it FITS it. Whether the
+truncation coefficient is +0.021 or -0.13 or a blend with A4 changes the value of `a` recovered, not
+the validity of recovering it. Run as planned; the A3 sign claim does not go into the write-up.
+
+**This is silent_nulls 53, first-hand, about an hour after cataloguing it.** I had a vague-but-correct
+statement (bare Q is A2-dominated, 59.5-vs-64 confirms the model) and SHARPENED it into a
+precise-but-false one (the shortfall has a specific sign and it is positive). The sharpened version
+inherited the credibility of the correct one, and I shipped it to a peer as a strengthening. **The
+sharpening felt like the rigorous move -- which is exactly what 53 says it feels like.**
