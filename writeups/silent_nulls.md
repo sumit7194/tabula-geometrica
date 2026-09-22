@@ -1383,6 +1383,55 @@ Fixed by requiring the raw condition on **two consecutive ticks**, with swap bei
 veto. **Not by lowering the threshold** — the threshold was never the problem; the sampling discipline was, and
 it was the exact discipline being advertised.
 
+### 61. One ULP became 2.8×, and every verdict built on that denominator was never resolvable
+
+A peer proposed a free consistency check: at `ε = 0` the deformation vanishes, so metrics A and B are
+the same metric, and their `ε=0` floors are one computation run twice. I verified the premise
+symbolically — `A(ε=0) == B(ε=0)`, exactly — and ran it expecting a formality.
+
+    A-alone  8.2238e-15     B-alone  2.9502e-15     ratio 2.79   DISAGREE
+    A+δK     1.9853e-15     B+δK     5.1712e-15     ratio 2.60   DISAGREE
+
+**Cause measured rather than inferred.** `_A()` and `_B()` are different expression trees that are
+mathematically equal at `ε=0`, so `lambdify` rounds one component differently:
+
+    launch inputs, H, ith, dHdr, dHdth   bitwise identical
+    irr                                  rel 2.86e-16    <- ONE ULP
+    trajectories                         max|diff| 1.04e-17
+    the floor                            2.8x
+
+**A single ulp, amplified through 3000 RK4 steps and a generalized eigenproblem, moves the derived
+quantity by a factor of nearly three.**
+
+**The floor was never a property of `(metric, basis)`. It is a property of rounding.** And the
+headline verdict the whole evening was built toward — does A's margin sit below the floor — had
+**1.57× of headroom against a denominator carrying 2.8× of scatter.** Not wrong: *unresolvable*, and
+unresolvable from the moment it was formulated. Every headroom figure produced that night (6.52×,
+the corrected 1.57×, and the `f`-room figures 2.55× and 1.25×) was quoted to three significant
+figures against a quantity that cannot support one.
+
+> **A number that has never been measured twice has no known precision, and every verdict downstream
+> of it silently inherits the precision you assumed it had.**
+
+**The collateral damage is the more instructive part.** The peer had inferred, from a 4.14× drop in
+the floor when one column was added, that the added column was capturing real structure — *"one extra
+column in a ~39-column fit reduces residual variance by a fraction of a percent, not 4.1×."* Sound
+reasoning. But 4.14× sits **1.5× above a 2.7× noise level nobody had measured yet**, so it is not a
+signal and the inference is withdrawn — on the noise, not on the logic. I had supplied that 4.14×,
+and the floor, and `f`, and **attached an uncertainty to none of them.** A recipient cannot discount a
+number by an error bar it was never given.
+
+**What survived is the quantity with no denominator.** In the same run, the unaugmented arm
+reproduced its banked reference to all four digits — `4.9073e-10 / 5.1566e-11 / 5.5446e-12`, exponent
+**1.947**. Exponents are within-arm *shape* comparisons: no cross-arm normalisation, no absolute
+threshold, no floor. They reproduce exactly where floors scatter by 2.8×. Stated by the peer before
+any of these rows existed: *everything that had gone wrong in three hours had gone wrong in a
+denominator.*
+
+**And the check was proposed as a cheap confirmation of an obvious premise.** It fired, and it
+invalidated the readout it was checking. That is the most expensive outcome available and the entire
+reason to spend four rows on something you expect to be a formality.
+
 ### 60. Five borrowed denominators in one evening, and the first thing that actually caught one
 
 The same error, five times, on five axes, every instance invisible in a table that shows only ratios:
