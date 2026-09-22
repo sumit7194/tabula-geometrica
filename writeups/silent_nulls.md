@@ -1383,6 +1383,44 @@ Fixed by requiring the raw condition on **two consecutive ticks**, with swap bei
 veto. **Not by lowering the threshold** — the threshold was never the problem; the sampling discipline was, and
 it was the exact discipline being advertised.
 
+### 65. A number flush against a boundary is usually two configurations, not a coincidence
+
+Three times in one day a suspiciously clean number turned out to be an artefact of combining
+quantities that did not share a configuration — and each time the artefact read as **more
+conclusive** than the truth it displaced:
+
+| the clean number | what it displaced |
+|---|---|
+| a dissolution at **13.5** against a measured **13.9** (3% agreement) | the quantity is **3.6× in the opposite direction** when measured in the right space |
+| a **2.8×** two-instrument "agreement" | wrong power *and* wrong object; the real like-for-like is 193 vs 432 |
+| an augmented fit landing **1.1×** above the floor, "every step accounted for" | an ε=0.05 baseline divided by an ε=0.20 ratio; the true value is **7.2×** |
+
+> **The operational rule is sharper than "check the arithmetic": when a number lands flush against a
+> boundary, or agrees to a few percent across a large change, that is the moment to re-derive it.
+> Flush-against-a-boundary is what mixing two configurations produces, and what a real measurement
+> rarely does.** (TheBridge's formulation.)
+
+`1.1×` reads as *lands exactly on the floor* and stops further checking. The correct `7.2×` reads as
+*comfortably above the floor* and invites the next question. **The false version was the one that
+closed the inquiry.**
+
+**And the fourth instance is the subtlest, because it survives arithmetic entirely.** A rebuilt
+ladder offered "the corrector gain is ε-stable: 409× at ε=0.05 against 404× at ε=0.20" as an
+independent consistency check. But the ε=0.20 numerator was *inferred* as 16× the ε=0.05 one rather
+than measured, which makes
+
+    gain(0.20)/gain(0.05)  ≡  16 · f(0.05)/f(0.20)
+
+— algebraically identical to *"the unaugmented arm scales as ε²"*, already measured at exponent
+2.008. **The 1% agreement across a 4× change in ε cannot fail unless something already known to be
+true is false.** A restatement wearing the clothes of a cross-check, and the tell was the same one:
+it agreed too well.
+
+**Symmetry worth recording:** this species appeared six times across two independent workers on
+opposite halves of the same problem. That is not carelessness in either direction — **it is what
+ratio-heavy work does by default**, which is why the response was a gate
+(`curvature/scripts/comparable.py`) rather than a resolution to be careful.
+
 ### 64. Measure the null; do not reason about it
 
 Asked whether a fitted direction was meaningfully aligned with a known invariant, I computed
