@@ -16,6 +16,22 @@ a stale allowlist is a scope statement with the same defect as the sentence it r
 
 This is a CENSUS, not a prohibition. Cross-repo reads are legitimate here; what is illegitimate is a
 repo-level claim about them that nothing re-checks.
+
+KNOWN BLIND SPOT, stated because a census that claims completeness it does not have is worse than
+one that bounds itself. This matches ABSOLUTE paths. A script that does
+
+    os.chdir("/Users/sumit/Github/conjecture_machine")   <- caught
+    open("data/triple/K1_A.txt")                         <- INVISIBLE, relative after the chdir
+
+has a data dependency this gate cannot see. Both currently-declared files do exactly that, so the
+census reports their IMPORT edge and misses their DATA edge. The chdir is always caught, so the FILE
+is never missed -- what is under-reported is the KIND and count of edges within an already-flagged
+file. A file that read sibling data with no import and no absolute path would be missed entirely.
+
+Classification (TheBridge's VENV/IMPORT split, adopted): running under a sibling's interpreter is a
+dependency on their ENVIRONMENT, not their code, and VENV references are reported but do NOT count
+as edges. A census that cannot tell an interpreter from an import produces a big number and no
+finding -- the first job of an edge census is to be believed.
 """
 from __future__ import annotations
 import re, sys
@@ -40,6 +56,12 @@ def scan() -> dict[str, list[str]]:
     for p in ROOT.rglob("*.py"):
         if any(d in p.parts for d in SKIP_DIRS):
             continue
+        # The census does not scan ITSELF: its docstring documents the pattern it matches, so
+        # writing down what it looks for made it flag itself as an edge. Excluded by resolved FILE
+        # IDENTITY, never by a name pattern -- `grep -v grep` deletes any neighbour that happens to
+        # be a grep (silent_nulls 49), whereas one exact path removes exactly one file.
+        if p.resolve() == Path(__file__).resolve():
+            continue
         try:
             text = p.read_text(errors="ignore")
         except OSError:
@@ -48,7 +70,26 @@ def scan() -> dict[str, list[str]]:
         # "ansatz/TheBridge's rule 33, adopted" in a comment and reported a code edge that does not
         # exist. A gate that cries wolf gets switched off (silent_nulls 55), so it anchors on the
         # repo root that a real cross-repo reference here always carries.
-        hits = [s for s in SIBLINGS if re.search(rf"/Users/sumit/Github/{re.escape(s.split('/')[-1])}\b", text)]
+        hits = []
+        for sib in SIBLINGS:
+            pat = rf"/Users/sumit/Github/{re.escape(sib)}\b"
+            for line in text.splitlines():
+                if not re.search(pat, line):
+                    continue
+                # CLASSIFY. Running under a sibling's interpreter is a dependency on their
+                # ENVIRONMENT, not on their code. Folding the two together reports coupling that
+                # is not there, and a census that cannot tell an interpreter from an import
+                # produces a big number and no finding. (TheBridge's VENV/IMPORT split, adopted:
+                # their run had 94 of 151 path references as .venv shebangs.)
+                if re.search(r"\.venv|bin/python", line):
+                    kind = "VENV"
+                elif re.search(r"sys\.path|import\b|chdir", line):
+                    kind = "IMPORT"
+                elif re.search(r"open\(|read_text|load|\.txt|\.json|\.npz|\.csv", line):
+                    kind = "DATA"
+                else:
+                    kind = "REF"
+                hits.append(f"{kind}:{sib}")
         if hits:
             found[str(p.relative_to(ROOT))] = sorted(set(hits))
     return found
@@ -68,8 +109,9 @@ def main() -> int:
         return 0 if (ok and ok2) else 1
 
     found = scan()
-    undeclared = sorted(set(found) - set(DECLARED))
-    vanished = sorted(set(DECLARED) - set(found))
+    code_edges = {k: v for k, v in found.items() if any(not h.startswith("VENV:") for h in v)}
+    undeclared = sorted(set(code_edges) - set(DECLARED))
+    vanished = sorted(set(DECLARED) - set(code_edges))
     for path in sorted(found):
         mark = "declared" if path in DECLARED else "UNDECLARED"
         print(f"  {mark:<10} {path}  -> {', '.join(found[path])}")
@@ -85,7 +127,9 @@ def main() -> int:
         for b in bad:
             print("   - " + b)
         return 1
-    print(f"PASS  cross-repo dependency census ({len(found)} declared edge(s))")
+    venv_only = len(found) - len(code_edges)
+    print(f"PASS  cross-repo dependency census ({len(code_edges)} declared code edge(s)"
+          + (f", {venv_only} environment-only, not edges" if venv_only else "") + ")")
     return 0
 
 
