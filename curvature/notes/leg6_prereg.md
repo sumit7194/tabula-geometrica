@@ -1528,3 +1528,55 @@ so the void condition is still met; and **no floors were measured at chi=0.0375*
 either arm is unpinned there. The gap is recorded as an observation that the data does not license a
 verdict on, not as a partial rescue. Measuring floors at chi=0.0375 would settle whether it is real,
 and is the obvious next step if this is ever resumed.
+
+## VOID WITHDRAWN AS STATED: the eps grid was CENSORED for both augmented arms
+
+TheBridge checked "neither augmented arm is pinned" at ONE eps and I generalised it to three. **It is
+wrong.** Projecting each augmented arm down the eps^2 line from its measured 0.05 point, against its
+OWN floor:
+
+       eps       A proj   /floorA        A obs |       B proj   /floorB        B obs
+      0.05   1.4286e-14     7.20    1.4286e-14 |   3.1139e-14     6.02    3.1139e-14
+    0.0158   1.4265e-15     0.72*   1.8291e-15 |   3.1094e-15     0.60*   1.0607e-14
+     0.005   1.4286e-16     0.07*   4.5618e-14 |   3.1139e-16     0.06*   3.7540e-14
+
+`*` = projected BELOW its own floor. **Both augmented arms clear their floors only at the LARGEST
+eps. The three-point exponent fit is one signal point and two floor readings.** The observed
+eps=0.005 value (4.56e-14) sits **320x above** where eps^2 scaling puts it (1.43e-16) -- pure floor
+scatter.
+
+**And the negative exponent was the tell I failed to read.** `-0.504` says the margin GROWS as the
+deformation shrinks. That is not physics; it is floor scatter fitted as a slope. I quoted it as
+"~0, collapsed" when its sign should have stopped me.
+
+### So the verdict is right and the STATED REASON IS WITHDRAWN
+
+    WITHDRAWN   "both collapsed, so the column absorbs deformation amplitude generically"
+                -- may be true; THIS RUN CANNOT SHOW IT.
+    STANDS      the discriminator never ran. Both arms are censored at two of three points,
+                for the same reason, by construction of the eps RANGE.
+
+**A test that returns the same answer for treatment and control because both sit below the
+instrument's floor has not compared them.** The failure is the GRID, not the objects.
+
+**It also resolves the chi=0.0375 nuance, and more sharply than my "cannot show it is readable":**
+at smaller chi the floors are lower, so MORE of the eps grid clears them -- which is exactly why
+A+dK reads 0.287 there instead of -0.504, and B+dK 1.202 instead of -0.081. **The gap appears at the
+chi where less of the grid is censored.** That is not evidence for the claim; it is evidence that
+censoring drove the chi=0.075 numbers.
+
+### The fix is the same lesson for the THIRD time today: push the EXACT parameter
+
+       eps         A+dK  /floorA             B+dK  /floorB
+       0.050   1.4286e-14      7.2        3.1139e-14      6.0
+       0.100   5.7144e-14     28.8        1.2456e-13     24.1
+       0.200   2.2858e-13    115.1        4.9822e-13     96.3
+
+`eps in {0.05, 0.1, 0.2}` puts every arm 6x-115x above its own floor at every point. **eps is EXACT
+in these metrics -- raising it costs no truncation, unlike chi.** Same asymmetry that made the
+eps-upward sweep right earlier: exact in eps, truncated in chi, so eps is the one to push. Three
+times today the answer has been *"you are sweeping the wrong parameter in the wrong direction."*
+
+**The sham inherits the defect** -- on the old grid A+SHAM and B+SHAM would both read ~0 and that
+would look like "sham collapses both, so the collapse is generic" when it is "everything collapses
+on this grid." Sham killed and relaunched on the uncensored grid, with its own eps=0 floors.
