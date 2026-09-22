@@ -721,6 +721,49 @@ being read as a statement about how nearly an invariant was found. On this evide
 statement about deformation amplitude. **§161's ladder-shape diagnostic (flat vs descending across degree) is
 untouched** — that compares a single object against itself across basis size, and never across objects.
 
-**The open question is unchanged and now has a mechanism rather than a mystery:** the residual is the generic
-ε-response, and the question of whether A's *exact* Killing tensor is representable remains open and
-unaffected, because it was never what the margin was reporting on.
+## THE OPEN QUESTION IS ANSWERED — by the same scan, and A's exponent is NOT generic
+
+**A's exponent-2 carries information and B's does not**, and the difference is whether an exact invariant
+existed to be missed. Argument due to TheBridge; the premise is in this repo's own measurements.
+
+    A at eps=0     margin 7.8543e-18    EMITS -- so K_0 (Carter on Kerr) IS in the span, and found
+    A at eps=0.05  margin 6.0244e-07    eleven orders higher
+    A exponent     1.999 over two decades, R2 1.0000
+
+A's invariant **survives exactly at every ε**: `K_A(ε) = K₀ + ε·δK + O(ε²)`. **The screen's basis is
+ε-independent** — coordinate functions times momentum monomials — so if `K_A(ε)` were in the span the fit
+would find it at every ε and **the margin would stay at the ε=0 floor (~1e-17): exponent 0.**
+
+It does not. It rises as ε² over two decades.
+
+> **So `K_A(ε)` is not in the span. `K₀` is — it emits at ε = 0. Therefore `δK` is NOT**, and the only
+> alternative (the fit can reach it but fails to) is conditioning, excluded at `d ~ κ^0.03`.
+
+**A's exact first-order Killing tensor correction is outside `d2_rat`'s span on the sampled domain.** That is
+the open question, answered by the scan that had been running since before anyone knew what to ask it.
+
+**B is the control that makes it an argument rather than an assertion.** B has no exact invariant, so nothing
+exists for the basis to miss and its exponent-2 is purely the generic ε-response. **Same number, opposite
+information content, and the difference is supplied by ansatz's algebra rather than by any measurement.**
+
+**AND IT DOES NOT CONFLICT WITH `K₁` BEING REPRESENTABLE, because `δK` is not `K₁`:**
+
+    K1  corrects  chain4 = -8L^2 + P_phi^2 + 56 chi^2 (H + P_t^2)     chi^2-TRUNCATED
+    dK  corrects  CARTER                                              exact in chi
+
+Different objects. **`K₁`'s representability to 1.4e-06 says nothing about `δK`'s** — the fifth-instance error
+in its final form, and the reason the gap was real.
+
+**Falsifiable consequence for whoever picks this up:** add `δK` to the library and **A's exponent must collapse
+from 2 toward 0 while B's must not move.** Two objects, opposite predicted signs, one run. Needs `δK` from
+ansatz.
+
+## What the leg establishes, stated so it is not over-read either way
+
+**The margin's MAGNITUDE does not discriminate integrability** — `B/A = 1.00` across two decades, the cleanest
+single measurement of the night.
+
+**The margin's EXPONENT is not uniformly uninformative**: generic for an object with nothing to find, a
+*statement* for an object with something to find. **§161's ladder survives because it compares one object
+against itself across basis size. The exponent survives too, but only where an exact invariant is known to
+exist independently** — which is precisely where the symbolic side has to supply the premise.
