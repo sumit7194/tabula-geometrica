@@ -1383,6 +1383,39 @@ Fixed by requiring the raw condition on **two consecutive ticks**, with swap bei
 veto. **Not by lowering the threshold** — the threshold was never the problem; the sampling discipline was, and
 it was the exact discipline being advertised.
 
+### 59. A mode flag set through the wrong channel is silently ignored — and it moves the baseline, not just the cost
+
+I launched two runs with `env FAST=1`. The script reads `"--fast" in sys.argv`. **The environment
+variable did nothing**, and both runs proceeded at the full-mode defaults while I believed they were
+in fast mode.
+
+Nothing errored. Nothing warned. An unrecognised environment variable is indistinguishable from one
+that was honoured and had no visible effect — the same shape as entry 57's substitution dict that
+matched none of its keys. It surfaced only because the runs were *slower than I expected*, which is
+the weakest possible detector and works only when the wrong mode happens to be the expensive one. **A
+flag that silently selected the *cheaper* mode would have produced a fast, clean, wrong answer.**
+
+**But cost was not the damage.** The reference numbers this experiment compares against — a banked
+exponent of 1.947 and an emit floor of 8.2238e-15 — were produced by a script that set
+`NTRAJ, NSTEP = 40, 3000` *explicitly*. The defaults are `90, 9000`. So the run would have divided
+margins computed at 90/9000 by a floor computed at 40/3000:
+
+> **the borrowed-denominator error for the third time in one evening — first across BASIS, then
+> across ENSEMBLE, now across RUN PARAMETERS — and every instance was invisible in a table that
+> shows only ratios.**
+
+The peer-supplied generalisation that finally covers all three: *every quantity in a comparison must
+be checked for what it **shares** with the thing it is compared against, not only for what changed.*
+I had been enumerating instances of that class while believing I had the class, **and an enumeration
+and a class behave identically on every instance you have already seen** — the always-true-guard
+failure, one level up in abstraction.
+
+**What makes a mode flag worse than an ordinary wrong parameter:** it does not read as a parameter at
+all. `--fast` sounds like it trades accuracy for time, so it gets treated as a cost knob and reviewed
+as one — while it silently redefines the baseline that every downstream comparison is measured
+against. Entry 55 says an artifact must record the mode it was produced in. **This says the mode is
+not a property of the artifact's provenance, it is a property of its NUMBERS.**
+
 ### 58. Forecasting the accepted arm from the rejected one
 
 Having run a control at two settings of a sign, `σ=+1` and `σ=−1`, I had one arm measured at both
