@@ -1383,6 +1383,44 @@ Fixed by requiring the raw condition on **two consecutive ticks**, with swap bei
 veto. **Not by lowering the threshold** — the threshold was never the problem; the sampling discipline was, and
 it was the exact discipline being advertised.
 
+### 63. I compared an amplitude to a variance twice in one night — the second time while celebrating an agreement
+
+Two instruments sharing no machinery pointed the same way at the same effect, and I reported the
+agreement as a factor of **1.75×**:
+
+    analytic Q-drift    A/C = 13.9    an AMPLITUDE   max|Q−Q₀|/|Q₀|
+    engine var_within   A/C = 24.3    a VARIANCE
+
+    raw             13.9 vs 24.3        factor 1.75
+    common power    13.9 vs √24.3=4.93  factor 2.82
+
+**The raw comparison flatters the agreement by 1.6×.** Both numbers are dimensionless, both are "A
+over C", both describe the same object — and one is an amplitude ratio of Carter's `Q` along a
+trajectory while the other is a variance ratio of a *fitted direction that is not `Q`.* Different
+objects **and** different powers.
+
+**This is the same error as entry 53's neighbour, committed by the same author about nine hours
+later.** Earlier that night I discounted my own gap by dividing a drift statistic (2.2e-03) by a
+variance ratio (2.36e-04) and called it the night's founding species. Then I did it again — *in the
+act of reporting that two instruments had agreed*, which is exactly the moment nobody re-checks the
+arithmetic, because the conclusion is the pleasant one.
+
+> **Quantities become comparable in the mind as soon as they are both dimensionless, both ratios of
+> the same two things, and both pointing the same way. Dimensionlessness is not commensurability.
+> Check the POWER before quoting an agreement, and check it hardest when the agreement is the
+> result you wanted.**
+
+**What survived is still the good part, at the converted number:** 2.8× agreement between an analytic
+Poisson-bracket drift — no basis, no eigenproblem, no conditioning — and a whitened
+generalized-eigenproblem statistic, about an effect nobody predicted. That is two instruments
+agreeing rather than one correcting the other, which happened once all day. **It just has to be
+quoted at 2.8×.**
+
+**And the residual 2.8× is a question, not slop.** If the engine's candidate were exactly `Q` the two
+would match after conversion. They don't, and the fitted direction is suppressed *less* than `Q`
+itself — consistent with the fit landing adjacent to Carter rather than on it. Checkable with one
+inner product.
+
 ### 62. Project your predicted signal against your measured floor *before* you run
 
 I ran a three-point ε sweep to ask whether adding a column collapses a scaling exponent. Both treated
