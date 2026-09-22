@@ -1422,3 +1422,43 @@ baseline; the treated arm has a baseline; the control's baseline was the one I d
 Assuming B-alone's margins resemble A-alone's -- which leg 6 measured at chi=0.6, `B/A = 1.00` --
 would be the borrowed-denominator move for the sixth time tonight, on an arm's own baseline, at a
 different chi. **Running it instead.** No verdict issues until it lands.
+
+## EXPONENT STABILITY: measured, against the exact perturbation that destroyed the floor
+
+TheBridge's catch: A-unaugmented reproducing its banked reference is *same tree, same seed* --
+that demonstrates DETERMINISM, not robustness. The ULP lives between `_A()` and `_B()`, and the
+pair check could not reach it because A and B coincide only at `eps=0`, where no exponent exists.
+
+Direct test instead: **`A' = sp.expand(A)`** -- mathematically identical to A at EVERY eps, a
+different expression tree, hence different `lambdify` rounding. Perturbation size verified first:
+
+    A vs A' at eps=0.05, max abs component diff
+      H 3.331e-16   irr 3.331e-16   ith 6.939e-18   dHdr 4.649e-16   dHdth 2.359e-16
+
+Machine epsilon -- the same ULP class as the A-vs-B difference that moved the floor 2.79x.
+
+               arm  seed         0.05       0.0158        0.005   exponent
+                 A     1   4.9073e-10   5.1566e-11   5.5446e-12      1.947
+                 A     2   4.3452e-10   6.8613e-11   6.9283e-12      1.797
+                 A     3   1.6093e-10   1.6697e-11   1.8509e-12      1.939
+              Aexp     1   4.9494e-10   5.0043e-11   5.9752e-12      1.918
+
+    ACROSS TREES (the ULP mechanism)   exponent 1.947 -> 1.918    delta 0.029  = 1.5%
+    ACROSS SEEDS (far larger)          spread 0.1496              = 8.3%
+    THE ABSOLUTE MARGIN, same runs     scatters 3.08x
+    the floor, measured earlier        scatters 2.79x
+
+**So the last unvalidated assumption under the surviving readout is now measured rather than argued:
+a 1-ULP change in the metric moves the absolute number by ~3x and the exponent by 1.5%.** The ratio
+cancels the perturbation; the absolute number does not. `within=True` is a physical property.
+
+### And it calibrates what the exponents can resolve
+
+Seed-dominated uncertainty is **+/- ~0.15**. Therefore:
+
+    A unaugmented   1.947 / 2.180    consistent with 2
+    A + dK         -0.504 / 0.287    decisively NOT 2
+    B + dK         -0.081 / 1.202    decisively NOT 2
+
+**1.202 is distinguishable from 2 at this resolution; 1.8 would not have been.** Stating the
+resolution matters because the whole claim rests on "B holds at ~2", and B does not.
