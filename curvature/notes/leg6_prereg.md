@@ -912,3 +912,45 @@ Reading the real names also settles the Jacobian from physics rather than from t
 because the prediction is worth testing rather than assuming, but the pre-registration changes shape:
 sigma = -1 passing the control is a **confirmation**, and sigma = +1 passing instead would mean
 something is wrong with my reading of their convention and the run would not be usable either way.
+
+### The reading rule had THREE cells and needed FOUR (recorded mid-run, before chi=0.075 landed)
+
+First half of the control, chi=0.6:
+
+    chi     object       d(.05)      d(.005)  exponent   improvement vs bare Q
+    0.6     bare Q   2.8715e-03   2.8660e-04     1.001    1.00x
+    0.6         K1   2.6709e-02   2.6662e-03     1.001    0.11x   <- banked known-fail, to the digit
+    0.6    dK s=+1   9.2331e-05   9.5861e-06     0.984    31.1x
+
+**The known-fail reproduced exactly** (K1 at 0.11x, exponent 1.001 against bare Q's 1.001), so this
+is the same instrument that produced the reference and a wrong object still reads as wrong in it.
+
+**But `dK s=+1` is not cleanly any of my three declared outcomes.** Improvement 31.1x clears the
+`>=10x` clause; the exponent is 0.984, not 2. As WRITTEN the rule calls that "present and wrong", and
+**that verdict stands for this row** -- the rule is not being moved after seeing the number. What is
+being recorded is that **my three cases were not exhaustive**:
+
+| exponent | improvement | cell |
+|---|---|---|
+| ~2 | large | right (declared) |
+| ~1.00 | ~1.00x | negligible / vacuous (declared) |
+| ~1.00 | <1 or small | present and wrong (declared) -- K1's 0.11x |
+| **~1.00** | **large (31x)** | **right but TRUNCATED -- NOT DECLARED** |
+
+A 31x reduction at unchanged exponent 1 means `dK` cancels ~97% of the O(eps) drift and leaves ~3%.
+A wrong object does not cancel 97% of anything -- K1, one row up, makes it **9x worse**. This is what
+an O(chi^2)-truncated `dK` should do at chi=0.6, where chi^2 = 0.36.
+
+I wrote the rule assuming `dK` is right, wrong, or negligible. **"Right but truncated" produces large
+improvement at exponent 1**, and it was invisible to me because the three enumerated cells all
+produce plausible-looking output -- the same species as an always-true guard that is output-identical
+to a working one. TheBridge's framing: I pre-registered a way for the test to return *nothing*, but
+not a way for it to return *partially*.
+
+**This makes the two-chi design load-bearing rather than precautionary**, and the discriminator was
+already committed: truncation scales as chi^2 and a bad convention map does not. At chi = 0.075,
+chi^2 falls 64x, so
+- **truncation** -> residual shrinks sharply, exponent climbs toward 2;
+- **bad bridge** -> 31x and exponent ~1 persist, because a wrong map does not care about chi.
+
+Written before those rows existed.
