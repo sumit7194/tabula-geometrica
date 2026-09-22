@@ -1383,6 +1383,43 @@ Fixed by requiring the raw condition on **two consecutive ticks**, with swap bei
 veto. **Not by lowering the threshold** — the threshold was never the problem; the sampling discipline was, and
 it was the exact discipline being advertised.
 
+### 68c. Mutation-test the control, because "it passed" and "it can fail" are different facts
+
+Entry 68b rebuilt a known-fail control so it actually executed the scanner it certified. That fixed
+the hollow version. It did not establish that each arm fails **for its own reason** — and a peer
+demonstrated the gap by mutating their scanner and watching arms pass that had no business passing.
+
+So I mutated mine rather than reading it:
+
+    mutation            arm 1 (path)   arm 2 (namespace)   arm 3 (local NOT flagged)
+    healthy                   OK              OK                    OK
+    scan() -> {}              BAD             BAD                   OK   <-- hollow
+    namespace signal off      OK              BAD                   OK
+    path pattern off          BAD             OK                    OK
+
+Arms 1 and 2 discriminate: each fails for its own cause and neither fires on the other's mutation.
+**Arm 3 passed under every mutation including a completely dead scanner** — because it is a
+*must-NOT-flag* assertion, and **a dead scanner flags nothing, which satisfies it perfectly.**
+
+> **A negative assertion is satisfied by the absence of the machinery that would falsify it.** Any
+> arm phrased as "X must not appear" is vacuous whenever the thing that produces X is broken — and
+> that is precisely the failure the control exists to detect.
+
+**Fixed rather than labelled**, by pairing the negative with a positive from the *same* sweep: the
+local module must be absent AND a real sibling edge must be present. Now all three fail under
+`scan() -> {}`.
+
+**The general rule, which is not "write controls" but a strictly stronger thing:** *a control that
+passed tells you nothing until you have seen it fail on purpose.* "It passed" is a fact about today's
+code; "it can fail, and for its own reason" is a fact about the control. The second is the one worth
+having, it costs three deliberate breakages, and it is the only way to distinguish a working arm from
+one that is merely quiet.
+
+**Sequence worth noting:** entry 68a was the gate catching its author, 68b was the control being
+hollow, 68c is the control being untested. **Each fix exposed the next layer**, and none of the three
+would have surfaced by inspection — 68b came from a peer mentioning a third party's fault, 68c from
+a peer mutating their own.
+
 ### 68b. My known-fail control never called the function it was controlling
 
 The gate from entry 68 shipped with a `--selftest` that I verified by hand, watched pass, and wired

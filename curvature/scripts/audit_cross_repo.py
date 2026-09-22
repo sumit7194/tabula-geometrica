@@ -160,7 +160,12 @@ def main() -> int:
             hits_p = found.get(rel("planted_path.py"), [])
             a = any(h.endswith(":BlackHole") and not h.startswith("VENV:") for h in hits_p)
             b = any(h.startswith("NAMESPACE:") for h in found.get(rel("planted_nopath.py"), []))
-            c = rel("planted_local.py") not in found
+            # A "must NOT flag" assertion is satisfied by a DEAD SCANNER -- mutation-testing showed
+            # this arm passing under scan()->{} while the other two correctly failed. Paired with a
+            # positive from the SAME sweep so it cannot pass vacuously: the local module must be
+            # absent AND a real sibling edge must be present. (TheBridge labelled their equivalent
+            # hollow arm; this one admits a fix, so it gets one.)
+            c = (rel("planted_local.py") not in found) and bool(found)
             for lbl, v in (("absolute-path edge detected", a),
                            ("path-less sibling import detected", b),
                            ("LOCAL module sharing the prefix NOT flagged", c)):
