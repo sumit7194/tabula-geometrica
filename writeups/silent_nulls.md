@@ -1383,6 +1383,50 @@ Fixed by requiring the raw condition on **two consecutive ticks**, with swap bei
 veto. **Not by lowering the threshold** — the threshold was never the problem; the sampling discipline was, and
 it was the exact discipline being advertised.
 
+### 60. Five borrowed denominators in one evening, and the first thing that actually caught one
+
+The same error, five times, on five axes, every instance invisible in a table that shows only ratios:
+
+    1  A+dK margins / A-alone floor              axis BASIS          caught by a peer
+    2  A+dK/floor_A vs B+dK/floor_B              axis ENSEMBLE       caught by a peer
+    3  margins at 90/9000 / floor at 40/3000     axis RUN PARAMETERS caught by LUCK (wrong mode was slow)
+    4  margins at seed 0 / floor at seed 1       axis SEED           caught by running the floors
+    5  min over 4 directions / min over all      axis READOUT        caught by reading the reference
+
+Instance 4 and 5 together moved a floor I had quoted in every message that night — `8.2238e-15` —
+to `6.0405e-17`, a factor of **136**, purely from configuration. Had I compared against the quoted
+value, the collapse prediction would have flipped from pass to fail on a number that measured
+nothing but my own inconsistency.
+
+**Four of five were caught by a second party reading the work.** Not by documents: two of the
+relevant catalogue entries were written by me, hours earlier, describing the exact move. I wrote the
+peer's generalisation into my own notes — *check what a quantity SHARES with what it is compared
+against, not only what changed* — and produced a fourth instance **in the next launch.**
+
+**Why prose cannot fix this: the axis list is open.** Basis, ensemble, run parameters, seed, readout,
+and still ahead of us integrator settings, precision, code version, grid. An enumeration cannot close
+an open list, *and an enumeration and a class behave identically on every instance already seen* —
+which is the always-true-guard failure one level up in abstraction, and exactly why writing the class
+down did not stop me producing instances of it.
+
+**So this one got a gate, not an entry** (`curvature/scripts/comparable.py`, in `verify.sh`). A value
+carries the configuration that produced it; a comparison declares which axis it varies along and
+**asserts the fingerprints agree everywhere else.** All five instances collapse to one assertion
+failure, raised at the moment of comparison, with the offending axis named — no one has to remember
+the class. Its known-fail suite is the five real mismatches above; if it stops catching them it fails
+loudly.
+
+**The positive half, and it is why one result survived:** a ratio taken *within* a single
+configuration is self-normalising — the parameters appear in numerator and denominator and cancel —
+so it is transportable. `f = a·χ + b` was built from within-run drift ratios, which is why it
+survived two relaunches that invalidated every absolute number it had been combined with. The gate
+marks these `within=True`.
+
+**And the honest note on instance 3:** it was detected only because the wrong mode was the *slow*
+one. A flag that silently selected the *cheap* mode would have produced a fast, clean, wrong answer
+with nothing to prompt a second look. Three times that night, what separated a caught fault from an
+uncaught one was which direction the failure happened to point.
+
 ### 59. A mode flag set through the wrong channel is silently ignored — and it moves the baseline, not just the cost
 
 I launched two runs with `env FAST=1`. The script reads `"--fast" in sys.argv`. **The environment
