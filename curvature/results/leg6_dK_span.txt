@@ -1,0 +1,8 @@
+      chi              arm         0.05       0.0158        0.005  exponent
+    0.075    A unaugmented   4.9073e-10   5.1566e-11   5.5446e-12     1.947
+    0.075           A + dK   1.4286e-14   1.8291e-15   4.5618e-14    -0.504
+    0.075           B + dK   3.1139e-14   1.0607e-14   3.7540e-14    -0.081
+   0.0375    A unaugmented   2.7520e-11   1.9825e-12   1.8176e-13     2.180
+   0.0375           A + dK   6.0709e-14   8.0307e-14   3.1368e-14     0.287
+   0.0375           B + dK   1.7508e-13   2.2803e-14   1.1009e-14     1.202
+  wrote /private/tmp/claude-501/-Users-sumit-Github-SpaceTime/9ce9020a-0ce8-4c70-a24e-2c0c77428cd5/scratchpad/dK_span.json

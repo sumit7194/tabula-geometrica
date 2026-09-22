@@ -1,0 +1,12 @@
+  dK terms 45;  sham is a coefficient permutation (seed 20260922)
+  identical to dK? False
+
+               arm         0.05          0.1          0.2  exponent
+           A unaug   4.9073e-10   2.0047e-09   7.9387e-09     2.008
+           B unaug   5.0747e-10   1.9889e-09   7.9477e-09     1.985
+          A + SHAM   3.3479e-10   1.3619e-09   5.3486e-09     1.999
+          B + SHAM   3.3363e-10   1.3593e-09   5.3561e-09     2.002
+    A + SHAM floor eps=0 -> 1.3460e-14
+    B + SHAM floor eps=0 -> 4.9408e-15
+
+  reference: A-alone 1.947 / B-alone 1.955 ; A+dK -0.504 / B+dK -0.081
