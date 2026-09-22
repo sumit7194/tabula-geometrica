@@ -24,6 +24,7 @@ echo "--- documentation claims audit (counts, cited results/scripts, roadmap mar
 # that reaches a check at the moment nobody is looking for it.
 ./curvature/.venv/bin/python curvature/scripts/audit_doc_claims.py --selftest > /dev/null || { echo "FAIL  doc-audit known-fail control"; FAIL=1; }
 ./curvature/.venv/bin/python curvature/scripts/audit_doc_claims.py || FAIL=1
+./curvature/.venv/bin/python curvature/scripts/test_comparable.py > /dev/null || { echo "FAIL  comparable.py fingerprint gate"; FAIL=1; }
 
 echo "========================================"
 [ $FAIL -eq 0 ] && echo "SPACETIME GATE: ALL GREEN" || echo "SPACETIME GATE: FAILURES"
