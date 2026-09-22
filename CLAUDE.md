@@ -1048,6 +1048,33 @@ results in `curvature/notes/lab_notebook.md`.
   Metric identity checked: our bump is a product term so it *does* break Stäckel separability (their sharpest worry does
   not apply), but ours is a Kerr-LIKE toy and theirs is bumped Kerr in BL — **transcribing their metric is the next
   build**; this run validates the instrument, not their spacetime. Both in verify.sh.
+- **LEG-6 dK SPAN TEST (2026-09-22, scripts curvature/scripts/leg6_dK/) — the discriminator was never able
+  to run, and the reason is a property of the CONTRAST PAIR.** Leg 6 closed with A/B/C all returning exponent
+  ~2, leaving one narrower claim: A's eps=0 row EMITS, so `K_0` is in an eps-independent span, and `dK`
+  (Carter's O(eps) correction) therefore is not. Falsifiable consequence: add `dK` to the library, A's exponent
+  must collapse, B's must not. **Everything downstream of that was built, and all of it was downstream of a
+  question nobody asked.** CONTROL PASSED both sides (dK drift 623.7x vs a pre-registered 627x, split b=0.1% =
+  pure truncation; K1 reproduced its banked 0.11x known-fail at both chi; sigma=-1 predicted from their source
+  `y=u=cos th` and confirmed at 2.5x). SHAM control PASSED decisively — a structurally identical column with
+  permuted coefficients does **nothing** (1.5x, exponent 1.999/2.002) while sitting 25,000–1,000,000x above its
+  own floor, so the effect is real and NOT generic to the function class. **But dK suppresses A by 230,837x and
+  B by 187,115x — ratio 1.23.** RESOLUTION, ten lines of symbolic algebra: **D_A vs D_B cosine +1.000000,
+  ||D_A−D_B||/||D_A|| = 0.0003.** A and B are the same deformation to 3 parts in 10,000; the entire Carter
+  distinction lives in a 0.03% difference, contributing (3e-4)^2 = 9e-8 of the margin, ~7 orders below the
+  noise. **No span test on this pair could have discriminated at any eps, on any grid, with a perfect dK.**
+  Design-level finding: *the triple was built to ISOLATE the Carter property, which makes A and B maximally
+  similar apart from it — and that similarity is exactly what makes them indistinguishable to a screen that
+  measures everything else. A good contrast pair for the ALGEBRAIC question is a bad one for the SCREEN
+  question.* Also: `dK = -K1/8` exactly at O(chi^2) (the `56 chi^2 dH` term vanishes because A's deformation is
+  pure chi^2, dH[0]=dH[1]=0) — **withdrawing the inherited claim, repeated by me and by TheBridge from ansatz's
+  recipe commit, that K1 and dK are "different objects"**; as span columns they are identical. Measured
+  instrument bound: the span statistic reproduces to only **1.33x** under that exact rescaling (everything
+  transfers — 40 columns, eigenvalues to 6e-6, non-minimum heldouts to 1e-3 — except the MINIMUM, whose
+  generalized eigenvalue straddles zero), so the A/B ratio of 1.23 is **unreadable twice over**. NOT in
+  verify.sh (no green gate — the discriminator never ran). Method catalogue: silent_nulls **56–62**, and the new
+  GATE `curvature/scripts/comparable.py` (fingerprinted values; a comparison asserts configs match off the
+  declared axis; known-fail suite = five real borrowed-denominator mismatches from that night, across BASIS,
+  ENSEMBLE, RUN PARAMETERS, SEED and READOUT — instances 4+5 alone moved a quoted floor 136x).
 - **C5 RE-AUDIT + THE d\* UPGRADE (script 176, 2026-08-21), 4/4:** the C5 audit closed at 17/17 by exempting seven
   certificates in one pass on a distinction invented on the spot ("search-based nulls need C5, measurement-based
   verdicts don't"). Four of them emit `CERTIFY-NO-CODE` — *fit the cheapest code, find none* — which is a SEARCH,
