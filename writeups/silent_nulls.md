@@ -1383,6 +1383,44 @@ Fixed by requiring the raw condition on **two consecutive ticks**, with swap bei
 veto. **Not by lowering the threshold** — the threshold was never the problem; the sampling discipline was, and
 it was the exact discipline being advertised.
 
+### 62. Project your predicted signal against your measured floor *before* you run
+
+I ran a three-point ε sweep to ask whether adding a column collapses a scaling exponent. Both treated
+arms came back flat, I called the test void, and the peer who checked it found that **the predicted
+signal was below the instrument's floor at two of the three points.**
+
+       eps   predicted (eps² from the largest point)   ÷ its own floor
+      0.05                            1.4286e-14             7.20
+      0.0158                          1.4265e-15             0.72   ← below
+      0.005                           1.4286e-16             0.07   ← below
+
+The three-point fit was **one signal point and two floor readings.** The fitted exponent was
+**−0.504** — the margin *growing* as the deformation shrank, which is not physics, it is floor
+scatter fitted as a slope. **The sign alone should have stopped me and I quoted the number as a
+collapse.**
+
+> **A test whose predicted signal falls below its own noise floor over most of its range cannot
+> return a positive. It is entry 45a with arithmetic attached — and unlike 45a, it is cheap to check
+> in advance: take the predicted effect size, project it across the sweep, divide by the measured
+> floor. Any point under 1 is a point that will report the floor no matter what is true.**
+
+**The fix was the day's third instance of sweeping the wrong parameter in the wrong direction.** One
+parameter here is *exact* (ε — it enters the metrics with no truncation) and one is *truncated* (χ).
+Pushing the exact one **up** lifts every point clear of the floor at zero cost to fidelity. Same
+asymmetry, third time, and each time the instinct was to sweep toward "smaller and cleaner" when
+smaller means *closer to the noise*.
+
+**And the control that made the eventual result readable was itself only readable because it was
+uncensored.** A sham column — same momentum degree, same χ² scaling, same coordinate degrees, same
+magnitude, coefficients permuted so it no longer solves the defining equation — sat **25,000× to
+1,000,000× above its own floor** and showed an effect of **1.5×** where the real object showed
+**2×10⁵**. On the original censored grid the sham would have read ~0 like everything else, and
+"sham collapses both, so the effect is generic" would have been *exactly wrong*.
+
+> **A negative control tells you whether a null is about your object or about your instrument — but
+> only if the control itself is far from the instrument's floor. A censored control confirms whatever
+> the censoring is doing.**
+
 ### 61. One ULP became 2.8×, and every verdict built on that denominator was never resolvable
 
 A peer proposed a free consistency check: at `ε = 0` the deformation vanishes, so metrics A and B are
