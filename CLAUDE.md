@@ -1085,6 +1085,22 @@ results in `curvature/notes/lab_notebook.md`.
   GATE `curvature/scripts/comparable.py` (fingerprinted values; a comparison asserts configs match off the
   declared axis; known-fail suite = five real borrowed-denominator mismatches from that night, across BASIS,
   ENSEMBLE, RUN PARAMETERS, SEED and READOUT — instances 4+5 alone moved a quoted floor 136x).
+- **C ANOMALY (§191/191b) + A WELL-SEPARATED CARTER PAIR (§192), 2026-09-23 — leg 6's null was the PAIR.**
+  **Provenance first:** the "two instruments agree to 2.24x" result from leg 6 compared chi=0.6 against chi=0.075
+  (the drift command read `m.A_SPIN` without setting it), plus different trajectory sets and statistics. At one
+  config the agreement is **1.38-1.61x**, and the A/C ratio moves 20-27% with chi. The comparison was made in
+  prose to a peer, so no gate could see it — `comparable.py` is axis-agnostic; it was simply bypassed. **Mechanism
+  (§191b):** Kerr separates in this code's coordinates (all five residuals exactly 0), so a deformation of 2*Sigma*H
+  splits into radial (bare Q exactly conserved — RAD2, 2.3x LARGER than the angular control, stays at the floor),
+  angular (Q + eps*dTheta exactly conserved — ANG predicted = measured to **1.000**) and mixed. **My registered
+  prediction about C failed on both clauses** (not radial-dominated; parts only 4.8x smaller than A's). What holds:
+  C's angular shift is 4.9x smaller in SIZE but **40.8x smaller in VARIATION along its own orbits**, and bare Q
+  moves by the variation; C's residual drift is mostly its small mixed part. **1a (§192):** built a keeper (purely
+  angular, correction known exactly) and a breaker (purely mixed, f(r) zero-mean) in-house, cos 0.13/0.22 instead of
+  leg 6's 1.000000. The unaugmented screen separates them by 4-12 orders; adding the missing column collapses the
+  keeper **1.9e7x** while the breaker moves 5%; the basis-free scored readout separates them by **~1e23x**. Wrong and
+  recorded: an invariant only **4% outside** the span stays visible (flat, four orders below the breaker) — so
+  out-of-span is not binary, and leg 6's A was blind because its correction was FAR out.
 - **C5 RE-AUDIT + THE d\* UPGRADE (script 176, 2026-08-21), 4/4:** the C5 audit closed at 17/17 by exempting seven
   certificates in one pass on a distinction invented on the spot ("search-based nulls need C5, measurement-based
   verdicts don't"). Four of them emit `CERTIFY-NO-CODE` — *fit the cheapest code, find none* — which is a SEARCH,
@@ -1187,13 +1203,13 @@ results in `curvature/notes/lab_notebook.md`.
   measured, jittering `n_procs: 0` while it runs; always launch by absolute path. 41: a power analysis is only as good as its
   assumed nuisance amplitude — simulated −0.08, data wanted +0.12..+0.40, promised 95.8% power and delivered
   none; 42: an implementation can be COARSER than its pre-registration, not only stricter).
-- Remaining curvature queue (RE-CHECKED 2026-09-22 against the blocks above; the previous version of this
-  line listed Wong v3, equivalence-breaking gravity and Phase J as open when all three were already done --
-  silent_nulls 68 in this file). Genuinely open: a WELL-SEPARATED Carter contrast pair for leg 6 (the
-  instrument now works, the material is missing); the C-anomaly (C's Carter conserved ~200-400x better than
-  A's, two independent instruments, unexplained); retrofit "score the known direction" (650x more stable than
-  min-over-basis) into the screen; the synthesis writeup (build_queue); a G-sym legibility-preserving variant;
-  3+1 Kaluza with vector potential; BLOCKED-ON-INPUT the Kerr orbit average; writeup polish (user, weekends).
+- Remaining curvature queue (RE-CHECKED 2026-09-23). DONE this session: the C anomaly (§191/191b) and the
+  well-separated Carter pair (§192). Open: WHY C's angular shift is nearly orbit-constant (hypothesis: close to a
+  function of Kerr's conserved quantities — test by scoring dTheta with the within/total statistic); why KEEP2's
+  unaugmented margin plateaus at ~2e-8 (4% span residual is the candidate); retrofit "score the known direction"
+  (650x more stable than min-over-basis) into the screen; the synthesis writeup (build_queue); a G-sym
+  legibility-preserving variant; 3+1 Kaluza with vector potential; BLOCKED-ON-INPUT the Kerr orbit average;
+  writeup polish (user, weekends).
 - Wakeup policy (user 2026-06-11): SHORT delays (60-90s) between iterations;
   long delays only as fallback while harness-tracked jobs run.
 - **FOCUS DIRECTIVE (user, 2026-06-13): curvature ONLY until mined out.**
