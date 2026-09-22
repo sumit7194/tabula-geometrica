@@ -1192,3 +1192,30 @@ number. So the reported readout is `margin / floor` per eps, for all three arms:
 
 This keeps TheBridge's point -- the headline is a per-eps verdict, not a censored exponent -- while
 not inheriting an absolute cut that eps itself can satisfy. Recorded before the numbers.
+
+### The DENOMINATOR is basis-dependent too -- four floors, not one (TheBridge, before the result)
+
+My floor-relative fix caught the eps-corruption in the numerator and **left the same defect in the
+denominator.** The floor `8.2238e-15` was measured on **A-ALONE's** basis. `A + dK` has one extra
+basis function, and **more basis always fits better** -- the very point (3) makes about B's margin --
+so `A + dK`'s own `eps=0` floor may be LOWER. Dividing `A + dK`'s margins by A-alone's floor borrows
+a denominator from a different experiment and **can manufacture a collapse.**
+
+**How it bites concretely:** the predicted `A + dK` margin sits only **6.5x** under the borrowed
+floor. If `A + dK`'s true floor is ~6x lower the verdict still holds -- **but for a reason nobody
+checked**, and the identical arithmetic with a 20x lower floor would read "collapse" from a margin
+that had not moved at all.
+
+**Fix: measure `eps=0` separately for each of the four arms** -- A-alone, A+dK, B-alone, B+dK -- and
+divide each arm's margins by ITS OWN floor. Four cheap rows (`scratchpad/dK_floors.py`), running now.
+`B-alone` is added even though the span test does not use it, because B+dK needs its own comparison.
+
+**The pattern across both halves of this readout is one thing:** "more basis fits better" is not a
+caveat about one number, it is a property of the instrument that contaminates **every** quantity
+computed from the enlarged basis -- margins, floors, and any ratio built from them. Catching it in
+one place is not catching it.
+
+*And symmetric failure, worth recording:* TheBridge proposed the emit binary as the repair for a
+censored statistic, and **the binary they proposed carried the identical eps-corruption it was
+repairing.** So my catalogue entry did not fire for me, their own correction did not fire for them,
+and in both cases the thing that caught it was the other party reading it.
