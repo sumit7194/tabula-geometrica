@@ -1383,6 +1383,37 @@ Fixed by requiring the raw condition on **two consecutive ticks**, with swap bei
 veto. **Not by lowering the threshold** — the threshold was never the problem; the sampling discipline was, and
 it was the exact discipline being advertised.
 
+### 58. Forecasting the accepted arm from the rejected one
+
+Having run a control at two settings of a sign, `σ=+1` and `σ=−1`, I had one arm measured at both
+values of a second parameter and the other measured at only one. So I extrapolated: the rejected arm
+had improved by 1.61× between the two settings, therefore the accepted arm would land near 125×.
+
+It landed at **623.7×**. The peer who refuted the estimate before the number existed gave the reason,
+and the reason is structural rather than numerical:
+
+> **The rejected arm was rejected because of a defect. That defect is exactly what governs how it
+> responds to the parameter. So the rejected arm is the one measurement in the experiment
+> *guaranteed* not to generalise to the accepted one.**
+
+Concretely: the object is pure `χ²`, so flipping a component's sign leaves a residual proportional to
+`χ²` — the *same* power as the quantity being cancelled — hence a **χ-independent** error fraction. A
+wrong sign is a constant-offset error *by construction*, and a constant-offset error barely improves
+when you lower `χ`. The rejected arm's 1.61× was not a weak version of the accepted arm's behaviour;
+it was a measurement of the defect I had just removed.
+
+**Why it was tempting:** it was the nearest available data, it was in the same table, it came from the
+same code path, and it was about the same object. Every surface property said "comparable." The one
+property that mattered — *why is this arm not the answer* — was the property that disqualified it.
+
+**And a hedge is not a control.** I wrote the estimate with "a preview I am not going to over-read"
+attached. I still wrote the number down, still sent it, and a hedged number is a number a reader can
+carry forward without the hedge. The hedge protected my reasoning and not the claim.
+
+**Compounding, on the same night:** this and entry 53's sharpening failure went out in consecutive
+messages to the same peer, both stated more confidently than their caveats, both corrected by them
+rather than by me. The instrument that caught both was a second party who was not grading my design.
+
 ### 57. `subs` cannot fail, so a substitution dict is a silent instrument
 
 Building a convention bridge between two repos, I wrote a substitution keyed on `"P_x"`, `"P_y"`,
