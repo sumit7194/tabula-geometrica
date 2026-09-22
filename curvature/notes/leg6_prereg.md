@@ -1258,3 +1258,26 @@ quantity computed from the enlarged basis. The version this instance demands is 
 span test; it went in because asymmetric treatment of the control arm is how controls stop
 controlling. That reason turned out to be the wrong reason for the right action -- it is PAIR 1's
 existence that matters.
+
+### The 136x floor discrepancy was EXACTLY two axes, and the reference now reproduces to all digits
+
+    quoted reference floor (premise run)      8.2238e-15
+    my harness, seed 0 + min(4,.) readout     6.0405e-17     136x off
+    my harness, seed 1 + all-columns readout  8.2238e-15     EXACT MATCH
+
+So the discrepancy was entirely `seed` (1/51 vs 0/50) and `readout` (`range(C.shape[1])` vs
+`range(min(4, C.shape[1]))`), with nothing else hiding underneath. **This is a reproduction check
+passing, not merely a mismatch explained** -- the difference is fully accounted for and the number
+returns to all four quoted digits once both axes are matched.
+
+**Instance 5 is a species worth naming: I was inconsistent with the REFERENCE by being consistent
+with the LIBRARY.** §190's own `screen()` uses `min(4, C.shape[1])`; the premise script that produced
+the banked numbers used `range(C.shape[1])`. Both readings are defensible, there was no way to be
+right by following a single source, and the disagreement is invisible unless you diff two files
+nobody intended to compare. That is worse than two of my own scripts disagreeing, because neither
+party did anything wrong.
+
+**And the near-miss is the headline itself:** had I divided the relaunched margins by the quoted
+`8.2238e-15` while computing them at seed 0 with the `min(4,.)` readout, the collapse verdict would
+have flipped on a 136x factor measuring nothing but configuration drift. **One careless division from
+a headline determined by inconsistency.**
