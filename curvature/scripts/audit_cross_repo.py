@@ -26,7 +26,14 @@ one that bounds itself. This matches ABSOLUTE paths. A script that does
 has a data dependency this gate cannot see. Both currently-declared files do exactly that, so the
 census reports their IMPORT edge and misses their DATA edge. The chdir is always caught, so the FILE
 is never missed -- what is under-reported is the KIND and count of edges within an already-flagged
-file. A file that read sibling data with no import and no absolute path would be missed entirely.
+file.
+
+The case that WOULD have been missed entirely -- a file using a sibling with neither an absolute
+path nor an in-file sys.path.insert -- is now closed by SIBLING_MODULE_PREFIXES, which detects the
+module namespace directly. Verified against this repo: all four bare `_kt_*` imports live in files
+the path census already flags, so the hole is not live today; the second signal exists because
+nothing guarantees tomorrow. The symmetric case in TheBridge was 20 bare sibling imports hidden
+behind a caught path constant -- same structure, opposite direction.
 
 Classification (TheBridge's VENV/IMPORT split, adopted): running under a sibling's interpreter is a
 dependency on their ENVIRONMENT, not their code, and VENV references are reported but do NOT count
@@ -39,6 +46,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 SIBLINGS = ("conjecture_machine", "TheBridge", "BlackHole", "quantum")
+
+# A SECOND, PATH-INDEPENDENT SIGNAL. A bare `import _kt_double` carries no path and works only
+# because a sys.path.insert ran earlier in the SAME file -- so a path-only census sees the insert
+# and not the import, and a file with the import and NO insert (importing via PYTHONPATH, a .pth,
+# or an installed package) would be missed ENTIRELY. TheBridge hit this from the other direction:
+# 20 bare sibling-module imports hiding behind a caught path constant. Detecting the module
+# namespace closes the case neither path-census could see.
+SIBLING_MODULE_PREFIXES = {"_kt_": "conjecture_machine"}
 
 DECLARED: dict[str, str] = {
     "curvature/scripts/leg6_dK/make_dK.py":
@@ -71,6 +86,12 @@ def scan() -> dict[str, list[str]]:
         # exist. A gate that cries wolf gets switched off (silent_nulls 55), so it anchors on the
         # repo root that a real cross-repo reference here always carries.
         hits = []
+        for line in text.splitlines():
+            m = re.match(r"\s*(?:from|import)\s+(_[a-z0-9_]+)", line)
+            if m:
+                for pref, sib in SIBLING_MODULE_PREFIXES.items():
+                    if m.group(1).startswith(pref):
+                        hits.append(f"IMPORT:{sib}")
         for sib in SIBLINGS:
             pat = rf"/Users/sumit/Github/{re.escape(sib)}\b"
             for line in text.splitlines():
@@ -106,7 +127,13 @@ def main() -> int:
         missing = sorted(set(DECLARED) - set(fake))
         ok2 = "curvature/scripts/leg6_dK/dK_control.py" in missing
         print(f"  {'OK  ' if ok2 else 'BAD '} selftest: a vanished declared edge is detected ({missing})")
-        return 0 if (ok and ok2) else 1
+        # a BARE sibling import with no path at all must still register
+        bare = "import _kt_double as KD\n"
+        ok3 = any(re.match(r"\s*(?:from|import)\s+(_[a-z0-9_]+)", l) and
+                  re.match(r"\s*(?:from|import)\s+(_[a-z0-9_]+)", l).group(1).startswith("_kt_")
+                  for l in bare.splitlines())
+        print(f"  {'OK  ' if ok3 else 'BAD '} selftest: a bare path-less sibling import is detected")
+        return 0 if (ok and ok2 and ok3) else 1
 
     found = scan()
     code_edges = {k: v for k, v in found.items() if any(not h.startswith("VENV:") for h in v)}
