@@ -1450,6 +1450,12 @@ day came from the minimising version. The verdicts survive — they rest on sepa
 orders, far above 33% — but the *precision* implied by quoting them to four significant figures was
 never there.
 
+**How it was found, which is the part with a method in it:** one party produced the number (`3.998`
+against a theoretical `4.000`), the other identified why a statistic with 33% scatter could produce
+a ratio good to 0.05%. **Neither half is anything alone** — and the reason anyone looked at all was
+that `0.05%` was *suspiciously tight*, which is entry 65's rule, written forty minutes earlier, being
+applied. **The rule found the thing that produced the rule.**
+
 ### 65. A number flush against a boundary is usually two configurations, not a coincidence
 
 Three times in one day a suspiciously clean number turned out to be an artefact of combining
@@ -1534,6 +1540,12 @@ worse.
 
 **Drawing from it took thirty seconds.** Every ingredient was already in memory: the covariance, the
 scaling vector, the target. There was no reason to reason.
+
+**Attribution, because it matters for why the entry exists:** neither party originated this rule —
+*the failure did.* One reasoned to `1/√40`, the other to `1/√d_eff`, **both got the sign wrong**, and
+the lesson only became visible because two independent wrong answers arrived at the same wrong side.
+**Had either of us happened to be right, there would be no entry** — there would be a correct
+baseline, an unexamined method, and the same mistake waiting in the next problem.
 
 **And the sequel mattered:** once the cosine was known to be a strong signal rather than a weak one,
 the direct check (`corr(fit, Q) = 1.0000`) showed the fitted direction *is* the invariant, and the
