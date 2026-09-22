@@ -12,6 +12,32 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 ---
 
 
+## 2026-09-23 — the C anomaly explained, and leg 6's question answered on a pair that can be told apart
+
+**1b, the C anomaly.** Opening it found that last night's "two instruments agree to 2.24x" compared chi=0.6 with
+chi=0.075 (the drift command read the spin without setting it), plus different trajectory sets and statistics.
+Measured at one configuration the anomaly is real at every setting (C conserves bare Carter 14-18x better than A
+in amplitude) and the instruments agree to 1.38-1.61x. The mechanism came from a property I checked rather than
+assumed: Kerr separates cleanly in this code's own coordinates, so a deformation splits into a radial part (cannot
+move bare Carter at any size tested), an angular part (moves it by exactly the predicted amount, ratio 1.000), and
+a mixed part. **My registered prediction was wrong** — I said C was mostly radial; it is mostly angular. What
+actually explains it: C's angular shift is 5x smaller in size but **41x smaller in how much it changes along C's
+own orbits**, and the conserved quantity moves by the change, not the size.
+
+**1a, a well-separated pair.** That decomposition made it possible to build a Carter-keeper and a Carter-breaker
+in-house, far apart by construction (cos 0.13-0.22, where leg 6's pair was 1.000000), with the keeper's exact
+correction known in closed form — no truncated recipe, no sibling code, no convention bridge. The screen separates
+them by 4-12 orders; the missing column collapses the keeper 1.9e7x while the breaker moves 5%; the basis-free
+scored readout separates them by ~1e23x. **Leg 6's null was a property of its pair, not of the screen.** Wrong and
+recorded: I predicted an invariant outside the basis would blind the screen; one only 4% outside stayed plainly
+visible.
+
+**Process notes.** The first mechanism run died silently after its controls (no traceback, no exit code captured) —
+rerun numerically with the exit status recorded. The first radial control was 240x smaller than the angular one on
+near-circular orbits, which would have made its zero meaningless; replaced by one 2.3x larger. And a correction to
+my own framing: the chi mismatch was not "an axis the fingerprint gate never listed" — the gate is axis-agnostic;
+the comparison was made in a message to a peer, where no gate can reach.
+
 ## 2026-09-22 (night) — the dK span test: a void that turned into a finding, via four peer catches
 
 **Result.** `dK` suppresses the emit margin by **~2e5x for BOTH** the Carter-preserving deformation
