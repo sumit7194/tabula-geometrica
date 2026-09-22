@@ -1680,3 +1680,50 @@ identical to the span test, and both results are correct.**
 
 **Consistency check running:** adding `K1` as the span column must reproduce the `dK` numbers
 exactly. If it does not, the pipeline has a bug.
+
+## RESOLVED: A and B are THE SAME DEFORMATION to 0.03%, so the test was impossible by construction
+
+TheBridge's hypothesis -- `A = Kerr + eps(D_common + D_A')`, `B = Kerr + eps(D_common + D_B')`, with
+the Carter property living in a small differing part while the margin is dominated by the common
+part. **Tested directly and symbolically** (`D = dg/d(eps)` at `eps=0`, evaluated over the sampled
+orbit region), with their caveat adopted: *the 3.4% agreement between the A-unaug and B-unaug margins
+is NOT evidence, because two ORTHOGONAL deformations of equal amplitude give equal margins.*
+
+    D_A vs D_B:  cosine +1.000000   ||D_A-D_B|| / ||D_A|| = 0.0003
+    D_A vs D_C:  cosine +0.993280   best-scale 3.5732, residual 0.1157
+    ||D_A|| = ||D_B|| = 2.0290e-01      ||D_C|| = 7.2990e-01
+
+> **A's and B's deformations are the same object to three parts in ten thousand.** Not "mostly
+> common with small differing parts" -- essentially identical. The entire Carter distinction
+> (A preserves it, B destroys it) lives in a **0.03%** difference.
+
+### Which makes the non-discrimination a structural impossibility, not a puzzle
+
+The margin goes as amplitude squared, so a discriminating part at 0.03% of the amplitude contributes
+
+    (3e-4)^2 = 9e-8  of the margin
+
+against a measured A/B suppression ratio of 1.23 and a seed scatter of 3.08x. **The discrimination
+signal sits ~7 orders of magnitude below the noise.** No span test on this pair could have
+discriminated -- at any eps, on any grid, with any floor, with a perfect `dK`. **The verdict was
+fixed by the choice of contrast pair before any code ran.**
+
+### The design-level finding, and the irony in it
+
+**The triple was built to ISOLATE the Carter property -- which is exactly why A and B are maximally
+similar apart from it. And that similarity is precisely what makes them indistinguishable to the
+screen.**
+
+> **A good contrast pair for the ALGEBRAIC question is a bad contrast pair for the SCREEN question.**
+> Isolating a property minimises everything else; a numerical screen measures everything else.
+
+**So the honest status of the whole arc:** the pre-registered discriminator did not fail, and it did
+not return void. **It was never able to run**, for a reason visible in ten lines of symbolic algebra
+that neither party computed before building the test, the control, the sham, the floors, the
+uncensored grid, or the five borrowed-denominator corrections along the way.
+
+**What a real test would need:** a Carter-destroying deformation that is NOT a small perturbation of
+a Carter-preserving one -- i.e. a contrast pair chosen to be far apart in deformation space, with the
+Carter property differing. `D_C` is a start (cosine 0.993 but 3.57x the amplitude and 11.6% residual),
+though still nearly parallel. Selecting such a pair is the actual next build, and it is a
+*requirement on the pair*, not on the instrument.
