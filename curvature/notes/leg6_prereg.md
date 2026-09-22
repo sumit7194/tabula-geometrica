@@ -1727,3 +1727,37 @@ a Carter-preserving one -- i.e. a contrast pair chosen to be far apart in deform
 Carter property differing. `D_C` is a start (cosine 0.993 but 3.57x the amplitude and 11.6% residual),
 though still nearly parallel. Selecting such a pair is the actual next build, and it is a
 *requirement on the pair*, not on the instrument.
+
+## REPRODUCIBILITY BOUND: the span statistic is stable to ~1.33x under an exact identity
+
+Since `dK = -K1/8` and a span column is scale-invariant, `A + K1` MUST reproduce `A + dK`. Ran it
+rather than assuming -- TheBridge's point that *an identity holding in symbols still has to survive
+the pipeline*, and today already produced three transfers that should have been exact and were not.
+
+    A + dK   1.4286e-14  1.6678e-14  3.4391e-14   exponent 0.634
+    A + K1   1.8949e-14  3.5865e-14  7.5913e-14   exponent 1.001
+
+**Diagnosed rather than left as a discrepancy.** The `+1e-9` in `sd = flat.std(0) + 1e-9` is an
+ABSOLUTE regulariser and would break scale invariance for a small column -- but the columns' stds are
+`3.9651e-03` (dK) and `3.1721e-02` (K1), ratio **exactly 8.0**, both seven orders above the
+regulariser. So whitening is fine. What the comparison actually shows:
+
+    columns retained              dK 40      K1 40            identical
+    smallest gen. eigenvalues     -1.16e-15  +2.17e-15         both numerically ZERO
+    next eigenvalues              7.40561e-06 / 7.41004e-06    agree to 6e-6 relative
+    heldout, 2nd..5th smallest    1.97507e-02 / 1.97351e-02    agree to ~1e-3 relative
+    heldout MINIMUM               1.4286e-14 / 1.8949e-14      differ by 1.326x
+
+> **Everything agrees except the single statistic we read.** Its generalized eigenvalue straddles
+> zero, so the conserved direction is an eigenvector of a numerically-null eigenvalue -- and the
+> minimum over near-degenerate directions is the least stable functional available, which is the same
+> mechanism that gives the floor its 2.8x scatter.
+
+**So the span statistic is reproducible to ~1.33x under an exact algebraic rescaling.** That is a
+measured instrument bound, better than the floor's 2.8x, and it bounds what any comparison of
+suppressions can claim.
+
+**Consequence for the headline, tightening it:** the measured A-vs-B suppression ratio is **1.23**.
+That is **below the 1.33x reproducibility bound**, independently of the 3.08x seed scatter. So the
+A/B difference is unreadable twice over -- by the pair's 0.03% separation, and by the instrument's
+own reproducibility.
