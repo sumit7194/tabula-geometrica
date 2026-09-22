@@ -803,3 +803,49 @@ exists: adding `dK` to the basis must collapse **A's** exponent toward 0 while l
 If A's exponent does *not* move, `dK` is not what is missing and the span exclusion stands as measured.
 If **both** collapse, the added column is absorbing deformation amplitude generically and the test is
 void -- that is the outcome the B control exists to catch.
+
+## The dK span test -- PRE-REGISTERED 2026-09-22, before the object is built
+
+Both premise rows passed, so the test is on. Ansatz has ended as a session; the recipe is not
+carried in my head -- it is recorded in their commit `004f564` (`docs/PARKED.md`), read before use:
+
+    chain4 = -8Q - 7 P_phi^2 + 56 chi^2 (H + P_t^2)
+    P_phi^2, P_t^2 exactly conserved and eps-independent, so at O(eps):
+    dK = -(K1 - 56 chi^2 dH)/8        to O(chi^2)
+
+`K1_A` exists as a symbolic text file in their repo. **Cross-repo scope:** reading a finished
+symbolic object is the "concepts cross as a lens" mode this project runs in; their solver is not
+being imported into any SpaceTime script. The object is transcribed with an explicit convention map.
+
+### The bridge is the risk, and it has a known-fail
+
+Their momenta and mine are not the same symbols (`y = cos θ`, `P_y = -p_θ/sin θ` here). A wrong
+convention map and the interesting negative result **produce the same output**: an exponent that
+fails to collapse. That is silent_nulls 45a, and it disqualifies the test unless a control separates
+them. The control:
+
+> **C: does `Q + eps*dK` drift at O(eps^2) along A's flow?** No engine, no basis, no conditioning --
+> just RK4 and evaluate. If the map is right the drift exponent goes 1 -> 2. If it is wrong, dK is
+> numerically garbage and the exponent stays at 1.
+
+**Its known-fail is already banked:** the same test on `Q + eps*K1` gave exponent **1.001** (bare Q
+gave 1.002) -- no improvement, because K1 corrects chain4 and not Carter. So a readout that cannot
+tell `Q + eps*dK` from `Q + eps*K1` is blind, and **C must reproduce the 1.001 on K1 in the same run**
+as a two-sided control. **No span test runs unless C passes both sides.**
+
+### Disambiguating the outcome ansatz flagged in advance
+
+They stated before any run that dK is producible only to O(chi^2), so **partial collapse is ambiguous**
+between "dK is the missing span" and "dK is only partly right at this chi". That ambiguity is itself
+measurable, because the truncation error scales as chi^2 and the span question does not:
+
+| outcome at chi = 0.075 AND 0.0375 | reading |
+|---|---|
+| A collapses to ~0 at both | dK IS the missing span; the exclusion is overturned |
+| A's residual exponent **shrinks** with chi | truncation-limited -- dK is right, the O(chi^2) recipe is not enough; a LOCATED limit, not a verdict |
+| A's residual exponent **chi-independent** | dK is NOT the missing span; the exclusion stands as measured |
+| **B moves too** | the column absorbs deformation amplitude generically; test VOID -- this is why B ships |
+
+B is the control that makes any of it an argument, and it runs at both chi as well.
+
+Committed before `dK` is constructed.
