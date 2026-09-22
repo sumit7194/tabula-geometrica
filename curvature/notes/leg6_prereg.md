@@ -892,3 +892,23 @@ against the bare-Q row), so the readout is a three-way, not a threshold:
 
 K1's banked row is the known-fail for the third case specifically, and bare Q is the known-fail for
 the second. Both must appear in the same table as the object under test.
+
+### Correction: the bridge matched nothing, and the sign is now PREDICTED not merely resolved
+
+The first bridge matched `"P_x"`/`"P_y"`. **The source momenta are named `p_t, p_r, p_u, p_phi`**, so
+the substitution dict matched **no momentum at all** and `subs` silently did nothing -- `subs` never
+errors on a key that is not present. Worse than a clean miss: `p_r` exists in both namespaces (theirs
+`real=True`, mine `positive=True`), so `lambdify` would have bound *that one* correctly by NAME while
+`p_u`, `p_t`, `p_phi` became undefined globals. A bridge right about one coordinate and silently
+absent on three. Fixed with a **completeness assertion** in both directions: every source symbol must
+be mapped, and nothing unexpected may survive the substitution.
+
+Reading the real names also settles the Jacobian from physics rather than from the control. Their
+`y` IS `u = cos th`, and the momentum conjugate to it is
+
+    u = cos th  =>  du = -sin th dth  =>  p_u = p_th (dth/du) = -p_th / sin th
+
+**So sigma = -1 is the physically correct branch, predicted before the run.** Both branches still run,
+because the prediction is worth testing rather than assuming, but the pre-registration changes shape:
+sigma = -1 passing the control is a **confirmation**, and sigma = +1 passing instead would mean
+something is wrong with my reading of their convention and the run would not be usable either way.
