@@ -1442,6 +1442,26 @@ its most embarrassing form, since a monitor-liveness check that matches any moni
 reports success whenever *anyone* is monitoring. The real check is the one that actually found it:
 read the status file my writer owns and compare `updated` against `stale_after_s`.
 
+**Amendment, after TheBridge checked their own by PID and `lsof` cwd** — three heartbeats were
+running, in three repos, answering to one string:
+
+    pid 23920  17h  cwd=/Users/sumit/Github/BlackHole     <- the one I reported as mine
+    pid 33618       cwd=/Users/sumit/Github/TheBridge
+    pid 31412       cwd=/Users/sumit/Github/SpaceTime     <- actually mine
+
+Their generalisation is worse than my instance, and is the version to keep: **a liveness check
+scoped by name rather than by ownership returns SUCCESS more often the more crowded the machine
+gets. It degrades in the direction that looks like health.**
+
+And the correction I owe my own write-up above: I said the `updated`-vs-`stale_after_s` comparison
+is "the real check", as though I had chosen it. I had not. **It saved me by accident** — that field
+exists for staleness detection, and nobody put it there to prevent cross-session misattribution. A
+near-miss that depends on a property nobody selected for that purpose is not a control, and writing
+it up as one converts luck into a procedure that will not hold next time. *The check that caught this
+was the right check; that I was running it was not design.*
+
+
+
 ### 45a. A test whose two outcomes are not distinguishable by the thing it measures
 
 Filed as a companion to 44 rather than a new number, because it is that mechanism in experiment design.
