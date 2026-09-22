@@ -1383,6 +1383,40 @@ Fixed by requiring the raw condition on **two consecutive ticks**, with swap bei
 veto. **Not by lowering the threshold** — the threshold was never the problem; the sampling discipline was, and
 it was the exact discipline being advertised.
 
+### 68a. The gate built from entry 68 found a third edge in its first run — and its own first version was wrong
+
+Entry 68 said a scope claim needs a re-check trigger. So the claim *"their solver is not being
+imported into any SpaceTime script"* was moved out of prose into
+`curvature/scripts/audit_cross_repo.py`: every sibling-repo path reference must appear in a
+`DECLARED` allowlist with a reason. **Undeclared edge → fail. Declared edge that vanishes → also
+fail**, because a stale allowlist is a scope statement with the identical defect as the sentence it
+replaced.
+
+**Two things happened on first run, and both are the point.**
+
+**(1) It found an edge I had not reported.** An independence audit had just asked me, in writing, to
+enumerate cross-repo code dependencies. I answered from a `grep` and gave **two files**. The gate
+found a **third**. My hand answer to a direct question about exactly this, given that same hour, was
+incomplete — which is what a census is for and what recall is not.
+
+**(2) The third one was a FALSE POSITIVE, and catching that mattered more.** The hit was
+`ansatz/TheBridge's rule 33, adopted` — a slash inside English prose, matching a pattern meant for
+filesystem paths. **A gate whose first act is to cry wolf gets switched off** (entry 55: the
+false-alarm direction is the costly one). Fixed by anchoring on the absolute repo root that a real
+cross-repo reference always carries, and the known-fail selftest still passes both ways.
+
+> **A census answers a question recall cannot: "what is there now." A prose claim answers "what was
+> there when I wrote this."** The audit question was of the first kind and I answered it in the
+> second mode without noticing the substitution.
+
+**And the argument for building it at all** came from a peer's observation about the previous entry:
+every fault in that audit — four theirs, one mine — was caught by *a person*, and the only one caught
+by a *mechanism* was a stale-reference error that a gate refused **inside the entry about stale
+references**. *A lesson you must remember at the moment of decision is not a guardrail.* That is the
+case for converting entries into gates rather than into more entries, and this entry is the first
+test of it: the gate found something the entry's author had already been asked about directly and
+gotten wrong.
+
 ### 68. Prose has no dependency graph — a scope statement keeps asserting whatever it asserted the day it was written
 
 I wrote, in a pre-registration: *"their solver is not being imported into any SpaceTime script."* It
