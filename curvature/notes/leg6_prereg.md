@@ -1964,3 +1964,62 @@ direction on one statistic, no conversion anywhere.
 **Their caveat, stated by them because they supplied the number:** `heldout` is a normalised VARIANCE
 and the drift is `max|Q-Q0|/|Q0|`, a MAX. Those coincide only for a fixed waveform shape. **So 193 is
 an order of magnitude, not a target** -- it commits to "two orders, not one" and nothing finer.
+
+## RESOLVED: the fit IS Carter, the cosine reading was BACKWARDS, and the two instruments agree to 2.2x
+
+### 1. The empirical null reverses the cosine reading entirely
+
+    basis 39 columns    d_eff = 4.34    (not 40 -- TheBridge was right that it is far below)
+    assumed baseline 1/sqrt(40) = 0.1581     isotropic-at-d_eff = 0.4802
+
+    EMPIRICAL NULL, 20,000 random unit directions in the SAME whitened space:
+      median 0.0000   90th 0.0001   99th 0.0002   mean 0.0000   MAX 0.0009
+
+    A fitted |cos| 0.0336  -> 100.0th percentile
+    C fitted |cos| 0.1691  -> 100.0th percentile
+
+**Both are FAR ABOVE random, not below.** My `1/sqrt(40)` said A was below random; TheBridge's
+`d_eff` correction pointed the same way and harder (0.48 would have put BOTH below). **The measured
+null is ~0, so both readings were wrong in the same direction, and only the empirical draw settled
+it.** A random direction in whitened space, converted to raw coefficients by `/sd`, is dominated by
+the tiny-`sd` features and is therefore nearly orthogonal to `Q` -- which no dimensional argument
+predicts. *Two people reasoned about a null distribution and both got the sign of the answer wrong;
+drawing from it took thirty seconds.*
+
+### 2. The fitted direction IS Carter, functionally
+
+    corr(fit, Q) = 1.0000  for BOTH A and C
+
+So the coefficient-space cosine was the artefact I suspected -- 0.0336 against a null whose max is
+0.0009 is a strong signal, not a weak one, and the low absolute value says nothing.
+
+### 3. The like-for-like comparison, and it lands inside the pre-registration
+
+    Q scored by the ENGINE statistic     A 2.0054e-07   C 4.6401e-10   ratio 432
+    the FITTED direction                 A 4.9073e-10   C 2.0235e-11   ratio  24.3
+
+    analytic drift A/C = 13.9 (an AMPLITUDE) -> as a variance, 193
+    PRE-REGISTERED ~193 as an ORDER OF MAGNITUDE ("two orders, not one")
+    MEASURED 432 -> factor 2.24 from the prediction, SAME ORDER
+
+> **The two instruments agree on the same object at the same power, to a factor of 2.2.** An analytic
+> Poisson-bracket drift with no basis, no eigenproblem and no conditioning, against a whitened
+> generalized-eigenproblem statistic, about an effect nobody predicted.
+
+**And the earlier "2.8x agreement" was wrong twice over, not once.** Wrong POWER (amplitude vs
+variance, entry 63) *and* wrong OBJECT -- `24.3` is the fitted direction, which is **not** `Q`:
+
+    the fit is better conserved than Q ITSELF by  409x (A) and 23x (C)
+    while corr(fit, Q) = 1.0000
+
+**So the fit is `Q` plus a small correction**: small enough in amplitude that the correlation is 1 to
+four decimals, and effective enough that it removes 409x of A's drift. That is a real object, and
+it is what the screen has actually been finding all along -- not Carter, but Carter-plus-a-corrector.
+
+### What the C anomaly now reads as
+
+Both instruments, at matched power and matched object, say C's Carter is conserved **~200-400x
+better** than A's. The 13.9x that sat open in these notes was an amplitude; **squared, it was always
+~193**, and the engine independently gives 432. **The anomaly is confirmed and quantified, and the
+dissolution offered for it (a 13.5x coefficient-space amplitude) was comparing an amplitude to an
+amplitude but the WRONG amplitude -- in metric space C's deformation is 3.6x LARGER.**
