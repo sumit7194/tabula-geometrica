@@ -1810,3 +1810,44 @@ MAGNITUDE, not a number.
 configuration axis by construction. **The fingerprint gate catches a mismatch; building the job so no
 mismatch is possible is strictly better**, and this is the first time today that happened by design
 rather than by correction.
+
+## POSITIVE CONTROL PASSES: the instrument CAN discriminate, and dK is specific
+
+       eps       A supp     C supp     ratio |  A+dK/floor  C+dK/floor
+      0.05      34,350x        55x      622x |       7.2x        5.7x
+      0.10     120,200x       145x      829x |       8.4x       11.4x
+      0.20     230,837x       192x    1,204x |      17.3x       32.6x
+
+    PREDICTED  C+dK suppression ~75x, as an ORDER OF MAGNITUDE (tens-to-hundreds)
+    MEASURED                    55x .. 192x                        IN THE BAND
+    PREDICTED  ratio ~3090x     MEASURED 1,204x                    SAME ORDER
+
+**Both arms uncensored** (minimum margin/floor 7.2x and 5.7x), and the ratio sits **905x clear of the
+1.33x reproducibility bound**. `C + dK` is monotone in eps with exponent 1.255; `A + dK` is monotone
+at 0.634.
+
+> **`dK` suppresses the deformation it was derived from by ~2e5x and a DIFFERENT deformation by
+> ~1e2x -- a separation of three orders. The screen is not generic, and it CAN discriminate once the
+> pair is actually separated.**
+
+### What this settles, and what it does not
+
+    SETTLED   The instrument can return a positive. A null from it is now interpretable at all,
+              which it was not before this ran.
+    SETTLED   dK is SPECIFIC to A's deformation -- consistent with the sham (same shape, no effect)
+              and now shown from the other side (different deformation, 1000x less effect).
+    SETTLED   The A/B null is a property of the PAIR. Same instrument, same column, same grid:
+              0.03% separation -> ratio 1.23 (unreadable); 11.57% separation -> ratio 1,204.
+    NOT       The leg's original question. C keeps Carter RATIONALLY, so this is
+              polynomial-survivor vs rational-survivor, not survivor vs none.
+
+**A noted asymmetry, recorded not explained:** `C unaug` has a **3.6x LARGER** deformation than A
+(`||D_C||` 0.7299 vs 0.2029) yet a **24x SMALLER** margin (2.02e-11 vs 4.91e-10). Plausibly because C
+keeps Carter rationally and the library IS rational (`d2_rat`), so part of C's invariant is already
+representable. Consistent with the picture; not tested here.
+
+**The prediction's weak leg held.** It was committed as an order of magnitude precisely because the
+11.57% is an angle in DEFORMATION space while the relevant angle lives in VIOLATION space, and that
+map need not preserve angles. The measured 1,204x against a predicted ~3090x is a factor of 2.6 --
+well inside an order, so the angle is approximately preserved here. **That is a bonus finding about
+the map, not something the prediction was entitled to.**
