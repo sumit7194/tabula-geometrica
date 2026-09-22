@@ -166,9 +166,19 @@ def main() -> int:
             # absent AND a real sibling edge must be present. (TheBridge labelled their equivalent
             # hollow arm; this one admits a fix, so it gets one.)
             c = (rel("planted_local.py") not in found) and bool(found)
+            # ARM 4: the VENV exclusion is the one classification that decides whether something
+            # COUNTS. Mutation-testing showed breaking it leaves arms 1-3 green and the gate PASS --
+            # an uncovered fault class, the dual of TheBridge's :NO-PATH arm. A sibling interpreter
+            # must be reported and must NOT be a code edge.
+            (tmp / "planted_venv.py").write_text(
+                "#!/Users/sumit/Github/BlackHole/.venv/bin/python\n")
+            found = scan()
+            hits_v = found.get(rel("planted_venv.py"), [])
+            d = bool(hits_v) and all(h.startswith("VENV:") for h in hits_v)
             for lbl, v in (("absolute-path edge detected", a),
                            ("path-less sibling import detected", b),
-                           ("LOCAL module sharing the prefix NOT flagged", c)):
+                           ("LOCAL module sharing the prefix NOT flagged", c),
+                           ("sibling interpreter reported but NOT a code edge", d)):
                 print(f"  {'OK  ' if v else 'BAD '} selftest: {lbl}")
                 ok.append(v)
         finally:
