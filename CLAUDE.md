@@ -1148,7 +1148,7 @@ results in `curvature/notes/lab_notebook.md`.
   (p: 2.9e-07 → 0.40). Two designs, opposite failures, no third attempted. **ADDITIVE mutation DEMONSTRATED the
   anti-guard**: a common spurious log shrinks the corner spread 1.116%→0.516% — the headline gets *easier* on
   corrupted data; the multiplicative control is exactly invariant, which is why the obvious corruption test
-  shows nothing. 180 + 186 in verify.sh. **silent_nulls → 68** (55: an artifact that does not record the MODE it was produced in cannot be checked
+  shows nothing. 180 + 186 in verify.sh. **silent_nulls → 70** (55: an artifact that does not record the MODE it was produced in cannot be checked
   for reproduction — 175 stored a --fast run and said so nowhere; a faithful full-mode re-run disagreed on 8/10
   fields and looked exactly like drift, while --fast reproduces 13/13. The false-alarm direction is the costly
   one: a reproduction check that flags correct artifacts gets switched off. 54: a number with ONE LEGITIMATE JOB acquires unearned authority for the job next

@@ -1383,6 +1383,56 @@ Fixed by requiring the raw condition on **two consecutive ticks**, with swap bei
 veto. **Not by lowering the threshold** — the threshold was never the problem; the sampling discipline was, and
 it was the exact discipline being advertised.
 
+### 68. Prose has no dependency graph — a scope statement keeps asserting whatever it asserted the day it was written
+
+I wrote, in a pre-registration: *"their solver is not being imported into any SpaceTime script."* It
+was true. The scripts that used the sibling repo's solver lived in a scratchpad. Later I **promoted
+those scripts into the repo** — filing, not claiming — and the sentence three sections up went false
+with nothing to notice it. It took an outside audit asking a question I had already answered in
+writing.
+
+> **Code has imports, and a build breaks when a dependency moves. A claim in prose has no
+> dependencies and never recompiles: it keeps asserting its original content indefinitely, while the
+> world it describes is edited by actions nobody thinks of as touching it.**
+
+**The generalisation is stronger than the instance, and it explains a whole audit's worth of
+findings.** Every claim that audit corrected — *"the repos are kept ignorant of each other"*, *"two
+independent repos"*, *"four failure-mode-disjoint routes"* — **was true when written.** None was ever
+a lie. All three went false through later action: a repo split, a promoted directory, a replication
+that knew its target. And each was restated many times without re-derivation, because restating is
+free and re-checking is not.
+
+**The weapon, and it is the only one that has worked:** *a claim about the state of the world carries
+a re-check trigger, or a scope narrow enough that staleness is visible.*
+
+    "kept ignorant of each other"                  not re-checkable — survived years of restatement
+    "SHARED INPUT WITH: none, checked <how>"       re-checkable, and its staleness is a diff away
+
+**The asymmetry that makes this the default failure:** the moment of writing is when the claim is
+verified, and the moment of falsification is a routine action somewhere else entirely. Nobody is
+looking at the sentence when it dies.
+
+### 69. I reported the length of a truncated list as a count
+
+Auditing whether a migrated pipeline had left traces, I ran a search, piped it to `head -5`, and
+told a peer the string appeared in **five files**. It appears in seven. **The truncation was mine,
+one line earlier in my own command, and invisible in the output I then read as a result.**
+
+`head` is a display limit. It leaves no marker, produces a well-formed list, and a well-formed list
+of five things answers "how many?" with perfect confidence. **Nothing about the output says it was
+cut** — which is entry 57's shape (a mechanism that did nothing looks exactly like one that ran and
+found nothing) relocated into my own shell history.
+
+> **If a number will be quoted, produce it with something that counts (`wc -l`, `len()`), not with
+> something that displays. A limit applied for readability becomes a measurement the moment anyone
+> reads the output as an answer — and the person most likely to do that is whoever applied the
+> limit, because they have already forgotten it.**
+
+The substantive claim survived — zero executable lines, verified separately — so the error cost a
+wrong number in a message and not a wrong verdict. It was caught because the peer re-ran the search
+instead of repeating my figure, which is the only reason any number in this exchange has ever been
+right.
+
 ### 67. A reviewer's errors land inside their corrections, where they inherit the correction's authority
 
 Across one long exchange, two workers made seven instances of the same species. Five were mine and a
