@@ -991,3 +991,22 @@ my eps grid entirely -- **in which case the exponent stays at 1 at chi=0.075 and
 This supersedes the "exponent climbs toward 2" clause of the previous section as the *discriminator*,
 and it is a correction to my reasoning, not a relaxation after seeing data -- the chi=0.075 rows had
 not been produced when this was written.
+
+### sigma RESOLVED, as predicted: s=-1 wins by 2.5x
+
+    0.6    dK s=+1   9.2331e-05   exponent 0.984   improvement 31.1x
+    0.6    dK s=-1   3.6644e-05   exponent 1.039   improvement 78.4x
+
+**`sigma = -1` is the branch, confirming the prediction committed before any dK row existed** --
+read from `_kt_double.py:332` (their `y` IS `u = cos th`) rather than assumed, giving
+`p_u = -p_th/sin th` by calculus. The control separates the two branches by 2.5x, so the cross term
+DOES carry enough weight to be seen; the sign was calibratable after all, and the check could have
+rejected (a check that cannot reject was the live worry).
+
+**Recalibrating TheBridge's 1/chi prediction onto the correct branch:** `1/78.4 = 0.01276` at
+chi=0.6 gives `A3/A2 = 0.02126`, so at chi=0.075 the truncation-limited improvement is
+
+    78.4x * 8  =  ~627x        (truncation-limited)
+    ~78x                        (wrong bridge -- unchanged)
+
+Same 8x, same no-free-constants structure, applied to the branch the control selected.
