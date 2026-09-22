@@ -875,3 +875,20 @@ resolved by the control, which has a known-fail:
 
 Selecting sigma by the control is legitimate *only* because the control can fail for both values,
 which is what makes it a measurement rather than a fit. Stated before running it.
+
+### Reading rule for the control, fixed before the numbers land
+
+The exponent ALONE is not enough, and noticing that is 45a applied to my own control. If the bridge
+maps `dK` to something numerically negligible then `Q + eps*dK ~= Q`, the exponent stays at bare-Q's
+1.001, and that is **indistinguishable from "dK is wrong"** -- while actually meaning the control
+never tested anything. The table already carries the cure (every row reports its own `d` values
+against the bare-Q row), so the readout is a three-way, not a threshold:
+
+| exponent | improvement vs bare Q | reading |
+|---|---|---|
+| ~2 | large (>=10x) | bridge right, `dK` completes Carter -> **span test runs** |
+| ~1.00 | **~1.00x exactly** | `dK` is numerically negligible here -- VACUOUS, tests nothing, no verdict |
+| ~1.00 | anything else | `dK` present and wrong -- e.g. K1's banked **0.11x (worse than bare Q)** |
+
+K1's banked row is the known-fail for the third case specifically, and bare Q is the known-fail for
+the second. Both must appear in the same table as the object under test.
