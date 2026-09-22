@@ -1,0 +1,44 @@
+{
+  "RAD": {
+    "measured": 3.821077161199328e-14,
+    "predicted_from_angular": 0.0,
+    "rms_radial": 0.004088587955755277,
+    "rms_angular": 0.0,
+    "rms_mixed": 0.0
+  },
+  "RAD2": {
+    "measured": 4.958235314870631e-14,
+    "predicted_from_angular": 1.9029426584959586e-15,
+    "rms_radial": 2.201139745636621,
+    "rms_angular": 2.9175419847192865e-14,
+    "rms_mixed": 4.5064196468551326e-14
+  },
+  "ANG": {
+    "measured": 0.013779365742662615,
+    "predicted_from_angular": 0.013779365742616295,
+    "rms_radial": 0.0,
+    "rms_angular": 0.9693085181274614,
+    "rms_mixed": 3.511438534276175e-32
+  },
+  "A": {
+    "measured": 0.007130446636147816,
+    "predicted_from_angular": 0.00561784659855301,
+    "rms_radial": 0.06983606513086862,
+    "rms_angular": 0.33484456232213594,
+    "rms_mixed": 0.044430405015464226
+  },
+  "B": {
+    "measured": 0.007130473874933042,
+    "predicted_from_angular": 0.0056178463427992,
+    "rms_radial": 0.06983693608167744,
+    "rms_angular": 0.3348445618657112,
+    "rms_mixed": 0.04443075900254886
+  },
+  "C": {
+    "measured": 0.0005136332938402138,
+    "predicted_from_angular": 0.00013776858108748523,
+    "rms_radial": 0.004795322485179745,
+    "rms_angular": 0.0682705629796719,
+    "rms_mixed": 0.018020727539071458
+  }
+}
