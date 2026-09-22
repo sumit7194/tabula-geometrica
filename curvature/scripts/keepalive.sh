@@ -220,4 +220,24 @@ PY
   fi
   sleep 30
 done
-echo "keepalive ended after ${HOURS}h"
+# TTL EXIT MUST SET THE FLAG THAT EXISTS FOR IT (found 2026-09-22, silent_nulls 56).
+# The loop has a TTL so an abandoned heartbeat cannot run forever. But the TTL path wrote NOTHING to the
+# status file: it left `stopped_deliberately: false` and a note claiming the writer was LIVE, and simply
+# stopped updating. A reader then sees the exact signature of a CRASH. The one exit that always happens
+# unattended was the one exit that lied about itself.
+python3 - "$S" "$HOURS" << 'TTLPY' || true
+import json, sys, datetime
+p, hours = sys.argv[1], sys.argv[2]
+try:
+    d = json.load(open(p))
+except Exception:
+    sys.exit(0)
+d["stopped_deliberately"] = True
+d["state"] = "idle"
+d["note_to_readers"] = (f"Writer exited CLEANLY at its {hours}h TTL -- not a crash. The `measured` block "
+                        "below is the last real reading and is now FROZEN; do not schedule against it. "
+                        "Restart: curvature/scripts/keepalive.sh <hours>")
+d["updated"] = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+json.dump(d, open(p, "w"), indent=2)
+TTLPY
+echo "keepalive ended after ${HOURS}h (status marked stopped_deliberately)"

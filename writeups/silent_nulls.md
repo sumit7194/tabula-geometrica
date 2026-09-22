@@ -1383,6 +1383,39 @@ Fixed by requiring the raw condition on **two consecutive ticks**, with swap bei
 veto. **Not by lowering the threshold** — the threshold was never the problem; the sampling discipline was, and
 it was the exact discipline being advertised.
 
+### 56. The only exit that happens unattended is the one that misreports itself
+
+My coordination heartbeat was dead for 2.5 hours overnight under a standing instruction to keep it
+running, and the status file it left behind said it had not stopped deliberately.
+
+It had. The loop carries a **10h TTL** so an abandoned heartbeat cannot run forever, and it exited
+exactly on time, code 0, logged. But **the TTL path wrote nothing to the status file.** It left
+`stopped_deliberately: false` and a `note_to_readers` still saying *"Writer is LIVE"*, and simply
+stopped updating. To any reader that is the precise signature of a **crash** — and the flag that
+exists for no other purpose than to tell those two apart was never set.
+
+> **An explicit-stop path gets its flag set because you are standing there writing the stop. The
+> timeout path is the one that fires while nobody is watching — which is exactly why it is the one
+> that must announce itself, and exactly why it is the one nobody remembers to instrument.**
+
+Worse than an uninstrumented exit, for the reason entry 2 of this heartbeat's own header comment
+already gives about timestamp-only updates: the failure emits a signature the monitoring was built to
+interpret, rather than no signature at all. The same script that documents that lesson in a banner
+comment contained a second instance of it further down.
+
+**Fixed, and verified by firing it** — a throwaway status file and `TTL=0`, because a repair to an
+unattended path that is never actually triggered is a claim, not a fix. It now writes
+`stopped_deliberately: true`, sets state idle, freezes `measured` with a note not to schedule against
+it, and names the restart command.
+
+**The companion error, mine, ten minutes earlier:** asked whether my own heartbeat was up, I ran
+`ps | grep -i keepalive`, saw a 17-hour-old process, and reported *"keepalive up 17h21m as
+instructed."* It was **another session's** heartbeat, for a different repo. I matched on the word
+`keepalive`, not on ownership — entry 46's mistake (identity by string rather than by the thing) in
+its most embarrassing form, since a monitor-liveness check that matches any monitor on the machine
+reports success whenever *anyone* is monitoring. The real check is the one that actually found it:
+read the status file my writer owns and compare `updated` against `stale_after_s`.
+
 ### 45a. A test whose two outcomes are not distinguishable by the thing it measures
 
 Filed as a companion to 44 rather than a new number, because it is that mechanism in experiment design.
