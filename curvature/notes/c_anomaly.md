@@ -86,3 +86,57 @@ because two shifts partly cancelled, which is no reason to trust it.
 
 **4. A and B are identical to every printed digit** (drift 7.1304e-03 vs 7.1305e-03; heldout equal). That is the
 0.03% deformation overlap from leg 6 showing up in a third, engine-free statistic.
+
+## M2 RESULT — the mechanism is validated; my PRE-REGISTERED PREDICTION ABOUT C FAILED; the data points elsewhere
+
+chi=0.6, eps=0.05, seed 1, 40/3000 (the leg-6 analytic-drift configuration). Exit 0, 386 s, 369 MB. The first
+attempt died SILENTLY (no traceback, no exit code captured) after the two controls; rerun with the split done
+numerically instead of by symbolic simplify, unbuffered, exit status recorded.
+
+      obj    measured    pred(ang)  meas/pred |  rms radial  rms angular   rms mixed
+      RAD   3.821e-14   0.000e+00       inf  |   4.089e-03    0           0
+     RAD2   4.958e-14   1.903e-15      26    |   2.201e+00    2.9e-14     4.5e-14
+      ANG   1.378e-02   1.378e-02     1.000  |   0            9.693e-01   3.5e-32
+        A   7.130e-03   5.618e-03     1.269  |   6.984e-02    3.348e-01   4.443e-02
+        B   7.130e-03   5.618e-03     1.269  |   (identical to A)
+        C   5.136e-04   1.378e-04     3.728  |   4.795e-03    6.827e-02   1.802e-02
+
+### The controls pass, and the radial one is now non-vacuous
+- **ANG**: predicted drift = measured drift to three decimals (ratio **1.000**). "Bare Q moves by exactly
+  -eps*dTheta" holds in this code's conventions.
+- **RAD2**: a radial-only deformation **2.3x LARGER than ANG's angular one** (rms 2.20 vs 0.97) leaves bare Q at
+  the integration floor (5.0e-14 vs 4.0e-14). The first radial control (RAD) was 240x smaller than ANG on these
+  near-circular orbits, which left its zero open to "too small to matter"; RAD2 closes that. **Radial
+  deformations cannot move bare Q, at any size tested.**
+
+### The prediction about C, as registered, FAILED on both clauses
+Registered: *"C's deformation is dominated by a radial-only part, and its angular + non-separable part is ~13.9x
+smaller than A's."*
+
+    C's parts:  radial 0.0048   angular 0.068   mixed 0.018      -> ANGULAR dominates, not radial
+    angular+mixed rms, A/C:  0.338 / 0.070 = 4.8x                -> not 13.9x
+
+**Both clauses false.** C is not a mostly-radial deformation, and its drift-capable parts are only 4.8x smaller
+than A's in size, not the 13.9x its drift ratio needs.
+
+### What the data shows instead: variation along the orbit, not size
+
+    angular part, A/C:   rms (size)  4.9x      ->  predicted drift (its VARIATION along orbits)  40.8x
+
+**C's angular deformation is large but nearly constant along C's own orbits.** Its size is 4.9x smaller than A's;
+the amount it CHANGES along an orbit is 40.8x smaller. Bare Q moves by the variation, not the size, so the
+anomaly lives in the variation. Registering size as the mechanism was wrong for the same reason heldout divides
+within-trajectory variance by total variance: a quantity's magnitude says nothing about whether it moves.
+
+**And C's residual drift is mostly NOT angular:** the angular part accounts for 79% of A's drift but only 27% of
+C's. What little C drifts comes mainly from its MIXED (non-separable) part.
+
+So, provisionally: **C conserves bare Q well because its deformation mostly shifts WHICH quantity is conserved
+(Q -> Q + eps*dTheta, separable), and that shift is nearly constant on C's orbits; the drift C does show is
+dominated by a small non-separable remainder.**
+
+### Open, not claimed
+WHY is C's angular shift nearly orbit-constant? The natural hypothesis is that it is close to a function of the
+Kerr conserved quantities (E, L, H, Q) -- anything built from conserved quantities is constant on an orbit and
+cannot move bare Q. Testable directly: score dTheta with the engine's own within/total statistic. Not run; stated
+so it is a hypothesis and not a finding.
