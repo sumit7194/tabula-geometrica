@@ -1383,6 +1383,39 @@ Fixed by requiring the raw condition on **two consecutive ticks**, with swap bei
 veto. **Not by lowering the threshold** — the threshold was never the problem; the sampling discipline was, and
 it was the exact discipline being advertised.
 
+### 67. A reviewer's errors land inside their corrections, where they inherit the correction's authority
+
+Across one long exchange, two workers made seven instances of the same species. Five were mine and a
+peer caught them. Two were the peer's — **and both were committed in the act of handing me a better
+check than the one I had.**
+
+> **That is not incidental to the role, it is the hazard of it.** A correction arrives with momentum:
+> it has just been *right* about something, the recipient is mid-update, and the natural response is
+> to adopt rather than audit. **An error inside a correction inherits the authority of the
+> correction.**
+
+Both instances had that shape. One offered a consistency check for a ladder and built it by dividing
+a baseline from one parameter value by a ratio from another — landing on `1.1×`, flush against a
+boundary, which *reads as confirmation and stops the inquiry.* The other, correcting that, offered a
+parameter-stability check whose numerator was **inferred rather than measured**, making it
+algebraically identical to a fact already known. **Two attempts to supply a cross-check, one artefact
+and one tautology**, and the real diagnosis was upstream of both: the object had no internal check in
+it at all — its rungs telescope to the endpoints by construction.
+
+**Why the recipient is badly placed to catch it:** I was reading a structure as its author presented
+it. The miscount — treating four arithmetic rungs and one external comparison as five pieces of
+evidence — **was theirs to make and mine to inherit.** Inheriting a frame is cheaper than building
+one, which is most of why peer correction works and all of why it fails this way.
+
+**And the symmetry is the useful part.** The same species appearing in both directions, on opposite
+halves of one problem, says it is a property of ratio-heavy work rather than of either worker — which
+is why the response was three mechanical rules (fingerprint the configuration, sample the null,
+re-derive anything flush against a boundary) and a gate, rather than a resolution to be careful. *Not
+one of the seven was caught by an intention to be careful.*
+
+**The corollary for the reviewer's side:** the correction you are most confident in is the one to
+state with its own caveat attached, because it is the one the recipient will audit least.
+
 ### 66. The argmin was the entire noise source — score a known direction, don't minimise over the basis
 
 Every unstable number in a day of unstable numbers came from the same statistic in the same mode:

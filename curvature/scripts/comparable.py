@@ -22,6 +22,22 @@ whatever the parameters were, they appear in numerator and denominator and cance
 transportable and is marked `within=True`. A value compared ACROSS configurations is not, unless the
 axes match. This is why `f = a*chi + b` survived a relaunch that invalidated the absolute numbers it
 was combined with.
+
+TRANSPORTABILITY IS PER-AXIS, NOT GLOBAL. Measured, after this module was first written:
+
+    the same statistic, same object, across EXPRESSION TREES (a 1-ulp perturbation)   33%
+    the same statistic, same object, across EPS within ONE tree                        2.2%
+
+The noise source is the ARGMIN over near-degenerate directions, and it reshuffles when the PROBLEM is
+perturbed -- a different tree, a different ulp -- not when eps is varied inside one. So a ratio
+cancels noise ALONG THE AXIS THE NOISE IS CONSTANT IN, and `within=True` is a claim about one axis
+rather than about configurations in general. A ratio that is transportable along eps may be worthless
+along tree.
+
+AND THE STRONGEST FORM IS NOT A RATIO AT ALL: scoring a KNOWN direction instead of minimising over
+the basis avoids the argmin entirely -- measured stable to 0.05% against the minimiser's 33%, a
+factor of ~650. Where the candidate is known in advance, score it; the minimum answers "what is the
+best-conserved thing in this basis", scoring answers "how conserved is THIS thing".
 """
 from __future__ import annotations
 
