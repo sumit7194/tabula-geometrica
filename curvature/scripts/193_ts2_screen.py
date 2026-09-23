@@ -484,9 +484,229 @@ def ensemble(model, n, seed, nstep, dt, stride, x_lo=None, x_hi=None):
     return traj
 
 
+SHELLS = ((0.97, -3.8), (0.97, -3.9), (0.965, -3.8))          # amendment 1, A2
+CELLS = [("CR", par, r, d) for par in ("even", "odd") for r in RANKS[par] for d in DEGS] \
+    + [("CR+", "even", 4, 6), ("CR+", "odd", 3, 6)]
+
+
+def expected_kerr(fam, parity, r, d):
+    if parity == "odd":
+        return 0
+    return 1 if r == 2 else (2 if (d >= 4 or fam == "CR+") else 1)
+
+
+def span_residual(traj, spec, model, res, k, target):
+    """Is a known invariant (per-trajectory values) inside the span of the first k conserved directions?"""
+    if k == 0:
+        return 1.0
+    V = np.stack([values_along(traj, spec, model, res, j) for j in range(k)], 1)
+    X_ = np.concatenate([V, np.ones((len(V), 1))], 1)
+    coef, *_ = np.linalg.lstsq(X_, target, rcond=None)
+    return float(np.linalg.norm(X_ @ coef - target) / (np.linalg.norm(target - target.mean()) + 1e-300))
+
+
+def toda_control(args, out):
+    mdl = TodaModel(0.1)
+    tr = ensemble(mdl, args.n, 11, args.nstep, 0.02, args.stride)
+    te = ensemble(mdl, args.n, 61, args.nstep, 0.02, args.stride)
+    rows = {}
+    for par, r in (("odd", 1), ("odd", 3), ("even", 2), ("even", 4)):
+        res = engine(tr, te, ("exp", par, r, 0, 1.0), mdl)
+        rows[f"{par}{r}"] = res
+    floor = rows["odd3"]["ratios"][0]
+    counts = {k: int((v["ratios"] <= BAND * floor).sum()) for k, v in rows.items()}
+    I3 = np.array([mdl.I3(te[:, :, g]).mean() for g in range(te.shape[2])])
+    resid = span_residual(te, ("exp", "odd", 3, 0, 1.0), mdl, rows["odd3"], 1, I3)
+    ok = counts == {"odd1": 0, "odd3": 1, "even2": 0, "even4": 0} and resid < 1e-3
+    out["C3_toda"] = {"floor": float(floor), "counts": counts, "I3_span_residual": resid, "pass": bool(ok),
+                      "ratios": {k: [float(x) for x in v["ratios"][:6]] for k, v in rows.items()},
+                      "scope": "natural Hamiltonian, not geodesic flow: validates the readout at odd degree, "
+                               "not the geodesic reduction"}
+    print(f"C3 Toda: counts {counts}, I3 span residual {resid:.1e}, floor {floor:.1e} -> {'PASS' if ok else 'FAIL'}",
+          flush=True)
+    return ok
+
+
+def run_space(model, lo_hi, args, seed, cells):
+    xl, xh = ((lo_hi[0] - 1) / model.sig, (lo_hi[1] - 1) / model.sig)
+    tr = ensemble(model, args.n, seed, args.nstep, args.dt, args.stride, xl, xh)
+    te = ensemble(model, args.n, seed + 50, args.nstep, args.dt, args.stride, xl, xh)
+    xref = 0.5 * (xl + xh)
+    res = {c: engine(tr, te, c + (xref,), model) for c in cells}
+    return tr, te, xref, res
+
+
+SHELLS_STRONG = {"t1o2": ((0.935, -2.9), (0.94, -3.0), (0.945, -3.1)),       # amendment 2: TS + Kerr only,
+                 "t1o3": ((0.94, -3.05), (0.935, -3.05), (0.94, -3.15))}    # pericentre 4.0-5.5m, no ZV
+
+
+def outer_interval(mdl):
+    xg = np.linspace((R_GUARD - 1) / mdl.sig, 80 / mdl.sig, 8000)
+    iv = [(1 + mdl.sig * a_, 1 + mdl.sig * b_) for a_, b_ in equatorial_intervals(mdl, xg)]
+    return [v for v in iv if v[0] > R_GUARD + 0.3 and v[1] < 60][0]
+
+
+def control_cells(nm, res, te, xref, mdl, floors, si, q, E, L):
+    cells, ok_all = {}, True
+    for c in CELLS:
+        fam, par, r, d = c
+        if nm == "Kerr":
+            e = expected_kerr(fam, par, r, d)
+            if e:
+                floors[(si, c)] = res[c]["ratios"][e - 1]
+        fl = floors[(si, c)] if par == "even" else floors[(si, (fam, "even", r + 1, d))]
+        cnt = int((res[c]["ratios"] <= BAND * fl).sum())
+        cell = {"p": res[c]["p"], "pruned": res[c]["n_pruned"], "floor": float(fl), "count": cnt,
+                "ratios": [float(v) for v in res[c]["ratios"][:8]]}
+        if nm == "Kerr":
+            e = expected_kerr(fam, par, r, d)
+            cell["expected"] = e
+            ok = cnt == e
+            if e:
+                Kv = np.array([carter_shell(te[:, :, g], float(-q), E, L).mean() for g in range(te.shape[2])])
+                cell["carter_span_residual"] = span_residual(te, c + (xref,), mdl, res[c], cnt, Kv)
+                ok = ok and cell["carter_span_residual"] < 1e-3
+                if e == 2:
+                    cell["K2_span_residual"] = span_residual(te, c + (xref,), mdl, res[c], cnt, Kv ** 2)
+                    ok = ok and cell["K2_span_residual"] < 1e-3
+        else:
+            ok = cnt == 0
+        cell["pass"] = bool(ok)
+        ok_all = ok_all and ok
+        cells["/".join(map(str, c))] = cell
+    return cells, ok_all
+
+
+def ts_cells(res, floors, si):
+    cells = {}
+    for c in CELLS:
+        fam, par, r, d = c
+        fl = floors[(si, c)] if par == "even" else floors[(si, (fam, "even", r + 1, d))]
+        rs = res[c]["ratios"]
+        cnt = int((rs <= BAND * fl).sum())
+        appr = rs[(rs > BAND * fl) & (rs <= APPROX_CEIL)]
+        # The Bridge's rule, fixed before any TS statistic: a direction outside the band is "APPROXIMATE, not
+        # detected", always reported with its ratio to the floor so it cannot round up to a detection.
+        cells["/".join(map(str, c))] = {
+            "p": res[c]["p"], "pruned": res[c]["n_pruned"], "floor": float(fl), "count": cnt,
+            "approximate": int(len(appr)), "approximate_over_floor": [float(v / fl) for v in appr[:4]],
+            "ratios": [float(v) for v in rs[:8]], "refused": bool(cnt > 3 * max(expected_kerr(fam, par, r, d), 1))}
+    return cells
+
+
+def verdicts(A, nshell):
+    V = {}
+    for c in CELLS:
+        key = "/".join(map(str, c))
+        cs = [A["shells"][str(si)]["TS2"]["cells"][key] for si in range(nshell)]
+        if any(x["refused"] for x in cs):
+            v = "REFUSED-LIBRARY"
+        elif all(x["count"] >= 1 for x in cs):
+            v = f"DETECTED at rank {c[2]} ({c[1]} part) in basis {c[0]}(d={c[3]})"
+        elif any(x["count"] >= 1 for x in cs):
+            v = "SHELL-RESTRICTED INTEGRAL (not a Killing tensor): shells " + \
+                ",".join(str(si) for si, x in enumerate(cs) if x["count"] >= 1)
+        else:
+            v = f"NONE up to rank {c[2]} ({c[1]} part) in basis {c[0]}(d={c[3]})"
+            if any(x["approximate"] for x in cs):
+                v += " -- APPROXIMATE, not detected, on shells " + ",".join(
+                    f"{si}(x{min(x['approximate_over_floor']):.1e} floor)" for si, x in enumerate(cs) if x["approximate"])
+        V[key] = v
+    return V
+
+
+def run_arm(tag, spaces, shells, with_zv, args, A, q, prog):
+    """One arm: controls first on every shell; TS is integrated and read only if every control cell passes."""
+    floors, ok_all = {}, True
+    names = ("Kerr", "ZV2") if with_zv else ("Kerr",)
+    for si, (E, L) in enumerate(shells):
+        S = A["shells"][str(si)] = {"E": E, "L": L}
+        for nm in names:
+            mdl = spaces[nm].at(E, L)
+            outer = outer_interval(mdl)
+            tr, te, xref, res = run_space(mdl, outer, args, 100 * si + (1 if nm == "Kerr" else 2), CELLS)
+            prog(nm, si)
+            cells, ok = control_cells(nm, res, te, xref, mdl, floors, si, q, E, L)
+            S[nm] = {"interval_r": outer, "cells": cells}
+            ok_all = ok_all and ok
+            print(f"  {tag} {A['arm']} shell {si} {nm}: " + " ".join(
+                f"{k}:{v['count']}{'' if v['pass'] else '(FAIL)'}" for k, v in cells.items()), flush=True)
+    A["controls_pass"] = bool(ok_all)
+    if not ok_all:
+        A["verdict"] = "REFUSED: a control count failed; TS NOT integrated, NOT read"
+        print(f"  {tag} {A['arm']}: {A['verdict']}", flush=True)
+        return
+    if args.skip_ts:                                        # driver smoke: controls only, TS never integrated
+        return
+    Bf = sp.lambdify((X, Y), spaces["TS2"].B, "numpy")
+    for si, (E, L) in enumerate(shells):
+        S = A["shells"][str(si)]
+        mdl = spaces["TS2"].at(E, L)
+        outer = outer_interval(mdl)
+        tr, te, xref, res = run_space(mdl, outer, args, 100 * si + 3, CELLS)
+        prog("TS2", si)
+        S["TS2"] = {"interval_r": outer, "min_x": float(min(tr[0].min(), te[0].min())),
+                    "min_B": float(min(Bf(tr[0], tr[1]).min(), Bf(te[0], te[1]).min())),
+                    "max_abs_y": float(max(np.abs(tr[1]).max(), np.abs(te[1]).max())),
+                    "cells": ts_cells(res, floors, si)}
+        print(f"  {tag} {A['arm']} shell {si} TS2 (min x {S['TS2']['min_x']:.1f}): " + " ".join(
+            f"{k}:{v['count']}" + (f"~{v['approximate']}" if v["approximate"] else "")
+            for k, v in S["TS2"]["cells"].items()), flush=True)
+    A["verdicts"] = verdicts(A, len(shells))
+    if with_zv:
+        A["descent"] = {}
+        for par in ("even", "odd"):
+            for r in RANKS[par]:
+                for si in range(len(shells)):
+                    get = lambda nm, d: A["shells"][str(si)][nm]["cells"][f"CR/{par}/{r}/{d}"]["ratios"][0]
+                    ts = [get("TS2", d) for d in DEGS]
+                    zv = [get("ZV2", d) for d in DEGS]
+                    f_ts, f_zv = ts[0] / max(ts[-1], 1e-300), zv[0] / max(zv[-1], 1e-300)
+                    A["descent"][f"{par}{r}/shell{si}"] = {
+                        "ts_best_by_d": ts, "zv_best_by_d": zv, "ts_factor": f_ts, "zv_factor": f_zv,
+                        "shape": "DESCENDING" if (ts[0] > ts[1] > ts[2] and f_ts >= 10 * f_zv) else "FLAT"}
+    for k, v in A["verdicts"].items():
+        print(f"  {tag} {A['arm']} {k}: {v}", flush=True)
+
+
+def production(args):
+    from curvlib import progress
+    out = {"prereg": "notes/ts2_screen_prereg.md (e7c038d + amendments 9595b80, 2)", "band": BAND,
+           "approx_ceiling": APPROX_CEIL, "n_per_ensemble": args.n, "nstep": args.nstep, "dt": args.dt,
+           "cells": [list(c) for c in CELLS], "q": {}}
+    t0 = time.time()
+    if not toda_control(args, out):
+        out["verdict"] = "REFUSED: the odd-degree readout control failed; TS not read"
+        (RESULTS / "193_ts2_screen.json").write_text(json.dumps(out, indent=1))
+        print(out["verdict"])
+        return
+    state = {"step": 0}
+    total = len(POINTS) * 3 * (3 + 2)
+
+    def prog(nm, si):
+        state["step"] += 1
+        progress("193_ts2", state["step"], total, spacetime=nm, shell=si)
+
+    for tag in POINTS:
+        comps, p, q, sig = load_ts(tag)
+        spaces = {"Kerr": Spacetime(kerr_components(-q, p), p, "Kerr"), "ZV2": Spacetime(*zv2_components(), "ZV2"),
+                  "TS2": Spacetime(comps, sig, "TS2")}
+        spaces["TS2"].B = comps["B"]
+        Q = out["q"][tag] = {"p": str(p), "q": str(q)}
+        Q["shared"] = {"arm": "shared-shell (Kerr + ZV controlled)", "shells": {}}
+        run_arm(tag, spaces, SHELLS, True, args, Q["shared"], q, prog)
+        Q["strong"] = {"arm": "strong-field (Kerr-controlled only; NEVER merged with the shared arm)", "shells": {}}
+        run_arm(tag, spaces, SHELLS_STRONG[tag], False, args, Q["strong"], q, prog)
+        (RESULTS / "193_ts2_screen.json").write_text(json.dumps(out, indent=1, default=float))
+    out["wall_seconds"] = time.time() - t0
+    (RESULTS / "193_ts2_screen.json").write_text(json.dumps(out, indent=1, default=float))
+    print(f"saved results/193_ts2_screen.json ({out['wall_seconds']:.0f}s)")
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--probe", action="store_true")
+    ap.add_argument("--production", action="store_true")
+    ap.add_argument("--skip-ts", action="store_true")
     ap.add_argument("--n", type=int, default=16)
     ap.add_argument("--nstep", type=int, default=20000)
     ap.add_argument("--dt", type=float, default=0.1)
@@ -494,3 +714,6 @@ if __name__ == "__main__":
     args = ap.parse_args()
     if args.probe:
         probe(args)
+    elif args.production:
+        args.n = 60 if args.n == 16 else args.n
+        production(args)

@@ -231,3 +231,24 @@ cell. Otherwise it is **FLAT**.
 - 60 train + 60 test orbits per (spacetime, q, shell), 20000 RK4 steps at dt = 0.1, stride 20, so P = 1000
   samples per orbit.
 - Footprint: the probe peaked at 237 MB; the Kerr engine smoke peaked at **1306 MB** (the p = 1421 cell).
+
+## Amendment 2 — 2026-09-24, The Bridge's GO, before any TS conservation statistic
+
+**B1. A strong-field arm, kept separate.** TS + Kerr only, pericentre 4.0–5.5m. It is graded **"Kerr-controlled
+only"**, because ZV plunges on these shells so there is no negative control. It is **never merged** with the
+shared-shell arm. The shells come from potential alone:
+- p = 3/5: (E, L) = (0.935, −2.9), (0.94, −3.0), (0.945, −3.1);
+- p = 4/5: (0.94, −3.05), (0.935, −3.05), (0.94, −3.15).
+
+Ring margin: r_like ≥ 4 means x ≥ 10 against the ring's 1.137 at p = 3/5 (8.8×), and x ≥ 7.5 against 1.057 at
+p = 4/5 (7.1×). The measured min x and min B are reported per shell. The Kerr control on these shells must pass
+the same count table before TS is integrated there.
+
+**B2. The APPROXIMATE rule, both arms.** A TS direction outside the 10³ band, with a ratio ≤ 1e-6, is reported
+as **"APPROXIMATE, not detected"**, with its ratio to the floor, and is never rounded up to a detection. This
+is how I read The Bridge's rule. I read "above floor, below the band" as meaning *outside* the band, because
+Kerr's exactly-conserved K² sits at 46–350× the floor *inside* the band, and the count table requires that to
+count.
+
+**B3. Driver smoke.** A `--skip-ts` flag runs the controls only, so the driver can be tested end to end without
+integrating TS.
