@@ -65,3 +65,27 @@ The verdicts are reported per arm and **never merged** across arms. The strong a
 
 As §193: numerical, the named family, bound prograde timelike orbits on the same shells, vacuum via ansatz's
 Schwartz–Zippel check, and the odd-degree reduction validated only indirectly.
+
+## Amendment 1 — from the Kerr-only footprint probe (n = 20), before any rank-6 TS statistic
+
+**The probe numbers:**
+
+| Kerr cell | p | smallest held-out ratios | peak footprint |
+|---|---|---|---|
+| even r=6, d=4 | 1679 | 1.4e-21 (K) · 1.2e-17 (K²) · **1.7e-14** (K³ approximant, not representable) · 0.78 | — |
+| odd r=5, d=4 | 1260 | 0.97 | — |
+| even r=6, d=6 | 3135 | 2.7e-20 · 3.0e-18 · 2.2e-16 (K³) · 0.78 | **3435 MB** |
+
+**The weakness it exposed.** At rank 6 the band is anchored on the *worst-resolved* expected Kerr power. At d = 4
+that is K² at 1.2e-17, so the band reaches 1.2e-14, and a non-representable K³ *approximant* sits only 1.4×
+outside it. A TS approximant could therefore fall inside a band this generous and read as EXACT. §193's
+rank-4 margins were not like this.
+
+**R1, a resolution gate added before any TS statistic.** A cell can issue EXACT or APPROXIMANT only if its Kerr
+control *resolves*: the ratio between Kerr's first non-expected direction and its last expected direction must be
+≥ 10⁵ (the same two decades that separate APPROXIMANT from the band). A cell that fails this is
+**UNRESOLVED → REFUSED**, and TS is not read in it. With this gate, a TS approximant cannot win just because the
+control was noisy there.
+
+**R2, footprint.** 3.4 GB peak at d = 6 (p = 3135). If The Bridge's watchdog budget does not allow it when the
+go arrives, the d = 6 cells are dropped and the verdict is scoped to d = 4, as pre-registered.
