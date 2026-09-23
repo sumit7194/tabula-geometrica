@@ -403,10 +403,12 @@ def engine(tr, te, spec, model):
     _, sd = _moments(tr, spec, model)
     Rw, Rt = sqrt_stats(tr, spec, model, sd)
     Rw_te, Rt_te = sqrt_stats(te, spec, model, sd)
-    _, S, Vt = np.linalg.svd(Rt)
+    if Rt.shape[0] < Rt.shape[1]:
+        raise RuntimeError(f"undersampled: {Rt.shape[0]} rows for a {Rt.shape[1]}-column library")
+    _, S, Vt = np.linalg.svd(Rt, full_matrices=False)
     keep = S > COND_TOL * S[0]
     W = Vt[keep].T / S[keep]
-    _, S2, V2t = np.linalg.svd(Rw @ W)
+    _, S2, V2t = np.linalg.svd(Rw @ W, full_matrices=False)
     C = W @ V2t[::-1].T                                   # ascending within/total on train
     num = np.sum((Rw_te @ C) ** 2, 0)
     den = np.sum((Rt_te @ C) ** 2, 0)
@@ -466,10 +468,18 @@ class TodaModel:
 def ensemble(model, n, seed, nstep, dt, stride, x_lo=None, x_hi=None):
     rng = np.random.default_rng(seed)
     if isinstance(model, TodaModel):
-        traj = rk4(model, model.launch(n, rng), nstep, dt, stride)
-        Hs = model.H(traj)
-        keep = (np.max(np.abs(Hs - Hs[:, :1]), 0) / model.E0 < H_DRIFT_KEEP) & np.isfinite(traj).all((0, 1))
-        return traj[:, :, keep]
+        got = []
+        for _ in range(6):
+            traj = rk4(model, model.launch(2 * n, rng), nstep, dt, stride)
+            Hs = model.H(traj)
+            keep = (np.max(np.abs(Hs - Hs[:1]), 0) / model.E0 < H_DRIFT_KEEP) & np.isfinite(traj).all((0, 1))
+            got.append(traj[:, :, keep])
+            if sum(g.shape[2] for g in got) >= n:
+                break
+        traj = np.concatenate(got, 2)[:, :, :n]
+        if traj.shape[2] < n:
+            raise RuntimeError(f"Toda: only {traj.shape[2]} kept orbits (needed {n})")
+        return traj
     got = []
     for _ in range(6):
         z0 = launch(model, 2 * n, rng, x_lo, x_hi)
@@ -507,8 +517,8 @@ def span_residual(traj, spec, model, res, k, target):
 
 def toda_control(args, out):
     mdl = TodaModel(0.1)
-    tr = ensemble(mdl, args.n, 11, args.nstep, 0.02, args.stride)
-    te = ensemble(mdl, args.n, 61, args.nstep, 0.02, args.stride)
+    tr = ensemble(mdl, args.n, 11, 2 * args.nstep, 0.005, 2 * args.stride)
+    te = ensemble(mdl, args.n, 61, 2 * args.nstep, 0.005, 2 * args.stride)
     rows = {}
     for par, r in (("odd", 1), ("odd", 3), ("even", 2), ("even", 4)):
         res = engine(tr, te, ("exp", par, r, 0, 1.0), mdl)
@@ -557,6 +567,7 @@ def control_cells(nm, res, te, xref, mdl, floors, si, q, E, L):
         fl = floors[(si, c)] if par == "even" else floors[(si, (fam, "even", r + 1, d))]
         cnt = int((res[c]["ratios"] <= BAND * fl).sum())
         cell = {"p": res[c]["p"], "pruned": res[c]["n_pruned"], "floor": float(fl), "count": cnt,
+                "counted_over_floor": [float(v / fl) for v in res[c]["ratios"][:cnt]],
                 "ratios": [float(v) for v in res[c]["ratios"][:8]]}
         if nm == "Kerr":
             e = expected_kerr(fam, par, r, d)
@@ -589,6 +600,7 @@ def ts_cells(res, floors, si):
         # detected", always reported with its ratio to the floor so it cannot round up to a detection.
         cells["/".join(map(str, c))] = {
             "p": res[c]["p"], "pruned": res[c]["n_pruned"], "floor": float(fl), "count": cnt,
+            "counted_over_floor": [float(v / fl) for v in rs[:cnt]],        # The Bridge: marginal hits must show
             "approximate": int(len(appr)), "approximate_over_floor": [float(v / fl) for v in appr[:4]],
             "ratios": [float(v) for v in rs[:8]], "refused": bool(cnt > 3 * max(expected_kerr(fam, par, r, d), 1))}
     return cells
@@ -685,7 +697,7 @@ def production(args):
 
     def prog(nm, si):
         state["step"] += 1
-        progress("193_ts2", state["step"], total, spacetime=nm, shell=si)
+        progress("193_ts2", state["step"], total, spacetime={"Kerr": 0, "ZV2": 1, "TS2": 2}[nm], shell=si)
 
     for tag in POINTS:
         comps, p, q, sig = load_ts(tag)
