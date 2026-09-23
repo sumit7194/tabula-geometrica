@@ -4526,3 +4526,32 @@ third option.** Two designs, two failures, opposite causes; a third was not atte
 **The extraction carries ONE validation gate (G1), not two.** G1b was meant to be the sharper check and returned
 no information. G1's own weakness is known and was stated before running: it compares alphas across shapes with
 different corner counts, so a systematic could shift both together.
+
+## 2026-09-24 — §193 Tomimatsu–Sato δ=2 N-rung screen (fleet chain 2): controls green, TS NONE up to rank 4
+
+**Pre-registration:** `notes/ts2_screen_prereg.md` (e7c038d), plus amendments 9595b80 and 2808da2, plus driver
+fixes acf8627. All of these were committed before any TS statistic.
+**Assigned by:** The Bridge. It is blind to ansatz's sealed prediction, to quantum's records, and to the
+TS-specific integrability literature.
+
+- **Design.** The fixed shell, (E, L, μ) pinned per ensemble. §168/§174's varying-(E, L, H) design was REFUSED
+  at rank 3–4.
+- **Fix round 1, on the Kerr control.** In covariance form the engine's floor was ~1e-10, against Carter's true
+  4e-25, and K² sat 6000× above it. I switched to the square-root form (streamed QR + SVD): floor 1e-26 to
+  1e-27.
+- **Driver smoke.** At n = 12 orbits, ZV showed a spurious "conserved" direction. That was an undersampled Kerr
+  floor inflating the band, and the controls correctly REFUSED the run. At n = 60, ZV's best approximant
+  saturates at 2e-11, about 13 orders above Kerr.
+- **Controls.** All green: Toda C3 (I3 found in the odd r = 3 part), Kerr C1 (the count table exact on every
+  shell, both q, both arms), ZV C2 (0 everywhere).
+- **TS.** NONE up to rank 4 in CR and CR⁺ (d = 2, 4, 6, even and odd parts), at (p, q) = (3/5, 4/5) and
+  (4/5, 3/5), in the shared arm and in the strong-field arm (Kerr-controlled only). The d-axis descent is FLAT.
+  - TS carries an APPROXIMATE Carter-like direction: 5e-13 to 2e-10 at rank 2, and 8e-18 to 1e-12 at rank 4.
+  - The closest cell sits at 2.5e3× floor (p = 4/5, strong shell (0.935, −3.05), even r4 d4). That is marginal,
+    2.5× outside the band, and is called APPROXIMATE.
+- **Post-hoc, not a gate.** TS's approximant improves 150–1.8e5× from rank 2 to rank 4, while ZV's changes
+  0.09–8×. TS is far nearer to integrable than ZV. Rank ≤ 4 cannot separate two readings: a formal-series
+  (KAM) approximant, or an exact invariant of rank > 4 or non-polynomial in the momenta. The discriminator
+  would be a rank-6 rung, which is not run.
+- **Artifacts:** `results/193_ts2_probe.json`, `results/193_ts2_screen.json`.
+- Held locally, not pushed, until The Bridge compares the rungs.
