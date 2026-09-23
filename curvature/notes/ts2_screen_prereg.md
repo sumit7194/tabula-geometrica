@@ -162,3 +162,72 @@ Every (q, shell, r, family, parity) cell gets one of:
 2. The number goes to The Bridge.
 3. Production waits for The Bridge's go.
 4. Watchdog: kill if free disk < 5 GB or free swap < 512 MB.
+
+---
+
+## Amendment 1 — 2026-09-24, before any TS conservation statistic
+
+This amendment comes from the probe (L0, shells, orbit feasibility) and from a Kerr-only engine smoke. No TS
+conservation statistic had been computed when it was written.
+
+**A1. L0 passes exactly.** At both points, the 20 random rational points agree with the manifest's own formulas
+with residual **0** in exact arithmetic: g_TT, g_xx, g_yy, the Weyl identity, g_Tφ = fω, and both twist
+equations. The far field gives m = 1.000 and J/m² = −0.800 and −0.600. **J is negative in the BL sign
+convention**, so the matched Kerr control uses **a = −q**, and "prograde" means L < 0.
+
+**A2. Shells (deviation, recorded).**
+- The rule: a bound equatorial interval that is disjoint from any inner plunge region, exists in all three
+  spacetimes, and has apocentre ≤ 25.
+- ZV δ=2 plunges unless |L| ≳ 3.8, and the shells are shared, so pericentres land at **~7.5–9.5m**. The
+  pre-reg's "r ≲ 8m" holds on the first shell only.
+- The shells: **(E, L) = (0.97, −3.8), (0.97, −3.9), (0.965, −3.8)** at both q.
+- Orbit feasibility: H drift ~6e-14, and 32/32 orbits kept on every spacetime.
+- TS kept orbits reach min x = 17.2 at p = 4/5, which is 16× the ring's x = 1.057, with min B = 4e9.
+
+**A3. The parity ladder.** The even part at r = 3 is identical to the even part at r = 2 (degree 3 has no even
+monomials), so the pre-registered r ∈ {2, 3, 4} is carried by parity:
+- even: r ∈ {2, 4};
+- odd: r ∈ {1, 3}.
+
+Each is crossed with d ∈ {2, 4, 6}, plus CR⁺ at d = 6 for even r = 4 and odd r = 3.
+
+**A4. FIX ROUND 1, driven by the control.** In covariance form the engine's Kerr floor was ~1e-10, against
+Carter's true 4e-25. The exactly-representable K² sat at 6000× that floor, so C1 would have failed. I switched to
+the **square-root form** of the same generalized eigenproblem: streamed QR of the within and total scatter, then
+the SVD of R_w R_t⁺, with total-scatter pruning at 1e-12. The mathematics is unchanged; the condition number is no
+longer squared. Kerr smoke, (q = 4/5, shell 1, 60 + 60 orbits):
+
+| cell | smallest held-out ratios | count | expected |
+|---|---|---|---|
+| even r=2, d=2 | 1.7e-26 · 3.4e-1 | 1 | 1 |
+| even r=4, d=2 | 6.7e-27 · 4.6e-12 (APPROXIMATE) · 2.4e-1 | 1 | 1 |
+| even r=4, d=4 | 4.3e-27 · 1.5e-24 · 2.4e-1 | 2 | 2 |
+| odd r=3, d=4 | 6.4e-1 | 0 | 0 |
+| CR⁺ even r=4, d=6 | 2.4e-25 · 1.1e-23 · 1.4e-1 | 2 | 2 |
+
+**Honest note:** K² sits 46–350× above the floor, inside the 10³ band, so the margin is only about 3× at d = 4.
+**The band stays at 10³, as pre-registered**; this smoke was not used to retune it.
+
+**A5. Floor for odd cells.** Kerr expects 0 there, so there is no own floor. The floor comes from the Kerr
+even-parity cell at the same (q, shell, family, d) and r + 1.
+
+**A6. The descent readout (§178), fixed now.** A NONE cell is **DESCENDING** iff its best ratio falls
+monotonically over d = 2 → 4 → 6 **and** the total factor is ≥ 10× ZV's factor in the same (q, shell, parity, r)
+cell. Otherwise it is **FLAT**.
+
+**A7. The Toda control (C3).**
+- The reduced periodic Toda at energy 0.1.
+- The family: {1, e^{2y+2√3x}, e^{2y−2√3x}, e^{−4y}} × x^i y^j with i + j ≤ 2.
+- I3 was verified symbolically, {H, I3} = 0.
+- Expected counts: odd r = 1 → 0, odd r = 3 → **1** (I3 in span, residual < 1e-3), even r = 2 → 0,
+  even r = 4 → 0.
+- The floor is self-calibrated from its own I3 direction.
+
+**A8. Span checks.**
+- A Kerr detection must carry Carter: per-trajectory K values fitted in the conserved span, residual < 1e-3.
+- At even r = 4, d ≥ 4, it must also carry K².
+
+**A9. Ensembles and footprint.**
+- 60 train + 60 test orbits per (spacetime, q, shell), 20000 RK4 steps at dt = 0.1, stride 20, so P = 1000
+  samples per orbit.
+- Footprint: the probe peaked at 237 MB; the Kerr engine smoke peaked at **1306 MB** (the p = 1421 cell).
