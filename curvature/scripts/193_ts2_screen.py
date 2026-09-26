@@ -714,11 +714,168 @@ def production(args):
     (RESULTS / "193_ts2_screen.json").write_text(json.dumps(out, indent=1, default=float))
     print(f"saved results/193_ts2_screen.json ({out['wall_seconds']:.0f}s)")
 
+# ================================================================ §193b rank-6 discriminator (notes/ts2_rank6_prereg.md)
+
+CELLS6 = [("CR", "even", 6, 4), ("CR", "odd", 5, 4), ("CR", "even", 6, 6)]
+RESOLVE = 1e5                     # gate R1: Kerr's first non-expected / last expected >= this, else UNRESOLVED
+APPROXIMANT_MIN = 1e5             # ratio_TS / floor above this on every shell -> APPROXIMANT
+SWAP_FLOOR_D6_MB = 1024           # The Bridge: if free swap drops below 1 GB, d=6 is dropped (pre-registered scope-down)
+
+
+def expected_kerr6(parity, d):
+    return 0 if parity == "odd" else (3 if d >= 6 else 2)
+
+
+def swap_free_mb():
+    import subprocess
+    out = subprocess.run(["sysctl", "-n", "vm.swapusage"], capture_output=True, text=True).stdout
+    return float(re.search(r"free = ([0-9.]+)M", out).group(1))
+
+
+def rank6_arm(tag, spaces, shells, with_zv, args, A, q, prev, state, prog):
+    cells = [c for c in CELLS6 if not (c[3] == 6 and state["drop_d6"])]
+    kerr, ok_all = {}, True
+    for si, (E, L) in enumerate(shells):
+        S = A["shells"][str(si)] = {"E": E, "L": L}
+        for nm in ("Kerr", "ZV2") if with_zv else ("Kerr",):
+            mdl = spaces[nm].at(E, L)
+            outer = outer_interval(mdl)
+            if not state["drop_d6"] and swap_free_mb() < SWAP_FLOOR_D6_MB:
+                state["drop_d6"] = True
+                A["d6_dropped"] = f"free swap < {SWAP_FLOOR_D6_MB} MB before {nm} shell {si}"
+            cells = [c for c in CELLS6 if not (c[3] == 6 and state["drop_d6"])]
+            tr, te, xref, res = run_space(mdl, outer, args, 100 * si + (1 if nm == "Kerr" else 2), cells)
+            prog(nm, si)
+            out = {}
+            for c in cells:
+                fam, par, r, d = c
+                rs = res[c]["ratios"]
+                if nm == "Kerr":
+                    e = expected_kerr6(par, d)
+                    if e:
+                        kerr[(si, c)] = {"floor": float(rs[e - 1]), "resolution": float(rs[e] / rs[e - 1])}
+                src = kerr.get((si, c)) if par == "even" else kerr.get((si, ("CR", "even", 6, 4)))
+                fl = src["floor"]
+                cnt = int((rs <= BAND * fl).sum())
+                cell = {"p": res[c]["p"], "pruned": res[c]["n_pruned"], "floor": fl, "count": cnt,
+                        "resolution": src["resolution"], "resolved": bool(src["resolution"] >= RESOLVE),
+                        "ratios": [float(v) for v in rs[:8]], "ratio_over_floor": [float(v / fl) for v in rs[:5]]}
+                if nm == "Kerr":
+                    e = expected_kerr6(par, d)
+                    cell["expected"] = e
+                    ok = cnt == e
+                    if e:
+                        Kv = np.array([carter_shell(te[:, :, g], float(-q), E, L).mean() for g in range(te.shape[2])])
+                        cell["carter_span_residual"] = span_residual(te, c + (xref,), mdl, res[c], cnt, Kv)
+                        ok = ok and cell["carter_span_residual"] < 1e-3
+                else:
+                    ok = cnt == 0
+                cell["pass"] = bool(ok)
+                ok_all = ok_all and ok
+                out["/".join(map(str, c))] = cell
+            S[nm] = {"interval_r": outer, "cells": out}
+            print(f"  {tag} {A['arm']} shell {si} {nm}: " + " ".join(
+                f"{k}:{v['count']}{'' if v['pass'] else '(FAIL)'}[res {v['resolution']:.1e}]" for k, v in out.items()),
+                flush=True)
+    A["controls_pass"] = bool(ok_all)
+    if not ok_all:
+        A["verdict"] = "REFUSED: a rank-6 control count failed; TS NOT integrated, NOT read"
+        print(f"  {tag} {A['arm']}: {A['verdict']}", flush=True)
+        return
+    Bf = sp.lambdify((X, Y), spaces["TS2"].B, "numpy")
+    for si, (E, L) in enumerate(shells):
+        S = A["shells"][str(si)]
+        mdl = spaces["TS2"].at(E, L)
+        outer = outer_interval(mdl)
+        cells_ts = [c for c in cells if "/".join(map(str, c)) in S["Kerr"]["cells"]]
+        tr, te, xref, res = run_space(mdl, outer, args, 100 * si + 3, cells_ts)
+        prog("TS2", si)
+        out = {}
+        for c in cells_ts:
+            fam, par, r, d = c
+            kc = S["Kerr"]["cells"]["/".join(map(str, c))]
+            rs = res[c]["ratios"]
+            r4key = f"CR/even/4/{d}"
+            r4 = prev["shells"][str(si)]["TS2"]["cells"][r4key]["ratios"][0] if par == "even" else None
+            out["/".join(map(str, c))] = {
+                "p": res[c]["p"], "floor": kc["floor"], "resolved": kc["resolved"], "kerr_resolution": kc["resolution"],
+                "kerr_ratios": kc["ratios"][:4], "ratios": [float(v) for v in rs[:6]],
+                "best_over_floor": float(rs[0] / kc["floor"]),
+                "rank4_best": r4, "r4_to_r6_improvement": (float(r4 / rs[0]) if r4 else None)}
+        S["TS2"] = {"interval_r": outer, "min_x": float(min(tr[0].min(), te[0].min())),
+                    "min_B": float(min(np.min(Bf(tr[0], tr[1])), np.min(Bf(te[0], te[1])))), "cells": out}
+        print(f"  {tag} {A['arm']} shell {si} TS2: " + " ".join(
+            f"{k}: best/floor {v['best_over_floor']:.1e}" + ("" if v["resolved"] else " (UNRESOLVED)")
+            for k, v in out.items()), flush=True)
+    A["verdicts"] = {}
+    for c in cells:
+        key = "/".join(map(str, c))
+        cs = [A["shells"][str(si)]["TS2"]["cells"].get(key) for si in range(len(shells))]
+        if any(x is None for x in cs):
+            A["verdicts"][key] = "NOT RUN (d=6 dropped by the swap rule)"
+            continue
+        bf = [x["best_over_floor"] for x in cs]
+        if not all(x["resolved"] for x in cs):
+            v = "REFUSED (UNRESOLVED: Kerr does not resolve this cell on every shell, gate R1)"
+        elif all(b <= BAND for b in bf):
+            v = "EXACT (polynomial, rank <= 6) -- escalate as a CANDIDATE, not a claim"
+        elif all(b > APPROXIMANT_MIN for b in bf):
+            imp = [x["r4_to_r6_improvement"] for x in cs]
+            if imp[0] is None:
+                sub = "(odd part: no rank-4 comparison)"
+            elif all(i >= 10 for i in imp):
+                sub = "continuing descent"
+            elif all(i < 10 for i in imp):
+                sub = "stalled"
+            else:
+                sub = "mixed"
+            v = f"APPROXIMANT, {sub}"
+        else:
+            split = any(b <= BAND for b in bf) and any(b > BAND for b in bf)
+            v = "INCONCLUSIVE" + (" -- candidate SHELL-RESTRICTED integral, never a Killing tensor" if split
+                                  else " -- grey zone (1e3, 1e5] x floor on some shell")
+        A["verdicts"][key] = v + " | best/floor per shell: " + ", ".join(f"{b:.1e}" for b in bf) + \
+            " | raw best ratio per shell: " + ", ".join(f"{x['ratios'][0]:.1e}" for x in cs)
+    for k, v in A["verdicts"].items():
+        print(f"  {tag} {A['arm']} {k}: {v}", flush=True)
+
+
+def rank6(args):
+    from curvlib import progress
+    prev = json.loads((RESULTS / "193_ts2_screen.json").read_text())
+    out = {"prereg": "notes/ts2_rank6_prereg.md (e56bca1 + amendment 1 d815781, gate R1)", "band": BAND,
+           "resolve": RESOLVE, "approximant_min": APPROXIMANT_MIN, "cells": [list(c) for c in CELLS6],
+           "n_per_ensemble": args.n, "nstep": args.nstep, "dt": args.dt, "q": {}}
+    t0 = time.time()
+    state = {"drop_d6": False, "step": 0}
+    total = len(POINTS) * 3 * (3 + 2)
+
+    def prog(nm, si):
+        state["step"] += 1
+        progress("193b_rank6", state["step"], total, spacetime={"Kerr": 0, "ZV2": 1, "TS2": 2}[nm], shell=si)
+
+    for tag in POINTS:
+        comps, p, q, sig = load_ts(tag)
+        spaces = {"Kerr": Spacetime(kerr_components(-q, p), p, "Kerr"), "ZV2": Spacetime(*zv2_components(), "ZV2"),
+                  "TS2": Spacetime(comps, sig, "TS2")}
+        spaces["TS2"].B = comps["B"]
+        Q = out["q"][tag] = {"p": str(p), "q": str(q)}
+        Q["shared"] = {"arm": "shared-shell (Kerr + ZV controlled)", "shells": {}}
+        rank6_arm(tag, spaces, SHELLS, True, args, Q["shared"], q, prev["q"][tag]["shared"], state, prog)
+        Q["strong"] = {"arm": "strong-field (Kerr-controlled only; NEVER merged with the shared arm)", "shells": {}}
+        rank6_arm(tag, spaces, SHELLS_STRONG[tag], False, args, Q["strong"], q, prev["q"][tag]["strong"], state, prog)
+        out["d6_dropped"] = state["drop_d6"]
+        (RESULTS / "193b_rank6.json").write_text(json.dumps(out, indent=1, default=float))
+    out["wall_seconds"] = time.time() - t0
+    (RESULTS / "193b_rank6.json").write_text(json.dumps(out, indent=1, default=float))
+    print(f"saved results/193b_rank6.json ({out['wall_seconds']:.0f}s)")
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--probe", action="store_true")
     ap.add_argument("--production", action="store_true")
     ap.add_argument("--skip-ts", action="store_true")
+    ap.add_argument("--rank6", action="store_true")
     ap.add_argument("--n", type=int, default=16)
     ap.add_argument("--nstep", type=int, default=20000)
     ap.add_argument("--dt", type=float, default=0.1)
@@ -726,6 +883,9 @@ if __name__ == "__main__":
     args = ap.parse_args()
     if args.probe:
         probe(args)
+    elif args.rank6:
+        args.n = 60 if args.n == 16 else args.n
+        rank6(args)
     elif args.production:
         args.n = 60 if args.n == 16 else args.n
         production(args)
