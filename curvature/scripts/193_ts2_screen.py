@@ -733,17 +733,18 @@ def swap_free_mb():
 
 
 def rank6_arm(tag, spaces, shells, with_zv, args, A, q, prev, state, prog):
-    cells = [c for c in CELLS6 if not (c[3] == 6 and state["drop_d6"])]
+    base = state.get("cells", CELLS6)
+    cells = [c for c in base if not (c[3] == 6 and state["drop_d6"])]
     kerr, ok_all = {}, True
     for si, (E, L) in enumerate(shells):
         S = A["shells"][str(si)] = {"E": E, "L": L}
         for nm in ("Kerr", "ZV2") if with_zv else ("Kerr",):
             mdl = spaces[nm].at(E, L)
             outer = outer_interval(mdl)
-            if not state["drop_d6"] and swap_free_mb() < SWAP_FLOOR_D6_MB:
+            if not state.get("no_swap_rule") and not state["drop_d6"] and swap_free_mb() < SWAP_FLOOR_D6_MB:
                 state["drop_d6"] = True
                 A["d6_dropped"] = f"free swap < {SWAP_FLOOR_D6_MB} MB before {nm} shell {si}"
-            cells = [c for c in CELLS6 if not (c[3] == 6 and state["drop_d6"])]
+            cells = [c for c in base if not (c[3] == 6 and state["drop_d6"])]
             tr, te, xref, res = run_space(mdl, outer, args, 100 * si + (1 if nm == "Kerr" else 2), cells)
             prog(nm, si)
             out = {}
@@ -870,12 +871,124 @@ def rank6(args):
     (RESULTS / "193b_rank6.json").write_text(json.dumps(out, indent=1, default=float))
     print(f"saved results/193b_rank6.json ({out['wall_seconds']:.0f}s)")
 
+
+# ================================================================ §193c strong-field rank-6 d=6 (notes/ts2_rank6_strong_prereg.md)
+
+FARFIELD_LEVEL = {"t1o2": 2.0e-23}             # §193b shared-arm TS_best max (q = 3/5); none for q = 4/5
+
+
+def feature_names(spec):
+    """Names in the exact column order of features() for the CR family."""
+    family, parity, r, d, xref = spec
+    assert family == "CR"
+    s_ = (r + 1) // 2
+    nums = [f"x^{i} y^{j}" for i in range(d + 1) for j in range(d + 1 - i)]
+    dens = [""] + [f" /(x^2-1)^{k}" for k in range(1, s_ + 1)] + [f" /(1-y^2)^{k}" for k in range(1, s_ + 1)]
+    coord = [n + dn for n in nums for dn in dens]
+    names = []
+    for deg in range(0 if parity == "even" else 1, r + 1):
+        if (deg % 2 == 0) != (parity == "even"):
+            continue
+        for a in range(deg + 1):
+            mn = f"px^{a} py^{deg - a}"
+            for cn in coord:
+                if mn == "px^0 py^0" and cn == "x^0 y^0":
+                    continue
+                names.append(f"{mn} * {cn}")
+    return names
+
+
+def export_farfield(args):
+    """Recompute §193b's far-field TS direction (q=3/5, shared shells, even r6 d4; same seeds) and export it."""
+    comps, p, q, sig = load_ts("t1o2")
+    st = Spacetime(comps, sig, "TS2")
+    cell = ("CR", "even", 6, 4)
+    out = {"what": "§193b post-hoc far-field TS direction (NOT a claim), exported for The Bridge only",
+           "metric": "Tomimatsu-Sato delta=2, (p,q)=(3/5,4/5), units m=1, sigma=p/2, prolate (x,y), ansatz package",
+           "hamiltonian": "H = 1/2 (g^xx px^2 + g^yy py^2) + V(x,y;E,L) on the shell H = -1/2, p_T=-E, p_phi=L",
+           "x_tilde": "x / x_ref in numerators only (x^i means (x/x_ref)^i); denominators use raw x",
+           "normalisation": "coef_raw has unit Euclidean norm over RAW features (value = sum coef_raw[k] * feature_k); "
+                            "defined up to sign and an additive constant",
+           "cell": list(cell), "shells": []}
+    for si, (E, L) in enumerate(SHELLS):
+        mdl = st.at(E, L)
+        outer = outer_interval(mdl)
+        tr, te, xref, res = run_space(mdl, outer, args, 100 * si + 3, [cell])
+        r_ = res[cell]
+        c_raw = r_["C"][:, 0] / r_["sd"]
+        c_raw = c_raw / np.linalg.norm(c_raw)
+        names = feature_names(cell + (xref,))
+        assert len(names) == len(c_raw)
+        top = np.argsort(-np.abs(c_raw))[:25]
+        out["shells"].append({"E": E, "L": L, "x_ref": float(xref), "interval_r": outer,
+                              "heldout_ratio": float(r_["ratios"][0]), "next_ratio": float(r_["ratios"][1]),
+                              "feature_scale_sd": [float(v) for v in r_["sd"]], "basis": names,
+                              "coef_raw": [float(v) for v in c_raw],
+                              "top25": [[names[k], float(c_raw[k])] for k in top]})
+        print(f"shell {si}: heldout {r_['ratios'][0]:.1e} (reproduces §193b?), top terms: "
+              + "; ".join(f"{names[k]}:{c_raw[k]:+.3f}" for k in top[:4]), flush=True)
+    (RESULTS / "193c_farfield_direction.json").write_text(json.dumps(out, indent=1))
+    print("saved results/193c_farfield_direction.json")
+
+
+def rank6_strong(args):
+    from curvlib import progress
+    out = {"prereg": "notes/ts2_rank6_strong_prereg.md (ef25326)", "band": BAND, "resolve": RESOLVE,
+           "cell": ["CR", "even", 6, 6], "q": {}}
+    prev = json.loads((RESULTS / "193_ts2_screen.json").read_text())
+    t0 = time.time()
+    state = {"drop_d6": False, "no_swap_rule": True, "cells": [("CR", "even", 6, 6)], "step": 0}
+
+    def prog(nm, si):
+        state["step"] += 1
+        progress("193c_strong", state["step"], 12, spacetime={"Kerr": 0, "ZV2": 1, "TS2": 2}[nm], shell=si)
+
+    for tag in POINTS:
+        comps, p, q, sig = load_ts(tag)
+        spaces = {"Kerr": Spacetime(kerr_components(-q, p), p, "Kerr"), "TS2": Spacetime(comps, sig, "TS2")}
+        spaces["TS2"].B = comps["B"]
+        A = out["q"][tag] = {"arm": "strong-field (Kerr-controlled only)", "shells": {}}
+        rank6_arm(tag, spaces, SHELLS_STRONG[tag], False, args, A, q, prev["q"][tag]["strong"], state, prog)
+        if "verdicts" in A:
+            A["verdicts_193b_rule_informational"] = A.pop("verdicts")
+        if A.get("controls_pass"):
+            key = "CR/even/6/6"
+            rows = []
+            for si in A["shells"]:
+                S = A["shells"][si]
+                t, k = S["TS2"]["cells"][key], S["Kerr"]["cells"][key]
+                rows.append({"shell": si, "TS_best": t["ratios"][0], "floor": k["floor"], "K_ratio": k["ratios"][0],
+                             "resolved": k["resolved"], "over_floor": t["ratios"][0] / k["floor"],
+                             "over_K": t["ratios"][0] / k["ratios"][0]})
+            ff = FARFIELD_LEVEL.get(tag)
+            if not all(r_["resolved"] for r_ in rows):
+                reading = "REFUSED (UNRESOLVED, R1)"
+            elif all(r_["TS_best"] <= BAND * r_["floor"] and r_["TS_best"] <= BAND * r_["K_ratio"] for r_ in rows):
+                reading = "EXACT-LIKE (not a claim)"
+            elif all(r_["TS_best"] > BAND * r_["floor"] or (ff is not None and r_["TS_best"] > BAND * ff)
+                     for r_ in rows):
+                reading = "APPROXIMANT-LIKE (not a claim)"
+            else:
+                reading = "INCONCLUSIVE"
+            A["reading_193c"] = {"reading": reading, "farfield_level": ff, "rows": rows}
+            print(f"  {tag} READING: {reading} | " + "; ".join(
+                f"sh{r_['shell']} TS {r_['TS_best']:.1e} floor {r_['floor']:.1e} K {r_['K_ratio']:.1e}" for r_ in rows),
+                flush=True)
+        else:
+            A["reading_193c"] = {"reading": "REFUSED (controls)"}
+        (RESULTS / "193c_strong.json").write_text(json.dumps(out, indent=1, default=float))
+    out["wall_seconds"] = time.time() - t0
+    (RESULTS / "193c_strong.json").write_text(json.dumps(out, indent=1, default=float))
+    print(f"saved results/193c_strong.json ({out['wall_seconds']:.0f}s)")
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--probe", action="store_true")
     ap.add_argument("--production", action="store_true")
     ap.add_argument("--skip-ts", action="store_true")
     ap.add_argument("--rank6", action="store_true")
+    ap.add_argument("--rank6-strong", action="store_true")
+    ap.add_argument("--export-farfield", action="store_true")
     ap.add_argument("--n", type=int, default=16)
     ap.add_argument("--nstep", type=int, default=20000)
     ap.add_argument("--dt", type=float, default=0.1)
@@ -883,6 +996,12 @@ if __name__ == "__main__":
     args = ap.parse_args()
     if args.probe:
         probe(args)
+    elif args.export_farfield:
+        args.n = 60 if args.n == 16 else args.n
+        export_farfield(args)
+    elif args.rank6_strong:
+        args.n = 60 if args.n == 16 else args.n
+        rank6_strong(args)
     elif args.rank6:
         args.n = 60 if args.n == 16 else args.n
         rank6(args)
