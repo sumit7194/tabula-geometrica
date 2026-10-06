@@ -127,3 +127,38 @@ Vafa 2507.06952 showed that good prediction does not mean the law was found.
   Chaos labels depend on sampling (EXP-4/6).
 - **Hype.** It will not "discover new physics" by itself. Its realistic value is fast amortized triage plus
   verified proposals, and one clean scientific test: the legibility law at foundation-model scale.
+
+## Cross-pollination from DeepStrain (2026-10-06, discussion only; the work stays separate)
+
+DeepStrain is the BlackHole repo's session, working on subsolar-mass merger search networks. Its brainstorm
+raised five points that transfer to this design.
+
+1. **Audit what the encoding destroys before comparing architectures.**
+   - Their magnitude spectrograms threw away phase and the second detector. That put every architecture at the
+     same ceiling: the architectures differed, the input was equally lossy.
+   - We have seen the same thing. Phase G's mean-pool destroyed the binding between a body's tag and its charge.
+   - **Added gate M0.5:** an *oracle on the encoded tokens*. Measure the best verdict or invariant accuracy that is
+     achievable from the token stream itself, before training anything. This is the §Phase-F rule, "measure the
+     floor first", applied to the encoder.
+2. **A three-tier yardstick.** Their "ideal = 1.0" target turned out to be unreachable; their realizable best was
+   0.51 and the oracle 0.66–0.76. We fix ours in advance:
+   - the oracle: the generator's true labels;
+   - the realizable best: our per-system engine and the §150 detector;
+   - the model.
+   Gains are reported against the realizable tier.
+3. **Counterfactual hard negatives**, to kill shortcuts. Their idea: time-reversed chirps labelled as noise.
+   Ours: decoy worlds that match the statistics but differ in the property.
+   - Surrogate trajectories (phase-randomized / IAAFT) carry the same spectrum and marginals but no invariant.
+   - Integrable/chaotic pairs at matched energy and power spectrum.
+   - §166 planted nuisance constants, as negatives for the proposer.
+   - This is the §170 idea done right: an absence model must preserve every property except the target one.
+4. **Learn the null rather than the signal.** A learned model of *non-conserved* directions could calibrate the
+   detection band from absence. That revives §170's goal ("calibrate against absence"), which failed only because
+   shuffling destroyed temporal structure.
+5. **A prior-centre check cannot catch a prior-returning estimator.** Their stacking check passed at coverage 1.00
+   for exactly this reason. **Added gate:** the verdict model is tested off-centre and on held-out families, and
+   its per-family calibration must not just reproduce the class frequencies of the training prior.
+
+**From their item 7 (f^(−8/3) straightens chirps):** choose coordinates in which the invariant becomes linear. That
+is our Bloch-vector lesson (K=3 linearizes the Born rule) and the idea behind action–angle variables. It is a
+candidate learned "coordinate warp" stage in front of the invariant head.
