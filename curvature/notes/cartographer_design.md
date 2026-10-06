@@ -162,3 +162,16 @@ raised five points that transfer to this design.
 **From their item 7 (f^(−8/3) straightens chirps):** choose coordinates in which the invariant becomes linear. That
 is our Bloch-vector lesson (K=3 linearizes the Born rule) and the idea behind action–angle variables. It is a
 candidate learned "coordinate warp" stage in front of the invariant head.
+
+**DeepStrain round 2 (one transfer).** Their windows always put the merger in the second half, so position was a
+second leaked cue.
+
+Our equivalent: if the generator gives verdict classes different nuisance statistics (energy range, trajectory
+length, sampling stride, number of orbits), the verdict head can learn those statistics and skip the physics.
+
+**Added to M0:** match every such nuisance distribution across verdict classes, and check this with a
+nuisance-only probe. That probe must sit at chance.
+
+**Correction we accepted on our #7.** Straightening coordinates gives template sharing, but a line search on a
+POWER image is still incoherent (semi-coherent at best). Coherence needs phase in the input. The general lesson:
+the right coordinates help only if the encoding keeps the information.
