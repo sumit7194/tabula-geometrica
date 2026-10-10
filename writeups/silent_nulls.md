@@ -2918,3 +2918,23 @@ eigenvalue, slope ≈ 4) from chaotic fills (slope ≈ 2) by local PCA.
   orbits at the production window, not an idealised synthetic.
 - For a scaling-law estimator, also check the *value* of the scaling exponent on the control (≈ 4 here), not just
   which side of the threshold it lands on. A median of 12 is a premise failure, even when it clears the bar.
+
+### 71. A watchdog that kills the parent orphans the workers, and the orphans write the next run's obituary
+
+**The incident (§195 G0, 2026-10-11).** The footprint watchdog killed a run at a 9.9 GB tree. It killed **only the
+parent PID**.
+- Three spawn-pool workers were re-parented to PID 1 and kept running, unmeasured and unkillable by the watchdog. One
+  of them held 1.4 GB.
+- After the memory fix, the run was relaunched with the same log path. When the orphans finished, they hit
+  BrokenPipe sending results to their dead parent, and wrote tracebacks into the *new* run's log.
+- So a healthy run looked as if it had crashed. Only checking which PIDs were alive, and their parent and start
+  time, separated the two runs.
+
+**Second defect in the same instrument.** The child's stdout was opened without O_APPEND. Its file offset could
+overwrite the watchdog's own "WATCHDOG KILL" line, so a kill could erase its own reason.
+
+**Rule:**
+- A watchdog measures **and kills the whole descendant tree**, deepest first.
+- A run's output goes to its log in append mode.
+- Before reading a crash in a log, check the writer's PID, parent and start time. A log path is not a process
+  identity (cf. 46, argv is not identity).
