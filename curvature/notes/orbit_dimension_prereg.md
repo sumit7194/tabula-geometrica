@@ -136,3 +136,31 @@ torus develops sharp features. That is exactly where curvature scaling can misre
   per-bin limit. **The thresholds (3.4 / 2.6) are never tightened after data.**
 - TS verdicts in any ε bin where Kerr's ABSTAIN rate exceeds 10%, or Kerr's s3 5th percentile falls below 3.4, are
   graded "Kerr-limited", and no TS conclusion is drawn there.
+
+## RESULT — G0 FAILED (2026-10-11). Stopped as pre-registered: G1 and G2 were not run, and TS was never integrated.
+
+Run: Kerr p = 4/5, E = 0.97, prograde, ε ∈ {−0.01, +0.005}; 497 survivors; peak 441 MB.
+Artifact: `results/194_pilot.json`.
+
+| clause | criterion | measured | outcome |
+|---|---|---|---|
+| integrator | Carter drift ≤ 1e-8 | max 2.0e-9 at dt 0.05 (1e-11 at dt/2) | pass |
+| robustness | ≥ 95% unchanged | 100% | pass |
+| classifier | ≥ 98% REGULAR, 0 CHAOTIC, ≤ 2% ABSTAIN | 95.4% REGULAR, **3 CHAOTIC**, **4.0% ABSTAIN** | **FAIL** |
+
+**Diagnosis (Kerr only).** The failure is deeper than three stray verdicts: the estimator's premise does not hold on
+real orbits over this window.
+- The design assumed s3 ≈ 4 on a torus. Kerr's s3 has a median of **12**, a 5–95% range of 4–35, and about 150 on the
+  first quarter of the window.
+- Over T = 10⁴ τ (about 25–50 radial periods), an orbit covers its torus as separate **strands**, not a filled
+  surface. Local PCA at k = 20–160 therefore sees strand geometry, not the torus.
+- So REGULAR verdicts clear 3.4 for the wrong reason. The CHAOTIC verdicts (s3 ≈ 1) and ABSTAINs (s4 < 3) are the
+  same strand artifact.
+- The synthetic unit test passed only because its torus was densely wound. **That unit test did not represent the
+  real sampling regime**: a known-answer control has to match the data's sampling, not only its geometry.
+- The robustness clause passed at 100% because each variant reproduces the same artifact. A robustness check does
+  not catch a shared premise failure.
+
+**Status: §194 REFUSED at G0.** Any fix needs a new pre-registration and The Bridge's go. One candidate: Poincaré-section
+dimension, where a torus section is a 1-D curve and a chaotic one fills an area. It needs about 300+ crossings per
+orbit, and its known-answer control must use real Kerr orbits at the same window.
