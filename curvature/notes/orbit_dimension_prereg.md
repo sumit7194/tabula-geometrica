@@ -164,3 +164,24 @@ real orbits over this window.
 **Status: §194 REFUSED at G0.** Any fix needs a new pre-registration and The Bridge's go. One candidate: Poincaré-section
 dimension, where a torus section is a 1-D curve and a chaotic one fills an area. It needs about 300+ crossings per
 orbit, and its known-answer control must use real Kerr orbits at the same window.
+
+## Root-cause trace of the G0 failure (§194b, 2026-10-11; Kerr only)
+
+Script: `scripts/194b_diagnose_g0.py`. Artifact: `results/194b_diagnose_g0.json`. The trace reuses the pilot's closed
+level (ε = +0.005) and its deterministic seeds, and examines all 17 flagged orbits plus 5 comparison REGULAR orbits.
+
+1. **The window is too short for ANY orbit.**
+   - 10⁴ τ is only **23 radial periods**.
+   - The comparison REGULAR orbits read s3 = 6–20 at the pre-registered k-set, and 45–110 at the smallest scales.
+     So they passed for the wrong reason (strands).
+   - At **10⁵ τ (about 230 periods) all 22 traced orbits converge to s3 ≈ 3.9–4.1**, the torus value, and read
+     REGULAR. That includes both false-CHAOTICs (rows 95 and 106).
+2. **The failure population is the near-resonant tori.**
+   - All 17 flagged orbits sit in one contiguous band (r₀ 15.0–16.8, plus row 155 at 22.6).
+   - Their rotation numbers are within **0.001–0.002 of 6/5** (row 155 of 5/4).
+   - They cover their torus very slowly: the maximum gap in section coverage is 0.17 at 10⁴ τ and still 0.10–0.17
+     at 10⁵ τ, against about 0.01 for generic orbits at 10⁵.
+3. **Why this matters beyond Kerr.** In a non-integrable system, resonances are exactly where island chains and
+   thin chaotic layers sit. So a dimension estimator that needs dense coverage is weakest **where the physics is**.
+   That is a principled reason to make a functional (learn-the-invariant) readout primary, with geometry only as a
+   coverage-gated cross-check.
