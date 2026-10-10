@@ -125,3 +125,14 @@ The reasoning: on a 2-torus, λ3 comes only from curvature, so it scales as r⁴
 - About 0.5–1 GB per worker, so ~3–4 GB at 4 workers.
 - A halved variant is available if the Mac stays tight: 100 + 50 seeds, ~1.5 h on 4 workers.
 - Runs only when The Bridge reports free cores. The G0 pilot (Kerr, 2 levels) costs ~10–20 min on 1 core.
+
+## Amendment 1 — 2026-10-11, The Bridge's caution, before any run
+
+Near the separatrix, even REGULAR tori are strongly distorted: orbits dwell long near the hyperbolic point and the
+torus develops sharp features. That is exactly where curvature scaling can misread. **Fixed now:**
+- Kerr's ABSTAIN rate and its s3 distribution (median, 5th and 95th percentiles) are reported **per ε bin**, beside
+  TS's at the same ε.
+- If Kerr turns ABSTAIN-heavy, or its s3 drifts toward the separatrix, that is reported as the instrument's
+  per-bin limit. **The thresholds (3.4 / 2.6) are never tightened after data.**
+- TS verdicts in any ε bin where Kerr's ABSTAIN rate exceeds 10%, or Kerr's s3 5th percentile falls below 3.4, are
+  graded "Kerr-limited", and no TS conclusion is drawn there.
