@@ -224,3 +224,16 @@ the table above.**
   nulls read 100% not-REGULAR.
 - **This is a code-path check, not gate evidence.** G0 runs at T = 3×10⁴ τ, with the full seeding and the
   near-resonant enrichment.
+
+## Implementation note — 2026-10-11, the first G0 launch was killed by the watchdog (not a gate result)
+
+- The watchdog killed the first G0 launch at a 9.9 GB process tree, over the 8 GB cap. Nothing was saved, and no
+  verdict was issued.
+- The cause: each worker held whole float64 trajectory arrays and whole per-orbit feature matrices.
+- The fix, in implementation only (design, gates and rule unchanged):
+  - trajectories are integrated in 40-orbit chunks that spill to disk and are memory-mapped back;
+  - features are streamed in 4000-row chunks;
+  - nulls are scored inside the worker;
+  - the reference cloud R is subsampled **stratified per accepted orbit**, about R_POINTS / n_accepted points
+    each, which is the same distribution as a uniform subsample.
+- A smoke test peaked at 0.58 GB, with the same Kerr verdicts and nulls as before.

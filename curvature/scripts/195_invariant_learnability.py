@@ -122,15 +122,19 @@ class Reference:
         return feats(Z, self.d, self.geo, self.mu, self.sd) / self.csd
 
     def score(self, Ztrain, Ztest):
-        """r_train, r_test (variance relative to R's), for the direction fitted on Ztrain."""
-        Ft = self.scaled(Ztrain)
-        Rw = _stream_qr(_chunks(Ft - Ft.mean(0)))
-        nt = len(Ft)
-        del Ft
+        """r_train, r_test (variance relative to R's), for the direction fitted on Ztrain. Streamed in 4000-row
+        chunks so an orbit's feature matrix is never held whole (the first G0 launch died at a 9.9 GB tree)."""
+        tot, n = 0.0, 0
+        for Zc in _chunks(Ztrain, 4000):
+            F = self.scaled(Zc)
+            tot = tot + F.sum(0)
+            n += len(F)
+        m = tot / n
+        Rw = _stream_qr(self.scaled(Zc) - m for Zc in _chunks(Ztrain, 4000))
         _, S2, V2t = np.linalg.svd(Rw @ self.W, full_matrices=False)
         c = self.W @ V2t[-1]
-        r_train = (S2[-1] ** 2 / nt) * self.NR
-        v = np.concatenate([self.scaled(Zc) @ c for Zc in _chunks(Ztest)])
+        r_train = (S2[-1] ** 2 / n) * self.NR
+        v = np.concatenate([self.scaled(Zc) @ c for Zc in _chunks(Ztest, 4000)])
         r_test = float(np.var(v)) * self.NR
         return float(r_train), r_test
 
@@ -192,36 +196,86 @@ def noise99(rows, window="primary"):
 
 # ---------------------------------------------------------------- integration helpers
 
+CHUNK = 40                         # orbits integrated per batch; samples spill to disk (memory fix, 2026-10-11)
+
+
 def accepted_mask(res, T):
     life = np.minimum(res["t_plunge"], T)
     return (life >= T / 4) & (res["hdrift"] <= m94.H_DRIFT_DROP)
 
 
-def valid(res, g):
-    Z = res["samples"][:, :, g].T
+def _valid(S, g):
+    Z = np.array(S[:, :, g]).T
     return Z[np.isfinite(Z).all(1)]
 
 
-def reference_cloud(res, acc, rng):
-    pts = np.concatenate([valid(res, g) for g in np.where(acc)[0]])
-    take = rng.choice(len(pts), size=min(R_POINTS, len(pts)), replace=False)
-    return pts[np.sort(take)]
+def valid(res, g):
+    return _valid(res["samples"], g)
+
+
+class Spill:
+    """Integrate seeds in CHUNK-orbit batches; keep per-orbit fate arrays in memory, samples memory-mapped on disk."""
+
+    def __init__(self, mdl, z, T, twin, tmpdir, tag):
+        self.files, self.idx = [], []
+        tp, hd, ft = [], [], []
+        for k, i0 in enumerate(range(0, z.shape[1], CHUNK)):
+            res = m94.integrate(mdl, z[:, i0:i0 + CHUNK], T, DT, STRIDE, twin=twin)
+            f = tmpdir / f"{tag}_{k}.npy"
+            np.save(f, res["samples"])
+            self.files.append(f)
+            self.idx += [(k, g) for g in range(res["samples"].shape[2])]
+            tp.append(res["t_plunge"]); hd.append(res["hdrift"])
+            ft.append(res["ftle"] if res.get("ftle") is not None else np.full(res["samples"].shape[2], np.nan))
+            del res
+        self.t_plunge, self.hdrift, self.ftle = np.concatenate(tp), np.concatenate(hd), np.concatenate(ft)
+        self.acc = accepted_mask({"t_plunge": self.t_plunge, "hdrift": self.hdrift}, T)
+        self._mm = {}
+
+    def orbit(self, i):
+        k, g = self.idx[i]
+        if k not in self._mm:
+            self._mm = {k: np.load(self.files[k], mmap_mode="r")}
+        return _valid(self._mm[k], g)
+
+    def n(self):
+        return len(self.idx)
+
+    def cleanup(self):
+        self._mm = {}
+        for f in self.files:
+            f.unlink(missing_ok=True)
+
+
+def reference_cloud(sp, rng):
+    """Stratified per accepted orbit (each contributes ~R_POINTS / n_accepted points), so the full cloud never has to
+    be concatenated in memory. Same distribution as a uniform subsample of all accepted points."""
+    acc = np.where(sp.acc)[0]
+    k = int(np.ceil(R_POINTS / max(len(acc), 1)))
+    pts = []
+    for i in acc:
+        Z = sp.orbit(i)
+        pts.append(Z[np.sort(rng.choice(len(Z), size=min(k, len(Z)), replace=False))])
+    return np.concatenate(pts)
 
 
 def build_refs(Rpts, geo):
     return {d: Reference(Rpts, d, geo) for d in DEGREES}
 
 
-def score_batch(res, acc, refs, T, r0, stage):
+def score_spill(sp, refs, T, r0, stage, coverage=False):
     rows = []
-    for g in range(res["samples"].shape[2]):
-        row = {"r0": float(r0[g]), "stage": stage, "t_plunge": float(res["t_plunge"][g]),
-               "hdrift": float(res["hdrift"][g]), "accepted": bool(acc[g])}
-        if res.get("ftle") is not None:
-            row["ftle"] = float(res["ftle"][g])
-        if acc[g]:
-            row["fate"] = "SURVIVED" if not np.isfinite(res["t_plunge"][g]) else "STICKY-then-PLUNGED"
-            row["scores"] = orbit_scores(valid(res, g), refs, T)
+    for i in range(sp.n()):
+        row = {"r0": float(r0[i]), "stage": stage, "t_plunge": float(sp.t_plunge[i]),
+               "hdrift": float(sp.hdrift[i]), "accepted": bool(sp.acc[i])}
+        if np.isfinite(sp.ftle[i]):
+            row["ftle"] = float(sp.ftle[i])
+        if sp.acc[i]:
+            Z = sp.orbit(i)
+            row["fate"] = "SURVIVED" if not np.isfinite(sp.t_plunge[i]) else "STICKY-then-PLUNGED"
+            row["scores"] = orbit_scores(Z, refs, T)
+            if coverage:
+                row["section_gap"] = m94b.section_coverage(Z)[1]
         rows.append(row)
     return rows
 
@@ -242,47 +296,46 @@ def run_level(job):
     if reg is None:
         out["status"] = "NO-REGION"
         return out
+    tmp = OUT / "tmp"
+    tmp.mkdir(parents=True, exist_ok=True)
     T, twin = job["T"], job.get("twin", False)
     r_seeds = np.concatenate([np.linspace(reg[0], reg[1], m94.N_STAGE1), np.asarray(job.get("extra_r0", []))])
     z1, r1 = m94.seeds(mdl, r_seeds)
-    res1 = m94.integrate(mdl, z1, T, DT, STRIDE, twin=twin)
-    acc1 = accepted_mask(res1, T)
-    if acc1.sum() < 5:
-        out["status"] = "TOO-FEW-ACCEPTED"
+    sp1 = Spill(mdl, z1, T, twin, tmp, job["label"] + "_s1")
+    try:
+        if sp1.acc.sum() < 5:
+            out["status"] = "TOO-FEW-ACCEPTED"
+            return out
+        refs = build_refs(reference_cloud(sp1, rng), geo=job.get("geo", True))
+        out["reference"] = {str(d): {"p": r.p, "pruned": r.pruned, "N_R": r.NR} for d, r in refs.items()}
+        rows = score_spill(sp1, refs, T, r1, "stage1", coverage=job.get("coverage", False))
+        n1 = min(m94.N_STAGE1, len(r1))
+        fate = np.isfinite(sp1.t_plunge[:n1])
+        trans = [(r1[i], r1[i + 1]) for i in range(n1 - 1) if fate[i] != fate[i + 1]][:m94.N_TRANS]
+        for j, (a, b) in enumerate(trans):
+            z2, r2 = m94.seeds(mdl, np.linspace(a, b, m94.N_STAGE2))
+            if z2.shape[1]:
+                sp2 = Spill(mdl, z2, T, twin, tmp, job["label"] + f"_s2_{j}")
+                rows += score_spill(sp2, refs, T, r2, "stage2", coverage=job.get("coverage", False))
+                sp2.cleanup()
+        if job.get("keep_for_nulls"):
+            keep = [i for i in np.where(sp1.acc)[0] if not np.isfinite(sp1.t_plunge[i])][:40]
+            out["nulls_raw"] = nulls([sp1.orbit(i) for i in keep], refs, rng)
+        if job.get("f1"):
+            out["f1"] = f1_level(mdl, sp1, reg)
+        out.update({"status": "DONE", "transitions": [list(t) for t in trans], "rows": rows, "spin": spin})
         return out
-    refs = build_refs(reference_cloud(res1, acc1, rng), geo=True)
-    out["reference"] = {str(d): {"p": r.p, "pruned": r.pruned, "N_R": r.NR} for d, r in refs.items()}
-    rows = score_batch(res1, acc1, refs, T, r1, "stage1")
-    n1 = m94.N_STAGE1
-    fate = np.isfinite(res1["t_plunge"][:n1])
-    trans = [(r1[i], r1[i + 1]) for i in range(min(n1, len(r1)) - 1) if fate[i] != fate[i + 1]][:m94.N_TRANS]
-    for a, b in trans:
-        z2, r2 = m94.seeds(mdl, np.linspace(a, b, m94.N_STAGE2))
-        if z2.shape[1]:
-            res2 = m94.integrate(mdl, z2, T, DT, STRIDE, twin=twin)
-            rows += score_batch(res2, accepted_mask(res2, T), refs, T, r2, "stage2")
-    if job.get("keep_for_nulls"):
-        keep = [g for g in np.where(acc1)[0] if not np.isfinite(res1["t_plunge"][g])][:40]
-        out["_null_samples"] = [valid(res1, g) for g in keep]
-        out["_refs"] = refs
-    if job.get("f1"):
-        out["f1"] = f1_level(mdl, res1, acc1, reg)
-    if job.get("coverage"):
-        for g, row in enumerate(rows[:res1["samples"].shape[2]]):
-            if row["accepted"]:
-                row["section_gap"] = m94b.section_coverage(valid(res1, g))[1]
-    out.update({"status": "DONE", "transitions": [list(t) for t in trans], "rows": rows,
-                "spin": spin})
-    return out
+    finally:
+        sp1.cleanup()
 
 
-def f1_level(mdl, res, acc, reg):
+def f1_level(mdl, sp, reg):
     """Report-only F1: the §193 engine across orbits (train/test alternate survivors), time subsampled every 20th."""
-    surv = [g for g in np.where(acc)[0] if not np.isfinite(res["t_plunge"][g])]
+    surv = [i for i in np.where(sp.acc)[0] if not np.isfinite(sp.t_plunge[i])]
     if len(surv) < 20:
         return {"status": "too few survivors"}
-    S = res["samples"][:, ::20, :]
-    tr, te = S[:, :, surv[0::2]], S[:, :, surv[1::2]]
+    S = np.stack([sp.orbit(i)[::20] for i in surv], 2).transpose(1, 0, 2)          # (4, P, G)
+    tr, te = S[:, :, 0::2], S[:, :, 1::2]
     xref = 0.5 * ((reg[0] - 1) + (reg[1] - 1)) / mdl.sig
     out = {}
     for c in (("CR", "even", 2, 4), ("CR", "even", 4, 4)):
@@ -300,17 +353,22 @@ def phase_randomize(Z, rng):
     return np.fft.irfft(F * np.exp(1j * th)[:, None], n=len(Z), axis=0) + Z.mean(0)
 
 
-def nulls(level_out, rng):
-    samples, refs = level_out["_null_samples"], level_out["_refs"]
-    pr, sp = [], []
-    for Z in samples[:20]:
-        pr.append(verdict(orbit_scores(phase_randomize(Z, rng), refs, T_PRIMARY)["primary"], None))
+def nulls(samples, refs, rng):
+    """Raw null scores (verdicts are applied later with the level's noise ceiling)."""
+    pr = [orbit_scores(phase_randomize(Z, rng), refs, T_PRIMARY)["primary"] for Z in samples[:20]]
+    spl = []
     for i in range(min(20, len(samples) - 10)):
         A, B = samples[i], samples[i + 10]
         n = min(len(A), len(B))
-        sp.append(verdict(orbit_scores(np.concatenate([A[:n // 2], B[n // 2:n]]), refs, T_PRIMARY)["primary"], None))
+        spl.append(orbit_scores(np.concatenate([A[:n // 2], B[n // 2:n]]), refs, T_PRIMARY)["primary"])
+    return {"phase_random": pr, "splice": spl}
+
+
+def null_verdicts(raw, noise):
     frac = lambda v: sum(x not in ("REGULAR", "EXACT-REGULAR") for x in v) / max(len(v), 1)
-    return {"phase_random": pr, "phase_random_notregular": frac(pr), "splice": sp, "splice_notregular": frac(sp)}
+    pr = [verdict(sc, noise) for sc in raw["phase_random"]]
+    spl = [verdict(sc, noise) for sc in raw["splice"]]
+    return {"phase_random": pr, "phase_random_notregular": frac(pr), "splice": spl, "splice_notregular": frac(spl)}
 
 
 # ---------------------------------------------------------------- modes
@@ -376,7 +434,7 @@ def g0(args):
             r["verdict_short"] = verdict(r["scores"]["short"], noise)
         ex = np.asarray(out["extra_r0"]) if out["extra_r0"] else np.array([np.inf])
         res_rows = [r for r in rows if r["stage"] == "stage1" and np.min(np.abs(ex - r["r0"])) < 1e-9]
-        nl = nulls(out, rng)
+        nl = null_verdicts(out["nulls_raw"], noise)
         allv += [r["verdict"] for r in rows]
         resv += [r["verdict"] for r in res_rows]
         out.update({"noise99_loo": noise, "nulls": nl, "resonant_n": len(res_rows)})
@@ -425,7 +483,7 @@ if __name__ == "__main__":
             print({k: f"{x:.1e}" for k, x in sc["v"].items()}, "d*", sc["dstar"], f"r*={sc['r_star']:.1e} g*={sc['g_star']:.1e}",
                   verdict(sc, fl))
         T_PRIMARY = 12000.0
-        print("nulls", {k: v for k, v in nulls(o, np.random.default_rng(0)).items() if k.endswith("notregular")})
+        print("nulls", {k: v for k, v in null_verdicts(o["nulls_raw"], fl).items() if k.endswith("notregular")})
         raise SystemExit(0)
     if a.g0:
         g0(a)
