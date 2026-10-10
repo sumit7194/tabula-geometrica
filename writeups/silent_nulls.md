@@ -2894,3 +2894,27 @@ either of us was careless. Restored: 0 fields lost, 0 differing, provenance keys
 by ~12 orders of margin on a threshold the 1.5× shift cannot reach. A result whose conclusion sits that far
 from its gate can absorb a provenance gap; one that sits near its gate cannot, and would have needed this fix
 before it could be trusted at all.
+
+### 70. A known-answer control that matches the geometry but not the sampling validates nothing
+
+**The incident (§194, 2026-10-11).** A per-orbit dimension classifier separates tori (curvature-only third
+eigenvalue, slope ≈ 4) from chaotic fills (slope ≈ 2) by local PCA.
+- The synthetic unit test passed cleanly: torus s3 = 4.06, 3-D fill 2.38. That torus was densely wound.
+- On real Kerr orbits at the production window (10⁴ τ, about 25–50 radial periods), s3 had a median of **12** and
+  a 5–95% range of 4–35. Each orbit covered its torus as separate strands, so the instrument measured strand
+  geometry.
+- It still called 95% of them REGULAR, *for the wrong reason*, and called 3 of them CHAOTIC.
+- The pre-registered Kerr gate caught it. The unit test could not have.
+
+**Why it reads as a result:**
+- The synthetic control had the right *shape* (a 2-torus in 4-D) and the wrong *sampling*. The premise being
+  tested ("λ3 scales as r⁴") holds only once the surface is filled at the probed scale, so the control certified a
+  regime the data never enters.
+- The robustness clause (dt/2, Theiler × 2, a shifted k-set) passed at **100%**, because every variant shares the
+  same sampling. A robustness check finds a premise failure only if one of its perturbations moves the premise.
+
+**Rule:**
+- A known-answer control must be drawn from the **same sampling regime as the data**. Here that means real Kerr
+  orbits at the production window, not an idealised synthetic.
+- For a scaling-law estimator, also check the *value* of the scaling exponent on the control (≈ 4 here), not just
+  which side of the threshold it lands on. A median of 12 is a premise failure, even when it clears the bar.
