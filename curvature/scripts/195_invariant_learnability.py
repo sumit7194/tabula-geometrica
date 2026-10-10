@@ -339,24 +339,32 @@ def resonant_seeds(st, E, L, reg, n=50):
     return list(np.quantile(good, np.linspace(0, 1, min(n, len(good)))))
 
 
+def _g0_measure(job):
+    sts, _ = m94.spacetimes(job["tag"])
+    st = sts["Kerr"]
+    reg = m94.seed_region(st, job["E"], job["L"])
+    job["extra_r0"] = resonant_seeds(st, job["E"], job["L"], reg) if reg else []
+    out = run_level(job)
+    out["extra_r0"] = job["extra_r0"]
+    return out
+
+
 def g0(args):
     sts, spin = m94.spacetimes("t1o3")
     st = sts["Kerr"]
     rng = np.random.default_rng(5)
-    measured = []
+    jobs = []
     for sense in (-1, 1):
         ls = m94.l_sep(st, 0.97, sense)
         for eps in (-0.01, 0.005):
             L = sense * ls * (1 + eps)
-            reg = m94.seed_region(st, 0.97, L)
-            extra = resonant_seeds(st, 0.97, L, reg) if reg else []
-            job = {"system": "Kerr", "tag": "t1o3", "E": 0.97, "L": L, "eps": eps, "T": T_PRIMARY,
-                   "label": f"G0_Kerr_t1o3_E0.97_{'pro' if sense < 0 else 'retro'}_eps{eps:+}",
-                   "extra_r0": extra, "keep_for_nulls": True}
-            out = run_level(job)
-            out["extra_r0"] = extra
-            measured.append(out)
-            print(job["label"], out["status"], "resonant seeds", len(extra), flush=True)
+            jobs.append({"system": "Kerr", "tag": "t1o3", "E": 0.97, "L": L, "eps": eps, "T": T_PRIMARY,
+                         "label": f"G0_Kerr_t1o3_E0.97_{'pro' if sense < 0 else 'retro'}_eps{eps:+}",
+                         "keep_for_nulls": True})
+    with get_context("spawn").Pool(min(args.workers, len(jobs))) as pool:
+        measured = pool.map(_g0_measure, jobs)
+    for out in measured:
+        print(out["label"], out["status"], "resonant seeds", len(out["extra_r0"]), flush=True)
     summary = {"gate": "G0", "levels": []}
     allv, resv = [], []
     for i, out in enumerate(measured):
