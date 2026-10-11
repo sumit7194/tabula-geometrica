@@ -4589,3 +4589,17 @@ Environment: ENVIRONMENT/py314_openblas.json (OpenBLAS, BLAS threads = 1), code 
   r* ~ 3e-6, approximation-grade, not exact. The REGULAR band admits polynomial approximations of smooth
   non-invariant signals. Gate failed as pre-registered; G1/TS not run. Full record:
   notes/invariant_learnability_prereg.md.
+
+## PLUNGE-CUT EXPOSURE of §193/§194/§195 prograde levels (2026-10-12; The Bridge's catch, verified independently)
+- 194's universal plunge cut r_like < 3m sits OUTSIDE the prograde equatorial barrier (the unstable circular orbit)
+  at the spins used. Exact BPT radii: a 0.6 -> 2.77 (E 0.97) / 2.87 (E 0.95); a 0.8 -> 2.14 / 2.19.
+- So the pocket-based l_sep was set by the CUT, not the barrier: +1.3% / +0.7% (a 0.6) and +7.0% / +5.6% (a 0.8)
+  prograde. Retrograde is exact (barriers at r 5.9-6.7).
+- At the old "eps = -0.01" prograde levels the pocket was physically CLOSED (barrier V -0.496 at a 0.6 E 0.97;
+  -0.31 / -0.37 at a 0.8). Orbits reaching r < 3 there were bound zoom-whirls cut as "plunges".
+- TS prograde levels share the issue (TS L_sep by barrier: -0.6 / -0.2% at p 4/5, -4.6 / -3.5% at p 3/5).
+- Status: §193 / §194 / §195 rows at PROGRADE levels are **PLUNGE-CUT EXPOSED**: TS-vs-Kerr consistent (same cut), but
+  not placed relative to the physical separatrix, with survival/plunge statistics contaminated by the cut.
+  Retrograde rows are unaffected. Nothing is deleted; any re-use waits for a rerun with the barrier separatrix.
+- Fix (196 onward): L_sep from the barrier, gated against exact BPT for Kerr (|diff| <= 2e-10); a per-level cut
+  midway between the horizon and the barrier; seeds outside the barrier; ZV cut x < 1.5 (no barrier outside x = 1).
