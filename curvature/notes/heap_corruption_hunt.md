@@ -61,3 +61,12 @@
 - Limits: sampling, allocation cap, and possibly a size ceiling, so a clean ProbGuard run proves nothing.
 - Diagnostic only, NOT part of the A/B decision: up to 6 ProbGuard smoke runs on ACC (labels pg_i, stop at first
   crash), concurrent with the A/B, whose interleaving absorbs the extra load.
+
+## Pilot result (six deterministic ACC runs, pinned label; excluded from the A/B test)
+- 2/6 crashed (runs 3 and 6). Every run printed identical output, and both crashes came after the last print.
+- **Both crashes are at the SAME site:** SIGSEGV in `func_traverse` during the final GC in `Py_Finalize`. The GC
+  dereferences a corrupted *function object*.
+- This refines the correction above. One matching site proves nothing (ASLR), but 2/2 at the same object type on
+  identical input points to a repeatable overwrite of one kind of object, not ambient noise.
+- Candidate: function objects created in bulk by this code path, e.g. sympy `lambdify` products in `load_ts`/
+  `spacetimes`, built twice (run_level and `_model_for`). Not tested yet.
