@@ -4578,3 +4578,14 @@ tokenizer was a victim, not the cause).
 The runs completed, and their known-answer controls behaved exactly as predicted. Even so, silent corruption cannot
 be excluded. **A reproducibility re-run of the cited §193 TS numbers is queued before anyone cites them** (The
 Bridge's order: stress check, then §193 reproducibility, then the §195 G0 rerun).
+
+
+## §195 G0 run 2 (2026-10-11): FAILED on the phase-random null; heap corruption root-caused first
+Environment: ENVIRONMENT/py314_openblas.json (OpenBLAS, BLAS threads = 1), code 8ff65ed.
+- Before this run, the intermittent crashes were root-caused to a heap overrun in a vendor LAPACK routine (details are
+  held privately pending vendor disclosure). §195 now runs on OpenBLAS, and 193 refuses the affected backend at import.
+- G0 run 2: Kerr verdicts clean (0 CHAOTIC after one-sided confirmation; held-out 400/400 EXACT), and the splice null
+  is 1.00 on every level. **The phase-random null fails at 0.90 on one level**: two surrogates read REGULAR with
+  r* ~ 3e-6, approximation-grade, not exact. The REGULAR band admits polynomial approximations of smooth
+  non-invariant signals. Gate failed as pre-registered; G1/TS not run. Full record:
+  notes/invariant_learnability_prereg.md.

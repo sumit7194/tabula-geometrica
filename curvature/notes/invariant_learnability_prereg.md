@@ -237,3 +237,34 @@ the table above.**
   - the reference cloud R is subsampled **stratified per accepted orbit**, about R_POINTS / n_accepted points
     each, which is the same distribution as a uniform subsample.
 - A smoke test peaked at 0.58 GB, with the same Kerr verdicts and nulls as before.
+
+## G0 run 2 (amendment 2, OpenBLAS, 2026-10-11 18:41-20:24 IST): **FAILED as pre-registered (nulls)**
+Environment: ENVIRONMENT/py314_openblas.json (Python 3.14.5, numpy 2.4.6 / scipy 1.17.1 on scipy-openblas 0.3.31,
+BLAS threads = 1). Code 8ff65ed. Peak footprint 4.4 GB. Run 2 follows the Accelerate root cause
+(notes/heap_corruption_hunt.md) and an earlier launch killed for thread oversubscription.
+
+| check | result |
+|---|---|
+| original levels (4) | ok: 997/1004 EXACT-REGULAR, 0 CHAOTIC, ABSTAIN 7 (max level 6/305 = 1.97% <= 2%) |
+| held-out levels (2) | ok: 400/400 EXACT-REGULAR |
+| near-resonant subset (n=18) | ok |
+| one-sided confirmation | 2 raw-CHAOTIC candidates (pro eps-0.01, r0 = 28.19): one UNRESOLVED (q = 6.4), one UNCONVERGED (short-horizon ratio 2.0, statistic stable) -> both ABSTAIN, **0 CHAOTIC** |
+| splice null | ok: **1.00 on every level** (run 1: 0.05; the value-centred fix works) |
+| phase-random null | **FAIL**: 0.90 on pro eps-0.01 (2/20 read REGULAR); 0.95-1.00 elsewhere |
+
+- The gate is per level in the frozen code (line 598: `all(... >= 0.95 ...)` over levels). The pre-registration
+  text, "both nulls pass at >= 95%", does not say pooled or per level. Pooled would be 0.958, a pass, but choosing
+  the pooled reading now, after seeing the result, would move the goalposts. **G0 fails. G1 is not run, and TS stays
+  unread.**
+- **The failing surrogates are not a fluke of n = 20.** The two REGULAR surrogates have r* = 3.1e-6 and 2.2e-6
+  (g* 6.2 / 6.6; d* 6 / 4), while real Kerr orbits sit at ~1e-29. They are approximation-grade fits, not exact
+  invariants. They pass because the REGULAR band (g <= 10, a descending ladder, r* <= R_PIN = 1e-4) admits anything a
+  polynomial can approximate well. A phase-randomised copy of a smooth quasi-periodic orbit is still smooth enough to
+  be approximated. This is the §97/§160/§178 lesson again: an APPROXIMATE fit is not an invariant.
+- **Consequence for TS:** a TS REGULAR verdict inside that band would be indistinguishable from this surrogate
+  behaviour. This is a design flaw in the REGULAR band, found by the null as intended. It is not a reason to loosen
+  the null.
+- Next: diagnose before any amendment. (a) Do the REGULAR surrogates come from low-harmonic-content orbits?
+  (b) Where do real-orbit and surrogate r* sit across all levels? (c) Can a degree-ladder convergence requirement
+  (§178 style: descending TOWARD the floor vs flat/approximate) separate them? Any amendment 3 is pre-registered
+  and reviewed before use, and validated on levels NOT seen in this run.
