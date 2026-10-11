@@ -93,3 +93,27 @@
   pilot rate p = 1/3, P(at least 1) = 0.91.
 - If 0 of 6 crash, (a) becomes unlikely (P = 0.088 under p = 1/3) and (b), a time window, is favoured. Then ask what
   ran in that window.
+
+## Discriminator result: (a) INVOCATION/LAYOUT favoured (as pre-registered)
+- Re-run of the pilot's exact script (relative path), 12:00-12:28: 1/6 crashed (run 6), again SIGSEGV in
+  func_traverse in the final GC. Output was identical to every clean run.
+- Pilot-style launch: 3/12 crash, ALL at func_traverse at exit. Absolute-path ACC launches (A/B ACC arm + ProbGuard):
+  0/21. Fisher one-sided p = C(12,3)/C(33,3) = 0.040. This is a POST-HOC pooled comparison; the pre-registered test
+  was the 6-run rerun alone, which met its ">= 1 crash" criterion.
+- Reading: a deterministic-in-kind overwrite inside our own process, whose victim depends on allocation layout. Under
+  the pilot layout the victim is a function object that the final GC traverses. It is not machine conditions: the
+  kernel log shows no pressure events, kills or memory errors in the crash window.
+- Science impact so far: every crashed run printed results identical to the clean runs, and OpenBLAS agrees to
+  round-off (1e-29), so no computed number has been seen to change. That is evidence, not proof, that results are
+  unaffected.
+- Prior-art lead (unconfirmed, may not match): CPython PR #142152 / issue #91636 reverted a 3.14 GC change about
+  function objects reached after tp_clear. Our crash is in traverse, not repr, and 3.12 also crashed (at other sites).
+
+## Next: localize with env-gated GC probes (TABULA_GC_PROBE=1)
+- `_probe(tag)` prints a tag and runs gc.collect() at each phase boundary: spacetimes+model, stage1 integrated,
+  refs built, stage1 scored, stage2 done, nulls scored, run_level returned, confirm done, end of smoke. A corrupted
+  tracked object then crashes at the first probe after the damage, and the last printed tag brackets the culprit
+  phase.
+- Pilot-style launch (relative path), up to 12 runs, stop at first crash.
+- Caveat, declared in advance: the edit itself, the env var and the extra collections all shift layout, so the crash
+  may vanish. A clean probe series is INCONCLUSIVE, not a clearance.

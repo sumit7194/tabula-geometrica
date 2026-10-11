@@ -20,6 +20,7 @@ MODES
 """
 
 import argparse
+import gc
 import json
 import os
 import sys
@@ -287,6 +288,14 @@ def score_spill(sp, refs, T, r0, stage, coverage=False):
     return rows
 
 
+def _probe(tag):
+    """Heap-corruption hunt (2026-10-11): with TABULA_GC_PROBE=1, a full GC at each phase boundary traverses every
+    tracked object, so a corrupted one crashes HERE (faulthandler names the phase) instead of at interpreter exit."""
+    if os.environ.get("TABULA_GC_PROBE"):
+        print(f"[probe] {tag}", flush=True)
+        gc.collect()
+
+
 def run_level(job):
     """Measure F2 raw scores for one level (two-stage seeding). job: system, tag, E, L, label, T, (twin, extra_r0)."""
     rng = np.random.default_rng(zlib.crc32(job["label"].encode()))
@@ -298,6 +307,7 @@ def run_level(job):
         sts, spin = m94.spacetimes(job["tag"])
         st = sts[job["system"]]
     mdl = st.at(job["E"], job["L"])
+    _probe("spacetimes+model")
     reg = m94.seed_region(st, job["E"], job["L"])
     out = {k: v for k, v in job.items() if k != "extra_r0"} | {"region_r": reg}
     if reg is None:
@@ -309,6 +319,7 @@ def run_level(job):
     r_seeds = np.concatenate([np.linspace(reg[0], reg[1], m94.N_STAGE1), np.asarray(job.get("extra_r0", []))])
     z1, r1 = m94.seeds(mdl, r_seeds)
     sp1 = Spill(mdl, z1, T, twin, tmp, job["label"] + "_s1")
+    _probe("stage1 integrated")
     try:
         if sp1.acc.sum() < 5:
             out["status"] = "TOO-FEW-ACCEPTED"
@@ -316,8 +327,10 @@ def run_level(job):
         Rpts = reference_cloud(sp1, rng)
         np.save(OUT / f"R_{job['label']}.npy", Rpts)          # lets the confirmation step rebuild refs exactly
         refs = build_refs(Rpts, geo=job.get("geo", True))
+        _probe("refs built")
         out["reference"] = {str(d): {"p": r.p, "pruned": r.pruned, "N_R": r.NR} for d, r in refs.items()}
         rows = score_spill(sp1, refs, T, r1, "stage1", coverage=job.get("coverage", False))
+        _probe("stage1 scored")
         n1 = min(m94.N_STAGE1, len(r1))
         fate = np.isfinite(sp1.t_plunge[:n1])
         trans = [(r1[i], r1[i + 1]) for i in range(n1 - 1) if fate[i] != fate[i + 1]][:m94.N_TRANS]
@@ -327,9 +340,11 @@ def run_level(job):
                 sp2 = Spill(mdl, z2, T, twin, tmp, job["label"] + f"_s2_{j}")
                 rows += score_spill(sp2, refs, T, r2, "stage2", coverage=job.get("coverage", False))
                 sp2.cleanup()
+        _probe("stage2 done")
         if job.get("keep_for_nulls"):
             keep = [i for i in np.where(sp1.acc)[0] if not np.isfinite(sp1.t_plunge[i])][:40]
             out["nulls_raw"] = nulls([sp1.orbit(i) for i in keep], refs, rng)
+        _probe("nulls scored")
         if job.get("f1"):
             out["f1"] = f1_level(mdl, sp1, reg)
         out.update({"status": "DONE", "transitions": [list(t) for t in trans], "rows": rows, "spin": spin})
@@ -609,6 +624,7 @@ if __name__ == "__main__":
         lab = os.environ.get("SMOKE_LABEL") or f"smoke_{os.getpid()}"   # unique unless pinned (deterministic repeats)
         o = run_level({"system": "Kerr", "tag": "t1o3", "E": 0.97, "L": -ls * 1.005, "T": 12000.0,
                        "label": lab, "keep_for_nulls": True, "f1": False})
+        _probe("run_level returned")
         rows = [r for r in o["rows"] if r.get("fate")]
         fl = noise99(rows)
         for r in rows[:8]:
@@ -618,9 +634,11 @@ if __name__ == "__main__":
         T_PRIMARY = 12000.0
         c = confirm_candidate(({"system": "Kerr", "tag": "t1o3", "E": 0.97, "L": -ls * 1.005, "label": lab},
                                rows[0], fl, 12000.0))
+        _probe("confirm done")
         print("confirm path:", {k: (f"{v:.2e}" if isinstance(v, float) else v) for k, v in c.items()})
         print("nulls", {k: v for k, v in null_verdicts(o["nulls_raw"], fl).items() if k.endswith("notregular")})
         print("torch loaded:", "torch" in sys.modules)
+        _probe("end of smoke")
         raise SystemExit(0)
     if a.g0:
         g0(a)
