@@ -70,3 +70,26 @@
   identical input points to a repeatable overwrite of one kind of object, not ambient noise.
 - Candidate: function objects created in bulk by this code path, e.g. sympy `lambdify` products in `load_ts`/
   `spacetimes`, built twice (run_level and `_model_for`). Not tested yet.
+
+## A/B result (15+15 interleaved, 07:11-11:44): ACC 0/15, OB 0/15 -> UNRESOLVED per the pre-registered rule
+- Neither arm crashed. Fisher p = 1. By the pre-registered reading this does not implicate Accelerate, and with OB
+  clean it is also not evidence against Accelerate. What it does show is that the ACC crash rate itself collapsed:
+  P(0/15 | p = 1/3) = 0.0023.
+- ProbGuard on ACC: 5 runs clean (the 6th is still running). Uninformative by its own limits.
+- OB output differs from ACC in the last printed digit (e.g. r* 1.0e-29 vs 9.8e-30), which is LAPACK round-off at
+  the 1e-29 floor. Every verdict is identical.
+- **The last crash report is 07:10:52**, the end of the pilot; the reports at 06:55 are my own deliberate uaf.py
+  tests. Before 07:10, about a third of runs crashed (3.12 and 3.14, many configurations). After it, about 35 runs had
+  zero crashes.
+- What changed at ~07:10, two candidates:
+  (a) **The invocation:** the pilot used a relative script path; the A/B and ProbGuard runs used an absolute one. That
+      changes allocation layout, which can move a deterministic overwrite between a function object and harmless
+      memory.
+  (b) **The machine:** conditions between ~04:30 and 07:10 (load, memory pressure, other jobs) that have since ended.
+
+## Pre-registered discriminator (written before launch)
+- Re-run the pilot's EXACT script (relative path, pinned label, ACC), 6 runs, logs 195_rep_i.
+- If 1 or more of 6 crash, (a) is favoured: the crash is layout-sensitive and our process is the culprit. Under the
+  pilot rate p = 1/3, P(at least 1) = 0.91.
+- If 0 of 6 crash, (a) becomes unlikely (P = 0.088 under p = 1/3) and (b), a time window, is favoured. Then ask what
+  ran in that window.
