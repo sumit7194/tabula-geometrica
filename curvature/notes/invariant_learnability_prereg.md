@@ -371,3 +371,14 @@ the frequencies used), and cycles of each coordinate's dominant line per half-wi
   BY CONSTRUCTION (no REGULAR possible), not by discrimination. Without the floor, M5 is unreliable there.
 - **Amendment 3 is NOT frozen.** The window T must give >= N_min cycles in the slow regime, or the REGULAR claim
   must be dropped there. Options are under discussion with The Bridge (see the next entry).
+
+## A-explore (agreed with The Bridge; exploration, does not spend the design round). Decision rule fixed BEFORE the run
+195c Kerr arm at T = 1.5e5 (fresh-seed level as in 195c; 40 real, 200 phase-random, 20 splice; single-thread BLAS).
+- **Freeze option A** (per-system T by a cycles target) iff (i) every real Kerr orbit has >= 50 cycles per
+  half-window on every coordinate, and (ii) M5_max separates by >= 2 orders: max over real Kerr <= 1e-2 x min over
+  the phase-random surrogates that meet the OLD REGULAR conditions. If fewer than 3 surrogates meet those
+  conditions, use the surrogates with r* <= R_PIN (1e-4) instead, and say so.
+- Otherwise, option C (close §195 as an honest negative; measure MEGNO/FLI on the same controls at T = 3e4 first).
+- If A is adopted, its scope is pre-registered explicitly: the population of orbits that SURVIVE T near the
+  separatrix ("tori vs sticky chaos among survivors"), with the TS survivor count reported as context. This
+  complements V12/ansatz α, which characterise the plunge/survive boundary.

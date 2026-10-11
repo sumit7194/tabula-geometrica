@@ -130,7 +130,12 @@ def refs_from(orbits, geo, seed):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--smoke", action="store_true")
+    ap.add_argument("--T", type=float, default=None, help="primary window (default: 195's T_PRIMARY)")
+    ap.add_argument("--kerr-only", action="store_true")
     a = ap.parse_args()
+    global T
+    if a.T:
+        T = a.T
     nK, nH, nPR = (8, 12, 2) if a.smoke else (40, 80, 5)
     rng = np.random.default_rng(195)
     out = {"T": T, "smoke": a.smoke, "groups": {}}
@@ -163,7 +168,7 @@ def main():
         sp.append(measures(np.concatenate([A[:nn // 2], B[nn // 2:nn]]), refK, noiseK))
     add("kerr_splice", sp)
 
-    for E, tag in ((1 / 12, "hh_low"), (0.1657, "hh_high")):
+    for E, tag in (() if a.kerr_only else ((1 / 12, "hh_low"), (0.1657, "hh_high"))):
         Zs, ftle, gap = hh_set(E, nH, 7 if tag == "hh_low" else 8)
         refH = refs_from(Zs, False, 2)
         rows = []
@@ -181,7 +186,8 @@ def main():
             add("hh_low_phase_random", hp)
         out[f"{tag}_ftle_median"] = float(np.median(ftle))
 
-    name = "195c_diagnose_smoke.json" if a.smoke else "195c_diagnose_v2.json"
+    name = "195c_diagnose_smoke.json" if a.smoke else (f"195c_diagnose_kerr_T{T:.0e}.json" if a.kerr_only
+                                                         else "195c_diagnose_v2.json")
     (RESULTS / name).write_text(json.dumps(out, default=float))
     print("saved", name, flush=True)
 
