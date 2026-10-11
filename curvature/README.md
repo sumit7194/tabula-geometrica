@@ -145,6 +145,10 @@ python3.12 -m venv .venv && .venv/bin/pip install -r ENVIRONMENT/py312_freeze.tx
 
 - Each script names its pre-registration note in its docstring and writes its artifacts to `results/`.
 - Every new result entry carries an `Environment:` line pointing at a stamp.
-- **Known issue (2026-10-11):** Python 3.12.13 on macOS 26.5 shows intermittent heap corruption in long numpy/sympy
-  runs. The investigation is in `notes/invariant_learnability_prereg.md`, and a repro draft is in `notes/upstream/`.
-  The root cause is not closed.
+- **Known issue, ROOT-CAUSED (2026-10-11):** Apple Accelerate's `dgeqrf` (the LAPACK under numpy's default macOS
+  wheels) writes past an internal heap block for near-square matrices with ~550-629 columns. Under Guard Malloc it is
+  a byte-write fault; OpenBLAS is clean on the identical calls. Our streamed QR (193/194/195) hits that band, so it
+  produced intermittent, layout-dependent crashes at random later sites. **Run 193-195 on `.venv314ob` (OpenBLAS,
+  same numpy/scipy versions; stamp `ENVIRONMENT/py314_openblas.json`).** 193 refuses an Accelerate numpy at import
+  (`TABULA_ALLOW_ACCELERATE=1` for diagnostics only). Investigation: `notes/heap_corruption_hunt.md`; minimal repro:
+  `notes/upstream/accelerate_dgeqrf_overrun_repro.py`.

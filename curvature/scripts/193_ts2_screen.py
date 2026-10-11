@@ -24,10 +24,24 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import os
+
 import numpy as np
 import sympy as sp
 
-RESULTS = Path(__file__).resolve().parent.parent / "results"   # not curvlib: it imports torch, implicated in segfaults (§195, 2026-10-11)
+RESULTS = Path(__file__).resolve().parent.parent / "results"   # not curvlib: it imports torch (§195, 2026-10-11)
+
+
+def _require_openblas():
+    """Apple Accelerate's dgeqrf writes past an internal heap block for near-square matrices with ~550-629 columns
+    (Guard Malloc byte-write fault; notes/heap_corruption_hunt.md). The streamed QR here and in 194/195 hits that band,
+    so an Accelerate-linked numpy is refused. TABULA_ALLOW_ACCELERATE=1 overrides, for diagnostics only."""
+    blas = np.show_config(mode="dicts")["Build Dependencies"]["lapack"]["name"].lower()
+    if "accelerate" in blas and not os.environ.get("TABULA_ALLOW_ACCELERATE"):
+        raise SystemExit(f"numpy LAPACK is {blas!r}: Accelerate dgeqrf heap overrun; use curvature/.venv314ob (OpenBLAS)")
+
+
+_require_openblas()
 
 PKG = Path("/Users/sumit/Github/conjecture_machine/data/sealed/TS2_for_quantum")
 POINTS = {"t1o2": (sp.Rational(3, 5), sp.Rational(4, 5)), "t1o3": (sp.Rational(4, 5), sp.Rational(3, 5))}

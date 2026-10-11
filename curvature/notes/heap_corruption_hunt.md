@@ -183,3 +183,17 @@
   OpenBLAS control.
 - **Running:** full smoke on OpenBLAS under Guard Malloc (195_gmalloc_ob.log) = whole-pipeline validation of the
   remedy.
+
+## Remedy (my decision; the bridge concurred, the user is informed)
+- §195 and the §193 reproducibility rerun run on `.venv314ob` (OpenBLAS), once the whole-pipeline Guard Malloc
+  validation on OB passes.
+- **Tripwire:** `193_ts2_screen._require_openblas()` runs at import, and 194/195 import 193. It refuses an
+  Accelerate-linked numpy unless `TABULA_ALLOW_ACCELERATE=1` (diagnostics such as these repros). Verified: ACC
+  refused with the reason; ACC + override imports; OB imports.
+- **Flags, nothing deleted:** §193/193b/193c/194 are marked "Accelerate-exposed; pending OpenBLAS rerun"
+  (lab_notebook). README known-issue updated to root-caused. The CPython tokenizer draft is marked SUPERSEDED (the
+  tokenizer was a victim; its claim that the crashes stopped was wrong).
+- **verify.sh** runs on the main `.venv` (3.12, Accelerate). Its scripts are NOT yet audited for QR in the bad band.
+  Pending: grep for qr/lstsq/svd call shapes, or a Guard Malloc pass of the suite.
+- **Upstream:** notes/upstream/accelerate_dgeqrf_report_DRAFT.md (Apple Feedback + numpy heads-up). NOT sent;
+  sending is the user's decision.

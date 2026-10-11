@@ -4562,7 +4562,14 @@ TS-specific integrability literature.
 numpy 2.4.6, scipy 1.17.1, sympy 1.14.0, with Accelerate as BLAS/LAPACK for both. The stamp was written today; the
 runs themselves used the same venv.
 
-**Caveat.** These runs **predate** the 2026-10-11 discovery of intermittent heap corruption under Python 3.12.13:
+**Status (2026-10-11, later): ACCELERATE-EXPOSED; pending OpenBLAS rerun.** The heap corruption is root-caused:
+Apple Accelerate's `dgeqrf` overruns an internal heap block for near-square n ~550-629 (notes/heap_corruption_hunt.md).
+These runs used Accelerate numpy and the same streamed-QR code, so they are exposed. They are NOT withdrawn:
+crashing and clean runs printed identical numbers, and OpenBLAS reproduces the §195 smoke to round-off. They are
+re-run on `.venv314ob` before anyone cites them. The bullet list below is the earlier, superseded diagnosis (the
+tokenizer was a victim, not the cause).
+
+**Caveat (as first written).** These runs **predate** the 2026-10-11 discovery of intermittent heap corruption under Python 3.12.13:
 - about 40% of §195 smoke runs crashed;
 - the corruption's root cause is not closed;
 - the C-tokenizer path of sympy.parse_expr, which these runs used once per process, has been replaced in 193 by a

@@ -1,3 +1,8 @@
+"""SUPERSEDED, DO NOT FILE (2026-10-11): the root cause is Apple Accelerate dgeqrf writing past an internal heap
+block (notes/heap_corruption_hunt.md; repro notes/upstream/accelerate_dgeqrf_overrun_repro.py). The tokenizer was
+one of several VICTIMS of that overrun, not the cause. The claim below that "after replacing parse_expr the crashes
+stopped" was wrong: they continued until OpenBLAS. Kept as a record of the wrong lead.
+"""
 """Minimal repro DRAFT (not yet filed; filing is the user's call): sympy.parse_expr on a ~26 KB single-line,
 deeply nested sympy srepr string intermittently SEGFAULTS, or silently corrupts the heap, under Homebrew
 Python 3.12.13 on macOS (arm64).
