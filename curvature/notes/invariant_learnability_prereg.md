@@ -268,3 +268,41 @@ BLAS threads = 1). Code 8ff65ed. Peak footprint 4.4 GB. Run 2 follows the Accele
   (b) Where do real-orbit and surrogate r* sit across all levels? (c) Can a degree-ladder convergence requirement
   (§178 style: descending TOWARD the floor vs flat/approximate) separate them? Any amendment 3 is pre-registered
   and reviewed before use, and validated on levels NOT seen in this run.
+
+## 195c diagnosis (exploratory, 2026-10-11 21:18; scripts/195c_diagnose_regular_band.py, results/195c_diagnose.json)
+Environment: py314_openblas, BLAS threads 1. FRESH Kerr seeds at the run-2 failing level (offset grid), HH at
+E = 1/12 and 0.1657 (dt 0.0025, see below), phase-random and splice surrogates.
+
+| group | n | frozen verdicts |
+|---|---|---|
+| Kerr real | 40 | 40 EXACT |
+| Kerr phase-random | 200 | **7 REGULAR (3.5%)**, 53 ABSTAIN, 140 CHAOTIC |
+| Kerr splice | 20 | 20 CHAOTIC |
+| HH E=1/12 (regular-truth 41/80) | 80 | 79 REGULAR, 1 ABSTAIN (**positive KAM control works**) |
+| HH E=1/12 phase-random | 20 | 2 REGULAR |
+| HH E=0.1657 (chaotic-truth 77/80) | 80 | **13/77 chaotic-truth read CHAOTIC (17%)**, 64 ABSTAIN |
+
+Findings:
+1. **Surrogate REGULARs are frequency-unstable; real tori are not.** M5 (Laskar-style dominant-frequency drift,
+   first half vs second half): HH tori max 5.1e-9 (median 2.9e-12); REGULAR surrogates min 1.9e-5 (HH) and 1.2e-3
+   (Kerr). The Kerr real max of 6.8e-4 is an EXACT orbit (r* 1.5e-28), already decided before any M5 test; most
+   likely a peak-estimator hop between near-equal lines. M2 (ladder shape), M3 (window cosine), M4 (horizon growth)
+   and M6 (line concentration, own or source) all OVERLAP and do not separate.
+   - My prediction was WRONG: I expected frequency analysis to be blind to Fourier surrogates because the global
+     spectrum is preserved. But per-bin random phases smear the lines, so the half-window frequencies move.
+2. **The CHAOTIC rule is blind to broadband chaos.** Chaotic-truth HH orbits have r* ~ 1.6 (NO invariant: the
+   learned direction varies as much as the reference cloud), yet g* is 9-88 (< 100) and the ladder ratios are
+   1.9-5 (not "flat" < 3), so they ABSTAIN. G1's ">= 70% CHAOTIC" would have FAILED as pre-registered.
+3. **One dt for all systems is wrong.** HH at dt 0.05 drifts H by 3.4e-4 over T (its period is ~6 vs Kerr's ~10^2),
+   failing the 1e-9 cut for every orbit. Drift scales ~dt^5; dt 0.0025 gives ~1e-10 at the same 0.5 tau sampling.
+   G1 as pre-registered would also have failed on this alone.
+
+**Candidate rule (IN-SAMPLE ONLY, thresholds set by reasoning after seeing these data):**
+- REGULAR additionally needs M5 <= 1e-6 (geometric gap between the torus max 5e-9 and the surrogate min 1.9e-5).
+  Otherwise ABSTAIN, never CHAOTIC, so frequency instability alone cannot manufacture chaos.
+- CHAOTIC also when r* >= 0.1 (no invariant at the 10% level) AND M5 >= 1e-4 (Laskar diffusion). Two independent
+  signals. The one-sided numerical confirmation still applies.
+- No criterion references Kerr exactness (avoids the circularity). In-sample: phase-random 0 REGULAR (Kerr 0/200,
+  HH 0/20), splice 20/20 CHAOTIC, HH regular-truth 41/41 REGULAR, HH chaotic-truth 77/77 CHAOTIC, Kerr 40/40 EXACT.
+  **This proves nothing until it is out of sample.** Amendment 3 (one design round, The Bridge's review) will
+  validate on unseen Kerr levels, fresh HH seeds, and ZV δ=2 regular and layer orbits (mapping check running).
