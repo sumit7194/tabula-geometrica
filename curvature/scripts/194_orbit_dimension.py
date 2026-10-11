@@ -38,7 +38,7 @@ import numpy as np
 import sympy as sp
 from scipy.spatial import cKDTree
 
-from curvlib import RESULTS
+RESULTS = Path(__file__).resolve().parent.parent / "results"   # not curvlib: it imports torch, implicated in segfaults (§195, 2026-10-11)
 
 s193 = import_module("193_ts2_screen")          # Spacetime, Reduced, loaders, equatorial_intervals, carter_shell
 

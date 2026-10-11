@@ -19,7 +19,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import numpy as np
 
-from curvlib import RESULTS
+RESULTS = Path(__file__).resolve().parent.parent / "results"   # not curvlib: it imports torch, implicated in segfaults (§195, 2026-10-11)
 
 m = import_module("194_orbit_dimension")
 s193 = m.s193

@@ -4555,3 +4555,19 @@ TS-specific integrability literature.
   would be a rank-6 rung, which is not run.
 - **Artifacts:** `results/193_ts2_probe.json`, `results/193_ts2_screen.json`.
 - Held locally, not pushed, until The Bridge compares the rungs.
+
+## 2026-10-11 — Environment lines, back-filled, and a reproducibility caveat for §193, §193b, §193c and §194
+
+**Environment (back-filled 2026-10-11):** `ENVIRONMENT/py312.json`, which is Python 3.12.13, macOS 26.5 arm64,
+numpy 2.4.6, scipy 1.17.1, sympy 1.14.0, with Accelerate as BLAS/LAPACK for both. The stamp was written today; the
+runs themselves used the same venv.
+
+**Caveat.** These runs **predate** the 2026-10-11 discovery of intermittent heap corruption under Python 3.12.13:
+- about 40% of §195 smoke runs crashed;
+- the corruption's root cause is not closed;
+- the C-tokenizer path of sympy.parse_expr, which these runs used once per process, has been replaced in 193 by a
+  tokenizer-free srepr parser.
+
+The runs completed, and their known-answer controls behaved exactly as predicted. Even so, silent corruption cannot
+be excluded. **A reproducibility re-run of the cited §193 TS numbers is queued before anyone cites them** (The
+Bridge's order: stress check, then §193 reproducibility, then the §195 G0 rerun).

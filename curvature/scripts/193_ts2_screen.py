@@ -26,9 +26,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import numpy as np
 import sympy as sp
-from sympy.parsing.sympy_parser import parse_expr
 
-from curvlib import RESULTS
+RESULTS = Path(__file__).resolve().parent.parent / "results"   # not curvlib: it imports torch, implicated in segfaults (§195, 2026-10-11)
 
 PKG = Path("/Users/sumit/Github/conjecture_machine/data/sealed/TS2_for_quantum")
 POINTS = {"t1o2": (sp.Rational(3, 5), sp.Rational(4, 5)), "t1o3": (sp.Rational(4, 5), sp.Rational(3, 5))}
@@ -44,10 +43,75 @@ _SREPR_OK = re.compile(r"^(?:Mul|Add|Pow|Integer|Rational|Symbol|'x'|'y'|'sigma'
 
 # ---------------------------------------------------------------- the three spacetimes, one code path
 
+_SREPR_TOK = re.compile(r"\s*(?:(?P<id>[A-Za-z_]+)|(?P<num>-?\d+)|(?P<str>'[a-z]+')|(?P<p>[(),=]))")
+_SREPR_SYM = {"x": X, "y": Y, "sigma": SIG}
+
+
+def parse_srepr(text):
+    """A recursive-descent parser for the rational-function srepr grammar only (Mul, Add, Pow, Integer, Rational,
+    Symbol). It replaced sympy.parse_expr on 2026-10-11, after the §195 crash hunt: parse_expr runs Python 3.12's C
+    tokenizer, which SEGFAULTED (faulthandler stack: tokenize._generate_tokens_from_c_tokenizer <- parse_expr <-
+    load_ts) and otherwise corrupted the heap silently on these ~26 KB single-line expressions. Those later
+    surfaced as malloc traps in unrelated numpy calls. No tokenizer and no eval: unknown tokens raise."""
+    toks = []
+    for m in _SREPR_TOK.finditer(text):
+        kind = m.lastgroup
+        toks.append((kind, m.group(kind)))
+    if "".join(t[1] for t in toks).replace(" ", "") != text.replace(" ", ""):
+        raise ValueError("srepr contains characters outside the grammar; refusing to parse")
+    pos = 0
+
+    def take(kind=None, val=None):
+        nonlocal pos
+        k, v = toks[pos]
+        if (kind and k != kind) or (val and v != val):
+            raise ValueError(f"srepr parse error at token {pos}: {k} {v!r}")
+        pos += 1
+        return v
+
+    def node():
+        name = take("id")
+        take("p", "(")
+        args = []
+        while toks[pos][1] != ")":
+            k, v = toks[pos]
+            if k == "id" and toks[pos + 1][1] == "=":            # keyword such as real=True: skip
+                pos_skip()
+            elif k == "num":
+                args.append(int(take("num")))
+            elif k == "str":
+                args.append(take("str").strip("'"))
+            else:
+                args.append(node())
+            if toks[pos][1] == ",":
+                take("p", ",")
+        take("p", ")")
+        if name == "Integer":
+            return sp.Integer(args[0])
+        if name == "Rational":
+            return sp.Rational(args[0], args[1])
+        if name == "Symbol":
+            return _SREPR_SYM[args[0]]
+        if name == "Mul":
+            return sp.Mul(*args)
+        if name == "Add":
+            return sp.Add(*args)
+        if name == "Pow":
+            return sp.Pow(args[0], args[1])
+        raise ValueError(f"srepr node {name} is outside the rational-function grammar")
+
+    def pos_skip():
+        nonlocal pos
+        pos += 3                                                 # id '=' value
+
+    expr = node()
+    if pos != len(toks):
+        raise ValueError("trailing tokens in srepr")
+    return expr
+
+
 def load_ts(tag):
     """Exact components from ansatz's package, sigma set to p/2 (units m = 1; manifest: m = 2 sigma / p)."""
-    local = {"Mul": sp.Mul, "Add": sp.Add, "Pow": sp.Pow, "Integer": sp.Integer, "Rational": sp.Rational,
-             "Symbol": sp.Symbol, "Float": sp.Float}
     comps = {}
     for line in (PKG / f"ts2_metric_components_{tag}.txt").read_text().splitlines():
         if "=" not in line or line.startswith("#"):
@@ -56,7 +120,7 @@ def load_ts(tag):
         v = v.strip()
         if not _SREPR_OK.match(v):
             raise ValueError(f"{tag}:{k.strip()} contains tokens outside a rational-function srepr; refusing to parse")
-        comps[k.strip()] = parse_expr(v, local_dict=local, global_dict={"__builtins__": {}}, evaluate=True)
+        comps[k.strip()] = parse_srepr(v)
     p, q = POINTS[tag]
     sig = p / 2
     return {k: v.subs(SIG, sig) for k, v in comps.items()}, p, q, sig

@@ -1,0 +1,96 @@
+{
+ "gate": "G0",
+ "levels": [
+  {
+   "label": "G0_Kerr_t1o3_E0.97_pro_eps-0.01",
+   "noise99_loo": 8.807680892094111e-25,
+   "n_survivors": 305,
+   "counts": {
+    "EXACT-REGULAR": 305,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 0
+   },
+   "resonant_counts": {
+    "EXACT-REGULAR": 8,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 0
+   },
+   "nulls": {
+    "phase_random_notregular": 0.95,
+    "splice_notregular": 0.05
+   }
+  },
+  {
+   "label": "G0_Kerr_t1o3_E0.97_pro_eps+0.005",
+   "noise99_loo": 8.82463393793478e-25,
+   "n_survivors": 208,
+   "counts": {
+    "EXACT-REGULAR": 207,
+    "REGULAR": 0,
+    "CHAOTIC": 1,
+    "ABSTAIN": 0
+   },
+   "resonant_counts": {
+    "EXACT-REGULAR": 8,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 0
+   },
+   "nulls": {
+    "phase_random_notregular": 1.0,
+    "splice_notregular": 1.0
+   }
+  },
+  {
+   "label": "G0_Kerr_t1o3_E0.97_retro_eps-0.01",
+   "noise99_loo": 1.7244885379568732e-25,
+   "n_survivors": 291,
+   "counts": {
+    "EXACT-REGULAR": 287,
+    "REGULAR": 0,
+    "CHAOTIC": 1,
+    "ABSTAIN": 3
+   },
+   "resonant_counts": {
+    "EXACT-REGULAR": 2,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 0
+   },
+   "nulls": {
+    "phase_random_notregular": 1.0,
+    "splice_notregular": 1.0
+   }
+  },
+  {
+   "label": "G0_Kerr_t1o3_E0.97_retro_eps+0.005",
+   "noise99_loo": 1.5953513442704594e-24,
+   "n_survivors": 200,
+   "counts": {
+    "EXACT-REGULAR": 200,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 0
+   },
+   "resonant_counts": {
+    "EXACT-REGULAR": 0,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 0
+   },
+   "nulls": {
+    "phase_random_notregular": 0.95,
+    "splice_notregular": 1.0
+   }
+  }
+ ],
+ "G0": {
+  "survivors_ok": false,
+  "resonant_ok": true,
+  "resonant_n": 18,
+  "nulls_ok": false,
+  "pass": false
+ }
+}

@@ -21,6 +21,7 @@ MODES
 
 import argparse
 import json
+import os
 import sys
 import zlib
 from importlib import import_module
@@ -32,7 +33,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import numpy as np
 
-from curvlib import RESULTS
+RESULTS = Path(__file__).resolve().parent.parent / "results"   # not curvlib: it imports torch, implicated in segfaults (§195, 2026-10-11)
 
 m94 = import_module("194_orbit_dimension")
 m94b = import_module("194b_diagnose_g0")
@@ -135,7 +136,10 @@ class Reference:
         c = self.W @ V2t[-1]
         r_train = (S2[-1] ** 2 / n) * self.NR
         v = np.concatenate([self.scaled(Zc) @ c for Zc in _chunks(Ztest, 4000)])
-        r_test = float(np.var(v)) * self.NR
+        # Amendment 2: "does the invariant KEEP ITS VALUE" -- test deviation about the TRAIN mean. The self-centred
+        # variance (kept for report) let a GLOBAL invariant pass on the wrong orbit (G0 run 1, splice null).
+        r_test = float(np.mean((v - float(m @ c)) ** 2)) * self.NR
+        self.last_self = float(np.var(v)) * self.NR
         return float(r_train), r_test
 
 
@@ -175,7 +179,8 @@ def verdict(sc, noise):
     if not sc:
         return "ABSTAIN"
     noise = NOISE_ABS if noise is None else noise
-    v, r, g = sc["v"], sc["r_star"], sc["g_star"]
+    v, r = sc["v"], sc["r_star"]
+    g = r / (sc["r_train"] + noise)                      # amendment 2: scaled by train spread + integration floor
     if r <= EXACT_X * noise:
         return "EXACT-REGULAR"
     ds = sorted(v, key=int)
@@ -233,9 +238,11 @@ class Spill:
         self._mm = {}
 
     def orbit(self, i):
+        """No memory-mapping (2026-10-11): 2 of 4 runs of the mmap version died of heap corruption (macOS malloc
+        trap inside numpy). A chunk is read fully, one chunk cached at a time, and every orbit returned is a copy."""
         k, g = self.idx[i]
         if k not in self._mm:
-            self._mm = {k: np.load(self.files[k], mmap_mode="r")}
+            self._mm = {k: np.load(self.files[k])}
         return _valid(self._mm[k], g)
 
     def n(self):
@@ -306,7 +313,9 @@ def run_level(job):
         if sp1.acc.sum() < 5:
             out["status"] = "TOO-FEW-ACCEPTED"
             return out
-        refs = build_refs(reference_cloud(sp1, rng), geo=job.get("geo", True))
+        Rpts = reference_cloud(sp1, rng)
+        np.save(OUT / f"R_{job['label']}.npy", Rpts)          # lets the confirmation step rebuild refs exactly
+        refs = build_refs(Rpts, geo=job.get("geo", True))
         out["reference"] = {str(d): {"p": r.p, "pruned": r.pruned, "N_R": r.NR} for d, r in refs.items()}
         rows = score_spill(sp1, refs, T, r1, "stage1", coverage=job.get("coverage", False))
         n1 = min(m94.N_STAGE1, len(r1))
@@ -397,6 +406,104 @@ def resonant_seeds(st, E, L, reg, n=50):
     return list(np.quantile(good, np.linspace(0, 1, min(n, len(good)))))
 
 
+def _model_for(job):
+    if job["system"] == "ZV2":
+        st = s193.Spacetime(*s193.zv2_components(), "ZV2")
+    elif job["system"] == "SCHW":
+        st = s193.Spacetime(s193.kerr_components(0, 1), 1, "SCHW")
+    else:
+        st = m94.spacetimes(job["tag"])[0][job["system"]]
+    return st.at(job["E"], job["L"])
+
+
+def dop853_fixed(mdl, z0, T, dt=DT, stride=STRIDE):
+    """Independent integrator for confirmation: the 8th-order DOP853 Butcher tableau (Dormand-Prince), run with a
+    FIXED step, vectorized like the RK4 path. It is a different scheme (order 8 against order 4), not RK4 checking
+    itself. The adaptive scalar solve_ivp version at rtol 1e-13 took over 40 min per Kerr orbit, so it was unusable
+    for every-candidate confirmation. Plunge and NaN handling match m94.integrate."""
+    from scipy.integrate._ivp import dop853_coefficients as cf
+    A, B, ns = cf.A[:cf.N_STAGES, :cf.N_STAGES], cf.B, cf.N_STAGES
+    z = np.array(z0, dtype=float).reshape(4, -1)
+    alive = np.ones(z.shape[1], bool)
+    t_plunge = np.full(z.shape[1], np.inf)
+    nstep = int(round(T / dt))
+    rec = []
+    for i in range(nstep):
+        K = []
+        for st_ in range(ns):
+            zi = z + dt * sum(A[st_, j] * K[j] for j in range(st_)) if st_ else z
+            K.append(mdl.rhs(zi))
+        znew = z + dt * sum(B[j] * K[j] for j in range(ns))
+        z = np.where(alive, znew, z)
+        fin = np.isfinite(z).all(0)
+        if mdl.sig is not None:
+            fin &= (1 + mdl.sig * np.where(fin, z[0], 0.0)) >= m94.R_PLUNGE
+        t_plunge[alive & ~fin] = (i + 1) * dt
+        alive &= fin
+        if i % stride == 0:
+            snap = z.copy()
+            snap[:, ~alive] = np.nan
+            rec.append(snap)
+    return {"samples": np.stack(rec, 1), "t_plunge": t_plunge}
+
+
+def confirm_candidate(args):
+    """Amendment 2: every CHAOTIC candidate, in every system, is re-integrated (a) by RK4 at dt/2 and (b) by an
+    independent fixed-step DOP853 (8th order), then re-scored with the level's own reference cloud. Three-way:
+      TRUNCATION  -> the dt/2 r* collapses by >= 16x (RK4 truncation; variance would be ~256x if pure);
+      PRECISION   -> the dt/2 r* sits at <= 10 x noise (the precision floor);
+      PHYSICAL    -> CHAOTIC stands only if BOTH re-integrations still read CHAOTIC and r* moved by < 4x.
+    Anything else -> ABSTAIN (unresolved). ONE-SIDED: it can only remove CHAOTIC verdicts, never add them, so it
+    biases every system, TS included, toward reading LESS chaotic."""
+    job, row, noise, T = args
+    mdl = _model_for(job)
+    refs = build_refs(np.load(OUT / f"R_{job['label']}.npy"), geo=job.get("geo", True))
+    z, _ = m94.seeds(mdl, np.array([row["r0"]]))
+    out = {"label": job["label"], "r0": row["r0"], "r_star_dt": row["scores"]["primary"]["r_star"]}
+    res = m94.integrate(mdl, z, T, DT / 2, 2 * STRIDE, twin=False)
+    sc2 = orbit_scores(valid(res, 0), refs, T)["primary"]
+    out.update({"r_star_dt2": sc2.get("r_star"), "verdict_dt2": verdict(sc2, noise)})
+    resd = dop853_fixed(mdl, z, T)
+    scd = orbit_scores(valid(resd, 0), refs, T)["primary"]
+    out.update({"r_star_dop853": scd.get("r_star"), "verdict_dop853": verdict(scd, noise)})
+    q = out["r_star_dt"] / max(out["r_star_dt2"] or 1e-300, 1e-300)
+    out["collapse_q"] = q
+    if out["verdict_dt2"] == "CHAOTIC" and out["verdict_dop853"] == "CHAOTIC" and q < 4:
+        # The Bridge: a fixed step gives up error control, so convergence must be SHOWN. For chaos, pointwise
+        # long-window convergence is impossible by construction (Lyapunov amplification), so the step regime is
+        # checked pointwise over a SHORT horizon (h -> h/2 -> h/4 over 1000 tau; ratio ~2^8 expected for order 8,
+        # or both diffs at round-off), and the STATISTIC over the full window (DOP853 at h/2: r* within 4x, same
+        # verdict).
+        hz = {f: dop853_fixed(mdl, z, 1000.0, DT / f, STRIDE * f)["samples"][:, :, 0] for f in (1, 2, 4)}
+        d1, d2 = (float(np.nanmax(np.abs(hz[1] - hz[2]))), float(np.nanmax(np.abs(hz[2] - hz[4]))))
+        res_h2 = dop853_fixed(mdl, z, T, DT / 2, 2 * STRIDE)
+        sch2 = orbit_scores(valid(res_h2, 0), refs, T)["primary"]
+        stat_ok = sch2.get("r_star") and verdict(sch2, noise) == "CHAOTIC" and \
+            0.25 <= scd["r_star"] / sch2["r_star"] <= 4
+        step_ok = (d2 > 0 and d1 / d2 >= 64) or max(d1, d2) <= 1e-11
+        out.update({"conv_short_d1": d1, "conv_short_d2": d2, "conv_short_ratio": d1 / d2 if d2 else None,
+                    "r_star_dop853_h2": sch2.get("r_star"), "step_converged": bool(step_ok),
+                    "statistic_stable": bool(stat_ok)})
+        if step_ok and stat_ok:
+            out["class"], out["final"] = "PHYSICAL", "CHAOTIC"
+        else:
+            out["class"], out["final"] = "UNCONVERGED", "ABSTAIN"
+    elif q >= 16:
+        out["class"], out["final"] = "TRUNCATION", out["verdict_dt2"] if out["verdict_dt2"] != "CHAOTIC" else "ABSTAIN"
+    elif (out["r_star_dt2"] or 0) <= EXACT_X * noise:
+        out["class"], out["final"] = "PRECISION", "EXACT-REGULAR"
+    else:
+        out["class"], out["final"] = "UNRESOLVED", "ABSTAIN"
+    return out
+
+
+def confirm_all(cands, workers):
+    if not cands:
+        return []
+    with get_context("spawn").Pool(min(workers, len(cands))) as pool:
+        return pool.map(confirm_candidate, cands)
+
+
 def _g0_measure(job):
     sts, _ = m94.spacetimes(job["tag"])
     st = sts["Kerr"]
@@ -418,30 +525,51 @@ def g0(args):
             L = sense * ls * (1 + eps)
             jobs.append({"system": "Kerr", "tag": "t1o3", "E": 0.97, "L": L, "eps": eps, "T": T_PRIMARY,
                          "label": f"G0_Kerr_t1o3_E0.97_{'pro' if sense < 0 else 'retro'}_eps{eps:+}",
-                         "keep_for_nulls": True})
+                         "keep_for_nulls": True, "set": "original"})
+    # amendment 2, condition 4: HELD-OUT Kerr levels never used in any diagnosis (other spin, other energy, other eps)
+    st2 = m94.spacetimes("t1o2")[0]["Kerr"]
+    ls2 = m94.l_sep(st2, 0.95, -1)
+    for eps in (-0.005, 0.02):
+        jobs.append({"system": "Kerr", "tag": "t1o2", "E": 0.95, "L": -ls2 * (1 + eps), "eps": eps, "T": T_PRIMARY,
+                     "label": f"G0H_Kerr_t1o2_E0.95_pro_eps{eps:+}", "keep_for_nulls": True, "set": "heldout"})
     with get_context("spawn").Pool(min(args.workers, len(jobs))) as pool:
         measured = pool.map(_g0_measure, jobs)
     for out in measured:
         print(out["label"], out["status"], "resonant seeds", len(out["extra_r0"]), flush=True)
-    summary = {"gate": "G0", "levels": []}
-    allv, resv = [], []
+    noise_of = {}
+    cands = []
     for i, out in enumerate(measured):
-        rows = [r for r in out.get("rows", []) if r.get("fate") == "SURVIVED"]
         others = [r for j, o in enumerate(measured) if j != i for r in o.get("rows", []) if r.get("fate") == "SURVIVED"]
-        noise = noise99(others)                            # leave-one-level-out: Kerr cannot pass trivially
+        noise_of[i] = noise99(others)                     # leave-one-level-out: Kerr cannot pass trivially
+        for r in out.get("rows", []):
+            if r.get("fate") == "SURVIVED":
+                r["verdict_raw"] = verdict(r["scores"]["primary"], noise_of[i])
+                r["verdict_short"] = verdict(r["scores"]["short"], noise_of[i])
+                if r["verdict_raw"] == "CHAOTIC":
+                    cands.append(({k: v for k, v in out.items() if k in ("system", "tag", "E", "L", "label")},
+                                  r, noise_of[i], T_PRIMARY))
+    print(f"{len(cands)} CHAOTIC candidates -> dt/2 + DOP853 confirmation", flush=True)
+    confirmed = {(c["label"], c["r0"]): c for c in confirm_all(cands, args.workers)}
+    summary = {"gate": "G0", "levels": [], "confirmations": list(confirmed.values())}
+    by_set = {"original": [], "heldout": []}
+    resv = []
+    for i, out in enumerate(measured):
+        noise = noise_of[i]
+        rows = [r for r in out.get("rows", []) if r.get("fate") == "SURVIVED"]
         for r in rows:
-            r["verdict"] = verdict(r["scores"]["primary"], noise)
-            r["verdict_short"] = verdict(r["scores"]["short"], noise)
+            r["verdict"] = confirmed[(out["label"], r["r0"])]["final"] if r["verdict_raw"] == "CHAOTIC" else r["verdict_raw"]
         ex = np.asarray(out["extra_r0"]) if out["extra_r0"] else np.array([np.inf])
         res_rows = [r for r in rows if r["stage"] == "stage1" and np.min(np.abs(ex - r["r0"])) < 1e-9]
         nl = null_verdicts(out["nulls_raw"], noise)
-        allv += [r["verdict"] for r in rows]
+        by_set[out["set"]] += [r["verdict"] for r in rows]
         resv += [r["verdict"] for r in res_rows]
         out.update({"noise99_loo": noise, "nulls": nl, "resonant_n": len(res_rows)})
         _save(out, out["label"])
-        cnt = lambda rr: {k: [r["verdict"] for r in rr].count(k) for k in ("EXACT-REGULAR", "REGULAR", "CHAOTIC", "ABSTAIN")}
-        summary["levels"].append({"label": out["label"], "noise99_loo": noise, "n_survivors": len(rows),
-                                  "counts": cnt(rows), "resonant_counts": cnt(res_rows),
+        cnt = lambda rr, key="verdict": {k: [r[key] for r in rr].count(k) for k in
+                                         ("EXACT-REGULAR", "REGULAR", "CHAOTIC", "ABSTAIN")}
+        summary["levels"].append({"label": out["label"], "set": out["set"], "noise99_loo": noise,
+                                  "n_survivors": len(rows), "counts": cnt(rows), "counts_raw": cnt(rows, "verdict_raw"),
+                                  "resonant_counts": cnt(res_rows),
                                   "nulls": {k: v for k, v in nl.items() if k.endswith("notregular")}})
         print(summary["levels"][-1], flush=True)
 
@@ -451,8 +579,12 @@ def g0(args):
         return bool(n > 0 and reg >= 0.98 * n and v.count("CHAOTIC") == 0 and v.count("ABSTAIN") <= 0.02 * n)
     nulls_ok = all(lv["nulls"]["phase_random_notregular"] >= 0.95 and lv["nulls"]["splice_notregular"] >= 0.95
                    for lv in summary["levels"])
-    summary["G0"] = {"survivors_ok": ok(allv), "resonant_ok": ok(resv), "resonant_n": len(resv), "nulls_ok": nulls_ok}
-    summary["G0"]["pass"] = all(summary["G0"][k] for k in ("survivors_ok", "resonant_ok", "nulls_ok"))
+    summary["G0"] = {"original_ok": ok(by_set["original"]), "heldout_ok": ok(by_set["heldout"]),
+                     "resonant_ok": ok(resv), "resonant_n": len(resv), "nulls_ok": nulls_ok,
+                     "n_candidates": len(cands),
+                     "candidate_classes": {k: sum(c["class"] == k for c in confirmed.values())
+                                           for k in ("TRUNCATION", "PRECISION", "PHYSICAL", "UNRESOLVED")}}
+    summary["G0"]["pass"] = all(summary["G0"][k] for k in ("original_ok", "heldout_ok", "resonant_ok", "nulls_ok"))
     (RESULTS / "195_G0.json").write_text(json.dumps(summary, indent=1, default=float))
     print("G0:", summary["G0"])
 
@@ -474,8 +606,9 @@ if __name__ == "__main__":
         ls = m94.l_sep(sts["Kerr"], 0.97, -1)
         m94.N_STAGE1 = 12
         T_SHORT = 4000.0
+        lab = f"smoke_{os.getpid()}"                        # unique: parallel smokes must not share spill files
         o = run_level({"system": "Kerr", "tag": "t1o3", "E": 0.97, "L": -ls * 1.005, "T": 12000.0,
-                       "label": "smoke", "keep_for_nulls": True, "f1": False})
+                       "label": lab, "keep_for_nulls": True, "f1": False})
         rows = [r for r in o["rows"] if r.get("fate")]
         fl = noise99(rows)
         for r in rows[:8]:
@@ -483,7 +616,11 @@ if __name__ == "__main__":
             print({k: f"{x:.1e}" for k, x in sc["v"].items()}, "d*", sc["dstar"], f"r*={sc['r_star']:.1e} g*={sc['g_star']:.1e}",
                   verdict(sc, fl))
         T_PRIMARY = 12000.0
+        c = confirm_candidate(({"system": "Kerr", "tag": "t1o3", "E": 0.97, "L": -ls * 1.005, "label": lab},
+                               rows[0], fl, 12000.0))
+        print("confirm path:", {k: (f"{v:.2e}" if isinstance(v, float) else v) for k, v in c.items()})
         print("nulls", {k: v for k, v in null_verdicts(o["nulls_raw"], fl).items() if k.endswith("notregular")})
+        print("torch loaded:", "torch" in sys.modules)
         raise SystemExit(0)
     if a.g0:
         g0(a)

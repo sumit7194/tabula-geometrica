@@ -125,3 +125,26 @@ net's own trajectories) ✓ r = 0.9999 against true q/m. Scripts:
 assembled layer by layer — and is non-linear embedding storage like Phase C's
 q/m an SAE-recoverable feature?); formal MDL version of the economy race;
 writing the four phases up as a single coherent note.
+
+## How to reproduce
+
+The environment is pinned in `ENVIRONMENT/`: one JSON stamp per interpreter (Python, platform, package versions,
+BLAS/LAPACK backends, git commit) plus a full `pip freeze`.
+
+```bash
+python3.12 -m venv .venv && .venv/bin/pip install -r ENVIRONMENT/py312_freeze.txt
+```
+
+```bash
+./verify.sh
+```
+
+```bash
+.venv/bin/python scripts/envstamp.py py312
+```
+
+- Each script names its pre-registration note in its docstring and writes its artifacts to `results/`.
+- Every new result entry carries an `Environment:` line pointing at a stamp.
+- **Known issue (2026-10-11):** Python 3.12.13 on macOS 26.5 shows intermittent heap corruption in long numpy/sympy
+  runs. The investigation is in `notes/invariant_learnability_prereg.md`, and a repro draft is in `notes/upstream/`.
+  The root cause is not closed.
