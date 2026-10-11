@@ -24,3 +24,18 @@
   on OB, and cross-check that OB output matches ACC to the printed precision. If OB also crashes, Accelerate is
   cleared, and the next step is Guard Malloc launched directly (not via nohup/env, which SIP strips).
 - Confound noted: the arms run at different times, not interleaved.
+
+## Amendment 1 (The Bridge's review, before any OB run)
+- **Interleaved:** 15 pairs, alternating which arm goes first (odd pairs ACC first, even pairs OB first). Order and
+  timestamps go to results/195_ab_order.log. This removes the time/load confound instead of just declaring it. The
+  box's load varies (sister runs, the bridge's V12 with 6 workers).
+- **Balanced, decided by a test:** 15 vs 15. The six deterministic ACC runs are a PILOT and are excluded from the
+  test. Decision: one-sided Fisher exact test on the 2x2 table, p < 0.05 implicates Accelerate. With OB = 0 crashes,
+  ACC needs at least 4 of 15 (p = 0.0498). Power at a true rate of 1/3 is 0.79. With 10 vs 10 it would have been 0.44,
+  which is why the arms are not 10 each.
+- If Accelerate is implicated, the conditional OB-vs-ACC output cross-check still applies.
+- A not-significant result with OB crashing is evidence AGAINST Accelerate. A not-significant result with OB clean and
+  ACC under 4 is UNRESOLVED (underpowered); it is not read as a clearance.
+- Context from the bridge (their claim, not verified here): V12 ran thousands of short workers today on 3.14 +
+  Accelerate (numpy 2.4.6 / scipy 1.18.0) without a crash. Its workload is numba ODE integration with almost no
+  LAPACK; §195 is heavy on QR/SVD. Consistent with an Accelerate-LAPACK-specific issue, not a test of it.
