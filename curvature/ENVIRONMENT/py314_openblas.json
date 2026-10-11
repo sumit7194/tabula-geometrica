@@ -22,6 +22,6 @@
   "blas": "openblas",
   "lapack": "openblas"
  },
- "git_commit": "6aca281ae71f221c5bcd5da9182126b268f66001",
+ "git_commit": "5b72b9afa2366731c80acef35db9852cb38dabc5",
  "git_dirty": true
 }
