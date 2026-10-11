@@ -31,6 +31,9 @@ from multiprocessing import get_context
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+for _v in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "VECLIB_MAXIMUM_THREADS"):
+    os.environ.setdefault(_v, "1")    # before numpy loads; spawn workers re-run this. Unset, OpenBLAS sized its pool
+                                      # to all cores in each of 4 workers: load ~52 for 4.5 h, no level done (2026-10-11)
 
 import numpy as np
 

@@ -11,6 +11,7 @@ replicable if the stack that produced it is written down (fleet policy, 2026-10-
 import contextlib
 import io
 import json
+import os
 import platform
 import subprocess
 import sys
@@ -46,6 +47,7 @@ def main():
         "packages": {p: (metadata.version(p) if _has(p) else None) for p in PKGS},
         "numpy_backend": _backend("numpy"), "scipy_backend": _backend("scipy"),
         "git_commit": git("rev-parse", "HEAD"), "git_dirty": bool(git("status", "--porcelain")),
+        "thread_env": {v: os.environ.get(v) for v in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "VECLIB_MAXIMUM_THREADS")},
     }
     (out / f"{name}.json").write_text(json.dumps(stamp, indent=1))
     freeze = subprocess.run([sys.executable, "-m", "pip", "freeze"], capture_output=True, text=True).stdout

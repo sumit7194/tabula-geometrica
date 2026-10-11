@@ -22,6 +22,11 @@
   "blas": "openblas",
   "lapack": "openblas"
  },
- "git_commit": "5b72b9afa2366731c80acef35db9852cb38dabc5",
- "git_dirty": true
+ "git_commit": "84a4d02b6855e19c8e1c157dd129e1f27ee0dc25",
+ "git_dirty": true,
+ "thread_env": {
+  "OPENBLAS_NUM_THREADS": "1",
+  "OMP_NUM_THREADS": "1",
+  "VECLIB_MAXIMUM_THREADS": "1"
+ }
 }
