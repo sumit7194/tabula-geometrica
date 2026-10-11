@@ -90,3 +90,33 @@ to 1.5e5), and strong chaos separates by > 200x. The open question is WEAK, SHOR
 dozens of seeds, FTLE truth against the Schwarzschild reference), recording ⟨Y⟩(t) up to the plunge, and testing
 whether a GROWTH statistic (the slope of ⟨Y⟩ ~ λt/2 over the surviving window) separates weak layer chaos from
 torus wobble better than a final value does.
+
+## MEASUREMENT 2: analysis plan FIXED BEFORE ANY RESULT (2026-10-12, launched 04:20; scope agreed with The Bridge)
+Context: ansatz's high-precision probe found TS's near-separatrix chaos TRANSIENT (a chaotic saddle with escape;
+most chaotic window orbits plunge within ~300 crossings). So the target is weak, short-lived chaos.
+Anchor: open Henon-Heiles (E 0.18, 0.21, 0.25 > 1/6; chaotic scattering, escape through saddles; Aguirre, Vallejo &
+Sanjuán, PRE 64, 066208 (2001), verified). Escape = |q| > 2.
+
+Populations:
+- CHAOTIC-TRANSIENT: (i) open-HH orbits that escape after >= 25 tau (direct escapes have no time to develop chaos;
+  lifetime is the label, FTLE is reported as a covariate); (ii) ZV δ=2 layer-grid orbits with FTLE > 3x the max
+  Schwarzschild-reference FTLE (the pre-registered truth rule); (iii) HH E = 0.125 chaotic-truth orbits.
+- REGULAR (null): Kerr p4/5 pro/retro and p3/5 pro at the barrier separatrix (eps -0.01); Schwarzschild; HH E = 1/12
+  regular-truth; HH E = 0.125 regular-truth; ZV layer-grid orbits that survive T with FTLE <= 1.5x the Schwarzschild
+  median.
+
+Statistics, DURATION-MATCHED (The Bridge): each chaotic orbit has lifetime tau (escape, plunge or T). At duration tau:
+- S1 = ⟨Y⟩(tau), the last series point <= tau;
+- S2 = OLS slope of ⟨Y⟩(t) over [tau/2, tau] (≈ λ/2 for chaos, → 0 on tori);
+- the null at tau is EVERY regular orbit's series truncated at the same tau.
+
+Reported per duration bin (tau in [25, 100), [100, 300), [300, 1e3), [1e3, 3e3), [3e3, 3e4]):
+- the ROC AUC of S1 and S2 (chaotic vs duration-matched null);
+- the null's 99th percentile vs the chaotic median;
+- the fraction of chaotic orbits above the null's 99th percentile ("detection rate at 1% false alarm").
+- Covariate: tau x λ_FTLE (Lyapunov times lived). Expected: MEGNO needs several Lyapunov times, so detection should
+  track it.
+- The DETECTION HORIZON is the shortest bin where the detection rate at 1% false alarm is >= 50%.
+
+No usability rule is drawn from this alone; it is proposed to The Bridge afterwards, with thresholds validated on
+unseen levels.
