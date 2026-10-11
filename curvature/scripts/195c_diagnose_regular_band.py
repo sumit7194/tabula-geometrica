@@ -76,11 +76,15 @@ def measures(Z, refs, noise):
     out["M4"] = {f"off{k}": value_err(ref, cA, muA, Z[k * w:(k + 1) * w]) for k in (1, 2, 4, 7)}
     out["M4_growth"] = out["M4"]["off7"] / max(out["M4"]["off1"], 1e-300)
     h = n // 2
-    drift = []
+    drift, cyc = [], []
     for j in range(4):
         f1, f2 = dom_freq(Z[:h, j]), dom_freq(Z[h:2 * h, j])
         drift.append(abs(f2 - f1) / max(abs(f1), 1e-300))
+        cyc.append(abs(f1) * h * DT_S)                     # cycles of this coordinate's dominant line per half-window
     out["M5_drift"] = float(np.median(drift))
+    out["M5_max"] = float(max(drift))                     # The Bridge, condition 1: max over the frequencies used
+    out["M5_coord"] = [float(x) for x in drift]
+    out["cycles_half"] = [float(x) for x in cyc]          # resolvability: >= N_min cycles per half-window
     conc = []
     for j in range(4):
         P = np.abs(np.fft.rfft((Z[:n, j] - Z[:n, j].mean()) * np.hanning(n))) ** 2
@@ -177,7 +181,7 @@ def main():
             add("hh_low_phase_random", hp)
         out[f"{tag}_ftle_median"] = float(np.median(ftle))
 
-    name = "195c_diagnose_smoke.json" if a.smoke else "195c_diagnose.json"
+    name = "195c_diagnose_smoke.json" if a.smoke else "195c_diagnose_v2.json"
     (RESULTS / name).write_text(json.dumps(out, default=float))
     print("saved", name, flush=True)
 

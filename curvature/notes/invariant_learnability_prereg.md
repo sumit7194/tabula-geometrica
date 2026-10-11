@@ -350,3 +350,24 @@ third-method slot goes to an established indicator.
    - ZV thin layer: as pre-registered (>= 1 F2-CHAOTIC at >= 2 of the 5 eps levels), including the two V11 layer
      orbits as report-only examples.
 6. **Failure** of G0 run 3 or of G1 under this rule ends §195 as an honest negative, with the diagnosis on record.
+
+## 195c v2: The Bridge's resolvability condition is decisive (2026-10-11; results/195c_diagnose_v2.json)
+Same seeds; v2 reproduces v1's r* exactly. New fields: per-coordinate relative drift, M5_max (The Bridge: max over
+the frequencies used), and cycles of each coordinate's dominant line per half-window.
+
+| group | min cycles/half-window (min/med/max) | M5_max (min/med/max) |
+|---|---|---|
+| Kerr real (near-separatrix, T 3e4) | **10 / 34 / 34** | 1.1e-9 / 1.5e-7 / **1.6e-3** |
+| Kerr phase-random, old-REGULAR | 10 / 34 / 34 | **1.9e-3** / 4.2e-3 / 1.0 |
+| HH E=1/12 regular-truth | 2177 / 2375 / 2444 | 5.2e-13 / 1.2e-12 / 7.0e-10 |
+| HH phase-random, old-REGULAR | 2203 / 2305 / 2406 | 1.8e-5 / 2.7e-5 / 3.6e-5 |
+| HH E=0.1657 chaotic-truth | 3 / 1861 / 2426 | 1.0e-2 / 0.99 / 660 |
+
+- **M5 separates only where cycles are plentiful.** HH (thousands of cycles): about four orders of magnitude.
+  Kerr near the separatrix at T = 3e4 (10-34 cycles): NO separation (real max 1.6e-3 vs surrogate min 1.9e-3).
+  15/40 real Kerr orbits exceed 1e-6 and 2/40 exceed 1e-4.
+- **With N_min = 50, all 40 Kerr orbits are unresolvable.** TS lives in the same long-period separatrix region, so
+  amendment 3 as approved could never return REGULAR for a non-exact TS orbit there. G0's nulls would then pass
+  BY CONSTRUCTION (no REGULAR possible), not by discrimination. Without the floor, M5 is unreliable there.
+- **Amendment 3 is NOT frozen.** The window T must give >= N_min cycles in the slow regime, or the REGULAR claim
+  must be dropped there. Options are under discussion with The Bridge (see the next entry).
