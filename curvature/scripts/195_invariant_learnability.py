@@ -606,7 +606,7 @@ if __name__ == "__main__":
         ls = m94.l_sep(sts["Kerr"], 0.97, -1)
         m94.N_STAGE1 = 12
         T_SHORT = 4000.0
-        lab = f"smoke_{os.getpid()}"                        # unique: parallel smokes must not share spill files
+        lab = os.environ.get("SMOKE_LABEL") or f"smoke_{os.getpid()}"   # unique unless pinned (deterministic repeats)
         o = run_level({"system": "Kerr", "tag": "t1o3", "E": 0.97, "L": -ls * 1.005, "T": 12000.0,
                        "label": lab, "keep_for_nulls": True, "f1": False})
         rows = [r for r in o["rows"] if r.get("fate")]

@@ -1,0 +1,4 @@
+mpmath==1.3.0
+numpy @ file:///private/tmp/claude-501/-Users-sumit-Github-SpaceTime/9ce9020a-0ce8-4c70-a24e-2c0c77428cd5/scratchpad/obwheels/numpy-2.4.6-cp314-cp314-macosx_11_0_arm64.whl#sha256=38efbc8de75c7a0fc1ac190162d892787f3f47b57cc291231aafee36b80982b7
+scipy @ file:///private/tmp/claude-501/-Users-sumit-Github-SpaceTime/9ce9020a-0ce8-4c70-a24e-2c0c77428cd5/scratchpad/obwheels/scipy-1.17.1-cp314-cp314-macosx_12_0_arm64.whl#sha256=45abad819184f07240d8a696117a7aacd39787af9e0b719d00285549ed19a1e9
+sympy==1.14.0
