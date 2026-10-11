@@ -117,3 +117,40 @@
 - Pilot-style launch (relative path), up to 12 runs, stop at first crash.
 - Caveat, declared in advance: the edit itself, the env var and the extra collections all shift layout, so the crash
   may vanish. A clean probe series is INCONCLUSIVE, not a clearance.
+
+## Probe result: damage bracketed (13:04)
+- Probe run 6 crashed INSIDE the "refs built" probe's gc.collect (func_traverse); the previous probe ("stage1
+  integrated") passed. Bracket = reference_cloud + np.save + build_refs (lines 327-329).
+- The bracket in isolation (scratchpad repro_ref2.py, exact `Reference` code on that run's saved Rpts, gc after each
+  degree, 100 reps = 300 builds): 0 crashes. Isolation does not reproduce; it needs the run's prior heap state.
+
+## The faulting VALUE (decisive clue)
+- Three crashes in separate processes (pilot 3, pilot 6, rep 6), each with its own ASLR layout, fault at the IDENTICAL
+  "address" 0x3ee5a129056bde81. A real pointer cannot repeat across layouts. This is the float64 value
+  **1.031376465963842e-05** written over a function object's pointer field.
+- So a deterministic computation writes float64 data out of bounds. It is not a refcount bug and not random
+  hardware corruption.
+- Victims seen: function objects (func_traverse), dict internals, the libc locale (btowc_l in 3.12;
+  mbstowcs NULL deref in the hunt run), marshal/import state. Many victims, one kind of culprit: a buffer overrun.
+- Exact bit pattern searched for, NOT found in: the bracket's arrays (Rpts, mu, sd, every feature chunk, every
+  stream-QR factor, Householder vectors + tau via mode="raw", S/U/Vt, W); nor any float64 array RETURNED by
+  np.linalg.{qr,svd,lstsq,solve,eigh,norm}, np.fft.*, np.{concatenate,stack,vstack,load,where,quantile,sort},
+  m94.integrate/seeds, or m.{feats,dop853_fixed,phase_randomize,orbit_scores,reference_cloud,valid}, Spill.orbit,
+  during a full smoke (scratchpad hunt_value.py). That run crashed (mbstowcs) in confirm before reaching its end.
+  -> The value is most likely transient (inside a library's workspace or a temporary) rather than a returned array.
+- My mistake, caught: the first full-run hunt used label "hunt", but the RNG is seeded from the label (crc32,
+  line 301), so it computed different numbers. Caught because its printed rows differed from the crashing runs.
+  Rerun with label smoke_fixed: rows identical. The wrong-label log is kept as 195_hunt_value_wronglabel.log.
+- Process slip: killed the first hunt with `pkill -f <scratchpad script name>`. The rule is an exact PID or the
+  SpaceTime/curvature path only; exact PIDs since.
+
+## Guard Malloc, now actually loaded and validated
+- DYLD_INSERT_LIBRARIES set as a prefix directly on the python exec (not via nohup/env, which SIP strips) loads it:
+  GuardMalloc banner printed.
+- Known-fail (scratchpad oob.py: malloc(64), memset 32 bytes past the end): plain run -> "survived overrun", then
+  SIGSEGV at exit (EXACTLY our symptom); Guard Malloc -> SIGSEGV with faulthandler at the overrun line. It catches
+  the writer at the write.
+- Layout-INDEPENDENT: any overrun off a malloc'd block faults, whatever the layout. Limits: 16-byte alignment slack
+  (MALLOC_STRICT_SIZE not used yet), and pymalloc-arena objects are not guarded, so an overrun from a small
+  pymalloc buffer would be missed.
+- Running: full smoke under Guard Malloc, label smoke_fixed, absolute path (195_gmalloc.log).
