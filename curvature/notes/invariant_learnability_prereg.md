@@ -306,3 +306,47 @@ Findings:
   HH 0/20), splice 20/20 CHAOTIC, HH regular-truth 41/41 REGULAR, HH chaotic-truth 77/77 CHAOTIC, Kerr 40/40 EXACT.
   **This proves nothing until it is out of sample.** Amendment 3 (one design round, The Bridge's review) will
   validate on unseen Kerr levels, fresh HH seeds, and ZV δ=2 regular and layer orbits (mapping check running).
+
+## ZV δ=2 orbit mapping (The Bridge's V11 orbits; checked, not trusted)
+V8 uses σ = 1 (M = 2); ours σ = 1/2 (M = 1). x, y, E are scale-free; L scales with M, so V11 L = 3.0 maps to our 1.5.
+Check (T = 3e4, dt 0.05, twin FTLE, section gap):
+- V11 REGULAR (L 1.5, x0 7.62): survives, FTLE 8.1e-4, gap 0.024.
+- Layer A (L 1.45, x0 7.56263): plunges at 9377, FTLE 3.4e-3.
+- Layer B (L 1.5, x0 7.57274): plunges at 11878, FTLE 3.3e-3.
+- Deeper x0 7.8 / 8.2 / 8.8 / 9.5: survive, FTLE 1.4-3.1e-4, gaps 0.007-0.055.
+The mapping is consistent: the layer orbits are 4x more chaotic and plunge. **But ZV's H drift at dt 0.05 is
+3e-9 to 7e-8 (> the 1e-9 cut)**, a second system that needs its own dt.
+
+## AMENDMENT 3 (PROPOSED, not frozen; for The Bridge's review). The ONE remaining design round
+Budget (the user's direction, relayed by The Bridge): if G0 run 3 fails, §195 closes as an honest negative and the
+third-method slot goes to an established indicator.
+
+1. **Verdict rule** (Kerr exactness is referenced nowhere, so TS tori are not read as chaotic by construction):
+   - EXACT-REGULAR: unchanged (r* <= 10 x noise).
+   - REGULAR: the old conditions AND **M5 <= 1e-6**. If the old conditions hold but M5 is larger -> ABSTAIN, never
+     CHAOTIC.
+   - CHAOTIC: the old branch, OR the new branch **r* >= 0.1 AND M5 >= 1e-4** (no invariant at the 10% level plus
+     Laskar frequency diffusion: two independent signals).
+   - The one-sided numerical confirmation (dt/2 + DOP853) applies to EVERY CHAOTIC, unchanged.
+   - M5 definition, frozen: per coordinate, the relative change of the dominant frequency (Hann window, parabolic
+     peak; m94b.freqs) between the two halves of the primary window; median over the 4 coordinates.
+   - Thresholds come from the 195c distributions (IN-SAMPLE, declared): 1e-6 sits in the gap between the torus max
+     5e-9 and the surrogate min 1.9e-5; 0.1 and 1e-4 sit below every chaotic-truth orbit. They are NOT tuned on any
+     validation data below.
+2. **Per-system dt**, fixed by a measured drift target, not by verdicts: starting at 0.05, halve until a 12-orbit
+   pilot's max H drift over T is <= 1e-10 (10x margin under the 1e-9 cut). Sampling stays 0.5 tau. Pilot orbits are
+   used for nothing else. Expected: Kerr 0.05, HH 0.0025, ZV to be measured.
+3. **Nulls unchanged:** phase-random and splice, each >= 95% not-REGULAR PER LEVEL (binding, as in run 2). No new
+   surrogate class is added. The weaker semantics of the Fourier null for line spectra (Theiler; Small et al.
+   pseudo-periodic surrogates) are acknowledged, but the bar is NOT lowered.
+4. **G0 run 3 on levels unseen in runs 1-2 and in 195c:** Kerr t1o3 E = 0.95 {pro, retro} x eps {-0.01, +0.005};
+   Kerr t1o2 E = 0.97 {pro, retro} x eps {-0.01, +0.005}. Same near-resonant enrichment, same G0 criteria 1-3.
+5. **G1 controls (run only if G0 passes); fresh seeds, none from 195c:**
+   - HH E = 1/12 regular-truth: >= 98% not-CHAOTIC (as pre-registered) AND **>= 80% REGULAR** (new positive-KAM
+     clause; it guards the circularity).
+   - HH E = 0.1657 chaotic-truth: >= 70% CHAOTIC (as pre-registered).
+   - ZV δ=2 regular: The Bridge's V11 regular orbit and deep-region seeds (x0 in [7.8, 9.5], L = 1.5, E = 0.95),
+     truth-labelled per the pre-registration (FTLE vs Schwarzschild). >= 98% not-CHAOTIC and >= 80% REGULAR.
+   - ZV thin layer: as pre-registered (>= 1 F2-CHAOTIC at >= 2 of the 5 eps levels), including the two V11 layer
+     orbits as report-only examples.
+6. **Failure** of G0 run 3 or of G1 under this rule ends §195 as an honest negative, with the diagnosis on record.
