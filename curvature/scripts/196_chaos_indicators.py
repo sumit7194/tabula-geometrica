@@ -247,13 +247,15 @@ def level_model(system, tag, E, sense, eps, Lscale=None):
         st = s193.Spacetime(s193.kerr_components(0, 1), 1, "SCHW")
     else:
         st = m94.spacetimes(tag)[0][system]
+    m94.R_PLUNGE = 3.0
+    ls_old = m94.l_sep(st, E, sense)                     # the old r < 3 cut-based value, for the record
     ls = l_sep_barrier(st, E, sense)
     L = sense * ls * (Lscale if Lscale else (1 + eps))
     mdl = st.at(E, L)
     rb, Vb = barrier(mdl)
     m94.R_PLUNGE = r_cut_for(mdl)                        # process-local (spawn worker); used by integrate/seeding
     return mdl, {"l_sep": ls, "L": L, "r_barrier": rb, "V_barrier": Vb, "r_cut": m94.R_PLUNGE,
-                 "l_sep_old_cutbased": m94.l_sep(st, E, sense)}
+                 "l_sep_old_cut3": ls_old, "l_sep_pocket_newcut": m94.l_sep(st, E, sense)}
 
 
 def seeds_offset(mdl, n, frac):
