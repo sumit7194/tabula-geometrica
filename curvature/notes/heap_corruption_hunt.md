@@ -39,3 +39,25 @@
 - Context from the bridge (their claim, not verified here): V12 ran thousands of short workers today on 3.14 +
   Accelerate (numpy 2.4.6 / scipy 1.18.0) without a crash. Its workload is numba ODE integration with almost no
   LAPACK; §195 is heavy on QR/SVD. Consistent with an Accelerate-LAPACK-specific issue, not a test of it.
+
+## Research pass (done late: the A/B was designed after ONE search. Logged as a lapse of the research-first habit.)
+- **No published report matches our signature** (heap corruption in a single-threaded spawn-free numpy/scipy process
+  on macOS 26 + Accelerate). Searched the numpy, scipy and CPython trackers and the Apple forums.
+- Known Accelerate hazards that do NOT apply: fork-after-threads (FreeGSNKE #125, radvel docs; we never fork); the
+  NEWLAPACK ILP64 symbol load failures (numpy #30230, rotki #13216; a load error, not corruption).
+- Apple forum 772620: intermittent np.matmul SIGSEGV with Accelerate, gone with OpenBLAS. The closest prior case,
+  still a single anecdote.
+- xzm (macOS xzone malloc): Apple's forum guidance is that a crash inside xzm frames means a client memory bug (most
+  often a write after free), detected later on reuse. That matches our delayed, randomly sited detonations.
+- CPython #111049 (gc segfault in 3.12.0) was fixed long before 3.12.13. It is not ours, and 3.14 crashes too.
+
+## Instrument: libmalloc ProbGuard (validated before use)
+- Not in `man malloc`, but present in Apple's libmalloc source (tests/pgm_integration.c): `MallocProbGuard=1`,
+  `MallocProbGuardSampleRate=1`, `MallocProbGuardAllocations=N`. Plain env vars, so SIP does not strip them, unlike
+  DYLD_INSERT_LIBRARIES for Guard Malloc.
+- Known-fail check (scratchpad uaf.py, a deliberate write after free through ctypes): plain run -> SIGTRAP (xzm
+  catches it later, on reuse, exactly our crash style); ProbGuard -> SIGBUS, with faulthandler pointing at the WRITE
+  line itself. So it stops at the culprit's write instead of at a later victim.
+- Limits: sampling, allocation cap, and possibly a size ceiling, so a clean ProbGuard run proves nothing.
+- Diagnostic only, NOT part of the A/B decision: up to 6 ProbGuard smoke runs on ACC (labels pg_i, stop at first
+  crash), concurrent with the A/B, whose interleaving absorbs the extra load.
