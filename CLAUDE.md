@@ -1203,6 +1203,14 @@ results in `curvature/notes/lab_notebook.md`.
   measured, jittering `n_procs: 0` while it runs; always launch by absolute path. 41: a power analysis is only as good as its
   assumed nuisance amplitude — simulated −0.08, data wanted +0.12..+0.40, promised 95.8% power and delivered
   none; 42: an implementation can be COARSER than its pre-registration, not only stricter).
+- **§195 per-orbit invariant learnability (F2) — CLOSED as an HONEST NEGATIVE (2026-10-11).** G0 run 2 failed on
+  the phase-random null; the 195c diagnosis showed the REGULAR band admits approximation-grade fits of surrogates
+  (rate grows with T: 3.5% -> 12%), the CHAOTIC rule catches only 17% of broadband chaos, and Laskar frequency
+  drift separates tori from surrogates only with thousands of cycles (the separatrix regime has 10-170). The one
+  budgeted design round's pre-set rule (>= 100x separation at T = 1.5e5) gave 12.6x, so option C. Third-method
+  slot: an established indicator (MEGNO candidate), MEASURED on the same controls before design. Crash hunt:
+  vendor-LAPACK heap overrun root-caused (private pending disclosure); 193-195 now require OpenBLAS (tripwire)
+  with BLAS threads = 1. Notes: curvature/notes/invariant_learnability_prereg.md, heap_corruption_hunt.md.
 - Remaining curvature queue (RE-CHECKED 2026-09-23). DONE this session: the C anomaly (§191/191b) and the
   well-separated Carter pair (§192). Open: WHY C's angular shift is nearly orbit-constant (hypothesis: close to a
   function of Kerr's conserved quantities — test by scoring dTheta with the within/total statistic); why KEEP2's

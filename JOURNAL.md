@@ -11,6 +11,24 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-10-11 — heap corruption root-caused; §195 closed as an honest negative
+- **Crash hunt:** intermittent §195 crashes traced to a heap overrun inside a vendor LAPACK routine (QR at
+  near-square ~550-629-column shapes). Guard Malloc caught the write, and OpenBLAS is clean on the identical calls.
+  Details are held privately pending vendor disclosure: the user filed with the vendor's security channel and made
+  the repo private after I had pushed the details publicly first (my mistake; the rule is now in memory). Remedy:
+  OpenBLAS env + an import-time tripwire + BLAS threads pinned to 1 (an unpinned launch oversubscribed the box,
+  caught by The Bridge).
+- **§195 G0 run 2** (OpenBLAS): Kerr verdicts clean and the splice null fixed (1.00), but the phase-random null
+  failed (0.90 at one level).
+- **195c diagnosis:** REGULAR admits approximation-grade fits of surrogates (3.5% at T = 3e4, 12% at 1.5e5); the
+  CHAOTIC rule catches only 17% of HH chaos; Laskar frequency drift separates tori from surrogates only with
+  thousands of cycles, and the separatrix regime is cycle-poor. The pre-set A-explore rule (>= 100x at T = 1.5e5)
+  gave 12.6x, so option C: **§195 closed as an honest negative**, one design round as budgeted.
+- **Next:** measure an established chaos indicator (MEGNO candidate) on the same controls before designing.
+  Details: curvature/notes/invariant_learnability_prereg.md, notes/heap_corruption_hunt.md.
+
+---
+
 
 ## 2026-09-23 — the C anomaly explained, and leg 6's question answered on a pair that can be told apart
 
