@@ -103,7 +103,7 @@ CHECK = (1e2, 3e2, 1e3, 3e3, 1e4, 3e4, 1e5, 1.5e5)
 NVEC = 4                                   # two independent random pairs (Breiter: initial-vector dependence)
 
 
-def indicators(mdl, z0, T, dt, seed):
+def indicators(mdl, z0, T, dt, seed, series_dt=None):
     """RK4 on (z, w_1..w_4), w' = J(z) w exactly (complex step). Each vector is renormalised every step.
     MEGNO (Cincotta & Simo 2000): Y(t) = (2/t) int_0^t s*lam(s) ds with lam = w.Jw/|w|^2; <Y>(t) = (1/t) int_0^t Y.
     FLI = max over s <= t of the cumulative log-growth. SALI_pair = min(|w_a + w_b|, |w_a - w_b|) for normalised w.
@@ -124,6 +124,8 @@ def indicators(mdl, z0, T, dt, seed):
     nstep = int(round(T / dt))
     checks = {int(round(c / dt)): c for c in CHECK if c <= T}
     rec = {}
+    series_every = int(round(series_dt / dt)) if series_dt else 0
+    ser = {"t": [], "YA": [], "YB": []}
 
     def F(zz, ww):
         """One complex RHS call for all vectors: Re -> f(z) (exact; h^2 ~ 1e-60), Im/h -> J w_k."""
@@ -158,6 +160,11 @@ def indicators(mdl, z0, T, dt, seed):
         fli = np.maximum(fli, logg)
         if i % 10 == 0:
             hdrift = np.where(alive, np.maximum(hdrift, np.abs(mdl.H(z) - H0) / np.abs(H0)), hdrift)
+        if series_every and i % series_every == 0:
+            tc = (i - 1) * dt
+            ser["t"].append(tc)
+            ser["YA"].append(np.where(alive, S[0] / tc, np.nan).tolist())
+            ser["YB"].append(np.where(alive, S[2] / tc, np.nan).tolist())
         if i in checks:
             tc = max((i - 1) * dt, dt)
             sali = np.stack([np.minimum(np.linalg.norm(W[a] + W[b], axis=0), np.linalg.norm(W[a] - W[b], axis=0))
@@ -166,7 +173,10 @@ def indicators(mdl, z0, T, dt, seed):
             mY, fl, sl = S / tc, fli.copy(), sali.copy()
             mY[:, dead], fl[:, dead], sl[:, dead] = np.nan, np.nan, np.nan
             rec[checks[i]] = {"megno": mY.tolist(), "fli": fl.tolist(), "sali": sl.tolist()}
-    return {"checkpoints": rec, "t_plunge": t_plunge.tolist(), "hdrift": hdrift.tolist()}
+    out = {"checkpoints": rec, "t_plunge": t_plunge.tolist(), "hdrift": hdrift.tolist()}
+    if series_every:
+        out["series"] = ser
+    return out
 
 
 # ---------------------------------------------------------------- measurement (plan; distributions, not verdicts)
@@ -175,12 +185,13 @@ OUTD = RESULTS / "196_measure"
 DRIFT_TARGET = 1e-10                       # pilot max |dH/H| over T; 10x margin under the 1e-9 acceptance cut
 
 
-def pilot_dt(mdl, z, T):
+def pilot_dt(mdl, z, T, use_all=False):
     """Halve from 0.05 until a 12-orbit pilot's max H drift over T is <= DRIFT_TARGET (pilot used for nothing else)."""
     dt = 0.05
     while True:
         res = m94.integrate(mdl, z[:, :12], T, dt, max(1, int(round(0.5 / dt))), twin=False)
-        drift = float(np.max(res["hdrift"][~np.isfinite(res["t_plunge"])], initial=0.0))
+        keep = np.ones(len(res["hdrift"]), bool) if use_all else ~np.isfinite(res["t_plunge"])
+        drift = float(np.max(res["hdrift"][keep], initial=0.0))   # use_all: escaping orbits count over their life
         if drift <= DRIFT_TARGET or dt < 1e-3:
             return dt, drift
         dt /= 2
@@ -241,6 +252,17 @@ def r_cut_for(mdl):
     return rplus + 0.5 * (rb - rplus) if rb else rplus + 0.5
 
 
+class OpenHH(m94.HenonHeiles):
+    """Open Henon-Heiles (E > 1/6): escape through the saddles (|q| = 1) is registered when |q| > R_ESC, by
+    returning NaN there, so 194's integrator and this file's both record the escape time as the orbit's end."""
+    R_ESC = 2.0
+
+    def rhs(self, z):
+        f = super().rhs(z)
+        far = (np.real(z[0]) ** 2 + np.real(z[1]) ** 2) > self.R_ESC ** 2
+        return np.where(far, np.nan, f)
+
+
 def level_model(system, tag, E, sense, eps, Lscale=None):
     """Levels relative to the BARRIER separatrix (gated against BPT for Kerr); sets the per-level plunge cut."""
     if system == "SCHW":
@@ -272,13 +294,16 @@ def job_run(job):
     name, T = job["name"], job["T"]
     kind = job["kind"]
     meta = {k: v for k, v in job.items()}
+    outd = Path(job.get("outdir", OUTD))
+    outd.mkdir(parents=True, exist_ok=True)
+    sdt = job.get("series_dt")
     if kind == "kerrlike":
         mdl, info = level_model(job["system"], job.get("tag"), job["E"], job["sense"], job.get("eps", 0.0),
                                 job.get("Lscale"))
         z, r0 = seeds_offset(mdl, job["n"], 1 / 7)
         meta.update(info, r0=list(map(float, r0)))
-    elif kind == "hh":
-        mdl = m94.HenonHeiles(job["E"])
+    elif kind in ("hh", "hh_open"):
+        mdl = (OpenHH if kind == "hh_open" else m94.HenonHeiles)(job["E"])
         z = mdl.launch(job["n"], np.random.default_rng(job["seed"]))
     else:                                                  # zv: explicit (x0, L) list, E fixed
         zv = s193.Spacetime(*s193.zv2_components(), "ZV2")
@@ -293,21 +318,21 @@ def job_run(job):
             py2 = mdl.py2_on_shell(xs, np.zeros_like(xs), np.zeros_like(xs))
             zz = np.array([xs, np.zeros_like(xs), np.zeros_like(xs), np.sqrt(np.clip(py2, 0, None))])
             dt, drift = pilot_dt(mdl, np.repeat(zz, 12 // zz.shape[1] + 1, axis=1)[:, :12], T)
-            r = indicators(mdl, zz, T, dt, job["seed"])
+            r = indicators(mdl, zz, T, dt, job["seed"], series_dt=sdt)
             lab = m94.integrate(mdl, zz, T, dt, max(1, int(round(0.5 / dt))), twin=True)
             r.update({"L": L, "x0": xs.tolist(), "dt": dt, "pilot_drift": drift, "ftle": lab["ftle"].tolist()})
             out_all.append(r)
         meta["parts"] = out_all
-        (OUTD / f"{name}.json").write_text(json.dumps(meta, default=float))
+        (outd / f"{name}.json").write_text(json.dumps(meta, default=float))
         return name
-    dt, drift = pilot_dt(mdl, z, T)
-    r = indicators(mdl, z, T, dt, job["seed"])
-    if kind == "hh":                                       # truth labels: twin FTLE + section gap (pre-registration)
+    dt, drift = pilot_dt(mdl, z, T, use_all=(kind == "hh_open"))
+    r = indicators(mdl, z, T, dt, job["seed"], series_dt=sdt)
+    if kind in ("hh", "hh_open") or job.get("labels"):      # truth labels: twin FTLE (over each orbit's life) + gap
         lab = m94.integrate(mdl, z, T, dt, max(1, int(round(0.5 / dt))), twin=True)
         r["ftle"] = lab["ftle"].tolist()
         r["section_gap"] = [m94b_gap(m.valid(lab, g)) for g in range(z.shape[1])]
     meta.update(r, dt=dt, pilot_drift=drift)
-    (OUTD / f"{name}.json").write_text(json.dumps(meta, default=float))
+    (outd / f"{name}.json").write_text(json.dumps(meta, default=float))
     return name
 
 
@@ -337,10 +362,34 @@ JOBS = [
 ]
 
 
-def measure(workers, only=None):
+OUTD2 = RESULTS / "196_measure2"
+_zv_grid = [round(x, 4) for x in np.linspace(7.45, 7.75, 31)]
+JOBS2 = [                                   # measurement 2 (The Bridge's scope): transient chaos, duration-matched
+    *[{"name": f"hh_open_E{E}", "kind": "hh_open", "E": E, "n": 60, "T": 3e4, "seed": 300 + k, "series_dt": 5.0}
+      for k, E in enumerate((0.18, 0.21, 0.25))],
+    {"name": "hh_mixed_E0.125", "kind": "hh", "E": 0.125, "n": 60, "T": 3e4, "seed": 310, "series_dt": 25.0},
+    {"name": "hh_low_series", "kind": "hh", "E": 1 / 12, "n": 40, "T": 3e4, "seed": 311, "series_dt": 25.0},
+    {"name": "zv2_layer_L1.5", "kind": "zv", "E": 0.95, "T": 3e4, "seed": 320, "series_dt": 25.0,
+     "orbits": [(x, 1.5) for x in _zv_grid]},
+    {"name": "zv2_layer_L1.45", "kind": "zv", "E": 0.95, "T": 3e4, "seed": 321, "series_dt": 25.0,
+     "orbits": [(x, 1.45) for x in _zv_grid]},
+    {"name": "kerr_null_p45_pro", "kind": "kerrlike", "system": "Kerr", "tag": "t1o3", "E": 0.97, "sense": -1,
+     "eps": -0.01, "n": 20, "T": 3e4, "seed": 330, "series_dt": 25.0, "labels": True},
+    {"name": "kerr_null_p45_retro", "kind": "kerrlike", "system": "Kerr", "tag": "t1o3", "E": 0.97, "sense": 1,
+     "eps": -0.01, "n": 20, "T": 3e4, "seed": 331, "series_dt": 25.0, "labels": True},
+    {"name": "kerr_null_p35_pro", "kind": "kerrlike", "system": "Kerr", "tag": "t1o2", "E": 0.95, "sense": -1,
+     "eps": -0.01, "n": 20, "T": 3e4, "seed": 332, "series_dt": 25.0, "labels": True},
+    {"name": "schw_ref", "kind": "kerrlike", "system": "SCHW", "E": 0.95, "sense": 1, "eps": -0.01, "n": 20,
+     "T": 3e4, "seed": 333, "series_dt": 25.0, "labels": True},
+]
+for _j in JOBS2:
+    _j["outdir"] = str(OUTD2)
+
+
+def measure(workers, only=None, jobs_list=None):
     from multiprocessing import get_context
     OUTD.mkdir(parents=True, exist_ok=True)
-    jobs = [j for j in JOBS if not only or j["name"] in only]
+    jobs = [j for j in (jobs_list or JOBS) if not only or j["name"] in only]
     jobs.sort(key=lambda j: -j["T"])                     # longest first
     with get_context("spawn").Pool(min(workers, len(jobs))) as pool:
         for nm in pool.imap_unordered(job_run, jobs):
@@ -351,6 +400,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--validate", action="store_true")
     ap.add_argument("--measure", action="store_true")
+    ap.add_argument("--measure2", action="store_true")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--only", nargs="*")
     a = ap.parse_args()
@@ -358,3 +408,5 @@ if __name__ == "__main__":
         validate()
     if a.measure:
         measure(a.workers, a.only)
+    if a.measure2:
+        measure(a.workers, a.only, JOBS2)
