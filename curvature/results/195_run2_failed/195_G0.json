@@ -1,0 +1,220 @@
+{
+ "gate": "G0",
+ "levels": [
+  {
+   "label": "G0_Kerr_t1o3_E0.97_pro_eps-0.01",
+   "set": "original",
+   "noise99_loo": 9.11313851609051e-25,
+   "n_survivors": 305,
+   "counts": {
+    "EXACT-REGULAR": 299,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 6
+   },
+   "counts_raw": {
+    "EXACT-REGULAR": 299,
+    "REGULAR": 0,
+    "CHAOTIC": 2,
+    "ABSTAIN": 4
+   },
+   "resonant_counts": {
+    "EXACT-REGULAR": 8,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 0
+   },
+   "nulls": {
+    "phase_random_notregular": 0.9,
+    "splice_notregular": 1.0
+   }
+  },
+  {
+   "label": "G0_Kerr_t1o3_E0.97_pro_eps+0.005",
+   "set": "original",
+   "noise99_loo": 3.0762959788865285e-24,
+   "n_survivors": 208,
+   "counts": {
+    "EXACT-REGULAR": 208,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 0
+   },
+   "counts_raw": {
+    "EXACT-REGULAR": 208,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 0
+   },
+   "resonant_counts": {
+    "EXACT-REGULAR": 8,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 0
+   },
+   "nulls": {
+    "phase_random_notregular": 1.0,
+    "splice_notregular": 1.0
+   }
+  },
+  {
+   "label": "G0_Kerr_t1o3_E0.97_retro_eps-0.01",
+   "set": "original",
+   "noise99_loo": 2.602803498892064e-24,
+   "n_survivors": 291,
+   "counts": {
+    "EXACT-REGULAR": 290,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 1
+   },
+   "counts_raw": {
+    "EXACT-REGULAR": 290,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 1
+   },
+   "resonant_counts": {
+    "EXACT-REGULAR": 2,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 0
+   },
+   "nulls": {
+    "phase_random_notregular": 1.0,
+    "splice_notregular": 1.0
+   }
+  },
+  {
+   "label": "G0_Kerr_t1o3_E0.97_retro_eps+0.005",
+   "set": "original",
+   "noise99_loo": 2.9002533584134246e-24,
+   "n_survivors": 200,
+   "counts": {
+    "EXACT-REGULAR": 200,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 0
+   },
+   "counts_raw": {
+    "EXACT-REGULAR": 200,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 0
+   },
+   "resonant_counts": {
+    "EXACT-REGULAR": 0,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 0
+   },
+   "nulls": {
+    "phase_random_notregular": 0.95,
+    "splice_notregular": 1.0
+   }
+  },
+  {
+   "label": "G0H_Kerr_t1o2_E0.95_pro_eps-0.005",
+   "set": "heldout",
+   "noise99_loo": 2.7227584160964597e-24,
+   "n_survivors": 200,
+   "counts": {
+    "EXACT-REGULAR": 200,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 0
+   },
+   "counts_raw": {
+    "EXACT-REGULAR": 200,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 0
+   },
+   "resonant_counts": {
+    "EXACT-REGULAR": 0,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 0
+   },
+   "nulls": {
+    "phase_random_notregular": 0.95,
+    "splice_notregular": 1.0
+   }
+  },
+  {
+   "label": "G0H_Kerr_t1o2_E0.95_pro_eps+0.02",
+   "set": "heldout",
+   "noise99_loo": 2.9002533584134246e-24,
+   "n_survivors": 200,
+   "counts": {
+    "EXACT-REGULAR": 200,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 0
+   },
+   "counts_raw": {
+    "EXACT-REGULAR": 200,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 0
+   },
+   "resonant_counts": {
+    "EXACT-REGULAR": 0,
+    "REGULAR": 0,
+    "CHAOTIC": 0,
+    "ABSTAIN": 0
+   },
+   "nulls": {
+    "phase_random_notregular": 0.95,
+    "splice_notregular": 1.0
+   }
+  }
+ ],
+ "confirmations": [
+  {
+   "label": "G0_Kerr_t1o3_E0.97_pro_eps-0.01",
+   "r0": 28.187470238510542,
+   "r_star_dt": 8.035941852953321e-22,
+   "r_star_dt2": 1.2470188496962003e-22,
+   "verdict_dt2": "CHAOTIC",
+   "r_star_dop853": 1.5177152047171945e-22,
+   "verdict_dop853": "CHAOTIC",
+   "collapse_q": 6.444122199845691,
+   "class": "UNRESOLVED",
+   "final": "ABSTAIN"
+  },
+  {
+   "label": "G0_Kerr_t1o3_E0.97_pro_eps-0.01",
+   "r0": 28.19124142903529,
+   "r_star_dt": 3.4232839941737596e-22,
+   "r_star_dt2": 1.4633505936613846e-22,
+   "verdict_dt2": "CHAOTIC",
+   "r_star_dop853": 1.0547961699700624e-22,
+   "verdict_dop853": "CHAOTIC",
+   "collapse_q": 2.339346434820184,
+   "conv_short_d1": 0.00786083683884442,
+   "conv_short_d2": 0.003930434017800799,
+   "conv_short_ratio": 1.9999920627704126,
+   "r_star_dop853_h2": 1.098671713190862e-22,
+   "step_converged": false,
+   "statistic_stable": true,
+   "class": "UNCONVERGED",
+   "final": "ABSTAIN"
+  }
+ ],
+ "G0": {
+  "original_ok": true,
+  "heldout_ok": true,
+  "resonant_ok": true,
+  "resonant_n": 18,
+  "nulls_ok": false,
+  "n_candidates": 2,
+  "candidate_classes": {
+   "TRUNCATION": 0,
+   "PRECISION": 0,
+   "PHYSICAL": 0,
+   "UNRESOLVED": 1
+  },
+  "pass": false
+ }
+}
