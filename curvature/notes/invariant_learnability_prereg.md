@@ -382,3 +382,30 @@ the frequencies used), and cycles of each coordinate's dominant line per half-wi
 - If A is adopted, its scope is pre-registered explicitly: the population of orbits that SURVIVE T near the
   separatrix ("tori vs sticky chaos among survivors"), with the TS survivor count reported as context. This
   complements V12/ansatz α, which characterise the plunge/survive boundary.
+
+## A-explore RESULT (T = 1.5e5, 2026-10-11 23:18; results/195c_diagnose_kerr_T1.5e5.json): **OPTION C, per the rule fixed before the run**
+| | result |
+|---|---|
+| frozen verdicts | Kerr real 40/40 EXACT; phase-random **24/200 REGULAR (12%, up from 3.5% at T = 3e4)**; splice 20/20 CHAOTIC |
+| (i) cycles | real Kerr min cycles/half-window: min 50, median 170. **Met** (at the edge). |
+| (ii) M5 separation | real max 2.9e-6 vs old-REGULAR surrogate min 3.6e-5 (n = 24): **12.6x < the required 100x. Not met.** |
+
+- **Decision: option C.** §195's learned-invariant classifier is closed as an HONEST NEGATIVE, as the user's budget
+  directed. The separation exists (no overlap at all), but its margin is about an order of magnitude short of the
+  bar agreed in advance. I am not re-reading the bar after seeing the number.
+- **What §195 established (kept on record):**
+  1. The learned-invariant statistic's REGULAR band admits approximation-grade fits of non-invariant signals. The
+     fraction GROWS with window length (3.5% -> 12%): more data lets a polynomial approximate a smooth surrogate
+     better. That is the §97/§178 lesson at the level of a verdict rule.
+  2. The frozen CHAOTIC rule detects 17% of broadband HH chaos (orbits with r* ~ 1.6, i.e. no invariant at all),
+     because its g-ratio and flat-ladder branches assume a degree ladder that chaos does not produce.
+  3. Laskar-style half-window frequency drift separates surrogates from tori by ~4 orders of magnitude when an
+     orbit has thousands of cycles (HH), only ~1 order at 50-170 cycles (Kerr at 1.5e5), and NOT AT ALL at 10-34
+     (Kerr at 3e4). The separatrix regime is exactly where cycles are scarce.
+  4. One global dt was wrong: HH and ZV need their own steps for the drift cut (measured).
+  5. Infrastructure: the vendor-LAPACK heap overrun was root-caused (details private pending disclosure); OpenBLAS
+     tripwire; BLAS threads pinned; the splice null was repaired (value-centred).
+- **Next (The Bridge's sequencing):** the third-method slot moves to an ESTABLISHED indicator. Its cycle and
+  window requirements get MEASURED on the same controls (Kerr real vs phase-random and splice surrogates vs HH
+  regular/chaotic truth) at T = 3e4 BEFORE any design is frozen. Candidates: MEGNO/FLI (variational), GALI, the
+  0-1 test.

@@ -186,7 +186,7 @@ def main():
             add("hh_low_phase_random", hp)
         out[f"{tag}_ftle_median"] = float(np.median(ftle))
 
-    name = "195c_diagnose_smoke.json" if a.smoke else (f"195c_diagnose_kerr_T{T:.0e}.json" if a.kerr_only
+    name = "195c_diagnose_smoke.json" if a.smoke else (f"195c_diagnose_kerr_T{T:.3g}.json" if a.kerr_only
                                                          else "195c_diagnose_v2.json")
     (RESULTS / name).write_text(json.dumps(out, default=float))
     print("saved", name, flush=True)
