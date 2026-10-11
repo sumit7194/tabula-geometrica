@@ -154,3 +154,32 @@
   (MALLOC_STRICT_SIZE not used yet), and pymalloc-arena objects are not guarded, so an overrun from a small
   pymalloc buffer would be missed.
 - Running: full smoke under Guard Malloc, label smoke_fixed, absolute path (195_gmalloc.log).
+
+## ROOT CAUSE FOUND (13:37-13:50): Apple Accelerate `dgeqrf` writes past a heap block
+- **Full smoke under Guard Malloc (ACC):** faults within ~2 min inside `libLAPACK.dylib dgeqrf$NEWLAPACK$ILP64`,
+  called from numpy `qr_r_raw` (np.linalg.qr mode="r", our streamed QR).
+- **Isolated (repro_refs.py, our exact streamed QR on the saved Rpts) under Guard Malloc:** crashes at degree 6.
+  Clean crash report: ESR = **"(Data Abort) byte write Translation fault"** at the FIRST byte past a MALLOC_LARGE
+  region (752 KB). A WRITE, not a benign over-read.
+- **Minimal (notes/upstream/accelerate_dgeqrf_overrun_repro.py):** `np.linalg.qr(rng.standard_normal((m, n)),
+  mode="r")` under Guard Malloc:
+  - ACC crashes for (629,629), (633,629), (620..800, 629), (554,550), (604,600);
+  - ACC is clean for n <= 500, for m >= 900 at n=629, and for (1004,1000);
+  - **OpenBLAS (same numpy/scipy versions) is clean on every shape.** Minimal case: byte write past a 976 KB block.
+- **Through scipy's own wrapper** (`scipy.linalg.lapack.dgeqrf`, Accelerate) with the lwork Accelerate itself reports
+  (n*32), and with TWICE that: still crashes. OpenBLAS is clean. So the overrun buffer is Accelerate-INTERNAL (its size
+  matches neither the A copy, tau, nor the caller's work), i.e. a bug inside Apple's dgeqrf, not a numpy workspace
+  bug.
+- **Why our pipeline hits it:** R has 200,004 points = 25 chunks of 8000 + a 4-row remainder, so the last streamed
+  stack at degree 6 is (629+4) x 629, inside the bad band. `score()` streams 4000-row chunks over all rungs incl.
+  d=6, so near-square 629-column stacks recur through the confirm step too.
+- **Why it is intermittent and layout-dependent:** in the normal heap the overrun usually lands in slack. 2000 plain
+  (no Guard Malloc) 629x629 QRs interleaved with function/dict churn: no crash on either library. It only damages a
+  live object when the internal block's neighbour is one; in our runs that was a function object, a dict, or libc
+  locale data. That matches: about 1/4 of runs crash, the crash depends on invocation/layout, and the faulting value
+  is deterministic float64 data (QR-internal numbers).
+- **Not yet shown:** that 1.0314e-05 is a specific dgeqrf-internal value; it is not in any array dgeqrf RETURNS (it is
+  presumably in its internal blocked/WY workspace). The attribution rests on the Guard Malloc WRITE fault plus the
+  OpenBLAS control.
+- **Running:** full smoke on OpenBLAS under Guard Malloc (195_gmalloc_ob.log) = whole-pipeline validation of the
+  remedy.
