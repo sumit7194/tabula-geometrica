@@ -907,7 +907,7 @@ def analyze_ts(deep=False):
             rec[sysn] = {"n": len(vs), "counts": {x: vs.count(x) for x in sorted(set(vs))},
                          "chaotic_split": chaos_split,
                          "chaotic_lifetimes": [l_ for l_, v in zip(lives, vs) if v == "CHAOTIC"],
-                         "megno_at_tdec": Ys, "l_sep": d.get("l_sep"), "L": d.get("L"),
+                         "megno_at_tdec": Ys, "l_sep": d.get("l_sep"), "L": d.get("L"), "all_lifetimes": lives,
                          "secondary_alt_counts": {x: alt_v.count(x) for x in sorted(set(alt_v))}}
         a, n1 = rec["TS2"]["counts"].get("CHAOTIC", 0), rec["TS2"]["n"]
         c_, n2 = rec["Kerr"]["counts"].get("CHAOTIC", 0), rec["Kerr"]["n"]
@@ -920,6 +920,20 @@ def analyze_ts(deep=False):
     out = {"PRIMARY_cmh": {"z": z, "p_one_sided": p, "pass_alpha_0.05": p < 0.05}, "levels": levels,
            "n_levels_holm_sig": sum(1 for r in levels if r["fisher_holm"] < 0.05),
            "secondary_alt_thresholds": alt}
+    if deep:                                               # symmetric contradiction clause (ece3ebd), mechanical
+        lives = [l_ for r in levels for l_ in r["TS2"]["all_lifetimes"]]
+        f_long = float(np.mean(np.array(lives) >= 25.0)) if lives else None
+        out["f_long_TS"] = f_long
+        out["f_long_TS_per_level"] = {r["level"]: float(np.mean(np.array(r["TS2"]["all_lifetimes"]) >= 25.0))
+                                      for r in levels}
+        if out["PRIMARY_cmh"]["p_one_sided"] < 0.05:
+            out["CLAUSE"] = "CONFIRMED: TS chaos at the alpha window seen by a third independent method"
+        elif f_long is not None and f_long < 0.5:
+            out["CLAUSE"] = "(i) MEGNO'S LIMIT: most TS window orbits end before 25 tau"
+        else:
+            out["CLAUSE"] = ("(ii) GENUINE TENSION: MEGNO does not confirm chaos at the alpha-study window, "
+                             "despite adequate lifetimes")
+        print("f_long (TS, pooled):", f_long, "| per level:", out["f_long_TS_per_level"], "| CLAUSE:", out["CLAUSE"])
     (RESULTS / ("196_deep_report.json" if deep else "196_ts_report.json")).write_text(
         json.dumps(out, indent=1, default=float))
     print("PRIMARY CMH:", out["PRIMARY_cmh"], "| levels Holm-significant:", out["n_levels_holm_sig"], "of", len(levels))
