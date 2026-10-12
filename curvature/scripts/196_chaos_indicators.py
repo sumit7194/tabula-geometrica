@@ -461,6 +461,12 @@ JOBS3 = [                                   # calibration of the frozen threshol
     {"name": "cal_schw", "kind": "kerrlike", "system": "SCHW", "E": 0.95, "sense": 1, "eps": -0.01, "n": 20,
      "T": 3e4, "seed": 406, "series_dt": 5.0},
 ]
+_lv = (("p45_pro", "t1o3", 0.97, -1), ("p45_retro", "t1o3", 0.97, 1), ("p35_pro", "t1o2", 0.95, -1))
+JOBS3 += [{"name": f"cal_plunge_kerr_{nm}_eps{eps}", "kind": "kerrlike", "system": "Kerr", "tag": tag, "E": E,
+           "sense": sn, "eps": eps, "n": 30, "T": 3e4, "seed": 420 + 7 * k + j, "series_dt": 5.0}
+          for k, (nm, tag, E, sn) in enumerate(_lv) for j, eps in enumerate((-0.05, -0.10))]
+JOBS3 += [{"name": f"cal_plunge_schw_eps{eps}", "kind": "kerrlike", "system": "SCHW", "E": 0.95, "sense": 1,
+           "eps": eps, "n": 30, "T": 3e4, "seed": 440 + j, "series_dt": 5.0} for j, eps in enumerate((-0.05, -0.10))]
 for _j in JOBS3:
     _j["outdir"] = str(OUTD3)
 
@@ -591,7 +597,7 @@ def null_orbits(dirpath):
             n_in += 1
             surv = o[2] >= d["T"]
             lab = (d.get("k01_label") or [None] * 10 ** 6)[g]
-            if d["kind"] == "kerrlike" and surv or d["kind"] == "hh" and surv and lab == "torus":
+            if d["kind"] == "kerrlike" or d["kind"] == "hh" and surv and lab == "torus":   # integrable: ALL orbits
                 out.append((d["name"], o)); n_used += 1
         audit[d["name"]] = {"n_in": n_in, "n_used": n_used}
     return out, audit
@@ -600,12 +606,24 @@ def null_orbits(dirpath):
 def build_table():
     nulls, audit = null_orbits(OUTD3)
     pools = [[] for _ in BINS]
-    for _, (t, Y, life, f, ex) in nulls:
-        for tk in np.arange(GRID, life + 1e-9, GRID):
+    finals = [[] for _ in BINS]                           # integrable PLUNGERS: <Y> at their own t_dec (The Bridge)
+    for name, (t, Y, life, f, ex) in nulls:
+        T = 3e4
+        for tk in np.arange(GRID, min(life, T) + 1e-9, GRID):
             v = _grid_value(t, Y, tk)
             if v is not None:
                 pools[_bin_of(tk)].append(v)
-    table = {"bins": [list(b) for b in BINS], "threshold_p99": [float(np.percentile(p, 99)) for p in pools],
+        if life < T:
+            tdec = np.floor(life / GRID) * GRID
+            v = _grid_value(t, Y, tdec) if tdec >= GRID else None
+            if v is not None:
+                finals[_bin_of(tdec)].append(v)
+    p_pool = [float(np.percentile(p, 99)) for p in pools]
+    p_fin = [float(np.percentile(f_, 99)) if len(f_) else None for f_ in finals]
+    thr = [max(a, b) if b is not None else a for a, b in zip(p_pool, p_fin)]
+    table = {"bins": [list(b) for b in BINS], "threshold_p99": thr, "p99_pooled": p_pool, "p99_plunger_final": p_fin,
+             "n_plunger_final": [len(f_) for f_ in finals], "plunger_final_max": [max(f_) if f_ else None
+                                                                                 for f_ in finals],
              "max": [float(np.max(p)) for p in pools], "n_values": [len(p) for p in pools], "audit": audit,
              "null_composition": {k: sum(1 for n, _ in nulls if n == k) for k in sorted({n for n, _ in nulls})}}
     TABLE_FILE.write_text(json.dumps(table, indent=1))
@@ -647,6 +665,10 @@ JOBS4 = [                                   # validation on UNSEEN levels/energi
     {"name": "val_zv2_L1.475", "kind": "zv", "E": 0.95, "T": 3e4, "seed": 510, "series_dt": 5.0,
      "orbits": [(x, 1.475) for x in _zv_grid5]},
 ]
+JOBS4 += [{"name": f"val_kerr_{nm}_eps-0.07", "kind": "kerrlike", "system": "Kerr", "tag": tag, "E": E, "sense": sn,
+           "eps": -0.07, "n": 20, "T": 3e4, "seed": 520 + k, "series_dt": 5.0} for k, (nm, tag, E, sn) in enumerate(_lv)]
+JOBS4 += [{"name": "val_schw_eps-0.07", "kind": "kerrlike", "system": "SCHW", "E": 0.97, "sense": 1, "eps": -0.07,
+           "n": 20, "T": 3e4, "seed": 530, "series_dt": 5.0}]
 for _j in JOBS4:
     _j["outdir"] = str(OUTD4)
 
