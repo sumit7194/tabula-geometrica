@@ -373,3 +373,17 @@ The scan range "x_lo upward by 6, 400 points" would stop at x ~ 7.5, below the V
 (~9.9-10.3). The procedure would have missed the TS transition or found a spurious one. Amended: **1200 points over
 x_lo to x_lo + 20** (same density, ~0.017). Everything else unchanged. Recorded as a design error in my own
 pre-registration, fixed without seeing any data.
+
+### Deep-level CONTRADICTION CLAUSE, made SYMMETRIC (The Bridge; committed BEFORE the analysis fires; 0 deep result files exist at commit time)
+The previous clause read any null as "MEGNO's limit", which is asymmetric. Replaced by a pre-stated split on WHY
+MEGNO does not flag:
+- Let f_long = the fraction of TS window orbits with lifetime >= 25 tau (pooled over L1-L3; also per level).
+- If the primary CMH is NOT significant (p >= 0.05):
+  - **(i) f_long < 0.5: MEGNO'S LIMIT.** Most TS window orbits end before MEGNO can resolve them (< 25 tau). This
+    says nothing for or against the V12/α/probe chaos.
+  - **(ii) f_long >= 0.5: GENUINE TENSION.** The TS orbits live in the regime where MEGNO caught open-HH transient
+    chaos 34/34, yet are not flagged above Kerr. Reported verbatim as: "MEGNO does not confirm chaos at the
+    α-study window, despite adequate lifetimes." This requires explanation (e.g. that the α/probe sensitivity reflects
+    something other than a positive Lyapunov exponent along those orbits), NOT dismissal.
+- Per level, the same split is reported descriptively.
+- If the CMH IS significant: TS chaos at the α window is confirmed by a third, independent method.
