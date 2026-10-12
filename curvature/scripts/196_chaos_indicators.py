@@ -362,6 +362,17 @@ def job_run(job):
                                 job.get("Lscale"))
         z, r0 = seeds_offset(mdl, job["n"], job.get("seed_frac", 1 / 7))
         meta.update(info, r0=list(map(float, r0)))
+    elif kind == "deep":                                   # deep open levels: window at the inner survive onset
+        st = m94.spacetimes(job["tag"])[0][job["system"]]
+        mdl = st.at(job["E"], job["L"])
+        m94.R_PLUNGE = 1 + mdl.sig * 1.5                     # V12 convention, x < 1.5 (no equatorial barrier here)
+        win, scan = find_window(mdl, job.get("T_scan", 3000.0))
+        step = (win[1] - win[0]) / (job["n"] - 1)
+        xs = np.linspace(win[0] + step / 5, win[1] - step / 5, job["n"])
+        py2 = mdl.py2_on_shell(xs, np.zeros_like(xs), np.zeros_like(xs))
+        ok = py2 > 0
+        z = np.array([xs[ok], np.zeros(ok.sum()), np.zeros(ok.sum()), np.sqrt(py2[ok])])
+        meta.update(window=list(win), scan=scan, x0=xs[ok].tolist(), r_cut=m94.R_PLUNGE, n_launched=int(ok.sum()))
     elif kind in ("hh", "hh_open"):
         mdl = (OpenHH if kind == "hh_open" else m94.HenonHeiles)(job["E"])
         z = mdl.launch(job["n"], np.random.default_rng(job["seed"]))
@@ -397,6 +408,27 @@ def job_run(job):
     meta.update(r, dt=dt, pilot_drift=drift)
     (outd / f"{name}.json").write_text(json.dumps(meta, default=float))
     return name
+
+
+def find_window(mdl, T_scan):
+    """Pre-registered (bffe09c, amended before any run): scan 1200 x0 from the smallest allowed x0 > 1.5 upward by 20
+    (y0 = px0 = 0, py0 from
+    the shell), integrate T_scan; x_t = the smallest x0 whose next 5 grid points all survive; window = x_t +- 0.025."""
+    xg = np.linspace(1.5001, 60.0, 60000)
+    allowed = mdl.py2_on_shell(xg, np.zeros_like(xg), np.zeros_like(xg)) > 0
+    x_lo = float(xg[np.argmax(allowed)])
+    xs = np.linspace(x_lo, x_lo + 20.0, 1200)            # amendment (before any run): +6 missed TS windows ~9.9-10.3
+    py2 = mdl.py2_on_shell(xs, np.zeros_like(xs), np.zeros_like(xs))
+    keep = py2 > 0
+    xs = xs[keep]
+    z = np.array([xs, np.zeros_like(xs), np.zeros_like(xs), np.sqrt(py2[keep])])
+    dt, _ = pilot_dt(mdl, z[:, ::max(1, len(xs) // 12)][:, :12], T_scan, use_all=True)
+    res = m94.integrate(mdl, z, T_scan, dt, max(1, int(round(0.5 / dt))), twin=False)
+    surv = ~np.isfinite(res["t_plunge"])
+    i = next(k for k in range(len(xs) - 4) if surv[k:k + 5].all())
+    xt = float(xs[i])
+    return (xt - 0.025, xt + 0.025), {"x_lo": x_lo, "n_scan": int(len(xs)), "n_survive": int(surv.sum()),
+                                      "x_t": xt, "dt_scan": dt, "first_surv_index": int(i)}
 
 
 def m94b_gap(Z):
@@ -816,6 +848,15 @@ JOBS5 = [{"name": f"ts_{sysn}_{nm}_eps{eps}", "kind": "kerrlike", "system": sysn
          for k, (nm, tag, E, sn, eps) in enumerate(TS_LEVELS) for sysn in ("TS2", "Kerr")]
 
 
+OUTD6 = RESULTS / "196_deep"
+DEEP_LEVELS = [("L1", "t1o3", 0.97, 2.05000, 2.04304), ("L2", "t1o3", 0.97, 2.35000, 2.34202),
+               ("L3", "t1o2", 0.95, -1.60000, -1.55356)]
+JOBS6 = [{"name": f"deep_{sysn}_{nm}", "kind": "deep", "system": sysn, "tag": tag, "E": E,
+          "L": (Lts if sysn == "TS2" else Lk), "n": 40, "T": 3e4, "seed": 700 + k, "series_dt": 5.0,
+          "outdir": str(OUTD6)}
+         for k, (nm, tag, E, Lts, Lk) in enumerate(DEEP_LEVELS) for sysn in ("TS2", "Kerr")]
+
+
 def cmh_one_sided(tables):
     """Cochran-Mantel-Haenszel, one-sided (row 1 > row 2 in column 1), 0.5 continuity correction.
     tables: list of (a, n1, c, n2) = (TS chaotic, TS n, Kerr chaotic, Kerr n)."""
@@ -841,16 +882,21 @@ def holm(ps):
     return adj
 
 
-def analyze_ts():
+def analyze_ts(deep=False):
     from scipy.stats import fisher_exact
     table = json.load(open(TABLE_FILE))
     alt = alt_table_without(disputed_tori())
     alt_tab = dict(table, threshold_p99=alt)
     levels, tabs, fps = [], [], []
-    for nm, tag, E, sn, eps in TS_LEVELS:
-        rec = {"level": f"{nm}_E{E}_eps{eps}"}
+    pairs = ([(nm, lambda sysn, nm=nm: OUTD6 / f"deep_{sysn}_{nm}.json") for nm, *_ in DEEP_LEVELS] if deep else
+             [(f"{nm}_E{E}_eps{eps}", lambda sysn, nm=nm, eps=eps: OUTD5 / f"ts_{sysn}_{nm}_eps{eps}.json")
+              for nm, tag, E, sn, eps in TS_LEVELS])
+    for label, path in pairs:
+        rec = {"level": label}
         for sysn in ("TS2", "Kerr"):
-            d = json.load(open(OUTD5 / f"ts_{sysn}_{nm}_eps{eps}.json"))
+            d = json.load(open(path(sysn)))
+            if deep:
+                rec.setdefault("windows", {})[sysn] = {"window": d.get("window"), "scan": d.get("scan")}
             vs, lives, chaos_split, Ys, alt_v = [], [], {"plunger": 0, "survivor": 0}, [], []
             for t, Y, life, ftle, ex in _orbits(d):
                 v, val = verdict_megno(t, Y, life, d["T"], table)
@@ -874,8 +920,9 @@ def analyze_ts():
     out = {"PRIMARY_cmh": {"z": z, "p_one_sided": p, "pass_alpha_0.05": p < 0.05}, "levels": levels,
            "n_levels_holm_sig": sum(1 for r in levels if r["fisher_holm"] < 0.05),
            "secondary_alt_thresholds": alt}
-    (RESULTS / "196_ts_report.json").write_text(json.dumps(out, indent=1, default=float))
-    print("PRIMARY CMH:", out["PRIMARY_cmh"], "| levels Holm-significant:", out["n_levels_holm_sig"], "of 9")
+    (RESULTS / ("196_deep_report.json" if deep else "196_ts_report.json")).write_text(
+        json.dumps(out, indent=1, default=float))
+    print("PRIMARY CMH:", out["PRIMARY_cmh"], "| levels Holm-significant:", out["n_levels_holm_sig"], "of", len(levels))
     for r in levels:
         print(f"{r['level']:28s} TS {r['TS2']['counts']} split {r['TS2']['chaotic_split']} | Kerr {r['Kerr']['counts']}"
               f" | Fisher p {r['fisher_p']:.3g} Holm {r['fisher_holm']:.3g}")
@@ -895,6 +942,8 @@ if __name__ == "__main__":
     ap.add_argument("--ts", action="store_true")
     ap.add_argument("--resume", action="store_true", help="skip jobs whose saved output has identical settings")
     ap.add_argument("--analyze-ts", action="store_true")
+    ap.add_argument("--deep", action="store_true")
+    ap.add_argument("--analyze-deep", action="store_true")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--only", nargs="*")
     a = ap.parse_args()
@@ -925,3 +974,7 @@ if __name__ == "__main__":
         measure(a.workers, a.only, JOBS5, resume=a.resume)
     if a.analyze_ts:
         analyze_ts()
+    if a.deep:
+        measure(a.workers, a.only, JOBS6, resume=a.resume)
+    if a.analyze_deep:
+        analyze_ts(deep=True)

@@ -367,3 +367,9 @@ orbit.
 - **Contradiction clause:** TS CHAOTIC <= Kerr at all 3 levels, or TS orbits mostly ABSTAIN-TOO-SHORT, would mean
   MEGNO does NOT see the V12/α/probe chaos at feasible lifetimes. That would be reported as MEGNO's limit, not as
   evidence against the chaos (two other implementations found it).
+
+### Deep-level pre-registration AMENDMENT (caught while coding, BEFORE any deep-level integration)
+The scan range "x_lo upward by 6, 400 points" would stop at x ~ 7.5, below the V12 cross-check TS windows
+(~9.9-10.3). The procedure would have missed the TS transition or found a spurious one. Amended: **1200 points over
+x_lo to x_lo + 20** (same density, ~0.017). Everything else unchanged. Recorded as a design error in my own
+pre-registration, fixed without seeing any data.
