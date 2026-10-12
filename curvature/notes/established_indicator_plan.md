@@ -241,3 +241,16 @@ CHAOTIC orbits, and the descriptive readout without the two disputed tori.
 - TS CHAOTIC > Kerr CHAOTIC (Fisher p < 0.05) at >= 6 of 9 levels.
 - **What would contradict the transient-chaos picture:** TS CHAOTIC dominated by survivors, or TS CHAOTIC ~ Kerr
   CHAOTIC at most levels.
+
+### TS pre-registration AMENDMENT (The Bridge, power; adopted 2026-10-12 ~09:20, still BEFORE the validation result)
+- Checked: at 40 vs 40, one-sided Fisher p(3/40 vs 0/40) = 0.120, p(4/40) = 0.058, p(5/40) = 0.027,
+  p(6/40) = 0.013. Levels at the low end of my predicted 10-35% could not reach p < 0.05 on power alone.
+- **PRIMARY (frozen):** ONE pooled one-sided Cochran-Mantel-Haenszel test, TS CHAOTIC > Kerr CHAOTIC, strata = the 9
+  levels, with the standard 0.5 continuity correction: z = (Σa - ΣE[a] - 0.5) / sqrt(ΣVar[a]), α = 0.05.
+- SECONDARY: per-level one-sided Fisher with Holm-adjusted p-values. "TS > Kerr significant at >= 6 of 9" is a stated
+  PREDICTION, not the test. n stays 40 per level per system. Option (B), n = 80, only if CPU is idle, and then
+  declared before running.
+- Readout additions: CHAOTIC split into plungers vs survivors; lifetime histograms; per-level MEGNO distributions,
+  TS vs Kerr.
+- Scope note: these levels sit NEAR the separatrix (eps -0.01 to -0.05), complementary to the α study's deep open
+  levels (eps ~ -0.4 to -0.5).
