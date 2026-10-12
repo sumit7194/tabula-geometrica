@@ -295,3 +295,36 @@ CHAOTIC orbits, and the descriptive readout without the two disputed tori.
   would be 3/103. The frozen, more conservative rule is the safer one.
 - ZV δ=2 L 1.475 (report-only): 13 CHAOTIC, 18 REGULAR across the layer grid.
 - **The TS run is unlocked** (pre-registration a07db75 + 8e0e964; code 491c1e2). Launched at nice 10 with --resume.
+
+## TS RESULT (2026-10-12 14:34; results/196_ts_report.json, results/196_ts/*.json) — pre-registered; **MY PREDICTION WAS WRONG**
+Frozen rule v2 and table, unchanged. 9 levels x (TS2, matched Kerr) x 40 orbits = 720 orbits, all verdicted.
+
+**PRIMARY (one-sided CMH, TS > Kerr CHAOTIC):** z = 0.0, p = 0.50, **not significant**. **0 of 360 TS orbits are
+CHAOTIC** (Kerr also 0/360). Per-level Fisher: p = 1 at all 9 levels; 0 of 9 Holm-significant.
+
+| level | TS verdicts | Kerr verdicts | TS ⟨Y⟩(t_dec) median / max | Kerr median / max |
+|---|---|---|---|---|
+| p4/5 pro eps -0.01 | 39 REG, 1 ENDED-LOW | same | 1.14 / 2.03 | 1.59 / 2.00 |
+| p4/5 pro eps -0.02 | 39 REG, 1 EL | same | 1.00 / 2.13 | 1.48 / 2.13 |
+| p4/5 pro eps -0.05 | 38 REG, 2 EL | same | 1.29 / 2.20 | 1.59 / 2.17 |
+| p4/5 retro eps -0.01 | 39 REG, 1 EL | same | 0.90 / 1.90 | 1.33 / 1.89 |
+| p4/5 retro eps -0.02 | 38 REG, 2 EL | same | 0.90 / 1.94 | 1.46 / 1.90 |
+| p4/5 retro eps -0.05 | 31 REG, 5 EL, 4 TOO-SHORT | same | 1.26 / 2.12 | 1.53 / 1.99 |
+| p3/5 pro eps -0.01 | 39 REG, 1 EL | same | 1.57 / 2.06 | 1.75 / 2.01 |
+| p3/5 pro eps -0.02 | 39 REG, 1 EL | same | 1.60 / 2.15 | 1.82 / 2.18 |
+| p3/5 pro eps -0.05 | 37 REG, 3 EL | same | 1.54 / 2.11 | 1.81 / 2.09 |
+
+- **Identical counts checked for a bug before reporting:** the TS jobs are genuinely TS (own L_sep, barrier, cut,
+  series; plunge times differ slightly, e.g. 234 vs 232, 46 vs 41). With matched seeds at the same relative eps,
+  TS and Kerr behave almost identically in this regime.
+- SECONDARY (descriptive, without the 2 disputed tori; thresholds ~2.1-2.4): still 0 TS CHAOTIC at every level.
+- TS medians sit slightly BELOW Kerr's (0.9-1.6 vs 1.3-1.8): unconverged-regular MEGNO, not chaos.
+- **Predictions vs outcome:** I predicted TS CHAOTIC at 10-35% per level, mostly plungers living 25-1000 tau,
+  significant at >= 6/9 levels. Outcome: 0%, and 0/9. **The prediction is falsified.** The pre-registered "what
+  would contradict the transient picture: TS CHAOTIC ~ Kerr CHAOTIC at most levels" is what happened.
+- **Reading, hedged:** near the separatrix (eps -0.01 to -0.05), equatorially launched TS δ=2 orbits are
+  MEGNO-regular at rates indistinguishable from Kerr. This does NOT contradict V12 / ansatz α / the high-precision
+  probe, which found TS chaos at DEEP open levels (eps ~ -0.4 to -0.5) at the inner plunge/survive transition in
+  x0, a region this design did not sample. It does mean the chaos is not a generic near-separatrix property of TS,
+  at least for these launch conditions. Whether MEGNO sees the deep-level TS chaos is a SEPARATE pre-registered
+  question, not to be inferred from this run.
