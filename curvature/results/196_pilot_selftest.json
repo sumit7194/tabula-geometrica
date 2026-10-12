@@ -1,0 +1,10 @@
+{
+ "checks": {
+  "injected 5e-9 orbit caught": true,
+  "clean set passes": true,
+  "all-plunged-before-25-tau REFUSES (old code returned 0.0)": true,
+  "partial NaN with an injected excess still FAILS": true,
+  "REAL: Kerr L1 window at dt 0.05 FAILS end-to-end (void run accepted it)": true
+ },
+ "ALL_PASS": true
+}

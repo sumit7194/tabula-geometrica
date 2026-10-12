@@ -163,7 +163,7 @@ CHECK = (1e2, 3e2, 1e3, 3e3, 1e4, 3e4, 1e5, 1.5e5)
 NVEC = 4                                   # two independent random pairs (Breiter: initial-vector dependence)
 
 
-def indicators(mdl, z0, T, dt, seed, series_dt=None):
+def indicators(mdl, z0, T, dt, seed, series_dt=None, stop_when_dead=False):
     """RK4 on (z, w_1..w_4), w' = J(z) w exactly (complex step). Each vector is renormalised every step.
     MEGNO (Cincotta & Simo 2000): Y(t) = (2/t) int_0^t s*lam(s) ds with lam = w.Jw/|w|^2; <Y>(t) = (1/t) int_0^t Y.
     FLI = max over s <= t of the cumulative log-growth. SALI_pair = min(|w_a + w_b|, |w_a - w_b|) for normalised w.
@@ -185,7 +185,7 @@ def indicators(mdl, z0, T, dt, seed, series_dt=None):
     checks = {int(round(c / dt)): c for c in CHECK if c <= T}
     rec = {}
     series_every = int(round(series_dt / dt)) if series_dt else 0
-    ser = {"t": [], "YA": [], "YB": []}
+    ser = {"t": [], "YA": [], "YB": [], "hd": []}
 
     def F(zz, ww):
         """One complex RHS call for all vectors: Re -> f(z) (exact; h^2 ~ 1e-60), Im/h -> J w_k."""
@@ -218,13 +218,15 @@ def indicators(mdl, z0, T, dt, seed, series_dt=None):
         W = np.where(alive, Wn / nrm[:, None, :], W)
         logg = logg + np.log(nrm)
         fli = np.maximum(fli, logg)
-        if i % 10 == 0:
+        on_series = bool(series_every) and i % series_every == 0
+        if i % 10 == 0 or on_series:
             hdrift = np.where(alive, np.maximum(hdrift, np.abs(mdl.H(z) - H0) / np.abs(H0)), hdrift)
-        if series_every and i % series_every == 0:
+        if on_series:
             tc = (i - 1) * dt
             ser["t"].append(tc)
             ser["YA"].append(np.where(alive, S[0] / tc, np.nan).tolist())
             ser["YB"].append(np.where(alive, S[2] / tc, np.nan).tolist())
+            ser["hd"].append(hdrift.tolist())             # running max |dH/H| up to this point (deep v2 acceptance)
         if i in checks:
             tc = max((i - 1) * dt, dt)
             sali = np.stack([np.minimum(np.linalg.norm(W[a] + W[b], axis=0), np.linalg.norm(W[a] - W[b], axis=0))
@@ -233,6 +235,8 @@ def indicators(mdl, z0, T, dt, seed, series_dt=None):
             mY, fl, sl = S / tc, fli.copy(), sali.copy()
             mY[:, dead], fl[:, dead], sl[:, dead] = np.nan, np.nan, np.nan
             rec[checks[i]] = {"megno": mY.tolist(), "fli": fl.tolist(), "sali": sl.tolist()}
+        if stop_when_dead and not alive.any():           # speed only: nothing left to integrate
+            break
     out = {"checkpoints": rec, "t_plunge": t_plunge.tolist(), "hdrift": hdrift.tolist()}
     if series_every:
         out["series"] = ser
@@ -255,6 +259,96 @@ def pilot_dt(mdl, z, T, use_all=False):
         if drift <= DRIFT_TARGET or dt < 1e-3:
             return dt, drift
         dt /= 2
+
+
+class PilotRefused(RuntimeError):
+    pass
+
+
+def _pilot_judge(drift_at_grid, target):
+    """Pure decision on per-orbit drift up to each orbit's last 25-tau grid time (NaN = never reached 25 tau).
+    REFUSE when nothing was measured: an empty set is never read as zero drift (silent_nulls 73)."""
+    d = np.asarray(drift_at_grid, float)
+    if not np.isfinite(d).any():
+        return "REFUSE"
+    return "PASS" if float(np.nanmax(d)) <= target else "FAIL"
+
+
+def _pilot_trial(mdl, z, T, dt, target):
+    """RK4 on the pilot orbits at dt. drift[g] = running max |dH/H| up to the last 25-tau grid time orbit g was alive
+    at (its t_dec, the reading time of the MEGNO verdict). Aborts at a grid time where a still-alive orbit exceeds
+    target: that orbit's t_dec is >= that time, so the excess counts."""
+    G = z.shape[1]
+    z = z.astype(float).copy()
+    H0 = mdl.H(z)
+    alive, run, at_grid = np.ones(G, bool), np.zeros(G), np.full(G, np.nan)
+    nstep, every = int(round(T / dt)), int(round(GRID / dt))
+    for i in range(1, nstep + 1):
+        k1 = mdl.rhs(z); k2 = mdl.rhs(z + 0.5 * dt * k1); k3 = mdl.rhs(z + 0.5 * dt * k2); k4 = mdl.rhs(z + dt * k3)
+        zn = z + dt / 6 * (k1 + 2 * k2 + 2 * k3 + k4)
+        fin = np.isfinite(zn).all(0)
+        if mdl.sig is not None:
+            fin &= (1 + mdl.sig * np.where(fin, zn[0], 0.0)) >= m94.R_PLUNGE
+        alive &= fin
+        z = np.where(alive, zn, z)
+        if i % 10 == 0 or i % every == 0:
+            run = np.where(alive, np.maximum(run, np.abs(mdl.H(z) - H0) / np.abs(H0)), run)
+        if i % every == 0:
+            at_grid = np.where(alive, run, at_grid)
+            if _pilot_judge(at_grid, target) == "FAIL":
+                return "FAIL", at_grid
+        if not alive.any():
+            break
+    return _pilot_judge(at_grid, target), at_grid
+
+
+def pilot_dt_v2(mdl, z, T, n_pilot=12):
+    """Deep-level v2 pilot (amendment after the void run): 12 orbits spread EVENLY over the window, drift over each
+    orbit's life up to its t_dec, halve dt from 0.05 while FAIL. REFUSE raises; reaching the 1e-3 floor without
+    passing is reported (floor_hit), never hidden."""
+    idx = np.unique(np.round(np.linspace(0, z.shape[1] - 1, n_pilot)).astype(int))
+    dt, tried = 0.05, []
+    while True:
+        res, dg = _pilot_trial(mdl, z[:, idx], T, dt, DRIFT_TARGET)
+        tried.append({"dt": dt, "result": res, "max_drift": float(np.nanmax(dg)) if np.isfinite(dg).any() else None})
+        print(f"  pilot v2 dt={dt:.3g}: {res} {tried[-1]['max_drift']}", flush=True)
+        if res == "REFUSE":
+            raise PilotRefused(f"no pilot orbit reached t = {GRID} tau at dt={dt}: drift unmeasurable")
+        if res == "PASS" or dt < 1e-3:
+            return dt, tried[-1]["max_drift"], {"floor_hit": res != "PASS", "tried": tried,
+                                                 "pilot_idx": idx.tolist()}
+        dt /= 2
+
+
+def selftest_pilot():
+    """Known-fail tests of the pilot itself (The Bridge's condition), run before any v2 integration."""
+    ok = True
+    good = np.full(12, 1e-12)
+    inj = good.copy(); inj[5] = 5e-9                        # one injected orbit above the 1e-9 standard
+    checks = [("injected 5e-9 orbit caught", _pilot_judge(inj, DRIFT_TARGET) == "FAIL"),
+              ("clean set passes", _pilot_judge(good, DRIFT_TARGET) == "PASS"),
+              ("all-plunged-before-25-tau REFUSES (old code returned 0.0)", _pilot_judge(np.full(12, np.nan),
+                                                                                          DRIFT_TARGET) == "REFUSE"),
+              ("partial NaN with an injected excess still FAILS", _pilot_judge(np.r_[np.nan, np.nan, 5e-9, 1e-12],
+                                                                              DRIFT_TARGET) == "FAIL")]
+    v1 = json.load(open(OUTD6 / "deep_Kerr_L1.json"))       # void run: launch coordinates only, no verdicts read
+    st = m94.spacetimes(v1["tag"])[0]["Kerr"]
+    mdl = st.at(v1["E"], v1["L"])
+    m94.R_PLUNGE = 1 + mdl.sig * 1.5
+    xs = np.array(v1["x0"])
+    z = np.array([xs, np.zeros_like(xs), np.zeros_like(xs), np.sqrt(mdl.py2_on_shell(xs, 0 * xs, 0 * xs))])
+    idx = np.unique(np.round(np.linspace(0, z.shape[1] - 1, 12)).astype(int))
+    res, dg = _pilot_trial(mdl, z[:, idx], 3e4, 0.05, DRIFT_TARGET)
+    checks.append(("REAL: Kerr L1 window at dt 0.05 FAILS end-to-end (void run accepted it)", res == "FAIL"))
+    print("  real dt 0.05 trial:", res, "max drift so far", np.nanmax(dg) if np.isfinite(dg).any() else None)
+    for name, c in checks:
+        print(("PASS  " if c else "FAIL  ") + name, flush=True)
+        ok &= c
+    out = {"checks": {n: bool(c) for n, c in checks}, "ALL_PASS": bool(ok)}
+    (RESULTS / "196_pilot_selftest.json").write_text(json.dumps(out, indent=1))
+    if not ok:
+        raise SystemExit("pilot self-test FAILED")
+    return out
 
 
 # Plunge geometry (2026-10-11, The Bridge's catch, verified here against exact BPT): 194's universal cut r < 3m sits
@@ -396,8 +490,13 @@ def job_run(job):
         meta["parts"] = out_all
         (outd / f"{name}.json").write_text(json.dumps(meta, default=float))
         return name
-    dt, drift = pilot_dt(mdl, z, T, use_all=(kind == "hh_open"))
-    r = indicators(mdl, z, T, dt, job["seed"], series_dt=sdt)
+    if job.get("v2"):                                      # deep v2: life-drift pilot, early exit when all plunged
+        dt, drift, pinfo = pilot_dt_v2(mdl, z, T)
+        meta["pilot_v2"] = pinfo
+        r = indicators(mdl, z, T, dt, job["seed"], series_dt=sdt, stop_when_dead=True)
+    else:
+        dt, drift = pilot_dt(mdl, z, T, use_all=(kind == "hh_open"))
+        r = indicators(mdl, z, T, dt, job["seed"], series_dt=sdt)
     if kind in ("hh", "hh_open") or job.get("labels"):      # truth labels: twin FTLE (over each orbit's life) + gap
         lab = m94.integrate(mdl, z, T, dt, max(1, int(round(0.5 / dt))), twin=True)
         r["ftle"] = lab["ftle"].tolist()
@@ -422,13 +521,14 @@ def find_window(mdl, T_scan):
     keep = py2 > 0
     xs = xs[keep]
     z = np.array([xs, np.zeros_like(xs), np.zeros_like(xs), np.sqrt(py2[keep])])
-    dt, _ = pilot_dt(mdl, z[:, ::max(1, len(xs) // 12)][:, :12], T_scan, use_all=True)
+    dt, drift_scan = pilot_dt(mdl, z[:, ::max(1, len(xs) // 12)][:, :12], T_scan, use_all=True)
     res = m94.integrate(mdl, z, T_scan, dt, max(1, int(round(0.5 / dt))), twin=False)
     surv = ~np.isfinite(res["t_plunge"])
     i = next(k for k in range(len(xs) - 4) if surv[k:k + 5].all())
     xt = float(xs[i])
     return (xt - 0.025, xt + 0.025), {"x_lo": x_lo, "n_scan": int(len(xs)), "n_survive": int(surv.sum()),
-                                      "x_t": xt, "dt_scan": dt, "first_surv_index": int(i)}
+                                      "x_t": xt, "dt_scan": dt, "first_surv_index": int(i),
+                                      "drift_scan": drift_scan, "scan_floor_hit": bool(drift_scan > DRIFT_TARGET)}
 
 
 def m94b_gap(Z):
@@ -857,6 +957,14 @@ JOBS6 = [{"name": f"deep_{sysn}_{nm}", "kind": "deep", "system": sysn, "tag": ta
          for k, (nm, tag, E, Lts, Lk) in enumerate(DEEP_LEVELS) for sysn in ("TS2", "Kerr")]
 
 
+OUTD7 = RESULTS / "196_deep_v2"                          # rerun after the void (accuracy machinery only)
+JOBS7 = [dict(j, name=j["name"].replace("deep_", "deep2_"), outdir=str(OUTD7), v2=True)
+         for j in sorted(JOBS6, key=lambda j: j["system"] != "TS2")]    # TS first (longest); same seeds/params
+ACCEPT_DRIFT = 1e-9                                      # per-orbit standard up to t_dec (pre-registered 1e-9)
+UNREADABLE_FRAC = 0.25
+KERR_GATE_P0, KERR_GATE_ALPHA = 0.03, 0.05               # added after the void run, before the rerun (disclosed)
+
+
 def cmh_one_sided(tables):
     """Cochran-Mantel-Haenszel, one-sided (row 1 > row 2 in column 1), 0.5 continuity correction.
     tables: list of (a, n1, c, n2) = (TS chaotic, TS n, Kerr chaotic, Kerr n)."""
@@ -942,6 +1050,88 @@ def analyze_ts(deep=False):
               f" | Fisher p {r['fisher_p']:.3g} Holm {r['fisher_holm']:.3g}")
 
 
+def _hd_at(d, tdec, g):
+    """Running max |dH/H| of orbit g up to its reading time t_dec (last series point <= t_dec)."""
+    t = np.array(d["series"]["t"])
+    i = np.where(t <= tdec + 1e-6)[0]
+    return float(d["series"]["hd"][i[-1]][g]) if len(i) else None
+
+
+def analyze_deep2():
+    """Deep v2. Decision clauses UNCHANGED from the void run (CMH/Fisher/Holm, three outcomes, frozen table v2). Added
+    accuracy machinery (after the void, before the rerun): per-orbit acceptance |dH/H| <= 1e-9 up to t_dec; a cell with
+    > 25% of its orbits excluded is UNREADABLE; the Kerr-control gate: P(X >= k | n, 0.03) < 0.05 for Kerr CHAOTIC
+    -> 'MEGNO cannot discriminate at this window'. Levels that are unreadable or fail the gate leave the CMH; if none
+    remain, the outcome is MEGNO'S LIMIT. Symmetric: it removes a confirming level exactly as a null one."""
+    from scipy.stats import fisher_exact, binom
+    table = json.load(open(TABLE_FILE))
+    levels = []
+    for nm, *_ in DEEP_LEVELS:
+        rec = {"level": nm}
+        for sysn in ("TS2", "Kerr"):
+            d = json.load(open(OUTD7 / f"deep2_{sysn}_{nm}.json"))
+            rows = []
+            for g, (t, Y, life, _, ex) in enumerate(_orbits(d)):
+                v, val = verdict_megno(t, Y, life, d["T"], table)
+                tdec = np.floor(min(life, d["T"]) / GRID) * GRID
+                hd = _hd_at(d, tdec, g) if tdec >= GRID else None
+                held = True if tdec < GRID else (hd is not None and hd <= ACCEPT_DRIFT)
+                rows.append({"x0": ex["x0"], "life": life, "t_dec": tdec, "verdict": v, "megno_at_tdec": val,
+                             "drift_to_tdec": hd, "accuracy_held": held})
+            acc = [r_ for r_ in rows if r_["accuracy_held"]]
+            vs = [r_["verdict"] for r_ in acc]
+            rec[sysn] = {"n_in": len(rows), "n_analysed": len(acc), "n_excluded_accuracy": len(rows) - len(acc),
+                         "unreadable": (len(rows) - len(acc)) > UNREADABLE_FRAC * len(rows),
+                         "counts": {x: vs.count(x) for x in sorted(set(vs))},
+                         "chaotic_split": {"plunger": sum(1 for r_ in acc if r_["verdict"] == "CHAOTIC"
+                                                          and r_["life"] < d["T"]),
+                                           "survivor": sum(1 for r_ in acc if r_["verdict"] == "CHAOTIC"
+                                                           and r_["life"] >= d["T"])},
+                         "dt": d["dt"], "pilot_drift": d["pilot_drift"], "pilot_v2": d.get("pilot_v2"),
+                         "window": d.get("window"), "scan": d.get("scan"), "orbits": rows}
+        kK, nK = rec["Kerr"]["counts"].get("CHAOTIC", 0), rec["Kerr"]["n_analysed"]
+        rec["unreadable"] = rec["TS2"]["unreadable"] or rec["Kerr"]["unreadable"] or nK == 0
+        rec["kerr_gate_p"] = float(binom.sf(kK - 1, nK, KERR_GATE_P0)) if nK else None
+        rec["kerr_gate_pass"] = (not rec["unreadable"]) and rec["kerr_gate_p"] >= KERR_GATE_ALPHA
+        a, n1 = rec["TS2"]["counts"].get("CHAOTIC", 0), rec["TS2"]["n_analysed"]
+        rec["table"] = (a, n1, kK, nK)
+        rec["fisher_p"] = (float(fisher_exact([[a, n1 - a], [kK, nK - kK]], alternative="greater")[1])
+                           if not rec["unreadable"] else None)
+        rec["status"] = ("UNREADABLE (accuracy)" if rec["unreadable"] else
+                         "MEGNO cannot discriminate at this window (Kerr-control gate)" if not rec["kerr_gate_pass"]
+                         else "INCLUDED")
+        levels.append(rec)
+    readable = [r_ for r_ in levels if r_["fisher_p"] is not None]
+    for r_, hp in zip(readable, holm([r_["fisher_p"] for r_ in readable])):
+        r_["fisher_holm"] = hp
+    inc = [r_ for r_ in levels if r_["status"] == "INCLUDED"]
+    out = {"levels": levels, "included_levels": [r_["level"] for r_ in inc]}
+    if not inc:
+        out["PRIMARY_cmh"] = None
+        out["CLAUSE"] = ("MEGNO'S LIMIT: MEGNO cannot discriminate at the alpha-study window (every level UNREADABLE "
+                         "or failing the Kerr-control gate)")
+    else:
+        z, p = cmh_one_sided([r_["table"] for r_ in inc])
+        out["PRIMARY_cmh"] = {"z": z, "p_one_sided": p, "pass_alpha_0.05": p < 0.05}
+        lives = [o["life"] for r_ in inc for o in r_["TS2"]["orbits"]]
+        f_long = float(np.mean(np.array(lives) >= 25.0))
+        out["f_long_TS"] = f_long
+        if p < 0.05:
+            out["CLAUSE"] = "CONFIRMED: TS chaos at the alpha window seen by a third independent method"
+        elif f_long < 0.5:
+            out["CLAUSE"] = "(i) MEGNO'S LIMIT: most TS window orbits end before 25 tau"
+        else:
+            out["CLAUSE"] = ("(ii) GENUINE TENSION: MEGNO does not confirm chaos at the alpha-study window, "
+                             "despite adequate lifetimes")
+    (RESULTS / "196_deep_v2_report.json").write_text(json.dumps(out, indent=1, default=float))
+    print("CLAUSE:", out["CLAUSE"], "| PRIMARY:", out["PRIMARY_cmh"], "| included:", out["included_levels"])
+    for r_ in levels:
+        print(f"{r_['level']} {r_['status']} | TS {r_['TS2']['counts']} n {r_['TS2']['n_analysed']}/{r_['TS2']['n_in']}"
+              f" dt {r_['TS2']['dt']:.3g} | Kerr {r_['Kerr']['counts']} n {r_['Kerr']['n_analysed']}/"
+              f"{r_['Kerr']['n_in']} dt {r_['Kerr']['dt']:.3g} | gate p {r_['kerr_gate_p']} | Fisher {r_['fisher_p']}")
+    return out
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--validate", action="store_true")
@@ -958,6 +1148,9 @@ if __name__ == "__main__":
     ap.add_argument("--analyze-ts", action="store_true")
     ap.add_argument("--deep", action="store_true")
     ap.add_argument("--analyze-deep", action="store_true")
+    ap.add_argument("--selftest-pilot", action="store_true")
+    ap.add_argument("--deep2", action="store_true")
+    ap.add_argument("--analyze-deep2", action="store_true")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--only", nargs="*")
     a = ap.parse_args()
@@ -992,3 +1185,12 @@ if __name__ == "__main__":
         measure(a.workers, a.only, JOBS6, resume=a.resume)
     if a.analyze_deep:
         analyze_ts(deep=True)
+    if a.selftest_pilot:
+        selftest_pilot()
+    if a.deep2:
+        st_ = RESULTS / "196_pilot_selftest.json"
+        if not (st_.exists() and json.load(open(st_)).get("ALL_PASS")):
+            raise SystemExit("deep v2 refused: the pilot self-test has not passed")
+        measure(a.workers, a.only, JOBS7, resume=a.resume)
+    if a.analyze_deep2:
+        analyze_deep2()

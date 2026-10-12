@@ -456,3 +456,69 @@ accuracy is neither; it says this run does not answer the question.
   stop earlier (e.g. at the last 5-tau checkpoint before the cut)? Either must be fixed before the rerun.
 - Cost estimate from the measured step costs: Kerr ~3 h per level at dt 1.6e-3; TS ~1 day per level at dt 7.8e-4
   (3 levels in parallel).
+
+### DEEP-LEVEL RERUN AMENDMENT (adopted 2026-10-13 after The Bridge's review; a POST-RESULT amendment, and it says so)
+**Status of run 1:** VOID, as recorded above: the mechanical clause verbatim, the table, and the root cause (a max
+over an empty set returned 0.0). It stays in the failure record (silent_nulls 73). Everything below was written
+AFTER seeing run 1's numbers. Only the accuracy machinery and a control-validity gate change. Nothing here was
+tuned on run 1's counts; the gate threshold is fixed from my pre-run ≤3% prediction, not from the observed 33-45%.
+
+**Unchanged (item 5):** levels, window procedure, T = 3e4, 5-tau series, frozen rule v2 and threshold table, one
+verdict per orbit at t_dec, the pooled one-sided CMH primary (alpha 0.05), per-level Fisher + Holm, and the three
+clause outcomes with the same f_long split. Same seeds, so the same orbits (the window is recomputed).
+
+**Accuracy machinery (items 1-4):**
+1. **Pilot v2** (`pilot_dt_v2`): 12 orbits spread evenly over the window. Drift is measured over each orbit's life
+   up to its t_dec. dt halves from 0.05 while FAIL. A pilot in which no orbit reaches 25 tau REFUSES (raises); it is
+   never read as zero (`_pilot_judge`).
+2. **Acceptance window = the reading window (The Bridge's (a)/(b) resolution):** the verdict is read at t_dec (the
+   last 25-tau grid time <= life), so accuracy must hold on [0, t_dec]. The running |dH/H| is recorded at every
+   5-tau series point. An orbit is accepted iff that drift at its t_dec is <= 1e-9 (ABSTAIN-TOO-SHORT orbits have no
+   reading and need none).
+   - Per orbit, the report carries life, t_dec, verdict, ⟨Y⟩(t_dec), drift_to_tdec and accuracy_held.
+   - Per cell: n_in vs n_analysed. A cell with more than 25% of its orbits excluded is **UNREADABLE**, and the level
+     leaves the CMH.
+3. Reaching the dt floor: `floor_hit` is reported per job (pilot) and for the window scan (`scan_floor_hit`, with
+   `drift_scan`; run 1 did not record it).
+4. Early exit once every orbit has plunged (speed only; `stop_when_dead`, v2 jobs only).
+
+**Pilot known-fail test (The Bridge's condition; `--selftest-pilot`, results/196_pilot_selftest.json, 5/5 PASS):**
+- An injected 5e-9 orbit among 1e-12 orbits -> FAIL.
+- A clean set -> PASS.
+- All NaN (every orbit plunged before 25 tau) -> REFUSE; the old code returned 0.0.
+- Partial NaN plus an injected excess -> FAIL.
+- **Real, end to end:** the Kerr L1 window at dt 0.05 -> FAIL at the first 25-tau grid time (drift 1.2e-9). Run 1's
+  pilot accepted exactly this dt.
+- `--deep2` refuses to launch unless this self-test passed.
+
+**Kerr-control validity gate (NEW, added after run 1, disclosed as such; symmetric):**
+- At each readable level: if P(X >= k_Kerr_CHAOTIC | n_Kerr_analysed, p0 = 0.03) < 0.05, i.e. Kerr CHAOTIC exceeds
+  the upper 95% binomial limit of my ≤3% prediction (at n = 40 that means k >= 4), the level is reported as
+  **"MEGNO cannot discriminate at this window"** and leaves the CMH.
+- If no level survives (gate or UNREADABLE), the outcome is **"MEGNO'S LIMIT: MEGNO cannot discriminate at the
+  alpha-study window"**, which is neither tension nor confirmation.
+- The gate removes a level whatever its TS count, so it voids a confirming level exactly as a null one.
+- Rationale (The Bridge): the window sits next to the unstable spherical orbits, and integrable orbits transiting
+  near a hyperbolic orbit have positive finite-time stretching. MEGNO then measures hyperbolicity, not
+  non-integrability. The integrable control must stay quiet for the comparison to mean anything.
+
+**The Bridge's question (i): is the frozen null matched to this regime? NO.**
+- The table's integrable-plunger finals come only from the near-EQUATORIAL-separatrix calibration levels (Kerr
+  p35/p45, eps -0.05 and -0.1, equatorial barrier).
+- n = 8 in the 25-100 tau bin (the threshold there, 2.16, is effectively the max of those 8), and n = 32 in the
+  100-300 bin. Run 1's Kerr CHAOTIC plungers all lived 27-142 tau, mostly in that thin 25-100 bin.
+- The deep levels (eps about -0.4 to -0.5) have no equatorial barrier, and their transition is set by spherical
+  orbits. Neither the duration nor the separatrix type is matched.
+- Not changing the frozen table (that would be tuning after a result). The Kerr gate is the pre-launch remedy, and
+  this mismatch is recorded as the likely mechanism to test, not a conclusion.
+
+**Smoke (code path only):** all six v2 jobs at T = 150, scan 40 tau, n = 6, run in scratch and never in results/.
+The job, pilot, analysis, gate and REFUSE paths all executed. The numbers are meaningless (wrong windows, tiny T)
+and are not reported.
+
+**Run:** `--deep2 --resume --workers 3` (The Bridge's core budget <= 3), TS first. Estimated cost: Kerr ~6 h per level;
+TS ~2 days per level (scan + pilot at dt ~8e-4 + MEGNO).
+
+**Owed in parallel:** re-score validation (22/431 over the cut) and TS near-separatrix (28/720). Run 1 recorded
+only life-drift there, which is >= drift-to-t_dec, so the re-score excludes conservatively and reports n_in vs
+n_analysed. The Bridge has marked those ledger lines UNDER RE-SCORE.
