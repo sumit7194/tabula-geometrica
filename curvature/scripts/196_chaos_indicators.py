@@ -360,7 +360,7 @@ def job_run(job):
     if kind == "kerrlike":
         mdl, info = level_model(job["system"], job.get("tag"), job["E"], job["sense"], job.get("eps", 0.0),
                                 job.get("Lscale"))
-        z, r0 = seeds_offset(mdl, job["n"], 1 / 7)
+        z, r0 = seeds_offset(mdl, job["n"], job.get("seed_frac", 1 / 7))
         meta.update(info, r0=list(map(float, r0)))
     elif kind in ("hh", "hh_open"):
         mdl = (OpenHH if kind == "hh_open" else m94.HenonHeiles)(job["E"])
@@ -791,6 +791,80 @@ def score_validation(rep, table):
     print("SECONDARY (descriptive only):", json.dumps(res["SECONDARY_descriptive_only"], default=float))
 
 
+# ---------------------------------------------------------------- TS run (pre-registered: a07db75 + 8e0e964)
+
+OUTD5 = RESULTS / "196_ts"
+TS_LEVELS = [(nm, tag, E, sn, eps) for nm, tag, E, sn in _lv for eps in (-0.01, -0.02, -0.05)]
+JOBS5 = [{"name": f"ts_{sysn}_{nm}_eps{eps}", "kind": "kerrlike", "system": sysn, "tag": tag, "E": E, "sense": sn,
+          "eps": eps, "n": 40, "T": 3e4, "seed": 600 + k, "seed_frac": 1 / 5, "series_dt": 5.0, "outdir": str(OUTD5)}
+         for k, (nm, tag, E, sn, eps) in enumerate(TS_LEVELS) for sysn in ("TS2", "Kerr")]
+
+
+def cmh_one_sided(tables):
+    """Cochran-Mantel-Haenszel, one-sided (row 1 > row 2 in column 1), 0.5 continuity correction.
+    tables: list of (a, n1, c, n2) = (TS chaotic, TS n, Kerr chaotic, Kerr n)."""
+    from scipy.stats import norm
+    sa = se = sv = 0.0
+    for a, n1, c, n2 in tables:
+        N, m1 = n1 + n2, a + c
+        if N < 2:
+            continue
+        sa += a
+        se += n1 * m1 / N
+        sv += n1 * n2 * m1 * (N - m1) / (N * N * (N - 1))
+    z = (sa - se - 0.5) / np.sqrt(sv) if sv > 0 else 0.0
+    return float(z), float(norm.sf(z))
+
+
+def holm(ps):
+    order = np.argsort(ps)
+    adj, run = [None] * len(ps), 0.0
+    for r, i in enumerate(order):
+        run = max(run, min(1.0, (len(ps) - r) * ps[i]))
+        adj[i] = run
+    return adj
+
+
+def analyze_ts():
+    from scipy.stats import fisher_exact
+    table = json.load(open(TABLE_FILE))
+    alt = alt_table_without(disputed_tori())
+    alt_tab = dict(table, threshold_p99=alt)
+    levels, tabs, fps = [], [], []
+    for nm, tag, E, sn, eps in TS_LEVELS:
+        rec = {"level": f"{nm}_E{E}_eps{eps}"}
+        for sysn in ("TS2", "Kerr"):
+            d = json.load(open(OUTD5 / f"ts_{sysn}_{nm}_eps{eps}.json"))
+            vs, lives, chaos_split, Ys, alt_v = [], [], {"plunger": 0, "survivor": 0}, [], []
+            for t, Y, life, ftle, ex in _orbits(d):
+                v, val = verdict_megno(t, Y, life, d["T"], table)
+                vs.append(v); lives.append(life); Ys.append(val)
+                alt_v.append(verdict_megno(t, Y, life, d["T"], alt_tab)[0])
+                if v == "CHAOTIC":
+                    chaos_split["plunger" if life < d["T"] else "survivor"] += 1
+            rec[sysn] = {"n": len(vs), "counts": {x: vs.count(x) for x in sorted(set(vs))},
+                         "chaotic_split": chaos_split,
+                         "chaotic_lifetimes": [l_ for l_, v in zip(lives, vs) if v == "CHAOTIC"],
+                         "megno_at_tdec": Ys, "l_sep": d.get("l_sep"), "L": d.get("L"),
+                         "secondary_alt_counts": {x: alt_v.count(x) for x in sorted(set(alt_v))}}
+        a, n1 = rec["TS2"]["counts"].get("CHAOTIC", 0), rec["TS2"]["n"]
+        c_, n2 = rec["Kerr"]["counts"].get("CHAOTIC", 0), rec["Kerr"]["n"]
+        tabs.append((a, n1, c_, n2))
+        fps.append(float(fisher_exact([[a, n1 - a], [c_, n2 - c_]], alternative="greater")[1]))
+        levels.append(rec)
+    z, p = cmh_one_sided(tabs)
+    for rec, fp, hp in zip(levels, fps, holm(fps)):
+        rec["fisher_p"], rec["fisher_holm"] = fp, hp
+    out = {"PRIMARY_cmh": {"z": z, "p_one_sided": p, "pass_alpha_0.05": p < 0.05}, "levels": levels,
+           "n_levels_holm_sig": sum(1 for r in levels if r["fisher_holm"] < 0.05),
+           "secondary_alt_thresholds": alt}
+    (RESULTS / "196_ts_report.json").write_text(json.dumps(out, indent=1, default=float))
+    print("PRIMARY CMH:", out["PRIMARY_cmh"], "| levels Holm-significant:", out["n_levels_holm_sig"], "of 9")
+    for r in levels:
+        print(f"{r['level']:28s} TS {r['TS2']['counts']} split {r['TS2']['chaotic_split']} | Kerr {r['Kerr']['counts']}"
+              f" | Fisher p {r['fisher_p']:.3g} Holm {r['fisher_holm']:.3g}")
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--validate", action="store_true")
@@ -802,6 +876,8 @@ if __name__ == "__main__":
     ap.add_argument("--relabel", nargs="?", const="calibrate")
     ap.add_argument("--validate-rule", action="store_true")
     ap.add_argument("--analyze-validation", action="store_true")
+    ap.add_argument("--ts", action="store_true")
+    ap.add_argument("--analyze-ts", action="store_true")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--only", nargs="*")
     a = ap.parse_args()
@@ -825,3 +901,10 @@ if __name__ == "__main__":
         measure(a.workers, a.only, JOBS4)
     if a.analyze_validation:
         analyze_validation()
+    if a.ts:
+        sc = RESULTS / "196_validate_score.json"
+        if not (sc.exists() and json.load(open(sc)).get("ALL_PASS")):
+            raise SystemExit("TS refused: validation V1-V5 has not passed (pre-registered order)")
+        measure(a.workers, a.only, JOBS5)
+    if a.analyze_ts:
+        analyze_ts()
