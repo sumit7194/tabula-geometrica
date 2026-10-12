@@ -97,6 +97,33 @@ def validate():
     (RESULTS / "196_validate_tangent.json").write_text(json.dumps(out, indent=1))
 
 
+# ---------------------------------------------------------------- non-variational truth label (bounded HH)
+
+def zero_one_K(series, n_c=12, seed=0):
+    """Gottwald-Melbourne 0-1 test, correlation method (copied from 145_regime_detector.zero_one_K, which imports
+    torch/sklearn): K -> 0 regular, K -> 1 chaotic. A time-series test, NOT a tangent/Lyapunov one, so it is not a
+    cousin of the indicator under test (The Bridge, measurement 2 review)."""
+    rng = np.random.default_rng(seed)
+    phi = np.asarray(series, float)
+    N = len(phi)
+    ncut = N // 10
+    Ks = []
+    for c in rng.uniform(np.pi / 5, 4 * np.pi / 5, n_c):
+        j = np.arange(1, N + 1)
+        p = np.cumsum(phi * np.cos(j * c))
+        q = np.cumsum(phi * np.sin(j * c))
+        M = np.array([np.mean((p[n:] - p[:-n]) ** 2 + (q[n:] - q[:-n]) ** 2) for n in range(1, ncut)])
+        D = M - phi.mean() ** 2 * (1 - np.cos(np.arange(1, ncut) * c)) / (1 - np.cos(c))
+        Ks.append(np.corrcoef(np.arange(1, ncut), D)[0, 1])
+    return float(np.median(Ks))
+
+
+def k01(x, seed=0):
+    """Max over subsample rates (145's lesson: oversampled chaos reads K ~ 0; chaos shows at SOME rate)."""
+    x = np.asarray(x, float)[:6000]
+    return float(max(zero_one_K(x[::r], seed=seed) for r in (3, 5, 10)))
+
+
 # ---------------------------------------------------------------- MEGNO / FLI / SALI integrator
 
 CHECK = (1e2, 3e2, 1e3, 3e3, 1e4, 3e4, 1e5, 1.5e5)
@@ -331,6 +358,9 @@ def job_run(job):
         lab = m94.integrate(mdl, z, T, dt, max(1, int(round(0.5 / dt))), twin=True)
         r["ftle"] = lab["ftle"].tolist()
         r["section_gap"] = [m94b_gap(m.valid(lab, g)) for g in range(z.shape[1])]
+        if kind == "hh":                                    # non-variational truth for bounded HH
+            r["k01"] = [k01(m.valid(lab, g)[:, 0], seed=g) if len(m.valid(lab, g)) > 3000 else None
+                        for g in range(z.shape[1])]
     meta.update(r, dt=dt, pilot_drift=drift)
     (outd / f"{name}.json").write_text(json.dumps(meta, default=float))
     return name
@@ -384,6 +414,22 @@ JOBS2 = [                                   # measurement 2 (The Bridge's scope)
 ]
 for _j in JOBS2:
     _j["outdir"] = str(OUTD2)
+
+OUTD3 = RESULTS / "196_calibrate"
+JOBS3 = [                                   # calibration of the frozen threshold table: 5-tau series, 0-1 labels
+    {"name": "cal_hh_1o12", "kind": "hh", "E": 1 / 12, "n": 60, "T": 3e4, "seed": 401, "series_dt": 5.0},
+    {"name": "cal_hh_0.125", "kind": "hh", "E": 0.125, "n": 60, "T": 3e4, "seed": 402, "series_dt": 5.0},
+    {"name": "cal_kerr_p45_pro", "kind": "kerrlike", "system": "Kerr", "tag": "t1o3", "E": 0.97, "sense": -1,
+     "eps": -0.01, "n": 20, "T": 3e4, "seed": 403, "series_dt": 5.0},
+    {"name": "cal_kerr_p45_retro", "kind": "kerrlike", "system": "Kerr", "tag": "t1o3", "E": 0.97, "sense": 1,
+     "eps": -0.01, "n": 20, "T": 3e4, "seed": 404, "series_dt": 5.0},
+    {"name": "cal_kerr_p35_pro", "kind": "kerrlike", "system": "Kerr", "tag": "t1o2", "E": 0.95, "sense": -1,
+     "eps": -0.01, "n": 20, "T": 3e4, "seed": 405, "series_dt": 5.0},
+    {"name": "cal_schw", "kind": "kerrlike", "system": "SCHW", "E": 0.95, "sense": 1, "eps": -0.01, "n": 20,
+     "T": 3e4, "seed": 406, "series_dt": 5.0},
+]
+for _j in JOBS3:
+    _j["outdir"] = str(OUTD3)
 
 
 def measure(workers, only=None, jobs_list=None):
@@ -489,6 +535,7 @@ if __name__ == "__main__":
     ap.add_argument("--measure", action="store_true")
     ap.add_argument("--measure2", action="store_true")
     ap.add_argument("--analyze2", action="store_true")
+    ap.add_argument("--calibrate", action="store_true")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--only", nargs="*")
     a = ap.parse_args()
@@ -500,3 +547,5 @@ if __name__ == "__main__":
         measure(a.workers, a.only, JOBS2)
     if a.analyze2:
         analyze2()
+    if a.calibrate:
+        measure(a.workers, a.only, JOBS3)
