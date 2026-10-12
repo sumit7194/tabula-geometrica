@@ -396,11 +396,99 @@ def measure(workers, only=None, jobs_list=None):
             print("done", nm, flush=True)
 
 
+# ---------------------------------------------------------------- measurement 2 analysis (plan fixed before results)
+
+BINS = ((25, 100), (100, 300), (300, 1e3), (1e3, 3e3), (3e3, 3.0001e4))
+
+
+def _orbits(d):
+    """Yield (t_series, Y_series, lifetime, ftle, extra) per orbit of a job file (handles ZV 'parts')."""
+    for p in (d["parts"] if "parts" in d else [d]):
+        t = np.array(p["series"]["t"])
+        YA = np.array(p["series"]["YA"], float)
+        for g in range(YA.shape[1]):
+            tp = p["t_plunge"][g]
+            life = float(tp) if np.isfinite(tp) else float(d["T"])
+            yield t, YA[:, g], life, (p.get("ftle") or d.get("ftle") or [np.nan] * YA.shape[1])[g], \
+                {"x0": (p.get("x0") or [None] * YA.shape[1])[g],
+                 "gap": (d.get("section_gap") or [None] * YA.shape[1])[g]}
+
+
+def _stats(t, Y, tau):
+    ok = np.isfinite(Y) & (t <= tau)
+    if ok.sum() < 3:
+        return None
+    tt, yy = t[ok], Y[ok]
+    w = tt >= tau / 2
+    if w.sum() < 2:
+        return None
+    return float(yy[-1]), float(np.polyfit(tt[w], yy[w], 1)[0])
+
+
+def _auc(pos, neg):
+    pos, neg = np.asarray(pos), np.asarray(neg)
+    if not len(pos) or not len(neg):
+        return None
+    allv = np.concatenate([pos, neg])
+    ranks = allv.argsort().argsort() + 1.0
+    return float((ranks[:len(pos)].sum() - len(pos) * (len(pos) + 1) / 2) / (len(pos) * len(neg)))
+
+
+def analyze2():
+    D = {f.stem: json.load(open(f)) for f in sorted(OUTD2.glob("*.json"))}
+    O = {k: list(_orbits(v)) for k, v in D.items()}
+    schw_f = [o[3] for o in O["schw_ref"] if o[2] >= D["schw_ref"]["T"]]
+    hl_f = [o[3] for o in O["hh_low_series"]]
+    chaotic, null = [], []
+    for k in ("hh_open_E0.18", "hh_open_E0.21", "hh_open_E0.25"):
+        chaotic += [(k, o) for o in O[k] if 25 <= o[2] < D[k]["T"]]
+    for k in ("zv2_layer_L1.5", "zv2_layer_L1.45"):
+        chaotic += [(k, o) for o in O[k] if o[3] > 3 * max(schw_f)]
+        null += [(k, o) for o in O[k] if o[2] >= D[k]["T"] and o[3] <= 1.5 * np.median(schw_f)]
+    chaotic += [("hh_mixed", o) for o in O["hh_mixed_E0.125"] if o[3] > 3 * max(hl_f)]
+    null += [("hh_mixed", o) for o in O["hh_mixed_E0.125"]
+             if o[3] <= 1.5 * np.median(hl_f) and (o[4]["gap"] is not None and o[4]["gap"] <= 0.05)]
+    for k in ("kerr_null_p45_pro", "kerr_null_p45_retro", "kerr_null_p35_pro", "schw_ref"):
+        null += [(k, o) for o in O[k] if o[2] >= D[k]["T"]]
+    null += [("hh_low", o) for o in O["hh_low_series"]
+             if o[3] <= 1.5 * np.median(hl_f) and (o[4]["gap"] is not None and o[4]["gap"] <= 0.05)]
+    rows = []
+    for lo, hi in BINS:
+        cs = [(k, o) for k, o in chaotic if lo <= o[2] < hi]
+        c1, c2, lyap, ns1, ns2 = [], [], [], [], []
+        for k, o in cs:
+            st = _stats(o[0], o[1], o[2])
+            if st is None:
+                continue
+            c1.append(st[0]); c2.append(st[1]); lyap.append(o[2] * o[3])
+            for _, n in null:                               # duration-matched: the null truncated at this tau
+                sn = _stats(n[0], n[1], o[2])
+                if sn:
+                    ns1.append(sn[0]); ns2.append(sn[1])
+        rec = {"bin": [lo, hi], "n_chaotic": len(c1), "by_group": {g: sum(1 for k, o in cs if k == g) for g in
+                                                                     sorted({k for k, _ in cs})}}
+        if c1 and ns1:
+            for nm, c, n in (("S1", c1, ns1), ("S2", c2, ns2)):
+                q99 = float(np.percentile(n, 99))
+                rec[nm] = {"auc": _auc(c, n), "null_p99": q99, "chaotic_median": float(np.median(c)),
+                           "detect_at_1pct": float(np.mean(np.array(c) > q99))}
+            rec["lyap_times_median"] = float(np.median(lyap))
+        rows.append(rec)
+        print(json.dumps(rec), flush=True)
+    out = {"n_chaotic": len(chaotic), "n_null": len(null),
+           "chaotic_groups": {g: sum(1 for k, _ in chaotic if k == g) for g in sorted({k for k, _ in chaotic})},
+           "null_groups": {g: sum(1 for k, _ in null if k == g) for g in sorted({k for k, _ in null})},
+           "schw_ftle_max": max(schw_f), "bins": rows}
+    print({k: v for k, v in out.items() if k != "bins"})
+    (RESULTS / "196_measure2_analysis.json").write_text(json.dumps(out, indent=1))
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--validate", action="store_true")
     ap.add_argument("--measure", action="store_true")
     ap.add_argument("--measure2", action="store_true")
+    ap.add_argument("--analyze2", action="store_true")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--only", nargs="*")
     a = ap.parse_args()
@@ -410,3 +498,5 @@ if __name__ == "__main__":
         measure(a.workers, a.only)
     if a.measure2:
         measure(a.workers, a.only, JOBS2)
+    if a.analyze2:
+        analyze2()

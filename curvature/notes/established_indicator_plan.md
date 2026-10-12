@@ -120,3 +120,37 @@ Reported per duration bin (tau in [25, 100), [100, 300), [300, 1e3), [1e3, 3e3),
 
 No usability rule is drawn from this alone; it is proposed to The Bridge afterwards, with thresholds validated on
 unseen levels.
+
+## MEASUREMENT 2 RESULTS (2026-10-12 06:17; results/196_measure2/*.json, results/196_measure2_analysis.json)
+**Per the fixed plan** (duration-matched, regular null n = 117: Kerr p4/5 pro/retro + p3/5 pro + Schwarzschild survivors,
+HH E=1/12 and E=0.125 regular-truth; chaotic n = 171):
+
+| lifetime bin | n analysed | Lyap. times (median) | S1 = ⟨Y⟩(τ) AUC | S1 detect @1% FA | S2 slope AUC | S2 detect @1% FA |
+|---|---|---|---|---|---|---|
+| 25-100 | 45 (of 56; see flaw 1) | 12 | 0.9996 | 1.00 | 0.9996 | 0.98 |
+| 100-300 | 22 | 30 | 1.000 | 1.00 | 1.000 | 1.00 |
+| 300-1e3 | 13 | 73 | 0.987 | 0.85 | 0.846 | 0.85 |
+| 1e3-3e3 | 1 | 24 | - | 0/1 | - | 1/1 |
+| 3e3-3e4 | 79 | 97 | 0.787 | 0.61 | 0.733 | 0.53 |
+
+Duration-matched null 99th percentile of ⟨Y⟩: 2.02 (25-100), 2.33 (100-300), 2.58 (300-1e3), 2.45 (1e3-3e3), 2.08 (3e3-3e4).
+
+**Post-hoc diagnostics (NOT in the fixed plan; labelled as such):**
+- HH E = 0.125 chaotic-truth (37): ⟨Y⟩(T) 255-854, so **100% detected**. The long bin's 61% comes ENTIRELY from ZV.
+- **Flaw 1 (mine; silent-drop class):** S1/S2 need >= 3 series points <= τ, and ZV/Kerr series were recorded every 25 τ.
+  So 11 ZV layer orbits with lifetimes 57-75 were dropped from the 25-100 bin without a flag (56 in the bin, 45
+  analysed). By eye their ⟨Y⟩ is 1.6-4.8, mostly but not all above the null. The 25-100 "100%" is really open HH plus
+  the longer ZV transients.
+- **Flaw 2 (the truth rule, pre-registered in §195 and inherited here):** "ZV chaotic iff FTLE > 3x the max of the
+  Schwarzschild reference" labels ALL 62 ZV grid orbits chaotic, because Schwarzschild's finite-time FTLE (max
+  1.2e-4) is 3-10x below that of ZV's own clearly regular orbits (x0 >= 7.60: survive T, ⟨Y⟩ 1.4-2.1, FTLE 4-13e-4).
+  Schwarzschild is not a valid FTLE reference for ZV δ=2 near its layer. Consequence: no ZV regular null, and the
+  long bin's ZV "chaotic" set is mostly regular orbits.
+- ZV structure as MEGNO sees it: x0 <= 7.53 are fast transients (life 57-120, FTLE 0.12-0.18, ⟨Y⟩ 1.6-4.8 at
+  25-50 tau resolution). x0 7.54-7.59 is the layer edge (lives 450-30000, several with ⟨Y⟩ 5-13). x0 >= 7.60 is
+  regular-looking (⟨Y⟩ ~2).
+
+**Reading:** MEGNO detects short-lived transient chaos (open HH) at ~100% against a duration-matched 1% false-alarm
+bar from 25 tau on (12+ Lyapunov times), and bounded chaos (HH 0.125) at 100%, with no false alarms on integrable
+Kerr/Schwarzschild. Before any usability rule: (a) the ZV truth rule must be replaced; (b) series resolution must
+scale with lifetime (5 tau, as open HH had).
