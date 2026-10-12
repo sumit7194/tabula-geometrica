@@ -193,7 +193,39 @@
 - **Flags, nothing deleted:** §193/193b/193c/194 are marked "Accelerate-exposed; pending OpenBLAS rerun"
   (lab_notebook). README known-issue updated to root-caused. The CPython tokenizer draft is marked SUPERSEDED (the
   tokenizer was a victim; its claim that the crashes stopped was wrong).
-- **verify.sh** runs on the main `.venv` (3.12, Accelerate). Its scripts are NOT yet audited for QR in the bad band.
-  Pending: grep for qr/lstsq/svd call shapes, or a Guard Malloc pass of the suite.
+- **verify.sh** runs on the main `.venv` (3.12, Accelerate). Audited 2026-10-12, see below: NOT exposed.
 - **Upstream:** notes/upstream/accelerate_dgeqrf_report_DRAFT.md (Apple Feedback + numpy heads-up). NOT sent;
   sending is the user's decision.
+
+## verify.sh exposure audit (2026-10-12, on spare cores while the §196 deep run continues)
+**Question:** can the overrun be reached by anything other than an explicit QR call? If it can, the
+Accelerate-linked verify.sh suite could be exposed without any script calling `qr`. Tested under Guard Malloc on
+`.venv` (numpy 2.4.6 / scipy 1.17.1, both Accelerate), VECLIB_MAXIMUM_THREADS=1, 3 calls per process, shapes
+604x600, 629x629 (bad band) and 1200x600 (tall).
+- **First sweep INVALID, discarded.** I wrapped python in `nice`. /usr/bin/nice is SIP-protected, so it stripped
+  DYLD_INSERT_LIBRARIES (the same trap as nohup/env above). Every row came back "clean", including the
+  positive control np.linalg.qr(604x600, mode="r"), which then also passed. That passing control exposed the
+  problem. Rule since: a row counts only if its output shows the `GuardMalloc[` banner, and the positive control
+  must fault in the same sweep.
+- **Valid sweep (banner on every row):**
+  - FAULT (SIGSEGV, rc 139) at 604x600 and 629x629, clean at 1200x600: `np.linalg.qr` mode "r" AND mode
+    "reduced", and `scipy.linalg.qr(mode="economic")`.
+  - CLEAN at all three shapes: np.linalg.svd (full and values only), lstsq, pinv, eigh, solve;
+    scipy.linalg.lstsq with gelsd and gelsy (gelsy = pivoted QR, dgeqp3), scipy.linalg.svd with gesvd, and
+    scipy.linalg.eigh on a generalized problem.
+  - **Complex QR (zgeqrf) is CLEAN** at 4x4, 300, 400, 554x550, 604x600, 629x629 and 1024x1024.
+  - So the reachable surface found is the explicit real-valued QR entry points (dgeqrf). This is only what was
+    tested, not a proof for every LAPACK driver and shape.
+- **Static scan of the 55 verify scripts** (zsh note: an unquoted `$L` is not word-split; the first grep silently
+  searched nothing and was redone with an array):
+  - Direct QR in only two: 101 `random_unitary(dS=4)` (4x4 complex) and 112 `haar_unitary(2**10)` (1024x1024
+    complex). Both are zgeqrf, clean above.
+  - No verify script imports a QR-using module (91/96/169-174/193/195). No torch QR anywhere (torch 2.12 is also
+    LAPACK_INFO=accelerate, so this matters).
+- **Outside verify:** 169/171/172/174 call real QR on Rz = (n_traj x n_reducibles). That is a handful of columns,
+  far from the near-square 550-629-column trigger, so they are not exposed. 91/96 QR a few conserved-direction
+  columns: not exposed.
+- **Verdict:** verify.sh is not exposed to the dgeqrf overrun, and its gates stay valid on `.venv`. Exposure stays
+  confined to the streamed degree-6 QR of §193-195, which already runs on OpenBLAS behind the tripwire. Scratch
+  harness: scratchpad gm/probe.py + zprobe.py (not committed; the minimal repro in upstream/ covers the
+  fault itself).
