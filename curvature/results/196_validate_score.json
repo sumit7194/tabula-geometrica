@@ -1,0 +1,87 @@
+{
+ "V1_integrable_false_alarm": {
+  "n": 180,
+  "chaotic": 0,
+  "rate": 0.0,
+  "upper95": 0.016505228195662733,
+  "too_short": 3,
+  "pass": true
+ },
+ "V2_tori_false_alarm": {
+  "n": 103,
+  "chaotic": 1,
+  "rate": 0.009708737864077669,
+  "upper95": 0.0452283017112548,
+  "pass": true
+ },
+ "V3_transient_detection": {
+  "n": 34,
+  "chaotic": 34,
+  "rate": 1.0,
+  "pass": true
+ },
+ "V4_bounded_chaos_detection": {
+  "n": 37,
+  "chaotic": 37,
+  "rate": 1.0,
+  "pass": true
+ },
+ "V5_all_verdicted": {
+  "n_orbits": 431,
+  "pass": true
+ },
+ "unlabelled_hh": 13,
+ "ALL_PASS": true,
+ "SECONDARY_descriptive_only": {
+  "disputed_tori": [
+   {
+    "job": "cal_hh_0.125",
+    "index": 4,
+    "maxY_late": 17.78933916595651,
+    "ftle": 0.0014862729020946562
+   },
+   {
+    "job": "cal_hh_1o12",
+    "index": 45,
+    "maxY_late": 5.427953509109627,
+    "ftle": 0.0004432390920193988
+   }
+  ],
+  "alt_thresholds": [
+   2.1742875173587852,
+   2.3463194216831837,
+   2.3700187420963137,
+   2.1357448527015968,
+   2.108047151160471
+  ],
+  "verdict_counts_by_truth": {
+   "chaos": {
+    "CHAOTIC": 44
+   },
+   "torus": {
+    "REGULAR": 100,
+    "CHAOTIC": 3
+   },
+   "unlabelled": {
+    "CHAOTIC": 6,
+    "REGULAR": 7
+   },
+   "direct-escape": {
+    "ABSTAIN-TOO-SHORT": 26
+   },
+   "transient-chaos": {
+    "CHAOTIC": 34
+   },
+   "integrable": {
+    "REGULAR": 166,
+    "ABSTAIN-ENDED-LOW": 11,
+    "ABSTAIN-TOO-SHORT": 3
+   },
+   "zv-report-only": {
+    "CHAOTIC": 15,
+    "REGULAR": 16
+   }
+  },
+  "note": "never used for any verdict (The Bridge)"
+ }
+}

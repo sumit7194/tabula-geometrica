@@ -281,3 +281,17 @@ CHAOTIC orbits, and the descriptive readout without the two disputed tori.
   McDonald, Ott & Yorke 1983 (final-state sensitivity; listing details not fully verified).
 - Novelty wording, per The Bridge's sweep (not verified independently by me): "to our knowledge" no prior
   MEGNO/SALI benchmark on near-separatrix Kerr.
+
+## VALIDATION RESULT (2026-10-12 11:25; results/196_validate_score.json, 196_validate_report.json): **ALL PASS**
+| criterion | result | bar |
+|---|---|---|
+| V1 integrable false alarm (Kerr x8 levels + Schw x2, survivors AND plungers, unseen) | **0/180 CHAOTIC** (one-sided CP upper 95% 1.65%); 3 ABSTAIN-TOO-SHORT, 11 ABSTAIN-ENDED-LOW, 166 REGULAR | <= 3%, n >= 150 |
+| V2 non-integrable tori false alarm (HH E 0.10, fresh 1/12, E 0.14, 0-1-labelled) | **1/103** (0.97%; upper 95% 4.5%) | <= 5% |
+| V3 transient chaos (open HH E 0.20, life in [25, T)) | **34/34**; the 26 direct escapes (< 25 tau) are ABSTAIN-TOO-SHORT | >= 80% |
+| V4 bounded chaos (HH E 0.14, 0-1 chaos) | **37/37** | >= 90% |
+| V5 every orbit verdicted | 431/431 | all |
+- Unlabelled HH (0-1 test mixed across windows): 13 (6 CHAOTIC, 7 REGULAR), reported, not scored.
+- SECONDARY, descriptive only (without the 2 disputed tori; thresholds 2.17/2.35/2.37/2.14/2.11): tori false alarm
+  would be 3/103. The frozen, more conservative rule is the safer one.
+- ZV δ=2 L 1.475 (report-only): 13 CHAOTIC, 18 REGULAR across the layer grid.
+- **The TS run is unlocked** (pre-registration a07db75 + 8e0e964; code 491c1e2). Launched at nice 10 with --resume.
