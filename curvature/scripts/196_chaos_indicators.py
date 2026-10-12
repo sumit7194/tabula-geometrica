@@ -471,10 +471,26 @@ for _j in JOBS3:
     _j["outdir"] = str(OUTD3)
 
 
-def measure(workers, only=None, jobs_list=None):
+def _done_same(job):
+    """A finished job is reusable only if its saved settings equal this job's (a resume never mixes configs)."""
+    f = Path(job.get("outdir", OUTD)) / f"{job['name']}.json"
+    if not f.exists():
+        return False
+    d = json.load(open(f))
+    return all(d.get(k) == (list(v) if isinstance(v, tuple) else v) for k, v in job.items()
+               if k not in ("orbits",)) and ("checkpoints" in d or "parts" in d)
+
+
+def measure(workers, only=None, jobs_list=None, resume=False):
     from multiprocessing import get_context
     OUTD.mkdir(parents=True, exist_ok=True)
     jobs = [j for j in (jobs_list or JOBS) if not only or j["name"] in only]
+    if resume:
+        skip = [j["name"] for j in jobs if _done_same(j)]
+        print("resume: skipping finished jobs with identical settings:", skip, flush=True)
+        jobs = [j for j in jobs if j["name"] not in skip]
+        if not jobs:
+            return
     jobs.sort(key=lambda j: -j["T"])                     # longest first
     with get_context("spawn").Pool(min(workers, len(jobs))) as pool:
         for nm in pool.imap_unordered(job_run, jobs):
@@ -877,6 +893,7 @@ if __name__ == "__main__":
     ap.add_argument("--validate-rule", action="store_true")
     ap.add_argument("--analyze-validation", action="store_true")
     ap.add_argument("--ts", action="store_true")
+    ap.add_argument("--resume", action="store_true", help="skip jobs whose saved output has identical settings")
     ap.add_argument("--analyze-ts", action="store_true")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--only", nargs="*")
@@ -905,6 +922,6 @@ if __name__ == "__main__":
         sc = RESULTS / "196_validate_score.json"
         if not (sc.exists() and json.load(open(sc)).get("ALL_PASS")):
             raise SystemExit("TS refused: validation V1-V5 has not passed (pre-registered order)")
-        measure(a.workers, a.only, JOBS5)
+        measure(a.workers, a.only, JOBS5, resume=a.resume)
     if a.analyze_ts:
         analyze_ts()
