@@ -529,6 +529,123 @@ def analyze2():
     (RESULTS / "196_measure2_analysis.json").write_text(json.dumps(out, indent=1))
 
 
+# ---------------------------------------------------------------- the MEGNO rule: table, verdicts, validation
+
+GRID = 25.0                                # decision times are multiples of 25 tau (series every 5 tau)
+TABLE_FILE = RESULTS / "196_threshold_table.json"
+
+
+def _grid_value(t, Y, tdec):
+    i = np.where((np.abs(t - tdec) < 1e-6) | (t <= tdec))[0]
+    i = i[np.isfinite(Y[i])]
+    return float(Y[i[-1]]) if len(i) else None
+
+
+def _bin_of(t):
+    for k, (lo, hi) in enumerate(BINS):
+        if lo <= t < hi:
+            return k
+    return len(BINS) - 1
+
+
+def null_orbits(dirpath):
+    """Calibration null: integrable Kerr/Schwarzschild survivors, plus HH survivors with 0-1 K < 0.2 (tori)."""
+    out, audit = [], {}
+    for f in sorted(Path(dirpath).glob("*.json")):
+        d = json.load(open(f))
+        n_in, n_used = 0, 0
+        for g, o in enumerate(_orbits(d)):
+            n_in += 1
+            surv = o[2] >= d["T"]
+            k = (d.get("k01") or [None] * 10 ** 6)[g]
+            if d["kind"] == "kerrlike" and surv or d["kind"] == "hh" and surv and k is not None and k < 0.2:
+                out.append((d["name"], o)); n_used += 1
+        audit[d["name"]] = {"n_in": n_in, "n_used": n_used}
+    return out, audit
+
+
+def build_table():
+    nulls, audit = null_orbits(OUTD3)
+    pools = [[] for _ in BINS]
+    for _, (t, Y, life, f, ex) in nulls:
+        for tk in np.arange(GRID, life + 1e-9, GRID):
+            v = _grid_value(t, Y, tk)
+            if v is not None:
+                pools[_bin_of(tk)].append(v)
+    table = {"bins": [list(b) for b in BINS], "threshold_p99": [float(np.percentile(p, 99)) for p in pools],
+             "max": [float(np.max(p)) for p in pools], "n_values": [len(p) for p in pools], "audit": audit,
+             "null_composition": {k: sum(1 for n, _ in nulls if n == k) for k in sorted({n for n, _ in nulls})}}
+    TABLE_FILE.write_text(json.dumps(table, indent=1))
+    print(json.dumps(table, indent=1))
+    return table
+
+
+def verdict_megno(t, Y, life, T, table):
+    """CHAOTIC iff <Y>(t_dec) > table[bin(t_dec)], t_dec = the last 25-tau grid time <= life. Every orbit gets a
+    verdict; nothing is dropped (silent_nulls 72)."""
+    tdec = np.floor(min(life, T) / GRID) * GRID
+    if tdec < GRID:
+        return "ABSTAIN-TOO-SHORT", None
+    v = _grid_value(t, Y, tdec)
+    if v is None:
+        return "ABSTAIN-NO-VALUE", None
+    if v > table["threshold_p99"][_bin_of(tdec)]:
+        return "CHAOTIC", v
+    return ("REGULAR", v) if life >= T else ("ABSTAIN-ENDED-LOW", v)
+
+
+OUTD4 = RESULTS / "196_validate"
+_zv_grid5 = [round(x, 4) for x in np.linspace(7.45, 7.75, 31)]
+JOBS4 = [                                   # validation on UNSEEN levels/energies (5-tau series everywhere)
+    {"name": "val_kerr_p45_pro_eps-0.02", "kind": "kerrlike", "system": "Kerr", "tag": "t1o3", "E": 0.97,
+     "sense": -1, "eps": -0.02, "n": 20, "T": 3e4, "seed": 501, "series_dt": 5.0},
+    {"name": "val_kerr_p45_retro_eps-0.02", "kind": "kerrlike", "system": "Kerr", "tag": "t1o3", "E": 0.97,
+     "sense": 1, "eps": -0.02, "n": 20, "T": 3e4, "seed": 502, "series_dt": 5.0},
+    {"name": "val_kerr_p35_pro_E0.97", "kind": "kerrlike", "system": "Kerr", "tag": "t1o2", "E": 0.97,
+     "sense": -1, "eps": -0.01, "n": 20, "T": 3e4, "seed": 503, "series_dt": 5.0},
+    {"name": "val_kerr_p45_pro_E0.95", "kind": "kerrlike", "system": "Kerr", "tag": "t1o3", "E": 0.95,
+     "sense": -1, "eps": -0.01, "n": 20, "T": 3e4, "seed": 504, "series_dt": 5.0},
+    {"name": "val_schw_E0.97_eps-0.02", "kind": "kerrlike", "system": "SCHW", "E": 0.97, "sense": 1, "eps": -0.02,
+     "n": 20, "T": 3e4, "seed": 505, "series_dt": 5.0},
+    {"name": "val_hh_0.10", "kind": "hh", "E": 0.10, "n": 60, "T": 3e4, "seed": 506, "series_dt": 5.0},
+    {"name": "val_hh_1o12", "kind": "hh", "E": 1 / 12, "n": 40, "T": 3e4, "seed": 507, "series_dt": 5.0},
+    {"name": "val_hh_0.14", "kind": "hh", "E": 0.14, "n": 60, "T": 3e4, "seed": 508, "series_dt": 5.0},
+    {"name": "val_hh_open_0.20", "kind": "hh_open", "E": 0.20, "n": 60, "T": 3e4, "seed": 509, "series_dt": 5.0},
+    {"name": "val_zv2_L1.475", "kind": "zv", "E": 0.95, "T": 3e4, "seed": 510, "series_dt": 5.0,
+     "orbits": [(x, 1.475) for x in _zv_grid5]},
+]
+for _j in JOBS4:
+    _j["outdir"] = str(OUTD4)
+
+
+def analyze_validation():
+    table = json.load(open(TABLE_FILE))
+    rep = {}
+    for f in sorted(OUTD4.glob("*.json")):
+        d = json.load(open(f))
+        rows = []
+        for g, (t, Y, life, ftle, ex) in enumerate(_orbits(d)):
+            v, val = verdict_megno(t, Y, life, d["T"], table)
+            k = (d.get("k01") or [None] * 10 ** 6)[g]
+            if d["kind"] == "kerrlike":
+                truth = "integrable"
+            elif d["kind"] == "hh_open":
+                truth = "transient-chaos" if 25 <= life < d["T"] else ("direct-escape" if life < 25 else "survivor")
+            elif d["kind"] == "hh":
+                truth = "torus" if (k is not None and k < 0.2) else ("chaos" if (k is not None and k > 0.8)
+                                                                      else "unlabelled")
+            else:
+                truth = "zv-report-only"
+            rows.append({"verdict": v, "Y": val, "life": life, "truth": truth, "k01": k, "ftle": ftle, **ex})
+        counts = {}
+        for r_ in rows:
+            counts.setdefault(r_["truth"], {}).setdefault(r_["verdict"], 0)
+            counts[r_["truth"]][r_["verdict"]] += 1
+        rep[d["name"]] = {"n": len(rows), "counts": counts, "rows": rows}
+        print(d["name"], len(rows), counts, flush=True)
+    (RESULTS / "196_validate_report.json").write_text(json.dumps(rep, default=float))
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--validate", action="store_true")
@@ -536,6 +653,9 @@ if __name__ == "__main__":
     ap.add_argument("--measure2", action="store_true")
     ap.add_argument("--analyze2", action="store_true")
     ap.add_argument("--calibrate", action="store_true")
+    ap.add_argument("--build-table", action="store_true")
+    ap.add_argument("--validate-rule", action="store_true")
+    ap.add_argument("--analyze-validation", action="store_true")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--only", nargs="*")
     a = ap.parse_args()
@@ -549,3 +669,11 @@ if __name__ == "__main__":
         analyze2()
     if a.calibrate:
         measure(a.workers, a.only, JOBS3)
+    if a.build_table:
+        build_table()
+    if a.validate_rule:
+        if not TABLE_FILE.exists():
+            raise SystemExit("threshold table not frozen: run --build-table and commit it first")
+        measure(a.workers, a.only, JOBS4)
+    if a.analyze_validation:
+        analyze_validation()
