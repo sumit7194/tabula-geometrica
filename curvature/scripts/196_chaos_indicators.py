@@ -118,10 +118,43 @@ def zero_one_K(series, n_c=12, seed=0):
     return float(np.median(Ks))
 
 
-def k01(x, seed=0):
-    """Max over subsample rates (145's lesson: oversampled chaos reads K ~ 0; chaos shows at SOME rate)."""
-    x = np.asarray(x, float)[:6000]
-    return float(max(zero_one_K(x[::r], seed=seed) for r in (3, 5, 10)))
+def k01(x, seed=0, nmax=None):
+    """Max over subsample rates (145's lesson: oversampled chaos reads K ~ 0; chaos shows at SOME rate).
+    nmax=None uses the WHOLE series: the label must cover the same window as the indicator (a first-3000-tau label
+    passed a sticky-then-chaotic orbit as a torus; found before the table was frozen, 2026-10-12)."""
+    x = np.asarray(x, float)[:nmax]
+    return float(max(zero_one_K(x[::r], seed=seed) for r in (5, 10, 20)))
+
+
+def k01_label(x, seed=0):
+    """Torus iff K < 0.2 on the whole window AND on both halves; chaos iff > 0.8 on all three; else unlabelled."""
+    h = len(x) // 2
+    ks = [k01(x, seed), k01(x[:h], seed), k01(x[h:], seed)]
+    lab = "torus" if max(ks) < 0.2 else ("chaos" if min(ks) > 0.8 else "unlabelled")
+    return lab, ks
+
+
+def relabel_hh(dirpath):
+    """Re-integrate each bounded-HH job from its seed (trajectories are not stored) and attach whole-window
+    0-1 labels as 'k01_label' / 'k01_triplet'."""
+    for f in sorted(Path(dirpath).glob("*.json")):
+        d = json.load(open(f))
+        if d["kind"] != "hh":
+            continue
+        mdl = m94.HenonHeiles(d["E"])
+        z = mdl.launch(d["n"], np.random.default_rng(d["seed"]))
+        lab = m94.integrate(mdl, z, d["T"], d["dt"], int(round(DT_S_SAMPLE / d["dt"])), twin=False)
+        L, K = [], []
+        for g in range(z.shape[1]):
+            Z = m.valid(lab, g)
+            l_, k_ = k01_label(Z[:, 0], seed=g) if len(Z) > 3000 else ("unlabelled", None)
+            L.append(l_); K.append(k_)
+        d["k01_label"], d["k01_triplet"] = L, K
+        f.write_text(json.dumps(d, default=float))
+        print(d["name"], {x: L.count(x) for x in set(L)}, flush=True)
+
+
+DT_S_SAMPLE = 0.5
 
 
 # ---------------------------------------------------------------- MEGNO / FLI / SALI integrator
@@ -557,8 +590,8 @@ def null_orbits(dirpath):
         for g, o in enumerate(_orbits(d)):
             n_in += 1
             surv = o[2] >= d["T"]
-            k = (d.get("k01") or [None] * 10 ** 6)[g]
-            if d["kind"] == "kerrlike" and surv or d["kind"] == "hh" and surv and k is not None and k < 0.2:
+            lab = (d.get("k01_label") or [None] * 10 ** 6)[g]
+            if d["kind"] == "kerrlike" and surv or d["kind"] == "hh" and surv and lab == "torus":
                 out.append((d["name"], o)); n_used += 1
         audit[d["name"]] = {"n_in": n_in, "n_used": n_used}
     return out, audit
@@ -626,14 +659,13 @@ def analyze_validation():
         rows = []
         for g, (t, Y, life, ftle, ex) in enumerate(_orbits(d)):
             v, val = verdict_megno(t, Y, life, d["T"], table)
-            k = (d.get("k01") or [None] * 10 ** 6)[g]
+            k = (d.get("k01_label") or [None] * 10 ** 6)[g]
             if d["kind"] == "kerrlike":
                 truth = "integrable"
             elif d["kind"] == "hh_open":
                 truth = "transient-chaos" if 25 <= life < d["T"] else ("direct-escape" if life < 25 else "survivor")
             elif d["kind"] == "hh":
-                truth = "torus" if (k is not None and k < 0.2) else ("chaos" if (k is not None and k > 0.8)
-                                                                      else "unlabelled")
+                truth = k or "unlabelled"
             else:
                 truth = "zv-report-only"
             rows.append({"verdict": v, "Y": val, "life": life, "truth": truth, "k01": k, "ftle": ftle, **ex})
@@ -654,6 +686,7 @@ if __name__ == "__main__":
     ap.add_argument("--analyze2", action="store_true")
     ap.add_argument("--calibrate", action="store_true")
     ap.add_argument("--build-table", action="store_true")
+    ap.add_argument("--relabel", nargs="?", const="calibrate")
     ap.add_argument("--validate-rule", action="store_true")
     ap.add_argument("--analyze-validation", action="store_true")
     ap.add_argument("--workers", type=int, default=4)
@@ -669,6 +702,8 @@ if __name__ == "__main__":
         analyze2()
     if a.calibrate:
         measure(a.workers, a.only, JOBS3)
+    if a.relabel:
+        relabel_hh(OUTD3 if a.relabel == "calibrate" else OUTD4)
     if a.build_table:
         build_table()
     if a.validate_rule:

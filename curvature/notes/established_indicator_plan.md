@@ -154,3 +154,38 @@ Duration-matched null 99th percentile of ⟨Y⟩: 2.02 (25-100), 2.33 (100-300),
 bar from 25 tau on (12+ Lyapunov times), and bounded chaos (HH 0.125) at 100%, with no false alarms on integrable
 Kerr/Schwarzschild. Before any usability rule: (a) the ZV truth rule must be replaced; (b) series resolution must
 scale with lifetime (5 tau, as open HH had).
+
+## FROZEN MEGNO RULE + THRESHOLD TABLE (2026-10-12 07:59; results/196_threshold_table.json) — sent to The Bridge before validation
+Calibration (scripts/196 --calibrate, results/196_calibrate/): 5-tau ⟨Y⟩ series. Null set (audited; no silent drops):
+- integrable survivors: Kerr p4/5 pro 20/20, p4/5 retro 19/20, p3/5 pro 19/20, Schwarzschild 18/20;
+- tori: HH E 1/12 60/60, HH E 0.125 26/60. Tori are labelled NON-variationally by the 0-1 test (whole window AND both
+  halves < 0.2; "chaos" = all three > 0.8).
+**Correction before freezing:** the first table used a 0-1 label on the FIRST 3000 tau only, while MEGNO saw 3e4. A
+sticky-then-chaotic HH orbit (FTLE 0.04, ⟨Y⟩ 617) entered the null as a "torus" and inflated the long-bin p99 to 9.8.
+The label now covers the indicator's whole window plus a half-window consistency check, and the subsampling rates
+are (5, 10, 20) for the full-length series. That rate change also changed some labels.
+
+Decision times are multiples of 25 tau. Threshold = p99 of the null's ⟨Y⟩ pooled over grid times in each bin:
+| decision time bin | [25, 100) | [100, 300) | [300, 1e3) | [1e3, 3e3) | [3e3, 3e4] |
+|---|---|---|---|---|---|
+| **threshold (p99)** | **1.952** | **2.257** | **2.443** | **2.152** | **2.576** |
+| null max (disclosed) | 2.80 | 3.23 | 5.01 | 5.43 | 17.79 |
+| n values | 447 | 1192 | 4172 | 11920 | 161069 |
+The null max of 17.8 (HH 0.125) and 5.4 (HH 1/12) come from orbits the 0-1 test calls tori on the whole window and
+both halves, but MEGNO disagrees. They are kept in the null (the label rule is the label rule) and disclosed.
+
+**Rule (frozen):** t_dec = the last 25-tau grid time <= min(lifetime, T).
+- t_dec < 25 -> ABSTAIN-TOO-SHORT.
+- ⟨Y⟩(t_dec) > threshold[bin(t_dec)] -> CHAOTIC.
+- Otherwise REGULAR if the orbit survived T, else ABSTAIN-ENDED-LOW.
+- Every orbit gets exactly one verdict.
+
+**Validation (unseen levels and energies; scripts/196 --validate-rule, then --relabel validate, then
+--analyze-validation).** Pass criteria proposed for The Bridge's sign-off BEFORE the run:
+- V1 integrable false alarm: Kerr p4/5 pro eps -0.02, p4/5 retro eps -0.02, p3/5 pro E 0.97, p4/5 pro E 0.95,
+  Schwarzschild E 0.97 eps -0.02; survivors CHAOTIC <= 3% pooled.
+- V2 non-integrable tori: HH E 0.10, fresh E 1/12, and E 0.14 torus-labelled; CHAOTIC <= 5% pooled.
+- V3 transient chaos: open HH E 0.20, orbits with lifetime in [25, T); CHAOTIC >= 80%.
+- V4 bounded chaos: HH E 0.14 chaos-labelled; CHAOTIC >= 90%.
+- V5: every orbit has a verdict; counts are reported per group and verdict.
+- ZV δ=2 L = 1.475: report-only.
