@@ -704,6 +704,91 @@ def analyze_validation():
         rep[d["name"]] = {"n": len(rows), "counts": counts, "rows": rows}
         print(d["name"], len(rows), counts, flush=True)
     (RESULTS / "196_validate_report.json").write_text(json.dumps(rep, default=float))
+    score_validation(rep, table)
+
+
+def disputed_tori():
+    """The two calibration tori where the 0-1 label and MEGNO disagree (late <Y> > 5): fixed BEFORE validation."""
+    out = []
+    for f in sorted(OUTD3.glob("cal_hh_*.json")):
+        d = json.load(open(f))
+        for g, (t, Y, life, ftle, ex) in enumerate(_orbits(d)):
+            late = Y[(t >= 1000) & np.isfinite(Y)]
+            if (d.get("k01_label") or [None] * 10 ** 6)[g] == "torus" and len(late) and late.max() > 5:
+                out.append({"job": d["name"], "index": g, "maxY_late": float(late.max()), "ftle": ftle})
+    return out
+
+
+def alt_table_without(disputed):
+    """SECONDARY, descriptive only (The Bridge): the class-wise table rebuilt without the disputed tori."""
+    skip = {(x["job"], x["index"]) for x in disputed}
+    cls = {"integrable": [[] for _ in BINS], "tori": [[] for _ in BINS]}
+    for f in sorted(OUTD3.glob("*.json")):
+        d = json.load(open(f))
+        for g, (t, Y, life, ftle, ex) in enumerate(_orbits(d)):
+            surv = life >= d["T"]
+            lab = (d.get("k01_label") or [None] * 10 ** 6)[g]
+            if (d["name"], g) in skip:
+                continue
+            if d["kind"] == "kerrlike":
+                k_ = "integrable"
+            elif d["kind"] == "hh" and surv and lab == "torus":
+                k_ = "tori"
+            else:
+                continue
+            for tk in np.arange(GRID, min(life, d["T"]) + 1e-9, GRID):
+                v = _grid_value(t, Y, tk)
+                if v is not None:
+                    cls[k_][_bin_of(tk)].append(v)
+    return [max(float(np.percentile(cls["integrable"][i], 99)), float(np.percentile(cls["tori"][i], 99)))
+            for i in range(len(BINS))]
+
+
+def score_validation(rep, table):
+    from scipy.stats import beta
+    ub = lambda k, n: float(beta.ppf(0.95, k + 1, n - k)) if n else None   # one-sided 95% Clopper-Pearson upper
+    rows = [(nm, r) for nm, v in rep.items() for r in v["rows"]]
+    n_all = sum(v["n"] for v in rep.values())
+    assert n_all == len(rows), "V5: an orbit has no verdict"
+    integ = [r for nm, r in rows if r["truth"] == "integrable"]
+    tori = [r for nm, r in rows if r["truth"] == "torus" and r["life"] >= 3e4]
+    trans = [r for nm, r in rows if r["truth"] == "transient-chaos"]
+    bchaos = [r for nm, r in rows if r["truth"] == "chaos" and "hh_0.14" in nm]
+    cnt = lambda L, v: sum(1 for r in L if r["verdict"] == v)
+    k1, k2 = cnt(integ, "CHAOTIC"), cnt(tori, "CHAOTIC")
+    res = {
+        "V1_integrable_false_alarm": {"n": len(integ), "chaotic": k1, "rate": k1 / max(len(integ), 1),
+                                      "upper95": ub(k1, len(integ)),
+                                      "too_short": cnt(integ, "ABSTAIN-TOO-SHORT"),
+                                      "pass": len(integ) >= 150 and k1 / max(len(integ), 1) <= 0.03},
+        "V2_tori_false_alarm": {"n": len(tori), "chaotic": k2, "rate": k2 / max(len(tori), 1),
+                                "upper95": ub(k2, len(tori)), "pass": k2 / max(len(tori), 1) <= 0.05},
+        "V3_transient_detection": {"n": len(trans), "chaotic": cnt(trans, "CHAOTIC"),
+                                   "rate": cnt(trans, "CHAOTIC") / max(len(trans), 1),
+                                   "pass": cnt(trans, "CHAOTIC") / max(len(trans), 1) >= 0.80},
+        "V4_bounded_chaos_detection": {"n": len(bchaos), "chaotic": cnt(bchaos, "CHAOTIC"),
+                                       "rate": cnt(bchaos, "CHAOTIC") / max(len(bchaos), 1),
+                                       "pass": cnt(bchaos, "CHAOTIC") / max(len(bchaos), 1) >= 0.90},
+        "V5_all_verdicted": {"n_orbits": n_all, "pass": True},
+        "unlabelled_hh": sum(1 for nm, r in rows if r["truth"] == "unlabelled"),
+    }
+    res["ALL_PASS"] = all(v["pass"] for k, v in res.items() if k.startswith("V"))
+    dis = disputed_tori()
+    alt = alt_table_without(dis)
+    alt_tab = dict(table, threshold_p99=alt)
+    sec = {}
+    for nm, v in rep.items():
+        d = json.load(open(OUTD4 / f"{nm}.json"))
+        for g, (t, Y, life, ftle, ex) in enumerate(_orbits(d)):
+            truth = v["rows"][g]["truth"]
+            vv, _ = verdict_megno(t, Y, life, d["T"], alt_tab)
+            sec.setdefault(truth, {}).setdefault(vv, 0)
+            sec[truth][vv] += 1
+    res["SECONDARY_descriptive_only"] = {"disputed_tori": dis, "alt_thresholds": alt, "verdict_counts_by_truth": sec,
+                                         "note": "never used for any verdict (The Bridge)"}
+    (RESULTS / "196_validate_score.json").write_text(json.dumps(res, indent=1, default=float))
+    print(json.dumps({k: v for k, v in res.items() if k != "SECONDARY_descriptive_only"}, indent=1, default=float))
+    print("SECONDARY (descriptive only):", json.dumps(res["SECONDARY_descriptive_only"], default=float))
 
 
 if __name__ == "__main__":
