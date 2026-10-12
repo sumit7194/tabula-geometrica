@@ -214,3 +214,30 @@ both halves, but MEGNO disagrees. They are kept in the null (the label rule is t
   tori). Without them the tori p99 is 2.1-2.2. They stay under the fixed label rule, which costs sensitivity to weak
   long-lived chaos. An alternative for The Bridge: a third non-variational label (Laskar frequency drift, M5) that
   must AGREE with the 0-1 test for "torus". Not adopted unilaterally.
+
+## TS PRE-REGISTRATION (written 2026-10-12 ~09:00, BEFORE the validation result and before ANY TS indicator run)
+Runs only if validation V1-V5 passes. The rule and table are the frozen v2 (commit 33a96a2), unchanged.
+
+**Question:** among TS δ=2 near-separatrix window orbits, what fractions are CHAOTIC (MEGNO above the duration-matched
+bar), REGULAR (survive T below it), and ABSTAIN (too short, or ended low)? Compared against matched Kerr.
+
+**Design (frozen):**
+- TS2 at p 4/5 (t1o3): E 0.97 pro and retro. TS2 at p 3/5 (t1o2): E 0.95 pro.
+- eps in {-0.01, -0.02, -0.05} against each system's OWN barrier separatrix (TS L_sep from its barrier, as gated).
+- 40 orbits per (system, level). Equatorial seeds outside the barrier, offset-grid fraction 1/5 (fresh).
+- T = 3e4, 5-tau series, per-level cut midway horizon-barrier, dt from the 1e-10 drift pilot.
+- Matched Kerr: same (spin, E, sense, eps) against Kerr's own barrier separatrix, same seeding rule and seeds.
+
+**Primary readout:** per level, TS vs matched Kerr verdict fractions; the CHAOTIC fraction compared by a one-sided
+Fisher exact test (TS > Kerr), all 9 levels reported, no level dropped. **Secondary:** the lifetime distribution of TS
+CHAOTIC orbits, and the descriptive readout without the two disputed tori.
+
+**My predictions (written first; from V12/α realisation sensitivity TS 17-37% vs Kerr 0%, and ansatz's
+"transient, most chaotic window orbits plunge within ~300 crossings"):**
+- matched Kerr: CHAOTIC <= 3% at every level (validated false-alarm rate); REGULAR + ABSTAIN the rest.
+- TS: CHAOTIC 10-35% per level, higher nearer the separatrix (eps -0.01 > -0.05). REGULAR 50-85%. ABSTAIN 5-20%.
+- TS CHAOTIC orbits will be mostly PLUNGERS with lifetimes 25-1000 tau (transient chaos); few long-lived TS survivors
+  will read CHAOTIC.
+- TS CHAOTIC > Kerr CHAOTIC (Fisher p < 0.05) at >= 6 of 9 levels.
+- **What would contradict the transient-chaos picture:** TS CHAOTIC dominated by survivors, or TS CHAOTIC ~ Kerr
+  CHAOTIC at most levels.
