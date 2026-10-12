@@ -271,7 +271,13 @@ CHAOTIC orbits, and the descriptive readout without the two disputed tori.
 - **Lai & Tél 2011**, *Transient Chaos: Complex Dynamics on Finite-Time Scales*, Springer AMS 173: the standard
   framework for transient chaos and chaotic scattering (bibliographic details verified).
 - **Lau, Finn & Ott 1991**, PRL 66, 978: non-hyperbolic chaotic scattering (KAM tori present) has a singular set of
-  fractal dimension ~1. VERIFIED from the abstract only. The "small effective exponents" reading suggested to me was
-  NOT found there, so this paper is cited only for the non-hyperbolic distinction.
+  fractal dimension d ~ 1. VERIFIED from the abstract only. "Small effective exponents" is NOT stated there.
+- **McDonald, Grebogi, Ott & Yorke 1985**, "Fractal basin boundaries", Physica D 17, 125-153,
+  DOI 10.1016/0167-2789(85)90001-6 (verified: author PDF and Aberdeen record): the uncertainty exponent, with
+  α = D - d (phase-space or slice dimension minus the boundary's capacity dimension; relation confirmed in secondary
+  sources). Combined (The Bridge's corrected attribution): on a 1-D slice, LFO's d -> 1 means α = 1 - d -> 0.
+  Finite-resolution EFFECTIVE exponents stay small but nonzero because the approach is slow (stickiness). The
+  inference is attributed to the combination, not to either paper alone. Earlier origin of the exponent: Grebogi,
+  McDonald, Ott & Yorke 1983 (final-state sensitivity; listing details not fully verified).
 - Novelty wording, per The Bridge's sweep (not verified independently by me): "to our knowledge" no prior
   MEGNO/SALI benchmark on near-separatrix Kerr.
