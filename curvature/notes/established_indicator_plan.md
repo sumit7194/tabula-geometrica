@@ -328,3 +328,42 @@ CHAOTIC** (Kerr also 0/360). Per-level Fisher: p = 1 at all 9 levels; 0 of 9 Hol
   x0, a region this design did not sample. It does mean the chaos is not a generic near-separatrix property of TS,
   at least for these launch conditions. Whether MEGNO sees the deep-level TS chaos is a SEPARATE pre-registered
   question, not to be inferred from this run.
+
+## DEEP-LEVEL MEGNO PRE-REGISTRATION (2026-10-12 ~15:00, BEFORE any deep-level integration). The decisive third-method check where V12/α/the probe found TS chaos
+Physics (The Bridge, accepted): at these deep open levels there is NO equatorial barrier. The plunge/survive
+transition in x0 is set by latitudinal (Carter-like) motion, i.e. the unstable SPHERICAL orbits, a different
+separatrix from the equatorial one the 0/360 run sampled.
+
+**Levels (mapping VERIFIED against our own barrier/BPT L_sep):** TS L(ours) = (p/2) x L(V12 chart).
+- L1: TS p4/5 E 0.97 L +2.05000 (eps -0.510); matched Kerr L +2.04304 (same eps; bridge value within 3e-6).
+- L2: TS p4/5 E 0.97 L +2.35000 (eps -0.438); matched Kerr L +2.34202 (within 5e-6).
+- L3: TS p3/5 E 0.95 L -1.60000 (eps -0.424); matched Kerr L -1.55356 (within 2e-5).
+
+**Launch and cut:** y0 = 0, p_x0 = 0, p_y0 > 0 from the mass shell (as V11/V12). Plunge cut x < 1.5 (V12
+convention; x is dimensionless, so it is chart-invariant).
+
+**Window procedure (OURS, fixed now; the V12 windows are only a cross-check):**
+- Scan x0 over 400 points from the smallest allowed x0 > 1.5 upward by 6, integrating T_scan = 3000 tau.
+- x_t = the smallest x0 whose next 5 grid points all survive T_scan (the inner survive onset).
+- Window = [x_t - 0.025, x_t + 0.025]. 40 orbits on a uniform offset grid (fraction 1/5).
+- The SAME procedure for TS and matched Kerr; each gets its own window.
+- Cross-check (V12 chart, x is scale-free): TS L1 [9.8928, 9.9391], L2 [10.2411, 10.2864], L3 [6.7010, 6.7310];
+  Kerr L1 [4.9791, 5.0091], L2 [5.1348, 5.1648], L3 [3.4490, 3.4790].
+
+**Run:** T = 3e4, 5-tau series, dt from the 1e-10 drift pilot, frozen rule v2 and table (unchanged), one verdict per
+orbit.
+
+**PRIMARY:** pooled one-sided CMH, TS CHAOTIC > Kerr CHAOTIC, strata = L1, L2, L3, alpha 0.05.
+**SECONDARY:** per-level Fisher + Holm; the plunger/survivor split; lifetimes; the descriptive alt-threshold readout.
+
+**My predictions (written first; after my near-separatrix prediction FAILED, I hold these with less confidence):**
+- Kerr window: CHAOTIC <= 3% per level. Its plungers are mostly ABSTAIN-ENDED-LOW.
+- TS window: CHAOTIC 15-50% per level. V12 realisation sensitivity was 17-37%, and the probe found transient chaos
+  with most chaotic orbits plunging within ~300 crossings.
+- TS CHAOTIC mostly PLUNGERS with lifetimes 25-1e4 tau.
+- ABSTAIN-TOO-SHORT (< 25 tau): <= 15% of TS orbits. Windows straddle the transition, so some direct plungers are
+  expected; chaotic transients are expected to live hundreds to thousands of tau.
+- Pooled CMH p < 0.05.
+- **Contradiction clause:** TS CHAOTIC <= Kerr at all 3 levels, or TS orbits mostly ABSTAIN-TOO-SHORT, would mean
+  MEGNO does NOT see the V12/α/probe chaos at feasible lifetimes. That would be reported as MEGNO's limit, not as
+  evidence against the chaos (two other implementations found it).
