@@ -1164,7 +1164,7 @@ results in `curvature/notes/lab_notebook.md`.
   (p: 2.9e-07 → 0.40). Two designs, opposite failures, no third attempted. **ADDITIVE mutation DEMONSTRATED the
   anti-guard**: a common spurious log shrinks the corner spread 1.116%→0.516% — the headline gets *easier* on
   corrupted data; the multiplicative control is exactly invariant, which is why the obvious corruption test
-  shows nothing. 180 + 186 in verify.sh. **silent_nulls → 76** (72: an eligibility filter on a statistic silently removes the population the statistic was built for -- §196 dropped the shortest ZV transients; report n_in vs n_analysed). (55: an artifact that does not record the MODE it was produced in cannot be checked
+  shows nothing. 180 + 186 in verify.sh. **silent_nulls → 77** (73: a max over an empty set with default 0.0 certified perfect accuracy -- §196 deep pilot. 72: an eligibility filter on a statistic silently removes the population the statistic was built for -- §196 dropped the shortest ZV transients; report n_in vs n_analysed). (55: an artifact that does not record the MODE it was produced in cannot be checked
   for reproduction — 175 stored a --fast run and said so nowhere; a faithful full-mode re-run disagreed on 8/10
   fields and looked exactly like drift, while --fast reproduces 13/13. The false-alarm direction is the costly
   one: a reproduction check that flags correct artifacts gets switched off. 54: a number with ONE LEGITIMATE JOB acquires unearned authority for the job next
@@ -1217,7 +1217,11 @@ results in `curvature/notes/lab_notebook.md`.
   rule, validated on unseen levels: integrable false alarm 0/180, tori 1/103, transient chaos 34/34, bounded chaos
   37/37; integrable plungers do not inflate MEGNO (answers Hartl 2003's chaos mimics). Pre-registered TS run:
   **0/360 CHAOTIC near the separatrix (eps -0.01..-0.05), identical to matched Kerr; prediction falsified.** Deep-level
-  (alpha-study) TS chaos was not sampled; that would be a separate pre-registration. Notes:
+  (alpha-study) run (separate prereg, 2026-10-12): mechanical clause read "(ii) GENUINE TENSION" (CMH p 0.18) but the
+  run is VOID: the dt pilot measured drift on survivors only, all pilot orbits plunged, max over the empty set
+  returned 0.0, so dt 0.05 was accepted; 240/240 orbits above the 1e-9 drift standard (TS plungers up to 0.18).
+  Kerr 33-45% CHAOTIC (my <=3% prediction failed) is contaminated too. All 6 windows match V12. Rerun amendment
+  proposed, awaiting The Bridge. silent_nulls 73. Owed: re-score the earlier 196 runs with the 1e-9 cut. Notes:
   curvature/notes/established_indicator_plan.md; code: scripts/196_chaos_indicators.py.
 - Remaining curvature queue (RE-CHECKED 2026-09-23). DONE this session: the C anomaly (§191/191b) and the
   well-separated Carter pair (§192). Open: WHY C's angular shift is nearly orbit-constant (hypothesis: close to a

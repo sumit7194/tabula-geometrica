@@ -387,3 +387,72 @@ MEGNO does not flag:
     something other than a positive Lyapunov exponent along those orbits), NOT dismissal.
 - Per level, the same split is reported descriptively.
 - If the CMH IS significant: TS chaos at the α window is confirmed by a third, independent method.
+
+## DEEP-LEVEL RESULT (2026-10-12 23:56): mechanical verdict recorded verbatim, then VOID on a pre-registered accuracy standard
+**Mechanical output (`--analyze-deep`, unedited):**
+- PRIMARY CMH z = 0.928, one-sided p = 0.177, not significant.
+- f_long (TS) = 1.0 pooled and 1.0 at every level.
+- **CLAUSE: "(ii) GENUINE TENSION: MEGNO does not confirm chaos at the alpha-study window, despite adequate
+  lifetimes"**
+
+| level | TS2 (n=40) | Kerr (n=40) | Fisher p (Holm) |
+|---|---|---|---|
+| L1 | CHAOTIC 25 (15 plungers, 10 survivors), ABSTAIN-ENDED-LOW 15 | CHAOTIC 14 (all plungers, life 57-142 tau), REGULAR 26 | 0.012 (0.037) |
+| L2 | CHAOTIC 18 (6 plungers, 12 survivors), REGULAR 7, ABSTAIN-ENDED-LOW 15 | CHAOTIC 18 (all plungers, life 56-99 tau), REGULAR 22 | 0.59 (1) |
+| L3 | CHAOTIC 10 (8 plungers, 2 survivors), REGULAR 21, ABSTAIN-ENDED-LOW 9 | CHAOTIC 13 (all plungers, life 27-45 tau), REGULAR 22, ABSTAIN-ENDED-LOW 5 | 0.84 (1) |
+
+**Windows (our procedure) vs the V12 cross-check: all six land inside.**
+
+| system | L1 x_t (V12 window) | L2 x_t (V12 window) | L3 x_t (V12 window) |
+|---|---|---|---|
+| TS | 9.907 ([9.893, 9.939]) | 10.257 ([10.241, 10.286]) | 6.721 ([6.701, 6.731]) |
+| Kerr | 5.003 ([4.979, 5.009]) | 5.153 ([5.135, 5.165]) | 3.468 ([3.449, 3.479]) |
+
+That is an independent agreement on WHERE the transition is. The scan used a working pilot (use_all).
+
+**My predictions:**
+- FAILED: Kerr CHAOTIC <= 3%. Observed 35%, 45% and 33%, every one of them a short-lived plunger.
+- FAILED: CMH p < 0.05.
+- HELD: TS CHAOTIC 15-50% per level (observed 62% / 45% / 25%; L1 is above the band).
+- HELD: ABSTAIN-TOO-SHORT <= 15% (0).
+
+**VOID: the run violated its own pre-registered accuracy standard ("dt from the 1e-10 drift pilot").**
+- All six main jobs record `dt = 0.05, pilot_drift = 0.0`.
+- `pilot_dt` measures drift on the pilot's SURVIVORS only (use_all=False) and takes `np.max(..., initial=0.0)`.
+  Its 12 pilot orbits are the first 12 x0 of each window, the low-x end, below the transition, and all of them
+  plunged. The empty set therefore returned 0.0, "perfect", and the coarsest dt passed on the first try. The
+  same procedure's own scan pilot (use_all=True) needed dt = 7.8e-4 (TS) and 1.6e-3 (Kerr).
+- Per-orbit energy drift in the main runs: **240/240 orbits exceed the 1e-9 standard.**
+  - Survivors: 3e-9 to 3e-6.
+  - Kerr plungers: up to 8e-5.
+  - **TS plungers: up to 0.18 (an 18% energy error).**
+  - Both the TS CHAOTIC counts and the Kerr false alarms are therefore contaminated by integration error. Neither
+    the clause outcome nor the failed Kerr prediction can be read as physics.
+- Second gap, found in the same audit: the "1e-9 acceptance cut" named in the DRIFT_TARGET comment is NOT applied
+  anywhere in the 196 analyses. Orbits above it are verdicted like any other.
+- Earlier §196 runs had working pilots (no zero pilot except one report-only ZV orbit in measurement 1). Orbits
+  above 1e-9 there: validation 22/431, TS near-separatrix 28/720, calibration 43/440, measurement 2 23/422. These
+  have NOT yet been checked against their verdicts. Owed before the validation numbers are quoted again: re-score
+  with the 1e-9 cut, reporting n_in vs n_analysed.
+
+**On the asymmetry of this catch (said plainly).** I looked for a bug BECAUSE the Kerr false-alarm rate surprised
+me. Bug-hunting only on surprising results is a bias: a confirming result would have had the same defect, and I
+would probably not have looked. What makes the voiding legitimate anyway: the criterion is the pre-registered
+accuracy standard, it is objective, and it fails on 240/240 orbits whichever way the result points. A confirming
+CMH would be void for the same reason. Recorded so this is not mistaken for "dismissing a result I did not like":
+the result I did not like is (ii), and the clause I wrote says (ii) needs explanation, not dismissal. Voiding on
+accuracy is neither; it says this run does not answer the question.
+
+**Rerun: a proposed amendment, NOT yet adopted (for The Bridge's review before any rerun):**
+1. The pilot measures drift over each orbit's LIFE (use_all semantics) on 12 orbits spread evenly over the window,
+   not the first 12. An empty or all-plunged pilot is impossible by construction; if the measured drift were ever
+   empty, it would be REFUSED, never read as 0.
+2. A per-orbit acceptance cut of 1e-9 inside the analysis, with n_in vs n_analysed per level and system
+   (silent_nulls 72). If more than 25% of a cell is excluded, that cell is reported UNREADABLE, not verdicted.
+3. If the 1e-3 dt floor stops the pilot before it reaches the target, say so in the report.
+4. Speed only, with no effect on results: stop stepping once every orbit has plunged.
+- Open design question for The Bridge: plungers approaching x = 1.5 may need dt well below the floor to reach
+  1e-9 (TS plungers drift 0.18 at dt 0.05). Should the acceptance for plungers be over the life up to the cut, or
+  stop earlier (e.g. at the last 5-tau checkpoint before the cut)? Either must be fixed before the rerun.
+- Cost estimate from the measured step costs: Kerr ~3 h per level at dt 1.6e-3; TS ~1 day per level at dt 7.8e-4
+  (3 levels in parallel).

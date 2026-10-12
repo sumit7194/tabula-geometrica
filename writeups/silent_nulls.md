@@ -2959,3 +2959,27 @@ population. The output then looks complete, because the dropped rows have no row
   cleanup.
 - The resolution of a measurement (here, series spacing) must be fixed against the shortest population it is meant
   to see.
+
+### 73. A maximum over an empty set, with a default of zero, certifies perfect accuracy
+
+**The incident (§196 deep-level run, 2026-10-12).** The step-size pilot halves dt until the max energy drift of
+its orbits is <= 1e-10. It measures drift on SURVIVING orbits only: `np.max(hdrift[survivors], initial=0.0)`.
+- The pilot's 12 orbits were the low-x end of a window that straddles a plunge/survive transition, and all of
+  them plunged. So the max ran over an empty set and returned its default, 0.0, which reads as perfect.
+- The coarsest dt (0.05) passed on the first try, in all six jobs, and the artifacts faithfully recorded
+  `pilot_drift: 0.0`.
+- The real per-orbit drift: 240/240 orbits above the 1e-9 standard, up to 0.18 for TS plungers.
+- Six hours of compute produced a mechanically verdicted, pre-registered result on unvalidated integrations.
+
+**Why it is silent.** `initial=0.0` is there to stop an exception, and that is reasonable code. But it makes "no
+measurement" and "measured zero" the same value, and zero is the PASSING value. A default that equals the best
+possible reading converts every failure to measure into a pass. The artifact also looked healthy: it had a
+`pilot_drift` field, and the field held a number.
+
+**Rule:**
+- A reduction over a possibly-empty set must not have a default equal to a passing value. Use NaN or refuse.
+  "I could not measure" is a third value, never absorbed into the pass.
+- A pilot must be built so that it cannot be empty, e.g. by measuring each orbit over its life rather than
+  survivors only.
+- An exact 0.0 in a field that measures a noisy physical error is a red flag, not good news. Real drift is never
+  exactly zero.

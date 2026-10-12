@@ -11,6 +11,26 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-10-12 (evening) — deep-level MEGNO run VOID on its own accuracy standard; verify.sh not exposed to the Accelerate bug
+- **Deep-level MEGNO (α-study windows), pre-registered.** All six jobs finished after about 9 h. The mechanical
+  clause printed "(ii) GENUINE TENSION" (CMH p = 0.18; TS f_long = 1.0).
+  - **VOID:** the dt pilot measured drift on survivors only, and its orbits all plunged. The max over the empty
+    set returned 0.0, so dt 0.05 passed unchecked. 240/240 orbits are above the 1e-9 standard, with TS plungers
+    up to 18% energy error.
+  - My Kerr ≤3% CHAOTIC prediction failed (33-45%, all short plungers), but that is contaminated too.
+  - Positive: all six transition windows found by our own procedure land inside the V12 windows.
+  - Said plainly: I found the bug because a number surprised me. The voiding stands because the criterion is the
+    pre-registered accuracy standard, failed by every orbit, whichever way the result points.
+  - Rerun amendment proposed (life-drift pilot, a 1e-9 acceptance cut with n_in vs n_analysed, and an UNREADABLE
+    rule), awaiting The Bridge's review. silent_nulls 73. Owed: re-score the earlier 196 runs with the 1e-9 cut.
+- **verify.sh Accelerate-exposure audit: not exposed.** Under Guard Malloc only the explicit real-valued QR entry
+  points fault; svd, lstsq, pinv, eigh, solve, gelsy and complex zgeqrf are clean. The suite's only QR is complex.
+  The first sweep was invalid (`nice` stripped DYLD) and was caught by the positive control. Details in
+  notes/heap_corruption_hunt.md.
+- A self-correction, caught by the commit gate: I "fixed" the silent_nulls count from 76 to 73 after a grep
+  that missed the lettered entries (45a, 68a-c). The doc-claims audit refused the commit. The count is 77
+  (entry number 73).
+
 ## 2026-10-12 — §196 MEGNO: validated chaos detector; TS near-separatrix result is a falsified prediction
 - Plunge geometry fixed first (The Bridge's catch, verified against exact BPT): the r < 3 cut sat outside the
   prograde barrier. Separatrix now from the barrier (gated to 2e-10). §193-195 prograde rows flagged.
