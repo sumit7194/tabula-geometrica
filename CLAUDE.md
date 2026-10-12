@@ -1221,7 +1221,10 @@ results in `curvature/notes/lab_notebook.md`.
   run is VOID: the dt pilot measured drift on survivors only, all pilot orbits plunged, max over the empty set
   returned 0.0, so dt 0.05 was accepted; 240/240 orbits above the 1e-9 drift standard (TS plungers up to 0.18).
   Kerr 33-45% CHAOTIC (my <=3% prediction failed) is contaminated too. All 6 windows match V12. Rerun amendment
-  proposed, awaiting The Bridge. silent_nulls 73. Owed: re-score the earlier 196 runs with the 1e-9 cut. Notes:
+  3a84fa6 (Bridge-approved; life-drift pilot + known-fail self-test, 1e-9 acceptance to t_dec, UNREADABLE >25%,
+  Kerr-control gate p0 0.03) RUNNING as results/196_deep_v2 (3 workers, ~2 days). silent_nulls 73. Re-score with the
+  1e-9 cut (a71019e): validation ALL PASS unchanged (V1 0/170), TS near-separatrix still 0 CHAOTIC; every excluded
+  orbit a would-be ABSTAIN plunger. Notes:
   curvature/notes/established_indicator_plan.md; code: scripts/196_chaos_indicators.py.
 - Remaining curvature queue (RE-CHECKED 2026-09-23). DONE this session: the C anomaly (§191/191b) and the
   well-separated Carter pair (§192). Open: WHY C's angular shift is nearly orbit-constant (hypothesis: close to a

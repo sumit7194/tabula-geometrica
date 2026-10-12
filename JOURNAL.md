@@ -11,6 +11,19 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-10-13 — deep-level rerun launched under a Bridge-approved amendment; earlier §196 results survive the drift cut
+- Amendment 3a84fa6 (post-result, disclosed):
+  - a life-drift pilot that REFUSES when empty, with a known-fail self-test (5/5; the real dt-0.05 case now
+    fails);
+  - acceptance |dH/H| <= 1e-9 up to the reading time t_dec, n_in vs n_analysed, and an UNREADABLE rule;
+  - a Kerr-control gate ("MEGNO cannot discriminate at this window").
+  The decision clauses are unchanged. Launched before the Bridge's check (it was approved afterwards; noted as a
+  process slip).
+- The Bridge's (i) answered: the frozen null is not matched to deep, spherical-orbit-adjacent plungers. At the
+  accuracy standard, the 25-100 tau integrable-plunger null is empty.
+- Re-score a71019e: validation ALL PASS unchanged; the near-separatrix TS 0 CHAOTIC stands. Every excluded orbit
+  was a would-be ABSTAIN plunger.
+
 ## 2026-10-12 (evening) — deep-level MEGNO run VOID on its own accuracy standard; verify.sh not exposed to the Accelerate bug
 - **Deep-level MEGNO (α-study windows), pre-registered.** All six jobs finished after about 9 h. The mechanical
   clause printed "(ii) GENUINE TENSION" (CMH p = 0.18; TS f_long = 1.0).
