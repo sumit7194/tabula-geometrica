@@ -254,3 +254,24 @@ CHAOTIC orbits, and the descriptive readout without the two disputed tori.
   TS vs Kerr.
 - Scope note: these levels sit NEAR the separatrix (eps -0.01 to -0.05), complementary to the α study's deep open
   levels (eps ~ -0.4 to -0.5).
+
+## Prior art (suggested by The Bridge; each VERIFIED here 2026-10-12; content claims checked in the full text, not only the abstract)
+- **Hartl 2003**, PRD 67, 104023 (arXiv:gr-qc/0302103), section "S = 0 and chaos mimics", Figs. 3, 4, 22-24:
+  non-spinning (S = 0) test particles in MAXIMAL Kerr (a = 1) are integrable, yet their tangent deviation can grow
+  by ~1e6-1e8, which Hartl attributes to zoom-whirl behaviour ("chaos mimics"). Hartl's guard: several saturation
+  events in a row. **Relation to 196:** this is the published form of the V11 worry. Our finding is that
+  TIME-WEIGHTED MEGNO does not false-fire on integrable Kerr near the separatrix (survivors <= 2.08 after 3e3 tau;
+  integrable PLUNGERS' final ⟨Y⟩ <= 2.15). Note the spin difference: Hartl a = 1, ours a = 0.6 and 0.8.
+- **Polcar, Suková & Semerák 2019**, ApJ 877, 16 (arXiv:1905.07646), Sec. ~3 and Fig. 7: introduce a "relative
+  MEGNO" = MEGNO divided by the proper time the orbit was followed, because divergence indicators only reach their
+  values asymptotically and the most chaotic particles leave an opening region first. **Distinction from 196:** we
+  do NOT normalise MEGNO by time. We compare ⟨Y⟩ at an orbit's own lifetime against a DURATION-MATCHED null (a
+  per-lifetime-bin p99 table from integrable orbits, tori and integrable plungers truncated at the same durations).
+  Both address the same short-lived-orbit bias; ours calibrates false alarms explicitly, theirs rescales the statistic.
+- **Lai & Tél 2011**, *Transient Chaos: Complex Dynamics on Finite-Time Scales*, Springer AMS 173: the standard
+  framework for transient chaos and chaotic scattering (bibliographic details verified).
+- **Lau, Finn & Ott 1991**, PRL 66, 978: non-hyperbolic chaotic scattering (KAM tori present) has a singular set of
+  fractal dimension ~1. VERIFIED from the abstract only. The "small effective exponents" reading suggested to me was
+  NOT found there, so this paper is cited only for the non-hyperbolic distinction.
+- Novelty wording, per The Bridge's sweep (not verified independently by me): "to our knowledge" no prior
+  MEGNO/SALI benchmark on near-separatrix Kerr.
