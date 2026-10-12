@@ -1,0 +1,121 @@
+{
+ "V1_integrable_false_alarm": {
+  "n": 170,
+  "chaotic": 0,
+  "rate": 0.0,
+  "upper95": 0.017467595939292715,
+  "too_short": 0,
+  "pass": true
+ },
+ "V2_tori_false_alarm": {
+  "n": 103,
+  "chaotic": 1,
+  "rate": 0.009708737864077669,
+  "upper95": 0.0452283017112548,
+  "pass": true
+ },
+ "V3_transient_detection": {
+  "n": 34,
+  "chaotic": 34,
+  "rate": 1.0,
+  "pass": true
+ },
+ "V4_bounded_chaos_detection": {
+  "n": 37,
+  "chaotic": 37,
+  "rate": 1.0,
+  "pass": true
+ },
+ "V5_all_verdicted": {
+  "n_orbits": 409,
+  "pass": true
+ },
+ "unlabelled_hh": 13,
+ "ALL_PASS": true,
+ "audit": {
+  "val_hh_0.10": {
+   "n_in": 60,
+   "n_analysed": 60,
+   "excluded_by_truth_verdict": {}
+  },
+  "val_hh_0.14": {
+   "n_in": 60,
+   "n_analysed": 60,
+   "excluded_by_truth_verdict": {}
+  },
+  "val_hh_1o12": {
+   "n_in": 40,
+   "n_analysed": 40,
+   "excluded_by_truth_verdict": {}
+  },
+  "val_hh_open_0.20": {
+   "n_in": 60,
+   "n_analysed": 60,
+   "excluded_by_truth_verdict": {}
+  },
+  "val_kerr_p35_pro_E0.97": {
+   "n_in": 20,
+   "n_analysed": 20,
+   "excluded_by_truth_verdict": {}
+  },
+  "val_kerr_p35_pro_eps-0.07": {
+   "n_in": 20,
+   "n_analysed": 20,
+   "excluded_by_truth_verdict": {}
+  },
+  "val_kerr_p45_pro_E0.95": {
+   "n_in": 20,
+   "n_analysed": 19,
+   "excluded_by_truth_verdict": {
+    "integrable/ABSTAIN-ENDED-LOW": 1
+   }
+  },
+  "val_kerr_p45_pro_eps-0.02": {
+   "n_in": 20,
+   "n_analysed": 19,
+   "excluded_by_truth_verdict": {
+    "integrable/ABSTAIN-ENDED-LOW": 1
+   }
+  },
+  "val_kerr_p45_pro_eps-0.07": {
+   "n_in": 20,
+   "n_analysed": 19,
+   "excluded_by_truth_verdict": {
+    "integrable/ABSTAIN-ENDED-LOW": 1
+   }
+  },
+  "val_kerr_p45_retro_eps-0.02": {
+   "n_in": 20,
+   "n_analysed": 20,
+   "excluded_by_truth_verdict": {}
+  },
+  "val_kerr_p45_retro_eps-0.07": {
+   "n_in": 20,
+   "n_analysed": 16,
+   "excluded_by_truth_verdict": {
+    "integrable/ABSTAIN-TOO-SHORT": 2,
+    "integrable/ABSTAIN-ENDED-LOW": 2
+   }
+  },
+  "val_schw_E0.97_eps-0.02": {
+   "n_in": 20,
+   "n_analysed": 20,
+   "excluded_by_truth_verdict": {}
+  },
+  "val_schw_eps-0.07": {
+   "n_in": 20,
+   "n_analysed": 17,
+   "excluded_by_truth_verdict": {
+    "integrable/ABSTAIN-TOO-SHORT": 1,
+    "integrable/ABSTAIN-ENDED-LOW": 2
+   }
+  },
+  "val_zv2_L1.475": {
+   "n_in": 31,
+   "n_analysed": 19,
+   "excluded_by_truth_verdict": {
+    "zv-report-only/CHAOTIC": 12
+   }
+  }
+ }
+}

@@ -892,7 +892,7 @@ def alt_table_without(disputed):
             for i in range(len(BINS))]
 
 
-def score_validation(rep, table):
+def score_validation(rep, table, out_name="196_validate_score.json", secondary=True):
     from scipy.stats import beta
     ub = lambda k, n: float(beta.ppf(0.95, k + 1, n - k)) if n else None   # one-sided 95% Clopper-Pearson upper
     rows = [(nm, r) for nm, v in rep.items() for r in v["rows"]]
@@ -921,6 +921,10 @@ def score_validation(rep, table):
         "unlabelled_hh": sum(1 for nm, r in rows if r["truth"] == "unlabelled"),
     }
     res["ALL_PASS"] = all(v["pass"] for k, v in res.items() if k.startswith("V"))
+    if not secondary:
+        (RESULTS / out_name).write_text(json.dumps(res, indent=1, default=float))
+        print(json.dumps(res, indent=1, default=float))
+        return res
     dis = disputed_tori()
     alt = alt_table_without(dis)
     alt_tab = dict(table, threshold_p99=alt)
@@ -990,7 +994,63 @@ def holm(ps):
     return adj
 
 
-def analyze_ts(deep=False):
+def _life_drifts(d):
+    """Per-orbit |dH/H| over the life, in _orbits order (handles ZV 'parts')."""
+    return [h for p in (d["parts"] if "parts" in d else [d]) for h in p["hdrift"]]
+
+
+def rescore_drift_cut(cut=1e-9):
+    """The owed re-score (after the deep void): the 1e-9 standard was never applied in the 196 analyses. These runs
+    recorded only LIFE drift (>= drift up to t_dec), so the cut is conservative. Originals are not overwritten."""
+    table = json.load(open(TABLE_FILE))
+    rep = json.load(open(RESULTS / "196_validate_report.json"))
+    audit, rep_cut = {}, {}
+    for nm, v in rep.items():
+        hd = _life_drifts(json.load(open(OUTD4 / f"{nm}.json")))
+        assert len(hd) == len(v["rows"]), nm
+        keep = [r_ for r_, h in zip(v["rows"], hd) if h <= cut]
+        drop = [r_ for r_, h in zip(v["rows"], hd) if h > cut]
+        audit[nm] = {"n_in": len(v["rows"]), "n_analysed": len(keep),
+                     "excluded_by_truth_verdict": {f"{r_['truth']}/{r_['verdict']}": sum(
+                         1 for x in drop if (x["truth"], x["verdict"]) == (r_["truth"], r_["verdict"])) for r_ in drop}}
+        rep_cut[nm] = {"n": len(keep), "rows": keep}
+    print("VALIDATION audit:", json.dumps({k: v for k, v in audit.items() if v["n_in"] != v["n_analysed"]}))
+    sc = score_validation(rep_cut, table, out_name="196_validate_score_cut1e-9.json", secondary=False)
+    sc["audit"] = audit
+    (RESULTS / "196_validate_score_cut1e-9.json").write_text(json.dumps(sc, indent=1, default=float))
+    analyze_ts(drift_cut=cut)
+    cls = {"integrable": [[] for _ in BINS], "tori": [[] for _ in BINS]}   # descriptive: table without over-cut orbits
+    fin, n_drop = [[] for _ in BINS], 0
+    for f in sorted(OUTD3.glob("*.json")):
+        d = json.load(open(f))
+        hd = _life_drifts(d)
+        for g, (t, Y, life, ftle, ex) in enumerate(_orbits(d)):
+            lab = (d.get("k01_label") or [None] * 10 ** 6)[g]
+            k_ = "integrable" if d["kind"] == "kerrlike" else ("tori" if d["kind"] == "hh" and life >= d["T"] and
+                                                               lab == "torus" else None)
+            if k_ is None:
+                continue
+            if hd[g] > cut:
+                n_drop += 1
+                continue
+            for tk in np.arange(GRID, min(life, d["T"]) + 1e-9, GRID):
+                v = _grid_value(t, Y, tk)
+                if v is not None:
+                    cls[k_][_bin_of(tk)].append(v)
+            if life < d["T"] and np.floor(life / GRID) * GRID >= GRID:
+                v = _grid_value(t, Y, np.floor(life / GRID) * GRID)
+                if v is not None:
+                    fin[_bin_of(np.floor(life / GRID) * GRID)].append(v)
+    thr_cut = [max(x for x in (float(np.percentile(cls["integrable"][i], 99)), float(np.percentile(cls["tori"][i], 99)),
+                               float(np.percentile(fin[i], 99)) if fin[i] else None) if x is not None)
+               for i in range(len(BINS))]
+    desc = {"null_orbits_dropped": n_drop, "threshold_frozen": table["threshold_p99"], "threshold_if_cut": thr_cut,
+            "n_plunger_final_if_cut": [len(f_) for f_ in fin], "note": "descriptive only; the frozen table is unchanged"}
+    (RESULTS / "196_table_cut1e-9_descriptive.json").write_text(json.dumps(desc, indent=1))
+    print("TABLE (descriptive):", json.dumps(desc))
+
+
+def analyze_ts(deep=False, drift_cut=None):
     from scipy.stats import fisher_exact
     table = json.load(open(TABLE_FILE))
     alt = alt_table_without(disputed_tori())
@@ -1006,13 +1066,20 @@ def analyze_ts(deep=False):
             if deep:
                 rec.setdefault("windows", {})[sysn] = {"window": d.get("window"), "scan": d.get("scan")}
             vs, lives, chaos_split, Ys, alt_v = [], [], {"plunger": 0, "survivor": 0}, [], []
-            for t, Y, life, ftle, ex in _orbits(d):
+            hd = _life_drifts(d) if drift_cut else None
+            n_in, excl = 0, {}
+            for g, (t, Y, life, ftle, ex) in enumerate(_orbits(d)):
+                n_in += 1
+                if drift_cut and hd[g] > drift_cut:
+                    k_ = f"{'plunger' if life < d['T'] else 'survivor'}/{verdict_megno(t, Y, life, d['T'], table)[0]}"
+                    excl[k_] = excl.get(k_, 0) + 1
+                    continue
                 v, val = verdict_megno(t, Y, life, d["T"], table)
                 vs.append(v); lives.append(life); Ys.append(val)
                 alt_v.append(verdict_megno(t, Y, life, d["T"], alt_tab)[0])
                 if v == "CHAOTIC":
                     chaos_split["plunger" if life < d["T"] else "survivor"] += 1
-            rec[sysn] = {"n": len(vs), "counts": {x: vs.count(x) for x in sorted(set(vs))},
+            rec[sysn] = {"n": len(vs), "n_in": n_in, "excluded_UNSCORED_not_used_in_any_test": excl, "counts": {x: vs.count(x) for x in sorted(set(vs))},
                          "chaotic_split": chaos_split,
                          "chaotic_lifetimes": [l_ for l_, v in zip(lives, vs) if v == "CHAOTIC"],
                          "megno_at_tdec": Ys, "l_sep": d.get("l_sep"), "L": d.get("L"), "all_lifetimes": lives,
@@ -1042,11 +1109,13 @@ def analyze_ts(deep=False):
             out["CLAUSE"] = ("(ii) GENUINE TENSION: MEGNO does not confirm chaos at the alpha-study window, "
                              "despite adequate lifetimes")
         print("f_long (TS, pooled):", f_long, "| per level:", out["f_long_TS_per_level"], "| CLAUSE:", out["CLAUSE"])
-    (RESULTS / ("196_deep_report.json" if deep else "196_ts_report.json")).write_text(
+    (RESULTS / ("196_deep_report.json" if deep else
+                ("196_ts_report_cut1e-9.json" if drift_cut else "196_ts_report.json"))).write_text(
         json.dumps(out, indent=1, default=float))
     print("PRIMARY CMH:", out["PRIMARY_cmh"], "| levels Holm-significant:", out["n_levels_holm_sig"], "of", len(levels))
     for r in levels:
-        print(f"{r['level']:28s} TS {r['TS2']['counts']} split {r['TS2']['chaotic_split']} | Kerr {r['Kerr']['counts']}"
+        print(f"{r['level']:28s} n {r['TS2']['n']}/{r['TS2']['n_in']} vs {r['Kerr']['n']}/{r['Kerr']['n_in']} "
+              f"TS {r['TS2']['counts']} split {r['TS2']['chaotic_split']} | Kerr {r['Kerr']['counts']}"
               f" | Fisher p {r['fisher_p']:.3g} Holm {r['fisher_holm']:.3g}")
 
 
@@ -1079,6 +1148,7 @@ def analyze_deep2():
                 rows.append({"x0": ex["x0"], "life": life, "t_dec": tdec, "verdict": v, "megno_at_tdec": val,
                              "drift_to_tdec": hd, "accuracy_held": held})
             acc = [r_ for r_ in rows if r_["accuracy_held"]]
+            exc = [r_ for r_ in rows if not r_["accuracy_held"]]
             vs = [r_["verdict"] for r_ in acc]
             rec[sysn] = {"n_in": len(rows), "n_analysed": len(acc), "n_excluded_accuracy": len(rows) - len(acc),
                          "unreadable": (len(rows) - len(acc)) > UNREADABLE_FRAC * len(rows),
@@ -1087,6 +1157,10 @@ def analyze_deep2():
                                                           and r_["life"] < d["T"]),
                                            "survivor": sum(1 for r_ in acc if r_["verdict"] == "CHAOTIC"
                                                            and r_["life"] >= d["T"])},
+                         "excluded_UNSCORED_not_used_in_any_test": {   # The Bridge: could exclusion move it?
+                             f"{'plunger' if r_['life'] < d['T'] else 'survivor'}/{r_['verdict']}":
+                                 sum(1 for x in exc if (x["life"] < d["T"]) == (r_["life"] < d["T"])
+                                     and x["verdict"] == r_["verdict"]) for r_ in exc},
                          "dt": d["dt"], "pilot_drift": d["pilot_drift"], "pilot_v2": d.get("pilot_v2"),
                          "window": d.get("window"), "scan": d.get("scan"), "orbits": rows}
         kK, nK = rec["Kerr"]["counts"].get("CHAOTIC", 0), rec["Kerr"]["n_analysed"]
@@ -1128,7 +1202,9 @@ def analyze_deep2():
     for r_ in levels:
         print(f"{r_['level']} {r_['status']} | TS {r_['TS2']['counts']} n {r_['TS2']['n_analysed']}/{r_['TS2']['n_in']}"
               f" dt {r_['TS2']['dt']:.3g} | Kerr {r_['Kerr']['counts']} n {r_['Kerr']['n_analysed']}/"
-              f"{r_['Kerr']['n_in']} dt {r_['Kerr']['dt']:.3g} | gate p {r_['kerr_gate_p']} | Fisher {r_['fisher_p']}")
+              f"{r_['Kerr']['n_in']} dt {r_['Kerr']['dt']:.3g} | gate p {r_['kerr_gate_p']} | Fisher {r_['fisher_p']}"
+              f" | excluded (UNSCORED) TS {r_['TS2']['excluded_UNSCORED_not_used_in_any_test']}"
+              f" Kerr {r_['Kerr']['excluded_UNSCORED_not_used_in_any_test']}")
     return out
 
 
@@ -1149,6 +1225,7 @@ if __name__ == "__main__":
     ap.add_argument("--deep", action="store_true")
     ap.add_argument("--analyze-deep", action="store_true")
     ap.add_argument("--selftest-pilot", action="store_true")
+    ap.add_argument("--rescore-drift-cut", action="store_true")
     ap.add_argument("--deep2", action="store_true")
     ap.add_argument("--analyze-deep2", action="store_true")
     ap.add_argument("--workers", type=int, default=4)
@@ -1185,6 +1262,8 @@ if __name__ == "__main__":
         measure(a.workers, a.only, JOBS6, resume=a.resume)
     if a.analyze_deep:
         analyze_ts(deep=True)
+    if a.rescore_drift_cut:
+        rescore_drift_cut()
     if a.selftest_pilot:
         selftest_pilot()
     if a.deep2:

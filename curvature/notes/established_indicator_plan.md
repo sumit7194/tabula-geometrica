@@ -522,3 +522,31 @@ TS ~2 days per level (scan + pilot at dt ~8e-4 + MEGNO).
 **Owed in parallel:** re-score validation (22/431 over the cut) and TS near-separatrix (28/720). Run 1 recorded
 only life-drift there, which is >= drift-to-t_dec, so the re-score excludes conservatively and reports n_in vs
 n_analysed. The Bridge has marked those ledger lines UNDER RE-SCORE.
+
+### RE-SCORE of the earlier §196 analyses with the 1e-9 standard (2026-10-13; `--rescore-drift-cut`; originals untouched)
+Those runs recorded only LIFE drift, which is >= drift up to t_dec, so the cut is conservative: it can only
+over-exclude. Excluded orbits are broken down by fate and would-be verdict, UNSCORED and not used in any test (The
+Bridge's reporting addition, also built into the deep-v2 analysis).
+
+**Validation (results/196_validate_score_cut1e-9.json): ALL PASS unchanged.**
+- n_in 431, n_analysed 409.
+- V1 integrable: 0/170 CHAOTIC (was 0/180), CP95 1.75%; still n >= 150.
+- V2 tori: 1/103 (unchanged).
+- V3 transient chaos: 34/34. V4 bounded chaos: 37/37.
+- Excluded (unscored): integrable ABSTAIN-ENDED-LOW 7 and ABSTAIN-TOO-SHORT 3; ZV report-only CHAOTIC 12 (ZV is
+  in no V-test). No excluded orbit could have changed V1-V4.
+
+**TS near-separatrix (results/196_ts_report_cut1e-9.json): still 0 CHAOTIC on both sides; CMH z = 0, p = 0.5.**
+- n_analysed per cell is 31-40 of 40. The largest exclusion is p45 retro eps -0.05: 9/40 on BOTH sides, 22.5%,
+  under the 25% UNREADABLE line.
+- Every excluded orbit is a PLUNGER whose would-be verdict was ABSTAIN (ENDED-LOW or TOO-SHORT), never CHAOTIC. The
+  exclusion therefore cannot have hidden a CHAOTIC count. The falsified prediction stands as recorded.
+
+**Frozen threshold table (descriptive only; NOT adopted; the table stays frozen):**
+- 43 calibration null orbits exceed the cut.
+- Removing them changes the thresholds only in the 100-300 tau bin: 2.346 -> 2.355.
+- **All 8 integrable plunger finals in the 25-100 tau bin came from over-cut orbits.** That bin's threshold (2.161)
+  is set by the tori p99 either way, so it does not move. But it means the 25-100 tau integrable-plunger null is
+  EMPTY at the accuracy standard. That sharpens the deep-level answer to The Bridge's (i): the null is not matched,
+  and in the bin where run 1's Kerr false alarms sat, it has no accurate integrable plungers at all. The Kerr gate
+  is the remedy already in place.
