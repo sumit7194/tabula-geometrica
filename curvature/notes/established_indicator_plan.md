@@ -189,3 +189,28 @@ both halves, but MEGNO disagrees. They are kept in the null (the label rule is t
 - V4 bounded chaos: HH E 0.14 chaos-labelled; CHAOTIC >= 90%.
 - V5: every orbit has a verdict; counts are reported per group and verdict.
 - ZV δ=2 L = 1.475: report-only.
+
+## TABLE v2 (2026-10-12 08:40), after The Bridge's conditional sign-off: integrable PLUNGERS added, class-wise max
+- **Plungers added (bridge condition):** Kerr p4/5 pro/retro and p3/5 pro, plus Schwarzschild, at eps -0.05 and
+  -0.10; 30 orbits each, all kept in the null. 53 of 320 integrable orbits plunged: 13 before 25 tau (these get
+  ABSTAIN-TOO-SHORT and enter no bin), 8 in [25, 100), 32 in [100, 300), none later.
+  - **Integrable plungers do NOT inflate MEGNO:** their final ⟨Y⟩ maxima are 1.96 ([25, 100)) and 2.15
+    ([100, 300)), at or below the survivor p99s. The V11 zoom-whirl false-alarm mechanism does not appear in
+    time-weighted MEGNO.
+  - My process slip: the first plunger launch passed an unsplit zsh string to --only, so 0 jobs ran, and the
+    chained table rebuild silently used 4 old plungers. The frozen v1 was restored from git; the rebuild is now
+    gated on the expected job count.
+- **Pooling flaw found on rebuild:** adding 240 integrable orbits let integrable values outvote the tori. The pooled
+  long-bin p99 fell from 2.58 to 2.08, while the tori's own p99 there is 4.39, which would false-fire genuine
+  tori. v2 uses the max over classes:
+| bin | [25, 100) | [100, 300) | [300, 1e3) | [1e3, 3e3) | [3e3, 3e4] |
+|---|---|---|---|---|---|
+| p99 integrable | 1.983 | 2.346 | 2.370 | 2.038 | 2.040 |
+| p99 tori | 2.161 | 2.308 | 3.029 | 4.019 | 4.393 |
+| p99 plunger final | 1.938 | 2.146 | - | - | - |
+| **threshold v2 (max)** | **2.161** | **2.346** | **3.029** | **4.019** | **4.393** |
+- **Disclosed dependence:** the tori long-bin p99 (3.0-4.4) is set ENTIRELY by the two disputed tori (the 0-1 test
+  says torus on the whole window and both halves; MEGNO reaches 17.8 and 5.4; FTLE 1.5e-3 and 4.4e-4, 2-6x typical
+  tori). Without them the tori p99 is 2.1-2.2. They stay under the fixed label rule, which costs sensitivity to weak
+  long-lived chaos. An alternative for The Bridge: a third non-variational label (Laskar frequency drift, M5) that
+  must AGREE with the 0-1 test for "torus". Not adopted unilaterally.

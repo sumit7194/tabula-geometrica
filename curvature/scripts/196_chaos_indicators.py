@@ -606,13 +606,16 @@ def null_orbits(dirpath):
 def build_table():
     nulls, audit = null_orbits(OUTD3)
     pools = [[] for _ in BINS]
+    cls = {"integrable": [[] for _ in BINS], "tori": [[] for _ in BINS]}   # class-wise: neither class outvotes
     finals = [[] for _ in BINS]                           # integrable PLUNGERS: <Y> at their own t_dec (The Bridge)
     for name, (t, Y, life, f, ex) in nulls:
         T = 3e4
+        k_ = "tori" if "_hh_" in name else "integrable"
         for tk in np.arange(GRID, min(life, T) + 1e-9, GRID):
             v = _grid_value(t, Y, tk)
             if v is not None:
                 pools[_bin_of(tk)].append(v)
+                cls[k_][_bin_of(tk)].append(v)
         if life < T:
             tdec = np.floor(life / GRID) * GRID
             v = _grid_value(t, Y, tdec) if tdec >= GRID else None
@@ -620,8 +623,11 @@ def build_table():
                 finals[_bin_of(tdec)].append(v)
     p_pool = [float(np.percentile(p, 99)) for p in pools]
     p_fin = [float(np.percentile(f_, 99)) if len(f_) else None for f_ in finals]
-    thr = [max(a, b) if b is not None else a for a, b in zip(p_pool, p_fin)]
+    p_cls = {k: [float(np.percentile(p, 99)) for p in v] for k, v in cls.items()}
+    thr = [max(x for x in (p_cls["integrable"][i], p_cls["tori"][i], p_fin[i]) if x is not None)
+           for i in range(len(BINS))]                     # v2: max over CLASSES (pooling let integrable outvote tori)
     table = {"bins": [list(b) for b in BINS], "threshold_p99": thr, "p99_pooled": p_pool, "p99_plunger_final": p_fin,
+             "p99_integrable": p_cls["integrable"], "p99_tori": p_cls["tori"],
              "n_plunger_final": [len(f_) for f_ in finals], "plunger_final_max": [max(f_) if f_ else None
                                                                                  for f_ in finals],
              "max": [float(np.max(p)) for p in pools], "n_values": [len(p) for p in pools], "audit": audit,
