@@ -11,6 +11,22 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-10-12 — §196 MEGNO: validated chaos detector; TS near-separatrix result is a falsified prediction
+- Plunge geometry fixed first (The Bridge's catch, verified against exact BPT): the r < 3 cut sat outside the
+  prograde barrier. Separatrix now from the barrier (gated to 2e-10). §193-195 prograde rows flagged.
+- MEGNO / SALI / FLI with an exact complex-step tangent map. Integrable Kerr settles (no zoom-whirl false alarms;
+  integrable plungers do not inflate MEGNO, answering Hartl 2003's "chaos mimics"). Transient chaos is detected
+  ~100% against a duration-matched 1% bar.
+- A frozen rule (class-wise p99 table) passed validation on unseen levels: false alarm 0/180 integrable (CP95
+  1.65%), 1/103 tori; detection 34/34 transient, 37/37 bounded.
+- Pre-registered TS run: **0/360 TS orbits CHAOTIC near the separatrix**, identical to matched Kerr (CMH p = 0.5).
+  My 10-35% prediction is FALSIFIED. Complementary to V12/α's deep-level chaos, which was not sampled here.
+- Methods: silent_nulls 72 (an eligibility filter dropped the hardest cases). Several of my own slips were caught
+  and disclosed: a hung bracket loop, zsh unsplit args twice, commit hashes guessed twice.
+  Details: curvature/notes/established_indicator_plan.md.
+
+---
+
 ## 2026-10-11 — heap corruption root-caused; §195 closed as an honest negative
 - **Crash hunt:** intermittent §195 crashes traced to a heap overrun inside a vendor LAPACK routine (QR at
   near-square ~550-629-column shapes). Guard Malloc caught the write, and OpenBLAS is clean on the identical calls.

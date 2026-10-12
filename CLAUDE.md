@@ -1211,6 +1211,14 @@ results in `curvature/notes/lab_notebook.md`.
   slot: an established indicator (MEGNO candidate), MEASURED on the same controls before design. Crash hunt:
   vendor-LAPACK heap overrun root-caused (private pending disclosure); 193-195 now require OpenBLAS (tripwire)
   with BLAS threads = 1. Notes: curvature/notes/invariant_learnability_prereg.md, heap_corruption_hunt.md.
+- **§196 MEGNO (established-indicator third method) — VALIDATED instrument; TS near-separatrix NULL (2026-10-12).**
+  Exact complex-step tangent map; barrier-based separatrix (Kerr gated vs BPT; the old r < 3 cut was outside the
+  prograde barrier, so §193-195 prograde rows are flagged PLUNGE-CUT EXPOSED). Frozen duration-binned class-wise p99
+  rule, validated on unseen levels: integrable false alarm 0/180, tori 1/103, transient chaos 34/34, bounded chaos
+  37/37; integrable plungers do not inflate MEGNO (answers Hartl 2003's chaos mimics). Pre-registered TS run:
+  **0/360 CHAOTIC near the separatrix (eps -0.01..-0.05), identical to matched Kerr; prediction falsified.** Deep-level
+  (alpha-study) TS chaos was not sampled; that would be a separate pre-registration. Notes:
+  curvature/notes/established_indicator_plan.md; code: scripts/196_chaos_indicators.py.
 - Remaining curvature queue (RE-CHECKED 2026-09-23). DONE this session: the C anomaly (§191/191b) and the
   well-separated Carter pair (§192). Open: WHY C's angular shift is nearly orbit-constant (hypothesis: close to a
   function of Kerr's conserved quantities — test by scoring dTheta with the within/total statistic); why KEEP2's
