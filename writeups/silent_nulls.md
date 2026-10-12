@@ -2938,3 +2938,24 @@ overwrite the watchdog's own "WATCHDOG KILL" line, so a kill could erase its own
 - A run's output goes to its log in append mode.
 - Before reading a crash in a log, check the writer's PID, parent and start time. A log path is not a process
   identity (cf. 46, argv is not identity).
+
+### 72. An eligibility filter on a statistic silently removes the population the statistic was built for
+
+**The incident (§196 measurement 2, 2026-10-12).** The pre-planned analysis computed a growth statistic over each
+orbit's own lifetime τ, and needed >= 3 time-series points <= τ. The series was recorded every 25 τ for ZV (5 τ for
+open Hénon–Heiles). So ZV layer orbits living 57-75 τ, exactly the short chaotic transients the measurement was
+designed to test, had only 2 points and were dropped by the helper's `return None`.
+- The bin reported 45 analysed orbits, while its per-group counts summed to 56. Nothing else flagged the gap.
+- The headline "100% detection, 25-100 τ" was therefore a statement about open HH plus the LONGER ZV transients.
+- By eye, the dropped orbits sit at ⟨Y⟩ 1.6-4.8: mostly, not all, above the null bar.
+
+**Why it is silent.** An eligibility check inside a statistic looks like hygiene, and it is. But when eligibility
+correlates with the property under test (here: short life ⇔ the hardest chaotic case), the filter quietly edits the
+population. The output then looks complete, because the dropped rows have no row to be missing from.
+
+**Rule:**
+- Every eligibility filter reports what it dropped, per group, next to the result: n_in vs n_analysed.
+- When eligibility depends on a variable correlated with the outcome, the drop is a FINDING to report, not a
+  cleanup.
+- The resolution of a measurement (here, series spacing) must be fixed against the shortest population it is meant
+  to see.
