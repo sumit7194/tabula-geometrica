@@ -11,6 +11,17 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-10-14 — §196 deep-level MEGNO rerun v2 analysed: MEGNO's limit reached; Kerr gate trips cleanly
+- **Analysis run (`--analyze-deep2`):** integration completed cleanly at the 1e-9 life-drift standard under OpenBLAS (all 6 jobs, peak tree memory 1911 MB, exit=0).
+- **Outcome:** mechanical clause **"MEGNO'S LIMIT: MEGNO cannot discriminate at the alpha-study window (every level UNREADABLE or failing the Kerr-control gate)"** (PRIMARY CMH: None; included levels: `[]`).
+- **Kerr-control gate tripped on all 3 levels (p = 5.3e-12, 2.3e-17, 9.0e-11):**
+  - Kerr false alarms: L1 14/40, L2 18/40, L3 13/40, every single one of them a plunger (100% plungers, 0 survivors).
+  - Matches the RE-SCORE finding: the 25–100 tau integrable-plunger null is empty at the 1e-9 standard. In this deep regime near the unstable spherical orbits, plungers experience strong finite-time stretching that inflates Y_bar even in integrable Kerr.
+  - The symmetric Kerr-control gate functioned as intended: recognizing that the integrable control cannot stay quiet, it dropped all three levels rather than allowing contaminated false alarms to drive a spurious confirmation or tension verdict.
+- **Windows vs V12:** all 6 transition windows independently confirm V12 (TS 9.907, 10.257, 6.721; Kerr 5.003, 5.153, 3.468).
+- **Exclusions:** well below the 25% unreadable limit (L1 TS 3/40, L2 TS 2/40, L3 0/40; Kerr 0/40).
+- Details: `curvature/notes/established_indicator_plan.md`, `curvature/results/196_deep_v2_report.json`.
+
 ## 2026-10-13 — deep-level rerun launched under a Bridge-approved amendment; earlier §196 results survive the drift cut
 - Amendment 3a84fa6 (post-result, disclosed):
   - a life-drift pilot that REFUSES when empty, with a known-fail self-test (5/5; the real dt-0.05 case now

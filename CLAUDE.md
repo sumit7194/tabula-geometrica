@@ -1222,7 +1222,14 @@ results in `curvature/notes/lab_notebook.md`.
   returned 0.0, so dt 0.05 was accepted; 240/240 orbits above the 1e-9 drift standard (TS plungers up to 0.18).
   Kerr 33-45% CHAOTIC (my <=3% prediction failed) is contaminated too. All 6 windows match V12. Rerun amendment
   3a84fa6 (Bridge-approved; life-drift pilot + known-fail self-test, 1e-9 acceptance to t_dec, UNREADABLE >25%,
-  Kerr-control gate p0 0.03) RUNNING as results/196_deep_v2 (3 workers, ~2 days). silent_nulls 73. Re-score with the
+  Kerr-control gate p0 0.03): COMPLETE (results/196_deep_v2, 2026-10-14). Clean integration under OpenBLAS at 1e-9
+  drift. Outcome: mechanical clause "MEGNO'S LIMIT: MEGNO cannot discriminate at the alpha-study window (every level
+  UNREADABLE or failing the Kerr-control gate)"; PRIMARY CMH: None. The Kerr-control gate tripped on all 3 levels
+  (Kerr CHAOTIC 14/40, 18/40, 13/40, every single one a plunger, 0 survivors; gate p = 5.3e-12, 2.3e-17, 9.0e-11).
+  Confirms the RE-SCORE audit: the 25-100 tau integrable-plunger null is EMPTY at 1e-9; in this deep regime near
+  unstable spherical orbits, plunging orbits experience finite-time stretching that elevates Y_bar even in integrable
+  Kerr, depriving MEGNO of baseline discrimination. The symmetric gate properly removed all levels rather than
+  allowing false alarms to drive spurious confirmation or tension. silent_nulls 73. Re-score with the
   1e-9 cut (a71019e): validation ALL PASS unchanged (V1 0/170), TS near-separatrix still 0 CHAOTIC; every excluded
   orbit a would-be ABSTAIN plunger. Notes:
   curvature/notes/established_indicator_plan.md; code: scripts/196_chaos_indicators.py.
