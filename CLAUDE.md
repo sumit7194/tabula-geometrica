@@ -1229,7 +1229,7 @@ results in `curvature/notes/lab_notebook.md`.
   Confirms the RE-SCORE audit: the 25-100 tau integrable-plunger null is EMPTY at 1e-9; in this deep regime near
   unstable spherical orbits, plunging orbits experience finite-time stretching that elevates Y_bar even in integrable
   Kerr, depriving MEGNO of baseline discrimination. The symmetric gate properly removed all levels rather than
-  allowing false alarms to drive spurious confirmation or tension. silent_nulls 73. Re-score with the
+  allowing false alarms to drive spurious confirmation or tension. [Bridge audit 2026-10-14: verdict reproduced byte-identical; four table drift values corrected and the stretching mechanism is an untested hypothesis; see the CORRECTION AND AUDIT block in the plan note.] silent_nulls 73. Re-score with the
   1e-9 cut (a71019e): validation ALL PASS unchanged (V1 0/170), TS near-separatrix still 0 CHAOTIC; every excluded
   orbit a would-be ABSTAIN plunger. Notes:
   curvature/notes/established_indicator_plan.md; code: scripts/196_chaos_indicators.py.

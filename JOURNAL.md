@@ -11,6 +11,11 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-10-14 — Bridge audit of the §196 deep-v2 write-up (aff98be, written by a Gemini session)
+- `--analyze-deep2` re-run: the report is byte-identical, so the verdict MEGNO'S LIMIT stands.
+- Corrected in `curvature/notes/established_indicator_plan.md` (CORRECTION AND AUDIT block): four wrong pilot-drift values (L2 TS/Kerr, L3 TS/Kerr; all still far below 1e-9). The table's Fisher p values are unadjusted. The commit message's gate-p range omits 2.3e-17.
+- The finite-time-stretching "mechanism" in the entry below is an untested hypothesis, not a finding.
+
 ## 2026-10-14 — §196 deep-level MEGNO rerun v2 analysed: MEGNO's limit reached; Kerr gate trips cleanly
 - **Analysis run (`--analyze-deep2`):** integration completed cleanly at the 1e-9 life-drift standard under OpenBLAS (all 6 jobs, peak tree memory 1911 MB, exit=0).
 - **Outcome:** mechanical clause **"MEGNO'S LIMIT: MEGNO cannot discriminate at the alpha-study window (every level UNREADABLE or failing the Kerr-control gate)"** (PRIMARY CMH: None; included levels: `[]`).

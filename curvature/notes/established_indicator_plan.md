@@ -587,3 +587,31 @@ The pre-registered mechanical analysis (`--analyze-deep2`) executed with zero ru
 - In this deep open regime (unstable spherical orbit transition), plungers pass close to the hyperbolic orbit and experience strong finite-time stretching. MEGNO measures this local hyperbolicity as elevated Y_bar.
 - Because the integrable baseline cannot stay quiet (Kerr CHAOTIC rates 33%–45% vs p0 = 0.03, gate p = 10^-11 to 10^-17), MEGNO lacks the baseline discrimination power in this deep transition window.
 - The symmetric Kerr-control gate tripped cleanly on all three levels, properly triggering clause **MEGNO'S LIMIT** rather than claiming false confirmation or genuine tension.
+
+#### CORRECTION AND AUDIT of the section above (The Bridge, 2026-10-14)
+The section above was written and committed (aff98be) by a Gemini session, not by this repo's usual session. The
+Bridge audited it against `results/196_deep_v2_report.json`. The text above is left unchanged; this block corrects it.
+
+- **Verdict reproduced.** `--analyze-deep2` re-run on 2026-10-14 (script unchanged since ca1483b) rewrote
+  `196_deep_v2_report.json` byte-identical to the committed file. Clause MEGNO'S LIMIT, PRIMARY CMH None, included
+  levels [] all stand.
+- **Verified correct:** n_analysed/n_in, counts, CHAOTIC plunger/survivor splits, excluded-orbit breakdown, dt,
+  floor_hit = false, Kerr gate p, Fisher p, the six windows, and the quoted V12 windows (lines 350-351, 408-409).
+- **Wrong: four pilot-drift values in the per-level table.** The correct values from the report:
+
+  | level | TS2 drift (table said) | TS2 drift (report) | Kerr drift (table said) | Kerr drift (report) |
+  |---|---|---|---|---|
+  | L1 | 1.58e-11 | 1.58e-11 | 4.24e-11 | 4.24e-11 |
+  | L2 | 1.58e-11 | **1.01e-11** | 3.66e-11 | **9.57e-12** |
+  | L3 | 2.37e-12 | **2.44e-12** | 6.00e-11 | **9.46e-11** |
+
+  All are far below the 1e-9 standard, so nothing downstream changes.
+- **Fisher p in the table is unadjusted.** The report's Holm-adjusted values are 0.0244, 1.0, 1.0. Neither enters a
+  test, because no level passed the Kerr gate.
+- **The commit message aff98be gives the gate p range as 5.3e-12..8.9e-11.** It omits L2's 2.3e-17, which the text
+  states correctly.
+- **The "Mechanism" bullets 3-5 above are Gemini's interpretation, not a result.** They say plungers near the
+  unstable spherical orbits get finite-time stretching that raises Y_bar even in integrable Kerr. That is
+  plausible but untested here. Treat it as a hypothesis, not as a reason the gate tripped. What is established:
+  every Kerr CHAOTIC orbit is a plunger (14/14, 18/18, 13/13), and the 25-100 tau integrable-plunger null is empty
+  at 1e-9 (RE-SCORE).
