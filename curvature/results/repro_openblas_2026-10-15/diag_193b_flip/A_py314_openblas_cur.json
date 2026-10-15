@@ -1,0 +1,23 @@
+{
+ "label": "A_py314_openblas_cur",
+ "python": "3.14.5",
+ "lapack": "scipy-openblas",
+ "code_dir": "/Users/sumit/Github/SpaceTime/curvature/scripts",
+ "outer": [
+  7.5343167895987,
+  24.394174271783974
+ ],
+ "tr_sha": "43b7b1d22160991a",
+ "te_sha": "5f932627937c9914",
+ "p": 1679,
+ "pruned": 804,
+ "floor": 4.4231164949293966e-23,
+ "resolution": 100095.95862536746,
+ "ratios": [
+  2.6861014579835807e-25,
+  4.4231164949293966e-23,
+  4.4273608567163324e-18,
+  0.13211199331974552
+ ],
+ "seconds": 71.75274014472961
+}

@@ -1,0 +1,23 @@
+{
+ "label": "D_py312_accel_orig_f354abb",
+ "python": "3.12.13",
+ "lapack": "accelerate",
+ "code_dir": "/Users/sumit/Github/SpaceTime_orig_f354abb/curvature/scripts",
+ "outer": [
+  7.5343167895987,
+  24.394174271783974
+ ],
+ "tr_sha": "43b7b1d22160991a",
+ "te_sha": "5f932627937c9914",
+ "p": 1679,
+ "pruned": 804,
+ "floor": 4.42983678249872e-23,
+ "resolution": 99943.65260270603,
+ "ratios": [
+  2.686942911905867e-25,
+  4.42983678249872e-23,
+  4.427340684767412e-18,
+  0.13218670417197537
+ ],
+ "seconds": 51.60256886482239
+}

@@ -112,3 +112,35 @@ CANDIDATE, not a claim" (best/floor per shell 1.0e-2, 7.2e-6, 2.0e-3).
   and quantum's Morales–Ramis certificates rule out any meromorphic integral. The reading most consistent with the
   record is the near-integrable (KAM-like) approximant seen in §193 ("TS far nearer to integrable than ZV").
 - It is recorded for tabula to read under its own rules. Do not cite it as anything.
+
+## Post-outcome diagnosis of the 193b flip (2026-10-15 ~20:30 IST; The Bridge). Diagnostic, not a gate
+**Question:** is the 99,944 -> 100,096 move in t1o3 shared shell 0's Kerr resolution caused by the maths library, the
+Python version, the code changes since September, or Accelerate heap corruption in the original?
+
+**Method:** `diag_193b_flip/diag.py` recomputes only that cell: Kerr, CR/even/6/4, seed 1, n 60, nstep 20000, dt 0.1.
+It prints the resolution and floor, plus SHA-256 fingerprints of the train and test trajectories. It ran in four
+setups. Accelerate was used deliberately, through tabula's documented diagnostic override `TABULA_ALLOW_ACCELERATE=1`.
+
+| setup | Python | LAPACK | code | trajectories | floor | resolution |
+|---|---|---|---|---|---|---|
+| A | 3.14.5 | OpenBLAS | 937e5c0 | 43b7b1d2 / 5f932627 | 4.4231164949e-23 | 100,095.9586 |
+| B | 3.14.5 | Accelerate | 937e5c0 | identical | 4.4298367825e-23 | 99,943.6526 |
+| C | 3.12.13 | Accelerate | 937e5c0 | identical | 4.4298367825e-23 | 99,943.6526 |
+| D | 3.12.13 | Accelerate | f354abb (the original run's code) | identical | 4.4298367825e-23 | 99,943.6526 |
+
+**Findings:**
+- **The cause is the LAPACK library alone.** Trajectories are bit-identical in all four setups, so the orbit
+  integration plays no part. With the same library, the Python version (B vs C) and the code changes (C vs D) change
+  nothing at all. Switching library (A vs B) moves the floor, a relative singular value of ~4e-23, by 0.15%, and the
+  resolution moves with it.
+- **The original was not corrupted.** Accelerate reproduces the original 99,943.6526 to every printed digit in three
+  independent setups, including the original code. A, in turn, reproduces the rerun's 100,095.9586 exactly, so each
+  library is deterministic. Neither value is "more correct": both are within that quantity's rounding sensitivity.
+- **Methodological caveat for gate R1 (for tabula).** The resolve threshold (1e5) is applied to a ratio of noise-floor
+  singular values. Their cross-library spread is ~0.15% (0.01-0.15% across all 15 Kerr shells). This shell sits 0.06%
+  from the threshold, so its R1 status is undecidable at numerical precision. No verdict depends on it: the arm is
+  REFUSED by its shell-2 Carter-span control failure in every setup.
+  - Note also that 193b's refusals rest on Carter-span residuals 4-9% above the 1e-3 limit (0.0010416 and 0.0010895).
+    Those are stable across libraries to about 1e-4 relative, but they are close.
+  - A full scan found 540 threshold decisions in 193/193b/193c. Exactly one value (this resolution, reused by 4
+    cells) changed side.

@@ -4617,3 +4617,7 @@ this commit).
 - One new unpaired d = 6 candidate (§193b t1o2 shared CR/even/6/6, "EXACT ... escalate as a CANDIDATE, not a claim")
   ran only because the swap guard did not trip. It is shell-restricted by construction and excluded as a Killing
   tensor by Vollmer, V10 and Morales–Ramis. Left for tabula's own reading; not cited.
+- **Flip diagnosed (same day):** with bit-identical trajectories, 4 setups show the move is caused by LAPACK alone
+  (OpenBLAS 100,095.96; Accelerate 99,943.65 in py3.12/py3.14 and with the original code). The original is NOT
+  corrupted. The R1 threshold sits inside this quantity's rounding sensitivity for that shell. Details: prereg note,
+  "Post-outcome diagnosis".
