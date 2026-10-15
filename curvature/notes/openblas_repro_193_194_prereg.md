@@ -52,3 +52,14 @@ This is that rerun. It decides nothing new.
 - **Effect on this rerun.** Chain A is relaunched from scratch at the fix commit, probe included. Chain B (194, 194b)
   does not use curvlib and continues at cd3b89d. The baseline stays cd3b89d's committed results. Reading rules
   unchanged.
+
+## Amendment 2 (2026-10-15, ~15:25 IST). A protocol slip by The Bridge: the probe's orbit count
+- This pre-registration said "default arguments, as the originals". That holds for production, rank6, rank6-strong,
+  export-farfield, 194 and 194b. The stored files confirm n_per_ensemble 60, nstep 20000 and dt 0.1. It does NOT hold
+  for `--probe`: the stored 193_ts2_probe.json has n = 32 per system, while the default is 16.
+- The interim comparison flagged this as 12 "count shifts" (n and kept, 32 -> 16; every orbit kept in both runs).
+  It is a sample-size difference, not a numerical one.
+- **Fix:** the probe is rerun with `--n 32`. The n = 16 output is kept in `repro_logs/attempt1_probe_n16/` as a record
+  and is not read. Reading rules unchanged.
+- Interim (not final, recorded as seen): 194_pilot.json REPRODUCED and 194b_diagnose_g0.json REPRODUCED (0
+  categorical, 0 count, 0 structural differences).
