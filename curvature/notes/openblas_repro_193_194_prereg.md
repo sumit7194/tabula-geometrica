@@ -39,3 +39,16 @@ This is that rerun. It decides nothing new.
   Prograde rows stay exposed whatever this reads. Only a redesigned rerun with the barrier separatrix can clear them.
 - §194's own gate G0 FAILED originally (classifier_ok False). Reproducing a FAIL is the expected outcome, and it is
   not a result about TS.
+
+## Amendment 1 (2026-10-15, ~15:15 IST). A launch failure; non-numerical code fix; no §193 output had been produced
+- **What happened.** At cd3b89d, `193 --production`, `--rank6` and `--rank6-strong` crashed in under 3 s with
+  `ModuleNotFoundError: torch`. Each mode lazily runs `from curvlib import progress`, and curvlib imports torch, which
+  `.venv314ob` does not have. 6aca281 removed torch from 193's module-level imports but missed these three lines. So
+  these modes could not start on the OpenBLAS venv that the tripwire requires. `--probe` and `--export-farfield`
+  completed: they do not call progress.
+- **Fix.** New `scripts/progress_heartbeat.py`, a verbatim copy of `curvlib.progress` (the function body was checked
+  identical by script). The three lines now import from it. It writes the dashboard heartbeat JSON only and has no
+  numerical effect. Nothing else changes.
+- **Effect on this rerun.** Chain A is relaunched from scratch at the fix commit, probe included. Chain B (194, 194b)
+  does not use curvlib and continues at cd3b89d. The baseline stays cd3b89d's committed results. Reading rules
+  unchanged.

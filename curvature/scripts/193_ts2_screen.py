@@ -760,7 +760,7 @@ def run_arm(tag, spaces, shells, with_zv, args, A, q, prog):
 
 
 def production(args):
-    from curvlib import progress
+    from progress_heartbeat import progress   # torch-free copy of curvlib.progress (amendment 1, 2026-10-15)
     out = {"prereg": "notes/ts2_screen_prereg.md (e7c038d + amendments 9595b80, 2)", "band": BAND,
            "approx_ceiling": APPROX_CEIL, "n_per_ensemble": args.n, "nstep": args.nstep, "dt": args.dt,
            "cells": [list(c) for c in CELLS], "q": {}}
@@ -920,7 +920,7 @@ def rank6_arm(tag, spaces, shells, with_zv, args, A, q, prev, state, prog):
 
 
 def rank6(args):
-    from curvlib import progress
+    from progress_heartbeat import progress   # torch-free copy of curvlib.progress (amendment 1, 2026-10-15)
     prev = json.loads((RESULTS / "193_ts2_screen.json").read_text())
     out = {"prereg": "notes/ts2_rank6_prereg.md (e56bca1 + amendment 1 d815781, gate R1)", "band": BAND,
            "resolve": RESOLVE, "approximant_min": APPROXIMANT_MIN, "cells": [list(c) for c in CELLS6],
@@ -1010,7 +1010,7 @@ def export_farfield(args):
 
 
 def rank6_strong(args):
-    from curvlib import progress
+    from progress_heartbeat import progress   # torch-free copy of curvlib.progress (amendment 1, 2026-10-15)
     out = {"prereg": "notes/ts2_rank6_strong_prereg.md (ef25326)", "band": BAND, "resolve": RESOLVE,
            "cell": ["CR", "even", 6, 6], "q": {}}
     prev = json.loads((RESULTS / "193_ts2_screen.json").read_text())
