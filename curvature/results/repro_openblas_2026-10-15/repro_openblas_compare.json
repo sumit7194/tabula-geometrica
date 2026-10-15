@@ -1,0 +1,637 @@
+{
+ "baseline_rev": "cd3b89d",
+ "files": {
+  "193_ts2_probe.json": {
+   "reading": "REPRODUCED",
+   "categorical_diffs": [],
+   "structural_diffs": [],
+   "count_shifts": [],
+   "resource_guard": [],
+   "n_floats": 110,
+   "float_max_dist": 0.0,
+   "float_median_dist": 0.0,
+   "float_top10": [
+    [
+     "L0/t1o2/J_sign_BL",
+     -1.0,
+     -1.0,
+     0.0
+    ],
+    [
+     "L0/t1o2/checks/J_over_m2_far",
+     -0.8000000000000179,
+     -0.8000000000000179,
+     0.0
+    ],
+    [
+     "L0/t1o2/checks/Weyl",
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     "L0/t1o2/checks/g_TT=-A/B",
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     "L0/t1o2/checks/g_Tphi=f*omega",
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     "L0/t1o2/checks/g_xx(f,gamma)",
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     "L0/t1o2/checks/g_yy(f,gamma)",
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     "L0/t1o2/checks/m_far",
+     0.9999999999999821,
+     0.9999999999999821,
+     0.0
+    ],
+    [
+     "L0/t1o2/checks/twist_x",
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     "L0/t1o2/checks/twist_y",
+     0.0,
+     0.0,
+     0.0
+    ]
+   ]
+  },
+  "193_ts2_screen.json": {
+   "reading": "REPRODUCED",
+   "categorical_diffs": [],
+   "structural_diffs": [],
+   "count_shifts": [],
+   "resource_guard": [],
+   "n_floats": 4787,
+   "float_max_dist": 0.1189458304261393,
+   "float_median_dist": 2.0463966865004386e-06,
+   "float_top10": [
+    [
+     "q/t1o2/shared/shells/1/Kerr/cells/CR/even/4/2/carter_span_residual",
+     4.451776595249843e-11,
+     5.854356865659396e-11,
+     0.1189458304261393
+    ],
+    [
+     "q/t1o3/shared/shells/0/Kerr/cells/CR/even/4/2/carter_span_residual",
+     2.8877566803223305e-11,
+     2.256428264439157e-11,
+     0.10713906605151725
+    ],
+    [
+     "q/t1o2/shared/shells/0/Kerr/cells/CR/even/4/2/carter_span_residual",
+     3.6133668607911034e-10,
+     4.407806171976044e-10,
+     0.08631043147837503
+    ],
+    [
+     "q/t1o2/shared/shells/2/Kerr/cells/CR/even/2/2/carter_span_residual",
+     2.20717079330598e-14,
+     2.659947092008118e-14,
+     0.08103705768416512
+    ],
+    [
+     "q/t1o2/shared/verdicts/CR+/even/4/6",
+     12000000.0,
+     11000000.0,
+     0.037788560889399754
+    ],
+    [
+     "q/t1o3/shared/shells/2/TS2/cells/CR/even/2/4/approximate_over_floor/0",
+     109596310956678.2,
+     114982171384450.73,
+     0.02083456991796058
+    ],
+    [
+     "q/t1o3/shared/shells/2/Kerr/cells/CR/even/2/4/floor",
+     1.3439642930174604e-26,
+     1.2810119055847647e-26,
+     0.020834564312115156
+    ],
+    [
+     "q/t1o3/shared/shells/2/Kerr/cells/CR/even/2/4/ratios/0",
+     1.3439642930174604e-26,
+     1.2810119055847647e-26,
+     0.020834564312115156
+    ],
+    [
+     "q/t1o3/shared/shells/2/Kerr/cells/CR/odd/1/4/floor",
+     1.3439642930174604e-26,
+     1.2810119055847647e-26,
+     0.020834564312115156
+    ],
+    [
+     "q/t1o3/shared/shells/2/TS2/cells/CR/even/2/4/floor",
+     1.3439642930174604e-26,
+     1.2810119055847647e-26,
+     0.020834564312115156
+    ]
+   ]
+  },
+  "193b_rank6.json": {
+   "reading": "NOT REPRODUCED",
+   "categorical_diffs": [
+    [
+     "q/t1o3/shared/shells/0/Kerr/cells/CR/even/6/4/resolved",
+     "False",
+     "True"
+    ],
+    [
+     "q/t1o3/shared/shells/0/Kerr/cells/CR/odd/5/4/resolved",
+     "False",
+     "True"
+    ],
+    [
+     "q/t1o3/shared/shells/0/ZV2/cells/CR/even/6/4/resolved",
+     "False",
+     "True"
+    ],
+    [
+     "q/t1o3/shared/shells/0/ZV2/cells/CR/odd/5/4/resolved",
+     "False",
+     "True"
+    ]
+   ],
+   "structural_diffs": [
+    [
+     "q/t1o2/shared/shells/0/Kerr/cells/CR/even/6/6",
+     "missing in baseline"
+    ],
+    [
+     "q/t1o2/shared/shells/0/TS2/cells/CR/even/6/6",
+     "missing in baseline"
+    ],
+    [
+     "q/t1o2/shared/shells/0/ZV2/cells/CR/even/6/6",
+     "missing in baseline"
+    ],
+    [
+     "q/t1o2/shared/shells/1/Kerr/cells/CR/even/6/6",
+     "missing in baseline"
+    ],
+    [
+     "q/t1o2/shared/shells/1/TS2/cells/CR/even/6/6",
+     "missing in baseline"
+    ],
+    [
+     "q/t1o2/shared/shells/1/ZV2/cells/CR/even/6/6",
+     "missing in baseline"
+    ],
+    [
+     "q/t1o2/shared/shells/2/Kerr/cells/CR/even/6/6",
+     "missing in baseline"
+    ],
+    [
+     "q/t1o2/shared/shells/2/TS2/cells/CR/even/6/6",
+     "missing in baseline"
+    ],
+    [
+     "q/t1o2/shared/shells/2/ZV2/cells/CR/even/6/6",
+     "missing in baseline"
+    ],
+    [
+     "q/t1o2/shared/verdicts/CR/even/6/6",
+     "missing in baseline"
+    ],
+    [
+     "q/t1o2/strong/shells/0/Kerr/cells/CR/even/6/6",
+     "missing in baseline"
+    ],
+    [
+     "q/t1o2/strong/shells/1/Kerr/cells/CR/even/6/6",
+     "missing in baseline"
+    ],
+    [
+     "q/t1o2/strong/shells/2/Kerr/cells/CR/even/6/6",
+     "missing in baseline"
+    ],
+    [
+     "q/t1o3/shared/shells/0/Kerr/cells/CR/even/6/6",
+     "missing in baseline"
+    ],
+    [
+     "q/t1o3/shared/shells/0/ZV2/cells/CR/even/6/6",
+     "missing in baseline"
+    ],
+    [
+     "q/t1o3/shared/shells/1/Kerr/cells/CR/even/6/6",
+     "missing in baseline"
+    ],
+    [
+     "q/t1o3/shared/shells/1/ZV2/cells/CR/even/6/6",
+     "missing in baseline"
+    ],
+    [
+     "q/t1o3/shared/shells/2/Kerr/cells/CR/even/6/6",
+     "missing in baseline"
+    ],
+    [
+     "q/t1o3/shared/shells/2/ZV2/cells/CR/even/6/6",
+     "missing in baseline"
+    ],
+    [
+     "q/t1o3/strong/shells/0/Kerr/cells/CR/even/6/6",
+     "missing in baseline"
+    ],
+    [
+     "q/t1o3/strong/shells/1/Kerr/cells/CR/even/6/6",
+     "missing in baseline"
+    ],
+    [
+     "q/t1o3/strong/shells/2/Kerr/cells/CR/even/6/6",
+     "missing in baseline"
+    ]
+   ],
+   "count_shifts": [],
+   "resource_guard": [
+    [
+     "d6_dropped",
+     true,
+     false
+    ],
+    [
+     "q/t1o2/shared/d6_dropped",
+     "free swap < 1024 MB before Kerr shell 0",
+     null
+    ]
+   ],
+   "n_floats": 744,
+   "float_max_dist": 0.001964756655349139,
+   "float_median_dist": 4.6246928044986065e-05,
+   "float_top10": [
+    [
+     "q/t1o2/shared/shells/1/Kerr/cells/CR/even/6/4/ratio_over_floor/0",
+     2.9638076947241286e-05,
+     2.9504296553287776e-05,
+     0.001964756655349139
+    ],
+    [
+     "q/t1o2/shared/shells/1/Kerr/cells/CR/even/6/4/ratios/0",
+     6.935136711071347e-25,
+     6.905867142964998e-25,
+     0.001836807647620078
+    ],
+    [
+     "q/t1o2/shared/shells/1/TS2/cells/CR/even/6/4/kerr_ratios/0",
+     6.935136711071347e-25,
+     6.905867142964998e-25,
+     0.001836807647620078
+    ],
+    [
+     "q/t1o2/strong/shells/2/Kerr/cells/CR/even/6/4/ratio_over_floor/0",
+     0.012302248616468553,
+     0.012350350309213968,
+     0.0016947767903193176
+    ],
+    [
+     "q/t1o3/shared/shells/2/ZV2/cells/CR/even/6/4/ratio_over_floor/1",
+     125369301849.04628,
+     125790316414.44606,
+     0.001456002163707967
+    ],
+    [
+     "q/t1o2/shared/shells/0/Kerr/cells/CR/even/6/4/ratio_over_floor/0",
+     0.0030779126699345296,
+     0.003087509696388263,
+     0.0013520368111569175
+    ],
+    [
+     "q/t1o3/shared/shells/2/ZV2/cells/CR/even/6/4/ratio_over_floor/2",
+     25636564897838.938,
+     25716184530543.195,
+     0.001346700818436661
+    ],
+    [
+     "q/t1o2/shared/shells/0/Kerr/cells/CR/even/6/4/ratios/0",
+     1.9175689788615798e-25,
+     1.923192299914903e-25,
+     0.0012717161370964728
+    ],
+    [
+     "q/t1o2/shared/shells/0/TS2/cells/CR/even/6/4/kerr_ratios/0",
+     1.9175689788615798e-25,
+     1.923192299914903e-25,
+     0.0012717161370964728
+    ],
+    [
+     "q/t1o3/shared/shells/0/ZV2/cells/CR/even/6/4/ratio_over_floor/4",
+     2.1066300463737085e+22,
+     2.111832664537386e+22,
+     0.001071228862428344
+    ]
+   ]
+  },
+  "193c_strong.json": {
+   "reading": "REPRODUCED WITH COUNT SHIFTS",
+   "categorical_diffs": [],
+   "structural_diffs": [],
+   "count_shifts": [
+    [
+     "q/t1o2/shells/1/Kerr/cells/CR/even/6/6/pruned",
+     2148,
+     2147
+    ]
+   ],
+   "resource_guard": [],
+   "n_floats": 289,
+   "float_max_dist": 0.006741284998189345,
+   "float_median_dist": 4.134555290914841e-06,
+   "float_top10": [
+    [
+     "q/t1o2/shells/1/Kerr/cells/CR/even/6/6/ratios/1",
+     2.7474881697224113e-22,
+     2.7051698977562323e-22,
+     0.006741284998189345
+    ],
+    [
+     "q/t1o2/shells/1/TS2/cells/CR/even/6/6/kerr_ratios/1",
+     2.7474881697224113e-22,
+     2.7051698977562323e-22,
+     0.006741284998189345
+    ],
+    [
+     "q/t1o2/shells/1/Kerr/cells/CR/even/6/6/ratio_over_floor/1",
+     0.08113221234763794,
+     0.07992589059012248,
+     0.006505834482501442
+    ],
+    [
+     "q/t1o2/shells/1/Kerr/cells/CR/even/6/6/ratios/7",
+     0.38774629889841195,
+     0.3865255550302119,
+     0.0013694486306730072
+    ],
+    [
+     "q/t1o2/shells/1/Kerr/cells/CR/even/6/6/ratios/6",
+     0.27796776466331186,
+     0.27741050219713254,
+     0.0008715360671996379
+    ],
+    [
+     "q/t1o2/reading_193c/rows/2/over_K",
+     507.4013256655687,
+     508.27096214639823,
+     0.0007437013330209963
+    ],
+    [
+     "q/t1o2/reading_193c/rows/2/K_ratio",
+     2.6314006904362317e-23,
+     2.6269045303404996e-23,
+     0.0007426948087738058
+    ],
+    [
+     "q/t1o2/shells/2/Kerr/cells/CR/even/6/6/ratios/0",
+     2.6314006904362317e-23,
+     2.6269045303404996e-23,
+     0.0007426948087738058
+    ],
+    [
+     "q/t1o2/shells/2/TS2/cells/CR/even/6/6/kerr_ratios/0",
+     2.6314006904362317e-23,
+     2.6269045303404996e-23,
+     0.0007426948087738058
+    ],
+    [
+     "q/t1o2/shells/1/Kerr/cells/CR/even/6/6/ratios/3",
+     0.19151307660431108,
+     0.19122732788413907,
+     0.0006484766906421709
+    ]
+   ]
+  },
+  "193c_farfield_direction.json": {
+   "reading": "REPRODUCED",
+   "categorical_diffs": [],
+   "structural_diffs": [],
+   "count_shifts": [],
+   "resource_guard": [],
+   "n_floats": 43817,
+   "float_max_dist": 1.906560918319805,
+   "float_median_dist": 0.0,
+   "float_top10": [
+    [
+     "shells/2/coef_raw/1654",
+     -0.9547536044073102,
+     0.9518073139124946,
+     1.906560918319805
+    ],
+    [
+     "shells/2/top25/0/1",
+     -0.9547536044073102,
+     0.9518073139124946,
+     1.906560918319805
+    ],
+    [
+     "shells/1/coef_raw/1324",
+     -1.4718050790616383e-12,
+     -1.039496151216086e-13,
+     1.1510274116277428
+    ],
+    [
+     "shells/1/top25/14/0",
+     1.0,
+     0.0,
+     1.0
+    ],
+    [
+     "shells/1/top25/15/0",
+     0.0,
+     1.0,
+     1.0
+    ],
+    [
+     "shells/2/top25/8/0",
+     1.0,
+     0.0,
+     1.0
+    ],
+    [
+     "shells/2/top25/9/0",
+     0.0,
+     1.0,
+     1.0
+    ],
+    [
+     "shells/0/coef_raw/1148",
+     -8.737464512682906e-19,
+     -6.4200080914065615e-18,
+     0.8661501505637592
+    ],
+    [
+     "shells/0/coef_raw/1491",
+     -1.436755550804346e-11,
+     -7.753892498131689e-11,
+     0.7321368918724015
+    ],
+    [
+     "shells/2/coef_raw/273",
+     -1.4455983614763648e-18,
+     -3.4819995899114466e-19,
+     0.6182189316662425
+    ]
+   ]
+  },
+  "194_pilot.json": {
+   "reading": "REPRODUCED",
+   "categorical_diffs": [],
+   "structural_diffs": [],
+   "count_shifts": [],
+   "resource_guard": [],
+   "n_floats": 5440,
+   "float_max_dist": 0.1600759560573306,
+   "float_median_dist": 1.3336648862434008e-13,
+   "float_top10": [
+    [
+     "levels/0/rows/192/s4@0.5",
+     36.11669718217236,
+     24.98228001283066,
+     0.1600759560573306
+    ],
+    [
+     "levels/2/rows/194/s4@0.5",
+     246.6058066058656,
+     181.99077915143764,
+     0.1319539139922597
+    ],
+    [
+     "levels/1/rows/0/s4@0.25",
+     120.45343419195768,
+     106.02939894400744,
+     0.05539288697943448
+    ],
+    [
+     "levels/0/rows/279/s4@0.25",
+     515.568041259108,
+     456.2365432305634,
+     0.05309592064577143
+    ],
+    [
+     "levels/2/rows/16/s4@0.25",
+     149.82121183322624,
+     164.57784530893466,
+     0.040798066589248484
+    ],
+    [
+     "levels/0/rows/288/s4@0.25",
+     268.60813024299455,
+     244.67124024515442,
+     0.040536230345848495
+    ],
+    [
+     "levels/1/rows/2/s4@0.25",
+     149.6868549961772,
+     139.3679037180292,
+     0.03102089600081736
+    ],
+    [
+     "levels/2/rows/184/s4@0.25",
+     159.97366925205878,
+     171.0493669306477,
+     0.02907296500187941
+    ],
+    [
+     "levels/0/rows/272/s4@0.5",
+     178.26507092767793,
+     166.82142656975782,
+     0.028814425568047936
+    ],
+    [
+     "levels/1/rows/2/s4@0.5",
+     171.3607053235495,
+     182.08619854844943,
+     0.026365788093148164
+    ]
+   ]
+  },
+  "194b_diagnose_g0.json": {
+   "reading": "REPRODUCED",
+   "categorical_diffs": [],
+   "structural_diffs": [],
+   "count_shifts": [],
+   "resource_guard": [],
+   "n_floats": 731,
+   "float_max_dist": 0.028294693297032686,
+   "float_median_dist": 0.0,
+   "float_top10": [
+    [
+     "orbits/18/slopes_1e4/(10, 20)/1",
+     140.47,
+     131.61,
+     0.028294693297032686
+    ],
+    [
+     "orbits/20/slopes_1e4/(10, 20)/1",
+     153.99,
+     150.28,
+     0.010591332589078203
+    ],
+    [
+     "orbits/21/slopes_1e4/(10, 20)/1",
+     30.26,
+     29.82,
+     0.006361284570192169
+    ],
+    [
+     "orbits/17/slopes_1e4/(20, 40)/1",
+     28.24,
+     28.54,
+     0.004589276398862
+    ],
+    [
+     "orbits/19/slopes_1e4/(10, 20)/1",
+     66.65,
+     66.38,
+     0.0017629056772929315
+    ],
+    [
+     "orbits/20/slopes_1e4/(20, 40)/1",
+     68.11,
+     68.16,
+     0.0003187014760349592
+    ],
+    [
+     "orbits/20/pilot_s3",
+     18.338027574315614,
+     18.3380275744,
+     1.998520458062958e-12
+    ],
+    [
+     "orbits/18/pilot_s3",
+     19.940155454651848,
+     19.94015545461501,
+     8.023204521715938e-13
+    ],
+    [
+     "orbits/13/pilot_s3",
+     1.287167225982855,
+     1.2871672259849563,
+     7.089735534105554e-13
+    ],
+    [
+     "orbits/2/pilot_s3",
+     1.2813035875256618,
+     1.2813035875264867,
+     2.796067489272156e-13
+    ]
+   ]
+  }
+ },
+ "OVERALL": "NOT REPRODUCED"
+}

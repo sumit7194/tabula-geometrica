@@ -63,3 +63,52 @@ This is that rerun. It decides nothing new.
   and is not read. Reading rules unchanged.
 - Interim (not final, recorded as seen): 194_pilot.json REPRODUCED and 194b_diagnose_g0.json REPRODUCED (0
   categorical, 0 count, 0 structural differences).
+
+## OUTCOME (2026-10-15 18:48 IST; The Bridge). Recorded as the rule reads it, then investigated
+All steps exited 0 with no watchdog trips, at commit 937e5c0 (probe `--n 32`, per amendment 2). Outputs, logs and
+the comparison are in `results/repro_openblas_2026-10-15/`.
+
+**Mechanical output (`repro_openblas_compare.py`, baseline cd3b89d), verbatim:**
+
+| file | reading | categorical | structural | counts | floats: max / median dist |
+|---|---|---|---|---|---|
+| 193_ts2_probe | REPRODUCED | 0 | 0 | 0 | 0 / 0 (bit-identical) |
+| 193_ts2_screen | REPRODUCED | 0 | 0 | 0 | 0.12 / 2.0e-6 |
+| 193b_rank6 | **NOT REPRODUCED** | 4 | 22 | 0 | 0.0020 / 4.6e-5 |
+| 193c_strong | REPRODUCED WITH COUNT SHIFTS | 0 | 0 | 1 | 0.0067 / 4.1e-6 |
+| 193c_farfield_direction | REPRODUCED | 0 | 0 | 0 | 1.9 / 0 |
+| 194_pilot | REPRODUCED | 0 | 0 | 0 | 0.16 / 1.3e-13 |
+| 194b_diagnose_g0 | REPRODUCED | 0 | 0 | 0 | 0.028 / 0 |
+| **OVERALL** | **NOT REPRODUCED** (set by 193b) | | | | |
+
+**Under the registered rules, 193b stays NOT REPRODUCED**, because of the 4 categorical (boolean) differences below.
+The investigation says why. It does not change the reading.
+1. **The 4 categorical differences sit at a threshold.** t1o3, shared arm, shell 0: the Kerr and ZV2 cells CR/even/6/4
+   and CR/odd/5/4 flipped `resolved` False -> True. The shell's resolution is 99,943.65 originally and 100,095.96 now
+   (+0.15%), against the resolve threshold of 1e5. Every cell's `count`, `expected` and `pass` is identical, and so
+   is every arm verdict in 193b. t1o3 shared is REFUSED in both runs, because the shell-2 Kerr control count fails in
+   both. The flag moves no verdict.
+2. **The 22 structural differences are the d = 6 resource-guard cells** (`CR/even/6/6`). The original dropped them
+   (free swap < 1 GB) and this run did not. The pre-registration calls such cells "not comparable" and says they are
+   never counted as a difference. **The script did not implement that exemption**, which is a shortfall of the
+   bridge's script. Excluding them would not change the 193b reading, which (1) already sets.
+3. **193c count shift:** t1o2 shell 1 Kerr CR/even/6/6 `pruned` 2148 -> 2147 (one basis term). Count and pass are
+   identical, and both 193c readings (INCONCLUSIVE, INCONCLUSIVE) are identical.
+4. **193c_farfield max dist 1.9:** noise-floor coefficients (floats only, descriptive). All categorical fields are
+   identical.
+
+**What this means for citing.** Every verdict in §193 (TS NONE up to rank 4; all controls), §193b (all REFUSED arms),
+§193c (both INCONCLUSIVE), §194 (G0 FAIL as before) and §194b is identical on the OpenBLAS stack. The one NOT
+REPRODUCED file differs only in an intermediate resolution flag at a threshold. The Accelerate-exposure flag on
+§193-194 can be read as resolved for the verdicts. The prograde plunge-cut exposure is untouched (out of scope).
+
+**New, unpaired, NOT a reproduction item.** One d = 6 cell, absent from the original because of the guard, now
+exists: §193b t1o2 shared arm CR/even/6/6 reads by the gate-R1 rule "EXACT (polynomial, rank <= 6) -- escalate as a
+CANDIDATE, not a claim" (best/floor per shell 1.0e-2, 7.2e-6, 2.0e-3).
+- It is a fixed-shell numerical approximant, so it is shell-restricted by construction. §193c already met the same
+  kind of candidate in the strong arm and read it INCONCLUSIVE ("candidate SHELL-RESTRICTED integral, never a
+  Killing tensor").
+- It cannot be an exact Killing tensor: Vollmer 2017 and the bridge's V10 rule out valence <= 7 and <= 10 at p = 3/5,
+  and quantum's Morales–Ramis certificates rule out any meromorphic integral. The reading most consistent with the
+  record is the near-integrable (KAM-like) approximant seen in §193 ("TS far nearer to integrable than ZV").
+- It is recorded for tabula to read under its own rules. Do not cite it as anything.

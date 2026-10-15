@@ -4603,3 +4603,17 @@ Environment: ENVIRONMENT/py314_openblas.json (OpenBLAS, BLAS threads = 1), code 
   Retrograde rows are unaffected. Nothing is deleted; any re-use waits for a rerun with the barrier separatrix.
 - Fix (196 onward): L_sep from the barrier, gated against exact BPT for Kerr (|diff| <= 2e-10); a per-level cut
   midway between the horizon and the barrier; seeds outside the barrier; ZV cut x < 1.5 (no barrier outside x = 1).
+
+## 2026-10-15 — OpenBLAS reproducibility rerun of §193/193b/193c/194/194b (The Bridge): verdicts all identical
+Pre-registration, amendments and OUTCOME: notes/openblas_repro_193_194_prereg.md (5a2a42a, 937e5c0, 33a3ae8; outcome
+this commit).
+- **Registered reading: NOT REPRODUCED, set by 193b alone.** Four `resolved` flags flipped at the 1e5 resolve threshold
+  (99,944 -> 100,096). No count, pass or verdict changed anywhere.
+- Every other file is REPRODUCED, except 193c, which has one `pruned` count shift. The probe is bit-identical.
+- §193's TS "NONE up to rank 4" and all control verdicts are identical. So the ACCELERATE-EXPOSED flag (2026-10-11)
+  is resolved for verdicts. The PLUNGE-CUT EXPOSURE of the prograde rows (2026-10-12) still stands.
+- Found on the way: 193's production/rank6/rank6-strong modes could not start on .venv314ob (a torch import via
+  curvlib.progress). Fixed in 937e5c0 (amendment 1), with no numerical effect.
+- One new unpaired d = 6 candidate (§193b t1o2 shared CR/even/6/6, "EXACT ... escalate as a CANDIDATE, not a claim")
+  ran only because the swap guard did not trip. It is shell-restricted by construction and excluded as a Killing
+  tensor by Vollmer, V10 and Morales–Ramis. Left for tabula's own reading; not cited.
