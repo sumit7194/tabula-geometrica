@@ -4621,3 +4621,23 @@ this commit).
   (OpenBLAS 100,095.96; Accelerate 99,943.65 in py3.12/py3.14 and with the original code). The original is NOT
   corrupted. The R1 threshold sits inside this quantity's rounding sensitivity for that shell. Details: prereg note,
   "Post-outcome diagnosis".
+
+## 2026-10-15 — §193 is NOT plunge-cut exposed (The Bridge; diagnostic, refines the 2026-10-12 flag)
+- **Question:** the 2026-10-12 PLUNGE-CUT EXPOSURE note flags "§193 / §194 / §195 rows at PROGRADE levels". Does §193's
+  r_like < 3m guard (R_GUARD) ever act? `ensemble()` launches 2n orbits and keeps the first n that pass `keep_mask`,
+  so any drop would silently bias the sample.
+- **Method:** `results/repro_openblas_2026-10-15/diag_193_plunge_cut/cutdiag.py` replays `ensemble()` exactly. That
+  means the same seeds and draws for every production shell: shared arm 3 shells × Kerr/ZV2/TS2 and strong arm 3
+  shells × Kerr/TS2, at both p, train and test, so 60 ensembles. It counts drops by reason over ALL launched orbits.
+  Trajectories are code- and library-independent (bit-identical in the 193b flip diagnosis), so this is the
+  original sampling.
+- **Result:**
+  - **60/60 ensembles kept 120/120 launched orbits; 0 drops of any kind** (r guard, y guard, non-finite, H drift).
+    The first draw always sufficed, so no selection occurred.
+  - **The minimum r_like reached by any launched orbit is 4.08** (TS strong arm). In the shared arm it is 7.5 or
+    more for Kerr and TS, and 5.26 or more for ZV2.
+  - Every Kerr and TS shell is a single closed equatorial pocket. ZV2's inner interval (r 3.0-4.06) is separated
+    by a forbidden gap and never visited.
+- **Reading:** §193 does not use a separatrix or l_sep (its shells are fixed (E, L) bound pockets), and the r guard
+  never acted. The plunge-cut exposure applies to §194 and §195 (and 196 before its fix), **not to §193**. §193 is
+  therefore cleared on both counts: the Accelerate flag for its verdicts (OpenBLAS rerun) and the plunge cut (this).

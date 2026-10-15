@@ -1,0 +1,1436 @@
+[
+ {
+  "tag": "t1o2",
+  "arm": "shared",
+  "shell": 0,
+  "E": 0.97,
+  "L": -3.8,
+  "space": "Kerr",
+  "outer": [
+   7.973121640205026,
+   24.267408426053255
+  ],
+  "eq_intervals": [
+   [
+    7.973121640205026,
+    24.267408426053255
+   ]
+  ],
+  "kerr_a": -0.8,
+  "ensembles": [
+   {
+    "seed": 1,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 7.993941215030617
+   },
+   {
+    "seed": 51,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 8.02120751832274
+   }
+  ]
+ },
+ {
+  "tag": "t1o2",
+  "arm": "shared",
+  "shell": 0,
+  "E": 0.97,
+  "L": -3.8,
+  "space": "ZV2",
+  "outer": [
+   4.950243780472559,
+   24.764720590073757
+  ],
+  "eq_intervals": [
+   [
+    3.0,
+    4.062882860357544
+   ],
+   [
+    4.950243780472559,
+    24.764720590073757
+   ]
+  ],
+  "kerr_a": -0.8,
+  "ensembles": [
+   {
+    "seed": 2,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 5.264774267281658
+   },
+   {
+    "seed": 52,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 5.437669910467242
+   }
+  ]
+ },
+ {
+  "tag": "t1o2",
+  "arm": "shared",
+  "shell": 0,
+  "E": 0.97,
+  "L": -3.8,
+  "space": "TS2",
+  "outer": [
+   7.934116764595574,
+   24.267408426053255
+  ],
+  "eq_intervals": [
+   [
+    7.934116764595574,
+    24.267408426053255
+   ]
+  ],
+  "kerr_a": -0.8,
+  "ensembles": [
+   {
+    "seed": 3,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 8.121571668914672
+   },
+   {
+    "seed": 53,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 8.06305023875256
+   }
+  ]
+ },
+ {
+  "tag": "t1o2",
+  "arm": "shared",
+  "shell": 1,
+  "E": 0.97,
+  "L": -3.9,
+  "space": "Kerr",
+  "outer": [
+   8.811726465808226,
+   23.428803600450056
+  ],
+  "eq_intervals": [
+   [
+    8.811726465808226,
+    23.428803600450056
+   ]
+  ],
+  "kerr_a": -0.8,
+  "ensembles": [
+   {
+    "seed": 101,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 8.842832915192627
+   },
+   {
+    "seed": 151,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 8.886727422125652
+   }
+  ]
+ },
+ {
+  "tag": "t1o2",
+  "arm": "shared",
+  "shell": 1,
+  "E": 0.97,
+  "L": -3.9,
+  "space": "ZV2",
+  "outer": [
+   6.325165645705713,
+   24.013876734591822
+  ],
+  "eq_intervals": [
+   [
+    3.0,
+    3.429053631703963
+   ],
+   [
+    6.325165645705713,
+    24.013876734591822
+   ]
+  ],
+  "kerr_a": -0.8,
+  "ensembles": [
+   {
+    "seed": 102,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 6.784417756273172
+   },
+   {
+    "seed": 152,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 6.327465479697684
+   }
+  ]
+ },
+ {
+  "tag": "t1o2",
+  "arm": "shared",
+  "shell": 1,
+  "E": 0.97,
+  "L": -3.9,
+  "space": "TS2",
+  "outer": [
+   8.772721590198774,
+   23.428803600450056
+  ],
+  "eq_intervals": [
+   [
+    8.772721590198774,
+    23.428803600450056
+   ]
+  ],
+  "kerr_a": -0.8,
+  "ensembles": [
+   {
+    "seed": 103,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 8.887269699203813
+   },
+   {
+    "seed": 153,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 8.843338683200013
+   }
+  ]
+ },
+ {
+  "tag": "t1o2",
+  "arm": "shared",
+  "shell": 2,
+  "E": 0.965,
+  "L": -3.8,
+  "space": "Kerr",
+  "outer": [
+   9.036004500562571,
+   18.445930741342668
+  ],
+  "eq_intervals": [
+   [
+    9.036004500562571,
+    18.445930741342668
+   ]
+  ],
+  "kerr_a": -0.8,
+  "ensembles": [
+   {
+    "seed": 201,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 9.061929215892224
+   },
+   {
+    "seed": 251,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 9.12748687834999
+   }
+  ]
+ },
+ {
+  "tag": "t1o2",
+  "arm": "shared",
+  "shell": 2,
+  "E": 0.965,
+  "L": -3.8,
+  "space": "ZV2",
+  "outer": [
+   5.964370546318289,
+   19.343042880360045
+  ],
+  "eq_intervals": [
+   [
+    3.0,
+    3.7020877609701213
+   ],
+   [
+    5.964370546318289,
+    19.343042880360045
+   ]
+  ],
+  "kerr_a": -0.8,
+  "ensembles": [
+   {
+    "seed": 202,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 6.193228783518858
+   },
+   {
+    "seed": 252,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 6.07938640409639
+   }
+  ]
+ },
+ {
+  "tag": "t1o2",
+  "arm": "shared",
+  "shell": 2,
+  "E": 0.965,
+  "L": -3.8,
+  "space": "TS2",
+  "outer": [
+   8.99699962495312,
+   18.445930741342668
+  ],
+  "eq_intervals": [
+   [
+    8.99699962495312,
+    18.445930741342668
+   ]
+  ],
+  "kerr_a": -0.8,
+  "ensembles": [
+   {
+    "seed": 203,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 8.994912482977417
+   },
+   {
+    "seed": 253,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 9.08746508278408
+   }
+  ]
+ },
+ {
+  "tag": "t1o2",
+  "arm": "strong",
+  "shell": 0,
+  "E": 0.935,
+  "L": -2.9,
+  "space": "Kerr",
+  "outer": [
+   4.452931616452056,
+   9.747843480435055
+  ],
+  "eq_intervals": [
+   [
+    4.452931616452056,
+    9.747843480435055
+   ]
+  ],
+  "kerr_a": -0.8,
+  "ensembles": [
+   {
+    "seed": 1,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 4.458713366922069
+   },
+   {
+    "seed": 51,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 4.507207754186862
+   }
+  ]
+ },
+ {
+  "tag": "t1o2",
+  "arm": "strong",
+  "shell": 0,
+  "E": 0.935,
+  "L": -2.9,
+  "space": "TS2",
+  "outer": [
+   4.316414551818977,
+   9.757594699337417
+  ],
+  "eq_intervals": [
+   [
+    4.316414551818977,
+    9.757594699337417
+   ]
+  ],
+  "kerr_a": -0.8,
+  "ensembles": [
+   {
+    "seed": 3,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 4.317744765215922
+   },
+   {
+    "seed": 53,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 4.34424569892779
+   }
+  ]
+ },
+ {
+  "tag": "t1o2",
+  "arm": "strong",
+  "shell": 1,
+  "E": 0.94,
+  "L": -3.0,
+  "space": "Kerr",
+  "outer": [
+   4.9209901237654705,
+   10.596199524940618
+  ],
+  "eq_intervals": [
+   [
+    4.9209901237654705,
+    10.596199524940618
+   ]
+  ],
+  "kerr_a": -0.8,
+  "ensembles": [
+   {
+    "seed": 101,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 4.987131777988901
+   },
+   {
+    "seed": 151,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 4.9717949642607895
+   }
+  ]
+ },
+ {
+  "tag": "t1o2",
+  "arm": "strong",
+  "shell": 1,
+  "E": 0.94,
+  "L": -3.0,
+  "space": "TS2",
+  "outer": [
+   4.803975496937117,
+   10.596199524940618
+  ],
+  "eq_intervals": [
+   [
+    4.803975496937117,
+    10.596199524940618
+   ]
+  ],
+  "kerr_a": -0.8,
+  "ensembles": [
+   {
+    "seed": 103,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 4.82309501800226
+   },
+   {
+    "seed": 153,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 4.836141853597031
+   }
+  ]
+ },
+ {
+  "tag": "t1o2",
+  "arm": "strong",
+  "shell": 2,
+  "E": 0.945,
+  "L": -3.1,
+  "space": "Kerr",
+  "outer": [
+   5.330541317664708,
+   11.727340917614702
+  ],
+  "eq_intervals": [
+   [
+    5.330541317664708,
+    11.727340917614702
+   ]
+  ],
+  "kerr_a": -0.8,
+  "ensembles": [
+   {
+    "seed": 201,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 5.379203074714312
+   },
+   {
+    "seed": 251,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 5.3931276994546735
+   }
+  ]
+ },
+ {
+  "tag": "t1o2",
+  "arm": "strong",
+  "shell": 2,
+  "E": 0.945,
+  "L": -3.1,
+  "space": "TS2",
+  "outer": [
+   5.23302912864108,
+   11.727340917614702
+  ],
+  "eq_intervals": [
+   [
+    5.23302912864108,
+    11.727340917614702
+   ]
+  ],
+  "kerr_a": -0.8,
+  "ensembles": [
+   {
+    "seed": 203,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 5.242148060103701
+   },
+   {
+    "seed": 253,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 5.304658563634897
+   }
+  ]
+ },
+ {
+  "tag": "t1o3",
+  "arm": "shared",
+  "shell": 0,
+  "E": 0.97,
+  "L": -3.8,
+  "space": "Kerr",
+  "outer": [
+   7.5343167895987,
+   24.394174271783974
+  ],
+  "eq_intervals": [
+   [
+    7.5343167895987,
+    24.394174271783974
+   ]
+  ],
+  "kerr_a": -0.6,
+  "ensembles": [
+   {
+    "seed": 1,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 7.59568999967576
+   },
+   {
+    "seed": 51,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 7.7204771272316535
+   }
+  ]
+ },
+ {
+  "tag": "t1o3",
+  "arm": "shared",
+  "shell": 0,
+  "E": 0.97,
+  "L": -3.8,
+  "space": "ZV2",
+  "outer": [
+   4.950243780472559,
+   24.764720590073757
+  ],
+  "eq_intervals": [
+   [
+    3.0,
+    4.062882860357544
+   ],
+   [
+    4.950243780472559,
+    24.764720590073757
+   ]
+  ],
+  "kerr_a": -0.6,
+  "ensembles": [
+   {
+    "seed": 2,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 5.264774267281658
+   },
+   {
+    "seed": 52,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 5.437669910467242
+   }
+  ]
+ },
+ {
+  "tag": "t1o3",
+  "arm": "shared",
+  "shell": 0,
+  "E": 0.97,
+  "L": -3.8,
+  "space": "TS2",
+  "outer": [
+   7.456307038379798,
+   24.394174271783974
+  ],
+  "eq_intervals": [
+   [
+    7.456307038379798,
+    24.394174271783974
+   ]
+  ],
+  "kerr_a": -0.6,
+  "ensembles": [
+   {
+    "seed": 3,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 7.557640013845543
+   },
+   {
+    "seed": 53,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 7.550603339693646
+   }
+  ]
+ },
+ {
+  "tag": "t1o3",
+  "arm": "shared",
+  "shell": 1,
+  "E": 0.97,
+  "L": -3.9,
+  "space": "Kerr",
+  "outer": [
+   8.3729216152019,
+   23.5750718839855
+  ],
+  "eq_intervals": [
+   [
+    8.3729216152019,
+    23.5750718839855
+   ]
+  ],
+  "kerr_a": -0.6,
+  "ensembles": [
+   {
+    "seed": 101,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 8.519506436853675
+   },
+   {
+    "seed": 151,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 8.570758752097973
+   }
+  ]
+ },
+ {
+  "tag": "t1o3",
+  "arm": "shared",
+  "shell": 1,
+  "E": 0.97,
+  "L": -3.9,
+  "space": "ZV2",
+  "outer": [
+   6.325165645705713,
+   24.013876734591822
+  ],
+  "eq_intervals": [
+   [
+    3.0,
+    3.429053631703963
+   ],
+   [
+    6.325165645705713,
+    24.013876734591822
+   ]
+  ],
+  "kerr_a": -0.6,
+  "ensembles": [
+   {
+    "seed": 102,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 6.784417756273172
+   },
+   {
+    "seed": 152,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 6.327465479697684
+   }
+  ]
+ },
+ {
+  "tag": "t1o3",
+  "arm": "shared",
+  "shell": 1,
+  "E": 0.97,
+  "L": -3.9,
+  "space": "TS2",
+  "outer": [
+   8.304663082885362,
+   23.5750718839855
+  ],
+  "eq_intervals": [
+   [
+    8.304663082885362,
+    23.5750718839855
+   ]
+  ],
+  "kerr_a": -0.6,
+  "ensembles": [
+   {
+    "seed": 103,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 8.415864857452478
+   },
+   {
+    "seed": 153,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 8.337601774417966
+   }
+  ]
+ },
+ {
+  "tag": "t1o3",
+  "arm": "shared",
+  "shell": 2,
+  "E": 0.965,
+  "L": -3.8,
+  "space": "Kerr",
+  "outer": [
+   8.489936242030254,
+   18.68971121390174
+  ],
+  "eq_intervals": [
+   [
+    8.489936242030254,
+    18.68971121390174
+   ]
+  ],
+  "kerr_a": -0.6,
+  "ensembles": [
+   {
+    "seed": 201,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 8.615097057615133
+   },
+   {
+    "seed": 251,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 8.549296427164458
+   }
+  ]
+ },
+ {
+  "tag": "t1o3",
+  "arm": "shared",
+  "shell": 2,
+  "E": 0.965,
+  "L": -3.8,
+  "space": "ZV2",
+  "outer": [
+   5.964370546318289,
+   19.343042880360045
+  ],
+  "eq_intervals": [
+   [
+    3.0,
+    3.7020877609701213
+   ],
+   [
+    5.964370546318289,
+    19.343042880360045
+   ]
+  ],
+  "kerr_a": -0.6,
+  "ensembles": [
+   {
+    "seed": 202,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 6.193228783518858
+   },
+   {
+    "seed": 252,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 6.07938640409639
+   }
+  ]
+ },
+ {
+  "tag": "t1o3",
+  "arm": "shared",
+  "shell": 2,
+  "E": 0.965,
+  "L": -3.8,
+  "space": "TS2",
+  "outer": [
+   8.41192649081135,
+   18.68971121390174
+  ],
+  "eq_intervals": [
+   [
+    8.41192649081135,
+    18.68971121390174
+   ]
+  ],
+  "kerr_a": -0.6,
+  "ensembles": [
+   {
+    "seed": 203,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 8.432043782352746
+   },
+   {
+    "seed": 253,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 8.652519058566995
+   }
+  ]
+ },
+ {
+  "tag": "t1o3",
+  "arm": "strong",
+  "shell": 0,
+  "E": 0.94,
+  "L": -3.05,
+  "space": "Kerr",
+  "outer": [
+   4.374921865233155,
+   10.49868733591699
+  ],
+  "eq_intervals": [
+   [
+    4.374921865233155,
+    10.49868733591699
+   ]
+  ],
+  "kerr_a": -0.6,
+  "ensembles": [
+   {
+    "seed": 1,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 4.394936637744673
+   },
+   {
+    "seed": 51,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 4.5385810770472546
+   }
+  ]
+ },
+ {
+  "tag": "t1o3",
+  "arm": "strong",
+  "shell": 0,
+  "E": 0.94,
+  "L": -3.05,
+  "space": "TS2",
+  "outer": [
+   4.014126765845731,
+   10.49868733591699
+  ],
+  "eq_intervals": [
+   [
+    4.014126765845731,
+    10.49868733591699
+   ]
+  ],
+  "kerr_a": -0.6,
+  "ensembles": [
+   {
+    "seed": 3,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 4.076716135709907
+   },
+   {
+    "seed": 53,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 4.075945153321043
+   }
+  ]
+ },
+ {
+  "tag": "t1o3",
+  "arm": "strong",
+  "shell": 1,
+  "E": 0.935,
+  "L": -3.05,
+  "space": "Kerr",
+  "outer": [
+   5.067258407300913,
+   8.567945993249158
+  ],
+  "eq_intervals": [
+   [
+    5.067258407300913,
+    8.567945993249158
+   ]
+  ],
+  "kerr_a": -0.6,
+  "ensembles": [
+   {
+    "seed": 101,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 5.097740953237559
+   },
+   {
+    "seed": 151,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 5.137480442292712
+   }
+  ]
+ },
+ {
+  "tag": "t1o3",
+  "arm": "strong",
+  "shell": 1,
+  "E": 0.935,
+  "L": -3.05,
+  "space": "TS2",
+  "outer": [
+   4.735716964620577,
+   8.606950868858608
+  ],
+  "eq_intervals": [
+   [
+    4.735716964620577,
+    8.606950868858608
+   ]
+  ],
+  "kerr_a": -0.6,
+  "ensembles": [
+   {
+    "seed": 103,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 4.780923486822887
+   },
+   {
+    "seed": 153,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 4.784498995401863
+   }
+  ]
+ },
+ {
+  "tag": "t1o3",
+  "arm": "strong",
+  "shell": 2,
+  "E": 0.94,
+  "L": -3.15,
+  "space": "Kerr",
+  "outer": [
+   5.701087635954495,
+   9.318789848731091
+  ],
+  "eq_intervals": [
+   [
+    5.701087635954495,
+    9.318789848731091
+   ]
+  ],
+  "kerr_a": -0.6,
+  "ensembles": [
+   {
+    "seed": 201,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 5.72430735415053
+   },
+   {
+    "seed": 251,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 5.7194221266569425
+   }
+  ]
+ },
+ {
+  "tag": "t1o3",
+  "arm": "strong",
+  "shell": 2,
+  "E": 0.94,
+  "L": -3.15,
+  "space": "TS2",
+  "outer": [
+   5.457307163395424,
+   9.34804350543818
+  ],
+  "eq_intervals": [
+   [
+    5.457307163395424,
+    9.34804350543818
+   ]
+  ],
+  "kerr_a": -0.6,
+  "ensembles": [
+   {
+    "seed": 203,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 5.512316186546505
+   },
+   {
+    "seed": 253,
+    "draws": 1,
+    "launched": 120,
+    "kept": 120,
+    "drops": {
+     "r_guard": 0,
+     "y_guard": 0,
+     "nonfinite": 0,
+     "drift": 0
+    },
+    "min_r_like_all_launched": 5.519912249566171
+   }
+  ]
+ }
+]
