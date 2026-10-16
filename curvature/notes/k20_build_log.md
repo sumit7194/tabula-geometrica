@@ -456,3 +456,24 @@ V13 (The Bridge): its own code, indicators (NAFF log10|Δν| over two halves AND
 - **Coverage limitation, stated:** launch points were sampled inside the grid-limited interval, so a strip of width
   ≤ ~0.09 in x at each edge of each screened region was not launched into. Orbits launched inside do visit that
   strip, and the section clouds use all crossings.
+
+## AMENDMENT A10 (2026-10-17, before any counted result; quantum's point via The Bridge, V13 A7 mirrors it): saddle-in-D, not f_D
+- **Why:** fast escape of SAMPLED orbits does not exclude a measure-zero chaotic saddle INSIDE D, and a horseshoe
+  needs only that. So the per-point K20 verdict is **"saddle-in-D candidates found / none found within the search"**,
+  where the search is the UPOs of period ≤ 3 from the Newton seed grid (A4) plus connections within 30 + 30 iterates.
+  f_D is reported but does not decide it.
+- **Per hyperbolic UPO:**
+  - integrate one full period (n returns, from its section point) at the level's tolerance;
+  - report whether the WHOLE orbit stays in D_B9 (no B9 exit) and is complete (n returns, base domain);
+  - report its minimum D-margins along the orbit: x − 1, g_φφ, R², 1 − y² (running minima at the n-th crossing);
+  - plus the earlier A1.4(b) items: eigenvalues, eigenvectors, period-n points.
+- **Transition graph (A1.4(c)):** each numerical homoclinic or heteroclinic connection is marked "in D" iff every
+  point of the connecting manifold segments, sampled at each integration step from the UPO through the
+  intersection, stays in D_B9. Both UPO orbits must be in D.
+- **Search extension (closes a gap in my own level rule):** at C0 and F5-R the MN-type inner region classifies as
+  PLUNGE under B9, so §2 never screened it, and so never searched it for UPOs. Under A10 the UPO search (periods
+  1–3, A4 grid) also covers every BASE-domain bound component at:
+  - the C0 level (0.95, 3), whose inner-region UPOs already exist from the C-gate run (13 located, 11 hyperbolic);
+  - the F5-R shared level (19/20, 3);
+  - F5-R's own levels.
+  Each hyperbolic UPO found there is tested for whole-orbit D_B9 containment.
