@@ -408,3 +408,14 @@ results/197_cgates.json. Only pass/fail status goes to The Bridge until V13's C0
   - F5-R's prediction ("chaos concentrated in the inner region and at the neck, with a candidate region inside D on
     ≥ 1 level"): its STRUCTURAL premise has already failed, since under D_B9 there is no inner region or neck.
     Whether any chaos exists in F5-R's outer region is what the screen measures.
+
+## Counted-screen driver (screen_point), smoke-tested in scratch before any counted orbit
+- **Smoke** (p1, n = 6, N_ret 60, in scratch; numbers meaningless): every path executed and the seal was written.
+- **CAUGHT: an empty-threshold pass.** With too few null orbits (fewer than 20 training orbits per level),
+  thresholds are None and every verdict is CANNOT-DISCRIMINATE, as it should be. But C1 printed "pass: True",
+  because 0 CHAOTIC out of an empty set reads as "no false alarms" (the shape of silent_nulls 73). It is fixed in
+  both screen_point and cgates: no thresholds means C1 = NO-THRESHOLDS, not passed. The sealed C-gate run is
+  unaffected; it had thresholds (4 levels, 200 training orbits).
+- candidate_regions was exercised on real data (the C0 inner base-domain CHAOTIC orbits; a code test only): one
+  region, with the 200×200 grid occupancy, UPOs inside and return-time percentiles produced.
+- The screen refuses to start unless the sealed C-gates passed (C1, DW, C0 inner/outer, C3/C4).

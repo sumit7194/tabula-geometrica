@@ -610,7 +610,7 @@ def e_barrier(pp, Lz, lo=0.80, hi=0.9999):
 def run_level(lib, dom, point, kerr, E, Lz, region, n, seed, target, workers, log):
     """Launch n orbits in one bound component, pilot the tolerance, find UPOs, run the orbits. Returns a dict."""
     pp = point_params(point, kerr=kerr)
-    iv = component_interval(pp, E, Lz, region)
+    iv = tuple(region) if isinstance(region, (tuple, list)) else component_interval(pp, E, Lz, region)
     if iv is None:
         return None
     box = section_box(pp, E, Lz, *iv)
@@ -652,13 +652,14 @@ def orbit_stats(lev, i, rule, accept):
     return, or, if the orbit ends or leaves the rule's domain first, its fate (ESCAPE), and if it has >= 500 returns
     before that, also read at 500."""
     rec, orb = np.asarray(lev["recs"][i]).reshape(-1, RCOLS), lev["orbs"][i]
-    ex = orb[3] if rule == "B9" else -1.0
+    RI = {"B9": (3, 9), "B6": (4, 10), "P": (5, 11)}
+    ex = orb[RI[rule][0]] if rule in RI else -1.0
     n_all = len(rec)
     n_in = n_all if ex < 0 else int(np.sum(rec[:, 0] <= ex))
     ended_early = (orb[2] != 0) or (ex >= 0 and n_in < N_RET)
     N = N_RET if not ended_early else (N_SEC if n_in >= N_SEC else None)
     if N is None:
-        drift = (orb[9] if (rule == "B9" and ex >= 0) else orb[6])
+        drift = (orb[RI[rule][1]] if (rule in RI and ex >= 0) else orb[6])
         return {"fate": "ESCAPE", "n_ret": n_in, "drift": float(drift), "accepted": bool(drift <= accept), "N": None}
     drift = float(rec[N - 1, 6])
     st = stats_for(rec, lev["box"], N, lev["upos"])
@@ -924,6 +925,146 @@ def select_levels(point, log=print):
     return out
 
 
+SHARED = {"p1": (37 / 40, 29 / 10), "p2": (9 / 10, 13 / 10), "F5R": (19 / 20, 3.0)}
+
+
+def candidate_regions(lev, idx_chaotic, upos, rule_ok):
+    """A1/§6: connected components of the CHAOTIC section cloud (single linkage at 0.02, normalised), with the box,
+    area on the shared 200x200 grid, UPOs inside, D-status and return times."""
+    from scipy.sparse.csgraph import connected_components
+    from scipy.spatial import cKDTree
+    box = lev["box"]
+    pts, own, rt_tau, rt_t = [], [], [], []
+    for i in idx_chaotic:
+        rec = np.asarray(lev["recs"][i]).reshape(-1, RCOLS)
+        nr = rule_ok[i]
+        rec = rec[:nr]
+        u, v = norm_sec(box, rec[:, 2], rec[:, 3])
+        pts.append(np.column_stack([u, v])); own += [i] * len(u)
+        rt_tau += np.diff(rec[:, 0]).tolist(); rt_t += np.diff(rec[:, 1]).tolist()
+    if not pts:
+        return []
+    P = np.vstack(pts)
+    sub = P[:: max(1, len(P) // 40000)]                     # thinned for linkage; grid occupancy uses all points
+    tree = cKDTree(sub)
+    pairs = tree.query_pairs(0.02, output_type="ndarray")
+    from scipy.sparse import coo_matrix
+    n = len(sub)
+    A = coo_matrix((np.ones(len(pairs)), (pairs[:, 0], pairs[:, 1])), shape=(n, n)) if len(pairs) else coo_matrix((n, n))
+    nc, lab = connected_components(A, directed=False)
+    regs = []
+    for c in range(nc):
+        Q = sub[lab == c]
+        if len(Q) < 50:
+            continue
+        g = np.zeros((200, 200), bool)
+        g[np.clip((Q[:, 0] * 200).astype(int), 0, 199), np.clip((Q[:, 1] * 200).astype(int), 0, 199)] = True
+        inside = [u_ for u_ in upos if any(min(np.hypot(*(np.array(norm_sec(box, q[0], q[1])) - Q).T)) < 0.02
+                                           for q in u_["pts"])]
+        regs.append({"n_points": int(len(Q)), "box_norm": [Q[:, 0].min(), Q[:, 0].max(), Q[:, 1].min(), Q[:, 1].max()],
+                     "box_x_px": [box["xa"] + Q[:, 0].min() * (box["xb"] - box["xa"]),
+                                  box["xa"] + Q[:, 0].max() * (box["xb"] - box["xa"]),
+                                  -box["pm"] + Q[:, 1].min() * 2 * box["pm"], -box["pm"] + Q[:, 1].max() * 2 * box["pm"]],
+                     "grid_cells_200": int(g.sum()), "grid200": np.argwhere(g).tolist(),
+                     "upos_inside": [{k_: u_[k_] for k_ in ("n", "z", "trace", "hyperbolic")} for u_ in inside]})
+    rt = {"tau": np.percentile(rt_tau, [5, 50, 95]).tolist() + [max(rt_tau)] if rt_tau else None,
+          "t": np.percentile(rt_t, [5, 50, 95]).tolist() + [max(rt_t)] if rt_t else None}
+    return {"regions": regs, "return_times_p5_med_p95_max": rt}
+
+
+def screen_point(point, workers=4):
+    """The COUNTED screen (prereg §2-§10, A1-A8): own + shared levels, matched Kerr null, B9 reading at 1e-9."""
+    import time
+    from scipy.stats import binom, beta as cp
+    logf = open(RESULTS / f"197_screen_{point}.log", "a")
+
+    def log(m):
+        print(m, flush=True); logf.write(m + "\n"); logf.flush()
+    lib = _lib()
+    pp = point_params(point)
+    dom = build_domain(pp)
+    own = json.load(open(RESULTS / "197_own_levels.json"))[point]["levels"]
+    levels = [(l_["E"], l_["Lz"], "own:" + l_["why"][0]) for l_ in own] + [(*SHARED[point], "shared")]
+    out = {"point": point, "levels": [], "amendments": "9aca9a4 + A1..A8"}
+    runs = []
+    for li, (E, Lz, tag) in enumerate(levels):
+        topo, bound = classify_level(pp, dom, E, Lz)
+        for cj, b in enumerate(bound):
+            name = f"{point}_L{li}_c{cj}"
+            t = time.time()
+            lev = load_level(name)
+            if lev is None:
+                lev = run_level(lib, dom, point, False, E, Lz, tuple(b["x"]), 200, 197500 + 100 * li + cj,
+                                DRIFT_TARGET, workers, log)
+                save_level(lev, name)
+            runs.append((li, cj, tag, topo, lev))
+            log(f"{name} ({E}, {Lz}) {tag} {topo} comp {b['x']}: tol {lev['tol']:.0e} UPOs {len(lev['upos'])} "
+                f"[{time.time() - t:.0f}s]")
+    # matched Kerr null at this chi (A8 pooled)
+    pk = point_params(point, kerr=True)
+    domk = build_domain(pk)
+    nl = null_levels(point, [L for _, L, _ in levels], [(E, L) for E, L, _ in levels])
+    log(f"Kerr null levels: {nl}")
+    tr_by, ho, dseps = [], [], []
+    for j, (kind, E, Lz, dl) in enumerate(nl):
+        name = f"null_{point}_{j}"
+        lev = load_level(name)
+        if lev is None:
+            lev = run_level(lib, domk, point, True, E, Lz, "outer", 100, 197900 + j, DRIFT_TARGET, workers, log)
+            save_level(lev, name)
+        trl = []
+        for i in range(len(lev["orbs"])):
+            st = orbit_stats(lev, i, "base", ACCEPT)
+            if st["fate"] != "ESCAPE" and st["accepted"]:
+                (trl if i % 2 == 0 else ho).append(st)
+            dseps.append(d_sep(lev, i, N_RET))
+        tr_by.append(trl)
+    thr = thresholds_pooled(tr_by)
+    kk = sum(1 for s_ in ho if verdict(s_, thr) == "CHAOTIC")
+    p = float(binom.sf(kk - 1, len(ho), 0.01)) if kk > 0 else 1.0
+    c1 = ({"status": "NO THRESHOLDS (too few training orbits)", "pass": False} if thr[0] is None else
+          {"n_heldout": len(ho), "chaotic": kk, "p_vs_1pct": p, "pass": p >= 0.05})   # empty thresholds never pass
+    out["kerr_null"] = {"levels": [list(map(str, x)) for x in nl], "thresholds": thr[0], "C1": c1,
+                        "dsep": {"min": float(np.nanmin(dseps)), "median": float(np.nanmedian(dseps))}}
+    log(f"Kerr null: C1 {out['kerr_null']['C1']} | thresholds {thr[0]}")
+    for li, cj, tag, topo, lev in runs:
+        rec = {"E": lev["E"], "Lz": lev["Lz"], "tag": tag, "topology": topo, "component": cj, "box": lev["box"],
+               "tol": lev["tol"], "pilot_floor_hit": lev["pilot"]["floor_hit"],
+               "upos": [{k_: u[k_] for k_ in ("n", "z", "pts", "trace", "det", "hyperbolic")} | {"eig": [str(e) for e in u["eig"]],
+                         "evec": str(u["evec"])} for u in lev["upos"]]}
+        for rule in ("B9", "B6", "P"):
+            sts = [orbit_stats(lev, i, rule, ACCEPT) for i in range(len(lev["orbs"]))]
+            acc = [s_ for s_ in sts if s_["accepted"]]
+            vs = [(verdict(s_, thr) if s_["fate"] != "ESCAPE" else "ESCAPE") for s_ in acc]
+            exc = [s_ for s_ in sts if not s_["accepted"]]
+            k_ch = vs.count("CHAOTIC")
+            rr = {"n_in": len(sts), "n_analysed": len(acc), "unreadable": len(exc) > 0.25 * len(sts),
+                  "counts": {v: vs.count(v) for v in sorted(set(vs))},
+                  "chaotic_frac_CI95": [k_ch / max(len(acc), 1),
+                                        float(cp.ppf(0.025, k_ch, len(acc) - k_ch + 1)) if k_ch else 0.0,
+                                        float(cp.ppf(0.975, k_ch + 1, len(acc) - k_ch)) if k_ch < len(acc) else 1.0],
+                  "excluded_UNSCORED": (lambda ee: {e: ee.count(e) for e in set(ee)})(
+                      [f"{s_['fate']}/{verdict(s_, thr) if s_['fate'] != 'ESCAPE' else 'ESCAPE'}" for s_ in exc])}
+            if rule == "B9":
+                rr["by_dmin_bin_INFO"] = {b: (lambda vv: {v: vv.count(v) for v in sorted(set(vv))})(
+                    [verdict(s_, thr) for s_ in acc if s_["fate"] != "ESCAPE" and dbin(s_["dmin"]) == b]) for b in range(4)}
+                ch_idx = [i for i, s_ in enumerate(sts) if s_["accepted"] and s_["fate"] != "ESCAPE"
+                          and verdict(s_, thr) == "CHAOTIC"]
+                nret = [s_["N"] if s_["N"] else 0 for s_ in sts]
+                rr["candidates"] = candidate_regions(lev, ch_idx, lev["upos"], nret) if ch_idx else {"regions": []}
+                rr["min_ydot_at_crossings"] = float(min((np.abs(np.asarray(r).reshape(-1, RCOLS)[:, 7]).min()
+                                                         for r in lev["recs"] if len(r)), default=float("nan")))
+            rec[rule] = rr
+        out["levels"].append(rec)
+        log(f"L{li} c{cj} ({lev['E']}, {lev['Lz']}) {tag}: B9 {rec['B9']['counts']} n {rec['B9']['n_analysed']}/"
+            f"{rec['B9']['n_in']} chaotic {rec['B9']['chaotic_frac_CI95']} | B6 {rec['B6']['counts']} | P {rec['P']['counts']}")
+    fn = RESULTS / f"197_screen_{point}.json"
+    fn.write_text(json.dumps(out, indent=1, default=_jsonable))
+    import hashlib
+    log(f"SEALED {fn.name} sha256 {hashlib.sha256(fn.read_bytes()).hexdigest()}")
+    return out
+
+
 def cgates(workers=4):
     import time
     from scipy.stats import binom, beta as cp
@@ -966,6 +1107,8 @@ def cgates(workers=4):
     out["C1_chi0.9"] = {"n_heldout": len(ho), "chaotic": kk, "p_vs_1pct": p,
                         "cp95_upper": float(cp.ppf(0.95, kk + 1, max(len(ho) - kk, 1))), "pass": p >= 0.05,
                         "heldout_dmin_bins": {b: sum(1 for s_ in ho if dbin(s_["dmin"]) == b) for b in range(4)}}
+    if thr[0] is None:
+        out["C1_chi0.9"] = {"status": "NO THRESHOLDS", "pass": False}
     log(f"C1 (chi 0.9, pooled held-out): {out['C1_chi0.9']} | thresholds {thr[0]} | Kerr d_sep {out['kerr_null_dsep']}")
     dwo, _ = dw_null(thr, log)
     out["DW_null"] = dwo
@@ -1060,6 +1203,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--gq", action="store_true")
     ap.add_argument("--cgates", action="store_true")
+    ap.add_argument("--screen", nargs="*")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--selftest-pilot", action="store_true")
     a = ap.parse_args()
@@ -1074,3 +1218,15 @@ if __name__ == "__main__":
                 and json.load(open(gq_)).get("G_q_PASS")):
             raise SystemExit("C-gates refused: C2 self-test and G-q must have passed first")
         cgates(a.workers)
+    if a.screen:
+        cg = RESULTS / "197_cgates.json"
+        if not cg.exists():
+            raise SystemExit("screen refused: the C-gates have not run")
+        c = json.load(open(cg))
+        ok = (c["C1_DW_pass"]["C1"] and c["C1_DW_pass"]["DW_null"] and c["C0_pass"]["inner_ge_50pct"]
+              and c["C0_pass"]["outer_le_10pct"] and all(v.get("C3_pass") and v.get("C4_pass")
+                                                         for v in c["C3_C4"].values()))
+        if not ok:
+            raise SystemExit("screen refused: an instrument gate failed (prereg §8)")
+        for pt in a.screen:
+            screen_point(pt, a.workers)
