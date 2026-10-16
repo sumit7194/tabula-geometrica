@@ -65,3 +65,29 @@ Grid: x ∈ 1 + logspace(−6, log10 9) with 2400 points, |y| ≤ 0.99999 with 2
 3. **The C0/C3 instrument gates are graded on orbits classified without the D-margin rules** (only g_φφ > 0 and a
    finite metric). The literature they test applies no margin, and C0 tests the instrument against the
    literature, not the proof domain. D-status is still reported for those orbits.
+
+## AMENDMENT A3 (2026-10-16, before any orbit): quantum's B9 (45c1168) is the COUNTED domain rule
+- **D_B9:**
+  - (a) g_φφ > 0 on the box [x ± 0.025] × [y ± 0.025] around every orbit point;
+  - (a′) x − 1 ≥ 0.05;
+  - (c) R ≥ 0.5;
+  - every metric function finite and det g < 0.
+  The global δ_x rule (B6) and the R_s rule are withdrawn as counted rules.
+- **Also reported, not counted:** f_D under B6 (the global δ_x) and under (P) (pointwise x − x_CTC(y) ≥ 0.025).
+- **How (a) is implemented, and its sampling note:**
+  - A CTC mask, g_φφ < 0 or non-finite, is computed on a uniform grid with h = 5e-4 over x ∈ [1, 3], |y| ≤ 1. That
+    covers the CTC region's full extent (global x_CTC ≤ 2.436 at every point; outside x > 3, g_φφ > 0 is checked
+    pointwise).
+  - The mask is dilated by a square of half-width 0.025 + h (one extra cell, so a CTC cell just outside the box can
+    only make the test STRICTER, never laxer).
+  - Each integration step looks up the orbit point in the dilated mask, and g_φφ > 0 is also checked exactly at the
+    point itself.
+  - This covers the box's interior as well as its edges and corners (edges and corners alone can miss a CTC blob
+    strictly inside the box). Its error is bounded by the grid: at most h = 5e-4, always on the strict side.
+  - Limitation: the CTC boundary is resolved only to h. Points within h of the dilated boundary may be judged
+    strictly. This is reported, since it can only lower f_D_B9.
+- **The equatorial CTC edge is refined by bisection.** My grid values 1.9180 (F5-R) and 1.9242 (P0) were the last
+  grid points inside, on a log grid spaced ~0.006 there. The Bridge's 20k-point grid plus bisection gives 1.92192 and
+  1.92983, and the latter equals the inner allowed region's lower edge to all digits (g_φφ → 0 makes V diverge, so
+  the inner region's equatorial boundary IS the CTC edge). The (P) rule's x_CTC(y) table is bisection-refined to
+  1e-10.
