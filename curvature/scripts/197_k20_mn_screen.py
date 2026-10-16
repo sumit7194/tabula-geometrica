@@ -1195,6 +1195,163 @@ def screen_point(point, workers=4):
     return out
 
 
+def _evec(u):
+    ev = u["evec"]
+    return [[complex(*c) if isinstance(c, (list, tuple)) else complex(c) for c in row] for row in ev]
+
+
+def analyze_point(point, workers=4, eps=(1e-6, 1e-7)):
+    """OFFICIAL counted analysis (A9 refined boxes, A10/A10.1 saddle-in-D verdict). Reads saved orbits; integrates
+    only for the structure stage (UPO extension, UPO-in-D, manifolds). Sealed."""
+    import time, hashlib
+    from scipy.stats import binom, beta as cp
+    logf = open(RESULTS / f"197_analysis_{point}.log", "a")
+
+    def log(m):
+        print(m, flush=True); logf.write(m + "\n"); logf.flush()
+    lib = _lib()
+    pp = point_params(point)
+    dom = build_domain(pp)
+    own = json.load(open(RESULTS / "197_own_levels.json"))[point]["levels"]
+    levels = [(l_["E"], l_["Lz"], "own:" + l_["why"][0]) for l_ in own] + [(*SHARED[point], "shared")]
+    # thresholds from the saved Kerr null (A8 pooled)
+    nl = null_levels(point, [L for _, L, _ in levels], [(E, L) for E, L, _ in levels])
+    tr_by, ho = [], []
+    for j in range(len(nl)):
+        lev = load_level(f"null_{point}_{j}")
+        trl = []
+        for i in range(len(lev["orbs"])):
+            st = orbit_stats(lev, i, "base", ACCEPT)
+            if st["fate"] != "ESCAPE" and st["accepted"]:
+                (trl if i % 2 == 0 else ho).append(st)
+        tr_by.append(trl)
+    thr = thresholds_pooled(tr_by)
+    kk = sum(1 for s_ in ho if verdict(s_, thr) == "CHAOTIC")
+    pv = float(binom.sf(kk - 1, len(ho), 0.01)) if kk > 0 else 1.0
+    out = {"point": point, "amendments": "9aca9a4 + A1..A10.1",
+           "C1": ({"status": "NO THRESHOLDS", "pass": False} if thr[0] is None else
+                  {"n_heldout": len(ho), "chaotic": kk, "p_vs_1pct": pv, "pass": pv >= 0.05}),
+           "thresholds": thr[0], "levels": [], "extension_A10": [], "tier1": [], "tier2": []}
+    log(f"{point}: C1 {out['C1']}")
+    all_hyp = []
+    for li, (E, Lz, tag) in enumerate(levels):
+        topo, bound = classify_level(pp, dom, E, Lz)
+        comps = [(cj, b["x"]) for cj, b in enumerate(bound)]
+        if not comps and tag == "shared":                    # p2 shared: plunge-connected, screened per option (a)
+            iv, _ = equatorial_intervals(E, Lz, pp)
+            comps = [(0, [float(XG[v[2]]), float(XG[v[3]])]) for v in iv[:1]]
+        for cj, xiv in comps:
+            lev = load_level(f"{point}_L{li}_c{cj}")
+            if lev is None:
+                log(f"  L{li} c{cj}: no saved run (not screened)"); continue
+            lev["point"], lev["kerr"] = point, False
+            lev["box"] = refined_box(pp, E, Lz, *xiv)            # A9
+            rec = {"E": E, "Lz": Lz, "tag": tag, "topology": topo if bound else "PLUNGE-connected (2D)",
+                   "component": cj, "box": lev["box"], "tol": lev["tol"], "pilot_floor_hit": lev["pilot"]["floor_hit"]}
+            for rule in ("B9", "B6", "P"):
+                sts = [orbit_stats(lev, i, rule, ACCEPT) for i in range(len(lev["orbs"]))]
+                acc = [s_ for s_ in sts if s_["accepted"]]
+                vs = [(verdict(s_, thr) if s_["fate"] != "ESCAPE" else "ESCAPE") for s_ in acc]
+                k_ch = vs.count("CHAOTIC")
+                rr = {"n_in": len(sts), "n_analysed": len(acc), "unreadable": len(acc) < 0.75 * len(sts),
+                      "counts": {v: vs.count(v) for v in sorted(set(vs))},
+                      "chaotic_frac_CI95": [k_ch / max(len(acc), 1),
+                                            float(cp.ppf(0.025, k_ch, len(acc) - k_ch + 1)) if k_ch else 0.0,
+                                            float(cp.ppf(0.975, k_ch + 1, len(acc) - k_ch)) if k_ch < len(acc) else 1.0],
+                      "excluded_UNSCORED": (lambda ee: {e: ee.count(e) for e in set(ee)})(
+                          [f"{s_['fate']}/{verdict(s_, thr) if s_['fate'] != 'ESCAPE' else 'ESCAPE'}"
+                           for s_ in sts if not s_["accepted"]])}
+                if rule == "B9":
+                    ch = [i for i, s_ in enumerate(sts) if s_["accepted"] and s_["fate"] != "ESCAPE"
+                          and verdict(s_, thr) == "CHAOTIC"]
+                    rr["candidates"] = candidate_regions(lev, ch, lev["upos"], [s_["N"] or 0 for s_ in sts]) if ch else {"regions": []}
+                    rr["by_dmin_bin_INFO"] = {b: (lambda vv: {v: vv.count(v) for v in sorted(set(vv))})(
+                        [verdict(s_, thr) for s_ in acc if s_["fate"] != "ESCAPE" and dbin(s_["dmin"]) == b]) for b in range(4)}
+                    rr["min_ydot_at_crossings"] = float(min((np.abs(np.asarray(r).reshape(-1, RCOLS)[:, 7]).min()
+                                                             for r in lev["recs"] if len(r)), default=float("nan")))
+                rec[rule] = rr
+            for u in lev["upos"]:
+                if u["hyperbolic"]:
+                    all_hyp.append((E, Lz, lev["tol"], lev["box"], u, f"screened L{li} c{cj}"))
+            out["levels"].append(rec)
+            log(f"  L{li} c{cj} ({E}, {Lz}) {tag}: B9 {rec['B9']['counts']} chaotic {rec['B9']['chaotic_frac_CI95']} "
+                f"| UPOs {len(lev['upos'])} ({sum(u['hyperbolic'] for u in lev['upos'])} hyperbolic)")
+        # A10 extension: base-domain bound components NOT screened (e.g. the inner region PLUNGE under B9)
+        bnd, _ = bound_pair(E, Lz, pp)
+        screened = [tuple(x) for _, x in comps]
+        for v in bnd:
+            xiv = (float(XG[v[2]]), float(XG[v[3]]))
+            if any(abs(xiv[0] - a) < 0.2 and abs(xiv[1] - b) < 0.2 for a, b in screened):
+                continue
+            box = refined_box(pp, E, Lz, *xiv)
+            sel = sample_launch(pp, E, Lz, box, 24, 197800 + li)
+            tol, pinfo = pilot_target(lib, dom, pp, E, Lz, sel, ACCEPT, log)
+            t0 = time.time()
+            ups = find_upos(lib, dom, pp, E, Lz, box, tol, log=log)
+            out["extension_A10"].append({"E": E, "Lz": Lz, "x": list(xiv), "box": box, "tol": tol,
+                                         "pilot_floor_hit": pinfo["floor_hit"], "n_upos": len(ups),
+                                         "n_hyperbolic": sum(u["hyperbolic"] for u in ups)})
+            log(f"  A10 extension ({E}, {Lz}) base component x {xiv}: {len(ups)} UPOs "
+                f"({sum(u['hyperbolic'] for u in ups)} hyperbolic) [{time.time() - t0:.0f}s]")
+            for u in ups:
+                if u["hyperbolic"]:
+                    all_hyp.append((E, Lz, tol, box, u, "A10 extension"))
+    # tier 1: whole-orbit D_B9 containment
+    for E, Lz, tol, box, u, src in all_hyp:
+        res = upo_in_D(lib, dom, pp, E, Lz, u, tol)
+        row = {"E": E, "Lz": Lz, "src": src, "n": u["n"], "z": u["z"], "pts": u["pts"], "trace": u["trace"],
+               "eig": [str(e) for e in u["eig"]], "evec": [[str(c) for c in r_] for r_ in _evec(u)], **res}
+        if res.get("in_D_B9"):
+            out["tier1"].append(row)
+        out.setdefault("hyperbolic_all", []).append(row)
+    log(f"{point}: hyperbolic UPOs {len(all_hyp)}; tier 1 (whole orbit in D_B9): {len(out['tier1'])}")
+    # tier 2: transversal connections inside D among tier-1 UPOs
+    t1 = [(E, Lz, tol, box, u) for (E, Lz, tol, box, u, src) in all_hyp
+          if any(r["z"] == u["z"] and r["E"] == E and r["Lz"] == Lz for r in out["tier1"])]
+    graph = []
+    W = {}                                                # manifolds computed ONCE per (UPO, eps), then intersected
+    for idx, (E, Lz, tol, box, u) in enumerate(t1):
+        for e_ in eps:
+            u2 = dict(u, evec=_evec(u))
+            W[(idx, e_, "u")] = manifold(lib, dom, pp, E, Lz, u2, tol, False, e_, box=box)
+            W[(idx, e_, "s")] = manifold(lib, dom, pp, E, Lz, u2, tol, True, e_, box=box)
+        log(f"  manifolds for tier-1 UPO {idx} (n={u['n']}) at ({E}, {Lz}) done")
+    for ii, (E, Lz, tol, box, ui) in enumerate(t1):
+        for jj, (E2, Lz2, tol2, box2, uj) in enumerate(t1):
+            if (E2, Lz2) != (E, Lz):
+                continue
+            ang = {}
+            for e_ in eps:
+                Wu, Ws = W[(ii, e_, "u")], W[(jj, e_, "s")]
+                hits = []
+                for a_ in (Wu or []):
+                    for b_ in (Ws or []):
+                        for P_, an, ia, ib in _seg_intersections(a_["pts"], b_["pts"]):
+                            if np.hypot(P_[0] - ui["z"][0], P_[1] - ui["z"][1]) < 10 * e_:
+                                continue                      # the UPO itself
+                            hits.append((float(a_["iter"][ia] + b_["iter"][ib]), an, P_.tolist(),
+                                         int(a_["iter"][ia]), int(b_["iter"][ib])))
+                hits.sort()
+                ang[e_] = hits[0] if hits else None
+            a6, a7 = ang.get(eps[0]), ang.get(eps[1])
+            transversal = (a6 is not None and a7 is not None and a6[1] > 1e-3 and a7[1] > 1e-3
+                           and abs(a6[1] - a7[1]) <= 0.5 * max(a6[1], a7[1]))
+            g = {"E": E, "Lz": Lz, "from": ui["z"], "to": uj["z"], "homoclinic": ui["z"] == uj["z"],
+                 "first_hit_eps1e-6": a6, "first_hit_eps1e-7": a7, "transversal_in_D": bool(transversal)}
+            graph.append(g)
+            if transversal:
+                out["tier2"].append(g)
+            log(f"  connection {ui['z']} -> {uj['z']} ({E}, {Lz}): eps6 {a6} | eps7 {a7} | transversal-in-D {transversal}")
+    out["transition_graph"] = graph
+    out["VERDICT"] = ("saddle-in-D candidates FOUND (tier 2)" if out["tier2"] else
+                      "tier-1 UPOs in D but no transversal connection in D found within the search" if out["tier1"] else
+                      "no tier-1 UPO in D within the search")
+    fn = RESULTS / f"197_analysis_{point}.json"
+    fn.write_text(json.dumps(out, indent=1, default=_jsonable))
+    log(f"VERDICT {point}: {out['VERDICT']} | SEALED {fn.name} sha256 {hashlib.sha256(fn.read_bytes()).hexdigest()}")
+    return out
+
+
 def cgates(workers=4):
     import time
     from scipy.stats import binom, beta as cp
@@ -1334,6 +1491,7 @@ if __name__ == "__main__":
     ap.add_argument("--gq", action="store_true")
     ap.add_argument("--cgates", action="store_true")
     ap.add_argument("--screen", nargs="*")
+    ap.add_argument("--analyze", nargs="*")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--selftest-pilot", action="store_true")
     a = ap.parse_args()
@@ -1360,3 +1518,6 @@ if __name__ == "__main__":
             raise SystemExit("screen refused: an instrument gate failed (prereg §8)")
         for pt in a.screen:
             screen_point(pt, a.workers)
+    if a.analyze:
+        for pt in a.analyze:
+            analyze_point(pt, a.workers)
