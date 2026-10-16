@@ -136,3 +136,17 @@ Grid: x ∈ 1 + logspace(−6, log10 9) with 2400 points, |y| ≤ 0.99999 with 2
   construction at n = 200. The registered meaning, consistent with §5's "exceeds the 1% one-sided CP95 bound" and
   with §196's Kerr gate: a bin FAILS iff P(X ≥ k | n_heldout, 0.01) < 0.05, i.e. the observed CHAOTIC count is
   significantly above 1%. The CP95 upper bound is reported alongside.
+- **A4.2 (pilot drift window; caught by a code-debug run before any gate result).**
+  - A4 said the pilot reads drift "up to the last crossing". An orbit that blows up numerically before its first
+    crossing then contributes NaN. A dt coarse enough to kill EVERY pilot orbit would read REFUSE instead of FAIL,
+    which is the §196 empty-set bug in a new form.
+  - Prereg §3's own wording ("over each orbit's life up to its reading time") already fixes it: an orbit that ends
+    early is read by its FATE (ESCAPE, with life and return count), so its accuracy window runs to its end.
+  - Pilot drift and per-orbit acceptance therefore use the running max |dH/H| over the whole life up to the reading:
+    the N_ret-th crossing, or the end for an orbit that ends early. Not a change of rule; it closes A4's parenthetical.
+  - Debug evidence (a code-diagnosis run at the self-test's REAL case, whose expected outcome is FAIL): at P0's
+    inner region with dt = 0.05, 4 of 5 probe orbits blow up within 0.1–14 τ (drift 0.5 to 250).
+  - **Kernel:** a stall guard was added (end code 5: no section crossing for 2e4 τ). The first self-test attempt
+    spun on a non-crossing orbit toward the 1e9-step cap and was stopped (own PID).
+  - **Process:** that run was launched by RELATIVE path and was invisible to a path-based pgrep (silent_nulls 46,
+    again). All runs from here are launched by absolute path.

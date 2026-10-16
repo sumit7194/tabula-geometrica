@@ -277,9 +277,318 @@ def trace(lib, dom, pp, E, Lz, z0, dt, n_ret, mode=0, nv=1, w0=None, max_steps=1
     return rec.reshape(n_ret, RCOLS)[:nc], orb, st
 
 
+# ---------------------------------------------------------------- levels, launches, pilot (prereg §3, A4)
+
+N_RET, N_SEC = 2000, 500
+DRIFT_TARGET, ACCEPT = 1e-10, 1e-9
+
+
+def component_interval(pp, E, Lz, which):
+    """Equatorial x-interval of a bound component: which = 'inner' | 'outer' | index into the bound list."""
+    bnd, _ = bound_pair(E, Lz, pp)
+    _, _, k, _ = pp
+    if not bnd:
+        return None
+    if which == "outer":
+        v = bnd[-1]
+    elif which == "inner":
+        v = bnd[-2] if len(bnd) >= 2 else None
+        if v is None:
+            return None
+    else:
+        v = bnd[which]
+    return float(XG[v[2]]), float(XG[v[3]])
+
+
+def section_box(pp, E, Lz, xa, xb):
+    """Geometry-only box (prereg §10): x in [xa, xb], |p_x| <= sqrt(max over x of 2K / (pref (x^2 - 1)))."""
+    _, alpha, k, beta = pp
+    xx = np.linspace(xa, xb, 4001)
+    m = metric_parts(xx, 0 * xx, alpha, k, beta)
+    pref = (1 - alpha ** 2) ** 2 * m["e2psi"] / (k ** 2 * m["B"] * m["G"])
+    K = kinetic(xx, 0 * xx, E, Lz, alpha, k, beta)
+    pm = float(np.sqrt(np.nanmax(np.clip(2 * K / (pref * (xx ** 2 - 1)), 0, None))))
+    return {"xa": xa, "xb": xb, "pm": pm}
+
+
+def sample_launch(pp, E, Lz, box, n, seed):
+    rng = np.random.default_rng(seed)
+    out = []
+    while len(out) < n:
+        x = rng.uniform(box["xa"], box["xb"]); p = rng.uniform(-box["pm"], box["pm"])
+        z = launch(pp, E, Lz, x, p)
+        if z is not None:
+            out.append(z)
+    return np.array(out)
+
+
+def norm_sec(box, x, px):
+    return (np.asarray(x) - box["xa"]) / (box["xb"] - box["xa"]), (np.asarray(px) + box["pm"]) / (2 * box["pm"])
+
+
+def pilot_judge(drifts, target=DRIFT_TARGET):
+    d = np.asarray(drifts, float)
+    if not np.isfinite(d).any():
+        return "REFUSE"
+    return "PASS" if float(np.nanmax(d)) <= target else "FAIL"
+
+
+def pilot(lib, dom, pp, E, Lz, launches, n_ret=N_RET, log=print):
+    idx = np.unique(np.round(np.linspace(0, len(launches) - 1, 12)).astype(int))
+    order = np.argsort(launches[:, 0])
+    sel = launches[order[idx]]
+    dt, tried = 0.05, []
+    while True:
+        dr = []
+        for z in sel:
+            rec, orb, _ = trace(lib, dom, pp, E, Lz, z, dt, n_ret, nv=0)
+            dr.append(orb[6] if orb[1] > 0 else np.nan)   # A4.2: drift over the whole life up to the reading (fate)
+        res = pilot_judge(dr)
+        tried.append({"dt": dt, "result": res, "max_drift": float(np.nanmax(dr)) if np.isfinite(dr).any() else None})
+        log(f"  pilot dt={dt:.4g}: {res} {tried[-1]['max_drift']}")
+        if res == "REFUSE":
+            raise RuntimeError(f"pilot REFUSED at dt={dt}: no pilot orbit reached a section crossing")
+        if res == "PASS" or dt < 1e-3:
+            return dt, {"floor_hit": res != "PASS", "tried": tried}
+        dt /= 2
+
+
+# ---------------------------------------------------------------- section map, UPOs (A4)
+
+def section_map(lib, dom, pp, E, Lz, x, px, n, dt):
+    """P^n(x, px) and DP^n (2x2) via two exact tangents started on the section; None if the orbit dies."""
+    z0 = launch(pp, E, Lz, x, px)
+    if z0 is None:
+        return None
+    _, alpha, k, beta = pp
+    o = eval_point(lib, [alpha, k, beta, E, Lz], z0)
+    xd, yd, pxd = o[0], o[1], o[2]
+    W = np.array([[1.0, 0.0, 0.0, pxd / yd], [0.0, 0.0, 1.0, -xd / yd]])
+    rec, orb, st = trace(lib, dom, pp, E, Lz, z0, dt, n, mode=1, nv=2, w0=W, renorm=0)
+    if int(orb[0]) < n:
+        return None
+    w = st[5:].reshape(2, 4)
+    DP = np.array([[w[0, 0], w[1, 0]], [w[0, 2], w[1, 2]]])
+    return np.array([st[0], st[2]]), DP, rec
+
+
+def find_upos(lib, dom, pp, E, Lz, box, dt, periods=(1, 2, 3), grid=20, log=print):
+    found = []
+    sx, sp_ = box["xb"] - box["xa"], 2 * box["pm"]
+    for n in periods:
+        for xs_ in np.linspace(box["xa"], box["xb"], grid + 2)[1:-1]:
+            for ps_ in np.linspace(-box["pm"], box["pm"], grid + 2)[1:-1]:
+                z = np.array([xs_, ps_])
+                ok = False
+                for _ in range(30):
+                    r = section_map(lib, dom, pp, E, Lz, z[0], z[1], n, dt)
+                    if r is None:
+                        break
+                    Pz, DP, _ = r
+                    F = Pz - z
+                    if np.hypot(F[0] / sx, F[1] / sp_) < 1e-10:
+                        ok = True
+                        break
+                    try:
+                        z = z - np.linalg.solve(DP - np.eye(2), F)
+                    except np.linalg.LinAlgError:
+                        break
+                    if not (box["xa"] <= z[0] <= box["xb"] and abs(z[1]) <= box["pm"]):
+                        break
+                if not ok:
+                    continue
+                if any(f["n"] == n and np.hypot((f["z"][0] - z[0]) / sx, (f["z"][1] - z[1]) / sp_) < 1e-6
+                       for f in found):
+                    continue
+                ev, evec = np.linalg.eig(DP)
+                # the orbit's period-n points on the section
+                pts, zz = [z.copy()], z.copy()
+                for _ in range(n - 1):
+                    rr = section_map(lib, dom, pp, E, Lz, zz[0], zz[1], 1, dt)
+                    zz = rr[0]; pts.append(zz.copy())
+                minimal = all(np.hypot((p[0] - z[0]) / sx, (p[1] - z[1]) / sp_) > 1e-6 for p in pts[1:])
+                if not minimal:
+                    continue                              # a lower-period orbit counted again
+                if any(f["n"] == n and min(np.hypot((q[0] - z[0]) / sx, (q[1] - z[1]) / sp_) for q in f["pts"]) < 1e-6
+                       for f in found):
+                    continue
+                found.append({"n": n, "z": z.tolist(), "pts": [p.tolist() for p in pts], "trace": float(np.trace(DP)),
+                              "det": float(np.linalg.det(DP)), "eig": [complex(e) for e in ev],
+                              "evec": evec.tolist(), "hyperbolic": bool(abs(np.trace(DP)) > 2)})
+        log(f"  period {n}: {sum(1 for f in found if f['n'] == n)} orbits "
+            f"({sum(1 for f in found if f['n'] == n and f['hyperbolic'])} hyperbolic)")
+    return found
+
+
+# ---------------------------------------------------------------- indicators (prereg §4)
+
+D2_WINDOWS = {"A": (0.01, 0.05), "B": (0.02, 0.10)}
+
+
+def ftle_pair(rec, N):
+    if len(rec) < N:
+        return None
+    n1 = N // 4
+    l2 = rec[N - 1, 5] / rec[N - 1, 0]
+    l1 = rec[n1 - 1, 5] / rec[n1 - 1, 0]
+    return float(l2), float(l2 / l1) if l1 != 0 else float("nan")
+
+
+def corr_dim(box, rec, N):
+    from scipy.spatial.distance import pdist
+    if len(rec) < N:
+        return None
+    u, v = norm_sec(box, rec[:N, 2], rec[:N, 3])
+    d = pdist(np.column_stack([u, v]))
+    out = {}
+    for key, (lo, hi) in D2_WINDOWS.items():
+        rs = np.logspace(np.log10(lo), np.log10(hi), 9)
+        C = np.array([np.count_nonzero(d < r) for r in rs], float)
+        if C[0] < 200:
+            out[key] = None                               # a window with < 200 pairs is "mixed", never zero
+            continue
+        out[key] = float(np.polyfit(np.log(rs), np.log(C), 1)[0])
+    return out
+
+
+def d_min(box, rec, N, upos):
+    hyp = [p for u in upos if u["hyperbolic"] for p in u["pts"]]
+    if not hyp or len(rec) == 0:
+        return float("inf")
+    u, v = norm_sec(box, rec[:N, 2], rec[:N, 3])
+    H = np.array([norm_sec(box, p[0], p[1]) for p in hyp])
+    return float(np.min(np.hypot(u[:, None] - H[None, :, 0], v[:, None] - H[None, :, 1])))
+
+
+DBINS = (0.0, 1e-3, 1e-2, 1e-1, np.inf)
+
+
+def dbin(dm):
+    for i in range(4):
+        if DBINS[i] <= dm < DBINS[i + 1]:
+            return i
+    return 3
+
+
+def stats_for(rec, box, N, upos):
+    f = ftle_pair(rec, N)
+    c = corr_dim(box, rec, N)
+    return {"N": N, "lam2": f[0] if f else None, "rho": f[1] if f else None,
+            "D2A": c["A"] if c else None, "D2B": c["B"] if c else None, "dmin": d_min(box, rec, N, upos)}
+
+
+def verdict(st, thr):
+    """CHAOTIC iff I1 high AND I2 high; REGULAR iff both low; else INDETERMINATE (prereg §4)."""
+    if st["lam2"] is None:
+        return "ESCAPE"
+    t = thr[dbin(st["dmin"])]
+    if t is None:
+        return "CANNOT-DISCRIMINATE"
+    i1h = st["lam2"] > t["lam2"][1] and st["rho"] > t["rho"][1]
+    i1l = st["lam2"] < t["lam2"][0] and st["rho"] < t["rho"][0]
+    if st["D2A"] is None or st["D2B"] is None:
+        i2h = i2l = False
+    else:
+        i2h = st["D2A"] > t["D2A"][1] and st["D2B"] > t["D2B"][1]
+        i2l = st["D2A"] < t["D2A"][0] and st["D2B"] < t["D2B"][0]
+    if i1h and i2h:
+        return "CHAOTIC"
+    if i1l and i2l:
+        return "REGULAR"
+    return "INDETERMINATE"
+
+
+def thresholds(train_stats):
+    """Per d_min bin: (p95, p99) of each statistic over the TRAINING null; thin bins (< 60) merge with a neighbour."""
+    by = {i: [s_ for s_ in train_stats if s_["lam2"] is not None and dbin(s_["dmin"]) == i] for i in range(4)}
+    out = {}
+    for i in range(4):
+        pool = list(by[i])
+        if len(pool) < 60:
+            for j in (i - 1, i + 1):
+                if 0 <= j < 4:
+                    pool += by[j]
+        if len(pool) < 60:
+            out[i] = None
+            continue
+        q = lambda key: [float(np.percentile([s_[key] for s_ in pool if s_[key] is not None], p)) for p in (95, 99)]
+        out[i] = {"n": len(pool), "lam2": q("lam2"), "rho": q("rho"), "D2A": q("D2A"), "D2B": q("D2B")}
+    return out
+
+
+# ---------------------------------------------------------------- worker pool
+
+_W = {}
+
+
+def _worker_init():
+    import os
+    for v in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "VECLIB_MAXIMUM_THREADS"):
+        os.environ.setdefault(v, "1")
+
+
+def _job(args):
+    """args: (tag, point, kerr, E, Lz, z0, dt, n_ret, seed) -> (tag, rec, orb)."""
+    tag, point, kerr, E, Lz, z0, dt, n_ret, seed = args
+    key = (point, kerr)
+    if key not in _W:
+        pp = point_params(point, kerr=kerr)
+        _W[key] = (_lib(), build_domain(pp), pp)
+    lib, dom, pp = _W[key]
+    rec, orb, _ = trace(lib, dom, pp, E, Lz, np.asarray(z0), dt, n_ret, nv=1, seed=seed)
+    return tag, rec, orb
+
+
+def run_pool(jobs, workers=4):
+    from multiprocessing import get_context
+    with get_context("spawn").Pool(workers, initializer=_worker_init) as pool:
+        return list(pool.imap(_job, jobs, chunksize=1))
+
+
+# ---------------------------------------------------------------- C2: the pilot self-test
+
+def selftest_pilot():
+    good = np.full(12, 1e-12)
+    inj = good.copy(); inj[5] = 5e-9
+    checks = [("injected 5e-9 orbit FAILS", pilot_judge(inj) == "FAIL"),
+              ("clean set PASSES", pilot_judge(good) == "PASS"),
+              ("all-NaN REFUSES (never read as 0)", pilot_judge(np.full(12, np.nan)) == "REFUSE"),
+              ("partial NaN + excess FAILS", pilot_judge([np.nan, np.nan, 5e-9, 1e-12]) == "FAIL")]
+    lib = _lib()
+    pp = point_params("P0")
+    dom = build_domain(pp)
+    xa, xb = component_interval(pp, 0.95, 3.0, "inner")
+    box = section_box(pp, 0.95, 3.0, xa, xb)
+    L = sample_launch(pp, 0.95, 3.0, box, 200, seed=97001)       # a seed reserved for the self-test only
+    idx = np.unique(np.round(np.linspace(0, len(L) - 1, 12)).astype(int))
+    sel = L[np.argsort(L[:, 0])[idx]]
+    real = {}
+    for dt in (0.05, 0.1, 0.2, 0.4):                               # prereg §3: dt 0.05 or, if it passes, a coarser one
+        dr = []
+        for z in sel:
+            rec, orb, _ = trace(lib, dom, pp, 0.95, 3.0, z, dt, N_RET, nv=0)
+            dr.append(orb[6] if orb[1] > 0 else np.nan)
+        real[dt] = (pilot_judge(dr), float(np.nanmax(dr)) if np.isfinite(dr).any() else None)
+        print(f"  REAL P0 inner, dt {dt}: {real[dt]}", flush=True)
+        if real[dt][0] == "FAIL":
+            break
+    checks.append((f"REAL: P0 inner region at dt {dt} FAILS end to end", real[dt][0] == "FAIL"))
+    ok = all(c for _, c in checks)
+    for n_, c in checks:
+        print(("PASS  " if c else "FAIL  ") + n_, flush=True)
+    out = {"checks": {n_: bool(c) for n_, c in checks}, "real": {str(k_): v for k_, v in real.items()}, "ALL_PASS": ok}
+    (RESULTS / "197_pilot_selftest.json").write_text(json.dumps(out, indent=1))
+    if not ok:
+        raise SystemExit("C2 pilot self-test FAILED")
+    return out
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--gq", action="store_true")
+    ap.add_argument("--selftest-pilot", action="store_true")
     a = ap.parse_args()
     if a.gq:
         gate_gq()
+    if a.selftest_pilot:
+        selftest_pilot()

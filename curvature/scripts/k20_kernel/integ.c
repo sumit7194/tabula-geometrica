@@ -10,6 +10,7 @@
 #define NOUT 26
 #define MAXNV 4
 #define RCOLS 14
+#define T_STALL 2.0e4
 
 typedef struct {
     const unsigned char *mask;  /* dilated CTC mask on [x0, x0 + nx h) x [y0, y0 + ny h); 1 = box touches CTC */
@@ -105,7 +106,7 @@ static void henon(const double *par, double *s, int nv, double *o) {
      8 running min(x - 1), 9 running min g_phiphi, 10 running min R^2, 11 running min (1 - y^2),
      12 running ergoregion time (f < 0), 13 flags (bit0 B9 ok so far, bit1 B6, bit2 P, bit3 base)
    orb (out): 0 n_cross, 1 tau_end, 2 end code (0 n_ret reached, 1 max_steps, 2 base exit / plunge,
-              3 escape, 4 non-finite), 3 tau exit B9 (-1 = never), 4 tau exit B6, 5 tau exit P,
+              3 escape, 4 non-finite, 5 stalled: no crossing for T_STALL tau), 3 tau exit B9 (-1 = never), 4 tau exit B6, 5 tau exit P,
               6 running max drift overall, 7 cum log|w0| at the end
    Returns the number of crossings. */
 int trace(const double *par, double *st, int nv, int mode, double dt, long max_steps, int n_ret, int renorm,
@@ -116,6 +117,7 @@ int trace(const double *par, double *st, int nv, int mode, double dt, long max_s
     double mxm1 = 1e300, mgpp = 1e300, mR2 = 1e300, my2 = 1e300, ergo = 0.0;
     double ex9 = -1, ex6 = -1, exp_ = -1;
     int flags = 15, code = 1;
+    double last_cross = 0.0;
     mn_eval(par, st, o);
     Ok ok = dom_check(dom, st, o);
     if (!ok.base) { orb[0] = 0; orb[1] = 0; orb[2] = 2; orb[3] = orb[4] = orb[5] = 0; orb[6] = 0; orb[7] = 0; return 0; }
@@ -142,6 +144,7 @@ int trace(const double *par, double *st, int nv, int mode, double dt, long max_s
         if (!ok.p && exp_ < 0) { exp_ = tau; flags &= ~4; }
         if (!ok.base) { flags &= ~8; code = 2; break; }
         if (x > dom->xesc) { code = 3; break; }
+        if (tau - last_cross > T_STALL) { code = 5; break; }      /* no section crossing for T_STALL: stalled */
         if (mode == 0 && renorm > 0 && it % renorm == 0 && nv > 0) {
             for (int v = 0; v < nv; v++) {
                 double *w = st + 5 + 4 * v;
@@ -167,6 +170,7 @@ int trace(const double *par, double *st, int nv, int mode, double dt, long max_s
             r[0] = tc; r[1] = s2[4]; r[2] = s2[0]; r[3] = s2[2]; r[4] = s2[3]; r[5] = lw; r[6] = maxdrift;
             r[7] = o[1]; r[8] = mxm1; r[9] = mgpp; r[10] = mR2; r[11] = my2; r[12] = ergo; r[13] = flags;
             nc++;
+            last_cross = tau;
             if (mode == 1) {
                 /* section map: put the state exactly on the section, project the tangents onto it */
                 for (int v = 0; v < nv; v++) {

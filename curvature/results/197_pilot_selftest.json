@@ -1,0 +1,16 @@
+{
+ "checks": {
+  "injected 5e-9 orbit FAILS": true,
+  "clean set PASSES": true,
+  "all-NaN REFUSES (never read as 0)": true,
+  "partial NaN + excess FAILS": true,
+  "REAL: P0 inner region at dt 0.05 FAILS end to end": true
+ },
+ "real": {
+  "0.05": [
+   "FAIL",
+   8.454979541755106e+19
+  ]
+ },
+ "ALL_PASS": true
+}
