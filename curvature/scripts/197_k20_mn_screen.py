@@ -717,6 +717,117 @@ def null_levels(point, Lz_list, E_generic):
     return out
 
 
+def thresholds_pooled(train_by_level, min_n=20):
+    """A8: per-level (p95, p99) of each statistic over TRAINING orbits, then the class-wise MAX over levels. One
+    threshold set for every d_min bin (bins are reported as information only)."""
+    keys = ("lam2", "rho", "D2A", "D2B")
+    per = []
+    for sts in train_by_level:
+        sts = [s_ for s_ in sts if s_["lam2"] is not None]
+        if len(sts) < min_n:
+            continue
+        per.append({k_: [float(np.percentile([s_[k_] for s_ in sts if s_[k_] is not None], q)) for q in (95, 99)]
+                    for k_ in keys})
+    if not per:
+        return {i: None for i in range(4)}
+    t = {k_: [max(p_[k_][0] for p_ in per), max(p_[k_][1] for p_ in per)] for k_ in keys}
+    t["n_levels"] = len(per)
+    t["n"] = sum(len(x) for x in train_by_level)
+    return {i: t for i in range(4)}
+
+
+def d_sep(lev, i, N=None):
+    """A8: normalised section distance from orbit i's points to its bound region's section boundary (p_y^2 = 0)."""
+    from scipy.spatial import cKDTree
+    box = lev["box"]
+    pp = point_params(lev["point"], kerr=lev["kerr"])
+    _, alpha, k, beta = pp
+    xx = np.linspace(box["xa"], box["xb"], 4001)
+    m = metric_parts(xx, 0 * xx, alpha, k, beta)
+    pref = (1 - alpha ** 2) ** 2 * m["e2psi"] / (k ** 2 * m["B"] * m["G"])
+    pm = np.sqrt(np.clip(2 * kinetic(xx, 0 * xx, lev["E"], lev["Lz"], alpha, k, beta) / (pref * (xx ** 2 - 1)), 0, None))
+    bu, bv = norm_sec(box, np.r_[xx, xx], np.r_[pm, -pm])
+    rec = np.asarray(lev["recs"][i]).reshape(-1, RCOLS)
+    if len(rec) == 0:
+        return float("nan")
+    rec = rec[:N] if N else rec
+    u, v = norm_sec(box, rec[:, 2], rec[:, 3])
+    return float(cKDTree(np.column_stack([bu, bv])).query(np.column_stack([u, v]))[0].min())
+
+
+DW_H = 0.5
+
+
+def dw_null(thr, log, n_near=150, n_gen=50, seed=197401):
+    """A8 second integrable null: the separable double well through the same kernel and pipeline."""
+    lib = ct.CDLL(str(KDIR / "libk20_dw.dylib"))
+    lib.trace.argtypes = [_dp, _dp, ct.c_int, ct.c_int, ct.c_double, ct.c_long, ct.c_int, ct.c_int,
+                          ct.POINTER(Dom), _dp, _dp]
+    lib.trace.restype = ct.c_int
+    mask = np.zeros((1, 1), np.uint8); xct = -np.ones(1)
+    dom = {"mask": mask, "xctc": xct,
+           "dom": Dom(mask.ctypes.data_as(ct.POINTER(ct.c_ubyte)), 1, 1, 0.0, 0.0, 1.0, xct.ctypes.data_as(_dp), 1,
+                      0.0, 1.0, 0.0, 1e9)}
+    V1 = lambda q: 0.25 * q ** 4 - 0.5 * q ** 2
+    qmax = float(np.sqrt(1 + np.sqrt(1 + 4 * DW_H)))           # V1(qmax) = h
+    box = {"xa": -qmax, "xb": qmax, "pm": float(np.sqrt(2 * (DW_H + 0.25)))}
+    upos = [{"n": 1, "z": [0.0, 0.0], "pts": [[0.0, 0.0]], "hyperbolic": True, "trace": None}]
+    rng = np.random.default_rng(seed)
+    L = []
+    while len(L) < n_near + n_gen:
+        near = len(L) < n_near
+        E1 = (rng.choice([-1, 1]) * 10 ** rng.uniform(-8, -2)) if near else rng.uniform(-0.25, 0.45)   # A8.1
+        q = rng.uniform(-qmax, qmax)
+        r1 = 2 * (E1 - V1(q))
+        if r1 <= 0 or DW_H - E1 <= 0:
+            continue
+        L.append(np.array([q, 0.0, rng.choice([-1, 1]) * np.sqrt(r1), np.sqrt(2 * (DW_H - E1))]))
+    par = np.array([0.0, 0.0, 0.0, DW_H, 0.0])
+
+    def run(z, tol, nv):
+        st = np.zeros(5 + 4 * nv); st[:4] = z
+        if nv:
+            w = rng.standard_normal(4); st[5:9] = w / np.linalg.norm(w)
+        rec, orb = np.zeros(N_RET * RCOLS), np.zeros(12)
+        nc = lib.trace(par.ctypes.data_as(_dp), st.ctypes.data_as(_dp), nv, 0, tol, 10 ** 9, N_RET, 100,
+                       ct.byref(dom["dom"]), rec.ctypes.data_as(_dp), orb.ctypes.data_as(_dp))
+        return rec.reshape(N_RET, RCOLS)[:nc], orb
+    sel = [L[i] for i in np.unique(np.round(np.linspace(0, len(L) - 1, 12)).astype(int))]
+    tol = 1e-9
+    while True:
+        dr = [run(z, tol, 0)[1][6] for z in sel]
+        res = pilot_judge(dr, DRIFT_TARGET)
+        log(f"  DW pilot tol={tol:.0e}: {res} {np.nanmax(dr)}")
+        if res == "PASS" or tol < 1e-12:
+            break
+        tol /= 10
+    rows = []
+    t = thr[0]
+    for i, z in enumerate(L):
+        rec, orb = run(z, tol, 1)
+        if len(rec) < N_RET:
+            rows.append({"near": i < n_near, "fate": "ESCAPE"}); continue
+        st_ = stats_for(rec, box, N_RET, upos)
+        st_.update({"near": i < n_near, "drift": float(rec[-1, 6]), "accepted": bool(rec[-1, 6] <= ACCEPT),
+                    "E1": float(0.5 * z[2] ** 2 + V1(z[0]))})
+        st_["rho_hi"] = bool(t is not None and st_["rho"] > t["rho"][1])
+        st_["D2_hi"] = bool(t is not None and st_["D2A"] is not None and st_["D2B"] is not None
+                            and st_["D2A"] > t["D2A"][1] and st_["D2B"] > t["D2B"][1])
+        st_["AND_fires"] = st_["rho_hi"] and st_["D2_hi"]
+        rows.append(st_)
+    acc = [r for r in rows if r.get("accepted")]
+    by = {}
+    for b in range(4):
+        rb = [r for r in acc if dbin(r["dmin"]) == b]
+        by[b] = {"n": len(rb), "rho_above_p99": sum(r["rho_hi"] for r in rb), "D2_above_p99": sum(r["D2_hi"] for r in rb),
+                 "AND_fires": sum(r["AND_fires"] for r in rb)}
+    out = {"tol": tol, "n_in": len(rows), "n_analysed": len(acc), "by_dmin_bin": by,
+           "PASS": t is not None and all(by[b]["AND_fires"] == 0 for b in range(3)),
+           "note": "lam2 has units 1/time: not comparable across systems, reported only"}
+    log(f"  DW null: {json.dumps(out)}")
+    return out, rows
+
+
 def cgates(workers=4):
     import time
     from scipy.stats import binom, beta as cp
@@ -740,26 +851,28 @@ def cgates(workers=4):
             save_level(lev, f"null_chi0.9_{j}")
         null.append(lev)
         log(f"null {j} {kind} E {E:.6f} Lz {Lz}: tol {lev['tol']:.0e} UPOs {len(lev['upos'])} [{time.time() - t:.0f}s]")
-    tr, ho = [], []
+    tr_by, ho = [], []                                   # A8: pooled thresholds (class-wise max over levels)
+    dseps = []
     for lev in null:
+        trl = []
         for i in range(len(lev["orbs"])):
             st = orbit_stats(lev, i, "base", ACCEPT)
             if st["fate"] != "ESCAPE" and st["accepted"]:
-                (tr if i % 2 == 0 else ho).append(st)
-    thr = thresholds(tr)
-    out["thresholds_chi0.9"] = thr
-    c1 = {}
-    for b in range(4):
-        hb = [s_ for s_ in ho if dbin(s_["dmin"]) == b]
-        if not hb or thr[b] is None:
-            c1[b] = {"n": len(hb), "status": "no thresholds" if thr[b] is None else "no held-out orbits"}
-            continue
-        kk = sum(1 for s_ in hb if verdict(s_, thr) == "CHAOTIC")
-        p = float(binom.sf(kk - 1, len(hb), 0.01)) if kk > 0 else 1.0
-        c1[b] = {"n": len(hb), "chaotic": kk, "p_vs_1pct": p, "cp95_upper": float(cp.ppf(0.95, kk + 1, len(hb) - kk)),
-                 "pass": p >= 0.05}
-    out["C1_chi0.9"] = c1
-    log(f"C1 (chi 0.9) per d_min bin: {c1}")
+                (trl if i % 2 == 0 else ho).append(st)
+            dseps.append(d_sep(lev, i, N_RET))
+        tr_by.append(trl)
+    thr = thresholds_pooled(tr_by)
+    out["thresholds_chi0.9_pooled"] = thr[0]
+    out["kerr_null_dsep"] = {"min": float(np.nanmin(dseps)), "p5": float(np.nanpercentile(dseps, 5)),
+                             "median": float(np.nanmedian(dseps))}
+    kk = sum(1 for s_ in ho if verdict(s_, thr) == "CHAOTIC")
+    p = float(binom.sf(kk - 1, len(ho), 0.01)) if kk > 0 else 1.0
+    out["C1_chi0.9"] = {"n_heldout": len(ho), "chaotic": kk, "p_vs_1pct": p,
+                        "cp95_upper": float(cp.ppf(0.95, kk + 1, max(len(ho) - kk, 1))), "pass": p >= 0.05,
+                        "heldout_dmin_bins": {b: sum(1 for s_ in ho if dbin(s_["dmin"]) == b) for b in range(4)}}
+    log(f"C1 (chi 0.9, pooled held-out): {out['C1_chi0.9']} | thresholds {thr[0]} | Kerr d_sep {out['kerr_null_dsep']}")
+    dwo, _ = dw_null(thr, log)
+    out["DW_null"] = dwo
     # ---- C0 level (P0, E 0.95, Lz 3): inner + outer, gate on the base domain at 1e-8 (A7)
     dom0 = build_domain(point_params("P0"))
     c0 = {}
@@ -777,6 +890,8 @@ def cgates(workers=4):
                       "counts": {v: vs.count(v) for v in sorted(set(vs))},
                       "chaotic_frac": vs.count("CHAOTIC") / max(len(acc), 1),
                       "excluded_UNSCORED": {f"{s_['fate']}": sum(1 for x in exc if x["fate"] == s_["fate"]) for s_ in exc},
+                      "by_dmin_bin_INFO": {b: (lambda vv: {v: vv.count(v) for v in sorted(set(vv))})(
+                          [verdict(s_, thr) for s_ in acc if dbin(s_["dmin"]) == b]) for b in range(4)},
                       "tol": lev["tol"], "pilot": lev["pilot"],
                       "upos": [{k_: u[k_] for k_ in ("n", "z", "trace", "hyperbolic")} for u in lev["upos"]]}
         # A7 FINDING: the same orbits read under D_B9 at 1e-9
@@ -798,6 +913,7 @@ def cgates(workers=4):
                  ("ESCAPE" if b_["fate"] == "ESCAPE" else "EXCLUDED-ACCURACY") for b_ in b9])}
         log(f"C0 {region}: {json.dumps({k_: v for k_, v in c0[region].items() if k_ not in ('upos', 'pilot')}, default=str)} [{time.time() - t:.0f}s]")
     out["C0"] = c0
+    out["C1_DW_pass"] = {"C1": out["C1_chi0.9"]["pass"], "DW_null": out["DW_null"]["PASS"]}
     out["C0_pass"] = {"inner_ge_50pct": (not c0["inner"]["unreadable"]) and c0["inner"]["chaotic_frac"] >= 0.5,
                       "outer_le_10pct": (not c0["outer"]["unreadable"]) and c0["outer"]["chaotic_frac"] <= 0.10,
                       "inner_extent": "0.7194-2.1246 (G-q): within 0.05 of 0.72-2.1"}

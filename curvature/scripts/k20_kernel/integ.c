@@ -5,7 +5,10 @@
    Build: cc -O2 -shared -fPIC -o libk20.dylib integ.c   (includes mn_eval.c) */
 #include <math.h>
 #include <string.h>
-#include "mn_eval.c"
+#ifndef EVAL_SRC
+#define EVAL_SRC "mn_eval.c"
+#endif
+#include EVAL_SRC                 /* A8: the double-well null compiles dw_eval.c here, with -DNO_DOMAIN */
 
 #define NOUT 26
 #define MAXNV 4
@@ -29,6 +32,11 @@ typedef struct { int b9, b6, p, base; } Ok;
 
 static Ok dom_check(const Dom *d, const double *z, const double *o) {
     Ok r = {1, 1, 1, 1};
+#ifdef NO_DOMAIN
+    (void)d;
+    if (!(isfinite(z[0]) && isfinite(z[1]) && isfinite(o[23]))) { r.b9 = r.b6 = r.p = r.base = 0; }
+    return r;
+#endif
     double x = z[0], y = z[1];
     int fin = isfinite(x) && isfinite(y) && isfinite(o[21]) && isfinite(o[22]) && isfinite(o[24]) && isfinite(o[25]);
     double R2 = x * x + y * y - 1.0;

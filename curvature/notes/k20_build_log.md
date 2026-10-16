@@ -332,3 +332,7 @@ E_b = 0.969002) had one period-1 orbit, which is STABLE, and no hyperbolic ones.
    - **PASS iff, in d_min bins 0–2, the AND rule would not fire:** for every accepted orbit, NOT (ρλ > p99 AND
      D₂A > p99 AND D₂B > p99). Equivalently, the guard in (3) is demonstrated rather than argued.
    - The per-arm rates (ρλ above p99; D₂ above p99) are also reported.
+- **A8.1 (before any real threshold; a code-path smoke with placeholder thresholds):** uniform |E₁| ≤ 1e-2 put every
+  near-separatrix double-well orbit in d_min bin 2 (distance to the saddle scales like √|E₁|). The near set is now
+  log-uniform, |E₁| ∈ [1e-8, 1e-2], both signs, to populate bins 0–2. Smoke statistics (not results): ρλ 0.28–0.41,
+  D₂ ≈ 1. The DW pilot is tolerance-limited (drift 9.4e-10 at the 1e-13 floor, floor_hit, under the 1e-9 acceptance).
