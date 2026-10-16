@@ -1,0 +1,53 @@
+{
+ "P0_params": {
+  "chi": 0.9,
+  "alpha": -0.6267890062732586,
+  "k": 0.43588989435406716,
+  "beta": 11.470786693528103
+ },
+ "extents_E095_L3_rho": [
+  [
+   0.1687,
+   0.5671
+  ],
+  [
+   0.7194,
+   2.1246
+  ],
+  [
+   2.3865,
+   13.6385
+  ]
+ ],
+ "join_Lz_at_E095": 2.997619147703574,
+ "join_E_at_L3": 0.9503754407406342,
+ "outer_vanish_Lz_at_E095": 3.409366608685578,
+ "outer_vanish_E_at_L3": 0.9321010453794185,
+ "published": {
+  "join_Lz_at_E095": 2.99761912,
+  "join_E_at_L3": 0.95038,
+  "outer_vanish_Lz_at_E095": 3.40935,
+  "outer_vanish_E_at_L3": 0.9321
+ },
+ "dev": {
+  "join_Lz_at_E095": 2.77035741014231e-08,
+  "join_E_at_L3": 4.5592593658216884e-06,
+  "outer_vanish_Lz_at_E095": 1.6608685577956805e-05,
+  "outer_vanish_E_at_L3": 1.0453794184739351e-06
+ },
+ "unmatched_bound_intervals_rho": [
+  [
+   0.1687,
+   0.5671
+  ]
+ ],
+ "extents_pass": true,
+ "thresholds_pass": true,
+ "diag_flipped_beta_extents": [
+  [
+   3.982,
+   13.4727
+  ]
+ ],
+ "G_q_PASS": true
+}
