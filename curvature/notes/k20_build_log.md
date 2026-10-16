@@ -336,3 +336,52 @@ E_b = 0.969002) had one period-1 orbit, which is STABLE, and no hyperbolic ones.
   near-separatrix double-well orbit in d_min bin 2 (distance to the saddle scales like √|E₁|). The near set is now
   log-uniform, |E₁| ∈ [1e-8, 1e-2], both signs, to populate bins 0–2. Smoke statistics (not results): ρλ 0.28–0.41,
   D₂ ≈ 1. The DW pilot is tolerance-limited (drift 9.4e-10 at the 1e-13 floor, floor_hit, under the 1e-9 acceptance).
+
+## C-GATES RESULT (2026-10-16; results/197_cgates.json; prereg 9aca9a4 + A1..A8)
+**All instrument gates PASS.**
+
+| gate | result | criterion |
+|---|---|---|
+| G-q (geometry) | PASS (earlier; fix round 1 recorded) | published thresholds within 1e-3, extents within 0.05 |
+| C2 pilot self-test | PASS 5/5 (earlier) | known-fail cases fail |
+| C1 Kerr null, χ 0.9, pooled held-out | **0/200 CHAOTIC** (CP95 upper 1.49%, p = 1.0 vs 1%) | binomial test vs 1% |
+| A8 double-well null, d_min bins 0/1/2 (n 74/46/34) | **AND rule fires 0 times**; ρλ alone is above p99 in 6/74 (bin 0) and 1/46 (bin 1); D₂ above p99 in 0 | no joint flag in bins 0–2 |
+| C0 inner (base domain, 1e-8) | **75/80 CHAOTIC = 93.8%** (5 INDETERMINATE); 20/100 excluded on accuracy (< 25%) | ≥ 50% |
+| C0 outer (base domain, 1e-8) | **0/100 CHAOTIC** (51 REGULAR, 49 INDETERMINATE) | ≤ 10% |
+| C0 inner extent | 0.7194–2.1246 (G-q) | 0.72–2.1 ± 0.05 |
+| C3 islands, outer (centre ρ 8.350) / inner (centre ρ 0.886) | NOT CHAOTIC on both arms, 10/10 each | both arms not high |
+| C4 D₂ on the island orbits | < 1.3 in both windows | < 1.3 |
+
+- **Pooled thresholds** (class-wise max over 4 Kerr levels, 200 training orbits): λ₂ p99 4.18e-5, ρλ p99 0.377,
+  D₂A p99 1.126, D₂B p99 1.180.
+- **The Kerr null's d_sep:** min 1.1e-4, p5 6.0e-3, median 0.061. The whirl levels reach close to the separatrix
+  boundary.
+- **The island centres** found by our own Newton step reproduce the published values: u₀ at ρ 8.350 (CLA: 8.35) and
+  u₀′ at ρ 0.886 (CLA: 0.886).
+- **The double well shows why the AND rule is needed.** The variational arm alone (ρλ) false-alarms on 8% of the
+  orbits nearest the hyperbolic point (the MEGNO mechanism, near-hyperbolic transit), and the non-variational D₂ arm
+  never does.
+- **Accuracy notes:**
+  - C0 inner pilot: floor_hit (drift 1e-6 at tol 1e-13 vs target 1e-9). Per-orbit acceptance at 1e-8 decides
+    instead; the 20 excluded orbits would all have been CHAOTIC (unscored, drift 1.0e-8 to 1.0e-6). Exclusion can only
+    lower the chaotic fraction.
+  - C0 outer pilot PASS at tol 1e-12.
+  - DW pilot floor_hit (8.9e-10 at 1e-13), with all 200 accepted at 1e-9.
+  - C3 drift ≤ 3.5e-10.
+
+**Pre-stated A7 FINDING (C0 level, read under D_B9 at 1e-9):**
+- 95 of 100 inner orbits leave D_B9 before N_ret: median 16 returns, p90 46, max 126.
+- **Of the 75 base-domain CHAOTIC inner orbits, 75 (100%) leave D_B9 before 500 returns.** None stays in D_B9, and
+  none leaves after 500 returns still CHAOTIC.
+- The 5 inner orbits that never leave D_B9 read INDETERMINATE (2) or are excluded on accuracy (3); none reads
+  CHAOTIC.
+- Outer: 0 exits.
+- **Prediction (≥ 50% leave before 500): HELD**, at 100%.
+- **Reading:** at the C0 level, the published inner chaos lives entirely in orbits that come within the B9 exclusion
+  of the ring singularity (about 0.025) within tens of returns. Inside D_B9 this level yields no chaotic reading.
+  This concerns ONE level of the published point and says nothing yet about F5-R's own levels, which are the
+  counted screen.
+
+**SEALING (C0 is a shared comparison level):** these numbers are sealed by this commit and the sha256 of
+results/197_cgates.json. Only pass/fail status goes to The Bridge until V13's C0 is sealed.
+- sha256(results/197_cgates.json) = dd6c102c7134d7430fb2bb04f0566a44c27b2969e5f7147e4a4435378d621c07
