@@ -439,3 +439,20 @@ V13 (The Bridge): its own code, indicators (NAFF log10|Δν| over two halves AND
 - **Precision:** this does NOT mean the sea "lives inside" the excluded neighbourhood. Our section points show the
   chaotic orbits roam the whole inner region (ρ 0.72–2.12). What is established is that every one of them reaches
   the singular-ring / CTC exclusion (within ~0.025 of the ring) within ≤ 126 returns.
+
+## AMENDMENT A9 (2026-10-17, BEFORE any counted-screen result exists): exact section boxes
+- **Noticed:** for the p1 shared level my classifier gives the bound region's equatorial x-interval as
+  [3.2728, 7.6992], and V13 gives [3.271, 7.756].
+- **Cause:** my §2 classifier uses a log grid (500 points over x − 1 ∈ [0.05, 39]) whose spacing near x ≈ 7.7 is
+  about 0.09. Its interval endpoints are grid-limited, and that interval also defined the analysis box (§10), which
+  sets every normalised statistic (I2 windows, d_min, d_sep) and the shared 200×200 Jaccard grid.
+- **Fix:**
+  - The OFFICIAL counted-screen analysis uses section boxes whose x-edges are refined by bisection on
+    K(x, y = 0) = 0 (the CZV), to 1e-12, starting from the classifier's bracket. p_x max is taken from that exact
+    interval.
+  - The analysis that screen_point performs at the end of each point used the grid-limited boxes. It is SUPERSEDED,
+    and its sealed JSON is kept as a record but not used for comparison.
+  - The orbits are unchanged.
+- **Coverage limitation, stated:** launch points were sampled inside the grid-limited interval, so a strip of width
+  ≤ ~0.09 in x at each edge of each screened region was not launched into. Orbits launched inside do visit that
+  strip, and the section clouds use all crossings.
