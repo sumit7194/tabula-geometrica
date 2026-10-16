@@ -162,8 +162,8 @@ static void henon(const double *par, double *s, int nv, double *o) {
 
 /* Trace one orbit.
    st (in/out): x, y, px, py, t, then nv tangent vectors (4 each).
-   mode: 0 = FTLE (renormalise every `renorm` steps; log-growth of vector 0 accumulated);
-         1 = section map (tangents projected onto the section at each crossing, never renormalised).
+   mode bits: 1 = section map (tangents projected onto the section at each crossing, never renormalised; else FTLE,
+         renormalise every `renorm` steps); 2 = count DOWNWARD crossings (y + -> -, p_y < 0), for the inverse map.
    rec (out): one row of RCOLS per crossing:
      0 tau, 1 t, 2 x, 3 px, 4 py, 5 cum log|w0|, 6 running max |H + 1/2| / (1/2), 7 ydot at the crossing,
      8 running min(x - 1), 9 running min g_phiphi, 10 running min R^2, 11 running min (1 - y^2),
@@ -177,6 +177,8 @@ int trace(const double *par, double *st, int nv, int mode, double dt, long max_s
           const Dom *dom, double *rec, double *orb) {
     double o[NOUT];
     int n = 5 + 4 * nv, nc = 0;
+    const double dirn = (mode & 2) ? -1.0 : 1.0;
+    const int project = (mode & 1);
     double tau = 0.0, logw = 0.0, maxdrift = 0.0;
     double mxm1 = 1e300, mgpp = 1e300, mR2 = 1e300, my2 = 1e300, ergo = 0.0;
     double ex9 = -1, ex6 = -1, exp_ = -1, dx9 = -1, dx6 = -1, dxp = -1;
@@ -217,7 +219,7 @@ int trace(const double *par, double *st, int nv, int mode, double dt, long max_s
         if (!ok.base) { flags &= ~8; code = 2; break; }
         if (x > dom->xesc) { code = 3; break; }
         if (tau - last_cross > T_STALL) { code = 5; break; }      /* no section crossing for T_STALL: stalled */
-        if (mode == 0 && renorm > 0 && it % renorm == 0 && nv > 0) {
+        if (!project && renorm > 0 && it % renorm == 0 && nv > 0) {
             for (int v = 0; v < nv; v++) {
                 double *w = st + 5 + 4 * v;
                 double nn = sqrt(w[0] * w[0] + w[1] * w[1] + w[2] * w[2] + w[3] * w[3]);
@@ -225,7 +227,7 @@ int trace(const double *par, double *st, int nv, int mode, double dt, long max_s
                 for (int a = 0; a < 4; a++) w[a] /= nn;
             }
         }
-        if (prev[1] < 0.0 && st[1] >= 0.0 && st[3] > 0.0) {
+        if (dirn * prev[1] < 0.0 && dirn * st[1] >= 0.0 && dirn * st[3] > 0.0) {   /* mode & 2: downward crossings */
             /* exact crossing: Henon step from the current point back to y = 0 */
             double s2[6 + 4 * MAXNV];
             memcpy(s2, st, sizeof(double) * n);
@@ -243,7 +245,7 @@ int trace(const double *par, double *st, int nv, int mode, double dt, long max_s
             r[7] = o[1]; r[8] = mxm1; r[9] = mgpp; r[10] = mR2; r[11] = my2; r[12] = ergo; r[13] = flags;
             nc++;
             last_cross = tau;
-            if (mode == 1) {
+            if (project) {
                 /* section map: put the state exactly on the section, project the tangents onto it */
                 for (int v = 0; v < nv; v++) {
                     double *w = s2 + 5 + 4 * v;

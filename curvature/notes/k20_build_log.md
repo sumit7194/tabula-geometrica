@@ -477,3 +477,27 @@ V13 (The Bridge): its own code, indicators (NAFF log10|Δν| over two halves AND
   - the F5-R shared level (19/20, 3);
   - F5-R's own levels.
   Each hyperbolic UPO found there is tested for whole-orbit D_B9 containment.
+- **Provenance note (2026-10-17):** libk20.dylib was rebuilt (adding the mode bit for downward crossings, used by the
+  inverse section map) WHILE the counted screen was running.
+  - The running workers survived (no crash; macOS replaced the file rather than rewriting the mapped pages).
+  - Workers spawned later load the new binary. Its semantics for the modes the screen uses (0 = FTLE, 1 = section
+    map) are unchanged: crossing direction defaults to upward and projection is still mode & 1.
+  - Rule from here: development kernels are built under a separate filename; a binary that a run is using is never
+    rebuilt.
+
+## Shared-level geometry checks (2026-10-17; geometry only)
+- **Bisection-refined box edges (A9),** sent to The Bridge for comparison with V13's brentq roots before any Jaccard:
+  - p1 shared (37/40, 29/10): x [3.270714456306, 7.755572149181], p_x max 0.106266926039 (the grid gave
+    [3.2728, 7.6992]; V13's quoted [3.271, 7.756]);
+  - F5-R shared (19/20, 3): x [5.454197086440, 31.141918436652], p_x max 0.116565707598.
+- **The p2 shared level (9/10, 13/10) is NOT a bound region.**
+  - Its equatorial allowed interval is [1.1519, 9.4001] (matching V13), and that slice is inside D.
+  - The 2D allowed component, however, connects to the horizon: cells down to x − 1 = 5e-4 at |y| 0.05–0.999, and it
+    touches x → 1. 444k of its 1.23M cells lie outside D_B9.
+  - Under §2 it is PLUNGE, so the in-run screen_point would have skipped it silently. That is a skip with no record,
+    so it is now recorded here.
+  - Proposed to The Bridge: (a) screen it anyway from the equatorial interval for comparability, reporting
+    plunge/ESCAPE fractions; or (b) fallback with a 2D bound-in-D criterion. Until they decide, tabula screens it as
+    in (a), in a separate run, and reports its topology as plunge-connected.
+- The inverse section map (A10 stable manifolds: flip momenta, integrate to the next downward crossing, flip back)
+  is verified: P⁻¹(P(z)) = z to 6e-12–7e-11 at p1 and P0.

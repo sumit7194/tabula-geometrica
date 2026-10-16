@@ -928,6 +928,33 @@ def select_levels(point, log=print):
 SHARED = {"p1": (37 / 40, 29 / 10), "p2": (9 / 10, 13 / 10), "F5R": (19 / 20, 3.0)}
 
 
+def refine_interval(pp, E, Lz, xa, xb, step=0.2):
+    """A9: bisection-refine an equatorial bound interval's edges on K(x, 0) = 0 (to 1e-12), from a grid bracket."""
+    _, alpha, k, beta = pp
+    Kx = lambda x: float(kinetic(np.array(x), np.array(0.0), E, Lz, alpha, k, beta))
+
+    def edge(inside, direction):
+        out_ = inside + direction * step
+        while Kx(out_) >= 0:                              # walk outward until outside the allowed set
+            inside, out_ = out_, out_ + direction * step
+        lo, hi = inside, out_
+        for _ in range(100):
+            mid = 0.5 * (lo + hi)
+            if Kx(mid) >= 0:
+                lo = mid
+            else:
+                hi = mid
+            if abs(hi - lo) < 1e-12:
+                break
+        return 0.5 * (lo + hi)
+    return edge(xa, -1.0), edge(xb, +1.0)
+
+
+def refined_box(pp, E, Lz, xa, xb):
+    a, b = refine_interval(pp, E, Lz, xa, xb)
+    return section_box(pp, E, Lz, a, b)
+
+
 def candidate_regions(lev, idx_chaotic, upos, rule_ok):
     """A1/§6: connected components of the CHAOTIC section cloud (single linkage at 0.02, normalised), with the box,
     area on the shared 200x200 grid, UPOs inside, D-status and return times."""
