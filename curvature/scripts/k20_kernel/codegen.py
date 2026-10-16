@@ -31,16 +31,28 @@ f = e2psi * A / B
 w = 2 * k * sp.exp(-2 * psi) * C / A - 4 * k * al / (1 - al**2)
 rho2 = k**2 * (x**2 - 1) * (1 - y**2)
 pref = (1 - al**2)**2 * e2psi / (k**2 * B * G)
-H = sp.Rational(1, 2) * pref * ((x**2 - 1) * px**2 + (1 - y**2) * py**2) \
-    + sp.Rational(1, 2) * (f * (L - w * E)**2 / rho2 - E**2 / f)
+# Regularised at the ergosurface A = 0 (LGAC: "removing the zeros of A analytically"). Exact identity, verified by
+# polynomial division with zero remainder (a, b as symbols): rho^2 B^2 - 4 k^2 C^2 = k^2 A Q.
+aa, bb = sp.symbols("aa bb")
+Q = ((x**2 - 1) * (1 - y**2) * ((x + 1 + (x - 1) * aa * bb)**2 + ((1 + y) * aa + (1 - y) * bb)**2)**2
+     - 4 * ((x**2 - 1) * (1 + aa * bb) * (bb - aa - y * (aa + bb))
+            + (1 - y**2) * (bb - aa) * (1 + aa * bb + x * (1 - aa * bb)))**2)
+Q = sp.div(sp.Poly(sp.expand(Q), x, y, aa, bb),
+           sp.Poly(sp.expand((x**2 - 1) * (1 + aa * bb)**2 - (1 - y**2) * (bb - aa)**2), x, y, aa, bb))
+assert Q[1].is_zero
+Q = Q[0].as_expr().subs({aa: a, bb: b})
+w0 = 4 * k * al / (1 - al**2)
+Lp = L + w0 * E
+V = sp.Rational(1, 2) * (e2psi * A * Lp**2 - 4 * k * C * E * Lp - k**2 * E**2 * Q / e2psi) / (rho2 * B)
+H = sp.Rational(1, 2) * pref * ((x**2 - 1) * px**2 + (1 - y**2) * py**2) + V
 
 t0 = time.time()
 Z = [x, y, px, py]
 grad = [sp.diff(H, v) for v in Z]
 rhs = [grad[2], grad[3], -grad[0], -grad[1]]
 jac = [[sp.diff(r, v) for v in Z] for r in rhs]
-tdot = E / f + f * w * (L - w * E) / rho2
-gpp = -f * w**2 + rho2 / f
+tdot = -sp.diff(V, E)                                   # dt/dtau = dH/dp_t, with p_t = -E
+gpp = (k**2 * Q / e2psi + 4 * k * w0 * C - e2psi * w0**2 * A) / B
 outs = rhs + [jac[i][j] for i in range(4) for j in range(4)] + [tdot, gpp, pref, H, f, B]
 print("differentiated in %.1fs" % (time.time() - t0), flush=True)
 t0 = time.time()

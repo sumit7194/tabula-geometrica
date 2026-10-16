@@ -175,3 +175,31 @@ Grid: x ∈ 1 + logspace(−6, log10 9) with 2400 points, |y| ≤ 0.99999 with 2
   - At tol 1e-12: drift 1.1e-11, Carter conserved to 3.9e-10, 200 returns, about 15 µs per τ.
   - At tol ≥ 1e-10 the h_max cap binds (drift 1.2e-10, not yet at target), so the ladder would continue.
 - Nothing else changes: verdict rules, thresholds, windows, levels, controls and gates are as registered.
+
+## AMENDMENT A6 (2026-10-16, before any verdict): the Hamiltonian is regularised at the ergosurface A = 0
+- **Finding.** After A5 the C0 inner pilot still failed: drift fell only about 3× per decade of tolerance, to 7e-7 at
+  the 1e-13 floor (the outer region passed at 1e-13). That is the signature of a precision loss, not a step-size
+  problem.
+- **Cause.** 94% of the C0 inner region is ergoregion (f < 0), so orbits cross the ergosurface f = 0, i.e. A = 0. In
+  V = ½[f(L − ωE)²/ρ² − E²/f], with f = e^{2ψ}A/B and ω = 2k e^{−2ψ}C/A − ω₀, the terms 4k²C²E²e^{−2ψ}/(ABρ²) and
+  E²Be^{−2ψ}/A each diverge like 1/A. Their finite difference is catastrophic cancellation, and g_φφ = −fω² + ρ²/f has
+  the same problem. LGAC 2010 hit this and "removed the zeros of A analytically".
+- **Exact identity** (sympy polynomial division, with a, b as symbols, ZERO remainder):
+  ρ²B² − 4k²C² = k²·A·Q, where Q is the polynomial quotient (in codegen.py; 45 terms in x, y, a, b). Hence:
+  - V = ½[e^{2ψ}A L′² − 4kCEL′ − e^{−2ψ}k²E²Q]/(ρ²B), with L′ = L + ω₀E;
+  - g_φφ = [e^{−2ψ}k²Q + 4kω₀C − e^{2ψ}ω₀²A]/B;
+  - dt/dτ = −∂V/∂E.
+  None of these divides by A.
+- **Verification:**
+  - Away from A = 0 the regularised kernel matches the original numpy H to ≤ 1.6e-14, at all 4 points and their Kerr
+    limits.
+  - At the equatorial ergosurface of C0 (x₀ = 3.0278830543…), the regularised g_φφ is exact to ≤ 3e-15 at
+    A = 3.7e-3 … 3.7e-12. The unregularised form degrades like 1/A (6e-5 at A = 3.7e-12).
+  - The regularised V is smooth through A = 0 (−0.8526711 at both ±1e-9 and +1e-12) and equals an 80-digit evaluation.
+- **Lesson on a reference that lied.** My first "truth" (the unregularised V in mpmath at 50-240 digits) disagreed
+  with the kernel by exactly 3.9e-16/A, stable in precision. Cause: E**2 was squared in Python DOUBLE before
+  entering mpmath, and the 1/A pole amplified that 1e-16 rounding. With exact inputs, the two forms agree. A
+  high-precision reference is only as good as its least precise input, and near a pole that is the whole error.
+- **For The Bridge and quantum:** any evaluation of f and ω through A (V13 in float; quantum's interval enclosures)
+  carries these 1/A poles. Near the ergosurface, values lose about log10(1/A) digits and interval enclosures widen
+  without bound. The inner region of C0/F5-R is mostly ergoregion, so its orbits cross A = 0.
