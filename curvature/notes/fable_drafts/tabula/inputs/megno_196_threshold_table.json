@@ -1,0 +1,161 @@
+{
+ "bins": [
+  [
+   25,
+   100
+  ],
+  [
+   100,
+   300
+  ],
+  [
+   300,
+   1000.0
+  ],
+  [
+   1000.0,
+   3000.0
+  ],
+  [
+   3000.0,
+   30001.0
+  ]
+ ],
+ "threshold_p99": [
+  2.161330950472354,
+  2.3463194216831837,
+  3.028902732709625,
+  4.01914480886403,
+  4.392621743990557
+ ],
+ "p99_pooled": [
+  2.0029636373317476,
+  2.3153434075936494,
+  2.434826769662371,
+  2.1109848510911644,
+  2.0804738085135064
+ ],
+ "p99_plunger_final": [
+  1.9378996703257283,
+  2.146301797607265,
+  null,
+  null,
+  null
+ ],
+ "p99_integrable": [
+  1.982549960544614,
+  2.3463194216831837,
+  2.3700187420963137,
+  2.0382159409080063,
+  2.040216850873597
+ ],
+ "p99_tori": [
+  2.161330950472354,
+  2.308361229400141,
+  3.028902732709625,
+  4.01914480886403,
+  4.392621743990557
+ ],
+ "n_plunger_final": [
+  8,
+  32,
+  0,
+  0,
+  0
+ ],
+ "plunger_final_max": [
+  1.955987661816115,
+  2.154052375114426,
+  null,
+  null,
+  null
+ ],
+ "max": [
+  2.801319854837926,
+  3.2264957354554147,
+  5.005929696483235,
+  5.427678966216776,
+  17.78933916595651
+ ],
+ "n_values": [
+  1173,
+  2908,
+  9884,
+  28240,
+  381593
+ ],
+ "audit": {
+  "cal_hh_0.125": {
+   "n_in": 60,
+   "n_used": 26
+  },
+  "cal_hh_1o12": {
+   "n_in": 60,
+   "n_used": 60
+  },
+  "cal_kerr_p35_pro": {
+   "n_in": 20,
+   "n_used": 20
+  },
+  "cal_kerr_p45_pro": {
+   "n_in": 20,
+   "n_used": 20
+  },
+  "cal_kerr_p45_retro": {
+   "n_in": 20,
+   "n_used": 20
+  },
+  "cal_plunge_kerr_p35_pro_eps-0.05": {
+   "n_in": 30,
+   "n_used": 30
+  },
+  "cal_plunge_kerr_p35_pro_eps-0.1": {
+   "n_in": 30,
+   "n_used": 30
+  },
+  "cal_plunge_kerr_p45_pro_eps-0.05": {
+   "n_in": 30,
+   "n_used": 30
+  },
+  "cal_plunge_kerr_p45_pro_eps-0.1": {
+   "n_in": 30,
+   "n_used": 30
+  },
+  "cal_plunge_kerr_p45_retro_eps-0.05": {
+   "n_in": 30,
+   "n_used": 30
+  },
+  "cal_plunge_kerr_p45_retro_eps-0.1": {
+   "n_in": 30,
+   "n_used": 30
+  },
+  "cal_plunge_schw_eps-0.05": {
+   "n_in": 30,
+   "n_used": 30
+  },
+  "cal_plunge_schw_eps-0.1": {
+   "n_in": 30,
+   "n_used": 30
+  },
+  "cal_schw": {
+   "n_in": 20,
+   "n_used": 20
+  }
+ },
+ "null_composition": {
+  "cal_hh_0.125": 26,
+  "cal_hh_1o12": 60,
+  "cal_kerr_p35_pro": 20,
+  "cal_kerr_p45_pro": 20,
+  "cal_kerr_p45_retro": 20,
+  "cal_plunge_kerr_p35_pro_eps-0.05": 30,
+  "cal_plunge_kerr_p35_pro_eps-0.1": 30,
+  "cal_plunge_kerr_p45_pro_eps-0.05": 30,
+  "cal_plunge_kerr_p45_pro_eps-0.1": 30,
+  "cal_plunge_kerr_p45_retro_eps-0.05": 30,
+  "cal_plunge_kerr_p45_retro_eps-0.1": 30,
+  "cal_plunge_schw_eps-0.05": 30,
+  "cal_plunge_schw_eps-0.1": 30,
+  "cal_schw": 20
+ }
+}
