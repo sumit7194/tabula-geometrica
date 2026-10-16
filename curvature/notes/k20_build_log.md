@@ -419,3 +419,23 @@ results/197_cgates.json. Only pass/fail status goes to The Bridge until V13's C0
 - candidate_regions was exercised on real data (the C0 inner base-domain CHAOTIC orbits; a code test only): one
   region, with the 200×200 grid occupancy, UPOs inside and return-time percentiles produced.
 - The screen refuses to start unless the sealed C-gates passed (C1, DW, C0 inner/outer, C3/C4).
+
+## C0 EXCHANGE with V13 (2026-10-17; both sealed before exchange: tabula a1c5051 / dd6c102c…, V13 d24e034 / 6a705e2b…)
+V13 (The Bridge): its own code, indicators (NAFF log10|Δν| over two halves AND the 0-1 test K) and χ 0.9 Kerr null
+(C1 held-out 0/136); 60 orbits per region; acceptance 1e-8.
+
+| quantity | tabula | V13 | §7 / A1 rule | result |
+|---|---|---|---|---|
+| inner CHAOTIC | 75/80 = 0.9375, CP95 [0.860, 0.979] | 49/50 = 0.98, CP95 [0.894, 0.999] | 95% CIs overlap | AGREE |
+| outer CHAOTIC | 0/100, CP95 [0, 0.036] | 0/60, CP95 [0, 0.060] | CIs overlap | AGREE |
+| B9: inner orbits leaving before N_ret | 95/100 (median 16 returns, max 126) | 59/60 (median 15, max 116) | — (A7 finding) | AGREE |
+| B9: base-CHAOTIC orbits leaving before 500 returns | 75/75 | 49/49 | — | AGREE |
+| region overlap (Jaccard ≥ 0.5, 200×200) | sea spans ρ 0.7201–2.1237 (section points, computed after the seal from the sealed run's orbits) | section points not stored | Jaccard | **NOT EVALUABLE** (V13 limitation, stated) |
+| accuracy exclusions | 20/100 (would-be CHAOTIC, unscored) | 10/60 (unscored) | — | — |
+
+- **Joint reading:** two independent screens, with different indicators, code and Kerr nulls, agree that the
+  published C0 inner chaos is real (≥ 86% of readable inner orbits), that the outer region is not chaotic, and that
+  NO base-chaotic orbit stays inside D_B9 for 500 returns.
+- **Precision:** this does NOT mean the sea "lives inside" the excluded neighbourhood. Our section points show the
+  chaotic orbits roam the whole inner region (ρ 0.72–2.12). What is established is that every one of them reaches
+  the singular-ring / CTC exclusion (within ~0.025 of the ring) within ≤ 126 returns.
