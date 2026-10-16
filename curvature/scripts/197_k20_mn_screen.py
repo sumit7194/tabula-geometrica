@@ -271,7 +271,7 @@ def trace(lib, dom, pp, E, Lz, z0, dt, n_ret, mode=0, nv=1, w0=None, max_steps=1
         if w0 is None:
             W /= np.linalg.norm(W, axis=1, keepdims=True)
         st[5:] = W.ravel()
-    rec, orb = np.zeros(n_ret * RCOLS), np.zeros(9)
+    rec, orb = np.zeros(n_ret * RCOLS), np.zeros(12)
     nc = lib.trace(par.ctypes.data_as(_dp), st.ctypes.data_as(_dp), nv, mode, dt, max_steps, n_ret, renorm,
                    ct.byref(dom["dom"]), rec.ctypes.data_as(_dp), orb.ctypes.data_as(_dp))
     return rec.reshape(n_ret, RCOLS)[:nc], orb, st

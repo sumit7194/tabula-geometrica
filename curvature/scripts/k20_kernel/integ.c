@@ -160,7 +160,7 @@ static void henon(const double *par, double *s, int nv, double *o) {
      0 tau, 1 t, 2 x, 3 px, 4 py, 5 cum log|w0|, 6 running max |H + 1/2| / (1/2), 7 ydot at the crossing,
      8 running min(x - 1), 9 running min g_phiphi, 10 running min R^2, 11 running min (1 - y^2),
      12 running ergoregion time (f < 0), 13 flags (bit0 B9 ok so far, bit1 B6, bit2 P, bit3 base)
-   orb (out, 9 slots): 0 n_cross, 1 tau_end, 2 end code (0 n_ret reached, 1 max_steps, 2 base exit / plunge,
+   orb (out, 12 slots; 9-11 = drift at the B9/B6/P exit): 0 n_cross, 1 tau_end, 2 end code (0 n_ret reached, 1 max_steps, 2 base exit / plunge,
               3 escape, 4 non-finite, 5 stalled: no crossing for T_STALL tau), 3 tau exit B9 (-1 = never), 4 tau exit B6, 5 tau exit P,
               6 running max drift overall, 7 cum log|w0| at the end, 8 accepted steps
    dt (A5): the Dormand-Prince tolerance (rtol = atol scale), not a step size; 6 = step underflow
@@ -171,13 +171,13 @@ int trace(const double *par, double *st, int nv, int mode, double dt, long max_s
     int n = 5 + 4 * nv, nc = 0;
     double tau = 0.0, logw = 0.0, maxdrift = 0.0;
     double mxm1 = 1e300, mgpp = 1e300, mR2 = 1e300, my2 = 1e300, ergo = 0.0;
-    double ex9 = -1, ex6 = -1, exp_ = -1;
+    double ex9 = -1, ex6 = -1, exp_ = -1, dx9 = -1, dx6 = -1, dxp = -1;
     int flags = 15, code = 1;
     double last_cross = 0.0, h = 1e-3;
     long nsteps = 0;
     mn_eval(par, st, o);
     Ok ok = dom_check(dom, st, o);
-    if (!ok.base) { orb[0] = 0; orb[1] = 0; orb[2] = 2; orb[3] = orb[4] = orb[5] = 0; orb[6] = 0; orb[7] = 0; return 0; }
+    if (!ok.base) { orb[0] = 0; orb[1] = 0; orb[2] = 2; orb[3] = orb[4] = orb[5] = 0; orb[6] = 0; orb[7] = 0; orb[8] = 0; orb[9] = orb[10] = orb[11] = 0; return 0; }
     for (long it = 1; it <= max_steps; it++) {
         double prev[5 + 4 * MAXNV];
         memcpy(prev, st, sizeof(double) * n);
@@ -203,9 +203,9 @@ int trace(const double *par, double *st, int nv, int mode, double dt, long max_s
         if (1.0 - y * y < my2) my2 = 1.0 - y * y;
         if (o[24] < 0.0) ergo += hu;
         ok = dom_check(dom, st, o);
-        if (!ok.b9 && ex9 < 0) { ex9 = tau; flags &= ~1; }
-        if (!ok.b6 && ex6 < 0) { ex6 = tau; flags &= ~2; }
-        if (!ok.p && exp_ < 0) { exp_ = tau; flags &= ~4; }
+        if (!ok.b9 && ex9 < 0) { ex9 = tau; flags &= ~1; dx9 = maxdrift; }
+        if (!ok.b6 && ex6 < 0) { ex6 = tau; flags &= ~2; dx6 = maxdrift; }
+        if (!ok.p && exp_ < 0) { exp_ = tau; flags &= ~4; dxp = maxdrift; }
         if (!ok.base) { flags &= ~8; code = 2; break; }
         if (x > dom->xesc) { code = 3; break; }
         if (tau - last_cross > T_STALL) { code = 5; break; }      /* no section crossing for T_STALL: stalled */
@@ -251,5 +251,6 @@ int trace(const double *par, double *st, int nv, int mode, double dt, long max_s
     orb[0] = nc; orb[1] = tau; orb[2] = code; orb[3] = ex9; orb[4] = ex6; orb[5] = exp_; orb[6] = maxdrift;
     orb[7] = logw;
     orb[8] = (double)nsteps;
+    orb[9] = dx9; orb[10] = dx6; orb[11] = dxp;          /* running max drift at each rule's exit (-1 = never) */
     return nc;
 }

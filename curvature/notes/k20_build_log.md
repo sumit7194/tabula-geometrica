@@ -203,3 +203,31 @@ Grid: x ∈ 1 + logspace(−6, log10 9) with 2400 points, |y| ≤ 0.99999 with 2
 - **For The Bridge and quantum:** any evaluation of f and ω through A (V13 in float; quantum's interval enclosures)
   carries these 1/A poles. Near the ergosurface, values lose about log10(1/A) digits and interval enclosures widen
   without bound. The inner region of C0/F5-R is mostly ergoregion, so its orbits cross A = 0.
+
+## FINDING (geometry + pilot accuracy, before any verdict): an equatorial singular ring B = A = 0 at P0 and F5-R
+- **After A6, the C0 inner pilot still fails:** all 12 orbits complete 2000 returns, but drift is about 5e-8 (one
+  at 1.8e-6), building in sporadic jumps. The orbits reach x − 1 = 0.930.
+- **B = A = 0 exactly on the equator** (mpmath at 50 digits, minimising B):
+  - **P0:** B = 4e-98 at x_s = 1.929828259;
+  - **F5-R:** B = 1e-97 at x_s = 1.921922588.
+  - At both, A = 0, a = −b, and a² = (x+1)/(x−1) to 1e-49.
+  - P0's x_s is ρ = 0.7194, the literature's "inner edge ρ ≈ 0.72". The ring lies at R ≈ 1.65, outside the horizon.
+- **Behaviour there:** g_φφ and V have POLES at x_s.
+  - The equatorial "CTC edge" (1.9298 / 1.9219, measured by both screens) is the g_φφ POLE, not a zero:
+    g_φφ = −1.9e5 at 1.9298 and +4.7e3 at 1.931. The CTC region lies on the x < x_s side.
+  - V ~ −c/B: V_min on the inner region is −1.4e4 (P0) and −3.1e4 (F5-R) at the inner edge. This is LGAC's "deep
+    hole … stochastic scatterer".
+- **Not yet checked:** whether this is a curvature singularity (Kretschmann). Until then it is described as "a
+  singular ring of the metric functions".
+- **p1/p2:** inside D's R ≥ 0.5, min B is 3.8 (p1) and 0.35 (p2), so there is no ring there. p1 has a B near-zero
+  (2.9e-3 on the grid) at x ≈ 1.076, y = 0, coinciding with its "CTC edge" 1.0756. It sits inside R < 0.5 and is
+  already excluded; exactness not checked.
+- **Accuracy:** near V ~ −1e4..−1e5, H = T + V = −½ is a cancellation that amplifies relative errors by about
+  |V|/½. That is consistent with the drift floor of ~5e-8 for orbits passing within ~1e-3 of x_s. LGAC themselves
+  report inner-region errors of ≤ 1e-8.
+- **Kernel:** now records the running max drift at each domain rule's exit (orb[9..11]), so each rule's verdicts can
+  be accuracy-gated up to their own reading time.
+- **Open, referred to The Bridge before any C-gate is graded:** how C0 is graded. Options:
+  - (a) on B9-truncated orbits;
+  - (b) on the base domain at LGAC's own 1e-8.
+  Also: whether to compute the Kretschmann scalar.
