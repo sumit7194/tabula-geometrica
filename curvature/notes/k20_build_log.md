@@ -185,7 +185,7 @@ Grid: x ∈ 1 + logspace(−6, log10 9) with 2400 points, |y| ≤ 0.99999 with 2
   E²Be^{−2ψ}/A each diverge like 1/A. Their finite difference is catastrophic cancellation, and g_φφ = −fω² + ρ²/f has
   the same problem. LGAC 2010 hit this and "removed the zeros of A analytically".
 - **Exact identity** (sympy polynomial division, with a, b as symbols, ZERO remainder):
-  ρ²B² − 4k²C² = k²·A·Q, where Q is the polynomial quotient (in codegen.py; 45 terms in x, y, a, b). Hence:
+  ρ²B² − 4k²C² = k²·A·Q, where Q is the polynomial quotient (in codegen.py; 46 monomials in x, y, a, b — first written as "45", an uncounted estimate; counted after The Bridge reported 46, and they are right). Hence:
   - V = ½[e^{2ψ}A L′² − 4kCEL′ − e^{−2ψ}k²E²Q]/(ρ²B), with L′ = L + ω₀E;
   - g_φφ = [e^{−2ψ}k²Q + 4kω₀C − e^{2ψ}ω₀²A]/B;
   - dt/dτ = −∂V/∂E.
