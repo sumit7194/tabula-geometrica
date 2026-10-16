@@ -553,3 +553,18 @@ V13 (The Bridge): its own code, indicators (NAFF log10|Δν| over two halves AND
   launch geometry (x offsets ±0.2–4% of x_c, p_x = 0), so the curves span the D₂ windows. Also add a saturation
   guard: I2 = "mixed" when C(r_max) equals the total pair count or C(r_min) is within 1% of it, i.e. the window
   sits outside the cloud's scale.
+
+## AMENDMENT A11 (2026-10-17, BEFORE any counted-screen verdict has been read; The Bridge agreed): an I2 window-scale guard
+- **Rule, per D₂ window (A and B)**, with n_pairs the total number of pairs:
+  - **"saturated":** C(r_min) ≥ 99% of n_pairs. The window lies ABOVE the cloud.
+  - **"below-scale":** C(r_max) ≤ 1% of n_pairs. The window lies BELOW the cloud's scale.
+  - The existing "low-count" guard (C(r_min) < 200) stays.
+  In all three cases D₂ for that window is None, so I2 = "mixed" (neither high nor low).
+- **Effect under the AND rule:** it can only turn a vacuous I2 into "mixed", so CHAOTIC → INDETERMINATE or REGULAR →
+  INDETERMINATE. It can never create CHAOTIC.
+- **Reported per cell:** how many accepted orbits each guard fired on, and how many readings it reclassified. Raw
+  slopes are kept as D2_raw.
+- **Applies to:** the official counted analysis (analyze_point) and the supplementary C3/C4. It does NOT re-grade the
+  sealed C-gates; C3 stands through I1, and C4 is recorded as vacuous.
+- **Status at commit:** the counted screen is still running. The only verdict lines it writes are its in-run
+  analysis, which A9 has already superseded, and none has been read. From here only progress lines are inspected.

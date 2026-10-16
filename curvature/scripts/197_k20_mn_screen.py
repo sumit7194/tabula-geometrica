@@ -441,13 +441,24 @@ def corr_dim(box, rec, N):
     u, v = norm_sec(box, rec[:N, 2], rec[:N, 3])
     d = pdist(np.column_stack([u, v]))
     out = {}
+    tot = float(len(d))
     for key, (lo, hi) in D2_WINDOWS.items():
         rs = np.logspace(np.log10(lo), np.log10(hi), 9)
         C = np.array([np.count_nonzero(d < r) for r in rs], float)
+        raw = float(np.polyfit(np.log(rs), np.log(np.maximum(C, 1)), 1)[0])
+        out[key + "_raw"] = raw
+        out[key + "_guard"] = None
         if C[0] < 200:
             out[key] = None                               # a window with < 200 pairs is "mixed", never zero
+            out[key + "_guard"] = "low-count"
             continue
-        out[key] = float(np.polyfit(np.log(rs), np.log(C), 1)[0])
+        if C[0] >= 0.99 * tot:                            # A11: window ABOVE the cloud (all pairs below r_min)
+            out[key] = None; out[key + "_guard"] = "saturated"
+            continue
+        if C[-1] <= 0.01 * tot:                           # A11: window BELOW the cloud's scale
+            out[key] = None; out[key + "_guard"] = "below-scale"
+            continue
+        out[key] = raw
     return out
 
 
@@ -474,7 +485,9 @@ def stats_for(rec, box, N, upos):
     f = ftle_pair(rec, N)
     c = corr_dim(box, rec, N)
     return {"N": N, "lam2": f[0] if f else None, "rho": f[1] if f else None,
-            "D2A": c["A"] if c else None, "D2B": c["B"] if c else None, "dmin": d_min(box, rec, N, upos)}
+            "D2A": c["A"] if c else None, "D2B": c["B"] if c else None, "dmin": d_min(box, rec, N, upos),
+            "D2_guard": [c.get("A_guard"), c.get("B_guard")] if c else None,
+            "D2_raw": [c.get("A_raw"), c.get("B_raw")] if c else None}
 
 
 def verdict(st, thr):
@@ -1267,6 +1280,10 @@ def analyze_point(point, workers=4, eps=(1e-6, 1e-7)):
                     rr["candidates"] = candidate_regions(lev, ch, lev["upos"], [s_["N"] or 0 for s_ in sts]) if ch else {"regions": []}
                     rr["by_dmin_bin_INFO"] = {b: (lambda vv: {v: vv.count(v) for v in sorted(set(vv))})(
                         [verdict(s_, thr) for s_ in acc if s_["fate"] != "ESCAPE" and dbin(s_["dmin"]) == b]) for b in range(4)}
+                    rr["A11_guard_fired"] = {g: sum(1 for s_ in acc if s_.get("D2_guard") and g in s_["D2_guard"])
+                                             for g in ("saturated", "below-scale", "low-count")}
+                    rr["A11_reclassified"] = sum(1 for s_ in acc if s_["fate"] != "ESCAPE" and s_.get("D2_guard")
+                                                 and any(g in ("saturated", "below-scale") for g in s_["D2_guard"]))
                     rr["min_ydot_at_crossings"] = float(min((np.abs(np.asarray(r).reshape(-1, RCOLS)[:, 7]).min()
                                                              for r in lev["recs"] if len(r)), default=float("nan")))
                 rec[rule] = rr
