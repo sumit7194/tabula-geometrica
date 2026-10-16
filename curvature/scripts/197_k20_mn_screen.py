@@ -955,6 +955,109 @@ def refined_box(pp, E, Lz, xa, xb):
     return section_box(pp, E, Lz, a, b)
 
 
+# ---------------------------------------------------------------- A10 structure stage: saddles inside D
+
+def upo_in_D(lib, dom, pp, E, Lz, u, tol):
+    """Integrate one full period of a UPO from its section point: complete? whole orbit inside D_B9? min margins,
+    closure error |P^n(z) - z| (normalised by nothing; raw)."""
+    z = launch(pp, E, Lz, *u["z"])
+    if z is None:
+        return {"status": "launch failed"}
+    rec, orb, st = trace(lib, dom, pp, E, Lz, z, tol, u["n"], nv=0)
+    complete = int(orb[0]) >= u["n"] and orb[2] == 0
+    out = {"complete": bool(complete), "in_D_B9": bool(complete and orb[3] < 0), "in_D_B6": bool(complete and orb[4] < 0),
+           "in_D_P": bool(complete and orb[5] < 0), "drift": float(orb[6])}
+    if len(rec):
+        r = rec[-1]
+        out.update({"closure": float(np.hypot(r[2] - u["z"][0], r[3] - u["z"][1])),
+                    "min_x_minus_1": float(r[8]), "min_gphiphi": float(r[9]), "min_R2": float(r[10]),
+                    "min_1_minus_y2": float(r[11]),
+                    "margin_x": float(r[8] - 0.05), "margin_R": float(np.sqrt(max(r[10], 0)) - 0.5)})
+    return out
+
+
+def _inverse_map(lib, dom, pp, E, Lz, x, px, tol):
+    z = launch(pp, E, Lz, x, px)
+    if z is None:
+        return None
+    zf = z.copy(); zf[2:] *= -1
+    rec, orb, st = trace(lib, dom, pp, E, Lz, zf, tol, 1, mode=3, nv=0, renorm=0)
+    if int(orb[0]) < 1:
+        return None
+    return np.array([st[0], -st[2]]), orb
+
+
+def _forward_map(lib, dom, pp, E, Lz, x, px, tol):
+    z = launch(pp, E, Lz, x, px)
+    if z is None:
+        return None
+    rec, orb, st = trace(lib, dom, pp, E, Lz, z, tol, 1, mode=1, nv=0, renorm=0)
+    if int(orb[0]) < 1:
+        return None
+    return np.array([st[0], st[2]]), orb
+
+
+def manifold(lib, dom, pp, E, Lz, u, tol, stable, eps, n_seg=120, n_iter=30, box=None):
+    """W^u (stable=False) or W^s (stable=True) of a hyperbolic period-n UPO: a fundamental segment z + eps s v, s in
+    [1, |lam|), both branches, iterated n_iter times by P^n (or P^-n). Returns polylines in (x, px) with per-point
+    D_B9 status and the iterate index."""
+    ev = np.array([complex(*e) if isinstance(e, (list, tuple)) else complex(e) for e in u["eig"]])
+    vecs = np.array(u["evec"], dtype=complex) if not isinstance(u["evec"], str) else None
+    if vecs is None:
+        return None
+    lam = ev.real
+    i = int(np.argmin(np.abs(lam))) if stable else int(np.argmax(np.abs(lam)))
+    v = vecs[:, i].real
+    v = v / np.linalg.norm(v)
+    L = abs(lam[i]) if not stable else 1 / abs(lam[i])
+    lines = []
+    for sgn in (1, -1):
+        seg = [np.array(u["z"]) + sgn * eps * (L ** t) * v for t in np.linspace(0, 1, n_seg)]
+        pts, inD, it_ix = [], [], []
+        cur = seg
+        for it in range(n_iter + 1):
+            for q in cur:
+                pts.append(q); it_ix.append(it)
+            nxt = []
+            for q in cur:
+                ok = True
+                for _ in range(u["n"]):
+                    r = (_inverse_map if stable else _forward_map)(lib, dom, pp, E, Lz, q[0], q[1], tol)
+                    if r is None:
+                        ok = False; break
+                    q, orb = r
+                    if orb[3] >= 0:
+                        ok = False; break                  # left D_B9 on the way: the connection is not in D
+                if ok:
+                    nxt.append(q)
+            if box is not None:
+                nxt = [q for q in nxt if box["xa"] <= q[0] <= box["xb"] and abs(q[1]) <= box["pm"]]
+            if not nxt:
+                break
+            cur = nxt
+        lines.append({"pts": np.array(pts), "iter": np.array(it_ix)})
+    return lines
+
+
+def _seg_intersections(A, B):
+    """Transversal crossings between polylines A, B (k x 2 arrays): list of (point, angle, ia, ib)."""
+    out = []
+    a0, a1 = A[:-1], A[1:]
+    for jb in range(len(B) - 1):
+        b0, b1 = B[jb], B[jb + 1]
+        d1 = a1 - a0; d2 = b1 - b0
+        den = d1[:, 0] * d2[1] - d1[:, 1] * d2[0]
+        ok = np.abs(den) > 1e-30
+        t = np.where(ok, ((b0[0] - a0[:, 0]) * d2[1] - (b0[1] - a0[:, 1]) * d2[0]) / np.where(ok, den, 1), -1)
+        w = np.where(ok, ((b0[0] - a0[:, 0]) * d1[:, 1] - (b0[1] - a0[:, 1]) * d1[:, 0]) / np.where(ok, den, 1), -1)
+        hit = ok & (t > 0) & (t < 1) & (w > 0) & (w < 1)
+        for ia in np.flatnonzero(hit):
+            P = a0[ia] + t[ia] * d1[ia]
+            cosang = abs(d1[ia] @ d2) / (np.linalg.norm(d1[ia]) * np.linalg.norm(d2) + 1e-300)
+            out.append((P, float(np.arccos(min(1.0, cosang))), int(ia), int(jb)))
+    return out
+
+
 def candidate_regions(lev, idx_chaotic, upos, rule_ok):
     """A1/§6: connected components of the CHAOTIC section cloud (single linkage at 0.02, normalised), with the box,
     area on the shared 200x200 grid, UPOs inside, D-status and return times."""

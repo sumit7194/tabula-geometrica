@@ -501,3 +501,16 @@ V13 (The Bridge): its own code, indicators (NAFF log10|Δν| over two halves AND
     in (a), in a separate run, and reports its topology as plunge-connected.
 - The inverse section map (A10 stable manifolds: flip momenta, integrate to the next downward crossing, flip back)
   is verified: P⁻¹(P(z)) = z to 6e-12–7e-11 at p1 and P0.
+- **A10.1 (definition, before any result):** a lone hyperbolic periodic orbit is not evidence of chaos, since
+  integrable systems have them too (the double well's saddle).
+  - **Tier 1:** a hyperbolic UPO (period ≤ 3) whose whole orbit is complete and stays in D_B9.
+  - **Tier 2, a "saddle-in-D CANDIDATE":** a tier-1 UPO with a TRANSVERSAL homoclinic connection, or a transversal
+    heteroclinic connection to another tier-1 UPO.
+    - Found by intersecting W^u (P^n, forward) with W^s (P^-n, by momentum reversal), each grown from a fundamental
+      segment at ε = 1e-6 for at most 30 iterates.
+    - Manifold points whose map step leaves D_B9 are dropped, so every reported intersection lies on in-D manifold
+      pieces.
+    - Transversal means a crossing angle > 1e-3 rad that persists, within 50%, between ε = 1e-6 and 1e-7.
+  - **Per-point K20 verdict:** "saddle-in-D candidates FOUND (tier 2)", or "tier-1 UPOs in D but no transversal
+    connection in D found within the search", or "no tier-1 UPO in D within the search". Always "within the
+    search": a null is a map of where we looked, not a theorem.
