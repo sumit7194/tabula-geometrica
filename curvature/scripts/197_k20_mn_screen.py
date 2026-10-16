@@ -925,7 +925,7 @@ def select_levels(point, log=print):
     return out
 
 
-SHARED = {"p1": (37 / 40, 29 / 10), "p2": (9 / 10, 13 / 10), "F5R": (19 / 20, 3.0)}
+SHARED = {"p1": (37 / 40, 29 / 10), "p2": (37 / 40, 3.0), "F5R": (19 / 20, 3.0)}   # p2: V13 A8 (326d21f)
 
 
 def refine_interval(pp, E, Lz, xa, xb, step=0.2):

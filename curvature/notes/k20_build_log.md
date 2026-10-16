@@ -522,3 +522,10 @@ V13 (The Bridge): its own code, indicators (NAFF log10|Δν| over two halves AND
   - p1 and F5-R pass their 2D test (p1 reaches |y| ≤ 0.18, F5-R |y| ≤ 0.47, 0% outside D).
 - **Box edges agree to < 1e-11:** V13 p1 [3.2707144563061483, 7.755572149181034], F5-R
   [5.454197086440008, 31.14191843665211]. p_x max is still to be compared before Jaccard.
+- **New p2 shared level (V13 A8, TheBridge 326d21f): (37/40, 3).** My 2D classifier gives T1, fully inside D_B9, at
+  500×241 and 800×401. My bisection-refined edges are [3.388571137065809, 5.741146012209716] vs V13's
+  [3.3885711370657745, 5.741146012209553]: agreement to 1.6e-13. SHARED["p2"] is switched.
+  - The running screen loaded the old SHARED. At the old p2 level it finds no bound component and skips it (now on
+    record).
+  - The new level is screened by a resumed screen_point run, which re-uses every saved level and integrates only the
+    new one.
