@@ -294,3 +294,41 @@ exit itself, not only up to the last crossing before it.
 - **Shared-source caveat (applies to both of us):** our MN formulas share one source chain. The metric is as given in
   GLM 2008 / Brink 2008 App. C (same B), and quantum's MN_METRIC.md derives from it. Nobody has read Manko & Novikov
   1992 itself. Any write-up must say "the MN subclass as given in GLM 2008 / Brink 2008 App. C".
+
+## AMENDMENT A8 (2026-10-16, before ANY verdict; The Bridge's ruling): the matched-proximity null is infeasible in Kerr
+**Found while building the C-gates, not from any MN result.** The first Kerr whirl level (χ 0.9, Lz 3, E = E_b − 1e-4,
+E_b = 0.969002) had one period-1 orbit, which is STABLE, and no hyperbolic ones. That is forced by separability:
+- Below E_b every bound Kerr orbit lies on a torus, and the unstable spherical orbit sits on the barrier top,
+  outside the bound region.
+- At or above E_b the radial motion has no inner turning point, so every orbit plunges within about one radial
+  period.
+- So NO long-lived Kerr orbit can lie near a hyperbolic UPO. The registered per-d_min-bin thresholds (§5) would leave
+  bins 0–2 permanently empty, and every MN orbit near a hyperbolic UPO, exactly where chaos lives, would read
+  CANNOT-DISCRIMINATE. That is a silent null built into the design. (The Bridge: "my requirement's fault"; V13 has
+  the same flaw and mirrors A8.)
+
+**Replacement:**
+1. **Thresholds** are pooled over all Kerr null orbits at that χ: the class-wise max over the levels. The whirl
+   levels (E_b − 1e-4, 1e-3, 1e-2) are near-separatrix tori, with log-divergent periods and large transient stretching:
+   the hardest integrable cases available for long orbits. The generic levels are added.
+   - TRAINING orbits (even index) set the thresholds. C1 is a binomial test on the pooled HELD-OUT orbits (odd index)
+     against 1% (A4.1).
+   - MN verdicts are still tabulated by d_min bin, as information only.
+2. **d_sep is reported for the Kerr null:** the normalised section distance from each orbit's points to its bound
+   region's section boundary (the p_y² = 0 curve). It shows how close to separatrix structure the null actually
+   goes.
+3. **Transient hyperbolic stretching** is guarded by I1's plateau ratio ρλ and by I2 being non-variational.
+   Short-lived near-hyperbolic Kerr transits (E ≥ E_b plungers) cannot reach 500 returns, so they produce no reading.
+4. **A second integrable null that DOES populate small d_min (built, not left as a limitation):** a separable double
+   well,
+   H = ½p₁² + ¼q₁⁴ − ½q₁² + ½p₂² + ½q₂², at total energy h = 0.5.
+   - Its periodic orbit q₁ = p₁ = 0 (q₂ oscillating) is a genuine HYPERBOLIC fixed point of the section map on
+     Σ = {q₂ = 0, p₂ > 0} in (q₁, p₁), known exactly. Near-separatrix orbits (E₁ = ½p₁² + V₁ ≈ 0) live forever.
+   - It runs through the SAME C kernel (integ.c with this vector field compiled in, domain checks disabled), the same
+     Hénon crossings, the same pilot and acceptance, and the same N_ret = 2000 and windows.
+   - 200 orbits: 150 with |E₁| ≤ 1e-2 (near separatrix) and 50 generic; fixed seeds.
+   - **Test:** the dimensionless statistics, ρλ and D₂(A), D₂(B), are compared with the Kerr-pooled p99 thresholds.
+     λ₂ has units of 1/time and is NOT comparable across systems, so it is reported but not used.
+   - **PASS iff, in d_min bins 0–2, the AND rule would not fire:** for every accepted orbit, NOT (ρλ > p99 AND
+     D₂A > p99 AND D₂B > p99). Equivalently, the guard in (3) is demonstrated rather than argued.
+   - The per-arm rates (ρλ above p99; D₂ above p99) are also reported.
