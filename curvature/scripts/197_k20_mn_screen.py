@@ -672,9 +672,33 @@ def save_level(lev, name):
     d.mkdir(exist_ok=True)
     recs = lev.pop("recs")
     np.savez_compressed(d / f"{name}_recs.npz", *[np.asarray(r) for r in recs])
-    (d / f"{name}.json").write_text(json.dumps(lev, default=lambda o: [o.real, o.imag] if isinstance(o, complex)
-                                               else float(o)))
+    (d / f"{name}.json").write_text(json.dumps(lev, default=_jsonable))
     lev["recs"] = recs
+
+
+def _jsonable(o):
+    if isinstance(o, np.ndarray):
+        return o.tolist()
+    if isinstance(o, complex):
+        return [o.real, o.imag]
+    if isinstance(o, (np.floating, np.integer)):
+        return o.item()
+    raise TypeError(f"not JSON-serialisable: {type(o)}")
+
+
+def load_level(name):
+    """Resume: a finished level saved by save_level, or None. (Saved only after the whole level completed.)"""
+    d = RESULTS / "197_levels"
+    j, z = d / f"{name}.json", d / f"{name}_recs.npz"
+    if not (j.exists() and z.exists()):
+        return None
+    lev = json.load(open(j))
+    npz = np.load(z)
+    lev["recs"] = [npz[f"arr_{i}"] for i in range(len(npz.files))]
+    lev["orbs"] = [np.asarray(o) for o in lev["orbs"]]
+    for u in lev.get("upos", []):
+        u["eig"] = [complex(*e) if isinstance(e, list) else e for e in u["eig"]]
+    return lev
 
 
 def null_levels(point, Lz_list, E_generic):
@@ -710,8 +734,10 @@ def cgates(workers=4):
     null = []
     for j, (kind, E, Lz, dl) in enumerate(nl):
         t = time.time()
-        lev = run_level(lib, domk, "P0", True, E, Lz, "outer", 100, 197300 + j, DRIFT_TARGET, workers, log)
-        save_level(lev, f"null_chi0.9_{j}")
+        lev = load_level(f"null_chi0.9_{j}")
+        if lev is None:
+            lev = run_level(lib, domk, "P0", True, E, Lz, "outer", 100, 197300 + j, DRIFT_TARGET, workers, log)
+            save_level(lev, f"null_chi0.9_{j}")
         null.append(lev)
         log(f"null {j} {kind} E {E:.6f} Lz {Lz}: tol {lev['tol']:.0e} UPOs {len(lev['upos'])} [{time.time() - t:.0f}s]")
     tr, ho = [], []
@@ -739,8 +765,10 @@ def cgates(workers=4):
     c0 = {}
     for region, seed in (("inner", 197101), ("outer", 197102)):
         t = time.time()
-        lev = run_level(lib, dom0, "P0", False, 0.95, 3.0, region, 100, seed, 1e-9, workers, log)
-        save_level(lev, f"C0_{region}")
+        lev = load_level(f"C0_{region}")
+        if lev is None:
+            lev = run_level(lib, dom0, "P0", False, 0.95, 3.0, region, 100, seed, 1e-9, workers, log)
+            save_level(lev, f"C0_{region}")
         sts = [orbit_stats(lev, i, "base", 1e-8) for i in range(100)]
         acc = [s_ for s_ in sts if s_["accepted"]]
         vs = [verdict(s_, thr) for s_ in acc]
