@@ -271,3 +271,17 @@ exit itself, not only up to the last crossing before it.
   distance to the ring point;
 - the same exactness check for p1's B near-zero at x ≈ 1.076;
 - a literature check of whether this ring is identified anywhere.
+
+## Kretschmann near the ring (scripts/197c_kretschmann.py; results/197c_kretschmann.json)
+- **Method:** mpmath at 60 digits, metric derivatives by mp.diff, generic Christoffel → Riemann → K = R_abcd R^abcd.
+- **Validated on Kerr (β = 0)** against the closed form: relative error 3e-17 to 2e-16 at three points.
+- **P0 and F5-R: K diverges as d⁻⁶** along every ray from the ring point (y = 0 from both sides, 45°, axis-ward 90°):
+  - P0, y = 0, x > x_s: K = 1.19e20, 1.10e26 and 1.09e32 at d = 1e-3, 1e-4 and 1e-5. The local exponent is −5.97,
+    then −6.00.
+  - The other rays give the same 10⁶ per decade, with ray-dependent prefactors and signs (the axis-ward ray is
+    negative). B ∝ d² along each ray.
+- **Conclusion:** a genuine curvature singularity, with the same d⁻⁶ law as Schwarzschild's r = 0, located OUTSIDE
+  the horizon at R ≈ 1.65 (ρ = 0.7194 at P0).
+- **p1:** B = 9.1e-88 and A = −1.7e-42 at x = 1.0759622 (y = 0), so it too has an EXACT B = A = 0 point on the
+  equator. The singular ring is generic to these MN points. At p1 it sits at R = 0.396, inside D's excluded R < 0.5.
+  Not computed: Kretschmann at p1, and p2's B zero (p2's grid minimum is near x → 1, |y| ≈ 0.49).
