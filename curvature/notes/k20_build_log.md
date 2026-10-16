@@ -231,3 +231,43 @@ Grid: x ∈ 1 + logspace(−6, log10 9) with 2400 points, |y| ≤ 0.99999 with 2
   - (a) on B9-truncated orbits;
   - (b) on the base domain at LGAC's own 1e-8.
   Also: whether to compute the Kretschmann scalar.
+
+## AMENDMENT A7 (2026-10-16, post-pilot, BEFORE any verdict or gate is graded; The Bridge's ruling, adopted)
+**Why:** the C0-level inner orbits pass within ~1e-3 of the B = A = 0 ring, where H = T + V = −½ cancels across
+|V| ~ 1e4–1e5. The 1e-9 drift standard is out of reach there in double precision. LGAC themselves report ≤ 1e-8 in
+the inner region. The gate must test the instrument in the PUBLISHED setting; mixing in the physics question (is the
+published chaos ring scattering?) would make a failure uninterpretable.
+
+**GATE (instrument):**
+- C0, C3 and C4 at (χ 0.9, q 0.95, E 0.95, Lz 3) are graded on the BASE domain (g_φφ > 0, finite, det g < 0; no
+  margins, as in A2.3), with per-orbit acceptance |dH/H| ≤ 1e-8 (LGAC's reported inner-region accuracy) up to the
+  reading time.
+- The pilot target at the C0 level is 1e-9 (10× under acceptance, the same ratio as elsewhere).
+- Pass criteria are unchanged: inner ≥ 50% CHAOTIC; outer ≤ 10%; inner region at ρ 0.72–2.1 ± 0.05; C3 NOT CHAOTIC
+  on both arms; C4 D₂ < 1.3. The 25% UNREADABLE rule still applies.
+- The C3/C4 island orbits are expected to meet 1e-9 as well. Their drift is reported, but they are graded at the
+  gate's 1e-8.
+
+**FINDING (physics, not a gate), pre-stated:** the SAME C0 orbits are also read under D_B9, each at
+min(N_ret-th return, its B9 exit), with 1e-9 accuracy up to that reading. Reported:
+1. the fraction of C0 inner and outer orbits that exit D_B9 before N_ret (with CP intervals);
+2. the distribution of the number of returns before the B9 exit;
+3. among base-domain CHAOTIC inner orbits, the fraction that (i) never leave D_B9, (ii) leave after ≥ 500 returns
+   and are still CHAOTIC at their secondary reading, or (iii) leave before 500 returns (ESCAPE under B9);
+4. f_D for C0's inner candidate region;
+5. the same under B6 and P, for information.
+- **Prediction, written now:** at least 50% of base-domain CHAOTIC inner orbits leave D_B9 before 500 returns. That
+  would make the published inner chaos predominantly a ring-proximity phenomenon at this level. Low-to-moderate
+  confidence.
+
+**Counted screens** (p1, p2, F5-R, own and shared levels) are unchanged: 1e-9, read at the B9 exit (A3, A4.2), with
+the pilot target 1e-10.
+
+**Kernel support:** drift at each rule's exit is recorded (orb[9..11]), so B9 readings are accuracy-gated up to the
+exit itself, not only up to the last crossing before it.
+
+**Also commissioned (The Bridge):**
+- the Kretschmann scalar near x_s, along y = 0 and two off-equator rays, at 50 digits, with its growth rate in the
+  distance to the ring point;
+- the same exactness check for p1's B near-zero at x ≈ 1.076;
+- a literature check of whether this ring is identified anywhere.
