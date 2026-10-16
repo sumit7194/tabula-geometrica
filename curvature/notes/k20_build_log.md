@@ -131,3 +131,8 @@ Grid: x ∈ 1 + logspace(−6, log10 9) with 2400 points, |y| ≤ 0.99999 with 2
 - **Verdict reading:** I1 and I2 at N_ret = 2000 (primary) and 500 (secondary), with N_ret/4 for T₁. The I2 windows
   are as registered.
 - **Workers:** 4 processes, at nice 10, launched by absolute path, BLAS threads = 1.
+- **A4.1 Reading of the null gate (C1 and §5), fixed before any data.** "Held-out Kerr CHAOTIC ≤ 1% (CP95)" cannot mean
+  "the CP95 UPPER bound ≤ 1%": that needs n ≥ 299 held-out orbits with zero events, so the gate would fail by
+  construction at n = 200. The registered meaning, consistent with §5's "exceeds the 1% one-sided CP95 bound" and
+  with §196's Kerr gate: a bin FAILS iff P(X ≥ k | n_heldout, 0.01) < 0.05, i.e. the observed CHAOTIC count is
+  significantly above 1%. The CP95 upper bound is reported alongside.
