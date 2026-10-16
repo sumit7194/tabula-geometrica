@@ -828,6 +828,102 @@ def dw_null(thr, log, n_near=150, n_gen=50, seed=197401):
     return out, rows
 
 
+# ---------------------------------------------------------------- §2 own-level selection (geometry only)
+
+LEV_E = np.round(np.arange(0.900, 0.9951, 0.005), 3)
+LEV_L = np.round(np.arange(1.00, 4.501, 0.05), 2)
+
+
+def classify_level(pp, dom, E, Lz, nx=500, ny=241, xmax=40.0):
+    """Topology of the allowed set inside D_B9 (A3): components labelled PLUNGE (touch D's boundary), ESCAPE (reach
+    xmax) or BOUND. T1 one bound region / T2 two disjoint / T3 one region with a neck (>= 2 equatorial K-maxima with a
+    positive K-saddle between them). Returns (topology, bound components' equatorial x-intervals)."""
+    from scipy import ndimage
+    _, alpha, k, beta = pp
+    xs = 1.0 + np.logspace(np.log10(0.05), np.log10(xmax - 1), nx)
+    ys = np.linspace(-0.999, 0.999, ny)
+    X, Y = np.meshgrid(xs, ys, indexing="ij")
+    K = kinetic(X, Y, E, Lz, alpha, k, beta)
+    inD = (X - 1 >= 0.05) & (X ** 2 + Y ** 2 - 1 >= 0.25)
+    i = np.clip(((X - 1.0) / MASK_H).astype(int), 0, dom["mask"].shape[0] - 1)
+    j = np.clip(((Y + 1.0) / MASK_H).astype(int), 0, dom["mask"].shape[1] - 1)
+    inD &= np.where(X < MASK_X1, dom["mask"][i, j] == 0, np.isfinite(gphiphi(X, Y, alpha, k, beta)))
+    allowedK = np.isfinite(K) & (K >= 0)
+    lab, n = ndimage.label(allowedK)
+    bound = []
+    j0 = np.argmin(abs(ys))
+    for c in range(1, n + 1):
+        m = lab == c
+        if m[-1, :].any():
+            continue                                         # ESCAPE
+        if (m & ~inD).any() or m[0, :].any():
+            continue                                         # PLUNGE: reaches D's boundary (left D = plunging, A3)
+        eq = m[:, j0]
+        if not eq.any():
+            continue                                         # no equatorial crossing: not on the section
+        kk = np.where(eq, K[:, j0], np.nan)
+        idx = np.flatnonzero(eq)
+        prof = K[idx, j0]
+        peaks = [t for t in range(1, len(prof) - 1) if prof[t] >= prof[t - 1] and prof[t] >= prof[t + 1]]
+        neck = len(peaks) >= 2 and min(prof[peaks[0]:peaks[-1] + 1]) > 0
+        bound.append({"x": [float(xs[idx[0]]), float(xs[idx[-1]])], "neck": bool(neck)})
+    if not bound:
+        topo = "NONE"
+    elif len(bound) == 1:
+        topo = "T3" if bound[0]["neck"] else "T1"
+    else:
+        topo = "T2"
+    return topo, bound
+
+
+def select_levels(point, log=print):
+    pp = point_params(point)
+    dom = build_domain(pp)
+    grid = {}
+    for E in LEV_E:
+        for Lz in LEV_L:
+            grid[(float(E), float(Lz))] = classify_level(pp, dom, float(E), float(Lz))
+    topo = {key: v[0] for key, v in grid.items()}
+    chosen, why = [], {}
+
+    def add(key, reason):
+        if key not in chosen and len(chosen) < 12:
+            chosen.append(key); why[key] = reason
+    Es = [float(E) for E in LEV_E]
+    for Lz in [float(L) for L in LEV_L]:                     # (a), (b): around T2 -> T3 transitions in E
+        seq = [topo[(E, Lz)] for E in Es]
+        for t in range(len(Es) - 1):
+            if seq[t] == "T2" and seq[t + 1] == "T3":
+                for d in range(3):
+                    if t - d >= 0 and seq[t - d] == "T2":
+                        add((Es[t - d], Lz), "a: T2 near T2->T3")
+                for d in range(1, 4):
+                    if t + d < len(Es) and seq[t + d] == "T3":
+                        add((Es[t + d], Lz), "b: first T3 past transition")
+    # (c): T1 levels one E-step below a merger with the plunge (the bound region disappears); the median-Lz one
+    merg = []
+    for Lz in [float(L) for L in LEV_L]:
+        for t in range(len(Es) - 1):
+            if topo[(Es[t], Lz)] == "T1" and topo[(Es[t + 1], Lz)] == "NONE":
+                merg.append((Es[t], Lz))
+    if merg:
+        merg.sort(key=lambda kk: kk[1])
+        add(merg[len(merg) // 2], "c: T1 nearest the plunge merger (median Lz)")
+    # (d): the median-E bound level (median Lz at that E)
+    bl = sorted(kk for kk, v in topo.items() if v in ("T1", "T2", "T3"))
+    if bl:
+        Em = sorted(set(kk[0] for kk in bl))[len(set(kk[0] for kk in bl)) // 2]
+        atE = sorted(kk for kk in bl if kk[0] == Em)
+        add(atE[len(atE) // 2], "d: median-E bound level")
+    counts = {t: sum(1 for v in topo.values() if v == t) for t in ("NONE", "T1", "T2", "T3")}
+    out = {"point": point, "topology_counts": counts,
+           "levels": [{"E": kk[0], "Lz": kk[1], "topology": topo[kk], "bound": grid[kk][1], "why": why[kk]}
+                      for kk in chosen],
+           "no_T2_T3": counts["T2"] + counts["T3"] == 0}
+    log(f"{point}: {counts} -> {len(chosen)} levels: {[(l_['E'], l_['Lz'], l_['topology'], l_['why'][0]) for l_ in out['levels']]}")
+    return out
+
+
 def cgates(workers=4):
     import time
     from scipy.stats import binom, beta as cp

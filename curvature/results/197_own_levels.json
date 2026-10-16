@@ -1,0 +1,128 @@
+{
+ "p1": {
+  "point": "p1",
+  "topology_counts": {
+   "NONE": 1311,
+   "T1": 109,
+   "T2": 0,
+   "T3": 0
+  },
+  "levels": [
+   {
+    "E": 0.975,
+    "Lz": 3.7,
+    "topology": "T1",
+    "bound": [
+     {
+      "x": [
+       6.632178310989494,
+       38.972837038088045
+      ],
+      "neck": false
+     }
+    ],
+    "why": "c: T1 nearest the plunge merger (median Lz)"
+   },
+   {
+    "E": 0.95,
+    "Lz": 3.3,
+    "topology": "T1",
+    "bound": [
+     {
+      "x": [
+       6.061860237043406,
+       14.40917768570512
+      ],
+      "neck": false
+     }
+    ],
+    "why": "d: median-E bound level"
+   }
+  ],
+  "no_T2_T3": true
+ },
+ "p2": {
+  "point": "p2",
+  "topology_counts": {
+   "NONE": 1301,
+   "T1": 119,
+   "T2": 0,
+   "T3": 0
+  },
+  "levels": [
+   {
+    "E": 0.975,
+    "Lz": 3.75,
+    "topology": "T1",
+    "bound": [
+     {
+      "x": [
+       5.6104114412003145,
+       33.35367929825582
+      ],
+      "neck": false
+     }
+    ],
+    "why": "c: T1 nearest the plunge merger (median Lz)"
+   },
+   {
+    "E": 0.95,
+    "Lz": 3.3,
+    "topology": "T1",
+    "bound": [
+     {
+      "x": [
+       4.391850693221981,
+       12.73395282908173
+      ],
+      "neck": false
+     }
+    ],
+    "why": "d: median-E bound level"
+   }
+  ],
+  "no_T2_T3": true
+ },
+ "F5R": {
+  "point": "F5R",
+  "topology_counts": {
+   "NONE": 1367,
+   "T1": 53,
+   "T2": 0,
+   "T3": 0
+  },
+  "levels": [
+   {
+    "E": 0.96,
+    "Lz": 3.4,
+    "topology": "T1",
+    "bound": [
+     {
+      "x": [
+       11.687444504651461,
+       37.97272699285107
+      ],
+      "neck": false
+     }
+    ],
+    "why": "c: T1 nearest the plunge merger (median Lz)"
+   },
+   {
+    "E": 0.945,
+    "Lz": 3.15,
+    "topology": "T1",
+    "bound": [
+     {
+      "x": [
+       10.605226856569269,
+       23.265980009247425
+      ],
+      "neck": false
+     }
+    ],
+    "why": "d: median-E bound level"
+   }
+  ],
+  "no_T2_T3": true
+ }
+}

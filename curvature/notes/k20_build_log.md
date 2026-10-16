@@ -385,3 +385,26 @@ E_b = 0.969002) had one period-1 orbit, which is STABLE, and no hyperbolic ones.
 **SEALING (C0 is a shared comparison level):** these numbers are sealed by this commit and the sha256 of
 results/197_cgates.json. Only pass/fail status goes to The Bridge until V13's C0 is sealed.
 - sha256(results/197_cgates.json) = dd6c102c7134d7430fb2bb04f0566a44c27b2969e5f7147e4a4435378d621c07
+
+## §2 OWN LEVELS (geometry only; results/197_own_levels.json)
+- **Grid:** E 0.900–0.995 (step 0.005) × Lz 1.00–4.50 (step 0.05), 1420 levels per point. Components are labelled
+  inside D_B9 (A3), and any component touching D's boundary is PLUNGE (orbits that leave D count as plunging).
+- **Counts:**
+  - p1: T1 109, T2 0, T3 0;
+  - p2: T1 119, T2 0, T3 0;
+  - F5-R: T1 53, T2 0, T3 0.
+  **No T2 or T3 level exists inside D_B9 at any point** (a registered result under §2.4).
+- **At F5-R (and at P0, checked at (0.95, 3)), the MN-type inner region classifies as PLUNGE:** it abuts the
+  ring's B9 exclusion. Only the outer region is bound inside D.
+- **Selected own levels, by rules (c) and (d) only (no T2 or T3 exists for (a) and (b)):**
+  - p1: (0.975, 3.7) [c], (0.95, 3.3) [d];
+  - p2: (0.975, 3.75) [c], (0.95, 3.3) [d];
+  - F5-R: (0.96, 3.4) [c], (0.945, 3.15) [d].
+- **Shared levels (V13, The Bridge):** p1 (37/40, 29/10); p2 (9/10, 13/10) (V13 A5, replacing the Lz = 0 level,
+  which was D-incompatible); F5-R (19/20, 3); plus C0.
+- **Predictions vs topology:**
+  - p1 "no T2/T3": HELD.
+  - p2 "T1": HELD.
+  - F5-R's prediction ("chaos concentrated in the inner region and at the neck, with a candidate region inside D on
+    ≥ 1 level"): its STRUCTURAL premise has already failed, since under D_B9 there is no inner region or neck.
+    Whether any chaos exists in F5-R's outer region is what the screen measures.
