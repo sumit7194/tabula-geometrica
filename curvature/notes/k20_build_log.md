@@ -514,3 +514,11 @@ V13 (The Bridge): its own code, indicators (NAFF log10|Δν| over two halves AND
   - **Per-point K20 verdict:** "saddle-in-D candidates FOUND (tier 2)", or "tier-1 UPOs in D but no transversal
     connection in D found within the search", or "no tier-1 UPO in D within the search". Always "within the
     search": a null is a map of where we looked, not a theorem.
+- **The Bridge confirmed the p2 finding independently** (v13_geom2d: flood fill on a 500×400 grid plus D_B9 per cell).
+  The component touches x → 1 and |y| = 0.999, with 43% of its cells outside D_B9. Their shared-level rule had
+  looked only at the equatorial interval.
+  - They chose option (b): V13 A8 re-applies the fallback with a 2D bound-inside-D criterion. A new p2 shared level
+    is pending; tabula keeps option (a) for p2 only until it lands.
+  - p1 and F5-R pass their 2D test (p1 reaches |y| ≤ 0.18, F5-R |y| ≤ 0.47, 0% outside D).
+- **Box edges agree to < 1e-11:** V13 p1 [3.2707144563061483, 7.755572149181034], F5-R
+  [5.454197086440008, 31.14191843665211]. p_x max is still to be compared before Jaccard.
