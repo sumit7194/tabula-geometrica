@@ -91,3 +91,43 @@ Grid: x ∈ 1 + logspace(−6, log10 9) with 2400 points, |y| ≤ 0.99999 with 2
   1.92983, and the latter equals the inner allowed region's lower edge to all digits (g_φφ → 0 makes V diverge, so
   the inner region's equatorial boundary IS the CTC edge). The (P) rule's x_CTC(y) table is bisection-refined to
   1e-10.
+
+## Integrator check (pure Kerr; not a screen output)
+- **Setup:** Kerr at χ = 0.6, E = 0.95, Lz = 3.0 + the first 0.1 step with a bound region (Lz 3.7, outer bound ρ
+  2.90–13.17), launched at mid-interval with p_x = 0, 200 returns.
+- **Max |dH/H|:** 1.1e-12, 3.7e-14 and 3.9e-15 at dt 0.1, 0.05 and 0.025.
+- **Kerr's Carter constant** (prolate form, as in 144/132) changes by 3.7e-11, 1.2e-12 and 1.9e-14: conserved and
+  convergent. The integrable dynamics, Hénon crossings and t-integration work.
+- **Cost:** about 1.5 µs per RK4 step with one exact tangent. The mean return time there is about 153 τ, so a
+  2000-return orbit costs about 10 s at dt 0.05.
+- **Kernel verification (before this):** H agrees with the independent numpy code to ≤ 3e-14, the vector field with
+  numpy finite differences to ≤ 1.4e-8, and the analytic Jacobian with finite differences of the kernel to ≤ 2.6e-8.
+  This was checked at all four points and their Kerr limits, at random points.
+
+## AMENDMENT A4 (2026-10-16, before any gate or screen orbit): operational numbers the prereg left open
+- **Orbits per screened level (own and shared):** n = 200 launch points, drawn uniformly by rejection over the
+  allowed section set {(x, p_x): p_y² > 0} of the screened bound component, using the component's equatorial
+  x-interval (fixed seed per level).
+- **C0:** 100 orbits in the inner region and 100 in the outer region, graded separately.
+- **C3:** 10 orbits per island, launched within 1e-3 (normalised) of the island centre, where the centre is the
+  STABLE period-1 fixed point found by our Newton step (the outer one is u₀; the inner one is the period-1 island
+  centre).
+- **Pilot:** 12 of the level's launch points, evenly spaced in sorted x. No tangent. Drift is the running max up to
+  the last crossing, i.e. the reading time. The pilot runs the full N_ret.
+- **UPOs:** Newton on Pⁿ − id for n = 1, 2, 3, from a 20×20 seed grid over the level's section box.
+  - DPⁿ comes from two exact tangents started on the section (δp_y from the energy constraint), projected onto the
+    section at every crossing.
+  - Converged when |Pⁿ(z) − z| < 1e-10 (normalised). Duplicates are merged within 1e-6. Orbits are classified by
+    |trace| (> 2 hyperbolic).
+  - The dt is the level's pilot dt.
+- **Kerr null (per χ):**
+  - **(i) Whirl levels.** For Lz ∈ {screened levels' Lz values}, find E_b(Lz), the energy at which Kerr's bound
+    region merges with the plunge (bisection on the equatorial gap). Then take levels E_b − δ for
+    δ ∈ {1e-4, 1e-3, 1e-2}, where a bound region exists.
+  - **(ii) Generic levels.** Kerr at the screened MN levels' own (E, Lz), where bound.
+  - 100 orbits per null level. Even-indexed orbits are TRAINING (thresholds) and odd-indexed are HELD-OUT (the
+    gate, never used for thresholds).
+  - d_min is measured to Kerr's own located UPOs, by the same Newton procedure.
+- **Verdict reading:** I1 and I2 at N_ret = 2000 (primary) and 500 (secondary), with N_ret/4 for T₁. The I2 windows
+  are as registered.
+- **Workers:** 4 processes, at nice 10, launched by absolute path, BLAS threads = 1.

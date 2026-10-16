@@ -171,6 +171,112 @@ def gate_gq():
     return out
 
 
+# ---------------------------------------------------------------- C kernel (k20_kernel/integ.c; amendments A2/A3)
+
+import ctypes as ct
+
+KDIR = Path(__file__).resolve().parent / "k20_kernel"
+RCOLS = 14
+_dp = ct.POINTER(ct.c_double)
+
+
+class Dom(ct.Structure):
+    _fields_ = [("mask", ct.POINTER(ct.c_ubyte)), ("nx", ct.c_int), ("ny", ct.c_int), ("x0", ct.c_double),
+                ("y0", ct.c_double), ("h", ct.c_double), ("xctc", _dp), ("nyt", ct.c_int), ("yt0", ct.c_double),
+                ("yth", ct.c_double), ("dx_global", ct.c_double), ("xesc", ct.c_double)]
+
+
+def _lib():
+    lib = ct.CDLL(str(KDIR / "libk20.dylib"))
+    lib.trace.argtypes = [_dp, _dp, ct.c_int, ct.c_int, ct.c_double, ct.c_long, ct.c_int, ct.c_int,
+                          ct.POINTER(Dom), _dp, _dp]
+    lib.trace.restype = ct.c_int
+    lib.mn_eval.argtypes = [_dp, _dp, _dp]
+    return lib
+
+
+MASK_H, MASK_X1, BOX = 5e-4, 3.0, 0.025
+
+
+def build_domain(pp, xesc=500.0):
+    """B9 dilated CTC mask (A3), P-rule x_CTC(y) table (bisection-refined) and the B6 global dx. Geometry only."""
+    from scipy import ndimage
+    _, alpha, k, beta = pp
+    xs = 1.0 + MASK_H * (np.arange(int((MASK_X1 - 1) / MASK_H)) + 0.5)
+    ys = -1.0 + MASK_H * (np.arange(int(2 / MASK_H)) + 0.5)
+    bad = np.zeros((len(xs), len(ys)), bool)
+    for i0 in range(0, len(xs), 200):
+        X, Y = np.meshgrid(xs[i0:i0 + 200], ys, indexing="ij")
+        g = gphiphi(X, Y, alpha, k, beta)
+        bad[i0:i0 + 200] = ~np.isfinite(g) | (g <= 0)
+    r = int(np.ceil(BOX / MASK_H)) + 1                   # +1 cell: the strict side (A3)
+    dil = ndimage.maximum_filter(bad.astype(np.uint8), size=2 * r + 1, mode="constant", cval=0)
+    # P rule: outer x-extent of the CTC region at each y, refined by bisection on g_phiphi = 0
+    yt = np.linspace(-0.99999, 0.99999, 4001)
+    xctc = np.full(len(yt), -1.0)
+    has = bad.any(0)
+    for jj, yv in enumerate(yt):
+        j = min(int((yv + 1) / MASK_H), len(ys) - 1)
+        if not has[j]:
+            continue
+        i = np.flatnonzero(bad[:, j]).max()
+        lo, hi = xs[i], xs[i] + MASK_H
+        gf = lambda xv: gphiphi(np.array(xv), np.array(yv), alpha, k, beta)
+        if not (gf(hi) > 0):
+            xctc[jj] = hi
+            continue
+        for _ in range(50):
+            mid = 0.5 * (lo + hi)
+            if gf(mid) > 0:
+                hi = mid
+            else:
+                lo = mid
+        xctc[jj] = hi
+    xg = xctc.max()
+    dxg = float(np.ceil(((xg - 1) + 0.025) / 0.05 - 1e-12) * 0.05) if xg > 0 else 0.05
+    keep = {"mask": np.ascontiguousarray(dil, np.uint8), "xctc": np.ascontiguousarray(xctc), "xs": xs, "ys": ys,
+            "x_ctc_global": float(xg), "dx_global_B6": dxg}
+    d = Dom(keep["mask"].ctypes.data_as(ct.POINTER(ct.c_ubyte)), len(xs), len(ys), 1.0, -1.0, MASK_H,
+            keep["xctc"].ctypes.data_as(_dp), len(yt), float(yt[0]), float(yt[1] - yt[0]), dxg, xesc)
+    keep["dom"] = d                                     # the arrays must outlive the struct
+    return keep
+
+
+def eval_point(lib, par, z):
+    out = np.zeros(26)
+    p, zz = np.ascontiguousarray(par, float), np.ascontiguousarray(z, float)
+    lib.mn_eval(p.ctypes.data_as(_dp), zz.ctypes.data_as(_dp), out.ctypes.data_as(_dp))
+    return out
+
+
+def launch(pp, E, Lz, x, px):
+    """Section point (x, px) on y = 0 -> full state with p_y > 0 from H = -1/2; None if not allowed."""
+    _, alpha, k, beta = pp
+    m = metric_parts(np.array(x), np.array(0.0), alpha, k, beta)
+    pref = (1 - alpha ** 2) ** 2 * m["e2psi"] / (k ** 2 * m["B"] * m["G"])
+    K = kinetic(np.array(x), np.array(0.0), E, Lz, alpha, k, beta)
+    rem = 2 * K - pref * (x ** 2 - 1) * px ** 2              # = pref (1 - 0) p_y^2
+    if not (np.isfinite(rem) and rem > 0):
+        return None
+    return np.array([x, 0.0, px, float(np.sqrt(rem / pref))])
+
+
+def trace(lib, dom, pp, E, Lz, z0, dt, n_ret, mode=0, nv=1, w0=None, max_steps=10 ** 9, renorm=100, seed=0):
+    _, alpha, k, beta = pp
+    par = np.array([alpha, k, beta, E, Lz], float)
+    st = np.zeros(5 + 4 * nv)
+    st[:4] = z0
+    if nv:
+        W = np.asarray(w0, float).reshape(nv, 4) if w0 is not None else np.random.default_rng(seed).standard_normal((nv, 4))
+        if w0 is None:
+            W /= np.linalg.norm(W, axis=1, keepdims=True)
+        st[5:] = W.ravel()
+    rec, orb = np.zeros(n_ret * RCOLS), np.zeros(8)
+    nc = lib.trace(par.ctypes.data_as(_dp), st.ctypes.data_as(_dp), nv, mode, dt, max_steps, n_ret, renorm,
+                   ct.byref(dom["dom"]), rec.ctypes.data_as(_dp), orb.ctypes.data_as(_dp))
+    return rec.reshape(n_ret, RCOLS)[:nc], orb, st
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--gq", action="store_true")
