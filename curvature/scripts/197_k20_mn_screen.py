@@ -583,12 +583,254 @@ def selftest_pilot():
     return out
 
 
+# ---------------------------------------------------------------- C-gates (prereg §8, A4, A7)
+
+def e_barrier(pp, Lz, lo=0.80, hi=0.9999):
+    """Kerr: the energy at which the equatorial bound interval merges with the plunge interval (bisection)."""
+    def separate(E):
+        iv, _ = equatorial_intervals(E, Lz, pp)
+        plunge = [v for v in iv if v[2] == 0]
+        bound = [v for v in iv if v[2] > 0 and v[3] < len(XG) - 1]
+        return bool(bound) and bool(plunge)
+    Es = np.linspace(lo, hi, 400)                     # bracket the LAST separate -> merged transition by scanning
+    sep = [separate(E) for E in Es]
+    idx = [i for i in range(len(Es) - 1) if sep[i] and not sep[i + 1]]
+    if not idx:
+        return None
+    lo, hi = Es[idx[-1]], Es[idx[-1] + 1]
+    for _ in range(60):
+        mid = 0.5 * (lo + hi)
+        if separate(mid):
+            lo = mid
+        else:
+            hi = mid
+    return lo
+
+
+def run_level(lib, dom, point, kerr, E, Lz, region, n, seed, target, workers, log):
+    """Launch n orbits in one bound component, pilot the tolerance, find UPOs, run the orbits. Returns a dict."""
+    pp = point_params(point, kerr=kerr)
+    iv = component_interval(pp, E, Lz, region)
+    if iv is None:
+        return None
+    box = section_box(pp, E, Lz, *iv)
+    L = sample_launch(pp, E, Lz, box, n, seed)
+    tol, pinfo = pilot_target(lib, dom, pp, E, Lz, L, target, log)
+    t0 = __import__("time").time()
+    upos = find_upos(lib, dom, pp, E, Lz, box, tol, log=log)
+    log(f"  UPOs {len(upos)} in {__import__('time').time() - t0:.0f}s")
+    jobs = [((point, kerr, E, Lz, region, i), point, kerr, E, Lz, L[i].tolist(), tol, N_RET, seed * 1000 + i)
+            for i in range(n)]
+    res = run_pool(jobs, workers)
+    recs = [r for _, r, _ in res]
+    orbs = [o for _, _, o in res]
+    return {"point": point, "kerr": kerr, "E": E, "Lz": Lz, "region": region, "box": box, "launch": L.tolist(),
+            "tol": tol, "pilot": pinfo, "upos": upos, "recs": recs, "orbs": orbs}
+
+
+def pilot_target(lib, dom, pp, E, Lz, launches, target, log):
+    idx = np.unique(np.round(np.linspace(0, len(launches) - 1, 12)).astype(int))
+    sel = launches[np.argsort(launches[:, 0])[idx]]
+    tol, tried = 1e-9, []
+    while True:
+        dr = []
+        for z in sel:
+            rec, orb, _ = trace(lib, dom, pp, E, Lz, z, tol, N_RET, nv=0)
+            dr.append(orb[6] if orb[1] > 0 else np.nan)
+        res = pilot_judge(dr, target)
+        tried.append({"tol": tol, "result": res, "max_drift": float(np.nanmax(dr)) if np.isfinite(dr).any() else None})
+        log(f"  pilot tol={tol:.0e} target {target:.0e}: {res} {tried[-1]['max_drift']}")
+        if res == "REFUSE":
+            raise RuntimeError("pilot REFUSED")
+        if res == "PASS" or tol < 1e-12:
+            return tol, {"floor_hit": res != "PASS", "tried": tried, "target": target}
+        tol /= 10
+
+
+def orbit_stats(lev, i, rule, accept):
+    """Statistics of orbit i read under a domain rule: 'base' (A2.3/A7 gate) or 'B9' (counted). Reading = the N_ret-th
+    return, or, if the orbit ends or leaves the rule's domain first, its fate (ESCAPE), and if it has >= 500 returns
+    before that, also read at 500."""
+    rec, orb = np.asarray(lev["recs"][i]).reshape(-1, RCOLS), lev["orbs"][i]
+    ex = orb[3] if rule == "B9" else -1.0
+    n_all = len(rec)
+    n_in = n_all if ex < 0 else int(np.sum(rec[:, 0] <= ex))
+    ended_early = (orb[2] != 0) or (ex >= 0 and n_in < N_RET)
+    N = N_RET if not ended_early else (N_SEC if n_in >= N_SEC else None)
+    if N is None:
+        drift = (orb[9] if (rule == "B9" and ex >= 0) else orb[6])
+        return {"fate": "ESCAPE", "n_ret": n_in, "drift": float(drift), "accepted": bool(drift <= accept), "N": None}
+    drift = float(rec[N - 1, 6])
+    st = stats_for(rec, lev["box"], N, lev["upos"])
+    st.update({"fate": "ESCAPE-READ-500" if ended_early else "FULL", "n_ret": n_in, "drift": drift,
+               "accepted": bool(drift <= accept)})
+    return st
+
+
+def save_level(lev, name):
+    d = RESULTS / "197_levels"
+    d.mkdir(exist_ok=True)
+    recs = lev.pop("recs")
+    np.savez_compressed(d / f"{name}_recs.npz", *[np.asarray(r) for r in recs])
+    (d / f"{name}.json").write_text(json.dumps(lev, default=lambda o: [o.real, o.imag] if isinstance(o, complex)
+                                               else float(o)))
+    lev["recs"] = recs
+
+
+def null_levels(point, Lz_list, E_generic):
+    """Kerr null levels at this chi (A4): whirl E_b - delta for each Lz, plus generic levels where bound."""
+    pk = point_params(point, kerr=True)
+    out = []
+    for Lz in sorted(set(Lz_list)):
+        Eb = e_barrier(pk, Lz)
+        if Eb is not None:
+            for dl in (1e-4, 1e-3, 1e-2):
+                if component_interval(pk, Eb - dl, Lz, "outer") is not None:
+                    out.append(("whirl", Eb - dl, Lz, dl))
+    for E, Lz in E_generic:
+        if component_interval(pk, E, Lz, "outer") is not None:
+            out.append(("generic", E, Lz, None))
+    return out
+
+
+def cgates(workers=4):
+    import time
+    from scipy.stats import binom, beta as cp
+    logf = open(RESULTS / "197_cgates.log", "a")
+
+    def log(m):
+        print(m, flush=True); logf.write(m + "\n"); logf.flush()
+    out = {"amendments": "9aca9a4 + A1..A7 (25c2d39)"}
+    lib = _lib()
+    # ---- Kerr null at chi = 0.9 (C1; thresholds for C0/C3/C4)
+    pk = point_params("P0", kerr=True)
+    domk = build_domain(pk)
+    nl = null_levels("P0", [3.0], [(0.95, 3.0)])
+    log(f"Kerr null levels (chi 0.9): {nl}")
+    null = []
+    for j, (kind, E, Lz, dl) in enumerate(nl):
+        t = time.time()
+        lev = run_level(lib, domk, "P0", True, E, Lz, "outer", 100, 197300 + j, DRIFT_TARGET, workers, log)
+        save_level(lev, f"null_chi0.9_{j}")
+        null.append(lev)
+        log(f"null {j} {kind} E {E:.6f} Lz {Lz}: tol {lev['tol']:.0e} UPOs {len(lev['upos'])} [{time.time() - t:.0f}s]")
+    tr, ho = [], []
+    for lev in null:
+        for i in range(len(lev["orbs"])):
+            st = orbit_stats(lev, i, "base", ACCEPT)
+            if st["fate"] != "ESCAPE" and st["accepted"]:
+                (tr if i % 2 == 0 else ho).append(st)
+    thr = thresholds(tr)
+    out["thresholds_chi0.9"] = thr
+    c1 = {}
+    for b in range(4):
+        hb = [s_ for s_ in ho if dbin(s_["dmin"]) == b]
+        if not hb or thr[b] is None:
+            c1[b] = {"n": len(hb), "status": "no thresholds" if thr[b] is None else "no held-out orbits"}
+            continue
+        kk = sum(1 for s_ in hb if verdict(s_, thr) == "CHAOTIC")
+        p = float(binom.sf(kk - 1, len(hb), 0.01)) if kk > 0 else 1.0
+        c1[b] = {"n": len(hb), "chaotic": kk, "p_vs_1pct": p, "cp95_upper": float(cp.ppf(0.95, kk + 1, len(hb) - kk)),
+                 "pass": p >= 0.05}
+    out["C1_chi0.9"] = c1
+    log(f"C1 (chi 0.9) per d_min bin: {c1}")
+    # ---- C0 level (P0, E 0.95, Lz 3): inner + outer, gate on the base domain at 1e-8 (A7)
+    dom0 = build_domain(point_params("P0"))
+    c0 = {}
+    for region, seed in (("inner", 197101), ("outer", 197102)):
+        t = time.time()
+        lev = run_level(lib, dom0, "P0", False, 0.95, 3.0, region, 100, seed, 1e-9, workers, log)
+        save_level(lev, f"C0_{region}")
+        sts = [orbit_stats(lev, i, "base", 1e-8) for i in range(100)]
+        acc = [s_ for s_ in sts if s_["accepted"]]
+        vs = [verdict(s_, thr) for s_ in acc]
+        exc = [s_ for s_ in sts if not s_["accepted"]]
+        c0[region] = {"n_in": 100, "n_analysed": len(acc), "unreadable": len(exc) > 25,
+                      "counts": {v: vs.count(v) for v in sorted(set(vs))},
+                      "chaotic_frac": vs.count("CHAOTIC") / max(len(acc), 1),
+                      "excluded_UNSCORED": {f"{s_['fate']}": sum(1 for x in exc if x["fate"] == s_["fate"]) for s_ in exc},
+                      "tol": lev["tol"], "pilot": lev["pilot"],
+                      "upos": [{k_: u[k_] for k_ in ("n", "z", "trace", "hyperbolic")} for u in lev["upos"]]}
+        # A7 FINDING: the same orbits read under D_B9 at 1e-9
+        b9 = [orbit_stats(lev, i, "B9", ACCEPT) for i in range(100)]
+        c0[region]["FINDING_B9"] = {
+            "exit_before_Nret": sum(1 for i in range(100) if lev["orbs"][i][3] >= 0 and
+                                    int(np.sum(np.asarray(lev["recs"][i]).reshape(-1, RCOLS)[:, 0] <= lev["orbs"][i][3])) < N_RET),
+            "returns_before_exit": [b_["n_ret"] for b_ in b9 if b_["fate"] != "FULL"],
+            "base_chaotic_breakdown": {
+                "never_leave_B9": sum(1 for i, s_ in enumerate(sts) if s_["accepted"] and verdict(s_, thr) == "CHAOTIC"
+                                      and lev["orbs"][i][3] < 0),
+                "leave_after_500_still_chaotic": sum(1 for i, s_ in enumerate(sts) if s_["accepted"]
+                                                     and verdict(s_, thr) == "CHAOTIC" and b9[i]["fate"] == "ESCAPE-READ-500"
+                                                     and b9[i]["accepted"] and verdict(b9[i], thr) == "CHAOTIC"),
+                "leave_before_500": sum(1 for i, s_ in enumerate(sts) if s_["accepted"] and verdict(s_, thr) == "CHAOTIC"
+                                        and b9[i]["fate"] == "ESCAPE")},
+            "B9_counts_at_1e-9": (lambda vv: {v: vv.count(v) for v in sorted(set(vv))})(
+                [verdict(b_, thr) if b_["fate"] != "ESCAPE" and b_["accepted"] else
+                 ("ESCAPE" if b_["fate"] == "ESCAPE" else "EXCLUDED-ACCURACY") for b_ in b9])}
+        log(f"C0 {region}: {json.dumps({k_: v for k_, v in c0[region].items() if k_ not in ('upos', 'pilot')}, default=str)} [{time.time() - t:.0f}s]")
+    out["C0"] = c0
+    out["C0_pass"] = {"inner_ge_50pct": (not c0["inner"]["unreadable"]) and c0["inner"]["chaotic_frac"] >= 0.5,
+                      "outer_le_10pct": (not c0["outer"]["unreadable"]) and c0["outer"]["chaotic_frac"] <= 0.10,
+                      "inner_extent": "0.7194-2.1246 (G-q): within 0.05 of 0.72-2.1"}
+    # ---- C3/C4: island orbits near stable period-1 centres (outer u0; inner period-1)
+    c3 = {}
+    for region, rho_ref, seed in (("outer", 8.35, 197201), ("inner", 0.92, 197202)):
+        lev0 = json.load(open(RESULTS / "197_levels" / f"C0_{region}.json"))
+        pp = point_params("P0")
+        k = pp[2]
+        stab = [u for u in lev0["upos"] if u["n"] == 1 and not u["hyperbolic"]]
+        if not stab:
+            c3[region] = {"status": "no stable period-1 orbit found"}
+            continue
+        cen = min(stab, key=lambda u: abs(rho_of_x(u["z"][0], k) - rho_ref))
+        box = lev0["box"]
+        rng = np.random.default_rng(seed)
+        L = []
+        while len(L) < 10:
+            du, dv = rng.uniform(-1e-3, 1e-3, 2)
+            z = launch(pp, 0.95, 3.0, cen["z"][0] + du * (box["xb"] - box["xa"]), cen["z"][1] + dv * 2 * box["pm"])
+            if z is not None:
+                L.append(z)
+        jobs = [(("P0", False, "C3", region, i), "P0", False, 0.95, 3.0, L[i].tolist(), lev0["tol"], N_RET,
+                 seed * 1000 + i) for i in range(10)]
+        res = run_pool(jobs, workers)
+        lev = {"box": box, "upos": lev0["upos"], "recs": [r for _, r, _ in res], "orbs": [o for _, _, o in res]}
+        sts = [orbit_stats(lev, i, "base", 1e-8) for i in range(10)]
+        rows = []
+        for s_ in sts:
+            t_ = thr[dbin(s_["dmin"])] if s_["lam2"] is not None else None
+            i1h = t_ is not None and s_["lam2"] > t_["lam2"][1] and s_["rho"] > t_["rho"][1]
+            i2h = t_ is not None and s_["D2A"] is not None and s_["D2B"] is not None and \
+                s_["D2A"] > t_["D2A"][1] and s_["D2B"] > t_["D2B"][1]
+            rows.append({"accepted": s_["accepted"], "fate": s_["fate"], "I1_high": bool(i1h), "I2_high": bool(i2h),
+                         "D2A": s_.get("D2A"), "D2B": s_.get("D2B"), "drift": s_["drift"]})
+        c3[region] = {"centre": cen["z"], "centre_rho": float(rho_of_x(cen["z"][0], k)), "rows": rows,
+                      "C3_pass": all(r["accepted"] and not r["I1_high"] and not r["I2_high"] for r in rows),
+                      "C4_pass": all(r["D2A"] is not None and r["D2B"] is not None and r["D2A"] < 1.3 and r["D2B"] < 1.3
+                                     for r in rows)}
+        log(f"C3/C4 {region}: centre rho {c3[region]['centre_rho']:.3f} C3 {c3[region]['C3_pass']} C4 {c3[region]['C4_pass']}")
+    out["C3_C4"] = c3
+    (RESULTS / "197_cgates.json").write_text(json.dumps(out, indent=1, default=str))
+    log("saved results/197_cgates.json")
+    return out
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--gq", action="store_true")
+    ap.add_argument("--cgates", action="store_true")
+    ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--selftest-pilot", action="store_true")
     a = ap.parse_args()
     if a.gq:
         gate_gq()
     if a.selftest_pilot:
         selftest_pilot()
+    if a.cgates:
+        st_ = RESULTS / "197_pilot_selftest.json"
+        gq_ = RESULTS / "197_gate_gq.json"
+        if not (st_.exists() and json.load(open(st_)).get("ALL_PASS") and gq_.exists()
+                and json.load(open(gq_)).get("G_q_PASS")):
+            raise SystemExit("C-gates refused: C2 self-test and G-q must have passed first")
+        cgates(a.workers)
