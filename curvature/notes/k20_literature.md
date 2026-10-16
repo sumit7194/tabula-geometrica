@@ -73,3 +73,42 @@ values marked (plot) are readings off the plots, not numbers stated in the text.
 - No published Lyapunov thresholds exist, so the indicator must be calibrated on our own matched Kerr null.
 - The published chaos sits next to the CTC edge and the deep V_eff hole. That is why the exterior check is
   load-bearing.
+
+## Is the equatorial B = A = 0 ring known? (full-text check, 2026-10-16; Opus subagent, key claim re-verified by tabula)
+**No paper we could read identifies a singularity off the horizon in MN, and one states the opposite.**
+- **Brink 2008, "Spacetime Encodings II" (arXiv:0807.1179, PRD 78 102002), Fig. 10, reads "Curvature Singularity on
+  Horizon Equator (No singularities outside)".** Verified by tabula on the rendered page.
+  - His Appendix C metric has the same B = [x+1+(x−1)ab]² + [(1+y)a+(1−y)b]² as ours. (His second ln(b/α) line prints
+    P₂/r² for P₂/r³, a typo.)
+  - His Fig. 6 parameters correspond to χ = 0.9, q = 0.95.
+  - GLM cite Brink (by private communication) for the x = 1, y = 0 singularity.
+- **GLM 2008 §II.A** names only "a circular line singularity at x=1, y=0". §II.B describes the ρ ≈ 0.72 edge as where
+  "the outermost edge of the CTC region touches the innermost edge of the region of bound motion". In §III they
+  speculate that "singular behavior of the metric as the CTC region is approached" may drive the ergodicity, which
+  is not an identification of a singularity.
+- **LGAC 2010** (§2.1, §3.4), **CLA 2011** (§2-3) and **CHL 2012** (§1, §4):
+  - the horizon is "broken … by a line singularity" at ρ = z = 0;
+  - the inner boundary is "an almost constant ρ ≃ 0.72";
+  - the "deep hole … works as a stochastic scatterer" (to −1e5).
+  None calls it a singularity, and none mentions B.
+- **Later works place the singularity only at x = 1, y = 0:**
+  - Bambi & Barausse arXiv:1108.4740 §II;
+  - Bambi & Lukes-Gerakopoulos arXiv:1302.0565 §II;
+  - Destounis & Kokkotas arXiv:2108.02782 §II, at exactly χ 0.9, q 0.95, E 0.95, Lz 3;
+  - Staelens et al. arXiv:2303.02111 §II.C;
+  - Geyer MSc 2013 (Stellenbosch, hdl 10019.1/80306) Ch. 6.
+  None computes a curvature scalar for MN.
+- **Unflagged prior plots of the feature** (subagent's plot readings, ±0.03; our x_s = 1.929828 is ρ_prolate =
+  arccosh x_s = 1.2755):
+  - Brink Fig. 5 (g_tt) shows concentric contours on the equator at ρ ≈ 1.2–1.26;
+  - Geyer Fig. 6.2(b) (g_φφ, q 0.95, χ 0.9) shows a pole-like blob at ρ ≈ 1.25–1.28.
+- **Structural precedent in a different spacetime:** Kodama & Hikida, gr-qc/0304064 §3.1.3. In Tomimatsu–Sato δ = 2,
+  Ψ₂ ∝ 1/B³ and Ψ₀Ψ₄ ∝ 1/B⁶ diverge at an equatorial B = 0 point x₀ > 1 off the horizon rod ("the famous ring
+  singularity"), where the inner ergo-boundary meets the equator and the CTC region touches. GLM call TS "quite
+  similar" to MN. Nobody has carried this over to MN.
+- **Manko & Novikov 1992** (CQG 9 2477): closed access, NOT read.
+- **Our status:** Kretschmann ∝ d⁻⁶ at the ring (197c; code validated on Kerr's closed form to 2e-16). So the
+  "B = 0 alone isn't proof" caveat is met by a direct invariant. The claim we can make is: **a naked curvature ring
+  singularity outside the horizon at χ 0.9, q 0.95 (and at F5-R), not identified in the MN literature, and
+  contradicting Brink 2008's "no singularities outside"**, with the TS2 analogue as precedent. p1 also has an exact
+  B = A = 0 equatorial point (x = 1.07596). Its Kretschmann was not computed.
