@@ -285,3 +285,12 @@ exit itself, not only up to the last crossing before it.
 - **p1:** B = 9.1e-88 and A = −1.7e-42 at x = 1.0759622 (y = 0), so it too has an EXACT B = A = 0 point on the
   equator. The singular ring is generic to these MN points. At p1 it sits at R = 0.396, inside D's excluded R < 0.5.
   Not computed: Kretschmann at p1, and p2's B zero (p2's grid minimum is near x → 1, |y| ≈ 0.49).
+- **Independent confirmation (The Bridge, V13 FINDINGS).** Their own V9 metric transcription, EXACT sympy first and
+  second derivatives lambdified to mpmath at 60 digits, and their own Christoffel → Riemann → K code.
+  - Kerr closed form reproduced to ≤ 6e-59.
+  - At C0, on the equator (x > x_s): K = 1.191e20, 1.100e26 and 1.091e32 at d = 1e-3, 1e-4 and 1e-5, which are our
+    values to 3 digits. d⁻⁶ on both sides. F5-R matches after M⁴ scaling.
+  - The two routes share no code and use different derivative methods (numerical mp.diff vs exact symbolic).
+- **Shared-source caveat (applies to both of us):** our MN formulas share one source chain. The metric is as given in
+  GLM 2008 / Brink 2008 App. C (same B), and quantum's MN_METRIC.md derives from it. Nobody has read Manko & Novikov
+  1992 itself. Any write-up must say "the MN subclass as given in GLM 2008 / Brink 2008 App. C".
