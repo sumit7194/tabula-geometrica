@@ -529,3 +529,27 @@ V13 (The Bridge): its own code, indicators (NAFF log10|Δν| over two halves AND
     record).
   - The new level is screened by a resumed screen_point run, which re-uses every saved level and integrates only the
     new one.
+
+## C3 EXCHANGE with V13 (2026-10-17; sealed both sides: tabula a1c5051 / dd6c102c…, V13 c9659af / a9264f32…), plus a flaw in my own C3/C4
+- **Island centres agree:**
+  - outer: tabula x 19.182949 (ρ 8.3503) vs V13 19.18295 (ρ 8.3503);
+  - inner: tabula x 2.265080 (ρ 0.8859) vs V13 2.26508 (ρ 0.8859).
+- **Verdicts:** tabula 20/20 accepted, I1 high 0, I2 high 0, so C3 PASS. V13 20/20 READ, 0 CHAOTIC, so PASS.
+  AGREE.
+- **FLAW FOUND IN MY OWN C3/C4 (found reading the sealed numbers; the gate verdicts are not changed, but their
+  meaning is):**
+  - D₂ = −9e-16 (window A) and −1e-16 (window B) on every island orbit.
+  - A4 registered launches within 1e-3 (normalised) of the island centre, so each orbit traces a tiny invariant
+    curve, and its whole section cloud (~1e-3 across) is SMALLER than the fixed D₂ scaling windows
+    (r ∈ [0.01, 0.05] and [0.02, 0.10]). Every pair falls below every r, C(r) is flat, and the slope is 0.
+  - So **C4 (D₂ < 1.3) and the I2 half of C3 passed VACUOUSLY**: they measured nothing. C3 is a real pass only
+    through I1 (ρλ and λ₂ below threshold).
+  - Silent-null shape: a statistic whose window does not reach the object reports a "pass". The < 200-pairs guard
+    did not fire, because all ~2M pairs sit below the window's FLOOR rather than above its ceiling. A guard that
+    checks only the low-count side misses the saturated side.
+- **What still shows I2 on genuine regular orbits:** the Kerr null tori (D₂ p99 1.13 / 1.18, from the training set)
+  and the A8 double-well near-separatrix curves (D₂ ≈ 1 in the smoke run). There, the clouds span the windows.
+- **Proposed supplement (post-hoc, labelled; it does not replace the registered gate):** re-run C3/C4 with V13's
+  launch geometry (x offsets ±0.2–4% of x_c, p_x = 0), so the curves span the D₂ windows. Also add a saturation
+  guard: I2 = "mixed" when C(r_max) equals the total pair count or C(r_min) is within 1% of it, i.e. the window
+  sits outside the cloud's scale.
