@@ -271,7 +271,7 @@ def trace(lib, dom, pp, E, Lz, z0, dt, n_ret, mode=0, nv=1, w0=None, max_steps=1
         if w0 is None:
             W /= np.linalg.norm(W, axis=1, keepdims=True)
         st[5:] = W.ravel()
-    rec, orb = np.zeros(n_ret * RCOLS), np.zeros(8)
+    rec, orb = np.zeros(n_ret * RCOLS), np.zeros(9)
     nc = lib.trace(par.ctypes.data_as(_dp), st.ctypes.data_as(_dp), nv, mode, dt, max_steps, n_ret, renorm,
                    ct.byref(dom["dom"]), rec.ctypes.data_as(_dp), orb.ctypes.data_as(_dp))
     return rec.reshape(n_ret, RCOLS)[:nc], orb, st
@@ -337,20 +337,20 @@ def pilot(lib, dom, pp, E, Lz, launches, n_ret=N_RET, log=print):
     idx = np.unique(np.round(np.linspace(0, len(launches) - 1, 12)).astype(int))
     order = np.argsort(launches[:, 0])
     sel = launches[order[idx]]
-    dt, tried = 0.05, []
+    tol, tried = 1e-9, []                                 # A5: Dormand-Prince tolerance ladder, not a dt ladder
     while True:
         dr = []
         for z in sel:
-            rec, orb, _ = trace(lib, dom, pp, E, Lz, z, dt, n_ret, nv=0)
+            rec, orb, _ = trace(lib, dom, pp, E, Lz, z, tol, n_ret, nv=0)
             dr.append(orb[6] if orb[1] > 0 else np.nan)   # A4.2: drift over the whole life up to the reading (fate)
         res = pilot_judge(dr)
-        tried.append({"dt": dt, "result": res, "max_drift": float(np.nanmax(dr)) if np.isfinite(dr).any() else None})
-        log(f"  pilot dt={dt:.4g}: {res} {tried[-1]['max_drift']}")
+        tried.append({"tol": tol, "result": res, "max_drift": float(np.nanmax(dr)) if np.isfinite(dr).any() else None})
+        log(f"  pilot tol={tol:.0e}: {res} {tried[-1]['max_drift']}")
         if res == "REFUSE":
-            raise RuntimeError(f"pilot REFUSED at dt={dt}: no pilot orbit reached a section crossing")
-        if res == "PASS" or dt < 1e-3:
-            return dt, {"floor_hit": res != "PASS", "tried": tried}
-        dt /= 2
+            raise RuntimeError(f"pilot REFUSED at tol={tol}: no pilot orbit measured")
+        if res == "PASS" or tol < 1e-12:
+            return tol, {"floor_hit": res != "PASS", "tried": tried}
+        tol /= 10
 
 
 # ---------------------------------------------------------------- section map, UPOs (A4)
@@ -563,16 +563,16 @@ def selftest_pilot():
     idx = np.unique(np.round(np.linspace(0, len(L) - 1, 12)).astype(int))
     sel = L[np.argsort(L[:, 0])[idx]]
     real = {}
-    for dt in (0.05, 0.1, 0.2, 0.4):                               # prereg §3: dt 0.05 or, if it passes, a coarser one
+    for dt in (1e-5, 1e-4, 1e-3, 1e-2):                         # A5: the coarsest tolerances, until one FAILS
         dr = []
         for z in sel:
             rec, orb, _ = trace(lib, dom, pp, 0.95, 3.0, z, dt, N_RET, nv=0)
             dr.append(orb[6] if orb[1] > 0 else np.nan)
         real[dt] = (pilot_judge(dr), float(np.nanmax(dr)) if np.isfinite(dr).any() else None)
-        print(f"  REAL P0 inner, dt {dt}: {real[dt]}", flush=True)
+        print(f"  REAL P0 inner, tol {dt}: {real[dt]}", flush=True)
         if real[dt][0] == "FAIL":
             break
-    checks.append((f"REAL: P0 inner region at dt {dt} FAILS end to end", real[dt][0] == "FAIL"))
+    checks.append((f"REAL: P0 inner region at tol {dt} FAILS end to end", real[dt][0] == "FAIL"))
     ok = all(c for _, c in checks)
     for n_, c in checks:
         print(("PASS  " if c else "FAIL  ") + n_, flush=True)

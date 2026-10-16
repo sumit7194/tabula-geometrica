@@ -150,3 +150,28 @@ Grid: x ∈ 1 + logspace(−6, log10 9) with 2400 points, |y| ≤ 0.99999 with 2
     spun on a non-crossing orbit toward the 1e9-step cap and was stopped (own PID).
   - **Process:** that run was launched by RELATIVE path and was invisible to a path-based pgrep (silent_nulls 46,
     again). All runs from here are launched by absolute path.
+
+## AMENDMENT A5 (2026-10-16, before any verdict): an adaptive integrator (Dormand–Prince 5(4)), with the pilot choosing a TOLERANCE
+- **Why (an instrument finding, from the pilot):**
+  - Fixed-step RK4 cannot hold the accuracy standard in the C0 inner region. The pilot at (0.95, 3), inner region,
+    failed at every dt from 0.05 down to the 7.8e-4 floor, with drift O(1e1–1e3); floor_hit.
+  - The inner region's equatorial boundary is the CTC edge, where V diverges (The Bridge's observation, confirmed).
+    Accelerations there are huge, and LGAC 2010 also needed adaptive steps of 1e-4 to 1e-8 there.
+  - The outer region passed at dt 0.05 (drift 9.3e-11).
+  - Without this change, C0 would be UNREADABLE and the instrument unfit by construction. The change is made before
+    any verdict exists. The pilot only sets accuracy, so this is the accuracy machinery doing its job.
+- **What:**
+  - Embedded DP5(4) with error control on z = (x, y, p_x, p_y): scale tol·(1 + |z_i|), factor clamp [0.2, 5], safety
+    0.9.
+  - h_max = 0.5, to keep the per-step domain sampling and crossing detection dense (returns are ≥ ~4 τ). h_min = 1e-13
+    gives end code 6, step underflow.
+  - The tangent is carried through the same stages but not error-controlled. The section crossing is still one Hénon
+    RK4 step from the accepted point.
+- **Pilot:** tol ladder 1e-9, 1e-10, …, with a floor at 1e-13 (floor_hit if it still fails). The same drift target
+  (1e-10) and the same whole-life window (A4.2).
+- **Pilot self-test real case:** the coarsest tolerances (1e-5, 1e-4, 1e-3, 1e-2) on P0's inner region, until one
+  FAILS end to end. That is the A5 analogue of "dt 0.05, or a coarser one".
+- **Kerr re-check (adaptive):**
+  - At tol 1e-12: drift 1.1e-11, Carter conserved to 3.9e-10, 200 returns, about 15 µs per τ.
+  - At tol ≥ 1e-10 the h_max cap binds (drift 1.2e-10, not yet at target), so the ladder would continue.
+- Nothing else changes: verdict rules, thresholds, windows, levels, controls and gates are as registered.
