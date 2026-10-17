@@ -606,3 +606,4 @@ V13 (The Bridge): its own code, indicators (NAFF log10|Δν| over two halves AND
   memory-heavy control run. The screen stays stopped until space is freed. All completed levels are saved and
   resume without loss.
 - **PAUSED by the user (2026-10-17 07:49).** The auto-resume watcher is stopped and no screen process is running. Resume on the user's word: `--screen p1 p2 F5R` re-uses every saved level.
+- **RESUMED by the user (2026-10-17 19:33):** the overnight chain scripts/k20_chain.sh runs the screen (resume), then the C3 supplement, then the official analysis (p1, p2, F5-R), then the C0 add-on. Each stage runs under the watchdog (≤ 4 workers, MAXMB 2048, MINDISK 5) and must end with exit=0, or the chain stops. The user is away; coordination is with The Bridge, with routine calls logged here.
