@@ -1025,31 +1025,74 @@ def manifold(lib, dom, pp, E, Lz, u, tol, stable, eps, n_seg=120, n_iter=30, box
     L = abs(lam[i]) if not stable else 1 / abs(lam[i])
     lines = []
     for sgn in (1, -1):
-        seg = [np.array(u["z"]) + sgn * eps * (L ** t) * v for t in np.linspace(0, 1, n_seg)]
-        pts, inD, it_ix = [], [], []
-        cur = seg
+        ts = np.linspace(0, 1, n_seg)
+        cur = [(np.array(u["z"]) + sgn * eps * (L ** t) * v, t) for t in ts]
+        pts, it_ix, seeds = [], [], []
         for it in range(n_iter + 1):
-            for q in cur:
-                pts.append(q); it_ix.append(it)
+            for q, t in cur:
+                pts.append(q); it_ix.append(it); seeds.append(t)
             nxt = []
-            for q in cur:
-                ok = True
-                for _ in range(u["n"]):
-                    r = (_inverse_map if stable else _forward_map)(lib, dom, pp, E, Lz, q[0], q[1], tol)
-                    if r is None:
-                        ok = False; break
-                    q, orb = r
-                    if orb[3] >= 0:
-                        ok = False; break                  # left D_B9 on the way: the connection is not in D
-                if ok:
-                    nxt.append(q)
-            if box is not None:
-                nxt = [q for q in nxt if box["xa"] <= q[0] <= box["xb"] and abs(q[1]) <= box["pm"]]
+            for q, t in cur:
+                q2 = _map_n(lib, dom, pp, E, Lz, u["n"], q, tol, stable)
+                if q2 is not None and (box is None or (box["xa"] <= q2[0] <= box["xb"] and abs(q2[1]) <= box["pm"])):
+                    nxt.append((q2, t))
             if not nxt:
                 break
             cur = nxt
-        lines.append({"pts": np.array(pts), "iter": np.array(it_ix)})
+        lines.append({"pts": np.array(pts), "iter": np.array(it_ix), "seed": np.array(seeds), "sgn": sgn,
+                      "v": v, "L": L, "eps": eps})
     return lines
+
+
+def _map_n(lib, dom, pp, E, Lz, n, q, tol, stable):
+    """P^n (or P^-n) of a section point; None if any step fails or leaves D_B9 (connection not in D)."""
+    for _ in range(n):
+        r = (_inverse_map if stable else _forward_map)(lib, dom, pp, E, Lz, q[0], q[1], tol)
+        if r is None:
+            return None
+        q, orb = r
+        if orb[3] >= 0:
+            return None
+    return q
+
+
+def _refined_branch(lib, dom, pp, E, Lz, u, tol, stable, line, ia, n_new=20):
+    """A12: resample n_new seeds between the seeds generating segment ia of a manifold branch, at the same iterate."""
+    it = int(line["iter"][ia])
+    if line["iter"][ia + 1] != it:
+        return None                                       # the segment straddles two iterates: not refinable
+    t0, t1 = line["seed"][ia], line["seed"][ia + 1]
+    out = []
+    for t in np.linspace(t0, t1, n_new):
+        q = np.array(u["z"]) + line["sgn"] * line["eps"] * (line["L"] ** t) * line["v"]
+        ok = True
+        for _ in range(it):
+            q = _map_n(lib, dom, pp, E, Lz, u["n"], q, tol, stable)
+            if q is None:
+                ok = False; break
+        if ok:
+            out.append(q)
+    return np.array(out) if len(out) >= 2 else None
+
+
+def confirm_hit(lib, dom, pp, E, Lz, ui, uj, tol, Wu, Ws, hit, box):
+    """A12 confirmation of a first hit (point, angle, ia, ib on branches bu, bs)."""
+    P0, ang0, ia, ib, bu, bs = hit
+    A = _refined_branch(lib, dom, pp, E, Lz, ui, tol, False, Wu[bu], ia)
+    B = _refined_branch(lib, dom, pp, E, Lz, uj, tol, True, Ws[bs], ib)
+    if A is None or B is None:
+        return {"confirmed": False, "why": "not refinable"}
+    hits = _seg_intersections(A, B)
+    if not hits:
+        return {"confirmed": False, "why": "no crossing after refinement"}
+    P1, ang1, ja, jb = hits[0]
+    nrm = lambda d: np.hypot(d[0] / (box["xb"] - box["xa"]), d[1] / (2 * box["pm"]))
+    chordA = nrm(A[ja + 1] - A[ja]); chordB = nrm(B[jb + 1] - B[jb])
+    orig_chord = max(nrm(Wu[bu]["pts"][ia + 1] - Wu[bu]["pts"][ia]), nrm(Ws[bs]["pts"][ib + 1] - Ws[bs]["pts"][ib]))
+    moved = nrm(np.array(P1) - np.array(P0))
+    ok = chordA < 1e-2 and chordB < 1e-2 and moved < orig_chord and abs(ang1 - ang0) <= 0.5 * max(ang0, ang1)
+    return {"confirmed": bool(ok), "chords": [float(chordA), float(chordB)], "moved": float(moved),
+            "orig_chord": float(orig_chord), "angle_refined": float(ang1), "point_refined": list(map(float, P1))}
 
 
 def _seg_intersections(A, B):
@@ -1341,18 +1384,23 @@ def analyze_point(point, workers=4, eps=(1e-6, 1e-7)):
             for e_ in eps:
                 Wu, Ws = W[(ii, e_, "u")], W[(jj, e_, "s")]
                 hits = []
-                for a_ in (Wu or []):
-                    for b_ in (Ws or []):
+                for bu, a_ in enumerate(Wu or []):
+                    for bs, b_ in enumerate(Ws or []):
                         for P_, an, ia, ib in _seg_intersections(a_["pts"], b_["pts"]):
                             if np.hypot(P_[0] - ui["z"][0], P_[1] - ui["z"][1]) < 10 * e_:
                                 continue                      # the UPO itself
                             hits.append((float(a_["iter"][ia] + b_["iter"][ib]), an, P_.tolist(),
-                                         int(a_["iter"][ia]), int(b_["iter"][ib])))
-                hits.sort()
-                ang[e_] = hits[0] if hits else None
+                                         int(a_["iter"][ia]), int(b_["iter"][ib]), (P_, an, ia, ib, bu, bs)))
+                hits.sort(key=lambda h: h[0])
+                if hits:
+                    cf = confirm_hit(lib, dom, pp, E, Lz, ui, uj, tol, Wu, Ws, hits[0][5], box)
+                    ang[e_] = hits[0][:5] + (cf,)
+                else:
+                    ang[e_] = None
             a6, a7 = ang.get(eps[0]), ang.get(eps[1])
             transversal = (a6 is not None and a7 is not None and a6[1] > 1e-3 and a7[1] > 1e-3
-                           and abs(a6[1] - a7[1]) <= 0.5 * max(a6[1], a7[1]))
+                           and abs(a6[1] - a7[1]) <= 0.5 * max(a6[1], a7[1])
+                           and a6[5]["confirmed"] and a7[5]["confirmed"])                 # A12
             g = {"E": E, "Lz": Lz, "from": ui["z"], "to": uj["z"], "homoclinic": ui["z"] == uj["z"],
                  "first_hit_eps1e-6": a6, "first_hit_eps1e-7": a7, "transversal_in_D": bool(transversal)}
             graph.append(g)

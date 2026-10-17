@@ -568,3 +568,21 @@ V13 (The Bridge): its own code, indicators (NAFF log10|Δν| over two halves AND
   sealed C-gates; C3 stands through I1, and C4 is recorded as vacuous.
 - **Status at commit:** the counted screen is still running. The only verdict lines it writes are its in-run
   analysis, which A9 has already superseded, and none has been read. From here only progress lines are inspected.
+
+## AMENDMENT A12 (2026-10-17, BEFORE the official analysis has run): confirming tier-2 crossings
+- **Why:** first hits between W^u and W^s polylines are unrefined. Two long, sparsely sampled segments can "cross"
+  spuriously, and A10.1's ε-persistence and angle test does not rule that out. (The Bridge raised this for V13,
+  whose A9 uses Newton refinement in (s, s′). Mine is kept independent: seed resampling.)
+- **Procedure:**
+  - Each manifold point carries its fundamental-segment seed parameter t ∈ [0, 1].
+  - For the first hit at each ε, the two seeds generating the hit segment on W^u, and likewise on W^s, are resampled
+    at 20 points and mapped the same number of iterates through D (any step leaving D_B9 drops the point). The
+    intersection is recomputed on the refined polylines.
+  - **CONFIRMED** iff the refined chords on both manifolds are < 1e-2 (normalised), the refined point moves by less
+    than the original chord, and the refined angle is within 50% of the unrefined one.
+  - A segment that straddles two iterates is "not refinable", so unconfirmed.
+- **Tier 2** now requires A10.1 (angle > 1e-3, persistence between ε 1e-6 and 1e-7, in-D manifolds) AND A12
+  confirmation at both ε.
+- **Reported per edge (The Bridge's request, for edge-by-edge matching with V13):** the UPO pair (period-n section
+  points), the refined crossing point (x, p_x), the angle, the iterates, the chords, and confirmed or not.
+  Unconfirmed hits are reported and do not count.
