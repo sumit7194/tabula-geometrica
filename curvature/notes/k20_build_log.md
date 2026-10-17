@@ -605,3 +605,4 @@ V13 (The Bridge): its own code, indicators (NAFF log10|Δν| over two halves AND
   floor. Tree 21 MB, so tabula was not the cause; swap stood at 7 GB of swapfiles, which The Bridge traced to its own
   memory-heavy control run. The screen stays stopped until space is freed. All completed levels are saved and
   resume without loss.
+- **PAUSED by the user (2026-10-17 07:49).** The auto-resume watcher is stopped and no screen process is running. Resume on the user's word: `--screen p1 p2 F5R` re-uses every saved level.
