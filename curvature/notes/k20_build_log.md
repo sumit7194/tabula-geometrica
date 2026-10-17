@@ -596,3 +596,8 @@ V13 (The Bridge): its own code, indicators (NAFF log10|Δν| over two halves AND
 - **C0 add-on spec (agreed):** level (19/20, 3) at χ 0.9, q 0.95; Σ = {y = 0, p_y > 0} in (x, p_x); tier 1 = the
   whole orbit in D_B9; edges only through in-D manifold segments; base-domain-only hyperbolic UPOs FLAGGED, not
   dropped; matching by UPO section points (1e-6) and refined crossing points.
+- **Disk-full stop and resume (2026-10-17).** The screen's watchdog killed the run during F5-R's Kerr null (free disk
+  4 GB, below its 5 GB floor; tree 526 MB, sysfree 35%). The data volume was 99% full machine-wide. tabula's share:
+  results 1.8 GB, scratch 0.2 GB. Nothing was deleted, since that is the user's call.
+  - User decision: resume now with MINDISK = 2 GB. The resumed run re-uses every saved level, integrates the rest of
+    F5-R's null, and screens p2's new shared level (37/40, 3). Remaining output ≲ 0.2 GB.
