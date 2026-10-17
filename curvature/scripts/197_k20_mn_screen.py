@@ -1453,6 +1453,55 @@ def analyze_c0(workers=4):
     return out
 
 
+def c3_supplement(workers=4, seed=197601):
+    """SUPPLEMENTARY (post-hoc, labelled; the registered C3 verdict stands through I1): C3/C4 with V13's launch geometry,
+    x offsets of +-0.2..4% of x_c with p_x = 0, so the island curves span the D2 windows. Base domain, 1e-8. Indicators
+    as registered, with the A11 window-scale guard."""
+    import hashlib
+    c = json.load(open(RESULTS / "197_cgates.json"))
+    thr = {i: c["thresholds_chi0.9_pooled"] for i in range(4)}
+    pp = point_params("P0")
+    out = {"label": "SUPPLEMENTARY C3/C4 (post-hoc; V13 offsets)", "islands": {}}
+    rng = np.random.default_rng(seed)
+    for region in ("outer", "inner"):
+        lev0 = load_level(f"C0_{region}")
+        cen = c["C3_C4"][region]["centre"]
+        xa, xb = component_interval(pp, 0.95, 3.0, region)
+        box = refined_box(pp, 0.95, 3.0, xa, xb)
+        L = []
+        while len(L) < 10:
+            frac = rng.uniform(0.002, 0.04) * (1 if len(L) % 2 == 0 else -1)
+            z = launch(pp, 0.95, 3.0, cen[0] * (1 + frac), 0.0)
+            if z is not None:
+                L.append(z)
+        jobs = [(("P0", False, "C3S", region, i), "P0", False, 0.95, 3.0, L[i].tolist(), lev0["tol"], N_RET,
+                 seed * 1000 + i) for i in range(10)]
+        res = run_pool(jobs, workers)
+        lev = {"box": box, "upos": lev0["upos"], "recs": [r for _, r, _ in res], "orbs": [o for _, _, o in res]}
+        rows = []
+        for i in range(10):
+            st = orbit_stats(lev, i, "base", 1e-8)
+            t_ = thr[0]
+            i1h = st["lam2"] is not None and st["lam2"] > t_["lam2"][1] and st["rho"] > t_["rho"][1]
+            i2h = st["lam2"] is not None and st["D2A"] is not None and st["D2B"] is not None and \
+                st["D2A"] > t_["D2A"][1] and st["D2B"] > t_["D2B"][1]
+            rows.append({"x0": float(L[i][0]), "accepted": st["accepted"], "fate": st["fate"], "drift": st["drift"],
+                         "I1_high": bool(i1h), "I2_high": bool(i2h), "D2A": st.get("D2A"), "D2B": st.get("D2B"),
+                         "D2_guard": st.get("D2_guard"), "D2_raw": st.get("D2_raw"), "verdict": verdict(st, thr)})
+        out["islands"][region] = {"centre": cen, "rows": rows,
+                                  "C3_pass": all(r["accepted"] and not r["I1_high"] and not r["I2_high"] for r in rows),
+                                  "C4_pass": all(r["D2A"] is not None and r["D2B"] is not None and r["D2A"] < 1.3
+                                                 and r["D2B"] < 1.3 for r in rows),
+                                  "guard_fired": sum(1 for r in rows if r["D2_guard"] and
+                                                     any(g in ("saturated", "below-scale") for g in r["D2_guard"]))}
+        print(f"C3 supplement {region}: C3 {out['islands'][region]['C3_pass']} C4 {out['islands'][region]['C4_pass']} "
+              f"guard fired {out['islands'][region]['guard_fired']}", flush=True)
+    fn = RESULTS / "197_c3_supplement.json"
+    fn.write_text(json.dumps(out, indent=1, default=_jsonable))
+    print(f"SEALED {fn.name} sha256 {hashlib.sha256(fn.read_bytes()).hexdigest()}", flush=True)
+    return out
+
+
 def cgates(workers=4):
     import time
     from scipy.stats import binom, beta as cp
@@ -1594,6 +1643,7 @@ if __name__ == "__main__":
     ap.add_argument("--screen", nargs="*")
     ap.add_argument("--analyze", nargs="*")
     ap.add_argument("--analyze-c0", action="store_true")
+    ap.add_argument("--c3-supplement", action="store_true")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--selftest-pilot", action="store_true")
     a = ap.parse_args()
@@ -1625,3 +1675,5 @@ if __name__ == "__main__":
             analyze_point(pt, a.workers)
     if a.analyze_c0:
         analyze_c0(a.workers)
+    if a.c3_supplement:
+        c3_supplement(a.workers)
