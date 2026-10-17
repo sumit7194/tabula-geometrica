@@ -601,3 +601,7 @@ V13 (The Bridge): its own code, indicators (NAFF log10|Δν| over two halves AND
   results 1.8 GB, scratch 0.2 GB. Nothing was deleted, since that is the user's call.
   - User decision: resume now with MINDISK = 2 GB. The resumed run re-uses every saved level, integrates the rest of
     F5-R's null, and screens p2's new shared level (37/40, 3). Remaining output ≲ 0.2 GB.
+- **The resume was killed immediately:** free disk had fallen to ~1.9 GB (df -g / showed 0), below the user's 2 GB
+  floor. Tree 21 MB, so tabula was not the cause; swap stood at 7 GB of swapfiles, which The Bridge traced to its own
+  memory-heavy control run. The screen stays stopped until space is freed. All completed levels are saved and
+  resume without loss.
