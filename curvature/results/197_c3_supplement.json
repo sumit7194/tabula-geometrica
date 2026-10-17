@@ -1,0 +1,407 @@
+{
+ "label": "SUPPLEMENTARY C3/C4 (post-hoc; V13 offsets)",
+ "islands": {
+  "outer": {
+   "centre": [
+    19.182948559923364,
+    -9.635730457872162e-14
+   ],
+   "rows": [
+    {
+     "x0": 19.223383613743792,
+     "accepted": true,
+     "fate": "FULL",
+     "drift": 1.0207346079482704e-10,
+     "I1_high": false,
+     "I2_high": false,
+     "D2A": null,
+     "D2B": null,
+     "D2_guard": [
+      "saturated",
+      "saturated"
+     ],
+     "D2_raw": [
+      -9.272733273013555e-16,
+      -9.702916211210217e-17
+     ],
+     "verdict": "INDETERMINATE"
+    },
+    {
+     "x0": 18.750631417993834,
+     "accepted": true,
+     "fate": "FULL",
+     "drift": 1.026940754655925e-10,
+     "I1_high": false,
+     "I2_high": false,
+     "D2A": 1.0693663592062093,
+     "D2B": 0.39869073749071454,
+     "D2_guard": [
+      null,
+      null
+     ],
+     "D2_raw": [
+      1.0693663592062093,
+      0.39869073749071454
+     ],
+     "verdict": "REGULAR"
+    },
+    {
+     "x0": 19.37080588193992,
+     "accepted": true,
+     "fate": "FULL",
+     "drift": 1.0218670354333881e-10,
+     "I1_high": false,
+     "I2_high": false,
+     "D2A": 0.24822113038584445,
+     "D2B": null,
+     "D2_guard": [
+      null,
+      "saturated"
+     ],
+     "D2_raw": [
+      0.24822113038584445,
+      -9.702916211210217e-17
+     ],
+     "verdict": "INDETERMINATE"
+    },
+    {
+     "x0": 19.109133669434026,
+     "accepted": true,
+     "fate": "FULL",
+     "drift": 1.020836748466536e-10,
+     "I1_high": false,
+     "I2_high": false,
+     "D2A": null,
+     "D2B": null,
+     "D2_guard": [
+      "saturated",
+      "saturated"
+     ],
+     "D2_raw": [
+      -9.272733273013555e-16,
+      -9.702916211210217e-17
+     ],
+     "verdict": "INDETERMINATE"
+    },
+    {
+     "x0": 19.277694948537345,
+     "accepted": true,
+     "fate": "FULL",
+     "drift": 1.020978857013688e-10,
+     "I1_high": false,
+     "I2_high": false,
+     "D2A": null,
+     "D2B": null,
+     "D2_guard": [
+      "saturated",
+      "saturated"
+     ],
+     "D2_raw": [
+      -9.272733273013555e-16,
+      -9.702916211210217e-17
+     ],
+     "verdict": "INDETERMINATE"
+    },
+    {
+     "x0": 19.06971417859373,
+     "accepted": true,
+     "fate": "FULL",
+     "drift": 1.0211365086831847e-10,
+     "I1_high": false,
+     "I2_high": false,
+     "D2A": null,
+     "D2B": null,
+     "D2_guard": [
+      "saturated",
+      "saturated"
+     ],
+     "D2_raw": [
+      -9.272733273013555e-16,
+      -9.702916211210217e-17
+     ],
+     "verdict": "INDETERMINATE"
+    },
+    {
+     "x0": 19.24854744699498,
+     "accepted": true,
+     "fate": "FULL",
+     "drift": 1.0208389689125852e-10,
+     "I1_high": false,
+     "I2_high": false,
+     "D2A": null,
+     "D2B": null,
+     "D2_guard": [
+      "saturated",
+      "saturated"
+     ],
+     "D2_raw": [
+      -9.272733273013555e-16,
+      -9.702916211210217e-17
+     ],
+     "verdict": "INDETERMINATE"
+    },
+    {
+     "x0": 18.533542476362072,
+     "accepted": true,
+     "fate": "FULL",
+     "drift": 1.0349121559727337e-10,
+     "I1_high": false,
+     "I2_high": false,
+     "D2A": 1.1967795779128716,
+     "D2B": 0.828133228203216,
+     "D2_guard": [
+      null,
+      null
+     ],
+     "D2_raw": [
+      1.1967795779128716,
+      0.828133228203216
+     ],
+     "verdict": "INDETERMINATE"
+    },
+    {
+     "x0": 19.2293777402844,
+     "accepted": true,
+     "fate": "FULL",
+     "drift": 1.0207767964232062e-10,
+     "I1_high": false,
+     "I2_high": false,
+     "D2A": null,
+     "D2B": null,
+     "D2_guard": [
+      "saturated",
+      "saturated"
+     ],
+     "D2_raw": [
+      -9.272733273013555e-16,
+      -9.702916211210217e-17
+     ],
+     "verdict": "INDETERMINATE"
+    },
+    {
+     "x0": 18.43219284094163,
+     "accepted": true,
+     "fate": "FULL",
+     "drift": 1.0397371852377546e-10,
+     "I1_high": false,
+     "I2_high": false,
+     "D2A": 1.1495157293890315,
+     "D2B": 0.9586472738907473,
+     "D2_guard": [
+      null,
+      null
+     ],
+     "D2_raw": [
+      1.1495157293890315,
+      0.9586472738907473
+     ],
+     "verdict": "INDETERMINATE"
+    }
+   ],
+   "C3_pass": true,
+   "C4_pass": false,
+   "guard_fired": 7
+  },
+  "inner": {
+   "centre": [
+    2.2650802992439507,
+    3.531678886104861e-14
+   ],
+   "rows": [
+    {
+     "x0": 2.279285756999249,
+     "accepted": true,
+     "fate": "FULL",
+     "drift": 3.4969649398419733e-10,
+     "I1_high": false,
+     "I2_high": false,
+     "D2A": 0.6183596901623531,
+     "D2B": 0.17144660941019912,
+     "D2_guard": [
+      null,
+      null
+     ],
+     "D2_raw": [
+      0.6183596901623531,
+      0.17144660941019912
+     ],
+     "verdict": "INDETERMINATE"
+    },
+    {
+     "x0": 2.1953357465563395,
+     "accepted": true,
+     "fate": "FULL",
+     "drift": 6.081120051959488e-10,
+     "I1_high": false,
+     "I2_high": false,
+     "D2A": 1.0453711154690908,
+     "D2B": 1.0795887995364923,
+     "D2_guard": [
+      null,
+      null
+     ],
+     "D2_raw": [
+      1.0453711154690908,
+      1.0795887995364923
+     ],
+     "verdict": "INDETERMINATE"
+    },
+    {
+     "x0": 2.2889036863132417,
+     "accepted": true,
+     "fate": "FULL",
+     "drift": 3.6191760699466613e-10,
+     "I1_high": false,
+     "I2_high": false,
+     "D2A": 0.9444740844861869,
+     "D2B": 0.4865149182210932,
+     "D2_guard": [
+      null,
+      null
+     ],
+     "D2_raw": [
+      0.9444740844861869,
+      0.4865149182210932
+     ],
+     "verdict": "INDETERMINATE"
+    },
+    {
+     "x0": 2.1918523412313533,
+     "accepted": true,
+     "fate": "FULL",
+     "drift": 6.865117363474837e-10,
+     "I1_high": false,
+     "I2_high": false,
+     "D2A": 1.0394079639369593,
+     "D2B": 1.0825728465406192,
+     "D2_guard": [
+      null,
+      null
+     ],
+     "D2_raw": [
+      1.0394079639369593,
+      1.0825728465406192
+     ],
+     "verdict": "INDETERMINATE"
+    },
+    {
+     "x0": 2.3428760703997242,
+     "accepted": true,
+     "fate": "FULL",
+     "drift": 5.175928574630007e-10,
+     "I1_high": false,
+     "I2_high": false,
+     "D2A": 1.0672635604119824,
+     "D2B": 1.0630416061824393,
+     "D2_guard": [
+      null,
+      null
+     ],
+     "D2_raw": [
+      1.0672635604119824,
+      1.0630416061824393
+     ],
+     "verdict": "INDETERMINATE"
+    },
+    {
+     "x0": 2.2040777238606326,
+     "accepted": true,
+     "fate": "FULL",
+     "drift": 4.938385256281208e-10,
+     "I1_high": false,
+     "I2_high": false,
+     "D2A": 1.0712851418215594,
+     "D2B": 1.0560476687033626,
+     "D2_guard": [
+      null,
+      null
+     ],
+     "D2_raw": [
+      1.0712851418215594,
+      1.0560476687033626
+     ],
+     "verdict": "INDETERMINATE"
+    },
+    {
+     "x0": 2.302041823831968,
+     "accepted": true,
+     "fate": "FULL",
+     "drift": 3.749103250072494e-10,
+     "I1_high": false,
+     "I2_high": false,
+     "D2A": 1.0655210331728642,
+     "D2B": 0.7930482936866555,
+     "D2_guard": [
+      null,
+      null
+     ],
+     "D2_raw": [
+      1.0655210331728642,
+      0.7930482936866555
+     ],
+     "verdict": "INDETERMINATE"
+    },
+    {
+     "x0": 2.2456860728770636,
+     "accepted": true,
+     "fate": "FULL",
+     "drift": 3.5821257071688706e-10,
+     "I1_high": false,
+     "I2_high": false,
+     "D2A": 0.874927815911439,
+     "D2B": 0.3888630793942623,
+     "D2_guard": [
+      null,
+      null
+     ],
+     "D2_raw": [
+      0.874927815911439,
+      0.3888630793942623
+     ],
+     "verdict": "INDETERMINATE"
+    },
+    {
+     "x0": 2.3029791308215404,
+     "accepted": true,
+     "fate": "FULL",
+     "drift": 3.749969224031702e-10,
+     "I1_high": false,
+     "I2_high": false,
+     "D2A": 1.0694799371624797,
+     "D2B": 0.8070876592613605,
+     "D2_guard": [
+      null,
+      null
+     ],
+     "D2_raw": [
+      1.0694799371624797,
+      0.8070876592613605
+     ],
+     "verdict": "INDETERMINATE"
+    },
+    {
+     "x0": 2.2158742951879864,
+     "accepted": true,
+     "fate": "FULL",
+     "drift": 4.2114378651092466e-10,
+     "I1_high": false,
+     "I2_high": false,
+     "D2A": 1.095490937294051,
+     "D2B": 0.9942034563905454,
+     "D2_guard": [
+      null,
+      null
+     ],
+     "D2_raw": [
+      1.095490937294051,
+      0.9942034563905454
+     ],
+     "verdict": "INDETERMINATE"
+    }
+   ],
+   "C3_pass": true,
+   "C4_pass": true,
+   "guard_fired": 0
+  }
+ }
+}

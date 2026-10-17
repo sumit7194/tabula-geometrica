@@ -608,3 +608,18 @@ V13 (The Bridge): its own code, indicators (NAFF log10|Δν| over two halves AND
 - **PAUSED by the user (2026-10-17 07:49).** The auto-resume watcher is stopped and no screen process is running. Resume on the user's word: `--screen p1 p2 F5R` re-uses every saved level.
 - **RESUMED by the user (2026-10-17 19:33):** the overnight chain scripts/k20_chain.sh runs the screen (resume), then the C3 supplement, then the official analysis (p1, p2, F5-R), then the C0 add-on. Each stage runs under the watchdog (≤ 4 workers, MAXMB 2048, MINDISK 5) and must end with exit=0, or the chain stops. The user is away; coordination is with The Bridge, with routine calls logged here.
 - Chain: stage 1 (counted screen resume: F5-R Kerr null and p2's new shared level) ended exit=0 at 2026-10-17 21:29; the C3 supplement started.
+
+## SUPPLEMENTARY C3/C4 (post-hoc, labelled; results/197_c3_supplement.json, sha256 e3b3f895…54e2)
+Launch geometry from V13: x offsets ±0.2–4% of x_c, p_x = 0. Base domain, 1e-8. A11 guard on.
+- **C3: 20/20 accepted, I1 high 0, I2 high 0 → PASS** (both islands).
+- **C4, inner island: a GENUINE pass.** All 10 curves span the windows: D₂A 0.62–1.10, D₂B 0.17–1.08, all < 1.3.
+  This replaces the registered vacuous pass with a real one.
+- **C4, outer island: 7/10 NOT EVALUABLE** (A11 "saturated" in both windows). The outer box is 25.7 wide in x, so a
+  4% offset at x_c ≈ 19 still gives curves only ≲ 0.03 across in normalised units. The 3 evaluable curves read D₂A
+  1.07–1.20 and D₂B 0.40–0.96, all < 1.3. The JSON's C4_pass = False for the outer island is the conservative
+  reading (unevaluable counts as not-pass). No curve read D₂ ≥ 1.3.
+- **The guard bit 7/10 times on the outer island and 0/10 on the inner.** This confirms the registered C3's
+  vacuity was real and is now caught.
+- **Observation (no rule change):** island orbits mostly read INDETERMINATE, not REGULAR. "REGULAR" needs BOTH arms
+  below the Kerr p95, and island D₂ ≈ 1.07–1.10 sits at the D₂A p95 (1.084). So CHAOTIC is the operative verdict;
+  REGULAR counts understate regularity and should not be read as "fraction regular".
