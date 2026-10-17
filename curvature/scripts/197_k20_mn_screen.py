@@ -1256,6 +1256,63 @@ def _evec(u):
     return [[complex(*c) if isinstance(c, (list, tuple)) else complex(c) for c in row] for row in ev]
 
 
+def structure_stage(lib, dom, pp, all_hyp, out, log, eps=(1e-6, 1e-7)):
+    """A10/A10.1/A12: tier 1 (whole orbit in D_B9) and tier 2 (confirmed transversal connections in D). Fills out."""
+    point = out.get("point")
+    # tier 1: whole-orbit D_B9 containment
+    for E, Lz, tol, box, u, src in all_hyp:
+        res = upo_in_D(lib, dom, pp, E, Lz, u, tol)
+        row = {"E": E, "Lz": Lz, "src": src, "n": u["n"], "z": u["z"], "pts": u["pts"], "trace": u["trace"],
+               "eig": [str(e) for e in u["eig"]], "evec": [[str(c) for c in r_] for r_ in _evec(u)], **res}
+        if res.get("in_D_B9"):
+            out["tier1"].append(row)
+        out.setdefault("hyperbolic_all", []).append(row)
+    log(f"{point}: hyperbolic UPOs {len(all_hyp)}; tier 1 (whole orbit in D_B9): {len(out['tier1'])}")
+    # tier 2: transversal connections inside D among tier-1 UPOs
+    t1 = [(E, Lz, tol, box, u) for (E, Lz, tol, box, u, src) in all_hyp
+          if any(r["z"] == u["z"] and r["E"] == E and r["Lz"] == Lz for r in out["tier1"])]
+    graph = []
+    W = {}                                                # manifolds computed ONCE per (UPO, eps), then intersected
+    for idx, (E, Lz, tol, box, u) in enumerate(t1):
+        for e_ in eps:
+            u2 = dict(u, evec=_evec(u))
+            W[(idx, e_, "u")] = manifold(lib, dom, pp, E, Lz, u2, tol, False, e_, box=box)
+            W[(idx, e_, "s")] = manifold(lib, dom, pp, E, Lz, u2, tol, True, e_, box=box)
+        log(f"  manifolds for tier-1 UPO {idx} (n={u['n']}) at ({E}, {Lz}) done")
+    for ii, (E, Lz, tol, box, ui) in enumerate(t1):
+        for jj, (E2, Lz2, tol2, box2, uj) in enumerate(t1):
+            if (E2, Lz2) != (E, Lz):
+                continue
+            ang = {}
+            for e_ in eps:
+                Wu, Ws = W[(ii, e_, "u")], W[(jj, e_, "s")]
+                hits = []
+                for bu, a_ in enumerate(Wu or []):
+                    for bs, b_ in enumerate(Ws or []):
+                        for P_, an, ia, ib in _seg_intersections(a_["pts"], b_["pts"]):
+                            if np.hypot(P_[0] - ui["z"][0], P_[1] - ui["z"][1]) < 10 * e_:
+                                continue                      # the UPO itself
+                            hits.append((float(a_["iter"][ia] + b_["iter"][ib]), an, P_.tolist(),
+                                         int(a_["iter"][ia]), int(b_["iter"][ib]), (P_, an, ia, ib, bu, bs)))
+                hits.sort(key=lambda h: h[0])
+                if hits:
+                    cf = confirm_hit(lib, dom, pp, E, Lz, ui, uj, tol, Wu, Ws, hits[0][5], box)
+                    ang[e_] = hits[0][:5] + (cf,)
+                else:
+                    ang[e_] = None
+            a6, a7 = ang.get(eps[0]), ang.get(eps[1])
+            transversal = (a6 is not None and a7 is not None and a6[1] > 1e-3 and a7[1] > 1e-3
+                           and abs(a6[1] - a7[1]) <= 0.5 * max(a6[1], a7[1])
+                           and a6[5]["confirmed"] and a7[5]["confirmed"])                 # A12
+            g = {"E": E, "Lz": Lz, "from": ui["z"], "to": uj["z"], "homoclinic": ui["z"] == uj["z"],
+                 "first_hit_eps1e-6": a6, "first_hit_eps1e-7": a7, "transversal_in_D": bool(transversal)}
+            graph.append(g)
+            if transversal:
+                out["tier2"].append(g)
+            log(f"  connection {ui['z']} -> {uj['z']} ({E}, {Lz}): eps6 {a6} | eps7 {a7} | transversal-in-D {transversal}")
+    out["transition_graph"] = graph
+
+
 def analyze_point(point, workers=4, eps=(1e-6, 1e-7)):
     """OFFICIAL counted analysis (A9 refined boxes, A10/A10.1 saddle-in-D verdict). Reads saved orbits; integrates
     only for the structure stage (UPO extension, UPO-in-D, manifolds). Sealed."""
@@ -1356,64 +1413,43 @@ def analyze_point(point, workers=4, eps=(1e-6, 1e-7)):
             for u in ups:
                 if u["hyperbolic"]:
                     all_hyp.append((E, Lz, tol, box, u, "A10 extension"))
-    # tier 1: whole-orbit D_B9 containment
-    for E, Lz, tol, box, u, src in all_hyp:
-        res = upo_in_D(lib, dom, pp, E, Lz, u, tol)
-        row = {"E": E, "Lz": Lz, "src": src, "n": u["n"], "z": u["z"], "pts": u["pts"], "trace": u["trace"],
-               "eig": [str(e) for e in u["eig"]], "evec": [[str(c) for c in r_] for r_ in _evec(u)], **res}
-        if res.get("in_D_B9"):
-            out["tier1"].append(row)
-        out.setdefault("hyperbolic_all", []).append(row)
-    log(f"{point}: hyperbolic UPOs {len(all_hyp)}; tier 1 (whole orbit in D_B9): {len(out['tier1'])}")
-    # tier 2: transversal connections inside D among tier-1 UPOs
-    t1 = [(E, Lz, tol, box, u) for (E, Lz, tol, box, u, src) in all_hyp
-          if any(r["z"] == u["z"] and r["E"] == E and r["Lz"] == Lz for r in out["tier1"])]
-    graph = []
-    W = {}                                                # manifolds computed ONCE per (UPO, eps), then intersected
-    for idx, (E, Lz, tol, box, u) in enumerate(t1):
-        for e_ in eps:
-            u2 = dict(u, evec=_evec(u))
-            W[(idx, e_, "u")] = manifold(lib, dom, pp, E, Lz, u2, tol, False, e_, box=box)
-            W[(idx, e_, "s")] = manifold(lib, dom, pp, E, Lz, u2, tol, True, e_, box=box)
-        log(f"  manifolds for tier-1 UPO {idx} (n={u['n']}) at ({E}, {Lz}) done")
-    for ii, (E, Lz, tol, box, ui) in enumerate(t1):
-        for jj, (E2, Lz2, tol2, box2, uj) in enumerate(t1):
-            if (E2, Lz2) != (E, Lz):
-                continue
-            ang = {}
-            for e_ in eps:
-                Wu, Ws = W[(ii, e_, "u")], W[(jj, e_, "s")]
-                hits = []
-                for bu, a_ in enumerate(Wu or []):
-                    for bs, b_ in enumerate(Ws or []):
-                        for P_, an, ia, ib in _seg_intersections(a_["pts"], b_["pts"]):
-                            if np.hypot(P_[0] - ui["z"][0], P_[1] - ui["z"][1]) < 10 * e_:
-                                continue                      # the UPO itself
-                            hits.append((float(a_["iter"][ia] + b_["iter"][ib]), an, P_.tolist(),
-                                         int(a_["iter"][ia]), int(b_["iter"][ib]), (P_, an, ia, ib, bu, bs)))
-                hits.sort(key=lambda h: h[0])
-                if hits:
-                    cf = confirm_hit(lib, dom, pp, E, Lz, ui, uj, tol, Wu, Ws, hits[0][5], box)
-                    ang[e_] = hits[0][:5] + (cf,)
-                else:
-                    ang[e_] = None
-            a6, a7 = ang.get(eps[0]), ang.get(eps[1])
-            transversal = (a6 is not None and a7 is not None and a6[1] > 1e-3 and a7[1] > 1e-3
-                           and abs(a6[1] - a7[1]) <= 0.5 * max(a6[1], a7[1])
-                           and a6[5]["confirmed"] and a7[5]["confirmed"])                 # A12
-            g = {"E": E, "Lz": Lz, "from": ui["z"], "to": uj["z"], "homoclinic": ui["z"] == uj["z"],
-                 "first_hit_eps1e-6": a6, "first_hit_eps1e-7": a7, "transversal_in_D": bool(transversal)}
-            graph.append(g)
-            if transversal:
-                out["tier2"].append(g)
-            log(f"  connection {ui['z']} -> {uj['z']} ({E}, {Lz}): eps6 {a6} | eps7 {a7} | transversal-in-D {transversal}")
-    out["transition_graph"] = graph
+    structure_stage(lib, dom, pp, all_hyp, out, log, eps)
     out["VERDICT"] = ("saddle-in-D candidates FOUND (tier 2)" if out["tier2"] else
                       "tier-1 UPOs in D but no transversal connection in D found within the search" if out["tier1"] else
                       "no tier-1 UPO in D within the search")
     fn = RESULTS / f"197_analysis_{point}.json"
     fn.write_text(json.dumps(out, indent=1, default=_jsonable))
     log(f"VERDICT {point}: {out['VERDICT']} | SEALED {fn.name} sha256 {hashlib.sha256(fn.read_bytes()).hexdigest()}")
+    return out
+
+
+def analyze_c0(workers=4):
+    """INFORMATIONAL C0 structure (The Bridge's request): (19/20, 3) at P0; the gate run's UPOs (inner + outer
+    components); tier 1 and tier 2 by the same structure_stage. Base-domain-only hyperbolic UPOs are flagged, not dropped."""
+    import hashlib
+    logf = open(RESULTS / "197_analysis_C0.log", "a")
+
+    def log(m):
+        print(m, flush=True); logf.write(m + "\n"); logf.flush()
+    lib = _lib()
+    pp = point_params("P0")
+    dom = build_domain(pp)
+    out = {"point": "C0 (P0: chi 0.9, q 0.95; E 19/20, Lz 3)", "label": "INFORMATIONAL", "tier1": [], "tier2": []}
+    all_hyp = []
+    for region in ("inner", "outer"):
+        lev = load_level(f"C0_{region}")
+        xa, xb = component_interval(pp, 0.95, 3.0, region)
+        box = refined_box(pp, 0.95, 3.0, xa, xb)
+        for u in lev["upos"]:
+            if u["hyperbolic"]:
+                all_hyp.append((0.95, 3.0, lev["tol"], box, u, f"C0 {region} (gate run)"))
+    structure_stage(lib, dom, pp, all_hyp, out, log)
+    out["base_domain_only_hyperbolic_FLAGGED"] = [r for r in out.get("hyperbolic_all", []) if not r.get("in_D_B9")]
+    out["VERDICT_INFO"] = ("confirmed transversal connections in D found" if out["tier2"] else
+                           "tier-1 UPOs in D, no confirmed connection" if out["tier1"] else "no tier-1 UPO in D")
+    fn_ = RESULTS / "197_analysis_C0.json"
+    fn_.write_text(json.dumps(out, indent=1, default=_jsonable))
+    log(f"C0 INFO: {out['VERDICT_INFO']} | SEALED {fn_.name} sha256 {hashlib.sha256(fn_.read_bytes()).hexdigest()}")
     return out
 
 
@@ -1557,6 +1593,7 @@ if __name__ == "__main__":
     ap.add_argument("--cgates", action="store_true")
     ap.add_argument("--screen", nargs="*")
     ap.add_argument("--analyze", nargs="*")
+    ap.add_argument("--analyze-c0", action="store_true")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--selftest-pilot", action="store_true")
     a = ap.parse_args()
@@ -1586,3 +1623,5 @@ if __name__ == "__main__":
     if a.analyze:
         for pt in a.analyze:
             analyze_point(pt, a.workers)
+    if a.analyze_c0:
+        analyze_c0(a.workers)
