@@ -586,3 +586,13 @@ V13 (The Bridge): its own code, indicators (NAFF log10|Δν| over two halves AND
 - **Reported per edge (The Bridge's request, for edge-by-edge matching with V13):** the UPO pair (period-n section
   points), the refined crossing point (x, p_x), the angle, the iterates, the chords, and confirmed or not.
   Unconfirmed hits are reported and do not count.
+- **Protocol deviation, recorded (2026-10-17):** while agreeing to add C0 structure (informational) to the sealed
+  analysis, The Bridge's message disclosed summary COUNTS from V13's C0 structure stage before tabula's C0 structure
+  stage had run.
+  - Mitigation: tabula's C0 UPO search had already run (C-gate run, a1c5051), and every rule for the in-D test,
+    manifolds and edge confirmation (A10, A10.1, A12; last commit 5a7d93d) was committed before the message. No
+    procedure can be tuned toward their counts.
+  - The counts are not restated here (silent_nulls 50: disclose the class, not the content).
+- **C0 add-on spec (agreed):** level (19/20, 3) at χ 0.9, q 0.95; Σ = {y = 0, p_y > 0} in (x, p_x); tier 1 = the
+  whole orbit in D_B9; edges only through in-D manifold segments; base-domain-only hyperbolic UPOs FLAGGED, not
+  dropped; matching by UPO section points (1e-6) and refined crossing points.
