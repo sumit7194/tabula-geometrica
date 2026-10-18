@@ -846,3 +846,39 @@ horseshoe-candidate structure. tabula confirms 1 (UPO8 → UPO7, crossing (3.439
   run.
 - No overnight launch (2026-10-18): nothing registered was ready, and the Bridge's premise of a pre-stated
   h = 1e-4 rerun was corrected; the Bridge accepted.
+
+## A14 PRE-REGISTRATION (2026-10-18, user present; written and committed BEFORE any code runs)
+**Question.** Why does tabula lack 13 of V13's confirmed F5-R edges and 11 of its C0 edges? Is each a search-cap miss
+(the connection is real and inside tabula's D_B9), a resolution/box-margin drop (real, but outside tabula's strict
+mask while inside the base domain), a domain disagreement (outside even the base domain in tabula's kernel), or not
+reproducible in tabula's kernel at all?
+**Inputs (read-only, hashes verified against V13's seals):**
+- v13_a10_F5R.json 3e098030… and v13_a10_C0.json a4602110…, both @085ac13. Every edge with CONFIRMED_MS = true is
+  used: 35 F5-R and 16 C0. The crossing point is ms_13.point.
+- V13 UPO section points from v13_upo_F5R_19o20_3.json and v13_upo_C0_19o20_3.json.
+- Units: F5-R p_x(V13) = 89 × p_x(tabula) (M = 89); C0 p_x is 1:1; x is 1:1.
+**Method (tabula kernel, level (19/20, 3), each point's inner-component pilot tolerance as in A13):**
+- For a V13 edge i→j with crossing q, apply the section map P forward n = 1..15 times. d_f is the minimum over n of
+  the normalised distance (x/(xb−xa), p_x/(2 pm), refined inner box) to the section points of V13's UPO j. Apply
+  P⁻¹ the same way to UPO i, giving d_b. The statistic is s = max(d_f, d_b).
+- Domain, along the iterates up to each side's argmin n: did any step leave D_B9 (orb[3] ≥ 0)? Did any step fail the
+  base domain (map returns None)?
+**Controls (computed before V13's points are read by this code; the threshold is fixed by them):**
+- POS: tabula's own A13 confirmed crossings (22 F5-R + 27 C0), each tested against its own target UPOs.
+- NEG: the same points displaced by 1e-2 (normalised) in a random direction (seed 0).
+- Threshold: thr = sqrt(p95(POS) · p5(NEG)). The test is VALID only if p95(POS) < p5(NEG)/10; otherwise every V13
+  edge is reported ABSTAIN.
+**Classification of each V13 edge:**
+- REAL-IN-D: s < thr and every iterate inside D_B9.
+- REAL-BAND: s < thr, leaves D_B9 but stays in the base domain.
+- REAL-OUT: s < thr, fails the base domain.
+- NOT-REPRODUCED: s ≥ thr. To be examined, not a refutation.
+**Predictions (stated now):**
+- The 9 F5-R and 5 C0 edges that both sides confirm are REAL-IN-D (a second positive control). If any is not, the
+  method is suspect and is reported as such.
+- For the V13-only edges, predicted mostly REAL-IN-D, i.e. a tabula search-cap miss: A13 caps at 10 hits/pair and
+  30+30 iterates.
+- V13's densebox found the F5-R SCC margin ≥ 7.2e-4 (above the mask h 5e-4), so REAL-BAND is predicted to be rare.
+**Not tested:** transversality (V13's angles are quoted only) and V13 UPOs outside tabula's tier-1 set (their edges
+are still tested, against V13's UPO points). One process, 1 core, post-hoc and labelled; registered verdicts are
+unchanged.
