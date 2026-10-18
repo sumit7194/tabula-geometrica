@@ -895,3 +895,27 @@ unchanged.
   - NMAX 15 → 30, which is A13's own manifold depth: a value fixed by the existing method, not by this data.
   - A censoring guard: if > 25% of POS argmins sit at the cap, ABSTAIN.
   Everything else is unchanged (controls, seed, threshold rule, classes). If run 2 also fails, A14 closes as ABSTAIN.
+
+## A14 RUN 2 = ABSTAIN. A14 CLOSED (one fix round spent, as registered)
+- Run 2 (results/197_a14_run2_ABSTAIN.json, sha256 3584fac4…47a6 as sealed at write, file renamed): POS at cap 0.00,
+  so the censoring guard passes. But p95(POS) is UNCHANGED at 2.051e-3 vs p5(NEG) 1.63e-2, so the validity gate fails
+  again. All ABSTAIN.
+- **My run-1 diagnosis was WRONG for the controls.** Censoring was real for the V13 points (19/51 at the cap), but it
+  was not what made the POS tail fat.
+- **Likely real cause (stated, not tested):** a PRECISION MISMATCH between the control and the test points. tabula's
+  A13 crossings are polyline-segment intersections, accepted with refined chords up to 1e-2 (normalised), so they sit
+  only ~1e-3 from the true intersection. V13's points are multiple-shooting Newton solutions (segment residual
+  ~1e-12). A positive control must be at least as precise as the points it calibrates. This one is ~100× coarser, by
+  construction.
+- **Information only, NOT verdicts (the registered gate failed):**
+  - With NMAX 30, every V13 confirmed crossing approaches both its source and target UPO in tabula's kernel to
+    s ≤ 1.1e-4 (F5-R median 3.1e-6, C0 median 4.3e-6, C0 max 1.4e-5). That is ≥150× below the NEG p5.
+  - 0 points fail the base domain.
+  - The only D_B9 exits are exactly the edges out of V13 F5-R UPO9 (9→3, 9→6, 9→7, 9→8) and C0 UPO8 (8→6). These are
+    the UPOs tabula's tier-1 test already reads as outside, or not, in its set, consistent with the recorded UPO9
+    within-resolution D-test difference.
+  - Read informally, V13's connections reproduce in tabula's kernel, and the V13-only edges look like tabula
+    search-cap misses, not resolution drops. Making this a verdict would need a new pre-registration with a
+    Newton-refined positive control; it is NOT run here.
+- Lesson for the method catalogue: **a positive control's precision must match the test points'.** A coarse
+  control inflates its own tail and fails the separation gate even when the test points are excellent.
