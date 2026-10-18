@@ -697,3 +697,41 @@ each point's own M units (tabula's M = 1 values × M).
     hundredths around 0, so the threshold plausibly lies inside regular-orbit noise. Reported to The Bridge as theirs
     to adjudicate. tabula's rules are unchanged.
 - **Own levels (tabula only):** 0/200 at all 6. V13 has no counterpart.
+
+## F5-R EDGE EXCHANGE with V13 (2026-10-18; both sealed: tabula 41d57be, V13 A10 085ac13)
+**UPO lists** at (19/20, 3) (V13 p_x is in M = 89 units, so tabula × 89):
+- 8 of V13's 11 in-D hyperbolic UPOs match tabula's to 1e-5: UPO0, 2, 3, 4, 6, 7, 8, 10.
+- V13 UPO1 and UPO5 (period 3) were NOT found by tabula's 20×20 Newton grid.
+- **V13 UPO9 (period 2): tabula finds this orbit but its D-test says it LEAVES D_B9.** A D-test disagreement, flagged
+  to The Bridge. tabula's dilated mask is on the strict side by ≤ h = 5e-4.
+- tabula also lists the outer (6.15212, 0) period 2, which is marginal (trace 2.005).
+
+**Edges:** V13 confirms 35/42 (multiple shooting), giving an SCC {2..8} with self-loops at 2–7, i.e. cycles: a
+horseshoe-candidate structure. tabula confirms 1 (UPO8 → UPO7, crossing (3.43934, −7.970) in M units). V13 has no
+8 → 7.
+
+**Why tabula's graph is so sparse: a DEFECT IN TABULA'S METHOD, found in this comparison (post-seal):**
+- **(1) A bridging-segment bug.** manifold() concatenates successive iterates into ONE polyline per branch, so the
+  segment joining the last point of iterate k to the first of iterate k+1 is spurious.
+- **(2) First-hit only.** The tier-2 test examines only the FIRST hit per pair per ε. A spurious bridging-segment hit
+  can therefore mask every real crossing behind it.
+- A12 correctly refused such hits ("not refinable": the segment straddles iterates). Many first hits in tabula's
+  F5-R rows are exactly that. But no later hit was then examined.
+- **Consequence:** tabula's "no confirmed cycle" is a SENSITIVITY LIMITATION of its search, NOT evidence against
+  V13's SCC. Also: refinement at only 20 resampled seeds can miss a crossing on a strongly folded segment ("no
+  crossing after refinement").
+- The registered verdict ("tier 2 FOUND at F5-R; none at p1/p2") stands and AGREES with V13 on existence. V13 has no
+  in-D hyperbolic UPOs at p1/p2; tabula has only marginal trace ≈ 2 ones and no edges.
+
+**Proposed A13 (post-hoc and labelled as such; it does not replace the sealed analysis):**
+- Split the manifold polylines per iterate, so no bridging segments exist.
+- Examine EVERY hit, not just the first, and A12-confirm each at both ε.
+- Report the confirmed graph and its strongly connected components.
+- This independently tests V13's SCC with tabula's own manifold code.
+
+**Ring-proximity caution (V13's point; agreed and sharpened):**
+- tabula's tier-1 UPOs keep x ≥ 1.942, i.e. ≥ 0.02 from x_s = 1.92192.
+- V13 reports its connecting orbits reaching min x − 1 = 0.939 (x = 1.939, 0.017 from the ring). If that point is
+  near y ≈ 0, a ±0.025 box around it reaches x < x_s, where the CTC region starts, and the orbit would violate B9.
+  V13 is asked to check that its connecting-orbit D test is the BOX test, not a point test.
+- **In any write-up:** "inside D" here means within a few hundredths of a naked curvature singularity.
