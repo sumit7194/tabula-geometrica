@@ -811,3 +811,15 @@ horseshoe-candidate structure. tabula confirms 1 (UPO8 → UPO7, crossing (3.439
 - Not yet compared with V13. Exchange next: commit + sha first, then edges/SCCs mapped to V13 indices through section
   points. Registered caveat stands: any F5-R edge tabula lacks is to be read as resolution-limited first (margin
   ≥ 7.2e-4 vs mask h 5e-4).
+
+## A13 ↔ V13 F5-R EDGE COMPARISON (2026-10-18; both sealed: tabula 771a5af, V13 085ac13 / c4daaa7)
+- **Index map:** tabula UPO 0..6 → V13 8, 2, 4, 0, 3, 6, 7. V13 UPOs 1, 5 and 10 are not in tabula's tier-1 set.
+- **Edges:**
+  - Agree: 9 (2→2, 2→4, 3→3, 4→2, 4→4, 4→8, 6→3, 6→6, 8→2). The 2→2 and 4→4 crossings match to ≤1e-6.
+  - V13 only: 13. Read first as tabula sensitivity/resolution (registered).
+  - tabula only: 11, all on pairs V13 never tested.
+  - tabula Y / V13 N: 2 (2→6, 3→4). These are at DIFFERENT crossings, a p_x-mirror pair at (2.81133, ∓37.398 in M
+    units), offered to V13 for multiple-shooting checks.
+- **SCCs:** both contain the core {2, 3, 4, 6, 7, 8}. V13 adds 5 (not found by tabula); tabula adds 0 (untested by
+  V13). **The cycle structure is confirmed by two independent manifold codes.** C0 edges sent in tabula indices; V13's
+  C0 list is pending.
