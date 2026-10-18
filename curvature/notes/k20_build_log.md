@@ -785,3 +785,11 @@ horseshoe-candidate structure. tabula confirms 1 (UPO8 → UPO7, crossing (3.439
   - **NOT wired** into .claude/settings.json: that is a config change, and tabula does not change its settings on a
     relayed request. It waits for the user's direct OK. Until then the checker is run by hand before any C0-adjacent
     message.
+
+## C0 ADD-ON SEALED; HOLD for restart (2026-10-18 13:12)
+- results/197_analysis_C0.json, sha256 1eb357f8583f8bd8727a21354125f19ed640a93f43384faa09ecb2e331f6d1c4.
+  - INFO verdict: "tier-1 UPOs in D, no confirmed connection" (13 hyperbolic, 10 tier 1).
+  - It uses the same structure_stage, so it carries the same sensitivity defect (bridging segments plus first-hit
+    only). A13 will re-test it.
+- The C0 embargo in tools/EMBARGOES.json is lifted (both sides sealed).
+- HOLD (relayed by the user): no new runs until after the Mac restart. A13 is held.
