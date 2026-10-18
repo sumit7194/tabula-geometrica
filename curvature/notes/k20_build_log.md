@@ -735,3 +735,20 @@ horseshoe-candidate structure. tabula confirms 1 (UPO8 → UPO7, crossing (3.439
   near y ≈ 0, a ±0.025 box around it reaches x < x_s, where the CTC region starts, and the orbit would violate B9.
   V13 is asked to check that its connecting-orbit D test is the BOX test, not a point test.
 - **In any write-up:** "inside D" here means within a few hundredths of a naked curvature singularity.
+
+## A13 (POST-HOC, labelled; registered before it runs, AFTER both sides' edge results were seen and exchanged)
+- **Scope:** F5-R (19/20, 3) and C0, on the tier-1 UPOs of the sealed analyses, grouped by base-domain equatorial
+  component. Each component uses its own pilot tolerance.
+- **Method:**
+  - Skip any segment that joins two iterates (fixes the bridging bug).
+  - For each ordered UPO pair, A12-confirm up to the first 10 non-bridging hits (ordered by n_u + n_s) at each ε.
+  - An EDGE is confirmed iff the SAME refined crossing (within 1e-6, normalised) is confirmed at both ε, with angle
+    > 1e-3 and stable within 50%.
+  - Report the confirmed graph and its strongly connected components (self-loops count).
+- **Purpose:** an independent test of V13's SCC {2..8} with different manifold code and a different confirmation
+  method. It does not change the sealed verdicts.
+- **Note:** the C0 add-on (running) uses the same structure_stage, so it carries the same sensitivity defect. Its edge
+  graph is to be read through A13 as well.
+- **V13's B9 implementation (from The Bridge):** a 9-sample box test (centre, 4 corners, 4 edge midpoints), not a
+  full box. That plausibly explains the UPO9 D-test disagreement. V13 is re-testing every edge and UPO with a strict
+  box (21×21 grid plus local minimisation of g_φφ). tabula's dilated-mask test covers the full box (strict by ≤ h).

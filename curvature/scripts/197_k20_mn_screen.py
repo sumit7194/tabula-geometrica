@@ -1502,6 +1502,123 @@ def c3_supplement(workers=4, seed=197601):
     return out
 
 
+# ---------------------------------------------------------------- A13 (POST-HOC, labelled): corrected edge search
+
+A13_K = 10            # at most the first K non-bridging hits per pair are confirmed (ordered by n_u + n_s)
+A13_SAME = 1e-6       # the same crossing at both eps: refined points within this (normalised)
+
+
+def _hits_no_bridge(a_, b_):
+    """All transversal crossings between two manifold branches, skipping segments that join two iterates."""
+    out = []
+    for P_, an, ia, ib in _seg_intersections(a_["pts"], b_["pts"]):
+        if a_["iter"][ia] != a_["iter"][ia + 1] or b_["iter"][ib] != b_["iter"][ib + 1]:
+            continue
+        out.append((int(a_["iter"][ia] + b_["iter"][ib]), P_, an, ia, ib))
+    return sorted(out, key=lambda h: h[0])
+
+
+def a13_edges(lib, dom, pp, E, Lz, ups, tol, box, log, eps=(1e-6, 1e-7)):
+    """POST-HOC corrected tier-2 search on a list of tier-1 UPOs at one level: no bridging segments, every hit (up to
+    A13_K per pair) A12-confirmed, an edge confirmed iff the SAME refined crossing is confirmed at both eps with a
+    stable angle. Returns the edge list and the strongly connected components of the confirmed graph."""
+    from scipy.sparse import coo_matrix
+    from scipy.sparse.csgraph import connected_components
+    W = {}
+    for i, u in enumerate(ups):
+        for e_ in eps:
+            u2 = dict(u, evec=_evec(u))
+            W[(i, e_, "u")] = manifold(lib, dom, pp, E, Lz, u2, tol, False, e_, box=box)
+            W[(i, e_, "s")] = manifold(lib, dom, pp, E, Lz, u2, tol, True, e_, box=box)
+        log(f"  A13 manifolds UPO {i} (n={u['n']}) done")
+    nrm = lambda d: np.hypot(d[0] / (box["xb"] - box["xa"]), d[1] / (2 * box["pm"]))
+    edges = []
+    for i, ui in enumerate(ups):
+        for j, uj in enumerate(ups):
+            conf = {}
+            for e_ in eps:
+                Wu, Ws = W[(i, e_, "u")], W[(j, e_, "s")]
+                cands = []
+                for bu, a_ in enumerate(Wu or []):
+                    for bs, b_ in enumerate(Ws or []):
+                        for it, P_, an, ia, ib in _hits_no_bridge(a_, b_):
+                            if np.hypot(P_[0] - ui["z"][0], P_[1] - ui["z"][1]) < 10 * e_:
+                                continue
+                            cands.append((it, P_, an, ia, ib, bu, bs))
+                cands.sort(key=lambda c: c[0])
+                ok = []
+                for it, P_, an, ia, ib, bu, bs in cands[:A13_K]:
+                    cf = confirm_hit(lib, dom, pp, E, Lz, ui, uj, tol, Wu, Ws, (P_, an, ia, ib, bu, bs), box)
+                    if cf["confirmed"]:
+                        ok.append({"iter": it, "point": cf["point_refined"], "angle": cf["angle_refined"],
+                                   "chords": cf["chords"]})
+                conf[e_] = {"n_hits": len(cands), "n_tried": min(len(cands), A13_K), "confirmed": ok}
+            same = [(a, b) for a in conf[eps[0]]["confirmed"] for b in conf[eps[1]]["confirmed"]
+                    if nrm(np.array(a["point"]) - np.array(b["point"])) < A13_SAME
+                    and abs(a["angle"] - b["angle"]) <= 0.5 * max(a["angle"], b["angle"]) and a["angle"] > 1e-3]
+            e = {"from": i, "to": j, "from_z": ui["z"], "to_z": uj["z"], "per_eps": conf,
+                 "edge_confirmed": bool(same), "crossing": same[0][0]["point"] if same else None,
+                 "angle": same[0][0]["angle"] if same else None}
+            edges.append(e)
+            log(f"  A13 {i}->{j}: hits {conf[eps[0]]['n_hits']}/{conf[eps[1]]['n_hits']}, confirmed "
+                f"{len(conf[eps[0]]['confirmed'])}/{len(conf[eps[1]]['confirmed'])} -> EDGE {e['edge_confirmed']} {e['crossing']}")
+    n = len(ups)
+    rows = [(e["from"], e["to"]) for e in edges if e["edge_confirmed"]]
+    if rows:
+        A = coo_matrix((np.ones(len(rows)), ([r[0] for r in rows], [r[1] for r in rows])), shape=(n, n))
+        nc, lab = connected_components(A, directed=True, connection="strong")
+        sccs = [sorted(np.flatnonzero(lab == c).tolist()) for c in range(nc)]
+        sccs = [c for c in sccs if len(c) > 1 or any((c[0], c[0]) == r for r in rows)]
+    else:
+        sccs = []
+    return edges, sccs
+
+
+def a13_run(workers=4):
+    """POST-HOC A13 at F5-R (19/20, 3) and C0 (P0 at (0.95, 3)): tier-1 UPOs from the sealed analyses."""
+    import hashlib
+    logf = open(RESULTS / "197_a13.log", "a")
+
+    def log(m):
+        print(m, flush=True); logf.write(m + "\n"); logf.flush()
+    lib = _lib()
+    out = {"label": "POST-HOC A13 (corrected edge search; does not replace the sealed analysis)"}
+    for tag, point, fn in (("F5R", "F5R", "197_analysis_F5R.json"), ("C0", "P0", "197_analysis_C0.json")):
+        if not (RESULTS / fn).exists():
+            log(f"{tag}: {fn} missing, skipped"); continue
+        d = json.load(open(RESULTS / fn))
+        pp = point_params(point)
+        dom = build_domain(pp)
+        t1 = [h for h in d["tier1"] if abs(h["E"] - 0.95) < 1e-12 and abs(h["Lz"] - 3.0) < 1e-12]
+        ups = [{"n": h["n"], "z": h["z"], "pts": h["pts"], "trace": h["trace"],
+                "eig": [complex(e.replace("(", "").replace(")", "")) for e in h["eig"]],
+                "evec": [[complex(c.replace("(", "").replace(")", "")) for c in r] for r in h["evec"]]} for h in t1]
+        bnd, _ = bound_pair(0.95, 3.0, pp)
+        # each UPO's box: the base-domain equatorial component containing its section point
+        res_edges, res_sccs = [], {}
+        for v in bnd:
+            xa, xb = float(XG[v[2]]), float(XG[v[3]])
+            grp = [u for u in ups if xa <= u["z"][0] <= xb]
+            if not grp:
+                continue
+            box = refined_box(pp, 0.95, 3.0, xa, xb)
+            tol = 1e-12                                    # default; replaced by the component's own pilot tolerance
+            for ext in d.get("extension_A10", []):
+                if abs(ext["E"] - 0.95) < 1e-12 and abs(ext["Lz"] - 3.0) < 1e-12 and abs(ext["x"][0] - xa) < 0.05:
+                    tol = ext["tol"]
+            if tag == "C0":
+                tol = load_level("C0_inner" if xa < 5 else "C0_outer")["tol"]
+            log(f"{tag}: component x [{xa:.4f}, {xb:.4f}] with {len(grp)} tier-1 UPOs")
+            edges, sccs = a13_edges(lib, dom, pp, 0.95, 3.0, grp, tol, box, log)
+            res_edges.append({"component": [xa, xb], "upos": [u["z"] for u in grp], "edges": edges, "sccs": sccs})
+            log(f"{tag}: component SCCs (confirmed graph): {sccs}")
+        out[tag] = res_edges
+    fn_ = RESULTS / "197_a13.json"
+    fn_.write_text(json.dumps(out, indent=1, default=_jsonable))
+    log(f"SEALED {fn_.name} sha256 {hashlib.sha256(fn_.read_bytes()).hexdigest()}")
+    return out
+
+
 def cgates(workers=4):
     import time
     from scipy.stats import binom, beta as cp
@@ -1644,6 +1761,7 @@ if __name__ == "__main__":
     ap.add_argument("--analyze", nargs="*")
     ap.add_argument("--analyze-c0", action="store_true")
     ap.add_argument("--c3-supplement", action="store_true")
+    ap.add_argument("--a13", action="store_true")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--selftest-pilot", action="store_true")
     a = ap.parse_args()
@@ -1677,3 +1795,5 @@ if __name__ == "__main__":
         analyze_c0(a.workers)
     if a.c3_supplement:
         c3_supplement(a.workers)
+    if a.a13:
+        a13_run(a.workers)
