@@ -823,3 +823,19 @@ horseshoe-candidate structure. tabula confirms 1 (UPO8 → UPO7, crossing (3.439
 - **SCCs:** both contain the core {2, 3, 4, 6, 7, 8}. V13 adds 5 (not found by tabula); tabula adds 0 (untested by
   V13). **The cycle structure is confirmed by two independent manifold codes.** C0 edges sent in tabula indices; V13's
   C0 list is pending.
+
+## A13 ↔ V13 C0 EDGE COMPARISON (2026-10-18; V13 A10 085ac13, file v13_s7_C0_edges_bridge.txt)
+- **Map** (re-derived independently, agreeing with V13's): tabula → V13 0→2, 1→4, 3→0, 5→3, 6→1. tabula 2, 4 and 7
+  have no V13 match. V13 5–10 are not in tabula's tier-1 set.
+- **Edges on mapped pairs:**
+  - agree 5 (1→1, 3→3, 2→4, 3→4, 4→1); tabula-only 7, all on pairs V13 did not test; V13-only 11;
+  - **0 Y-vs-N contradictions.**
+  - Shared SCC core {1, 3, 4} (V13 indices).
+- **Same orbit or not** (scripts/197d_crossing_orbit_match.py: tabula's crossing iterated ≤12 steps either way, closest
+  approach to V13's):
+  - 2→4: SAME heteroclinic orbit (P³ lands on V13's to 2.8e-6, i.e. their rounding);
+  - 3→4 and 4→1: 4.2e-3 at P^±1, inconclusive;
+  - 1→1 and 3→3: 0.37, DIFFERENT homoclinic orbits.
+  So C0 agreement is in edge existence, with one crossing confirmed identical.
+- **Combined (both points):** two independent codes find a strongly connected core of in-D hyperbolic UPOs with
+  transversal connections at F5-R and at C0. Wording for V13 FINDINGS was proposed, with the ring-proximity caveat.
