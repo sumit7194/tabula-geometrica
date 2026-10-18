@@ -1,0 +1,14 @@
+{
+  "_doc": "tabula's active blinding embargoes (outbound). tools/blind_check.py must pass on every outgoing cross-session message. Lift an embargo only when its seal condition is met; record the commit. Adapted from TheBridge/tools (2026-10-18, fleet practice 3).",
+  "embargoes": [
+    {
+      "id": "tabula-C0-addon-to-bridge",
+      "recipient": "*",
+      "until": "tabula's informational C0 add-on SEALED (197_analysis_C0.json committed + sha256 sent); V13 C0 is already sealed (267035d / 085ac13)",
+      "opened": "2026-10-18",
+      "patterns": ["\\bC0\\b[^.\\n]{0,80}(edge|SCC|self-loop|UPO|tier|confirm|cycle|graph|crossing|hyperbolic|in[_ -]?D)",
+                   "(edge|SCC|self-loop|UPO|tier|confirm|cycle|graph|crossing|hyperbolic)[^.\\n]{0,80}\\bC0\\b",
+                   "197_analysis_C0[^.\\n]{0,40}(tier|edge|VERDICT)"]
+    }
+  ]
+}

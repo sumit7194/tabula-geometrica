@@ -775,3 +775,13 @@ horseshoe-candidate structure. tabula confirms 1 (UPO8 → UPO7, crossing (3.439
 - **Second blinding deviation (by class; content not restated):** V13's recheck message included C0 edge and SCC
   information while tabula's C0 add-on was still running and unsealed. Mitigation as before: tabula's C0 procedure
   (structure_stage, 87ed331; A13, e7f38be) was committed before the message.
+- **Blinding guard (fleet practice 3, relayed 2026-10-18).**
+  - tabula has its own copy in SpaceTime/tools/: EMBARGOES.json, blind_check.py and blind_hook.sh, adapted from
+    TheBridge/tools.
+  - Active embargo: "tabula-C0-addon-to-bridge", recipient "*" (so it also catches socket-path addresses), until the
+    C0 add-on is sealed.
+  - Tested: an embargoed message is blocked (checker exit 1, hook exit 2); a clean one passes; a uds-addressed one is
+    blocked.
+  - **NOT wired** into .claude/settings.json: that is a config change, and tabula does not change its settings on a
+    relayed request. It waits for the user's direct OK. Until then the checker is run by hand before any C0-adjacent
+    message.
