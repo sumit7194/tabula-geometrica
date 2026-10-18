@@ -882,3 +882,16 @@ reproducible in tabula's kernel at all?
 **Not tested:** transversality (V13's angles are quoted only) and V13 UPOs outside tabula's tier-1 set (their edges
 are still tested, against V13's UPO points). One process, 1 core, post-hoc and labelled; registered verdicts are
 unchanged.
+
+## A14 RUN 1 = ABSTAIN (validity gate failed), plus FIX ROUND 1 (registered after seeing run 1, before running it)
+- Run 1 (results/197_a14_run1_ABSTAIN.json, sha256 96475178…ad0ab as sealed at write, file renamed): p95(POS) 2.05e-3
+  vs p5(NEG) 1.89e-2. The gate needs p95 < p5/10 = 1.89e-3, which FAILED by 8%, so every V13 edge is ABSTAIN as
+  registered. The threshold was not moved.
+- **Diagnosis: CENSORING at NMAX = 15.** 19/51 V13 points, and the worst POS controls, reach their closest approach
+  AT the cap, so the approach is cut off before the orbit has settled onto the UPO. This is silent_nulls 18 (check the
+  fraction at the cap first), and the pre-registration omitted that check. Information only, not classified: every
+  V13 point has s ≤ 1.13e-3 (below p5(NEG)); 5 leave D_B9 before the argmin; 0 fail the base domain.
+- **Fix round 1 (the only one):**
+  - NMAX 15 → 30, which is A13's own manifold depth: a value fixed by the existing method, not by this data.
+  - A censoring guard: if > 25% of POS argmins sit at the cap, ABSTAIN.
+  Everything else is unchanged (controls, seed, threshold rule, classes). If run 2 also fails, A14 closes as ABSTAIN.
