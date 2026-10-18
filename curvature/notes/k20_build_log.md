@@ -839,3 +839,10 @@ horseshoe-candidate structure. tabula confirms 1 (UPO8 → UPO7, crossing (3.439
   So C0 agreement is in edge existence, with one crossing confirmed identical.
 - **Combined (both points):** two independent codes find a strongly connected core of in-D hyperbolic UPOs with
   transversal connections at F5-R and at C0. Wording for V13 FINDINGS was proposed, with the ring-proximity caveat.
+
+## QUEUED (not registered; for when the user is back)
+- Targeted A12 check: seed tabula's confirmation at V13's 13 F5-R-only and 11 C0-only crossings, with mask h = 5e-4 and
+  1e-4 side by side. This separates search-cap misses from mask-resolution drops. It must be pre-registered before any
+  run.
+- No overnight launch (2026-10-18): nothing registered was ready, and the Bridge's premise of a pre-stated
+  h = 1e-4 rerun was corrected; the Bridge accepted.
