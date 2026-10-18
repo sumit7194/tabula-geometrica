@@ -752,3 +752,12 @@ horseshoe-candidate structure. tabula confirms 1 (UPO8 → UPO7, crossing (3.439
 - **V13's B9 implementation (from The Bridge):** a 9-sample box test (centre, 4 corners, 4 edge midpoints), not a
   full box. That plausibly explains the UPO9 D-test disagreement. V13 is re-testing every edge and UPO with a strict
   box (21×21 grid plus local minimisation of g_φφ). tabula's dilated-mask test covers the full box (strict by ≤ h).
+- **p1 disagreement ADJUDICATED by V13 (post-hoc, labelled; the registered verdicts are unchanged on both sides).**
+  V13's orbit 55 is LIKELY REGULAR:
+  - λ_max decays like ln t / t (4.9e-5 at 200k returns, like a regular control);
+  - its section is one smooth curve (D₂ 1.002), ν = 0.49849, near the 1/2 resonance;
+  - its windowed 0-1 K swings from −0.041 to +0.028, and V13's AND rule fires on 46/100 windows of this regular orbit;
+  - V13's Kerr-null A2 threshold (sd 0.0020) is 8× narrower than the regular-orbit K scatter at p1 (sd 0.0168).
+  The p1 region-criterion FAIL stands as registered, with this explanation attached. tabula's 0/200 is the correct
+  reading at p1, and the earlier diagnosis (a region tabula reads REGULAR with margin; a negative A2 threshold) is
+  confirmed.
