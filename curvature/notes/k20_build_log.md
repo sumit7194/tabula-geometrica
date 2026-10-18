@@ -761,3 +761,17 @@ horseshoe-candidate structure. tabula confirms 1 (UPO8 → UPO7, crossing (3.439
   The p1 region-criterion FAIL stands as registered, with this explanation attached. tabula's 0/200 is the correct
   reading at p1, and the earlier diagnosis (a region tabula reads REGULAR with margin; a negative A2 threshold) is
   confirmed.
+- **V13 strict-box recheck (post-hoc, labelled):** a full ±0.025 box (21×21 plus local minimisation along densely
+  sampled orbits), controls passing.
+  - All F5-R edges and in-D UPOs survive; the SCC is unchanged.
+  - **The F5-R SCC's margin to the CTC is ≥ 7.2e-4,** only just above tabula's mask resolution (strict by
+    ≤ 5e-4). Registered expectation for A13, stated before it runs: tabula's stricter-by-≤h mask may drop some
+    F5-R connections on RESOLUTION grounds. Any such drop is to be reported as resolution-limited, not as a
+    disagreement.
+  - UPO9 is strictly inside by 5.1e-5, below tabula's resolution. So tabula's "leaves" is within resolution, not a
+    contradiction.
+  - Ring distance corrected by V13: min x (1.9392 at F5-R) occurs at y ≈ ±0.095, so the distance to the ring point is
+    ~0.096 (0.017 was an x-difference only).
+- **Second blinding deviation (by class; content not restated):** V13's recheck message included C0 edge and SCC
+  information while tabula's C0 add-on was still running and unsealed. Mitigation as before: tabula's C0 procedure
+  (structure_stage, 87ed331; A13, e7f38be) was committed before the message.
