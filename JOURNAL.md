@@ -11,6 +11,28 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-10-18 — K20: independent Manko–Novikov chaotic-sea screen for quantum's horseshoe proof (script 197)
+- **Built** an independent screen (blind against The Bridge's V13, sealed by commit + sha256 before every exchange):
+  - an adaptive Dormand–Prince C kernel generated from a sympy metric, with an exact tangent and Hénon section crossings;
+  - an ergosurface regularisation identity (ρ²B² − 4k²C² = k²AQ) that removes cancellation at A = 0;
+  - the domain D_B9 (box-inflated g_φφ > 0, x − 1 ≥ 0.05, R ≥ 0.5);
+  - FTLE plateau and correlation-dimension indicators joined by an AND rule, with thresholds from a pooled Kerr null;
+  - a two-tier saddle-in-D verdict.
+  Pre-reg plus amendments A1–A13 are in `curvature/notes/k20_mn_screen_prereg.md` and `k20_build_log.md`.
+- **Finding (physics):** a naked equatorial ring singularity at B = A = 0 (P0 x_s 1.9298, F5-R 1.9219; Kretschmann
+  ∝ d⁻⁶, confirmed by the Bridge). We found no mention of it in the literature.
+- **Counted screen:** 0/200 CHAOTIC at all 9 counted levels, agreeing with V13. The p1 disagreement was adjudicated
+  as V13's orbit being regular (near the 1/2 resonance).
+- **Saddle-in-D (A13, post-hoc, corrected edge search; sealed 771a5af):**
+  - F5-R inner SCC is all 7 tier-1 UPOs; C0 inner SCC is 7 of 8. Outer components have no edges.
+  - Against V13: the shared SCC cores are F5-R {2,3,4,6,7,8} and C0 {1,3,4} (V13 indices), with zero Y-vs-N
+    contradictions.
+  - Same-crossing confirmations: F5-R 2→2 and 4→4; C0 2→4 (up to P³). The C0 self-loops are different homoclinic
+    orbits.
+  - Two independent codes find a horseshoe-candidate core inside D, within ~0.1 of the naked ring.
+- **Mechanisms added:** a blinding guard (tools/EMBARGOES.json, blind_check.py, PreToolUse hook on SendMessage, wired
+  with the user's OK).
+
 ## 2026-10-14 — Bridge audit of the §196 deep-v2 write-up (aff98be, written by a Gemini session)
 - `--analyze-deep2` re-run: the report is byte-identical, so the verdict MEGNO'S LIMIT stands.
 - Corrected in `curvature/notes/established_indicator_plan.md` (CORRECTION AND AUDIT block): four wrong pilot-drift values (L2 TS/Kerr, L3 TS/Kerr; all still far below 1e-9). The table's Fisher p values are unadjusted. The commit message's gate-p range omits 2.3e-17.

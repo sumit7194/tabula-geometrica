@@ -1233,6 +1233,14 @@ results in `curvature/notes/lab_notebook.md`.
   1e-9 cut (a71019e): validation ALL PASS unchanged (V1 0/170), TS near-separatrix still 0 CHAOTIC; every excluded
   orbit a would-be ABSTAIN plunger. Notes:
   curvature/notes/established_indicator_plan.md; code: scripts/196_chaos_indicators.py.
+- **K20 — MN CHAOTIC-SEA SCREEN for quantum's horseshoe proof (script 197, 2026-10-18), with The Bridge's V13 blind.**
+  An independent DOPRI5 C-kernel screen (regularised at the ergosurface: ρ²B² − 4k²C² = k²AQ) of Manko–Novikov
+  geodesics at p1, p2, F5-R and the C0 control. NEW: a naked equatorial ring singularity at B = A = 0 (Kretschmann
+  ∝ d⁻⁶; not in the literature we found). Counted screen 0/200 CHAOTIC at all 9 levels, agreeing with V13. Saddle-in-D:
+  A13 (post-hoc corrected edge search, sealed 771a5af) gives F5-R SCC of all 7 tier-1 UPOs and C0 SCC of 7/8. Shared
+  cores with V13 are F5-R {2,3,4,6,7,8} and C0 {1,3,4}, with 0 contradictions; a few crossings are identical orbits.
+  Caveat: "inside D" = within ~0.1 of the naked ring. Notes: curvature/notes/k20_build_log.md (A1–A13, all exchanges).
+  Blinding guard in tools/ (hook wired). NOT in verify.sh.
 - Remaining curvature queue (RE-CHECKED 2026-09-23). DONE this session: the C anomaly (§191/191b) and the
   well-separated Carter pair (§192). Open: WHY C's angular shift is nearly orbit-constant (hypothesis: close to a
   function of Kerr's conserved quantities — test by scoring dTheta with the within/total statistic); why KEEP2's
