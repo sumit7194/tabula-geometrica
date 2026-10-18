@@ -793,3 +793,21 @@ horseshoe-candidate structure. tabula confirms 1 (UPO8 → UPO7, crossing (3.439
     only). A13 will re-test it.
 - The C0 embargo in tools/EMBARGOES.json is lifted (both sides sealed).
 - HOLD (relayed by the user): no new runs until after the Mac restart. A13 is held.
+
+## A13 RESULT, SEALED (2026-10-18, after the restart)
+- results/197_a13.json, sha256 c2343e2456f1fed7aca62fe873ad2b91ee61145d37f41e494e06f6c09e4640c9. Serial run, exit 0,
+  peak footprint 623 MB. Post-hoc, labelled (A13 rules: no bridging segments, ≤10 hits per pair, the same refined
+  crossing at both ε, SCC of the confirmed graph).
+- **F5-R inner component** (x ∈ [1.922, 5.030]): 7 tier-1 UPOs, **22 confirmed edges, one SCC = all 7 UPOs.**
+  Transversality angles 0.33–1.24 rad (≫ the 1e-3 floor).
+- **C0 inner component** (x ∈ [1.930, 4.976]): 8 tier-1 UPOs, **27 confirmed edges, one SCC of 7 UPOs** {0,1,2,3,5,6,7}.
+  UPO 4 (section point x 3.3631, p_x 0) has out-edges (→2, →6) but no confirmed in-edge, so it is outside the SCC.
+  This **supersedes the C0 add-on's "no confirmed connection"**: that INFO verdict was the sensitivity defect A13 was
+  built to remove, as pre-stated.
+- **Outer components** (F5-R x > 5.45, C0 x > 5.57): 0 confirmed edges, no SCC, at both points.
+- **Defect found on reading (not fixed, not affecting the inner results):** the F5-R outer component lists 4 UPOs that
+  are 2 distinct orbits each listed twice (section points 6.15212/0 and 11.056215/0.066995). UPO de-duplication in
+  that component did not merge them. It has 0 edges either way, so the SCC result is unchanged.
+- Not yet compared with V13. Exchange next: commit + sha first, then edges/SCCs mapped to V13 indices through section
+  points. Registered caveat stands: any F5-R edge tabula lacks is to be read as resolution-limited first (margin
+  ≥ 7.2e-4 vs mask h 5e-4).
