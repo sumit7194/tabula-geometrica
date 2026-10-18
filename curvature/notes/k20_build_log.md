@@ -673,3 +673,27 @@ e6a21746557ec961a63397c782eb931e9033907c4242138c96e9908de4cfd7e5.
     orbits whose whole orbits stay in D_B9, with one confirmed transversal heteroclinic connection inside D.
   - That is the measure-zero-saddle scenario quantum anticipated: evidence of a chaotic invariant set inside D, but
     not yet a closed cycle.
+
+## COUNTED-SCREEN EXCHANGE with V13 (2026-10-18; both sealed: tabula 41d57be, V13 c365279)
+Shared levels. V13 has 60 orbits per level; tabula has 200. Both use Clopper–Pearson 95% (two-sided). Times are in
+each point's own M units (tabula's M = 1 values × M).
+
+| point (shared level) | tabula CHAOTIC | V13 CHAOTIC | CIs | return-time median: tabula / V13 | chaotic-cell Jaccard |
+|---|---|---|---|---|---|
+| p1 (37/40, 29/10) | 0/200 [0, 0.018] | 1/60 [0.0004, 0.089] | overlap → AGREE | 315.0 / 319.5 → AGREE (×1.01) | 0 (V13 331 cells, tabula 0) → **FAILS** the ≥ 0.5 criterion |
+| p2 (37/40, 3) | 0/200 [0, 0.018] | 0/60 [0, 0.060] | AGREE | 752.5 / 753.6 → AGREE | both empty → AGREE |
+| F5-R (19/20, 3) | 0/200 [0, 0.018] | 0/60 [0, 0.060] | AGREE | 13676 / 14006 → AGREE (×1.02) | both empty → AGREE |
+
+- **Boxes and grids are identical** after the M scaling: x edges to < 1e-11, and p_x half-width ×M = 0.53133, 0.96890
+  and 10.37435 on both sides.
+- **All-read coverage:** tabula 28228 / 27973 / 24580 cells (200 orbits per level); V13 12855 / 13095 / 11898 (60
+  orbits). V13 published only the count of read cells, so all-read overlap is NOT computable, only compared by count.
+- **The p1 disagreement, diagnosed (post-seal, from sealed data; nothing re-run):**
+  - V13's single CHAOTIC orbit (i = 55, x0 = 6.8700; A1 −6.41 vs threshold −7.21; A2 K = 0.0275 vs threshold
+    −0.0025) occupies 331 cells.
+  - One tabula orbit (x0 = 5.2558) covers 97% of those cells, i.e. the same region. It reads **REGULAR** with margin:
+    λ₂ 5.5e-5 vs p99 9.6e-5; ρλ 0.27 vs 0.46; D₂ 1.02 / 1.01 (a curve).
+  - V13's call rests on a 0-1 test K of 0.0275 against a NEGATIVE threshold. Regular orbits' K fluctuates by a few
+    hundredths around 0, so the threshold plausibly lies inside regular-orbit noise. Reported to The Bridge as theirs
+    to adjudicate. tabula's rules are unchanged.
+- **Own levels (tabula only):** 0/200 at all 6. V13 has no counterpart.
