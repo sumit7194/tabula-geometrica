@@ -623,3 +623,53 @@ Launch geometry from V13: x offsets ±0.2–4% of x_c, p_x = 0. Base domain, 1e-
 - **Observation (no rule change):** island orbits mostly read INDETERMINATE, not REGULAR. "REGULAR" needs BOTH arms
   below the Kerr p95, and island D₂ ≈ 1.07–1.10 sits at the D₂A p95 (1.084). So CHAOTIC is the operative verdict;
   REGULAR counts understate regularity and should not be read as "fraction regular".
+
+## OFFICIAL COUNTED ANALYSIS (sealed 2026-10-18; prereg 9aca9a4 + A1..A12; results/197_analysis_{p1,p2,F5R}.json)
+sha256: p1 5623aa8b45f4bbe601e5741f0c7bde377ebc5d63000eb45e233fd01245dbd553 · p2
+928f0ce5ff54281ce896f6288a438a29346015d818029078f57cef332f1dbe0f · F5-R
+e6a21746557ec961a63397c782eb931e9033907c4242138c96e9908de4cfd7e5.
+
+**Sampled-orbit screen (B9 reading, 1e-9, A9 exact boxes, A11 guard):**
+- CHAOTIC is 0/200 at EVERY screened level of every point, CP95 upper 1.8%.
+  - p1: own (0.975, 3.7), own (0.95, 3.3), shared (37/40, 29/10).
+  - p2: own (0.975, 3.75), own (0.95, 3.3), shared (37/40, 3).
+  - F5-R: own (0.96, 3.4), own (0.945, 3.15), shared (19/20, 3).
+- n_analysed is 200/200 everywhere, with no accuracy exclusions and no pilot floor_hit. No candidate region exists.
+- The A11 guard fired on 1 orbit at p1 (0.95, 3.3) and 1 at F5-R (0.945, 3.15); it reclassified 1 each.
+- C1 (pooled held-out Kerr) passes: p1 0/550, p2 0/400, F5-R 0/600.
+- **Predictions:** p1 CHAOTIC ≤ 5%: HELD (0%). p2 ≤ 10%: HELD (0%). F5-R "candidate region inside D": NOT
+  supported by sampled orbits (0%), as its structural premise had already failed (§2 log).
+
+**Saddle-in-D (A10/A10.1/A12):**
+- **p1:** 42 hyperbolic UPOs.
+  - Most come from the A10 extension into near-horizon components (x 1.005–2.77), and those leave D_B9 or sit at
+    R² ≈ 0.14 < 0.25.
+  - Tier 1: 2 period-2 UPOs at the shared level, with trace = 2.000 (marginal, resonance saddles).
+  - No confirmed connection.
+  - VERDICT (registered wording): "tier-1 UPOs in D but no transversal connection in D found within the search".
+- **p2:** 1 hyperbolic UPO (period 3, trace 2.0005, marginal), in D; no connection. Same verdict wording.
+- **F5-R:** 29 hyperbolic UPOs, 16 in D_B9.
+  - Most tier-1 orbits are INNER-region UPOs found only by the A10 extension: x ≥ ~1.94, min x − 1 ≈ 0.94–1.15,
+    R² ≥ 2.78.
+  - 134 graph rows; 58 hits at ε = 1e-6; 5 A12-confirmed at ε = 1e-6; **1 transversal and confirmed at BOTH ε → TIER
+    2.** VERDICT: "saddle-in-D candidates FOUND (tier 2)".
+  - **The edge:** level (19/20, 3), heteroclinic, from period-1 A (3.602745, 0) (trace 8.11, closure 5e-13) to
+    period-3 B (3.348209, 0) (trace 32.6, closure 2.4e-11).
+    - Refined crossing (x, p_x) = (3.4393518, −0.0895437), stable to ~5e-9 between ε = 1e-6 and 1e-7.
+    - Angle 1.24 rad; iterates (n_u, n_s) = (5, 3) at 1e-6 and (6, 4) at 1e-7.
+    - Refined chords 3.9e-5 and 5.7e-5.
+  - **CAVEAT, reported with the verdict:**
+    - The CONFIRMED graph has NO CYCLE (no B → A edge and no confirmed homoclinic). A single one-way heteroclinic
+      edge is not by itself a horseshoe; symbolic dynamics needs a cycle. The registered tier-2 definition (A10.1)
+      is weaker than that.
+    - Near misses: the period-1 pair D±(3.641936, ±0.067821) (trace −18.05) has mutual edges D+ → D− and D− → D+
+      confirmed at ε = 1e-6 but NOT at 1e-7. Such a 2-cycle would be a horseshoe candidate. The registered rule
+      rejects it, and it is listed for quantum and V13 as the first thing to check.
+    - A homoclinic hit on the period-1 orbit (3.290238, 0) at (0.945, 3.15) is rejected: the angle changes from
+      0.52 to 0.04 between ε, so the two runs found different crossings.
+- **Reading:**
+  - The sampled-orbit screen finds NO chaotic sea inside D at any of the three points.
+  - F5-R's inner region, which every sampled chaotic orbit leaves (C0/A7), nevertheless contains hyperbolic periodic
+    orbits whose whole orbits stay in D_B9, with one confirmed transversal heteroclinic connection inside D.
+  - That is the measure-zero-saddle scenario quantum anticipated: evidence of a chaotic invariant set inside D, but
+    not yet a closed cycle.
