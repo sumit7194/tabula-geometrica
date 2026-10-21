@@ -161,3 +161,7 @@ Found by the toy-size smoke runs (results/198_smoke, deleted after testing) and 
   `bash <path>/198_launch.sh`.
 - **Worst case after a power loss:** ≤ 30 min of integration per running job (3 in parallel), plus a relaunch. The
   run itself needs no clean-up, because the stale lock is ignored.
+
+## LAUNCHED 2026-10-21 21:59:07 IST
+On the user's go, relayed by The Bridge, which ran the unchanged command. Launcher pid 75015, detached (ppid 1).
+Attempt 1, phase pilot1, 0/12 jobs, no errors (checked at +1 min). Code at cd3ec0a. Expected 30–45 h.
