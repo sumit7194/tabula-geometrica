@@ -96,3 +96,17 @@ For each p ∈ {4/5, 3/5}:
   (stage, jobs done/total, ETA, errors).
 - Final: `results/198_summary.json` + `results/198_REPORT.md` (plain-language verdict for the user).
 - A failed job is recorded in status and the run continues. Pilot REFUSE means that job is UNREADABLE.
+
+## Amendment 1 (2026-10-21, before any scan code ran; found while reading §196's code to reuse it)
+- **Kerr gate alpha:** the text above says "p < 0.01 … (the §196 deep-v2 gate)". deep-v2 actually used
+  P(X ≥ k | n, 0.03) < **0.05** (`KERR_GATE_ALPHA`). The claimed equivalence was wrong. To keep it TRUE, the gate is
+  set to deep-v2's: p < 0.05 makes the level UNREADABLE. This is the stricter-for-Kerr choice (it trips more
+  easily), so it can only remove levels, never add a LAYER.
+- **"Matched Kerr window or region has 0 CHAOTIC"** is implemented as: the Kerr LEVEL has 0 accepted CHAOTIC orbits
+  across all its stages. Kerr's windows are chosen from Kerr's own ν, so a window-by-window match is not
+  well defined. The level-wide condition is stricter and simpler.
+- **Δν (descriptive) is dropped:** `sections=True` records radial-maximum COUNTS, not times, so a half-split ν is
+  unavailable. It was descriptive only. ν itself is unaffected.
+- **Pilot granularity:** one `pilot_dt_v2` per (system, level) at T = 3e4 serves stages 1–2. A separate pilot at
+  T = 1e5 runs on each stage-3 seed set. The confirm stage uses half that dt. The per-orbit 1e-9 acceptance applies
+  everywhere regardless.
