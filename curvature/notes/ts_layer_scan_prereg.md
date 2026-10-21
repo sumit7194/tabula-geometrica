@@ -110,3 +110,29 @@ For each p ∈ {4/5, 3/5}:
 - **Pilot granularity:** one `pilot_dt_v2` per (system, level) at T = 3e4 serves stages 1–2. A separate pilot at
   T = 1e5 runs on each stage-3 seed set. The confirm stage uses half that dt. The per-orbit 1e-9 acceptance applies
   everywhere regardless.
+
+## Amendment 2 (2026-10-21, after smoke testing, BEFORE any launch; no real-scan data exists)
+Found by the toy-size smoke runs (results/198_smoke, deleted after testing) and the forced-path tests:
+- **Duplicate windows:** two rationals bracketed by the same seed pair gave identical stage-2 windows (wasted
+  compute). A rational whose bracket equals an already-picked window is skipped, and the next-lowest q is taken.
+- **Two implementation-vs-text mismatches, fixed TO the text (silent_nulls 42):**
+  - the confirm cap applied per stage; the text says 40 per LEVEL in seed order, which the code now does;
+  - the cluster test counted only stage-2/3 orbits inside a window; the text says "seeds lie in one stage-2 window",
+    any stage, which the code now does.
+  Both were caught because the forced-path test returned a different LAYER set than the text implies.
+- **Test-only switch** `TABULA198_SMOKE_FORCE` (=1 forces TS2 calls to CHAOTIC; =all also Kerr). It raises unless
+  the output directory is results/198_smoke. Verified: the TS2 force gives LAYER with Kerr 0; the all force trips
+  the Kerr gate (p ≈ 4e-28) and gives UNREADABLE, never LAYER; outside smoke it refuses.
+- **Memory:**
+  - building a spacetime costs about 0.5 GB that Python never returns;
+  - the parent therefore never builds one (geometry and seed lines run in a throwaway child);
+  - pool workers are recycled after every job (`maxtasksperchild=1`).
+  Measured smoke peak 2229 → 1540 MB (whole tree, MEM+CMPRS); the full run is expected at ~1.9 GB.
+- **Launcher** `scripts/198_launch.sh`:
+  - os.setsid detach; caffeinate; nice 10; watch_footprint (MAXMB 3000, MINDISK 5, MINFREEPCT 10);
+  - each attempt runs in its own process group, which is killed whole before a retry;
+  - up to 6 attempts with a 5, 10, 15… minute backoff, resuming from finished jobs.
+  Tested: killing only the watchdog mid-run left no orphans; attempt 2 resumed the one unfinished job and finished
+  DONE. A first version would have left the scan running unwatched to race the next attempt (caught by this test).
+- **Runtime estimate:** about 3.7e8 orbit-τ at ~1 ms per orbit-τ (measured under today's load average ~30 on 10
+  cores) gives ~34 h on 3 workers. The stated range is 30–45 h; the live ETA is in results/198_status.json.
