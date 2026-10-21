@@ -163,11 +163,13 @@ CHECK = (1e2, 3e2, 1e3, 3e3, 1e4, 3e4, 1e5, 1.5e5)
 NVEC = 4                                   # two independent random pairs (Breiter: initial-vector dependence)
 
 
-def indicators(mdl, z0, T, dt, seed, series_dt=None, stop_when_dead=False):
+def indicators(mdl, z0, T, dt, seed, series_dt=None, stop_when_dead=False, sections=False):
     """RK4 on (z, w_1..w_4), w' = J(z) w exactly (complex step). Each vector is renormalised every step.
     MEGNO (Cincotta & Simo 2000): Y(t) = (2/t) int_0^t s*lam(s) ds with lam = w.Jw/|w|^2; <Y>(t) = (1/t) int_0^t Y.
     FLI = max over s <= t of the cumulative log-growth. SALI_pair = min(|w_a + w_b|, |w_a - w_b|) for normalised w.
-    Returns, per checkpoint t <= T: <Y>, FLI and SALI for both pairs (NaN after a plunge), plus t_plunge and H drift."""
+    Returns, per checkpoint t <= T: <Y>, FLI and SALI for both pairs (NaN after a plunge), plus t_plunge and H drift.
+    sections=True (§198) also records each orbit's upward y = 0 crossings with p_y > 0 as (t, x, p_x), linearly
+    interpolated inside the step, and counts radial maxima (p_x from + to -), for rotation numbers."""
     G = z0.shape[1]
     rng = np.random.default_rng(seed)
     W = rng.standard_normal((NVEC, 4, G))
@@ -186,6 +188,7 @@ def indicators(mdl, z0, T, dt, seed, series_dt=None, stop_when_dead=False):
     rec = {}
     series_every = int(round(series_dt / dt)) if series_dt else 0
     ser = {"t": [], "YA": [], "YB": [], "hd": []}
+    secs, n_xmax = [[] for _ in range(G)], np.zeros(G, int)
 
     def F(zz, ww):
         """One complex RHS call for all vectors: Re -> f(z) (exact; h^2 ~ 1e-60), Im/h -> J w_k."""
@@ -213,7 +216,15 @@ def indicators(mdl, z0, T, dt, seed, series_dt=None, stop_when_dead=False):
             fin &= (1 + mdl.sig * np.where(fin, zn[0], 0.0)) >= m94.R_PLUNGE
         t_plunge[alive & ~fin] = i * dt
         alive &= fin
+        zprev = z
         z = np.where(alive, zn, z)
+        if sections:
+            up = alive & (zprev[1] < 0) & (z[1] >= 0) & (z[3] > 0)
+            for g in np.flatnonzero(up):
+                f = -zprev[1, g] / (z[1, g] - zprev[1, g])
+                secs[g].append((float((i - 1 + f) * dt), float(zprev[0, g] + f * (z[0, g] - zprev[0, g])),
+                                float(zprev[2, g] + f * (z[2, g] - zprev[2, g]))))
+            n_xmax += alive & (zprev[2] > 0) & (z[2] <= 0)
         nrm = np.where(alive, np.linalg.norm(Wn, axis=1), 1.0)
         W = np.where(alive, Wn / nrm[:, None, :], W)
         logg = logg + np.log(nrm)
@@ -238,6 +249,8 @@ def indicators(mdl, z0, T, dt, seed, series_dt=None, stop_when_dead=False):
         if stop_when_dead and not alive.any():           # speed only: nothing left to integrate
             break
     out = {"checkpoints": rec, "t_plunge": t_plunge.tolist(), "hdrift": hdrift.tolist()}
+    if sections:
+        out.update(sections=secs, n_ycross=[len(v) for v in secs], n_xmax=n_xmax.tolist())
     if series_every:
         out["series"] = ser
     return out
