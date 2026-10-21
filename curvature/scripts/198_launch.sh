@@ -41,9 +41,9 @@ for n in $(seq 1 "$MAX_TRIES"); do
   kill -TERM -- -$G 2>/dev/null; sleep 3; kill -KILL -- -$G 2>/dev/null
   echo "$(date '+%F %T') attempt $n end (group $G cleaned): $(tail -1 "$LOG")" >> "$C/results/198_launcher$TAG.log"
   if grep -q '"phase": "DONE"' "$STATUS" 2>/dev/null; then
-    echo "$(date '+%F %T') DONE" >> "$C/results/198_launcher$TAG.log"; exit 0
+    echo "$(date '+%F %T') DONE" >> "$C/results/198_launcher$TAG.log"; rm -f "$PIDF"; exit 0
   fi
   sleep $(( ${BACKOFF:-300} * n ))                                  # back off: 5, 10, 15 ... min (lets a memory spike pass)
 done
 echo "$(date '+%F %T') GAVE UP after $MAX_TRIES attempts" >> "$C/results/198_launcher$TAG.log"
-exit 1
+rm -f "$PIDF"; exit 1
