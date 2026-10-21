@@ -91,15 +91,19 @@ def job_run(job):
         py2 = mdl.py2_on_shell(x0, np.zeros_like(x0), np.zeros_like(x0))
         z = np.array([x0, np.zeros_like(x0), np.zeros_like(x0), np.sqrt(np.clip(py2, 0, None))])
         T = job["T"]
+        ck = Path(job["out"]) / "ckpt" / f"{job['name']}.pkl"         # under results/, never /tmp (power loss)
+        ck.parent.mkdir(exist_ok=True)
+        every = float(os.environ.get("TABULA198_CKPT_S", 1800))
         if job["kind"] == "pilot":
             try:
-                dt, drift, pinfo = c.pilot_dt_v2(mdl, z, T)
+                dt, drift, pinfo = c.pilot_dt_v2(mdl, z, T, ckpt=ck, ckpt_every=every)
                 res = {"dt": dt, "pilot_drift": drift, "pilot_v2": pinfo}
             except c.PilotRefused as e:
                 res = {"refused": str(e)}
         else:
             t0 = time.time()
-            r = c.indicators(mdl, z, T, job["dt"], job["seed"], series_dt=5.0, sections=True)
+            r = c.indicators(mdl, z, T, job["dt"], job["seed"], series_dt=5.0, sections=True, ckpt=ck,
+                             ckpt_every=every)
             fv = os.environ.get("TABULA198_SMOKE_FORCE", "")
             force = bool(fv) and (job["system"] == "TS2" or fv == "all")
             if force and Path(job["out"]).name != "198_smoke":
@@ -107,6 +111,8 @@ def job_run(job):
             res = {"orbits": orbit_rows(r, x0, T, force), "wall_s": time.time() - t0}
         res.update(job=job, level=info)
         _write(Path(job["out"]) / f"{job['name']}.json", res)
+        ck.unlink(missing_ok=True)
+        Path(str(ck) + ".trials").unlink(missing_ok=True)
         return job["name"], None
     except Exception:
         return job["name"], traceback.format_exc()
@@ -159,7 +165,13 @@ class Status:
     def __init__(self, cfg):
         self.f = cfg["out"] / "198_status.json" if cfg is SMOKE else RESULTS / "198_status.json"
         self.s = {"run": "§198 TS2 thin-layer scan", "pid": os.getpid(), "started": _now(), "phases_done": [],
-                  "phase": None, "errors": [], "verdict": None}
+                  "phase": None, "errors": [], "verdict": None, "first_started": _now(), "starts": 1}
+        try:                                              # a relaunch (e.g. after a power loss) keeps the history
+            old = json.load(open(self.f))
+            self.s.update(first_started=old.get("first_started", old.get("started")), starts=old.get("starts", 1) + 1,
+                          errors=old.get("errors", []))
+        except Exception:
+            pass
 
     def put(self, **kw):
         self.s.update(kw, updated=_now())                 # 'updated' moves only with content (keepalive lesson)

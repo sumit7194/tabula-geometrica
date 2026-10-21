@@ -10,6 +10,9 @@ subtractive cancellation). The generated reduced RHS is analytic (no abs/sign/wh
 
 import argparse
 import json
+import os
+import pickle
+import time
 import sys
 from importlib import import_module
 from pathlib import Path
@@ -163,13 +166,25 @@ CHECK = (1e2, 3e2, 1e3, 3e3, 1e4, 3e4, 1e5, 1.5e5)
 NVEC = 4                                   # two independent random pairs (Breiter: initial-vector dependence)
 
 
-def indicators(mdl, z0, T, dt, seed, series_dt=None, stop_when_dead=False, sections=False):
+def _save_ckpt(path, state):
+    tmp = Path(str(path) + ".part")
+    with open(tmp, "wb") as fh:
+        pickle.dump(state, fh, protocol=pickle.HIGHEST_PROTOCOL)
+        fh.flush()
+        os.fsync(fh.fileno())
+    os.replace(tmp, path)
+
+
+def indicators(mdl, z0, T, dt, seed, series_dt=None, stop_when_dead=False, sections=False, ckpt=None,
+               ckpt_every=1800.0):
     """RK4 on (z, w_1..w_4), w' = J(z) w exactly (complex step). Each vector is renormalised every step.
     MEGNO (Cincotta & Simo 2000): Y(t) = (2/t) int_0^t s*lam(s) ds with lam = w.Jw/|w|^2; <Y>(t) = (1/t) int_0^t Y.
     FLI = max over s <= t of the cumulative log-growth. SALI_pair = min(|w_a + w_b|, |w_a - w_b|) for normalised w.
     Returns, per checkpoint t <= T: <Y>, FLI and SALI for both pairs (NaN after a plunge), plus t_plunge and H drift.
     sections=True (§198) also records each orbit's upward y = 0 crossings with p_y > 0 as (t, x, p_x), linearly
-    interpolated inside the step, and counts radial maxima (p_x from + to -), for rotation numbers."""
+    interpolated inside the step, and counts radial maxima (p_x from + to -), for rotation numbers.
+    ckpt=path (§198) saves the whole loop state every ckpt_every wall seconds and resumes from it, so a power loss
+    costs at most ckpt_every per job; resumed results are bit-identical (verified). The caller deletes the file."""
     G = z0.shape[1]
     rng = np.random.default_rng(seed)
     W = rng.standard_normal((NVEC, 4, G))
@@ -196,7 +211,21 @@ def indicators(mdl, z0, T, dt, seed, series_dt=None, stop_when_dead=False, secti
         c = rhs_c(mdl, Zr + 1j * H_CS * ww.transpose(1, 0, 2).reshape(4, NVEC * G))
         return np.real(c[:, :G]), (np.imag(c) / H_CS).reshape(4, NVEC, G).transpose(1, 0, 2)
 
-    for i in range(1, nstep + 1):
+    STATE = ("z", "W", "alive", "t_plunge", "hdrift", "logg", "fli", "I", "S", "lam_prev", "Y_prev", "rec", "ser",
+             "secs", "n_xmax")
+    i0, t_save = 1, time.time()
+    if ckpt and Path(ckpt).exists():
+        with open(ckpt, "rb") as fh:
+            saved = pickle.load(fh)
+        assert saved["key"] == (G, T, dt, seed, series_dt, sections), "checkpoint belongs to a different run"
+        z, W, alive, t_plunge, hdrift, logg, fli, I, S, lam_prev, Y_prev, rec, ser, secs, n_xmax = \
+            (saved[k] for k in STATE)
+        i0 = saved["i"] + 1
+    for i in range(i0, nstep + 1):
+        if ckpt and i % 200 == 0 and time.time() - t_save > ckpt_every:
+            _save_ckpt(ckpt, dict({k: v for k, v in locals().items() if k in STATE}, i=i - 1,
+                                  key=(G, T, dt, seed, series_dt, sections)))
+            t_save = time.time()
         k1z, k1w = F(z, W)
         lam = np.einsum("kig,kig->kg", W, k1w)         # rate at t_{i-1} (|w| = 1): reuses RK stage 1
         if i > 1:
@@ -287,7 +316,7 @@ def _pilot_judge(drift_at_grid, target):
     return "PASS" if float(np.nanmax(d)) <= target else "FAIL"
 
 
-def _pilot_trial(mdl, z, T, dt, target):
+def _pilot_trial(mdl, z, T, dt, target, ckpt=None, ckpt_every=1800.0):
     """RK4 on the pilot orbits at dt. drift[g] = running max |dH/H| up to the last 25-tau grid time orbit g was alive
     at (its t_dec, the reading time of the MEGNO verdict). Aborts at a grid time where a still-alive orbit exceeds
     target: that orbit's t_dec is >= that time, so the excess counts."""
@@ -296,7 +325,16 @@ def _pilot_trial(mdl, z, T, dt, target):
     H0 = mdl.H(z)
     alive, run, at_grid = np.ones(G, bool), np.zeros(G), np.full(G, np.nan)
     nstep, every = int(round(T / dt)), int(round(GRID / dt))
-    for i in range(1, nstep + 1):
+    i0, t_save, key = 1, time.time(), ("pilot", G, T, dt, target)   # §198 power-loss checkpoint (optional)
+    if ckpt and Path(ckpt).exists():
+        with open(ckpt, "rb") as fh:
+            sv = pickle.load(fh)
+        if sv["key"] == key:
+            z, alive, run, at_grid, i0 = sv["z"], sv["alive"], sv["run"], sv["at_grid"], sv["i"] + 1
+    for i in range(i0, nstep + 1):
+        if ckpt and i % 200 == 0 and time.time() - t_save > ckpt_every:
+            _save_ckpt(ckpt, {"key": key, "z": z, "alive": alive, "run": run, "at_grid": at_grid, "i": i - 1})
+            t_save = time.time()
         k1 = mdl.rhs(z); k2 = mdl.rhs(z + 0.5 * dt * k1); k3 = mdl.rhs(z + 0.5 * dt * k2); k4 = mdl.rhs(z + dt * k3)
         zn = z + dt / 6 * (k1 + 2 * k2 + 2 * k3 + k4)
         fin = np.isfinite(zn).all(0)
@@ -315,14 +353,25 @@ def _pilot_trial(mdl, z, T, dt, target):
     return _pilot_judge(at_grid, target), at_grid
 
 
-def pilot_dt_v2(mdl, z, T, n_pilot=12):
+def pilot_dt_v2(mdl, z, T, n_pilot=12, ckpt=None, ckpt_every=1800.0):
     """Deep-level v2 pilot (amendment after the void run): 12 orbits spread EVENLY over the window, drift over each
     orbit's life up to its t_dec, halve dt from 0.05 while FAIL. REFUSE raises; reaching the 1e-3 floor without
     passing is reported (floor_hit), never hidden."""
     idx = np.unique(np.round(np.linspace(0, z.shape[1] - 1, n_pilot)).astype(int))
     dt, tried = 0.05, []
+    done = {}                                             # §198: completed trials survive a power loss
+    if ckpt and Path(str(ckpt) + ".trials").exists():
+        with open(str(ckpt) + ".trials", "rb") as fh:
+            done = pickle.load(fh)
     while True:
-        res, dg = _pilot_trial(mdl, z[:, idx], T, dt, DRIFT_TARGET)
+        if dt in done:
+            res, dg = done[dt]
+        else:
+            res, dg = _pilot_trial(mdl, z[:, idx], T, dt, DRIFT_TARGET, ckpt=ckpt, ckpt_every=ckpt_every)
+            if ckpt:
+                done[dt] = (res, dg)
+                _save_ckpt(str(ckpt) + ".trials", done)
+                Path(ckpt).unlink(missing_ok=True)
         tried.append({"dt": dt, "result": res, "max_drift": float(np.nanmax(dg)) if np.isfinite(dg).any() else None})
         print(f"  pilot v2 dt={dt:.3g}: {res} {tried[-1]['max_drift']}", flush=True)
         if res == "REFUSE":

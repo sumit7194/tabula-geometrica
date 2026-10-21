@@ -136,3 +136,28 @@ Found by the toy-size smoke runs (results/198_smoke, deleted after testing) and 
   DONE. A first version would have left the scan running unwatched to race the next attempt (caught by this test).
 - **Runtime estimate:** about 3.7e8 orbit-τ at ~1 ms per orbit-τ (measured under today's load average ~30 on 10
   cores) gives ~34 h on 3 workers. The stated range is 30–45 h; the live ETA is in results/198_status.json.
+
+## Amendment 3 (2026-10-21, power-loss robustness at the user's request, BEFORE any launch)
+- **Nothing in /tmp or $TMPDIR:** outputs, logs, status, the pid lock, job JSONs and checkpoints all live under
+  curvature/results/. Only multiprocessing's transient semaphores use the system temp, and they matter only to a
+  live process.
+- **In-job checkpoints** (none existed: a stage-3 batch runs ~1–3 h, a stage-3 pilot ~1–3 h over its trials):
+  - §196 `indicators(..., ckpt=, ckpt_every=1800)` saves the whole loop state every 30 min (atomic, fsync);
+  - `_pilot_trial`/`pilot_dt_v2` likewise save in-trial state and keep completed trials;
+  - files sit under results/198_ts_layer/ckpt/ and are deleted when the job writes its JSON.
+- **Bit-identity verified:**
+  - checkpointing off: hash unchanged (aee43f…);
+  - indicators kill -9 at step 1599/30000 then resume: identical hash;
+  - pilot kill -9 mid-trial: identical;
+  - pilot kill -9 in trial 2 with trial 1 kept: identical;
+  - full launcher power-loss test (below): 34/34 job files and the report identical to an uninterrupted run.
+- **Power-loss test:**
+  - stale pid file planted;
+  - launch, kill -9 of the launcher and the whole attempt group during stage 3, with 3 live checkpoints;
+  - relaunch with the same command and no manual lock clearing: it resumed (only the 4 stage-3 jobs re-ran), status
+    starts = 2, DONE, 34/34 identical.
+- **Lock fixed:** the stale-pid check matched any command line containing "198_launch.sh", including the shell that
+  typed the launch command, and FALSELY REFUSED the relaunch. It now requires the exact shape
+  `bash <path>/198_launch.sh`.
+- **Worst case after a power loss:** ≤ 30 min of integration per running job (3 in parallel), plus a relaunch. The
+  run itself needs no clean-up, because the stale lock is ignored.

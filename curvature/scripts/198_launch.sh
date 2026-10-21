@@ -16,7 +16,12 @@ MODE="--run"; TAG=""
 [ "${1:-}" = "--smoke" ] && { MODE="--smoke"; TAG="_smoke"; }
 STATUS=$C/results/198_status.json; [ -n "$TAG" ] && STATUS=$C/results/198_smoke/198_status.json
 PIDF="$C/results/198_launcher$TAG.pid"
-if [ -f "$PIDF" ] && kill -0 "$(cat "$PIDF")" 2>/dev/null; then   # single instance: two copies would race on files
+# single instance (two copies would race on files). The pid must be alive AND be this launcher: after a reboot
+# (power loss) the stale pid file can name an unrelated process that happens to reuse the number.
+# Exact shape "<...>bash $C/scripts/198_launch.sh ...": a substring match is not enough -- the shell that typed the
+# launch command also contains "198_launch.sh" (found in the power-loss test: it falsely refused).
+if [ -f "$PIDF" ] && ps -o command= -p "$(cat "$PIDF")" 2>/dev/null \
+     | awk -v me="$C/scripts/198_launch.sh" '$1 ~ /(^|\/)bash$/ && $2 == me {f=1} END {exit !f}'; then
   echo "$(date '+%F %T') REFUSED: launcher $(cat "$PIDF") already running" >> "$C/results/198_launcher$TAG.log"; exit 3
 fi
 echo $$ > "$PIDF"
