@@ -1252,6 +1252,10 @@ results in `curvature/notes/lab_notebook.md`.
   TRANSVERSAL, θ = 7.9e-4 / 2.5e-3 (300–1,000× Kerr), a homoclinic tangle certified.** p = 4/5 below floor ~1e-4
   (high-precision follow-up pre-stated). θ ~ linear in h, not exponentially small. Also: §198's S1/S2 lie below the
   saddle (no separatrix there); rationale withdrawn, verdict stands. Notes: curvature/notes/separatrix_splitting_prereg.md.
+- **§199b CANONICAL MEASURES (2026-10-23):** Lazutkin homoclinic invariant + lobe area at p = 3/5 MEASURED at all 3 levels
+  (I −5.6e-8…−5.1e-7, A 1.4e-6…1.2e-5, Kerr ~1e-9/~1e-13); p = 4/5 below floor. **Blind replication by The Bridge
+  (V16) agrees on I to 0.5%.** The θ factor-3.3 mismatch = the Bridge's momentum units (÷σ): angle not invariant, I is.
+  Notes: curvature/notes/homoclinic_invariant_prereg.md.
 - Remaining curvature queue (RE-CHECKED 2026-09-23). DONE this session: the C anomaly (§191/191b) and the
   well-separated Carter pair (§192). Open: WHY C's angular shift is nearly orbit-constant (hypothesis: close to a
   function of Kerr's conserved quantities — test by scoring dTheta with the within/total statistic); why KEEP2's

@@ -11,6 +11,17 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-10-23 — §199b canonical splitting measures + blind replication: Lazutkin invariant agrees to 0.5%
+- Lazutkin's homoclinic invariant and the lobe area (both symplectic-invariant, both exactly 0 for Kerr) at the TS2
+  saddle-centre. **p = 3/5: both MEASURED at all 3 levels** (I = −5.6e-8 … −5.1e-7; A = 1.4e-6 … 1.2e-5; Kerr floors
+  ~1e-9 / ~1e-13), ~linear in h. p = 4/5: I below floor (~1e-8).
+- **The Bridge's blind replication (V16, own code) agrees to 0.5%** on the Lazutkin invariant at p = 3/5, ε = −0.01
+  (the sign is a convention). The earlier θ "disagreement" (factor 3.32) is momentum units: the Bridge's L and p_x
+  are ours ÷ σ, which rescales an angle but not the invariant. A live demonstration of why canonical measures matter.
+- Ops: embargo + blinding guard used for real (patterns tightened after a false positive on a sha). Two pre-result
+  bugs fixed (eigenvector re-normalisation broke exact reproduction via λ^n ~ 1e8; a verdict crash). Notes:
+  curvature/notes/homoclinic_invariant_prereg.md.
+
 ## 2026-10-23 — §199 separatrix splitting at the TS δ=2 saddle-centre: TRANSVERSAL at p = 3/5
 - §198 closed (one-line reporting fix after a missed alert). While designing §199 I found that §198's S1/S2 levels
   lie BELOW the saddle (closed pocket, no separatrix): §198's rationale for them is withdrawn, its verdict stands.
