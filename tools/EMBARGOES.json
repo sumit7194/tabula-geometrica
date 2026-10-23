@@ -1,23 +1,16 @@
 {
  "_doc": "tabula's active blinding embargoes (outbound). tools/blind_check.py must pass on every outgoing cross-session message. Lift an embargo only when its seal condition is met; record the commit. Adapted from TheBridge/tools (2026-10-18, fleet practice 3).",
- "embargoes": [
-  {
-   "id": "tabula-199b-invariants-to-bridge",
-   "recipient": "*",
-   "until": "The Bridge seals ITS Lazutkin invariant / lobe area (commit + sha received); then tabula sends its own",
-   "opened": "2026-10-23",
-   "patterns": [
-    "(Lazutkin|homoclinic invariant|lobe|flux|\\bI\\s*=)[^\\n]{0,100}(?<![0-9A-Za-z])[-+]?\\d+\\.\\d+(e[-+]?\\d+)?",
-    "(?<![0-9A-Za-z])[-+]?\\d+\\.\\d+e[-+]?\\d+[^\\n]{0,60}(Lazutkin|homoclinic invariant|lobe|flux)",
-    "199b[^\\n]{0,60}(values?\\s*[:=]|measured\\s+[-+]?\\d|=\\s*[-+]?\\d+\\.\\d)"
-   ],
-   "note": "patterns tightened 2026-10-23 (a sha256 containing '1e22' and the word 'results/' falsely blocked a seal)"
-  }
- ],
+ "embargoes": [],
  "lifted": [
   {
    "id": "tabula-C0-addon-to-bridge",
    "sha256": "1eb357f8583f8bd8727a21354125f19ed640a93f43384faa09ecb2e331f6d1c4"
+  },
+  {
+   "id": "tabula-199b-invariants-to-bridge",
+   "sha256": "4c64da83f263950343eb8c52170623376268fd82003190b5993c1e22f0c86f03",
+   "lifted": "2026-10-23",
+   "reason": "The Bridge sealed V16 (TheBridge dade806, V16_SEALED.json sha256 a8aa47c2…, verified)"
   }
  ]
 }

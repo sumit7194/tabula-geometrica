@@ -47,3 +47,25 @@ rtol ∈ {1e-13, 1e-12}; it is cheap. Lobe area: p = 3/5 only (where §199 resol
 ## SEALED 2026-10-23 (numbers EMBARGOED for The Bridge's blind replication)
 results/199b_invariants.json sha256 4c64da83f263950343eb8c52170623376268fd82003190b5993c1e22f0c86f03. The result summary is in notes/embargoed/ and results/199b_REPORT.md. Do
 not read those until your own seal.
+
+## RESULT (embargo LIFTED 2026-10-23: The Bridge sealed V16 at TheBridge dade806; sha256 verified)
+| p | ε | Lazutkin I (TS2, headline) | variant spread | Kerr floor | lobe area A | spread | Kerr | verdict |
+|---|---|---|---|---|---|---|---|---|
+| 3/5 | −0.003 | −5.55e-8 | 2.0e-9 | 8.0e-10 | 1.430e-6 | 6e-10 | 7e-14 | both MEASURED |
+| 3/5 | −0.01 | −1.781e-7 | 2.5e-9 | 5.8e-10 | 4.518e-6 | 6e-10 | 2e-13 | both MEASURED |
+| 3/5 | −0.03 | −5.12e-7 | 3.3e-8 | 7.2e-10 | 1.160e-5 | 5e-10 | 5e-14 | both MEASURED |
+| 4/5 | −0.003…−0.03 | −6e-9 … −2.4e-8 | ~1e-8 | ~2e-9 | — | — | — | I below floor (~1e-8) |
+- **All predictions held** (p = 3/5 measured and increasing with h; p = 4/5 below floor; Kerr at floor).
+- Scaling: I ∝ h^0.99 / h^1.04 and A ∝ h^0.98 / h^0.93 between consecutive levels, ~linear, not exponentially
+  small.
+- **BLIND REPLICATION (The Bridge, V16, its own code; Lazutkin invariant only, lobe not computed):** at p = 3/5,
+  ε = −0.01, |Ω| = 1.790e-7 (3 of 4 variants agree to 0.1%) vs ours 1.781e-7. **Agreement 0.5%**, inside our 1.4%
+  spread. The sign is opposite, a convention (ω orientation / tangent order); the sign was registered as carrying no
+  verdict weight.
+- **θ discrepancy resolved:** V16's θ = 7.54e-4 vs our 2.50e-3 (ratio 3.32). The Bridge's L and p_x are ours ÷ σ
+  (l_sep ratio exactly 1/σ: 3.3333 for TS2 at σ = 0.3, 1.6667 for Kerr at σ = 0.6). The angle in (x, p_x) rescales
+  by that factor, while the Lazutkin invariant is invariant under momentum rescaling, because its normalisation
+  |ω(e_u, S e_u)| = 1 cancels the action unit. So the invariant agrees and θ differs by the unit factor. This is a
+  live demonstration of why the canonical measure was needed.
+- Process note: The Bridge's V16 commit SUBJECT stated its value (seen while verifying the seal). Ours was already
+  sealed (dc8b808), so there was no contamination; recorded by class.
