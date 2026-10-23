@@ -196,3 +196,9 @@ had no windows by rule); thr3 = 2.077 from 300 Kerr orbits.
   fleet's non-integrability results: a layer narrower than Δx ≈ 0.003, or slower than T = 1e5 to show MEGNO
   growth, is not excluded. Exponentially thin separatrix layers are the generic expectation for weak
   non-integrability, so a null at finite resolution is the expected look of such a system too.
+
+## CORRECTION (2026-10-23, found while designing §199): the S1/S2 rationale was wrong
+At S1/S2 the shell lies BELOW the barrier top (closed pocket), so there is no Lyapunov orbit and no saddle separatrix
+on the energy surface. The claim above, that those levels hug "the unstable circular orbit's separatrix, where a
+stochastic layer is generically widest", is withdrawn. They probe long-period near-saddle tori. The VERDICT
+(NO-LAYER-RESOLVED, with its resolution) is unaffected. See notes/separatrix_splitting_prereg.md.
