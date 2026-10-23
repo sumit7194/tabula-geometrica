@@ -43,3 +43,7 @@ rtol ∈ {1e-13, 1e-12}; it is cheap. Lobe area: p = 3/5 only (where §199 resol
 - p = 3/5: I and A both measured, ≫ Kerr, and increasing with h, like θ.
 - p = 4/5: I below floor (as θ was); lobe not attempted.
 - Kerr: I at its floor; A near 0 (if the curves coincide, a spurious h2 gives a near-zero area at the noise level).
+
+## SEALED 2026-10-23 (numbers EMBARGOED for The Bridge's blind replication)
+results/199b_invariants.json sha256 4c64da83f263950343eb8c52170623376268fd82003190b5993c1e22f0c86f03. The result summary is in notes/embargoed/ and results/199b_REPORT.md. Do
+not read those until your own seal.
