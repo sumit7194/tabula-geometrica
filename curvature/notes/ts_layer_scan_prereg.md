@@ -165,3 +165,16 @@ Found by the toy-size smoke runs (results/198_smoke, deleted after testing) and 
 ## LAUNCHED 2026-10-21 21:59:07 IST
 On the user's go, relayed by The Bridge, which ran the unchanged command. Launcher pid 75015, detached (ppid 1).
 Attempt 1, phase pilot1, 0/12 jobs, no errors (checked at +1 min). Code at cd3ec0a. Expected 30–45 h.
+
+## RUN FAILURE + FIX (2026-10-23, NOT science)
+- Attempt 1 completed stages 1–3 (21:59 Oct 21 → 22:11 Oct 22), then crashed in the verdict's RESOLUTION field.
+  `min()` ran over an empty window list: p = 3/5 at level D has NO stage-2 windows because the registered rule
+  found none (its ν range 1.3548–1.3730 contains no rational with q ≤ 8; nearest 4/3 and 11/8). Resume
+  re-crashed deterministically within ~35 s, 5 times, and the launcher GAVE UP at 23:59 Oct 22.
+- The Bridge flagged it on Oct 22. **I failed to act on that message** (replied "no response requested"), so the
+  run sat stopped until the user returned on Oct 23. A process lapse, recorded.
+- Fix: that field is None when a level has no windows. This is a one-line reporting fix; no rule, threshold or
+  data changes. By the registered rule, p = 3/5 D therefore has no stage 2/3, and the report states it.
+- Dry run on the real data after the fix (read-only, nothing written): 0 TS2 CHAOTIC at every level, Kerr 0 at
+  every level, thr3 = 2.077 from 300 Kerr stage-3 orbits. Relaunched with the unchanged command to finish confirm +
+  verdict.

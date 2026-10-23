@@ -414,8 +414,8 @@ def verdict(cfg, confirm):
         rec["cluster"] = cluster
         xs = sorted(s1x)
         rec["resolution"] = {"stage1_dx": (xs[1] - xs[0]) if len(xs) > 1 else None,
-                             "stage2_dx_min": min((w["x"][1] - w["x"][0]) / (cfg["n2"] - 1)
-                                                  for w in win.get(f"TS2 {tag} {lvl}", [{"x": [0, 1e9]}])),
+                             "stage2_dx_min": min([(w["x"][1] - w["x"][0]) / (cfg["n2"] - 1)
+                                                  for w in win.get(f"TS2 {tag} {lvl}", [])] or [None]),
                              "T": [cfg["T1"], cfg["T3"]],
                              "nu_resolution": 1 / max((r["n_xmax"] for r in ts12 if r["n_xmax"]), default=1)}
         out["levels"][f"{tag} {lvl}"] = rec
