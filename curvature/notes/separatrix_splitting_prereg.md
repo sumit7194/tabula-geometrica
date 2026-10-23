@@ -70,3 +70,11 @@ exponentially small splitting at double precision.
 - **Two implementation details fixed now:** a section return is found in two event-located phases (first the
   downward y = 0 crossing, then the upward one), so the start point can never register as a crossing. Seeds that
   plunge (event not reached by t = 5000) are marked missing, never dropped silently.
+
+## Run 1 KILLED by the watchdog + implementation fix (2026-10-23)
+- Run 1 reached the 4,000 MB cap after only 2 jobs (Kerr p = 4/5, ε = −0.003; the only results seen, both Kerr).
+  Cause: the plunge cut at x = 1.0005 lay inside TS2's near-singular region. Plunging seeds ground there at tiny
+  steps toward the 5,000 τ cap, and solve_ivp stored every step.
+- Fix (implementation only, no rule changes): the plunge cut is now §196/§198's `r_cut_for` (halfway between the
+  horizon and the barrier); steps are not stored (`t_eval=[]`, events only). A TS2 near-saddle level now takes 47 s.
+  Run 1's results are discarded; run 2 starts clean.
