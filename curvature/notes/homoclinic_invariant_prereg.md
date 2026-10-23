@@ -69,3 +69,6 @@ not read those until your own seal.
   live demonstration of why the canonical measure was needed.
 - Process note: The Bridge's V16 commit SUBJECT stated its value (seen while verifying the seal). Ours was already
   sealed (dc8b808), so there was no contamination; recorded by class.
+- **Agreed wording (both reports, The Bridge V16 FINDINGS 21ad8d0):** "transversal splitting of TS δ=2 (p = 3/5,
+  ε = −0.01) independently replicated in the Lazutkin invariant by two codes (numerical, non-rigorous); θ agreement
+  after the units convention."
