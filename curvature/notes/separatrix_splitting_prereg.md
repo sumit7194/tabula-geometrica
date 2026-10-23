@@ -57,3 +57,16 @@ l_sep. One code path (194/196 model classes).
 TS2 splitting measurable (≫ Kerr floor) at ε = −0.03, smaller at −0.003, decreasing with h. Kerr at the floor.
 Confidence moderate. If TS2 is at the floor everywhere, that is "below floor F", the expected look of an
 exponentially small splitting at double precision.
+
+## Amendment 1 (2026-10-23, The Bridge's review, before any code ran)
+- **A fourth level ε = −0.1** joins the set, so ε ∈ {−0.003, −0.01, −0.03, −0.1}. If the splitting is exponentially
+  small in √h, the near-saddle levels may all sit below the floor; −0.1 is the level most likely to be resolvable,
+  so the trend gets at least one or two measured points. If its Lyapunov orbit is not hyperbolic or not found, the
+  level is reported as such.
+- **Pre-stated high-precision follow-up** (NOT run now) for any level that comes out "below floor F": re-run that one
+  level with arbitrary-precision integration (mpmath odefun, or a Taylor integrator in ≥ 30 digits), same
+  method, same verdict rule, with F re-estimated from Kerr at the same precision. "Below floor" can then be tightened
+  without a new design.
+- **Two implementation details fixed now:** a section return is found in two event-located phases (first the
+  downward y = 0 crossing, then the upward one), so the start point can never register as a crossing. Seeds that
+  plunge (event not reached by t = 5000) are marked missing, never dropped silently.
