@@ -11,6 +11,17 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-10-23 — §199 separatrix splitting at the TS δ=2 saddle-centre: TRANSVERSAL at p = 3/5
+- §198 closed (one-line reporting fix after a missed alert). While designing §199 I found that §198's S1/S2 levels
+  lie BELOW the saddle (closed pocket, no separatrix): §198's rationale for them is withdrawn, its verdict stands.
+- §199 (Bridge brief, user-approved): the Lyapunov orbit at open levels ε < 0, reversor W^s = S·W^u, the
+  primary symmetric homoclinic point, and the splitting angle against a Kerr floor (~2e-6).
+- **p = 3/5: transversal splitting θ = 7.9e-4 and 2.5e-3 (300–1,000× Kerr)**, a homoclinic tangle certified.
+  The third level sits at 9.5× its floor (the rule needs 10×). p = 4/5: below floor ~1e-4 (unstable across
+  variants; high-precision follow-up pre-stated). ε = −0.1 does not exist (the barrier is gone).
+- θ grows ~linearly in h (not exp(−c/√h)); 3 points, descriptive. One fix round (shooting range); run 1 was
+  watchdog-killed (plunge cut + stored steps), fixed. Notes: curvature/notes/separatrix_splitting_prereg.md.
+
 ## 2026-10-21 → 23 — §198 TS δ=2 thin-chaotic-layer scan (unattended while the user travelled): NO-LAYER-RESOLVED
 - At the Bridge's request (user-approved), built and ran an unattended scan for a thin chaotic layer in
   Tomimatsu–Sato δ=2. The aim: reconcile Dubeibe 2007's "regular sections" with the fleet's non-integrability

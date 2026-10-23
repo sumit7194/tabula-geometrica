@@ -78,3 +78,37 @@ exponentially small splitting at double precision.
 - Fix (implementation only, no rule changes): the plunge cut is now §196/§198's `r_cut_for` (halfway between the
   horizon and the barrier); steps are not stored (`t_eval=[]`, events only). A TS2 near-saddle level now takes 47 s.
   Run 1's results are discarded; run 2 starts clean.
+
+## Fix round 1 (the only one) + RESULT (2026-10-23)
+- **Fix round 1:** TS2 at ε = −0.03 returned NO-FIXED-POINT at both p. Its Lyapunov orbit lies outside the ±0.6
+  shooting window around the barrier (Kerr found its own). The window was widened to ±2.0 and only those 4 jobs were
+  re-run. The search range cannot change a computed angle. Run 2 otherwise clean: peak 2.1 GB; all R0 ≤ 4e-11;
+  closures ≤ 5e-12.
+- **ε = −0.1 does not exist** at either p, in TS2 or Kerr: at L = 0.9·l_sep the barrier is gone (no saddle on the
+  shell). Amendment 1's added level is reported as absent.
+
+| p | ε | h | θ_TS | spread | Kerr θ | verdict |
+|---|---|---|---|---|---|---|
+| 3/5 | −0.003 | 5.0e-3 | 7.87e-4 | 2.9e-5 | 2.6e-6 | **transversal splitting measured** |
+| 3/5 | −0.01 | 1.6e-2 | 2.50e-3 | 3.4e-5 | 1.7e-6 | **transversal splitting measured** |
+| 3/5 | −0.03 | 4.5e-2 | 6.85e-3 | 7.2e-4 | 2.2e-6 | below floor F = 7.2e-4 (θ = 9.5 F; 10 F needed; spread 10.5%) |
+| 4/5 | −0.003 | 3.0e-3 | 5.5e-5 | 7.7e-5 | 4.2e-6 | below floor F = 7.7e-5 |
+| 4/5 | −0.01 | 9.7e-3 | 4.7e-5 | 1.1e-4 | 4.0e-6 | below floor F = 1.1e-4 |
+| 4/5 | −0.03 | 2.6e-2 | 2.0e-4 | 5.8e-5 | 2.7e-6 | below floor F = 5.8e-5 |
+
+- **Headline:** at p = 3/5 the stable and unstable manifolds of the saddle's Lyapunov orbit cross TRANSVERSALLY,
+  with an angle 300–1,000× Kerr's numerical floor, stable across step sizes and tolerances. This is a direct
+  numerical certificate of a homoclinic tangle, the mechanism of chaos, in TS δ=2.
+- **p = 4/5:** TS values are consistently 20–50× above Kerr, but unstable across variants, so they are below floor.
+  The pre-stated high-precision follow-up applies.
+- **Descriptive (3 points at p = 3/5, the third below floor by the rule):** θ ∝ h^0.98 and h^0.99 between
+  consecutive pairs, a linear growth. The exp(−c/√h) form gives inconsistent constants (−0.18, −0.32). The splitting
+  is NOT exponentially small here. Caveat: θ is an angle in the section's canonical coordinates, not an invariant.
+  The lobe area (invariant) was not computed.
+- **Layer width vs §198 (loose, as registered):** an O(1e-3) splitting is far from "invisible". So the tangle is
+  real and not tiny at these OPEN levels, but those orbits can leave through the bottleneck (transient chaos).
+  §198's closed levels contain no saddle separatrix (see the correction above). The two results are therefore
+  compatible: near the saddle the chaos lives on the open side, as a transient.
+- **Open thread:** §196 saw 0/360 MEGNO-chaotic at open levels ε = −0.01…−0.05 at T = 3e4. With θ ~ 1e-3 the
+  tangle's orbits are presumably a thin, short-lived subset (most seeds miss it, or plunge before MEGNO grows).
+  Untested; a seed-on-the-manifold MEGNO check would settle it.

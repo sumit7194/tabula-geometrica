@@ -101,9 +101,9 @@ def fixed_point(M, xb):
             return np.nan
         a = M._leg(np.array([x0, 0.0, 0.0, np.sqrt(py2)]), -1)
         return -1.0 if a is None else float(a[2])
-    xs = xb + np.linspace(-0.6, 0.6, 61)
+    xs = xb + np.linspace(-2.0, 2.0, 201)                # fix round 1: +-0.6 missed TS2's orbit at eps = -0.03
     fs = [f(x) for x in xs]
-    br = [(xs[i], xs[i + 1]) for i in range(60) if np.isfinite(fs[i]) and np.isfinite(fs[i + 1])
+    br = [(xs[i], xs[i + 1]) for i in range(200) if np.isfinite(fs[i]) and np.isfinite(fs[i + 1])
           and np.sign(fs[i]) != np.sign(fs[i + 1])]
     if not br:
         return None, None
@@ -259,9 +259,23 @@ if __name__ == "__main__":
     ap.add_argument("--run", action="store_true")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--one", nargs=3)
+    ap.add_argument("--redo", nargs="*", help="re-run only these 'SYS TAG EPS' jobs (both rtol) into the saved JSON")
     a = ap.parse_args()
     if a.one:
         r = level(a.one[0], a.one[1], float(a.one[2]), 1e-13)
         print(json.dumps(r, indent=1, default=float))
+    elif a.redo:
+        d = json.load(open(RESULTS / "199_splitting.json"))
+        todo = [(a.redo[i], a.redo[i + 1], float(a.redo[i + 2]), r) for i in range(0, len(a.redo), 3) for r in (1e-13, 1e-12)]
+        from multiprocessing import get_context
+        with get_context("spawn").Pool(a.workers, maxtasksperchild=1) as pool:
+            new = list(pool.imap_unordered(_job, todo))
+        key = lambda r: (r.get("system"), r.get("tag"), r.get("eps"), r.get("rtol"))
+        rows = [r for r in d["rows"] if key(r) not in {key(n) for n in new}] + new
+        v = verdicts(rows)
+        d.update(rows=rows, verdicts=v, fix_round_1="shooting range +-0.6 -> +-2.0 for the redone jobs")
+        (RESULTS / "199_splitting.json").write_text(json.dumps(d, indent=1, default=float))
+        for n in new:
+            print(json.dumps({k: n.get(k) for k in ("system", "p", "eps", "rtol", "status", "theta", "closure", "lam")}, default=float))
     elif a.run:
         main(a.workers)

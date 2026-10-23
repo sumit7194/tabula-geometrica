@@ -1247,6 +1247,11 @@ results in `curvature/notes/lab_notebook.md`.
   resolution; an exponentially thin layer is not excluded. Infra: 30-min checkpoints (kill -9 resume bit-identical),
   launcher lock/stop/process-group cleanup. Lesson: a peer's run-failure alert was missed (replied "no response").
   Notes: curvature/notes/ts_layer_scan_prereg.md.
+- **§199 SEPARATRIX SPLITTING at the TS δ=2 saddle-centre (2026-10-23):** the Lyapunov orbit at OPEN levels (ε < 0),
+  reversor W^s = S·W^u, splitting angle at the primary symmetric homoclinic point, Kerr floor ~2e-6. **p = 3/5:
+  TRANSVERSAL, θ = 7.9e-4 / 2.5e-3 (300–1,000× Kerr), a homoclinic tangle certified.** p = 4/5 below floor ~1e-4
+  (high-precision follow-up pre-stated). θ ~ linear in h, not exponentially small. Also: §198's S1/S2 lie below the
+  saddle (no separatrix there); rationale withdrawn, verdict stands. Notes: curvature/notes/separatrix_splitting_prereg.md.
 - Remaining curvature queue (RE-CHECKED 2026-09-23). DONE this session: the C anomaly (§191/191b) and the
   well-separated Carter pair (§192). Open: WHY C's angular shift is nearly orbit-constant (hypothesis: close to a
   function of Kerr's conserved quantities — test by scoring dTheta with the within/total statistic); why KEEP2's
