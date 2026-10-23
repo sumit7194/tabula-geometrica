@@ -11,6 +11,24 @@ where the details live. (Lab-notebook-level detail stays in each sub-project's
 
 ---
 
+## 2026-10-21 → 23 — §198 TS δ=2 thin-chaotic-layer scan (unattended while the user travelled): NO-LAYER-RESOLVED
+- At the Bridge's request (user-approved), built and ran an unattended scan for a thin chaotic layer in
+  Tomimatsu–Sato δ=2. The aim: reconcile Dubeibe 2007's "regular sections" with the fleet's non-integrability
+  results.
+- Design:
+  - closed pockets only (D = Dubeibe's level, S1/S2 just above the separatrix), p = 4/5 and 3/5;
+  - TS2 vs Kerr through one code path; §196's validated MEGNO plus new sections/rotation numbers;
+  - stages: survey → resonance/separatrix zoom → T = 1e5 → dt/2 confirm.
+- Ops hardening before launch, all tested:
+  - memory 2.2 → 1.5 GB; process-group cleanup; single-instance lock;
+  - stop trap; checkpoints every 30 min (kill -9 resume bit-identical, 34/34 files).
+- Run: stages 1–3 completed (~24 h). The verdict step then crashed on a level with no windows (a reporting
+  bug); resume re-crashed deterministically and the launcher gave up. **I missed the Bridge's alert about it.**
+  Fixed on the user's return (one line), finished in 40 s.
+- **Result: 0/2,340 TS2 CHAOTIC, Kerr 0, all gates pass.** Not seen at Δx ≈ 0.003, T = 1e5. Consistent with
+  Dubeibe at this resolution; it does not exclude an exponentially thin layer. Details:
+  curvature/notes/ts_layer_scan_prereg.md, results/198_REPORT.md.
+
 ## 2026-10-18 — K20: independent Manko–Novikov chaotic-sea screen for quantum's horseshoe proof (script 197)
 - **Built** an independent screen (blind against The Bridge's V13, sealed by commit + sha256 before every exchange):
   - an adaptive Dormand–Prince C kernel generated from a sympy metric, with an exact tangent and Hénon section crossings;

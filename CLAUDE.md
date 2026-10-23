@@ -1241,6 +1241,12 @@ results in `curvature/notes/lab_notebook.md`.
   cores with V13 are F5-R {2,3,4,6,7,8} and C0 {1,3,4}, with 0 contradictions; a few crossings are identical orbits.
   Caveat: "inside D" = within ~0.1 of the naked ring. Notes: curvature/notes/k20_build_log.md (A1–A13, all exchanges).
   Blinding guard in tools/ (hook wired). NOT in verify.sh.
+- **§198 TS δ=2 THIN-LAYER SCAN (2026-10-21→23, unattended) — NO-LAYER-RESOLVED.** Closed pockets (Dubeibe's level +
+  just above the separatrix) at p = 4/5 and 3/5; TS2 vs Kerr; §196 MEGNO + sections/rotation numbers. 0/2,340 TS2
+  CHAOTIC, Kerr 0, all gates pass. Resolution reached: Δx ≈ 0.003, T = 1e5. Consistent with Dubeibe 2007 at that
+  resolution; an exponentially thin layer is not excluded. Infra: 30-min checkpoints (kill -9 resume bit-identical),
+  launcher lock/stop/process-group cleanup. Lesson: a peer's run-failure alert was missed (replied "no response").
+  Notes: curvature/notes/ts_layer_scan_prereg.md.
 - Remaining curvature queue (RE-CHECKED 2026-09-23). DONE this session: the C anomaly (§191/191b) and the
   well-separated Carter pair (§192). Open: WHY C's angular shift is nearly orbit-constant (hypothesis: close to a
   function of Kerr's conserved quantities — test by scoring dTheta with the within/total statistic); why KEEP2's

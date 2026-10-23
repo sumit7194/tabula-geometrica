@@ -178,3 +178,21 @@ Attempt 1, phase pilot1, 0/12 jobs, no errors (checked at +1 min). Code at cd3ec
 - Dry run on the real data after the fix (read-only, nothing written): 0 TS2 CHAOTIC at every level, Kerr 0 at
   every level, thr3 = 2.077 from 300 Kerr stage-3 orbits. Relaunched with the unchanged command to finish confirm +
   verdict.
+
+## RESULT (2026-10-23 07:17, sealed in results/198_summary.json + 198_REPORT.md)
+**NO-LAYER-RESOLVED.** TS2: 0 CHAOTIC of 2,340 accepted orbits across all 6 levels (stages 1–3), so nothing went to
+confirmation. Kerr: 0 CHAOTIC everywhere, and every Kerr gate passed (p = 1.0). Stage 3 ran at 5 levels (p = 3/5 D
+had no windows by rule); thr3 = 2.077 from 300 Kerr orbits.
+- **Resolution reached** (the null's scope):
+  - stage-1 seed spacing Δx 0.045–0.148; stage-2 Δx 0.0030–0.0074;
+  - T up to 1e5 (≈ 500+ radial periods);
+  - ν resolution ≈ 0.002–0.005.
+- **Descriptive only:** stage-3 ⟨Y⟩(1e5) has TS2 median 1.952 / max 2.136 and Kerr median 1.977 / max 2.077. One
+  TS2 orbit sits 3% above the Kerr maximum but is NOT growing (the registered growth clause fails), and ⟨Y⟩ ≈ 2
+  is the regular-motion value. The two distributions overlap.
+- **Predictions:** Kerr 0 ✓. TS2 at D: no layer ✓. **My "30% chance of a layer at S1" did not happen; a single
+  outcome cannot refute a probability, recorded anyway.**
+- **Reading:** agrees with Dubeibe et al. 2007 (regular sections) AT THIS RESOLUTION. It does not contradict the
+  fleet's non-integrability results: a layer narrower than Δx ≈ 0.003, or slower than T = 1e5 to show MEGNO
+  growth, is not excluded. Exponentially thin separatrix layers are the generic expectation for weak
+  non-integrability, so a null at finite resolution is the expected look of such a system too.
