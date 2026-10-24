@@ -25,6 +25,9 @@ while kill -0 $PID 2>/dev/null; do
   PEAK=$(echo "if ($TOT > $PEAK) $TOT else $PEAK" | bc -l)
   DISK=$(df -g / | tail -1 | awk '{print $4}')
   SWF=$(sysctl -n vm.swapusage | sed -E 's/.*free = ([0-9.]+)M.*/\1/')
+  SWT=$(sysctl -n vm.swapusage | sed -E 's/.*total = ([0-9.]+)M.*/\1/')
+  # no swap file yet (fresh boot: total = 0) is not "swap exhausted" -- that false-killed verify.sh, 2026-10-24
+  [ "$(echo "$SWT == 0" | bc)" = 1 ] && SWF=999999
   MP=$(memory_pressure -Q 2>/dev/null | sed -nE 's/.*free percentage: ([0-9]+)%.*/\1/p')
   if [ "$(echo "$TOT > ${MAXMB:-999999}" | bc)" = 1 ] || [ "$DISK" -lt "${MINDISK:-5}" ] \
      || { [ -z "${MINFREEPCT:-}" ] && [ "$(echo "$SWF < 512" | bc)" = 1 ]; } \
