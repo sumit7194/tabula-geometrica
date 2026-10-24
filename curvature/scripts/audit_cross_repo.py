@@ -61,6 +61,13 @@ DECLARED: dict[str, str] = {
         "File-level vendoring: any claim of the form 'dK does X' is ONE measurement, not two.",
     "curvature/scripts/leg6_dK/dK_control.py":
         "same solver import, for the K1 known-fail arm of the dK bridge control. Same scoping.",
+    "curvature/scripts/193_ts2_screen.py":
+        "reads conjecture_machine's sealed TS2_for_quantum metric components (data, read-only, token-whitelisted "
+        "srepr parse). Every TS2 result here (§193-199) rests on that ONE metric transcription: agreement with "
+        "sisters that use the same package is not independent evidence about the metric itself.",
+    "curvature/scripts/197e_a14_reproduce_v13_edges.py":
+        "reads TheBridge's sealed V13 A10 edge JSONs (read-only, hashes verified against their seals) as the "
+        "COMPARISON TARGET of A14. A14 is a cross-check of V13 in tabula's kernel, not an independent result.",
 }
 
 SKIP_DIRS = {".git", ".venv", "__pycache__", "node_modules"}
