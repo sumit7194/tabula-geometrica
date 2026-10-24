@@ -1,4 +1,4 @@
-# Report to Apple: SENT to the vendor in October 2026 (by the user); CLOSED. Apple classified it as a reliability defect, not a security issue; fixed in macOS 27.0.1 (verified 2026-10-24, notes/heap_corruption_hunt.md).
+# Report to Apple: SENT to the vendor 2026-10-11 (by the user); CLOSED. Apple classified it as a reliability defect, not a security issue; fixed in macOS 27.0.1 (verified 2026-10-24, notes/heap_corruption_hunt.md).
 # The text below is the draft as written on 2026-10-11, kept unchanged for the record.
 
 Two targets:
