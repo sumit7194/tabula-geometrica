@@ -240,3 +240,15 @@ Accelerate-linked verify.sh suite could be exposed without any script calling `q
 - Verdict: Apple's Accelerate dgeqrf overrun is fixed in macOS 27.0.1. The OpenBLAS tripwire in 193 stays (other
   machines and older OS versions are still affected). Vendor-bug hold: no public mention until Apple's fix is
   public; check the release / security notes for the credit.
+- **Broader sweep (2026-10-24, macOS 27.0.1, user asked "are we sure?"):**
+  - 160 runs, 0 faults, every run with the Guard Malloc banner and MALLOC_STRICT_SIZE=1;
+  - Accelerate .venv and .venv314, VECLIB_MAXIMUM_THREADS=1 and default threading;
+  - 4 entry points: np.linalg.qr "r" and "reduced", scipy.linalg.qr economic, scipy.linalg.lapack.dgeqrf with
+    Accelerate's reported lwork;
+  - 10 shapes: 629x629, 633x629, 620x629, 700x629, 800x629, 554x550, 604x600, 1004x1000, 300x300, 1200x600;
+    3 calls each.
+  - The positive control (a 32-byte write past a block) faults in the same batch under strict mode. A 4-byte write
+    ending 1 byte past a 61-byte block also faults, but in plain mode too (it crosses the 64-byte alignment), so
+    strict mode's extra sub-16-byte reach is NOT demonstrated here.
+  - Not re-run: the original §195 pipeline end to end on Accelerate (the ~1/3 crash rate). Verdict stands: fixed in
+    macOS 27.0.1 at every entry point and shape that faulted before, at the precision of this instrument.
