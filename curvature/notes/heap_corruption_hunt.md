@@ -229,3 +229,14 @@ Accelerate-linked verify.sh suite could be exposed without any script calling `q
   confined to the streamed degree-6 QR of §193-195, which already runs on OpenBLAS behind the tripwire. Scratch
   harness: scratchpad gm/probe.py + zprobe.py (not committed; the minimal repro in upstream/ covers the
   fault itself).
+
+## FIX VERIFIED on macOS 27.0.1 (build 26A434), 2026-10-24
+- Same environments and wheels (numpy 2.4.6, Accelerate in .venv / .venv314; OpenBLAS in .venv314ob), same minimal
+  repro, Guard Malloc set directly on the python exec (banner present on every row), VECLIB_MAXIMUM_THREADS=1.
+- np.linalg.qr(mode="r") at 629x629, 604x600 and 554x550 (all faulted on macOS 26) is now CLEAN under Guard Malloc
+  on Accelerate; 400x400 clean as before; the OpenBLAS control is clean.
+- Positive control in the same session: a deliberate 32-byte write past a 64-byte malloc block FAULTS under Guard
+  Malloc (rc 139) and survives without it. The instrument works, so the clean QR rows are real.
+- Verdict: Apple's Accelerate dgeqrf overrun is fixed in macOS 27.0.1. The OpenBLAS tripwire in 193 stays (other
+  machines and older OS versions are still affected). Vendor-bug hold: no public mention until Apple's fix is
+  public; check the release / security notes for the credit.
