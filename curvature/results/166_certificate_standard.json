@@ -17,10 +17,10 @@
    "nullW_raw": 0,
    "corrected_count": 0
   },
-  "C3_heldout_ratio": 4.560239752062741e-17,
-  "C4_state_R2": 0.6257071831617844,
+  "C3_heldout_ratio": 9.640654306632805e-17,
+  "C4_state_R2": 0.609572520148514,
   "C4_control_R2": 0.5810657276208048,
-  "C4_relative": 1.0768268604031523,
+  "C4_relative": 1.0490594973557146,
   "n_features": 15,
   "has_aux": false
  },
@@ -36,10 +36,10 @@
    "nullW_raw": 1,
    "corrected_count": 1
   },
-  "C3_heldout_ratio": 1.7210623370349493e-18,
-  "C4_state_R2": -0.6404314142057532,
+  "C3_heldout_ratio": 1.6385474288087723e-19,
+  "C4_state_R2": -0.7732447608965547,
   "C4_control_R2": 0.5810657276208048,
-  "C4_relative": -1.1021669042984577,
+  "C4_relative": -1.3307354471974007,
   "n_features": 16,
   "has_aux": true
  },
@@ -55,8 +55,8 @@
    "nullW_raw": 0,
    "corrected_count": 0
   },
-  "C3_heldout_ratio": 0.5821955424569089,
-  "C4_state_R2": 0.3843950345107373,
+  "C3_heldout_ratio": 0.5821955424569056,
+  "C4_state_R2": 0.38416896827223634,
   "C4_control_R2": -0.38026459049981765,
   "C4_relative": NaN,
   "n_features": 15,
@@ -65,7 +65,6 @@
  "S4_rich": {
   "family": "poly(state)-RICH",
   "order": 4,
-  "verdict": "EMIT",
   "C1_scoped": true,
   "C2": {
    "p": 55,
@@ -74,12 +73,14 @@
    "nullW_raw": 3,
    "corrected_count": 0
   },
-  "C3_heldout_ratio": 8.207021065944895e-17,
-  "C4_state_R2": 0.6243365946911378,
+  "C3_heldout_ratio": 7.154125045232007e-16,
+  "C4_state_R2": 0.4037200199752786,
   "C4_control_R2": 0.5810657276208048,
-  "C4_relative": 1.0744681109441907,
+  "C4_relative": 0.6947923458303508,
   "n_features": 55,
-  "has_aux": false
+  "has_aux": false,
+  "verdict_this_platform": "REJECT-CONFOUND (conserved, but not a function of the state)",
+  "verdict": "CONDITIONING-LIMITED, not a result: EMIT on macOS 26.5, REJECT-CONFOUND on macOS 27.0.1 (deterministic per platform; flips with the BLAS arithmetic on this rank-deficient library)"
  },
  "S2_engine_finds_confound": true,
  "S2_confound_passes_C3": true,
@@ -94,5 +95,5 @@
   "C4's power depends on the ensemble spanning enough state space for z -> I to be learnable; a degenerate ensemble makes C4 uninformative rather than negative.",
   "C2 inherits \u00a7165's measured rank-estimate sensitivity (exact at full sampling, +-1 at coarse)."
  ],
- "verdict": "THE CERTIFICATE STANDARD, VALIDATED. Four clauses, each earned from a way our own certification silently failed. The headline is C4 and the gap it closes: a planted per-realization nuisance constant (a calibration-offset stand-in, no dynamical meaning) is found by the engine at held-out ratio 2e-18 -- as conserved as the genuine invariant's 5e-17 -- and it PASSES our existing out-of-sample defence completely. Held-out validation catches overfitting, not confounding: a nuisance constant generalizes flawlessly because it is genuinely constant. Only C4 rejects it, by asking whether the candidate is A FUNCTION OF THE DYNAMICAL STATE: the genuine invariant predicts on held-out realizations at R^2=0.63, the confound at R^2=-0.64. The other three clauses hold their own traps: a true null certifies SCOPED to (family, order) rather than as non-existence, and an over-rich library's raw null count of 3 is corrected to 0 by the conditioning clause. This is the form a certified null has to take here before it counts as one."
+ "verdict": "THE CERTIFICATE STANDARD, VALIDATED. Four clauses, each earned from a way our own certification silently failed. The headline is C4 and the gap it closes: a planted per-realization nuisance constant (a calibration-offset stand-in, no dynamical meaning) is found by the engine at held-out ratio 2e-19 -- as conserved as the genuine invariant's 1e-16 -- and it PASSES our existing out-of-sample defence completely. Held-out validation catches overfitting, not confounding: a nuisance constant generalizes flawlessly because it is genuinely constant. Only C4 rejects it, by asking whether the candidate is A FUNCTION OF THE DYNAMICAL STATE: the genuine invariant predicts on held-out realizations at R^2=0.61, the confound at R^2=-0.77. The other three clauses hold their own traps: a true null certifies SCOPED to (family, order) rather than as non-existence, and an over-rich library's raw null count of 3 is corrected to 0 by the conditioning clause. This is the form a certified null has to take here before it counts as one."
 }

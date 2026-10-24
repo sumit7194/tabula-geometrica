@@ -44,3 +44,7 @@ survived (steps ~51–66):
 
 ## Not done
 - A re-run of steps 1–50 to recover their pre/post diffs (the gates themselves passed and are in the log).
+- **Follow-up (The Bridge's suggestion):** §166 `S4_rich.verdict` now reads "CONDITIONING-LIMITED, not a result: EMIT
+  on macOS 26.5, REJECT-CONFOUND on macOS 27.0.1 (deterministic per platform)". This platform's raw verdict is kept in
+  `verdict_this_platform`. Nothing downstream reads the field (git grep); the gate reads
+  `certificate_standard_validated`, still True. Output regenerated on macOS 27.0.1 (26A434).

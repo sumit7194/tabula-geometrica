@@ -265,6 +265,11 @@ def main():
     print(f"S3 true null certifies scoped: {S3}")
     print(f"S4 conditioning clause fires: {S4}")
 
+    # The over-rich library is rank-deficient by design, so its C4 verdict depends on the BLAS's summation order:
+    # EMIT on macOS 26.5, REJECT-CONFOUND on macOS 27.0.1 (each deterministic). It is never a result.
+    c4r["verdict_this_platform"] = c4r.pop("verdict")
+    c4r["verdict"] = ("CONDITIONING-LIMITED, not a result: EMIT on macOS 26.5, REJECT-CONFOUND on macOS 27.0.1 "
+                      "(deterministic per platform; flips with the BLAS arithmetic on this rank-deficient library)")
     out = {"standard": {"C1": "basis named -- every null scoped to (family, order)",
                         "C2": "conditioning gated -- null(W) - deficiency(F), never raw null(W) [165]",
                         "C3": "out-of-sample -- held-out REALIZATIONS, never in-sample [164/R7]",
