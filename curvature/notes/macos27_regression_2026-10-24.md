@@ -48,3 +48,14 @@ survived (steps ~51–66):
   on macOS 26.5, REJECT-CONFOUND on macOS 27.0.1 (deterministic per platform)". This platform's raw verdict is kept in
   `verdict_this_platform`. Nothing downstream reads the field (git grep); the gate reads
   `certificate_standard_validated`, still True. Output regenerated on macOS 27.0.1 (26A434).
+
+## macOS 27.2 spot check (2026-11-17)
+Spot checks only, at low priority on 1 core: no full verify suite, no deliberate-crash controls. Toolchain: Apple
+clang 21.0.0 (clang-2100.4.1.1), SDK 27.2.
+| check | result |
+|---|---|
+| §196 MEGNO `indicators()` fingerprint | **identical** (aee43f…) |
+| §199b Lazutkin, TS2 p = 3/5, ε = −0.01, both δ (sealed values) | **identical** |
+| K20 C kernel rebuilt on 27.2 vs the original macOS 26 build, 200-return F5-R orbit | **identical** |
+| K20 pre-update saved UPO Floquet trace, recomputed | **identical** |
+New results from here on carry the tag **macOS 27.2**.
