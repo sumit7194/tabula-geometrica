@@ -1,6 +1,17 @@
 {
  "_doc": "tabula's active blinding embargoes (outbound). tools/blind_check.py must pass on every outgoing cross-session message. Lift an embargo only when its seal condition is met; record the commit. Adapted from TheBridge/tools (2026-10-18, fleet practice 3).",
- "embargoes": [],
+ "embargoes": [
+  {
+   "id": "tabula-200-ts-chaos-numbers",
+   "recipient": "*",
+   "until": "The Bridge arranges the blind comparison with ansatz's TS chaos work (§150); send seals (commit + sha256) only",
+   "opened": "2026-11-17",
+   "patterns": [
+    "(uncertainty exponent|\\balpha\\b|\\bα\\b|jump count|\\bJ\\(w\\)|J_TS|J_Kerr|fractal dimension|\\bD\\s*=|escape rate)[^\\n]{0,80}(?<![0-9A-Za-z])[-+]?\\d+(\\.\\d+)?",
+    "200[^\\n]{0,40}(result|value|measured)\\s*[:=]\\s*[-+]?\\d"
+   ]
+  }
+ ],
  "lifted": [
   {
    "id": "tabula-C0-addon-to-bridge",
