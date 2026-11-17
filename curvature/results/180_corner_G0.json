@@ -25,7 +25,7 @@
     0.0016694104950423542,
     0.000513936211899494
    ],
-   "fitted_order": 1.9835795310062485,
+   "fitted_order": 1.9835795310062474,
    "expected_order_minus_2": 2,
    "pass": true,
    "rel_err_smallest_k": 0.000513936211899494,
@@ -46,7 +46,7 @@
     4.347632534516379e-06,
     4.2254972487987717e-07
    ],
-   "fitted_order": 3.9378155228926146,
+   "fitted_order": 3.937815522892616,
    "expected_order_minus_2": 4,
    "pass": true,
    "rel_err_smallest_k": 4.2254972487987717e-07,
@@ -67,7 +67,7 @@
     0.004990840954988867,
     0.0015401184367993845
    ],
-   "fitted_order": 1.9136973445539243,
+   "fitted_order": 1.9136973445539236,
    "expected_order_minus_2": 2,
    "pass": true,
    "rel_err_smallest_k": 0.0015401184367993845,
@@ -88,7 +88,7 @@
     0.002334749019938748,
     0.0007192567255224665
    ],
-   "fitted_order": 1.9599865156044451,
+   "fitted_order": 1.9599865156044467,
    "expected_order_minus_2": 2,
    "pass": true,
    "rel_err_smallest_k": 0.0007192567255224665,

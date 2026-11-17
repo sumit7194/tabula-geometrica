@@ -21,12 +21,12 @@
     "L^2 K^0"
    ],
    "heldout_smallest": [
-    7.408311728453174e-25,
-    0.0005853363814916677,
-    0.003572040594125907,
-    0.06100961035900967
+    2.0815209705551816e-24,
+    0.0005853363815533332,
+    0.0035720405942411848,
+    0.06100961035769425
    ],
-   "cos_to_carter": 0.9824274425571804,
+   "cos_to_carter": 0.9831360444334888,
    "reason": "conserved out-of-sample after deflating all reducible invariants"
   },
   {
@@ -47,10 +47,10 @@
     "L^2 K^0"
    ],
    "heldout_smallest": [
-    0.0001958448608971485,
-    0.0004204161216044458,
-    0.011505854562804967,
-    0.030721772230349574
+    0.00019584486091673734,
+    0.0004204161216192274,
+    0.011505854562980908,
+    0.030721772231627708
    ],
    "cos_to_carter": null,
    "reason": "nothing conserved out-of-sample outside the reducible span"
@@ -74,10 +74,10 @@
     "L^3 K^0"
    ],
    "heldout_smallest": [
-    0.0007667873557793068,
-    0.006570679566622479,
-    0.014148005967953067,
-    0.019399741647516656
+    0.000766787355837218,
+    0.006570679566917052,
+    0.014148005968010621,
+    0.019399741648284275
    ],
    "cos_to_carter": null,
    "reason": "nothing conserved out-of-sample outside the reducible span"
@@ -101,10 +101,10 @@
     "L^3 K^0"
    ],
    "heldout_smallest": [
-    5.905394166457585e-05,
-    0.00029276708326734835,
-    0.0015722530548597828,
-    0.008393609708602142
+    5.99324250343998e-05,
+    0.0002880306743368393,
+    0.001321467907848021,
+    0.008690937671239643
    ],
    "cos_to_carter": null,
    "reason": "nothing conserved out-of-sample outside the reducible span"
@@ -129,10 +129,10 @@
     "L^4 K^0"
    ],
    "heldout_smallest": [
-    0.0006756810724461598,
-    0.0009432718425620518,
-    0.01737766224640534,
-    0.019815717405089563
+    0.0006605610481206698,
+    0.0009675028573513955,
+    0.01726842687107818,
+    0.02773130678134583
    ],
    "cos_to_carter": null,
    "reason": "nothing conserved out-of-sample outside the reducible span"
@@ -157,10 +157,10 @@
     "L^4 K^0"
    ],
    "heldout_smallest": [
-    9.1131772114693e-05,
-    9.343652952046355e-05,
-    0.000951016746969498,
-    0.014213696309016746
+    8.562248723644454e-05,
+    0.0001084203327497864,
+    0.0009674702968240253,
+    0.01436529676040323
    ],
    "cos_to_carter": null,
    "reason": "nothing conserved out-of-sample outside the reducible span"
@@ -181,5 +181,5 @@
  "degree_axis_scope": "SCREENED TO DEGREE 4. The grading argument makes the rungs INDEPENDENT (for geodesic flow the bracket raises momentum degree by exactly one, so the rungs cannot cancel each other); it does NOT bound the ladder. Nothing here rules out an irreducible degree-5+ Killing tensor. Degrees 1-4 screened; degree 5 was not run. The degree axis is a map of where we looked, exactly as the family axis is.",
  "reducibles_note": "Every rung is populated by REDUCIBLE products of the known invariants; those are deflated out before the eigenproblem, so the reported count is the IRREDUCIBLE quotient and its null expectation is zero.",
  "what_this_is_not": "non-existence outside a named family and beyond the screened degree. Only symbolic certification converts a rung into a theorem -- which is why the escalation list is the deliverable, not a leftover.",
- "verdict": "P3 SCREEN (tabula's half). K0 THE CONTROL HOLDS: at eps=0, with only the reducible L-powers deflated, the engine REDISCOVERS the Carter constant unaided in the 57-dim complement (cos 0.9824, held-out 7e-25) -- so the chain is validated on a known answer before the adversarial question is asked. K1: the quadrupole bump DESTROYS Carter (drift 5e-02 = 8e+26x the integrable floor) and the same search finds NOTHING in its place. K2: across momentum degrees 3 and 4 x {polynomial, rational}, with all reducibles deflated so any survivor is irreducible by construction, 4 rungs screened and 0 escalated. NOTHING survived at any rung: no irreducible invariant representable in {polynomial, rational} x momentum-degree <= 4, conditioning-gated and out-of-sample validated -- a certified null about where the invariant ISN'T, scoped to those families AND to degree <= 4."
+ "verdict": "P3 SCREEN (tabula's half). K0 THE CONTROL HOLDS: at eps=0, with only the reducible L-powers deflated, the engine REDISCOVERS the Carter constant unaided in the 57-dim complement (cos 0.9831, held-out 2e-24) -- so the chain is validated on a known answer before the adversarial question is asked. K1: the quadrupole bump DESTROYS Carter (drift 5e-02 = 8e+26x the integrable floor) and the same search finds NOTHING in its place. K2: across momentum degrees 3 and 4 x {polynomial, rational}, with all reducibles deflated so any survivor is irreducible by construction, 4 rungs screened and 0 escalated. NOTHING survived at any rung: no irreducible invariant representable in {polynomial, rational} x momentum-degree <= 4, conditioning-gated and out-of-sample validated -- a certified null about where the invariant ISN'T, scoped to those families AND to degree <= 4."
 }

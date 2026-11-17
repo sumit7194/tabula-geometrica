@@ -7,15 +7,15 @@
  },
  "T0_H_drift": 1.9816829172899926e-11,
  "T0_pass": true,
- "transcendental_heldout": 1.6598572417093045e-22,
+ "transcendental_heldout": 1.659859246136594e-22,
  "transcendental_argmin": [
   0.8,
   0.35
  ],
  "transcendental_cosine_to_truth": 0.9999999999999998,
  "grid_step": 0.04999999999999999,
- "polynomial_heldout": 1.299437135391268e-06,
- "rational_heldout": 1.4160761472231212e-07,
+ "polynomial_heldout": 1.299437135391802e-06,
+ "rational_heldout": 1.416076147149631e-07,
  "T1_polynomial_certifies": true,
  "T2_rational_certifies": true,
  "T3_transcendental_emits": true,

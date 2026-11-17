@@ -15,18 +15,18 @@
  "reducible_r2": 0.9678285690081074,
  "n_conserved": 11,
  "n_reducible": 10,
- "i4_residual_in_span": 6.336009647596383e-11,
- "known_fail_residual": 0.23436601179476152,
- "separation": 1617240163.2185283,
+ "i4_residual_in_span": 3.314798296895716e-10,
+ "known_fail_residual": 0.2343660118531698,
+ "separation": 1349670636.4058247,
  "residual_spectrum": [
   1.0,
-  6.183373519551133e-10,
-  9.183957432606988e-11,
-  5.715115500749909e-11,
-  4.3533377706702844e-11,
-  2.6498289096675884e-11
+  7.409215056074731e-10,
+  1.331996073594453e-10,
+  5.823440031266889e-11,
+  4.180587576952466e-11,
+  1.7895055951252792e-11
  ],
  "p": 699,
  "ladder_works_at_degree4": true,
- "verdict": "THE READOUT IS NOT BLIND AT DEGREE 4. Given a genuine irreducible quartic invariant in a library that can represent it, the readout finds it: trL^4 lies in the conserved span (residual 6e-11), the residual spectrum separates by 2e+09, and a smooth non-conserved control is correctly excluded (2e-01). Degree 4 now has the positive control degree 3 got in \u00a7169, so a degree-4 null elsewhere in the ladder is a null about the basis rather than about the instrument."
+ "verdict": "THE READOUT IS NOT BLIND AT DEGREE 4. Given a genuine irreducible quartic invariant in a library that can represent it, the readout finds it: trL^4 lies in the conserved span (residual 3e-10), the residual spectrum separates by 1e+09, and a smooth non-conserved control is correctly excluded (2e-01). Degree 4 now has the positive control degree 3 got in \u00a7169, so a degree-4 null elsewhere in the ladder is a null about the basis rather than about the instrument."
 }

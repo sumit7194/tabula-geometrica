@@ -1097,6 +1097,11 @@
    "t": 1790075029,
    "secs": 70.8,
    "peak_gb": 1.506
+  },
+  {
+   "t": 1792832716,
+   "secs": 84.9,
+   "peak_gb": 1.473
   }
  ],
  "G2 blind legibility (bridge round 8, script 161)": [
@@ -1114,6 +1119,11 @@
    "t": 1790075155,
    "secs": 125.6,
    "peak_gb": 7.659
+  },
+  {
+   "t": 1792832855,
+   "secs": 139.8,
+   "peak_gb": 7.681
   }
  ],
  "G2 augmented basis R1 (bridge round-9, script 162)": [
@@ -1131,6 +1141,11 @@
    "t": 1790075277,
    "secs": 122.0,
    "peak_gb": 8.359
+  },
+  {
+   "t": 1792832984,
+   "secs": 128.1,
+   "peak_gb": 7.962
   }
  ],
  "Drum information-localization R5 (bridge round-9, script 163)": [
@@ -1148,6 +1163,11 @@
    "t": 1790075297,
    "secs": 20.5,
    "peak_gb": 0.44
+  },
+  {
+   "t": 1792833028,
+   "secs": 44.0,
+   "peak_gb": 0.443
   }
  ],
  "G2 un-blind: named basis emits (bridge round-9, script 164)": [
@@ -1165,6 +1185,11 @@
    "t": 1790075315,
    "secs": 17.9,
    "peak_gb": 7.847
+  },
+  {
+   "t": 1792833049,
+   "secs": 21.7,
+   "peak_gb": 7.485
   }
  ],
  "Noise-calibrated cutoff + conditioning caveat (bridge round-9, script 165)": [
@@ -1181,6 +1206,11 @@
   {
    "t": 1790075328,
    "secs": 12.6,
+   "peak_gb": 3.298
+  },
+  {
+   "t": 1792833065,
+   "secs": 15.7,
    "peak_gb": 3.298
   }
  ],
@@ -1199,6 +1229,11 @@
    "t": 1790075336,
    "secs": 7.9,
    "peak_gb": 0.318
+  },
+  {
+   "t": 1792833076,
+   "secs": 10.9,
+   "peak_gb": 0.317
   }
  ],
  "P3 Killing-tensor screen (script 167)": [
@@ -1216,6 +1251,11 @@
    "t": 1790075459,
    "secs": 123.0,
    "peak_gb": 7.908
+  },
+  {
+   "t": 1792833196,
+   "secs": 120.3,
+   "peak_gb": 6.824
   }
  ],
  "Degree-3 positive control, Toda cubic (script 169)": [
@@ -1233,6 +1273,11 @@
    "t": 1790075461,
    "secs": 2.1,
    "peak_gb": 0.48
+  },
+  {
+   "t": 1792833199,
+   "secs": 2.4,
+   "peak_gb": 0.488
   }
  ],
  "Degree-4 positive control, Toda tr L^4 (script 171)": [
@@ -1250,6 +1295,11 @@
    "t": 1790075479,
    "secs": 18.2,
    "peak_gb": 1.671
+  },
+  {
+   "t": 1792833219,
+   "secs": 20.4,
+   "peak_gb": 1.991
   }
  ],
  "Degree-4 geodesic substrate + target (script 172)": [
@@ -1267,6 +1317,11 @@
    "t": 1790075505,
    "secs": 26.1,
    "peak_gb": 1.219
+  },
+  {
+   "t": 1792833268,
+   "secs": 49.4,
+   "peak_gb": 1.796
   }
  ],
  "C5 for CERTIFY-NO-CODE, dimension ladder (script 176)": [
@@ -1284,6 +1339,11 @@
    "t": 1790075511,
    "secs": 6.3,
    "peak_gb": 0.306
+  },
+  {
+   "t": 1792833282,
+   "secs": 13.7,
+   "peak_gb": 0.309
   }
  ],
  "Located walls + censoring guard (script 177)": [
@@ -1301,6 +1361,11 @@
    "t": 1790075617,
    "secs": 20.0,
    "peak_gb": 0.376
+  },
+  {
+   "t": 1792833417,
+   "secs": 47.8,
+   "peak_gb": 0.374
   }
  ],
  "Corner study G0: regulators converge, c4 derived (script 180)": [
@@ -1312,6 +1377,11 @@
   {
    "t": 1790075513,
    "secs": 1.3,
+   "peak_gb": 0.225
+  },
+  {
+   "t": 1792833284,
+   "secs": 1.6,
    "peak_gb": 0.225
   }
  ],
@@ -1325,6 +1395,11 @@
    "t": 1790075538,
    "secs": 25.0,
    "peak_gb": 1.488
+  },
+  {
+   "t": 1792833308,
+   "secs": 24.4,
+   "peak_gb": 1.5
   }
  ],
  "Degree ladder located: real absence vs basis-limited (script 178)": [
@@ -1336,6 +1411,11 @@
   {
    "t": 1790075597,
    "secs": 59.0,
+   "peak_gb": 4.64
+  },
+  {
+   "t": 1792833369,
+   "secs": 60.8,
    "peak_gb": 4.64
   }
  ]
