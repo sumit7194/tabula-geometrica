@@ -61,3 +61,37 @@ for TS2 and Kerr (same mass and spin, ε relative to each system's own l_sep, §
 2 worker processes, nice 10, detached (setsid), per-job JSON checkpoints with skip-if-done, watch_footprint (MAXMB
 2000, MINDISK 5 GB, MINFREEPCT = pressure guard), verified-PID stop file, ≤ 1 GB new disk. Launch and finish are
 reported to The Bridge.
+
+## Amendment 1 (2026-11-17, after timing/feasibility probes, BEFORE any production run)
+**What the probes showed** (feasibility only, p = 3/5, ε = −0.01):
+- 50% of segment seeds are TRAPPED, never plunging, in BOTH TS and Kerr: the segment straddles the separatrix and
+  the outer side is regular. So "capped < 25% → UNREADABLE" was wrong by geometry and is withdrawn. The cap is an
+  outcome value.
+- ~11% of seeds are off-shell and excluded from any pair.
+- On a uniform 4,000-point grid over ±2% of x_h, the escape-count function has only 3 jumps in BOTH TS and Kerr.
+- This matches a prediction from §199b's own numbers: the lobe area (~5e-6) spread along the loop puts the tangle's
+  W^s strands within ~1e-6 (relative) of the separatrix, shrinking ~λ ≈ 50× per iterate. The registered δ-ladder on
+  500 random base points can neither reach those scales nor give Kerr enough differing pairs to fit α. The
+  random-pair design is therefore REPLACED.
+**Replacement design (zoom):**
+- **Windows** centred on x_h along p_x = 0, half-widths w ∈ {1e-2, 1e-3, 1e-4, 1e-5, 1e-6}·x_h, each sampled on a
+  uniform 801-point grid.
+- **n(x0)** = the number of section returns before plunge, computed with §199's high-precision map (DOP853,
+  rtol = atol = 1e-13), capped at 12 (trapped); off-shell points are excluded.
+- **J(w)** = the number of adjacent grid pairs with different n.
+- **Precision check:** each window is re-run at rtol 1e-12; a window counts only if J agrees within 20% (else
+  UNREADABLE).
+- **Theory:** an integrable separatrix gives jumps only from the logarithmic approach to ONE crossing, so J(w) stays
+  a small constant (~ log_λ of the grid ratio). A chaotic saddle of dimension D > 0 gives a self-similar J ~ 801^D at
+  every scale that resolves strands.
+- **Descriptive:** α per window from sub-grids of 801/401/201 points (fraction of differing neighbours vs spacing).
+- **Verdict:**
+  - CHAOTIC SADDLE SEEN at a level if, in ≥ 2 consecutive readable windows, J_TS ≥ max(10, 3·J_Kerr);
+  - otherwise "not resolved down to w = (smallest readable window)", never "integrable".
+  - Kerr validity: J_Kerr ≤ 6 in every readable window, otherwise the level is UNREADABLE (the instrument would be
+    seeing structure where there is none).
+- **Order** (stops when the slot ends; levels not reached are reported as not run): p = 3/5 ε = −0.03 (TS, Kerr),
+  then ε = −0.01, then ε = −0.003; p = 4/5 only if time remains.
+- **Prediction:** TS J rises above Kerr from w ≈ 1e-4 to 1e-5 downward at ε = −0.03 (the largest splitting). The
+  smallest windows may be UNREADABLE at double precision, which is itself the size of the effect.
+- **MEGNO secondary:** dropped from this slot (its open-level limit is known from §196 deep-v2); can be added later.
